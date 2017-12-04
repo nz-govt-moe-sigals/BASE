@@ -1,0 +1,65 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "serverFarmName": {
+      "value": "MP-COL-ASP002"
+    },
+    "SQLServerAdminLogin": {
+      "value": "admin01"
+    },
+    "SQL_DB01_Name": {
+      "value": "MP-COL-DB002"
+    },
+    "WebFE_Name": {
+      "value": "MP-COL-IIS003"
+    },
+    "WebBE_Name": {
+      "value": "MP-COL-IIS004"
+    },
+    "StorageAccount01Name": {
+      "value": "mpcolbclraiisstorage02"
+    },
+    "StorageAccount02Name": {
+      "value": "mpcolbclraaudit02"
+    },
+    "SQL_Server_Name": {
+      "value": "mp-col-pss002"
+    },
+    "Key_Vault_Name": {
+      "value": "MP-COL-KV002"
+    },
+    "tenantId": {
+      "value": "e6d2d4cc-b762-486e-8894-4f5f440d5f31"
+    },
+    "objectId": {
+      "value": "2dad726f-5f93-49b3-b08c-61be3a395c76"
+    },
+    "enableVaultForDeployment": {
+      "value": true
+    },
+    "enabledForTemplateDeployment": {
+      "value": true
+    },
+    "secretsObject": {
+      "value": {
+        "secrets": [
+          {
+            "secretName": "exampleSecret1",
+            "secretValue": "secretVaule1"
+          },
+          {
+            "secretName": "exampleSecret2",
+            "secretValue": "secretValue2"
+          }
+        ]
+      }
+    },
+    "AIS001_name": {
+      "value": "MP-COL-AIS003"
+    },
+    "AIS002_name": {
+      "value": "MP-COL-AIS004"
+    }
+  }
+}

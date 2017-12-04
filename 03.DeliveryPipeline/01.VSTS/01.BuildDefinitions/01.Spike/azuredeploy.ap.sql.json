@@ -1,0 +1,116 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "SQL_Server_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "SQLServerAdminLogin": {
+      "type": "string",
+      "minLength": 1
+    },
+    "SQLServerAdminLoginPassword": {
+      "type": "securestring"
+    },
+    "SQL_DB01_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "SQL_DB01_Collation": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "SQL_Latin1_General_CP1_CI_AS"
+    },
+    "SQL_DB01_Edition": {
+      "type": "string",
+      "defaultValue": "Standard",
+      "allowedValues": [
+        "Basic",
+        "Standard",
+        "Premium"
+      ]
+    },
+    "SQL_DB01_PerformanceLevel": {
+      "type": "string",
+      "defaultValue": "S1",
+      "allowedValues": [
+        "Basic",
+        "S0",
+        "S1",
+        "S2",
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "metadata": {
+        "description": "Describes the performance level for Edition"
+      }
+    },
+    "sqlServiceLocation": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "allowedValues": [
+        "East US",
+        "South Central US",
+        "Southeast Asia",
+        "West Central US",
+        "West Europe",
+        "West US 2"
+      ],
+      "metadata": {
+        "description": "The location for the SQL service. This is parameterised because SQL servers cannot be deployed in all regions for subscription types."
+      }
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "name": "[parameters('SQL_Server_Name')]",
+      "type": "Microsoft.Sql/servers",
+      "location": "[parameters('sqlServiceLocation')]",
+      "apiVersion": "2014-04-01-preview",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "SQL Server"
+      },
+      "properties": {
+        "administratorLogin": "[parameters('SQLServerAdminLogin')]",
+        "administratorLoginPassword": "[parameters('SQLServerAdminLoginPassword')]"
+      },
+      "resources": [
+        {
+          "name": "AllowAllWindowsAzureIps",
+          "type": "firewallrules",
+          "location": "[parameters('sqlServiceLocation')]",
+          "apiVersion": "2014-04-01-preview",
+          "dependsOn": [
+            "[resourceId('Microsoft.Sql/servers', parameters('SQL_Server_Name'))]"
+          ],
+          "properties": {
+            "startIpAddress": "0.0.0.0",
+            "endIpAddress": "0.0.0.0"
+          }
+        },
+        {
+          "name": "[parameters('SQL_DB01_Name')]",
+          "type": "databases",
+          "location": "[parameters('sqlServiceLocation')]",
+          "apiVersion": "2014-04-01-preview",
+          "dependsOn": [
+            "[resourceId('Microsoft.Sql/servers', parameters('SQL_Server_Name'))]"
+          ],
+          "tags": {
+            "displayName": "SQL Database"
+          },
+          "properties": {
+            "collation": "[parameters('SQL_DB01_Collation')]",
+            "edition": "[parameters('SQL_DB01_Edition')]",
+            "maxSizeBytes": "268435456000",
+            "requestedServiceObjectiveName": "[parameters('SQL_DB01_PerformanceLevel')]"
+          }
+        }
+      ]
+    }
+  ]
+}

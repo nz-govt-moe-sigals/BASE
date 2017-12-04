@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "environment": {
+      "value": "test"
+    },
+    "apId": {
+      "value": "<dynamic value overridden by the VSTS Release Definition Provisioning Task>"
+    },
+    "serverFarmSkuName": {
+      "value": "B1"
+    },
+    "StorageAccount01Name": {
+      "value": "mtcolbclraiisstorage01"
+    },
+    "StorageAccount02Name": {
+      "value": "mtcolbclraaudit02"
+    },
+    "SQLServerAdminLogin": {
+      "value": "admin01"
+    },
+    "SQLServerAdminLoginPassword": {
+      "value": "t3mpDBpassword"
+    },
+    "sqlServiceLocation": {
+      "value": "West Central US"
+    },
+    "deployAIS": {
+      "value": false
+    }
+  }
+}
