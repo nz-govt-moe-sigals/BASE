@@ -1,0 +1,36 @@
+!includeurl http://skysigal.com/_media/resources/configuration/plantuml/minimalist.txt
+
+title Modular DDD
+
+together {
+class "App.Core.Application" as ACA
+class "App.Core.Infrastructure" as ACI
+class "App.Core.Shared" as ACS
+class "App.Core.Domain" as ACD
+
+ACA --> ACI : orchestrate
+ACA --> ACS : use
+ACA --> ACD : orchestrate
+ACI -> ACS : use
+ACS <- ACD : use
+}
+
+together {
+class "App.Mod1.Application" as AM1A
+class "App.Mod1.Infrastructure" as AM1I
+class "App.Mod1.Shared" as AM1S
+class "App.Mod1.Domain" as AM1D
+
+AM1A --> AM1I : orchestrate
+AM1A --> AM1S : use
+AM1A --> AM1D : orchestrate
+AM1I -> AM1S : use
+AM1S <- AM1D : use
+}
+
+
+ACA --> AM1A
+
+ACI <-- AM1I
+ACS <-- AM1S
+ACD <-- AM1D

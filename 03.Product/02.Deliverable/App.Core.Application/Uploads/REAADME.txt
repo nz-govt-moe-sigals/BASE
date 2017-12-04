@@ -1,0 +1,14 @@
+﻿Uploading Files to a server is such a BAD idea that I'm 
+going to immediately regret giving anyone assistance with
+doing it... But here's an Upload folder to save files to
+when developing on a local machine and you can't access the
+net to use a storage account (ie, you're living under a rock)
+
+Why is it bad? Bar the obvious malware implications, there's 
+the simple fact that Azure periodically needs to cycle apps
+and does not guarantee on what machine your app is restarted on,
+so any files you saved to the hard-drive are no longer accessible
+as they are on someone elses new machine...
+
+Basically it's both a source of bugs and security issues. Don't do it.
+Even if this folder has been provided...

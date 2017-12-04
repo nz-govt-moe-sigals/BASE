@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Usage</h1>
+    <p class="lead">
+        <ul>
+            <li>@Html.ActionLink("The Code Base", "GetCodeBase", "Usage")</li>
+            <li>@Html.ActionLink("Prerequisites", "Prerequisites", "Usage")</li>
+            <li>@Html.ActionLink("Configure OIDC", "ConfigureOIDC", "Usage")</li>
+       </ul>
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            Read how this base solution was put together in order to understand how to build on top of it, saving time and expense.
+        </p>
+        <p><a class="btn btn-default" href="http://skysigal.com/it/ad/asp.net/webapi/howto/configure/new_app/">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get the code</h2>
+        <p>The source code of this solution is available for free.</p>
+        <p><a class="btn btn-default" href="https://bitbucket.org/skysigal/app.core.application-on-mvc-webapi-net-framework">Learn more &raquo;</a></p>
+    </div>
+</div>

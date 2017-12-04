@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Example List";
+}
+<h2>To-Do List</h2>
+<!-- Post to the MVC Controller which will in turn invoke the webAPI Controller -->
+@using (Html.BeginForm("Create", "Examples", FormMethod.Post))
+{
+    <div>
+        New Item: <input type="text" name="PublicText">
+        <input type="submit" value="Add">
+    </div>
+}
+<br/>
+<table class="table table-bordered table-striped table-hover table-condensed" style="table-layout: auto">
+    <tr>
+        <th>Items:</th>
+    </tr>
+    @foreach (var item in ViewBag.Items)
+    {
+        <tr>
+            <td>
+                <!-- Post to the MVC Controller which will in turn invoke the webAPI Controller -->
+                @using (Html.BeginForm("Delete", "Examples", FormMethod.Post))
+                {
+                    @item["PublicText"]
+                    <button name="id" value="@item["Id"]" style="float: right">Delete</button>
+                }
+            </td>
+        </tr>
+    }
+</table>
