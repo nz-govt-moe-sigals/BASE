@@ -1,11 +1,8 @@
 ## About ##
 
-This folder contains artefacts (scripts, certs, etc.) to help setup 
-
-* dev stations.
-* target environments to deploy to.
-
-Note that the build pipeline scripts refer to the target environment definitions.
+Doubt we'll use another environment that Azure, so it's a bit overkill 
+to prepare a folder for it...but still (maybe Azure on premise will require
+differences at some point)
 
 
 

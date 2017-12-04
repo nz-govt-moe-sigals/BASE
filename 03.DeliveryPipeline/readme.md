@@ -1,11 +1,8 @@
 ## About ##
 
-This folder contains artefacts (scripts, certs, etc.) to help setup 
+You can use whatever ALM you want to you. 
 
-* dev stations.
-* target environments to deploy to.
-
-Note that the build pipeline scripts refer to the target environment definitions.
+In an enterprise, I'd suggest VSTS due to a) the completeness of the services within the ALM, and b) its rigourous permission based system, but totally understand if you want to use GitHub's pipeline, Jenkins, etc.
 
 
 

@@ -1,5 +1,12 @@
 ## About ##
 
-Use one folder for building the Pipeline (ie, the Continuous Integration/Testing/Delivery) system.
+What you're probably looking for (code) is under Deliverables/Code. But you really must start with Environment, then DeliveryPipeline...
 
-Use another folder for building the Product (ie, the App)
+
+
+### Instructions ###
+
+Review your target environment parameters, build a delivery pipeline that references these, as well as the core deliverable code.
+
+Use work on the primary deliverable code -- but only after doing the above first :-)
+

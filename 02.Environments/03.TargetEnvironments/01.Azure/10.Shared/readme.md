@@ -1,12 +1,6 @@
 ## About ##
 
-This folder contains artefacts (scripts, certs, etc.) to help setup 
-
-* dev stations.
-* target environments to deploy to.
-
-Note that the build pipeline scripts refer to the target environment definitions.
-
+This folder contains artefacts (scripts, settings) that are Common to *all* (BT,DT,ST,UT, PROD) target environments.
 
 
 ### Warning ###
