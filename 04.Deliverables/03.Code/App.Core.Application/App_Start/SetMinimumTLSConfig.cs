@@ -48,7 +48,7 @@
 
             //Must be the very first thing the application does because ServicePointManager will initialize only once. 
             SecurityProtocolType setting;
-            if (!Enum.TryParse(ConfigurationManager.AppSettings["SecurityProtocol"], out setting))
+            if (!Enum.TryParse(ConfigurationManager.AppSettings["App:Core:TLS:SecurityProtocol"], out setting))
             {
                 return;
             }

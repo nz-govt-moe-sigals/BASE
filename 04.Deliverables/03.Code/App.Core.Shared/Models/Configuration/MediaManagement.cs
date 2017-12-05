@@ -6,7 +6,7 @@
     {
         private string _hashType;
 
-        [Alias("System:Media:HashType")]
+        [Alias("App:Core:Media:HashType")]
         public string HashType
         {
             get { return this._hashType?? "SHA-256"; }

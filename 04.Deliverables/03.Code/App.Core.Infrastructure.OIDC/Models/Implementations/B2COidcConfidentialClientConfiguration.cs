@@ -17,7 +17,7 @@
         ///         "https://login.microsoftonline.com/tfp/{tenant}/{defaultPolicyId}/v2.0/.well-known/openid-configuration"
         ///     </para>
         /// </summary>
-        [Alias("ida:AuthorityCookieConfigurationPolicyUri")]
+        [Alias("App:Core:ida:AuthorityCookieConfigurationPolicyUri")]
         public string AuthorityCookieConfigurationPolicyUri
         {
             get => this._authorityCookieConfigurationPolicyUri
@@ -35,7 +35,7 @@
         }
 
 
-        [Alias("ida:AuthorityTokenConfigurationPolicyUri")]
+        [Alias("App:Core:ida:AuthorityTokenConfigurationPolicyUri")]
         public string AuthorityBearerTokenConfigurationPolicyUri
         {
             get => this._authorityBearerTokenConfigurationPolicyUri
@@ -55,7 +55,7 @@
 
         #region Policie Ids
 
-        [Alias("ida:DefaultPolicyId")]
+        [Alias("App:Core:ida:DefaultPolicyId")]
         public string DefaultPolicyId
         {
             get => this._defaultPolicyId ?? this.TenantSignUpSignInPolicyId;
@@ -76,10 +76,10 @@
         ///     The B2C SignUp Policy Name
         ///     <para>eg: 'B2C_1_B2C_Default_SignUp_Policy'</para>
         ///     <para>Note: recommended to be same Policy Name as SignIn </para>
-        ///     <para>Default Host Seting key is 'ida:SignUpSignInPolicyId'</para>
+        ///     <para>Default Host Seting key is 'App:Core:ida:SignUpSignInPolicyId'</para>
         /// </summary>
         [Obsolete]
-        [Alias("ida:SignUpPolicyId")]
+        [Alias("App:Core:ida:SignUpPolicyId")]
         public string TenantSignUpPolicyId
         {
             get => this._signUpPolicyId ?? this.TenantSignUpSignInPolicyId;
@@ -100,10 +100,10 @@
         ///     The B2C SignIn Policy Name
         ///     <para>eg: 'B2C_1_B2C_Default_SignIn_Policy'</para>
         ///     <para>Note: recommended to be same Policy Name is SignUp </para>
-        ///     <para>Default Host Seting key is 'ida:SignInPolicyId'</para>
+        ///     <para>Default Host Seting key is 'App:Core:ida:SignInPolicyId'</para>
         /// </summary>
         [Obsolete]
-        [Alias("ida:SignInPolicyId")]
+        [Alias("App:Core:ida:SignInPolicyId")]
         public string TenantSignInPolicyId
         {
             get => this._signInPolicyId ?? this.TenantSignUpSignInPolicyId;
@@ -124,34 +124,34 @@
         ///     <para>eg: 'B2C_1_B2C_Default_SignUpSignIn_Policy'</para>
         ///     <para>Note: recommended to be same Policy Name is SignUp </para>
         /// </summary>
-        [Alias("ida:SignUpSignInPolicyId")]
+        [Alias("App:Core:ida:SignUpSignInPolicyId")]
         public string TenantSignUpSignInPolicyId { get; set; }
 
 
         /// <summary>
         ///     The B2C User Profile Policy Name
         ///     <para>eg: 'B2C_1_B2C_Default_UserProfile_Policy'</para>
-        ///     <para>Default Host Seting key is 'ida:UserProfilePolicyId'</para>
+        ///     <para>Default Host Seting key is 'App:Core:ida:UserProfilePolicyId'</para>
         /// </summary>
-        [Alias("ida:UserProfilePolicyId")]
+        [Alias("App:Core:ida:UserProfilePolicyId")]
         public string TenantUserProfilePolicyId { get; set; }
 
 
         /// <summary>
         ///     The B2C Edit Profile Policy Name
         ///     <para>eg: 'B2C_1_B2C_Default_EditProfile_Policy'</para>
-        ///     <para>Default Host Seting key is 'ida:EditProfilePolicyId'</para>
+        ///     <para>Default Host Seting key is 'App:Core:ida:EditProfilePolicyId'</para>
         /// </summary>
-        [Alias("ida:EditProfilePolicyId")]
+        [Alias("App:Core:ida:EditProfilePolicyId")]
         public string TenantEditProfilePolicyId { get; set; }
 
 
         /// <summary>
         ///     The B2C SignUp/SignIn Policy Name
         ///     <para>eg: 'B2C_1_B2C_Default_ResetPassword_Policy'</para>
-        ///     <para>Default Host Seting key is 'ida:ResetPasswordPolicyId'</para>
+        ///     <para>Default Host Seting key is 'App:Core:ida:ResetPasswordPolicyId'</para>
         /// </summary>
-        [Alias("ida:ResetPasswordPolicyId")]
+        [Alias("App:Core:ida:ResetPasswordPolicyId")]
         public string TenantResetPasswordPolicyId { get; set; }
 
         #endregion

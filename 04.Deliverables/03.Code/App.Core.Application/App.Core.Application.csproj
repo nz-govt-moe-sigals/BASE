@@ -25,7 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <ApplicationInsightsResourceId>/subscriptions/f48c3fe3-0b20-4150-aed2-43028ac1d747/resourcegroups/App.Core.Application/providers/microsoft.insights/components/App.Core.Application</ApplicationInsightsResourceId>
+    <ApplicationInsightsResourceId>/subscriptions/b195eb1f-f0fa-4430-8661-7905b7a9403d/resourcegroups/MOU_PROJ01_DEV/providers/microsoft.insights/components/MOU_PROJ01_DEV_AppInsights</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/f48c3fe3-0b20-4150-aed2-43028ac1d747/resourcegroups/App.Core.Application/providers/microsoft.insights/components/App.Core.Application</ApplicationInsightsAnnotationResourceId>
     <Use64BitIISExpress />
   </PropertyGroup>
@@ -332,6 +332,7 @@
     <Compile Include="App_Start\WebApiODataConfig.cs" />
     <Compile Include="App_Start\WebApiRouteConfig.cs" />
     <Compile Include="Constants\Api\ApiControllerNames.cs" />
+    <Compile Include="FilterConfig.cs" />
     <Compile Include="Initialization\OData\Implementations\ExceptionRecordOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\ConfigurationStepOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\MediaMetadataOdataModelBuilderConfiguration.cs" />
@@ -484,8 +485,12 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="web.config.appsettings.ignore" />
-    <Content Include="web.config.appSettings.template" />
+    <Content Include="_web.config.appsettings.ignore">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="web.config.appsettings.secret">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

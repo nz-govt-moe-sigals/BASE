@@ -8,9 +8,13 @@ namespace App.Core.Shared.Models.Configuration
 {
     using App.Core.Shared.Attributes;
 
-    public class AnalyticsConfiguration
+    public class ApplicationInsightsConfiguration
     {
-        [Alias("System:Analytics:Telemetry:Disable")]
+
+        [Alias("App:Core:Analytics:ApplicationInsights:InstrumentationKey")]
+        public string Key { get; set; }
+
+        [Alias("App:Core:Analytics:ApplicationInsights:Disable")]
         public bool DisableTelemetry { get; set; }
 
     }

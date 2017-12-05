@@ -4,13 +4,13 @@
 
     public class ScaniiConfiguration
     {
-        [Alias("Scanii:Key")]
+        [Alias("App:Core:MalwareDetection:Scanii:Key")]
         public string Key { get; set; }
 
-        [Alias("Scanii:Secret")]
+        [Alias("App:Core:MalwareDetection:Scanii:Secret")]
         public string Secret { get; set; }
 
-        [Alias("Scanii:BaseUri")]
+        [Alias("App:Core:MalwareDetection:Scanii:BaseUri")]
         public string BaseUri { get; set; }
     }
 }

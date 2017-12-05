@@ -4,11 +4,11 @@
 
     public class CodeFirstMigrationConfiguration
     {
-        [Alias("CodeFirst:AttachDebuggerToPSSeeding")]
+        [Alias("App:Core:CodeFirst:AttachDebuggerToPSSeeding")]
         public bool CodeFirstAttachDebugger { get; set; }
 
 
-        [Alias("CodeFirst:SeedIncludeDemoEntries")]
+        [Alias("App:Core:CodeFirst:SeedIncludeDemoEntries")]
         public bool CodeFirstSeedDemoStuff { get; set; }
 
     }
