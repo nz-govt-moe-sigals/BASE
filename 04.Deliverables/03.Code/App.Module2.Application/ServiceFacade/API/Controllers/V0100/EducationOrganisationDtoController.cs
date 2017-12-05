@@ -13,9 +13,9 @@
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class EducationOrganisationDtoController : ODataControllerStandardDataBase<EducationOrganisation, EducationOrganisationDto>
+    public class EducationOrganisationController : ODataControllerStandardDataBase<EducationOrganisation, EducationOrganisationDto>
     {
-        public EducationOrganisationDtoController(
+        public EducationOrganisationController(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -41,6 +41,7 @@
                     // Note how we only want only distribute active records:
                     .Where(x => x.RecordState == RecordPersistenceState.Active)
                     .ProjectTo<EducationOrganisationDto>(
+                    (object)null,
                         x => x.Principal,
                         x => x.Organisation
                     );
@@ -62,6 +63,7 @@
                     // Note how we only want only distribute active records:
                     .Where(x => x.RecordState == RecordPersistenceState.Active)
                     .ProjectTo<EducationOrganisationDto>(
+                        (object)null,
                         x => x.Principal,
                         x => x.Organisation
                     )
@@ -71,16 +73,16 @@
             return result;
         }
 
-        //// POST api/values 
-        public void Post(EducationOrganisationDto value)
-        {
-            InternalPost(value);
-        }
+        ////// POST api/values 
+        //public void Post(EducationOrganisationDto value)
+        //{
+        //    InternalPost(value);
+        //}
 
-        //// PUT api/values/5 
-        public void Put(EducationOrganisationDto value)
-        {
-            InternalPut(value);
-        }
+        ////// PUT api/values/5 
+        //public void Put(EducationOrganisationDto value)
+        //{
+        //    InternalPut(value);
+        //}
     }
 }

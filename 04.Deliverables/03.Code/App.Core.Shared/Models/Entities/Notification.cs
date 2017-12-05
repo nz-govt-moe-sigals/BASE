@@ -25,7 +25,24 @@
         /// <summary>
         ///     Status whether Message has been read.
         /// </summary>
-        public virtual bool IsRead => this.DateTimeReadUtc.HasValue;
+        public virtual bool IsRead
+        {
+            get => this.DateTimeReadUtc.HasValue;
+            set
+            {
+                if (value == false)
+                {
+                    this.DateTimeReadUtc = null;
+                }
+                else
+                {
+                    if (!this.DateTimeReadUtc.HasValue)
+                    {
+                        this.DateTimeReadUtc = DateTime.UtcNow;
+                    }
+                }
+            }
+        }
 
         /// <summary>
         ///     1-100% complete.

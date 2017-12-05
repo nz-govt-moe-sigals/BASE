@@ -516,7 +516,8 @@
     <Content Include="Views\Usage\Notification.cshtml" />
     <Content Include="Views\Usage\SessionOperation.cshtml" />
     <Content Include="Views\Usage\Role.cshtml" />
-    <Content Include="Views\Usage\ConfigurationRecord.cshtml" />
+    <Content Include="Views\Usage\ConfigurationStepRecord.cshtml" />
+    <Content Include="Views\Usage\EducationOrganisation.cshtml" />
     <None Include="web.config.appsettings.secret">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

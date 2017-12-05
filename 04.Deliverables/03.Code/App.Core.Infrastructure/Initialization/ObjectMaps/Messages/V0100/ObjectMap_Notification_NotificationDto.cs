@@ -21,7 +21,7 @@
                 .ForMember(t => t.Value, opt => opt.MapFrom(s => s.Value))
                 // If not provided IsRead,Class,ImageUrl can be PostProcessed 
                 // and inferred from Type and DateTimeReadUtc
-                .ForMember(t => t.IsRead, opt => opt.MapFrom(s => s.IsRead))
+                .ForMember(x=>x.IsRead, opt=>opt.Ignore())
                 .ForMember(t => t.Class, opt => opt.MapFrom(s => s.Class))
                 .ForMember(t => t.ImageUrl, opt => opt.MapFrom(s => s.ImageUrl))
                 ;

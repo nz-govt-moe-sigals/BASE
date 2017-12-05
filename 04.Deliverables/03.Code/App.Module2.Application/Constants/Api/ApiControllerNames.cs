@@ -8,7 +8,8 @@ namespace App.Module2.Application.Constants.Api
 {
     public static class ApiControllerNames
     {
-        public static string Body = "bodydto";
-        public static string EducationOrganisation = "educationorganisationdto";
+        public static string Suffix = "";
+        public static string Body = "body"+ Suffix;
+        public static string EducationOrganisation = "educationorganisation" + Suffix;
     }
 }

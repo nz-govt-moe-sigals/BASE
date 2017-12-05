@@ -13,12 +13,16 @@ namespace App.Core.Application.Models
     public class MediaUpload
     {
         [Required]
-        [Display(Name = "Some Data")]
-        [StringLength(50, ErrorMessage = "Your misc text cannot be longer than 50 characters.")]
-        public string SomeData { get; set; }
+        [Display(Name = "Data Classification")]
+        public NZDataClassification DataClassification
+        {
+            get; set;
+        }
 
         [Required]
-        [Display(Name = "Data Classification")]
-        public NZDataClassification DataClassification { get; set; }
+        [Display(Name = "Some Custom Data")]
+        [StringLength(50, ErrorMessage = "Optional text cannot be longer than 50 characters.")]
+        public string SomeCustomData { get; set; }
+
     }
 }

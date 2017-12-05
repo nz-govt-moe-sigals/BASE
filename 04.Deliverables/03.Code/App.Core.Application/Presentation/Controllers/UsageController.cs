@@ -10,16 +10,21 @@ using App.Core.Shared.Models;
 
 namespace App.Core.Application.Presentation.Controllers
 {
+    using App.Core.Application.Models;
     using App.Core.Shared.Models.Entities;
+    using App.Core.Shared.Models.Messages;
+    using App.Module2.Shared.Models.Entities;
 
     /// <summary>
     /// Controller for the Views that explain how to use this framework.
     /// </summary>
     public class UsageController : Controller
     {
+        private readonly IMediaUploadService _mediaUploadService;
 
-        public UsageController(IDiagnosticsTracingService diagnosticsTracingService)
+        public UsageController(IDiagnosticsTracingService diagnosticsTracingService, IMediaUploadService mediaUploadService)
         {
+            this._mediaUploadService = mediaUploadService;
             // Tip: Being a template, it is preferable that the HomeController/Default Route does not get injected with a
             // DbContext, as that implies a correct Connection string and/or Authentication, that may fail the first
             // time deployed to Azure.
@@ -31,7 +36,7 @@ namespace App.Core.Application.Presentation.Controllers
             ViewBag.Title = "Setup";
             return View();
         }
-        public ActionResult Configuration()
+        public ActionResult ConfigurationStepRecord()
         {
             return View();
         }
@@ -71,9 +76,51 @@ namespace App.Core.Application.Presentation.Controllers
             return View();
         }
 
+
+
+        public ActionResult EducationOrganisation()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public ActionResult MediaMetadata()
         {
             return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult MediaMetadata(MediaUpload mediaUpload, HttpPostedFileBase file)
+        {
+            try
+            {
+                if (file.ContentLength > 0)
+                {
+                    var uploadedMedia = new UploadedMedia();
+                    uploadedMedia.FileName = file.FileName;
+                    uploadedMedia.Length = file.ContentLength;
+                    uploadedMedia.ContentType = file.ContentType;
+
+                    using (var reader = new System.IO.BinaryReader(file.InputStream))
+                    {
+                        uploadedMedia.Stream = reader.ReadBytes(file.ContentLength);
+                    }
+                    this._mediaUploadService.Process(uploadedMedia, mediaUpload.DataClassification);
+                    ViewBag.Message = "File Uploaded Successfully!!";
+                }
+                else
+                {
+                    ViewBag.Message = "No file uploaded.";
+                }
+
+                return View();
+            }
+            catch
+            {
+                ViewBag.Message = "File upload failed!!";
+                return View();
+            }
         }
 
 

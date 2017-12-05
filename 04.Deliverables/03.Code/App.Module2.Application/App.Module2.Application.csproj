@@ -158,6 +158,8 @@
     <Compile Include="ServiceFacade\API\Controllers\V0100\BodyDtoTest2Controller.cs" />
     <Compile Include="Services\IApplicationService.cs" />
     <Compile Include="Services\Implementations\ApplicationService.cs" />
+    <Compile Include="Services\Implementations\SchoolDirectoryCSVImportService.cs" />
+    <Compile Include="Services\ISchoolDirectoryCSVImportService.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views/**/*.cshtml" />

@@ -11,7 +11,7 @@
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class MediaMetadataController : ODataControllerStandardDataBase<Notification, NotificationDto>
+    public class MediaMetadataController : ODataControllerStandardDataBase<MediaMetadata, MediaMetadataDto>
     {
         public MediaMetadataController(
             IDiagnosticsTracingService diagnosticsTracingService, 

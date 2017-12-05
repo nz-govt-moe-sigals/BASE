@@ -12,9 +12,13 @@ The following are some example api calls, using OData terms such as $skip, $take
 
 <ul>
     <li><a target="_apis" href="~/OData/sessionoperation/">SessionOperation only</a></li>
+    <li><a target="_apis" href="~/OData/sessionoperation/?$skip=2">Skip 2 operations.</a></li>
     <li><a target="_apis" href="~/OData/sessionoperation/?$top=3">Top 3 operations only.</a></li>
-    <li><a target="_apis" href="~/OData/sessionoperation/?$skip2&$top=3">Skip 2, take 3 operations only.</a></li>
-    <li><a target="_apis" href="~/OData/sessionoperation/?$skip2&$top=3&inlinecount=allpages">Skip 2, take 3 operations, with total Count.</a></li>
+    <li><a target="_apis" href="~/OData/sessionoperation/?$count">Get a count.</a></li>
+    <li><a target="_apis" href="~/OData/sessionoperation/?$select=Url">Select just the urls.</a></li>
+
+    <li><a target="_apis" href="~/OData/sessionoperation/?$skip=2&$top=3">Skip 2, take 3 operations only.</a></li>
+    <li><a target="_apis" href="~/OData/sessionoperation/?$skip=2&$top=3&$inlinecount=allpages">Skip 2, take 3 operations, with total Count.</a></li>
 </ul>
 
 

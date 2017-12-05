@@ -11,10 +11,12 @@
         {
             config.CreateMap<DataClassification, DataClassificationDto>()
                 .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
+                .ForMember(t => t.Enabled, opt => opt.MapFrom(s => s.Enabled))
                 .ForMember(t => t.Text, opt => opt.MapFrom(s => s.Text))
                 .ForMember(t => t.DisplayOrderHint, opt => opt.MapFrom(s => s.DisplayOrderHint))
                 .ForMember(t => t.DisplayStyleHint, opt => opt.MapFrom(s => s.DisplayStyleHint))
                 ;
         }
     }
+
 }

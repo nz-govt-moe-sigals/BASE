@@ -49,7 +49,7 @@
             // Ref: https://stackoverflow.com/questions/39515218/odata-error-the-query-specified-in-the-uri-is-not-valid-the-property-cannot-be
 
             // You can enable everything, as follows:
-            httpConfiguration.Count().Filter().OrderBy().Expand().Select().MaxTop(100).AddODataQueryFilter();
+            httpConfiguration.Count().Expand().Filter().Select().MaxTop(100).OrderBy().AddODataQueryFilter();
             // You can then limit specific entities to something else in their individual
             // IOdataModelBuilderConfigurationBase instance, as follows:
             //

@@ -52,6 +52,8 @@
                 .IsOptional();
 
 
+
+
             modelBuilder.Entity<Notification>()
                 .Property(x => x.From)
                 .HasColumnOrder(order++)

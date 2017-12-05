@@ -10,6 +10,8 @@ namespace App.Core.Application.ServiceFacade.API.Controllers
     using App.Core.Shared.Models.Entities;
     using AutoMapper.QueryableExtensions;
 
+
+
     public abstract class ODataControllerStandardDataBase<TEntity, TDto> : ODataControllerBase
         where TEntity : class, IHasGuidId, IHasRecordState, new()
         where TDto : class, IHasGuidId, new()

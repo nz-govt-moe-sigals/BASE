@@ -1,4 +1,5 @@
-﻿@{
+﻿@model App.Core.Application.Models.MediaUpload
+@{
     ViewBag.Title = "Media";
     ViewBag.Subtitle = "Metadata about uploaded Media";
 }
@@ -9,6 +10,65 @@ Just about all systems deal with uploaded media at some point in time -- whether
 
 All uploaded media *must* be scanned for malware before it is persisted, in order to ensure that this system does its utmost to not subsequently become a propagator of malware.
 
+<h3>Media Upload Form</h3>
+
+The following is a basic example form to upload media:
+
+<p>
+    @using (Html.BeginForm("MediaMetadata", "Usage", null, FormMethod.Post, new {enctype = "multipart/form-data"})) 
+    {
+        @Html.AntiForgeryToken()
+    
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                
+            <div class="form-group">
+                @Html.LabelFor(model => model.DataClassification, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EnumDropDownListFor(
+                        x => x.DataClassification,
+                        new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DataClassification, "", new {@class = "text-danger"})
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SomeCustomData, htmlAttributes: new
+           {
+               @class = "control-label col-md-2"
+           })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SomeCustomData, new
+               {
+                   htmlAttributes = new
+                   {
+                       @class = "form-control"
+                   }
+               })
+                    @Html.ValidationMessageFor(model => model.SomeCustomData, "", new
+               {
+                   @class = "text-danger"
+               })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Media", new {@class = "control-label col-md-2"})
+                <div class="col-md-10">
+                    <input type="file" id="Media" name="file" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Upload" class="btn btn-default" />
+                    @ViewBag.Message
+                </div>
+            </div>
+        </div>
+    }</p>
+
 
 
 <h3>API Examples</h3>
@@ -17,7 +77,7 @@ The following are some example api calls, using OData terms such as $skip, $take
 
 <ul>
     <li><a target="_apis" href="~/OData/mediametadata/">MediaMetadata only</a></li>
-    <li><a target="_apis" href="~/OData/mediametadata/?expand=DataClassification">MediaMetadata, with DataClassification</a></li>
+    <li><a target="_apis" href="~/OData/mediametadata/?$expand=DataClassification">MediaMetadata, with DataClassification</a></li>
 </ul>
 
 
