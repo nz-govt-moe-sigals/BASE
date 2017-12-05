@@ -7,6 +7,7 @@
         // Use an Enum as DataClassification is shared across Bounded DbContexts
         public virtual NZDataClassification DataClassificationFK {get; set;} /* Unclassified or not determines whether external scanning services can be invoked or not */
         public virtual DataClassification DataClassification {get; set;}
+
         public virtual DateTime UploadedDateTimeUtc { get; set; }
         public virtual long ContentSize { get; set; } /*size of stream*/
         public virtual string MimeType { get; set; } /*The extension is not always a correct indicator...*/

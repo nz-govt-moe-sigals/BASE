@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Tenant";
+    ViewBag.Subtitle = "One install, usable by many...";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Subtitle</h3>
+
+
+Multi-tenancy is a powerful feature that is often put off till too late...and thereafter abandoned due to the complexity of retrofitting it in.
+
+That's a shame as it leaves a lot of value on the table. 
+
+Multi tenancy allow for a single installation being used for different scenarios, including:
+
+<ul>
+    <li>multiple organisations or education establishments.</li>
+    <li>multiple government agencies.</li>
+    <li>training and production without requiring separate deployments.</li>
+</ul>
+
+<h3>API Examples</h3>
+
+The following are some example api calls, using OData terms such as $skip, $take, $inlinecount, $expand:
+
+<ul>
+    <li><a target="_apis" href="~/OData/tenant/">Tenant only</a></li>
+    <li><a target="_apis" href="~/OData/tenant/?$expand=DataClassification">Tenant, with DataClassification</a></li>
+</ul>
+
+
+

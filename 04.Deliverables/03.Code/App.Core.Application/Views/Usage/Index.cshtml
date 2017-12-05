@@ -1,29 +1,29 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Usage";
+    ViewBag.Subtitle = "API call Examples";
 }
 
 <div class="jumbotron">
-    <h1>Usage</h1>
+    <h1>@ViewBag.Title</h1>
+    <h3>@ViewBag.Subtitle</h3>
+    
+    This is an API First Service, so basically everything is available via API calls.
+    
+    Of course, what you get back depends on your Permissions (determined by your Roles)
+
     <p class="lead">
         <ul>
-            <li>@Html.ActionLink("The Code Base", "GetCodeBase", "Usage")</li>
-            <li>@Html.ActionLink("Prerequisites", "Prerequisites", "Usage")</li>
-            <li>@Html.ActionLink("Configure OIDC", "ConfigureOIDC", "Usage")</li>
+            <li>@Html.ActionLink("Configuration", "Configuration", "Usage")</li>
+            <li>@Html.ActionLink("Exceptions", "Exception", "Usage")</li>
+            <li>@Html.ActionLink("Data Classifications", "DataClassification", "Usage")</li>
+            <li>@Html.ActionLink("Tenant", "Tenant", "Usage")</li>
+            <li>@Html.ActionLink("Principals", "Principal", "Usage")</li>
+            <li>@Html.ActionLink("Roles", "Role", "Usage")</li>
+            <li>@Html.ActionLink("Sessions", "Session", "Usage")</li>
+            <li>@Html.ActionLink("Session Operations", "SessionOperation", "Usage")</li>
+            <li>@Html.ActionLink("Notifications", "Notification", "Usage")</li>
+            <li>@Html.ActionLink("Uploaded Media", "MediaMetadata", "Usage")</li>
        </ul>
     </p>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            Read how this base solution was put together in order to understand how to build on top of it, saving time and expense.
-        </p>
-        <p><a class="btn btn-default" href="http://skysigal.com/it/ad/asp.net/webapi/howto/configure/new_app/">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get the code</h2>
-        <p>The source code of this solution is available for free.</p>
-        <p><a class="btn btn-default" href="https://bitbucket.org/skysigal/app.core.application-on-mvc-webapi-net-framework">Learn more &raquo;</a></p>
-    </div>
-</div>

@@ -6,6 +6,6 @@
     public interface IConfigurationStepService : IHasAppCoreService
     {
         void Register(ConfigurationStepType type, ConfigurationStepStatus status, string title, string description);
-        IQueryable<ConfigurationStepSummary> Get();
+        IQueryable<ConfigurationStepRecord> Get();
     }
 }

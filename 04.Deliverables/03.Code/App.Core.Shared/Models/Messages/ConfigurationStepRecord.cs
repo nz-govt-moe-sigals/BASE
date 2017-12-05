@@ -6,12 +6,12 @@ namespace App.Core.Shared.Models.Messages
 
     // A record of a configuration step that was undertaken.
     // For use by support personnel remotely reviewing configuration.
-    public class ConfigurationStepSummary : IHasGuidId
+    public class ConfigurationStepRecord : IHasGuidId
     {
         // Note than although this model is not persisted in 
         // a datastore, an Id is still required, as it is expressed
         // via OData.
-        public ConfigurationStepSummary()
+        public ConfigurationStepRecord()
         {
             this.Id = GuidFactory.NewGuid();
         }

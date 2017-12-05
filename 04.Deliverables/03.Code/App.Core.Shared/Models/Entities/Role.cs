@@ -20,6 +20,6 @@
 
 
         public virtual NZDataClassification? DataClassificationFK { get; set; }
-        public virtual DataClassification  DataClassification { get; set; }
+        public virtual DataClassification DataClassification { get; set; }
     }
 }

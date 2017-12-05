@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Media";
+    ViewBag.Subtitle = "Metadata about uploaded Media";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Subtitle</h3>
+
+Just about all systems deal with uploaded media at some point in time -- whether we're talking about User Avatars, background images, project resource,s images, documents, etc. 
+
+All uploaded media *must* be scanned for malware before it is persisted, in order to ensure that this system does its utmost to not subsequently become a propagator of malware.
+
+
+
+<h3>API Examples</h3>
+
+The following are some example api calls, using OData terms such as $skip, $take, $inlinecount, $expand:
+
+<ul>
+    <li><a target="_apis" href="~/OData/mediametadata/">MediaMetadata only</a></li>
+    <li><a target="_apis" href="~/OData/mediametadata/?expand=DataClassification">MediaMetadata, with DataClassification</a></li>
+</ul>
+
+

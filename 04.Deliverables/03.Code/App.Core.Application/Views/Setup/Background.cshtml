@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Background";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Background</h2>
+
+The purpose of this project is to create a scaffolding for new projects, that shaves off expensive yet repetitive base costs, while allowing concentration on the business end usage.
+
+
+<h3>Description</h3>
+
+It's a WebAPI First. This means that everything -- including its session/members/everything! -- objects are exposed as "appropriately accessible public APIs".
+
+This does not mean that anybody can read everything -- simply that they won't get an exception if they try. They'll just get back an empty dataset, until they
+provide appropriate credentials that demonstrate they have sufficient priviledges to do so.
+
+
+<h3>Benefits</h3>
+
+The benefits are hopefully obvious: projects get to shave off the average 12+ man months of effort needed to define what tasks needs doing, getting them documented, managed, developed and tested required to develop a secure, deployable, supportable, maintainable and augmentable solution.
+
+
+<h3>Considerations</h3>
+These benefits do not come without some impact that requires consideration.
+
+To remain modular and maintainable, the application expects developers to stick to conventions: both industry ones, and project specific ones. 
+
+For one, the application relies heavily on the Dependency Injection pattern, which in this case was implemented using StructureMap. 'Magic' injection takes a little getting used to by intermediate developers. And it simply might be too hard for beginner developers. So the code base does put some restrictions on whom should be hired to work on it.
+
+In other words, if your developers are not fluent in SOLID development patterns, they'll have trouble, and will complain as to the perceived complexity of the code base.
+ 
+For another, it's a Domain Drive Design based .NET solution, so there are specific assemblies in which to put code (you can't just put business code up in the infrastructure code without negative impact).
+
+Its Modular. So there's a Core element, which you leave alone (it handles the core work that has nothing to do with the business functionality...stuff such as Exception handling, diagnostics logging, auditing, authentication, authorisation), and there are moduless, where you put your end user business code.
+Under no circumstances are you to put business logic in the core section. Tempting as that may be...
+
+Another aspect is ...this app has no UX. I know you're looking at this interface...but this code base is intended to be interacted with using *current* development patterns. In other words, ASP.MVC, which is a *server-side generated views* are verbotten. Use a SPA/PWA interface to interact with the APIs (this project *will* include a front end, but later).

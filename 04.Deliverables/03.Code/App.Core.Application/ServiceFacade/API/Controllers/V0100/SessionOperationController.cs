@@ -11,9 +11,9 @@
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class SessionDtoController : ODataControllerStandardDataBase<Session, SessionDto>
+    public class SessionOperationController : ODataControllerStandardDataBase<SessionOperation, SessionOperationDto>
     {
-        public SessionDtoController(
+        public SessionOperationController(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -34,30 +34,26 @@
         //[ApplyProxyDataContractResolverAttribute]
         //[ODataRoute()]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<SessionDto> Get()
+        public IQueryable<SessionOperationDto> Get()
         {
             return InternalGetDbSet()
                 .Where(x => x.RecordState == RecordPersistenceState.Active)
                 //.Include(x => x.Principal)
                 //.Include(x => x.Operations)
-                .ProjectTo<SessionDto>(
-                    (object)null,
-                    x=>x.Principal,
-                    x=>x.Operations
+                .ProjectTo<SessionOperationDto>(
+                    //(object)null,
                 );
         }
 
         //[ODataRoute("({key})")]
-        public SessionDto Get(Guid key)
+        public SessionOperationDto Get(Guid key)
         {
             return InternalGetDbSet()
                 .Where(x => x.RecordState == RecordPersistenceState.Active)
                 //.Include(x => x.Principal)
                 //.Include(x => x.Operations)
-                .ProjectTo<SessionDto>(
-                    (object)null,
-                    x => x.Principal,
-                    x => x.Operations
+                .ProjectTo<SessionOperationDto>(
+                    //(object)null,
                 ).SingleOrDefault(x => x.Id == key);
         }
     }

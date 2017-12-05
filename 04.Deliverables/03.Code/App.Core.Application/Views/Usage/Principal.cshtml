@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Principals";
+    ViewBag.Subtitle = "Who are the system's users?";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Subtitle</h3>
+
+Most users of a system are human users. But systems are often also accessed by other Devices, Services, and daemons (system accounts).
+Hence the use of the more inclusive term "Security Principal".
+
+
+<h3>API Examples</h3>
+
+The following are some example api calls, using OData terms such as $skip, $take, $inlinecount, $expand:
+
+<ul>
+    <li><a target="_apis" href="~/OData/principal/">Principal only</a></li>
+    <li><a target="_apis" href="~/OData/principal/?expand=Properties">Principal, with Properties</a></li>
+    <li><a target="_apis" href="~/OData/principal/?expand=Properties,Claims">Principal, with Properties and Claims</a></li>
+    <li><a target="_apis" href="~/OData/principal/?expand=DataClassification,Properties,Claims">Principal, with DataClassification, Properties and Claims</a></li>
+</ul>
+
+

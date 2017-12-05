@@ -11,7 +11,7 @@ namespace App.Core.Infrastructure.Services.Implementations
     public class ConfigurationStepService : IConfigurationStepService
     {
         private readonly IUniversalDateTimeService _universalDateTimeService;
-        static readonly List<ConfigurationStepSummary> _cache = new List<ConfigurationStepSummary>();
+        static readonly List<ConfigurationStepRecord> _cache = new List<ConfigurationStepRecord>();
 
         static ConfigurationStepService()
         {
@@ -25,7 +25,7 @@ namespace App.Core.Infrastructure.Services.Implementations
 
         public void Register(ConfigurationStepType type, ConfigurationStepStatus status, string title, string description)
         {
-            var configurationStep = new ConfigurationStepSummary()
+            var configurationStep = new ConfigurationStepRecord()
             {
                 DateTime = this._universalDateTimeService.NowUtc(),
                 Type = type,
@@ -36,7 +36,7 @@ namespace App.Core.Infrastructure.Services.Implementations
             _cache.Add(configurationStep);
         }
 
-        public IQueryable<ConfigurationStepSummary> Get()
+        public IQueryable<ConfigurationStepRecord> Get()
         {
             return _cache.AsReadOnly().AsQueryable();
         }

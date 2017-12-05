@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Notifications";
+    ViewBag.Subtitle = "Alerts, Notifications, and Messages";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Subtitle</h3>
+
+Notifications are a necessity.
+
+They're how end users can communicate with the development team (eg: ask for more features).
+
+They're how the development team can send messages to end users (eg: telling them the system will be briefly offline for a planned upgrade)
+
+They're how users can communicate and collaborate with team members  (eg: letting them know uploaded media is ready for review)
+
+Some messages stay current until they are read, some messages have a short lifespan, just long enough to let users know an operation is under way.
+
+
+<h3>API Examples</h3>
+
+The following are some example api calls, using OData terms such as $skip, $take, $inlinecount, $expand:
+
+<ul>
+    <li><a target="_apis" href="~/OData/notification/">Notifications only</a></li>
+    <li><a target="_apis" href="~/OData/notification/?$skip=1">Notifications, skipping 1.</a></li>
+    <li><a target="_apis" href="~/OData/notification/?$skip=1&inlinecount=allpages">Notifications, skipping 1, returning with total count.</a></li>
+</ul>
+

@@ -6,11 +6,11 @@
     using App.Core.Shared.Models.Messages.APIs.V0100;
     using AutoMapper;
 
-    public class ObjectMap_ConfigurationStep_ConfigurationStepDto : IHasAutomapperInitializer
+    public class ObjectMap_ConfigurationStepRecord_ConfigurationStepRecordDto : IHasAutomapperInitializer
     {
         public void Initialize(IMapperConfigurationExpression config)
         {
-            config.CreateMap<ConfigurationStepSummary, ConfigurationStepDto>()
+            config.CreateMap<ConfigurationStepRecord, ConfigurationStepRecordDto>()
                 .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
                 .ForMember(t => t.DateTime, opt => opt.MapFrom(s => s.DateTime))
                 .ForMember(t => t.Description, opt => opt.MapFrom(s => s.Description))

@@ -4,21 +4,19 @@
     using App.Core.Application.Constants.Api;
     using App.Core.Shared.Models.Messages.APIs.V0100;
 
-    public class ConfigurationStepOdataModelBuilderConfiguration : IOdataModelBuilderConfiguration
+    public class RoleOdataModelBuilderConfiguration : IOdataModelBuilderConfiguration
     {
         public void Define(object builder)
         {
-           Define(builder as ODataModelBuilder);
+            Define(builder as ODataModelBuilder);
         }
-
         public void Define(ODataModelBuilder builder)
         {
-            builder.EntitySet<ConfigurationStepDto>(ApiControllerNames.ConfigurationStep);
+            builder.EntitySet<RoleDto>(ApiControllerNames.Role);
             //DTO Type description:
-            builder.EntityType<ConfigurationStepDto>().Filter(); //Can be noparam to allow for any.
-            builder.EntityType<ConfigurationStepDto>()
+            builder.EntityType<RoleDto>().Filter(); //Can be noparam to allow for any.
+            builder.EntityType<RoleDto>()
                 .HasKey(x => x.Id);
         }
-
     }
 }

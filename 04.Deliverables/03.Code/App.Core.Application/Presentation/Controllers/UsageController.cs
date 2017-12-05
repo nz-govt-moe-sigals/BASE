@@ -10,13 +10,15 @@ using App.Core.Shared.Models;
 
 namespace App.Core.Application.Presentation.Controllers
 {
+    using App.Core.Shared.Models.Entities;
+
     /// <summary>
     /// Controller for the Views that explain how to use this framework.
     /// </summary>
     public class UsageController : Controller
     {
 
-        public UsageController(IDiagnosticsTracingService diagnosticsTracingService, IExampleApplicationService exampleApplicationService)
+        public UsageController(IDiagnosticsTracingService diagnosticsTracingService)
         {
             // Tip: Being a template, it is preferable that the HomeController/Default Route does not get injected with a
             // DbContext, as that implies a correct Connection string and/or Authentication, that may fail the first
@@ -26,26 +28,51 @@ namespace App.Core.Application.Presentation.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.Title = "Setup";
+            return View();
+        }
+        public ActionResult Configuration()
+        {
+            return View();
+        }
+        public ActionResult Exception()
+        {
+            return View();
+        }
+        public ActionResult DataClassification()
+        {
+            return View();
+        }
+        public ActionResult Principal()
+        {
+            return View();
+        }
+        public ActionResult Role()
+        {
             return View();
         }
 
-        public ActionResult GetCodeBase()
+        public ActionResult Tenant()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-        public ActionResult Prerequisites()
-        {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
-        public ActionResult ConfigureOIDC()
+        public ActionResult Session()
         {
-            ViewBag.Message = "Your application description page.";
+            return View();
+        }
+        public ActionResult SessionOperation()
+        {
+            return View();
+        }
 
+        public ActionResult Notification()
+        {
+            return View();
+        }
+
+        public ActionResult MediaMetadata()
+        {
             return View();
         }
 

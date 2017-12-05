@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "DataClassification";
+    ViewBag.Subtitle = "The sensitivity of managed resources";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Subtitle</h3>
+
+The <i>Operations</i> that a Principal (ie, User) is permitted to invoke are controlled by <i>Roles</i>.
+
+But access to a <i>Resource</i> is also controlled by the <i>Resource</i>'s <i>DataClassification</i>, and whether the Principal (via the Role's DataClassification) is permitted to access Resources with that <i>DataClassification</i>.
+
+<h3>API Examples</h3>
+
+The following are some example api calls, using OData terms such as $skip, $take, $inlinecount, $expand:
+
+<ul>
+    <li><a target="_apis" href="~/OData/dataclassification/">DataClassifications</a></li>
+    <li><a target="_apis" href="~/OData/dataclassification/?$skip=2&$take=3">DataClassifications, skipping 2, Taking 3</a></li>
+    <li><a target="_apis" href="~/OData/dataclassification/?$skip=2&$take=3$inlinecount=allpages">DataClassifications, skipping 2, Taking 3, with totalCount</a></li>
+</ul>
+
+

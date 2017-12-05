@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Exceptions";
+    ViewBag.Subtitle = "Oops";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Subtitle</h3>
+
+Systems shouldn't throw Exceptions. But they do. All the time.
+
+It's useful for sysadmins -- with sufficient permissions -- to be able to quickly query a recorded exception...
+
+
+
+
+<h3>API Examples</h3>
+
+The following are some example api calls, using OData terms such as $skip, $take, $inlinecount, $expand:
+
+<ul>
+    <li><a target="_apis" href="~/OData/exception/">Exceptions only</a></li>
+    <li><a target="_apis" href="~/OData/exception/?$linecount=allpages">Exceptions, with Count.</a></li>
+</ul>
+

@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class ConfigurationStepDto /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ : IHasGuidId
+    public class ConfigurationStepRecordDto /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ : IHasGuidId
     {
         public virtual Guid Id { get; set; }
         public virtual DateTimeOffset DateTime { get; set; }

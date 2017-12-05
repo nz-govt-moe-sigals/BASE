@@ -11,9 +11,9 @@
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class ExceptionRecordDtoController : ODataControllerStandardDataBase<ExceptionRecord, ExceptionRecordDto>
+    public class NotificationController : ODataControllerStandardDataBase<Notification, NotificationDto>
     {
-        public ExceptionRecordDtoController(
+        public NotificationController(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -29,16 +29,27 @@
         //[ApplyProxyDataContractResolverAttribute]
         //[ODataRoute()]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<ExceptionRecordDto> Get()
+        public IQueryable<NotificationDto> Get()
         {
             return InternalGet();
-                    }
+        }
 
         //[ODataRoute("({key})")]
-        public ExceptionRecordDto Get(Guid key)
+        public NotificationDto Get(Guid key)
         {
             return InternalGet(key);
         }
 
+        //// POST api/values 
+        public void Post(NotificationDto value)
+        {
+            InternalPost(value);
+        }
+
+        //// PUT api/values/5 
+        public void Put(NotificationDto value)
+        {
+            InternalPut(value);
+        }
     }
 }

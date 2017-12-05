@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Session";
+    ViewBag.Subtitle = "Who accessed the system?";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Subtitle</h3>
+
+
+<h3>API Examples</h3>
+
+The following are some example api calls, using OData terms such as $skip, $take, $inlinecount, $expand:
+
+<ul>
+    <li><a target="_apis" href="~/OData/sessionoperation/">SessionOperation only</a></li>
+    <li><a target="_apis" href="~/OData/sessionoperation/?$top=3">Top 3 operations only.</a></li>
+    <li><a target="_apis" href="~/OData/sessionoperation/?$skip2&$top=3">Skip 2, take 3 operations only.</a></li>
+    <li><a target="_apis" href="~/OData/sessionoperation/?$skip2&$top=3&inlinecount=allpages">Skip 2, take 3 operations, with total Count.</a></li>
+</ul>
+
+

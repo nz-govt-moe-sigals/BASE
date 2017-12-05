@@ -11,9 +11,9 @@
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class TenantDtoController : ODataControllerStandardDataBase<Tenant, TenantDto>
+    public class TenantController : ODataControllerStandardDataBase<Tenant, TenantDto>
     {
-        public TenantDtoController(
+        public TenantController(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,

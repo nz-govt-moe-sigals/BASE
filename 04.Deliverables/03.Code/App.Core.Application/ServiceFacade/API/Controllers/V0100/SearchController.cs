@@ -15,11 +15,11 @@
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     [ODataRoutePrefix("search")]
-    public class SearchDtoController : ODataControllerBase
+    public class SearchController : ODataControllerBase
     {
         private readonly IObjectMappingService _objectMappingService;
 
-        public SearchDtoController(IDiagnosticsTracingService diagnosticsTracingService,
+        public SearchController(IDiagnosticsTracingService diagnosticsTracingService,
             IPrincipalService principalService, IObjectMappingService objectMappingService) : base(principalService)
         {
             this._objectMappingService = objectMappingService;

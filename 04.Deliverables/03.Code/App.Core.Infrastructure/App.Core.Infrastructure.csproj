@@ -157,8 +157,9 @@
     <Compile Include="Initialization\Authentication\IHasOidcScopeInitializer.cs" />
     <Compile Include="Initialization\IInitializer.cs" />
     <Compile Include="Initialization\Implementations\HasOidcScopeInitializer.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ConfigurationStep_ConfigurationStepDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ConfigurationStepRecord_ConfigurationStepRecordDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_DataClassification_DataClassificationDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_Role_RoleDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_MediaMetadata_MediaMetadataDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_PrincipalTag_PrincipalTagDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_PrincipalCategory_PrincipalCategoryDto.cs" />

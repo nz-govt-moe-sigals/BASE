@@ -10,7 +10,7 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages.APIs.V0100;
 
-    public class ConfiguratioStepUpdateDtoController : ODataControllerBase
+    public class NotificationUpdateController : ODataControllerBase
     {
         private readonly IUniversalDateTimeService _dateTimeService;
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
@@ -18,7 +18,7 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
         private readonly IObjectMappingService _objectMappingService;
         private readonly ISecureAPIMessageAttributeService _secureApiMessageAttribute;
 
-        public ConfiguratioStepUpdateDtoController(
+        public NotificationUpdateController(
             IUniversalDateTimeService dateTimeService,
             IDiagnosticsTracingService diagnosticsTracingService,
             IPrincipalService principalService,
@@ -34,12 +34,28 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
         }
 
         // POST api/values 
-        public IQueryable<ConfigurationStepDto> Get()
+        public void Post([FromBody]NotificationUpdateDto value)
         {
 
-            return this._repositoryService
-                .GetQueryableSet<ConfigurationStepDto>(
-                    App.Core.Infrastructure.Constants.Db.AppCoreDbContextNames.Core);
+            var record = this._repositoryService
+                .GetQueryableSet<Notification>(App.Core.Infrastructure.Constants.Db.AppCoreDbContextNames.Core).SingleOrDefault(x => x.Id == value.Id);
+
+            if (record == null)
+            {
+                return;
+            }
+            if (value.Read)
+            {
+                if (record.DateTimeReadUtc.HasValue)
+                {
+                    // Idempotent.
+                    return;
+                }
+                record.DateTimeReadUtc = this._dateTimeService.NowUtc().UtcDateTime;
+                // That's it.
+                return;
+            }
+            record.DateTimeReadUtc = null;
         }
     }
 }
