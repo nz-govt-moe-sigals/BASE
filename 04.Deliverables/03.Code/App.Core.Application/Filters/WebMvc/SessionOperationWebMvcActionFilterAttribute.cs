@@ -34,7 +34,7 @@
                     .ControllerName; //filterContext.RouteData.Values["controller"] as string;
             sessionOperationLog.ActionName =
                 filterContext.ActionDescriptor.ActionName; //filterContext.RouteData.Values["action"] as string;
-
+            sessionOperationLog.ResponseCode = "-1";
             try
             {
                 sessionOperationLog.ActionArguments = JsonConvert.SerializeObject(filterContext.ActionParameters,

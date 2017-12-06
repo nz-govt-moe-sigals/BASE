@@ -16,8 +16,9 @@
         {
             builder.EntitySet<PrincipalPropertyDto>(ApiControllerNames.PrincipalProperty);
 
-            //DTO Type description:
-            builder.EntityType<PrincipalPropertyDto>().Filter(); //Can be noparam to allow for any.
+            // Optional DTO Type description
+            // Tip/Warning: if you define ops here, at the model level, have to relist all ops allowed (ie, it cancels the globally set operations list):
+            // builder.EntityType<PrincipalPropertyDto>().Filter(/*noparam to allow for any*/);
             builder.EntityType<PrincipalPropertyDto>()
                 .HasKey(x => x.Id);
         }

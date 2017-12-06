@@ -17,10 +17,11 @@ using App.Module2.Shared.Models.Messages.V0100;
         {
 
             builder.EntitySet<BodyDto>(ApiControllerNames.Body);
-            //DTO Type description:
-            builder.EntityType<BodyDto>().Filter(); //Can be noparam to allow for any.
-            builder.EntityType<BodyDto>()
-                .HasKey(x => x.Id);
+            // DTO Type description:
+            // Optionally allow OData Operations:
+            // Tip/Warning: if you define ops here, at the model level, have to relist all ops allowed (ie, it cancels the globally set operations list):
+            // builder.EntityType<BodyDto>().Filter(/*noparam to allow for any*/);
+            builder.EntityType<BodyDto>().HasKey(x => x.Id);
             
         }
     }

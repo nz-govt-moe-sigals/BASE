@@ -7,6 +7,7 @@
     using App.Core.Infrastructure.Services;
     using App.Module2.Shared.Models.Configuration;
     using App.Module2.Shared.Models.Entities;
+    using App.Module2.Shared.Models.Messages.Imports;
     using CsvHelper;
 
     public class SchoolCsvImporterService : ISchoolCsvImporterService
@@ -53,7 +54,8 @@
             {
                 var csv = new CsvReader(textReader);
                 var records = csv.GetRecords<SchoolDescriptionRaw>();
-                return records.ToArray();
+                var results = records.ToArray();
+                return results;
             }
 
         }

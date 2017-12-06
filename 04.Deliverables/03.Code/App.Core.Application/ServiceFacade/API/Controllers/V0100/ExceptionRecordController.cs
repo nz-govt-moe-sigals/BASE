@@ -11,9 +11,9 @@
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class ExceptionRecordDtoController : ODataControllerStandardDataBase<ExceptionRecord, ExceptionRecordDto>
+    public class ExceptionRecordController : ODataControllerStandardDataBase<ExceptionRecord, ExceptionRecordDto>
     {
-        public ExceptionRecordDtoController(
+        public ExceptionRecordController(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,

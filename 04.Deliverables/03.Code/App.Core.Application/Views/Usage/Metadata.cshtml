@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "DataClassification";
+    ViewBag.Subtitle = "The sensitivity of managed resources";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Subtitle</h3>
+
+APIs are machine interfaces -- not intended for human consumption (they're readable, but that's more or less only a side effect). 
+
+To facilitate machines consuming the APIs ODATA services provide a $metadata endpoint to list all the known api endpoints, and the 
+shape of the messages (the $metadata file fulfills much of the same functionality as a WSDL did back in the era of SOAP).
+
+
+
+ 
+<h3>API Examples</h3>
+
+The following are some example api calls, using OData terms such as $skip, $top, $inlinecount, $expand:
+
+<ul>
+    <li><a target="_apis" href="~/OData/$metadata/">Metadata</a></li>
+</ul>
+
+
+<h3>The benefits of ODATA over REST</h3>
+Beyond the Operations that ODATA offers ($select, $skip, $top, etc.) there's another more fundamental difference between ODATA enabled endpoints and simpler REST endpoints.
+
+The big difference between REST APIs and OData is that with REST endpoints, you get indiviual endpoints, each one not knowing anything about the other endpoints.
+
+This is a *huge* gain. If developing a classif REST service, you may offer an 'Invoice' and a separate 'LineItem' endpoint-- and leave it up to the clients to
+marry the two, using client logic. Or you have to create a third endpoint that returns objects that combine the two (InvoiceWithLineItems). This quickly becomes unwieldy.
+
+But with ODATA, the service understands the *relationship* between the two, and can weave them together...

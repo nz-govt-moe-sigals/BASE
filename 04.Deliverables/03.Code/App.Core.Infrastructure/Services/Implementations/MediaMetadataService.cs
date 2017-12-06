@@ -9,11 +9,13 @@
     public class MediaMetadataService : IMediaMetadataService
     {
         private readonly IHostSettingsService _hostSettingsService;
+        private readonly IUniversalDateTimeService _universalDateTimeService;
         MediaManagementConfiguration _configuration;
         
-        public MediaMetadataService(IHostSettingsService hostSettingsService)
+        public MediaMetadataService(IHostSettingsService hostSettingsService, IUniversalDateTimeService universalDateTimeService)
         {
             this._hostSettingsService = hostSettingsService;
+            this._universalDateTimeService = universalDateTimeService;
             _configuration = this._hostSettingsService.GetObject<MediaManagementConfiguration>();
 
         }
@@ -28,6 +30,9 @@
             result.DataClassificationFK = dataClassification;
             result.ContentHash = uploadedMedia.Stream.GetHashAsString(this._configuration.HashType);
             result.MimeType = uploadedMedia.ContentType;
+
+            result.UploadedDateTimeUtc = this._universalDateTimeService.NowUtc().UtcDateTime;
+
             return result;
         }
     }

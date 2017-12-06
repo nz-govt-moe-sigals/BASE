@@ -73,10 +73,15 @@ The following is a basic example form to upload media:
 
 <h3>API Examples</h3>
 
-The following are some example api calls, using OData terms such as $skip, $take, $inlinecount, $expand:
+The following are some example api calls, using OData terms such as $skip, $top, $inlinecount, $expand:
 
 <ul>
     <li><a target="_apis" href="~/OData/mediametadata/">MediaMetadata only</a></li>
+    <li><a target="_apis" href="~/OData/mediametadata/?$count=true&$top=0">MediaMetadata count</a></li>
+    <li><a target="_apis" href="~/OData/mediametadata/?$top=3">MediaMetadata, Take 3...</a></li>
+    <li><a target="_apis" href="~/OData/mediametadata/?$top=2">MediaMetadata, Take 2...</a></li>
+    <li><a target="_apis" href="~/OData/mediametadata/?$top=1">MediaMetadata, Take only 11.</a></li>
+    <li><a target="_apis" href="~/OData/mediametadata/?$skip=2&$top=3">MediaMetadata, Skip 2, Take 1</a></li>
     <li><a target="_apis" href="~/OData/mediametadata/?$expand=DataClassification">MediaMetadata, with DataClassification</a></li>
 </ul>
 

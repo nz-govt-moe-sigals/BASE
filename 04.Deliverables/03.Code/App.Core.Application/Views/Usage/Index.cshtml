@@ -3,16 +3,26 @@
     ViewBag.Subtitle = "API call Examples";
 }
 
-<div class="jumbotron">
+<div>
     <h1>@ViewBag.Title</h1>
     <h3>@ViewBag.Subtitle</h3>
     
     This is an API First Service, so basically everything is available via API calls.
-    
-    Of course, what you get back depends on your Permissions (determined by your Roles)
+ 
+    <p>
 
+        Of course, what you get back depends on your Permissions (determined by your Roles)
+    </p>
+    
+    <p>
+        
+    The following are core apis, independent of the business specific logic.
+    (an app needs the following whether we're talking about a single Business api, or many):
+    </p>
+ 
     <p class="lead">
         <ul>
+            <li>@Html.ActionLink("Metadata", "Metadata", "Usage")</li>
             <li>@Html.ActionLink("Configuration", "ConfigurationStepRecord", "Usage")</li>
             <li>@Html.ActionLink("Exceptions", "Exception", "Usage")</li>
             <li>@Html.ActionLink("Data Classifications", "DataClassification", "Usage")</li>
@@ -23,9 +33,14 @@
             <li>@Html.ActionLink("Session Operations", "SessionOperation", "Usage")</li>
             <li>@Html.ActionLink("Notifications", "Notification", "Usage")</li>
             <li>@Html.ActionLink("Uploaded Media", "MediaMetadata", "Usage")</li>
+        </ul>
+        The following are Business specific.
+        <ul>
 
             <!-- different Modules -->
             <li>@Html.ActionLink("Education Organisations", "EducationOrganisation", "Usage")</li>
+            <li>@Html.ActionLink("Generic Organisations", "Organisation", "Usage")</li>
+            <li>@Html.ActionLink("Persons", "Person", "Usage")</li>
        </ul>
     </p>
 </div>

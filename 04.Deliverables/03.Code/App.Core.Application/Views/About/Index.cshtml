@@ -7,13 +7,20 @@
     <p class="lead">
         This is a base for building secure enterprise grade applications with the following characteristics:
         <ul>
-            <li>Enforced Secure communication channel and cookie handling (over SSL)</li>
-            <li>OAuth/OIDC authentication/authorisation ready</li>
-            <li>Accessible and Maintainable Versioned API endpoints using versioned DTOs</li>
-            <li>Versatile OData enhance REST WebAPI endpoints.</li>
-            <li>
-                <a href="./swagger/">Self documenting APIs using OpenAPI Standard (OAS).</a>
+            <li>@Html.ActionLink("Security", "Security", "About")
+                <ul>
+                    <li>@Html.ActionLink("OIDC", "OIDC", "About") authentication/authorisation ready</li>
+                </ul>
             </li>
+            <li>
+                @Html.ActionLink("API First", "APIFirst", "About")
+                <ul>
+                    <li>Self Documenting APIs using OpenAPI Standard (OAS) via <a href="swagger">Swagger</a>.</li>
+                    <li>@Html.ActionLink("Versioned", "Versioning", "About") accessible and maintainable API endpoints using DTOs.</li>
+                    <li>@Html.ActionLink("ODATA", "OData", "About") enhanced REST API endpoints.</li>
+                </ul>
+            </li>
+            <li>Enforced Secure communication channel and cookie handling (over SSL)</li>
             <li>Open Source Framework and Libraries</li>
             <li>Maintainable and ADaptabible Domain Driven Design (DDD) based architecture</li>
             <li>Follows SOLID development practices</li>

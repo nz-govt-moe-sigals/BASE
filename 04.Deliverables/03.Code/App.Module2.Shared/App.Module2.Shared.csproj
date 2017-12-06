@@ -52,7 +52,7 @@
     <Compile Include="Models\Enums\BodyType.cs" />
     <Compile Include="Models\Entities\EducationOrganisation.cs" />
     <Compile Include="Models\Enums\SchoolEstablishmentType.cs" />
-    <Compile Include="Models\Messages\SchoolDescriptionRaw.cs" />
+    <Compile Include="Models\Messages\Imports\SchoolDescriptionRaw.cs" />
     <Compile Include="Models\Messages\Imports\SchoolImportRecord.cs" />
     <Compile Include="Models\Messages\V0100\BodyCategoryDto.cs" />
     <Compile Include="Models\Messages\V0100\BodyChannelDto.cs" />

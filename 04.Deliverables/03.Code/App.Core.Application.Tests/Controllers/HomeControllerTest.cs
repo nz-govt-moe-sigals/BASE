@@ -11,7 +11,7 @@
         public void Index()
         {
             // Arrange
-            var controller = new HomeController(null);
+            var controller = new AboutController(null);
 
             // Act
             var result = controller.Index() as ViewResult;
@@ -24,7 +24,7 @@
         public void About()
         {
             // Arrange
-            var controller = new HomeController(null);
+            var controller = new AboutController(null);
 
             // Act
             var result = controller.About() as ViewResult;

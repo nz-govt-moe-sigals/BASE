@@ -18,7 +18,7 @@
                 "{tenant}/{locale}/{controller}/{action}/{id}",
                 new
                 {
-                    controller = "Home",
+                    controller = "About",
                     action = "Index",
                     id = UrlParameter.Optional
                 },
@@ -34,7 +34,7 @@
                 "{tenant}/{controller}/{action}/{id}",
                 new
                 {
-                    controller = "Home",
+                    controller = "About",
                     action = "Index",
                     id = UrlParameter.Optional
                 },
@@ -49,7 +49,7 @@
                 "{locale}/{controller}/{action}/{id}",
                 new
                 {
-                    controller = "Home",
+                    controller = "About",
                     action = "Index",
                     id = UrlParameter.Optional
                 },
@@ -65,7 +65,7 @@
                 "{controller}/{action}/{id}",
                 new
                 {
-                    controller = "Home",
+                    controller = "About",
                     action = "Index",
                     id = UrlParameter.Optional
                 },

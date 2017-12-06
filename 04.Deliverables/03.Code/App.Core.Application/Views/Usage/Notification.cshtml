@@ -18,11 +18,15 @@ Some messages stay current until they are read, some messages have a short lifes
 
 <h3>API Examples</h3>
 
-The following are some example api calls, using OData terms such as $skip, $take, $inlinecount, $expand:
+The following are some example api calls, using OData terms such as $skip, $top, $inlinecount, $expand:
 
 <ul>
     <li><a target="_apis" href="~/OData/notification/">Notifications only</a></li>
-    <li><a target="_apis" href="~/OData/notification/?$skip=1">Notifications, skipping 1.</a></li>
-    <li><a target="_apis" href="~/OData/notification/?$skip=1&$inlinecount=allpages">Notifications, skipping 1, returning with total count.</a></li>
+    <li><a target="_apis" href="~/OData/notification/?$count=true&$top=0">MediaMetadata, Total count.</a></li>
+    <li><a target="_apis" href="~/OData/notification/?$top=3">MediaMetadata, Take 3...</a></li>
+    <li><a target="_apis" href="~/OData/notification/?$top=2">MediaMetadata, Take 2...</a></li>
+    <li><a target="_apis" href="~/OData/notification/?$top=1">MediaMetadata, Take only 11.</a></li>
+    <li><a target="_apis" href="~/OData/notification/?$skip=2&$top=3">Notifications, skipping 2, taking 3.</a></li>
+    <li><a target="_apis" href="~/OData/notification/?$skip=1&$count=true">Notifications, skipping 1, returning with total count.</a></li>
 </ul>
 

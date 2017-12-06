@@ -383,6 +383,7 @@
     <Compile Include="Presentation\Controllers\OIDCController.cs" />
     <Compile Include="Presentation\Controllers\UsageController.cs" />
     <Compile Include="Presentation\Controllers\SetupController.cs" />
+    <Compile Include="Presentation\Controllers\UsageController_Business.cs" />
     <Compile Include="ServiceFacade\API\ApiControllerBase.cs" />
     <Compile Include="ServiceFacade\API\Controllers\ODataControllerBase.cs" />
     <Compile Include="ServiceFacade\API\Controllers\ODataControllerStandardDataBase.cs" />
@@ -391,7 +392,7 @@
     <Compile Include="ServiceFacade\API\Controllers\V0100\ExceptionRecordController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\MediaMetadataController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\NotificationController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\ConfiguratioStepController.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\V0100\ConfigurationStepRecordController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\NotificationUpdateController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\SearchController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\SessionOperationController.cs" />
@@ -405,7 +406,7 @@
     <Compile Include="App_Start\WebMvcFilterConfig.cs" />
     <Compile Include="App_Start\WebMvcRouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Presentation\Controllers\HomeController.cs" />
+    <Compile Include="Presentation\Controllers\AboutController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -489,8 +490,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\About\Index.cshtml" />
     <Content Include="_web.config.appsettings.ignore">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -518,8 +518,22 @@
     <Content Include="Views\Usage\Role.cshtml" />
     <Content Include="Views\Usage\ConfigurationStepRecord.cshtml" />
     <Content Include="Views\Usage\EducationOrganisation.cshtml" />
+    <Content Include="Views\About\Purpose.cshtml" />
+    <Content Include="Views\About\APIFirst.cshtml" />
+    <Content Include="Views\About\SPA.cshtml" />
+    <Content Include="Views\About\NoMVC.cshtml" />
+    <Content Include="Views\About\Security.cshtml" />
+    <Content Include="Views\About\OData.cshtml" />
+    <Content Include="Views\About\OIDC.cshtml" />
+    <Content Include="Views\About\Versioning.cshtml" />
+    <Content Include="Views\About\Development.cshtml" />
+    <Content Include="Views\About\Design.cshtml" />
+    <Content Include="Views\Usage\Metadata.cshtml" />
+    <Content Include="Views\Usage\Organisation.cshtml" />
+    <Content Include="Views\Usage\Person.cshtml" />
     <None Include="web.config.appsettings.secret">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>

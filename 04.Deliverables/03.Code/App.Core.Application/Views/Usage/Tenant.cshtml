@@ -20,10 +20,12 @@ Multi tenancy allow for a single installation being used for different scenarios
 
 <h3>API Examples</h3>
 
-The following are some example api calls, using OData terms such as $skip, $take, $inlinecount, $expand:
+The following are some example api calls, using OData terms such as $skip, $top, $inlinecount, $expand:
 
 <ul>
     <li><a target="_apis" href="~/OData/tenant/">Tenant only</a></li>
+    <li><a target="_apis" href="~/OData/tenant('00000001-0000-0000-0000-000000000000')">Tenant, selected by Id</a></li>
+    <li><a target="_apis" href="~/OData/tenant/?$filter=Key eq 'OrgB'">Tenant, filtered Key</a></li>
     <li><a target="_apis" href="~/OData/tenant/?$expand=DataClassification">Tenant, with DataClassification</a></li>
 </ul>
 

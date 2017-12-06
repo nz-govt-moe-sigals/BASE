@@ -13,8 +13,9 @@ using App.Core.Shared.Models.Messages.APIs.V0100;
         public void Define(ODataModelBuilder builder)
         {
             builder.EntitySet<TenantPropertyDto>(ApiControllerNames.TenantProperty);
-            //DTO Type description:
-            builder.EntityType<TenantPropertyDto>().Filter(); //Can be noparam to allow for any.
+            // Optional DTO Type description
+            // Tip/Warning: if you define ops here, at the model level, have to relist all ops allowed (ie, it cancels the globally set operations list):
+            // builder.EntityType<TenantPropertyDto>().Filter(/*noparam to allow for any*/);
             builder.EntityType<TenantPropertyDto>()
                 .HasKey(x => x.Id);
         }

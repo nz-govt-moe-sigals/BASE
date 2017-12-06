@@ -76,7 +76,7 @@
                 .HasMaxLength(Constants.Db.TextFieldSizes.X256)
                 .HasColumnAnnotation("Index",
                     new IndexAnnotation(new IndexAttribute("IX_MediaMetadata_LocalFileName") { IsUnique = true }))
-                .IsRequired();
+                .IsOptional();
         }
     }
 }

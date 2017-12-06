@@ -13,18 +13,21 @@ namespace App.Core.Application.Presentation.Controllers
     using App.Core.Application.Models;
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages;
+    using App.Module2.Infrastructure.Services;
     using App.Module2.Shared.Models.Entities;
 
     /// <summary>
     /// Controller for the Views that explain how to use this framework.
     /// </summary>
-    public class UsageController : Controller
+    public partial class UsageController : Controller
     {
         private readonly IMediaUploadService _mediaUploadService;
+        private readonly IStudentRawImportService _studentRawImportService;
 
-        public UsageController(IDiagnosticsTracingService diagnosticsTracingService, IMediaUploadService mediaUploadService)
+        public UsageController(IDiagnosticsTracingService diagnosticsTracingService, IMediaUploadService mediaUploadService, IStudentRawImportService studentRawImportService)
         {
             this._mediaUploadService = mediaUploadService;
+            this._studentRawImportService = studentRawImportService;
             // Tip: Being a template, it is preferable that the HomeController/Default Route does not get injected with a
             // DbContext, as that implies a correct Connection string and/or Authentication, that may fail the first
             // time deployed to Azure.
@@ -34,6 +37,10 @@ namespace App.Core.Application.Presentation.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Setup";
+            return View();
+        }
+        public ActionResult Metadata()
+        {
             return View();
         }
         public ActionResult ConfigurationStepRecord()
@@ -78,11 +85,6 @@ namespace App.Core.Application.Presentation.Controllers
 
 
 
-        public ActionResult EducationOrganisation()
-        {
-            return View();
-        }
-
         [HttpGet]
         public ActionResult MediaMetadata()
         {
@@ -95,6 +97,7 @@ namespace App.Core.Application.Presentation.Controllers
         {
             try
             {
+                
                 if (file.ContentLength > 0)
                 {
                     var uploadedMedia = new UploadedMedia();
@@ -105,9 +108,20 @@ namespace App.Core.Application.Presentation.Controllers
                     using (var reader = new System.IO.BinaryReader(file.InputStream))
                     {
                         uploadedMedia.Stream = reader.ReadBytes(file.ContentLength);
+
+                        this._mediaUploadService.Process(uploadedMedia, mediaUpload.DataClassification);
+                        ViewBag.Message = "File Uploaded Successfully!!";
+
+                        if (StringComparer.InvariantCultureIgnoreCase.Compare(mediaUpload.SomeCustomData,
+                                "Directory") == 0)
+                        {
+                            long check = file.InputStream.Position;
+                            //Rewind:
+                            file.InputStream.Position = 0;
+                            _studentRawImportService.Do(file.InputStream);
+                        }
+                        //Place Using outside of Do, as it will close the underlying Stream (not good)
                     }
-                    this._mediaUploadService.Process(uploadedMedia, mediaUpload.DataClassification);
-                    ViewBag.Message = "File Uploaded Successfully!!";
                 }
                 else
                 {
@@ -124,5 +138,8 @@ namespace App.Core.Application.Presentation.Controllers
         }
 
 
+
+
     }
+
 }

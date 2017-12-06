@@ -8,6 +8,7 @@ namespace App.Module2.Infrastructure.Services
 {
     using System.IO;
     using App.Module2.Shared.Models.Entities;
+    using App.Module2.Shared.Models.Messages.Imports;
 
     public interface ISchoolCsvImporterService
     {

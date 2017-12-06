@@ -12,6 +12,7 @@ namespace App.Core.Shared.Models.Entities
             //REMEMBER: ID MUST BE PROVIDED IN THIS CASE...
         }
 
+        //TODO: Convert to DateTimeOffset
         public virtual DateTime? CreatedOnUtc { get; set; }
         public virtual string CreatedByPrincipalId { get; set; }
         public virtual DateTime? LastModifiedOnUtc { get; set; }

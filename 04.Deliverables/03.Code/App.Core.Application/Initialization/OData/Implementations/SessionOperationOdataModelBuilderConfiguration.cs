@@ -13,8 +13,9 @@ using App.Core.Shared.Models.Messages.APIs.V0100;
         public void Define(ODataModelBuilder builder)
         {
             builder.EntitySet<SessionDto>(ApiControllerNames.SessionOperation);
-            //DTO Type description:
-            builder.EntityType<SessionOperationDto>().Filter(); //Can be noparam to allow for any.
+            // Optional DTO Type description
+            // Tip/Warning: if you define ops here, at the model level, have to relist all ops allowed (ie, it cancels the globally set operations list):
+            // builder.EntityType<SessionOperationDto>().Filter(/*noparam to allow for any*/);
             builder.EntityType<SessionOperationDto>()
                 .HasKey(x => x.Id);
         }

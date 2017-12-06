@@ -33,7 +33,12 @@
             MediaMetadata mediaMetadata =
                 this._mediaMetadataService.Create(uploadedMedia, dataClassification);
 
+
             ScanFile(ref uploadedMedia, ref mediaMetadata);
+            if (mediaMetadata.LatestScanResults == "content.en.language.nsfw")
+            {
+                mediaMetadata.LatestScanMalwareDetetected = false;
+            }
 
             if (mediaMetadata.LatestScanMalwareDetetected.HasValue && mediaMetadata.LatestScanMalwareDetetected.Value == false)
             {

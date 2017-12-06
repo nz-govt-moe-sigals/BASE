@@ -10,7 +10,7 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages.APIs.V0100;
 
-    public class ConfiguratioStepController : ODataControllerBase
+    public class ConfigurationStepRecordController : ODataControllerBase
     {
         private readonly IUniversalDateTimeService _dateTimeService;
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
@@ -18,7 +18,7 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
         private readonly IObjectMappingService _objectMappingService;
         private readonly ISecureAPIMessageAttributeService _secureApiMessageAttribute;
 
-        public ConfiguratioStepController(
+        public ConfigurationStepRecordController(
             IUniversalDateTimeService dateTimeService,
             IDiagnosticsTracingService diagnosticsTracingService,
             IPrincipalService principalService,

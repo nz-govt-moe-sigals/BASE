@@ -107,6 +107,10 @@
     <Compile Include="Db\Migrations\Core\201712040611471_Initialize.Designer.cs">
       <DependentUpon>201712040611471_Initialize.cs</DependentUpon>
     </Compile>
+    <Compile Include="Db\Migrations\Core\201712051129121_MediaMetadata.LocalName.cs" />
+    <Compile Include="Db\Migrations\Core\201712051129121_MediaMetadata.LocalName.Designer.cs">
+      <DependentUpon>201712051129121_MediaMetadata.LocalName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineDataClassification.cs" />
     <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineExceptionRecord.cs" />
     <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefinePrincipal2Tags.cs" />
@@ -291,6 +295,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Db\Migrations\Core\201712040611471_Initialize.resx">
       <DependentUpon>201712040611471_Initialize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Db\Migrations\Core\201712051129121_MediaMetadata.LocalName.resx">
+      <DependentUpon>201712051129121_MediaMetadata.LocalName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

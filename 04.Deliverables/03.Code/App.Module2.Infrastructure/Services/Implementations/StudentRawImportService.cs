@@ -6,29 +6,35 @@ namespace App.Module2.Infrastructure.Services
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
     using App.Module2.Shared.Models.Entities;
+    using App.Module2.Shared.Models.Messages.Imports;
 
     public class StudentRawImportService : IStudentRawImportService
     {
         private readonly IRepositoryService _repositoryService;
         private readonly ISchoolCsvImporterService _schoolCsvImporterService;
+        private readonly IUnitOfWorkService _unitOfWorkService;
 
-        public StudentRawImportService(IRepositoryService repositoryService, ISchoolCsvImporterService schoolCsvImporterService)
+        public StudentRawImportService(IRepositoryService repositoryService, ISchoolCsvImporterService schoolCsvImporterService, IUnitOfWorkService unitOfWorkService)
         {
             this._repositoryService = repositoryService;
             this._schoolCsvImporterService = schoolCsvImporterService;
+            this._unitOfWorkService = unitOfWorkService;
         }
         public void Do(Stream stream)
         {
 
+            this._unitOfWorkService.Commit();
+
             int counter = 0;
             int schoolBaseCounter = 1000;
-            int principalBaseCounter = 10000;
+            int principalBaseCounter = schoolBaseCounter * 200;
 
             foreach (SchoolDescriptionRaw schoolDescriptionRaw in this._schoolCsvImporterService.Import(stream)) //  SchoolSeedingData.data.Take(10))
             {
                 counter++;
 
                 int schoolId = (int)decimal.Parse(schoolDescriptionRaw.SchoolID);
+
                 Guid schoolGuid = (schoolBaseCounter + schoolId).ToGuid();
 
                 Guid principalGuid = (principalBaseCounter + schoolId).ToGuid();
@@ -125,7 +131,7 @@ namespace App.Module2.Infrastructure.Services
                 this._repositoryService.AddOrUpdate<EducationOrganisation>(Constants.Db.AppModule2DbContextNames.Module2, p => p.Id, school);
 
 
-
+                //this._unitOfWorkService.Commit(Constants.Db.AppModule2DbContextNames.Module2);
 
 
             }

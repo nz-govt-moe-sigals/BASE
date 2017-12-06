@@ -15,7 +15,9 @@
         {
             builder.EntitySet<ExceptionRecordDto>(ApiControllerNames.ExceptionRecord);
             //DTO Type description:
-            builder.EntityType<ExceptionRecordDto>().Filter(); //Can be noparam to allow for any.
+            // Optional DTO Type description
+            // Tip/Warning: if you define ops here, at the model level, have to relist all ops allowed (ie, it cancels the globally set operations list):
+            // builder.EntityType<ExceptionRecordDto>().Filter(/*noparam to allow for any*/);
             builder.EntityType<ExceptionRecordDto>()
                 .HasKey(x => x.Id);
         }

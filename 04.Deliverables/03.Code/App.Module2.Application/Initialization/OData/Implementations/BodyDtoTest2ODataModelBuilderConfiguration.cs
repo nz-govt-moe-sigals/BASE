@@ -13,8 +13,9 @@
 //        public void Define(ODataModelBuilder builder)
 //        {
 //            builder.EntitySet<BodyDto>("BodyDtoTest2".ToLower());
-//            //DTO Type description:
-//            builder.EntityType<BodyDto>().Filter(); //Can be noparam to allow for any.
+//            // Optional DTO Type description
+//            // Tip/Warning: if you define ops here, at the model level, have to relist all ops allowed (ie, it cancels the globally set operations list):
+//            // builder.EntityType<ExampleDto>().Filter(/*noparam to allow for any*/);
 //            builder.EntityType<BodyDto>()
 //                .HasKey(x => x.Id);
 

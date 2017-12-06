@@ -42,6 +42,7 @@ namespace App.Core.Application.Filters.WebApi
             sessionOperationLog.ActionName = actionContext.ActionDescriptor.ActionName;
             sessionOperationLog.ActionArguments = JsonConvert.SerializeObject(actionContext.ActionArguments,
                 Formatting.Indented, new JsonSerializerSettings {ReferenceLoopHandling = ReferenceLoopHandling.Ignore});
+            sessionOperationLog.ResponseCode = "-1";
 
             //No need to start tracking, and it is allready automatically committed when gotten.
 

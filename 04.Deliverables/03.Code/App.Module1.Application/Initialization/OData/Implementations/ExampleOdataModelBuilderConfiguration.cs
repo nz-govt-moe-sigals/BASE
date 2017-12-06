@@ -29,6 +29,10 @@
 
             // For each DTO, specify it's Id:
             builder.EntityType<ExampleDto>().HasKey(x => x.Id);
+            // Optional DTO Type description
+            // Tip/Warning: if you define ops here, at the model level, have to relist all ops allowed (ie, it cancels the globally set operations list):
+            // builder.EntityType<ExampleDto>().Filter(/*noparam to allow for any*/);
+
             // And what is acceptable to search on:
             builder.EntityType<ExampleDto>().Filter("PublicText"); //Can be noparam to allow for any.
         }

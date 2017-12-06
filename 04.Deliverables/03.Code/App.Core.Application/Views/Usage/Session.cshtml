@@ -8,11 +8,18 @@
 
 <h3>API Examples</h3>
 
-The following are some example api calls, using OData terms such as $skip, $take, $inlinecount, $expand:
+The following are some example api calls, using OData terms such as $skip, $top, $inlinecount, $expand:
 
 <ul>
+    
+
     <li><a target="_apis" href="~/OData/session/">Session only</a></li>
-    <li><a target="_apis" href="~/OData/session/?$expand=Operations">Session, with Operations</a></li>
+    <li><a target="_apis" href="~/OData/session/?$count=true&top=0">Session Count</a></li>
+    <li><a target="_apis" href="~/OData/session/?$filter=StartDateTimeUtc%20gt%202017-12-03T03:22:28.000Z">Sessions, filtered on a UTC date</a></li>
+    <li><a target="_apis" href="~/OData/session/?$expand=Operations">Session, with expanded Operations</a></li>
+    <li><a target="_apis" href="~/OData/session/?$expand=Operations&$filter=Operations/any(o: o/ClientIp eq '127.0.0.1')">Session who's operation came in from a specific IP.</a></li>
+    <li><a target="_apis" href="~/OData/session/?$expand=Operations&$filter=Operations/any(o: o/ClientIp eq '4.3.2.1')">Session who's operation came in from a specific IP (proving it works as nothing is returned).</a></li>
+    <li><a target="_apis" href="~/OData/session/?$expand=Operations&$filter=Operations/any(o: o/Url eq '/Home/About')">Session who accessed a specific url/endpoint.</a></li>
 </ul>
 
 
