@@ -20,17 +20,17 @@
             Assert.IsNotNull(result);
         }
 
-        [TestMethod]
-        public void About()
-        {
-            // Arrange
-            var controller = new AboutController(null);
+        //[TestMethod]
+        //public void About()
+        //{
+        //    // Arrange
+        //    var controller = new AboutController(null);
 
-            // Act
-            var result = controller.About() as ViewResult;
+        //    // Act
+        //    var result = controller.About() as ViewResult;
 
-            // Assert
-            Assert.AreEqual("Your application description page.", result.ViewBag.Message);
-        }
+        //    // Assert
+        //    Assert.AreEqual("Your application description page.", result.ViewBag.Message);
+        //}
     }
 }

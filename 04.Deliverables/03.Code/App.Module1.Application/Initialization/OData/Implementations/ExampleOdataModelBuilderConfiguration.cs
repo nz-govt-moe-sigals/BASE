@@ -4,7 +4,7 @@
     using App.Core.Shared.Models.Messages.API.V0100;
     using App.Module1.Application.Initialization.OData;
 
-    public class ExampleOdataModelBuilderConfiguration : IOdataModelBuilderConfiguration
+    public class ExampleOdataModelBuilderConfiguration : IAppModule1OdataModelBuilderConfiguration
     {
         public void Define(object builder)
         {

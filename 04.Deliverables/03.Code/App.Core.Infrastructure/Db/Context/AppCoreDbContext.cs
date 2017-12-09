@@ -38,7 +38,8 @@
         {
             modelBuilder.HasDefaultSchema(SchemaKey);
 
-            new AppCoreModelBuilderOrchestrator().Initialize(modelBuilder);
+            AppDependencyLocator.Current.GetInstance<AppCoreModelBuilderOrchestrator>()
+                .Initialize(modelBuilder);
         }
 
         // Intercept all saves in order to clean up loose ends

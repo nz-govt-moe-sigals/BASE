@@ -8,11 +8,18 @@
 
     public class AppModule2DbContextModelBuilderDefineBody : IHasAppModule2DbContextModelBuilderInitializer
     {
+        private readonly TenantFKEtcConvention _tenantFkEtcConvention;
+
+        public AppModule2DbContextModelBuilderDefineBody(TenantFKEtcConvention tenantFkEtcConvention)
+        {
+            this._tenantFkEtcConvention = tenantFkEtcConvention;
+        }
+
         public void Define(DbModelBuilder modelBuilder)
         {
             var order = 1;
 
-            new TenantFKEtcConvention().Define<Body>(modelBuilder, ref order);
+            this._tenantFkEtcConvention.Define<Body>(modelBuilder, ref order);
 
 
             modelBuilder.Entity<Body>()
@@ -33,12 +40,12 @@
             modelBuilder.Entity<Body>()
                 .Property(x => x.Key)
                 .HasColumnOrder(order++)
-                .HasMaxLength(256)
+                .HasMaxLength(App.Core.Infrastructure.Constants.Db.TextFieldSizes.X256)
                 .IsOptional();
             modelBuilder.Entity<Body>()
                 .Property(x => x.Description)
                 .HasColumnOrder(order++)
-                .HasMaxLength(256)
+                .HasMaxLength(App.Core.Infrastructure.Constants.Db.TextFieldSizes.X256)
                 .IsOptional();
             modelBuilder.Entity<Body>()
                 .HasMany(x => x.Properties)
@@ -59,7 +66,7 @@
             modelBuilder.Entity<Body>()
                 .Property(x => x.Notes)
                 .HasColumnOrder(order++)
-                .HasMaxLength(2048)
+                .HasMaxLength(App.Core.Infrastructure.Constants.Db.TextFieldSizes.X2048)
                 .IsOptional();
         }
     }

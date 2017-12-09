@@ -111,6 +111,10 @@
     <Compile Include="Db\Migrations\Core\201712051129121_MediaMetadata.LocalName.Designer.cs">
       <DependentUpon>201712051129121_MediaMetadata.LocalName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Db\Migrations\Core\201712070939290_SchoolRefs.cs" />
+    <Compile Include="Db\Migrations\Core\201712070939290_SchoolRefs.Designer.cs">
+      <DependentUpon>201712070939290_SchoolRefs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineDataClassification.cs" />
     <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineExceptionRecord.cs" />
     <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefinePrincipal2Tags.cs" />
@@ -124,6 +128,7 @@
     <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalCategory.cs" />
     <Compile Include="Db\Schema\AppModuleModelBuilderCommonConfiguration.cs" />
     <Compile Include="Db\Schema\Conventions\IdConvention.cs" />
+    <Compile Include="Db\Schema\Conventions\TenantedReferenceDataConvention.cs" />
     <Compile Include="Db\Schema\Conventions\TenantFKEtcConvention.cs" />
     <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefinePrincipal.cs" />
     <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalProperty.cs" />
@@ -134,16 +139,18 @@
     <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineTenantProperty.cs" />
     <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineDataToken.cs" />
     <Compile Include="Db\Schema\AppCoreModelBuilderOrchestrator.cs" />
+    <Compile Include="Exceptions\ConfigurationException.cs" />
+    <Compile Include="Exceptions\ToDoException.cs" />
     <Compile Include="ExtensionMethods\ByteArrayExtensions.cs" />
     <Compile Include="Factories\DbContextFactory.cs" />
-    <Compile Include="Initialization\DependencyResolution\DependencyResolution\AppCoreRegistry.cs" />
-    <Compile Include="Initialization\DependencyResolution\DependencyResolution\AppDependencyLocator.cs" />
-    <Compile Include="Initialization\DependencyResolution\DependencyResolution\CommonServiceLocatorInitiator.cs" />
-    <Compile Include="Initialization\DependencyResolution\DependencyResolution\StructureMapContainerLocator.cs" />
-    <Compile Include="Initialization\DependencyResolution\DependencyResolution\ICustomRegistrationConvention .cs" />
-    <Compile Include="Initialization\DependencyResolution\DependencyResolution\IoC.cs" />
-    <Compile Include="Initialization\DependencyResolution\DependencyResolution\StructureMapRepository.cs" />
-    <Compile Include="Initialization\DependencyResolution\DependencyResolution\StructureMapServiceResolution.cs" />
+    <Compile Include="Initialization\DependencyResolution\AppCoreRegistry.cs" />
+    <Compile Include="Initialization\DependencyResolution\AppDependencyLocator.cs" />
+    <Compile Include="Initialization\DependencyResolution\CommonServiceLocatorInitiator.cs" />
+    <Compile Include="Initialization\DependencyResolution\StructureMapContainerLocator.cs" />
+    <Compile Include="Initialization\DependencyResolution\ICustomRegistrationConvention.cs" />
+    <Compile Include="Initialization\DependencyResolution\IoC.cs" />
+    <Compile Include="Initialization\DependencyResolution\StructureMapRepository.cs" />
+    <Compile Include="Initialization\DependencyResolution\StructureMapServiceResolution.cs" />
     <Compile Include="ExtensionMethods\AppDomainExtensions.cs" />
     <Compile Include="ExtensionMethods\AssemblyExtensions.cs" />
     <Compile Include="ExtensionMethods\DbContextExtensions.cs" />
@@ -161,6 +168,7 @@
     <Compile Include="Initialization\Authentication\IHasOidcScopeInitializer.cs" />
     <Compile Include="Initialization\IInitializer.cs" />
     <Compile Include="Initialization\Implementations\HasOidcScopeInitializer.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\Base\ObjectMap_TenantedReferenceType_TenantedReferenceTypeDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ConfigurationStepRecord_ConfigurationStepRecordDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_DataClassification_DataClassificationDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_Role_RoleDto.cs" />
@@ -168,11 +176,13 @@
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_PrincipalTag_PrincipalTagDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_PrincipalCategory_PrincipalCategoryDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ExceptionRecord_ExceptionRecordDto.cs" />
-    <Compile Include="Initialization\OData\IOdataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\IAppCoreODataModelBuilderConfigurationBase.cs" />
+    <Compile Include="Initialization\OData\IAppCoreOdataModelBuilderBase.cs" />
+    <Compile Include="Initialization\OData\IOdataModelBuilderConfigurationBase.cs" />
+    <Compile Include="Initialization\OData\IOdataModelBuilderBase.cs" />
     <Compile Include="Initialization\Search\Implementations\SearchProviderBase.cs" />
     <Compile Include="Initialization\Search\Implementations\TenantSearchProvider.cs" />
     <Compile Include="Initialization\Search\ISearchProvider.cs" />
-    <Compile Include="Initialization\DependencyResolution\ServiceLocatorInitializer.cs" />
     <Compile Include="Initialization\DependencyResolution\PowershellServiceLocatorConfig.cs" />
     <Compile Include="Interceptors\Class1.cs" />
     <Compile Include="Services\Implementations\ContextService.cs" />
@@ -285,7 +295,8 @@
     <Content Include="Db\Schema\README.MANY2ONE.txt" />
     <Content Include="Db\Schema\README.ONE2MANY.txt" />
     <Content Include="Db\Schema\README.ONE2ONE.txt" />
-    <Content Include="Initialization\DependencyResolution\DependencyResolution\README.txt" />
+    <Content Include="Initialization\DependencyResolution\README.STRUCTUREMAP.IDEMPOTENCY.txt" />
+    <Content Include="Initialization\DependencyResolution\README.txt" />
     <Content Include="Initialization\Search\README.txt" />
     <Content Include="Initialization\ObjectMaps\README.txt" />
   </ItemGroup>
@@ -298,6 +309,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Db\Migrations\Core\201712051129121_MediaMetadata.LocalName.resx">
       <DependentUpon>201712051129121_MediaMetadata.LocalName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Db\Migrations\Core\201712070939290_SchoolRefs.resx">
+      <DependentUpon>201712070939290_SchoolRefs.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

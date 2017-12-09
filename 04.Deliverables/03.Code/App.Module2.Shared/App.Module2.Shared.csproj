@@ -46,6 +46,17 @@
     <Compile Include="Models\Entities\BodyCategory.cs" />
     <Compile Include="Models\Entities\BodyChannel.cs" />
     <Compile Include="Models\Entities\BodyLocation.cs" />
+    <Compile Include="Models\Entities\ReferenceData\SchoolDecile.cs" />
+    <Compile Include="Models\Entities\ReferenceData\SchoolAuthority.cs" />
+    <Compile Include="Models\Entities\ReferenceData\SchoolDefinition.cs" />
+    <Compile Include="Models\Entities\ReferenceData\SchoolEducationRegion.cs" />
+    <Compile Include="Models\Entities\ReferenceData\SchoolGender.cs" />
+    <Compile Include="Models\Entities\ReferenceData\SchoolGeneralElectorate.cs" />
+    <Compile Include="Models\Entities\ReferenceData\SchoolMinistryOfEducationLocalOffice.cs" />
+    <Compile Include="Models\Entities\ReferenceData\SchoolMaoriElectorate.cs" />
+    <Compile Include="Models\Entities\ReferenceData\SchoolRegionalCouncil.cs" />
+    <Compile Include="Models\Entities\ReferenceData\SchoolTerritorialAuthoritywithAucklandLocalBoard.cs" />
+    <Compile Include="Models\Entities\ReferenceData\SchoolType.cs" />
     <Compile Include="Models\Enums\BodyChannelType.cs" />
     <Compile Include="Models\Entities\BodyClaim.cs" />
     <Compile Include="Models\Entities\BodyProperty.cs" />
@@ -62,6 +73,17 @@
     <Compile Include="Models\Messages\V0100\BodyNameDto.cs" />
     <Compile Include="Models\Messages\V0100\BodyPropertyDto.cs" />
     <Compile Include="Models\Messages\V0100\EducationOrganisation.cs" />
+    <Compile Include="Models\Messages\V0100\ReferenceTypes\SchoolTerritorialAuthorityDto.cs" />
+    <Compile Include="Models\Messages\V0100\ReferenceTypes\SchoolTypeDto.cs" />
+    <Compile Include="Models\Messages\V0100\ReferenceTypes\SchoolAuthorityDto.cs" />
+    <Compile Include="Models\Messages\V0100\ReferenceTypes\SchoolDecileDto.cs" />
+    <Compile Include="Models\Messages\V0100\ReferenceTypes\SchoolDefinitionDto.cs" />
+    <Compile Include="Models\Messages\V0100\ReferenceTypes\SchoolEducationRegionDto.cs" />
+    <Compile Include="Models\Messages\V0100\ReferenceTypes\SchoolGenderDto.cs" />
+    <Compile Include="Models\Messages\V0100\ReferenceTypes\SchoolGeneralElectorateDto.cs" />
+    <Compile Include="Models\Messages\V0100\ReferenceTypes\SchoolMaoriElectorateDto.cs" />
+    <Compile Include="Models\Messages\V0100\ReferenceTypes\SchoolMinistryOfEducationLocalOfficeDto.cs" />
+    <Compile Include="Models\Messages\V0100\ReferenceTypes\SchoolRegionalCouncilDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

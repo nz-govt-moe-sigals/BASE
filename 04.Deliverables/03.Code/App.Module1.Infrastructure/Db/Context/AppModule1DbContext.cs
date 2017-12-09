@@ -42,7 +42,8 @@
             AppModuleModelBuilderCommonConfiguration.Initialize(modelBuilder);
 
             // Initialize tables specific to this object:
-            new AppModule1DbModelBuilderOrchestrator().Initialize(modelBuilder);
+            AppDependencyLocator.Current.GetInstance<AppModule1DbModelBuilderOrchestrator>()
+                .Initialize(modelBuilder);
         }
 
         // Intercept all saves in order to clean up loose ends

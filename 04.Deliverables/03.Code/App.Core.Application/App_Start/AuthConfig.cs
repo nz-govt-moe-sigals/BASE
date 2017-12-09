@@ -21,7 +21,7 @@
             var diagnosticsTracingService = AppDependencyLocator.Current.GetInstance<IDiagnosticsTracingService>();
             var hostSettingsService = AppDependencyLocator.Current.GetInstance<IHostSettingsService>();
 
-            var scopes = ScanAllModulesForRequiredScopeDefinitions();
+            var scopes = ScanForAllModulesRequiredScopeDefinitions();
 
 
             var authorisationConfiguration = hostSettingsService.GetObject<AuthorisationConfiguration>();
@@ -55,7 +55,7 @@
             }
         }
 
-        private static string[] ScanAllModulesForRequiredScopeDefinitions()
+        private static string[] ScanForAllModulesRequiredScopeDefinitions()
         {
             var scopes = new string[] { };
             var t = new List<string>();

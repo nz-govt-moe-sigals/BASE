@@ -8,11 +8,17 @@
 
     public class AppModule2DbContextModelBuilderDefineBodyProperty : IHasAppModule2DbContextModelBuilderInitializer
     {
+        private readonly TenantFKEtcConvention _tenantFkEtcConvention;
+
+        public AppModule2DbContextModelBuilderDefineBodyProperty(TenantFKEtcConvention tenantFkEtcConvention)
+        {
+            this._tenantFkEtcConvention = tenantFkEtcConvention;
+        }
         public void Define(DbModelBuilder modelBuilder)
         {
             var order = 1;
 
-            new TenantFKEtcConvention().Define<BodyProperty>(modelBuilder, ref order);
+            _tenantFkEtcConvention.Define<BodyProperty>(modelBuilder, ref order);
 
 
             modelBuilder.Entity<BodyProperty>()
@@ -23,13 +29,13 @@
             modelBuilder.Entity<BodyProperty>()
                 .Property(x => x.Key)
                 .HasColumnOrder(order++)
-                .HasMaxLength(50)
+                .HasMaxLength(App.Core.Infrastructure.Constants.Db.TextFieldSizes.X64)
                 .IsRequired();
 
             modelBuilder.Entity<BodyProperty>()
                 .Property(x => x.Value)
                 .HasColumnOrder(order++)
-                .HasMaxLength(1024)
+                .HasMaxLength(App.Core.Infrastructure.Constants.Db.TextFieldSizes.X1024)
                 .IsOptional();
         }
     }

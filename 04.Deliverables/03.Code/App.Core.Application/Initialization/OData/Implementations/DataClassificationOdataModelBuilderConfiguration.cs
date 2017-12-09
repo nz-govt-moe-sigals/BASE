@@ -4,7 +4,7 @@ namespace App.Core.Application.Initialization.OData.Implementations
     using App.Core.Application.Constants.Api;
     using App.Core.Shared.Models.Messages.APIs.V0100;
 
-    public class DataClassificationOdataModelBuilderConfiguration : IOdataModelBuilderConfiguration
+    public class DataClassificationOdataModelBuilderConfiguration : IAppCoreOdataModelBuilderConfiguration
     {
         public void Define(object builder)
         {

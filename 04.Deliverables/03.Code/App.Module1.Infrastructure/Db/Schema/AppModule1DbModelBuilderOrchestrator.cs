@@ -6,6 +6,14 @@
 
     public class AppModule1DbModelBuilderOrchestrator
     {
+        private readonly AppModule1DbContextModelBuilderDefineExample _appModule1DbContextModelBuilderDefineExample;
+
+        public AppModule1DbModelBuilderOrchestrator(AppModule1DbContextModelBuilderDefineExample appModule1DbContextModelBuilderDefineExample)
+        {
+            this._appModule1DbContextModelBuilderDefineExample = appModule1DbContextModelBuilderDefineExample;
+        }
+
+
         public void Initialize(DbModelBuilder modelBuilder)
         {
             //if (!PowershellServiceLocatorConfig.Activated)
@@ -36,7 +44,7 @@
 
         private void DefineByHand(DbModelBuilder modelBuilder)
         {
-            new AppModule1DbContextModelBuilderDefineExample().Define(modelBuilder);
+            this._appModule1DbContextModelBuilderDefineExample.Define(modelBuilder);
         }
     }
 }

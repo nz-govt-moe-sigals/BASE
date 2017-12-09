@@ -57,6 +57,9 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="StructureMap, Version=4.5.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StructureMap.4.5.1\lib\net45\StructureMap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.AppContext.4.3.0\lib\net46\System.AppContext.dll</HintPath>
@@ -144,15 +147,41 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\Api\ApiControllerNames.cs" />
+    <Compile Include="Initialization\DependencyResolution\AppModule2Registry.cs" />
+    <Compile Include="Initialization\OData\IAppModule2OdataModelBuilder.cs" />
+    <Compile Include="Initialization\OData\Implementations\AppModule2OdataModelBuilder.cs" />
     <Compile Include="Initialization\OData\Implementations\BodyDtoTest2ODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\EducationOrganisationODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\BodyODataModelBuilderConfiguration.cs" />
-    <Compile Include="Initialization\OData\IOdataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\BaseClasses\AppModule2ODataModelBuilderConfigurationBase.cs" />
+    <Compile Include="Initialization\OData\Implementations\SchoolAuthorityODataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\SchoolDecileODataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\SchoolDefinitionODataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\SchoolEducationRegionODataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\SchoolGenderODataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\SchoolGeneralElectorateODataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\SchoolMaoriElectorateODataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\SchoolMinistryOfEducationLocalOfficeODataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\SchoolRegionalCouncilODataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\SchoolTypeODataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\SchoolTerritorialAuthorityWithAucklandLocalBoardODataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\IAppModule2OdataModelBuilderConfiguration.cs" />
     <Compile Include="Presentation\Controllers\Module1Controller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceFacade\API\Controllers\ApiControllerBase.cs" />
     <Compile Include="ServiceFacade\API\Controllers\ODataControllerBase.cs" />
     <Compile Include="ServiceFacade\API\Controllers\ODataControllerStandardDataBase.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\V0100\SchoolTypeController.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\V0100\SchoolTerritorialAuthorityWithAucklandLocalBoardController.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\V0100\SchoolRegionalCouncilController.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\V0100\SchoolMaoriElectorateController.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\V0100\SchoolMinistryOfEducationLocalOfficeController.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\V0100\SchoolGeneralElectorateController.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\V0100\SchoolGenderController.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\V0100\SchoolEducationRegionController.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\V0100\SchoolDefinitionController.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\V0100\SchoolDecileController.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\V0100\SchoolAuthorityController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\EducationOrganisationDtoController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\BodyDtoController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\BodyDtoTest2Controller.cs" />
@@ -188,7 +217,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DependencyResolution\README.txt" />
+    <Content Include="Initialization\DependencyResolution\README.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class PrincipalCategoryDto /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */
+    public class PrincipalCategoryDto /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ : IHasGuidId
     {
         public virtual Guid Id { get; set; }
 

@@ -316,6 +316,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DependencyResolution\AppModule1Registry.cs" />
+    <Compile Include="Initialization\DependencyResolution\AppCoreRegistry.cs" />
+    <Compile Include="Initialization\OData\IAppOdataModelBuilder.cs" />
+    <Compile Include="Initialization\OData\IAppOdataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\AppCoreOdataModelBuilder.cs" />
+    <Compile Include="Initialization\OData\Implementations\AppOdataModelBuilder.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\DbContextConfig.cs" />
@@ -333,6 +339,8 @@
     <Compile Include="App_Start\WebApiRouteConfig.cs" />
     <Compile Include="Constants\Api\ApiControllerNames.cs" />
     <Compile Include="FilterConfig.cs" />
+    <Compile Include="Initialization\OData\IAppCoreOdataModelBuilder.cs" />
+    <Compile Include="Initialization\OData\Implementations\BaseClasses\AppCoreODataModelBuilderConfigurationBase.cs" />
     <Compile Include="Initialization\OData\Implementations\DataClassificationOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\ExceptionRecordOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\ConfigurationStepRecordOdataModelBuilderConfiguration.cs" />
@@ -345,7 +353,7 @@
     <Compile Include="Initialization\OData\Implementations\SessionOperationOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\TenantClaimOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\TenantPropertyOdataModelBuilderConfiguration.cs" />
-    <Compile Include="Initialization\OData\IOdataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\IAppCoreOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\NotificationOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\PrincipalOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\SessionOdataModelBuilderConfiguration.cs" />
@@ -417,6 +425,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\images\system_description\ddd_overview.png" />
+    <Content Include="Assets\images\system_description\iso-25010.png" />
     <Content Include="Assets\test.txt" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -531,6 +541,7 @@
     <Content Include="Views\Usage\Metadata.cshtml" />
     <Content Include="Views\Usage\Organisation.cshtml" />
     <Content Include="Views\Usage\Person.cshtml" />
+    <Content Include="Views\Usage\MiscExamples.cshtml" />
     <None Include="web.config.appsettings.secret">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -538,7 +549,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\images\" />
     <Folder Include="Views\AadLogin\" />
   </ItemGroup>
   <ItemGroup>

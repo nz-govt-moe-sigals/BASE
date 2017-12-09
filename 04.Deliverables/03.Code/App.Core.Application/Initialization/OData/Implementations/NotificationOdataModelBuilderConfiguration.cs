@@ -4,24 +4,14 @@
     using App.Core.Application.Constants.Api;
     using App.Core.Shared.Models.Messages.APIs.V0100;
 
-    public class NotificationOdataModelBuilderConfiguration : IOdataModelBuilderConfiguration
+
+    public class NotificationOdataModelBuilderConfiguration : AppCoreODataModelBuilderConfigurationBase<NotificationDto>
     {
-        public void Define(object builder)
+        public NotificationOdataModelBuilderConfiguration() : base(ApiControllerNames.Notification)
         {
-           Define(builder as ODataModelBuilder);
-        }
-
-        public void Define(ODataModelBuilder builder)
-        {
-            builder.EntitySet<NotificationDto>(ApiControllerNames.Notification);
-            // Optional DTO Type description
-            // Tip/Warning: if you define ops here, at the model level, have to relist all ops allowed (ie, it cancels the globally set operations list):
-            // builder.EntityType<NotificationDto>().Filter(/*noparam to allow for any*/);
-            builder.EntityType<NotificationDto>()
-                .HasKey(x => x.Id);
-
 
         }
-
     }
+
+  
 }

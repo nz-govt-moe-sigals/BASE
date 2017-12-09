@@ -70,13 +70,18 @@
     <Compile Include="Db\Migrations\Module1\201711212223463_Initialize.Designer.cs">
       <DependentUpon>201711212223463_Initialize.cs</DependentUpon>
     </Compile>
+    <Compile Include="Db\Migrations\Module1\201712070939502_SchoolRefs.cs" />
+    <Compile Include="Db\Migrations\Module1\201712070939502_SchoolRefs.Designer.cs">
+      <DependentUpon>201712070939502_SchoolRefs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Db\Schema\AppModule1DbModelBuilderOrchestrator.cs" />
     <Compile Include="Db\Schema\AppModule1DbContextModelBuilderDefineExample.cs" />
     <Compile Include="Initialization\DependencyResolution\AppModule1Registry.cs" />
     <Compile Include="Initialization\Db\IHasAppModule1DbContextSeedInitializer.cs" />
     <Compile Include="Initialization\Db\IHasAppModule1DbContextModelBuilderInitializer.cs" />
-    <Compile Include="Initialization\DependencyResolution\AppModule1ServiceLocatorInitializer.cs" />
     <Compile Include="Initialization\Authorisation\HasOidcScopeInitializer.cs" />
+    <Compile Include="Initialization\OData\IAppModule1ODataModelBuilderConfigurationBase.cs" />
+    <Compile Include="Initialization\OData\IAppModule1OdataModelBuilderBase.cs" />
     <Compile Include="Initialization\Search\ExampleSearchProvider.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ExampleDto_Example.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_Example_ExampleDto.cs" />
@@ -113,6 +118,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Db\Migrations\Module1\201711212223463_Initialize.resx">
       <DependentUpon>201711212223463_Initialize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Db\Migrations\Module1\201712070939502_SchoolRefs.resx">
+      <DependentUpon>201712070939502_SchoolRefs.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

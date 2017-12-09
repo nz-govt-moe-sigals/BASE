@@ -43,6 +43,12 @@ namespace App.Core.Application.Presentation.Controllers
         {
             return View();
         }
+
+        public ActionResult MiscExamples()
+        {
+            return View();
+        }
+
         public ActionResult ConfigurationStepRecord()
         {
             return View();

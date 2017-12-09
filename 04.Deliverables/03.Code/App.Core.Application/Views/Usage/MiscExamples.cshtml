@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Misc Examples";
+    ViewBag.Subtitle = "ODATA is rich...";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Subtitle</h3>
+
+The OData protocol extends REST to solve lots of common problems. 
+
+
+<h3>API Examples</h3>
+    The following are some example api calls, using OData terms such as $skip, $top, $inlinecount, $expand:
+
+    <ul>
+        <li><a target="_apis" href="~/OData/core/notification/?$count=true&$top=0">MediaMetadata, Total count.</a></li>
+        <li><a target="_apis" href="~/OData/core/dataclassification/?$skip=2&$top=3&$count=true">DataClassifications, skipping 2, Taking 3, with totalCount</a></li>
+        <li><a target="_apis" href="~/OData/core/exceptionrecord/?$filter=Level eq App.Core.Shared.Models.Entities.TraceLevel'Error'&$count=true">Exceptions, filtered by an Enum Value, Counted.</a></li>
+        <li><a target="_apis" href="~/OData/core/principal/?$expand=DataClassification,Properties,Claims">Principal, with DataClassification, Properties and Claims</a></li>
+    <li><a target="_apis" href="~/OData/core/session/?$filter=StartDateTimeUtc%20gt%202017-12-03T03:22:28.000Z">Sessions, filtered on a UTC date</a></li>
+    <li><a target="_apis" href="~/OData/core/session/?$expand=Operations">Session, with expanded Operations</a></li>
+    <li><a target="_apis" href="~/OData/core/session/?$expand=Operations&$filter=Operations/any(o: o/ClientIp eq '127.0.0.1')">Session who's operation came in from a specific IP.</a></li>
+    <li><a target="_apis" href="~/OData/core/session/?$expand=Operations&$filter=Operations/any(o: o/ClientIp eq '4.3.2.1')">Session who's child Operations came in from a specific IP (proving it works as nothing is returned).</a></li>
+    <li><a target="_apis" href="~/OData/core/session/?$expand=Operations&$filter=Operations/any(o: o/Url eq '/Home/About')">Session who child Operations are for a specific url/endpoint.</a></li>
+    <li><a target="_apis" href="~/OData/core/session/?$expand=Operations($select=Id,Url)&$filter=Operations/any(o: o/Url eq '/Home/About')">Session who child Operations are for a specific url/endpoint AND Selecting just a subset of the child items.</a></li>
+
+    </ul>

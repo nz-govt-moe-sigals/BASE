@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\Db\AppModule2DbContextNames.cs" />
+    <Compile Include="Constants\Db\OrganisationPropertyKeys.cs" />
     <Compile Include="Db\Context\AppModule2DatabaseInitializer.cs" />
     <Compile Include="Db\Context\AppModule2DatabaseInitializerConfigurer.cs" />
     <Compile Include="Db\Context\AppModule2DbContext.cs" />
@@ -73,6 +74,10 @@
     <Compile Include="Db\Migrations\Module2\201711212224205_Initialize.Designer.cs">
       <DependentUpon>201711212224205_Initialize.cs</DependentUpon>
     </Compile>
+    <Compile Include="Db\Migrations\Module2\201712070940119_SchoolRefs.cs" />
+    <Compile Include="Db\Migrations\Module2\201712070940119_SchoolRefs.Designer.cs">
+      <DependentUpon>201712070940119_SchoolRefs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Db\Schema\AppModule1DbModelBuilderOrchestrator.cs" />
     <Compile Include="Db\Schema\AppModule2DbContextModelBuilderDefineBody.cs" />
     <Compile Include="Db\Schema\AppModule2DbContextModelBuilderDefineBodyAlias.cs" />
@@ -81,7 +86,18 @@
     <Compile Include="Db\Schema\AppModule2DbContextModelBuilderDefineBodyClaim.cs" />
     <Compile Include="Db\Schema\AppModule2DbContextModelBuilderDefineBodyProperty.cs" />
     <Compile Include="Db\Schema\AppModule2DbContextModelBuilderDefineEducationOrganisation.cs" />
-    <Compile Include="Initialization\Implementations\AppModule2Registry.cs" />
+    <Compile Include="Db\Schema\AppModule2DbContextModelBuilderDefineSchoolAuthority.cs" />
+    <Compile Include="Db\Schema\AppModule2DbContextModelBuilderDefineSchoolDecile.cs" />
+    <Compile Include="Db\Schema\AppModule2DbContextModelBuilderDefineSchoolDefinition.cs" />
+    <Compile Include="Db\Schema\AppModule2DbContextModelBuilderDefineSchoolEducationRegion.cs" />
+    <Compile Include="Db\Schema\AppModule2DbContextModelBuilderDefineSchoolGender.cs" />
+    <Compile Include="Db\Schema\AppModule2DbContextModelBuilderDefineSchoolGeneralElectorate.cs" />
+    <Compile Include="Db\Schema\AppModule2DbContextModelBuilderDefineSchoolMinistryOfEducationLocalOffice.cs" />
+    <Compile Include="Db\Schema\AppModule2DbContextModelBuilderDefineSchoolMoariElectorate.cs" />
+    <Compile Include="Db\Schema\AppModule2DbContextModelBuilderDefineSchoolRegionalCouncil.cs" />
+    <Compile Include="Db\Schema\AppModule2DbContextModelBuilderDefineSchoolTerritorialAuthoritywithAucklandLocalBoard.cs" />
+    <Compile Include="Db\Schema\AppModule2DbContextModelBuilderDefineSchoolType.cs" />
+    <Compile Include="Initialization\DependencyResolution\AppModule2Registry.cs" />
     <Compile Include="Initialization\Implementations\AppModule2ServiceLocatorInitializer.cs" />
     <Compile Include="Initialization\Db\IHasAppModule2DbContextModelBuilderInitializer.cs" />
     <Compile Include="Initialization\Db\IHasAppModule2DbContextSeedInitializer.cs" />
@@ -93,9 +109,22 @@
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_EducationOrganisation_EducationOrganisationDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_Body_BodyDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_BodyCategory_BodyCategoryDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolAuthority_SchoolAuthorityDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolDecile_SchoolDecileDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolDefinition_SchoolDefinitionDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolEducationRegion_SchoolEducationRegionDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolGender_SchoolGenderDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolMaoriElectorate_SchoolMaoriElectorateDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolMOELocalOffice_SchoolMOELocalOfficeDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolReferenceType_SchoolGeneralElectorateDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolType_SchoolTypeDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolRegionalCouncil_SchoolRegionalCouncilDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolTerritorialAuthority_SchoolTerritorialAuthorityDto.cs" />
     <Compile Include="Initialization\Search\ExampleSearchProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Implementations\NameParsingService.cs" />
     <Compile Include="Services\Implementations\SchoolCsvImporterService.cs" />
+    <Compile Include="Services\INameParsingService.cs" />
     <Compile Include="Services\ISchoolCsvImporterService.cs" />
     <Compile Include="Services\IStudentRawImportService.cs" />
     <Compile Include="Services\Implementations\StudentRawImportService.cs" />
@@ -131,6 +160,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Db\Migrations\Module2\201711212224205_Initialize.resx">
       <DependentUpon>201711212224205_Initialize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Db\Migrations\Module2\201712070940119_SchoolRefs.resx">
+      <DependentUpon>201712070940119_SchoolRefs.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

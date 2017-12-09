@@ -1,10 +1,10 @@
-//namespace App.Core.Application.Initialization.OData.Implementations
+//namespace App.Module2.Application.Initialization.OData.Implementations
 //{
 //    using System.Web.OData.Builder;
 //    using App.Module2.Application.Initialization.OData;
 //    using App.Module2.Shared.Models.Messages.V0100;
 
-//    public class BodyDtoTest2ODataModelBuilderConfiguration : IOdataModelBuilderConfiguration
+//    public class BodyDtoTest2ODataModelBuilderConfiguration : IAppModule2ODataModelBuilderConfiguration
 //    {
 //        public void Define(object builder)
 //        {

@@ -109,6 +109,7 @@
     <Compile Include="Models\Entities\DataToken.cs" />
     <Compile Include="Models\Entities\PrincipalSetting.cs" />
     <Compile Include="Models\Messages\APIs\V0100\NotificationUpdateDto.cs" />
+    <Compile Include="Models\Messages\BaseClasses\ReferenceDtoBase.cs" />
     <Compile Include="Models\Messages\ConfigurationTestStepSummary.cs" />
     <Compile Include="Models\Messages\Enums\ConfigurationStepStatus.cs" />
     <Compile Include="Models\Messages\Enums\ConfigurationStepType.cs" />
@@ -153,7 +154,6 @@
   <ItemGroup>
     <Folder Include="Models\Messages\APIs\V0100\Dtos\" />
     <Folder Include="Models\Messages\APIs\V0100\Enums\" />
-    <Folder Include="Models\Messages\BaseClasses\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -6,6 +6,7 @@
     using App.Core.Shared.Models;
     using App.Core.Shared.Models.Entities;
 
+
     public class TenantFKEtcConvention : NonTenantFKEtcConvention
     {
         public void Define<T>(DbModelBuilder modelBuilder, ref int order)

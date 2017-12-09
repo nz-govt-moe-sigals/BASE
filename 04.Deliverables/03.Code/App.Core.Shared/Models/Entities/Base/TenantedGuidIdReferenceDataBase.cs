@@ -3,11 +3,15 @@ namespace App.Core.Shared.Models.Entities.Base
     using System;
     using App.Core.Shared.Factories;
 
+    public abstract class KeyedTenantedGuidIdReferenceDataBase : TenantedGuidIdReferenceDataBase
+    {
+    }
+
+
     public abstract class TenantedGuidIdReferenceDataBase :TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase,
         IHasEnabled,
         IHasText,
         IHasDisplayOrderHint
-
     {
 
         public virtual bool Enabled { get; set; }

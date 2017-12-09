@@ -5,22 +5,13 @@
     using App.Core.Application.Constants.Api;
     using App.Core.Shared.Models.Messages.APIs.V0100;
 
-    public class PrincipalPropertyOdataModelBuilderConfiguration : IOdataModelBuilderConfiguration
+    public class PrincipalPropertyOdataModelBuilderConfiguration : AppCoreODataModelBuilderConfigurationBase<PrincipalPropertyDto>
     {
-
-        public void Define(object builder)
+        public PrincipalPropertyOdataModelBuilderConfiguration() : base(ApiControllerNames.PrincipalProperty)
         {
-            Define(builder as ODataModelBuilder);
-        }
-        public void Define(ODataModelBuilder builder)
-        {
-            builder.EntitySet<PrincipalPropertyDto>(ApiControllerNames.PrincipalProperty);
 
-            // Optional DTO Type description
-            // Tip/Warning: if you define ops here, at the model level, have to relist all ops allowed (ie, it cancels the globally set operations list):
-            // builder.EntityType<PrincipalPropertyDto>().Filter(/*noparam to allow for any*/);
-            builder.EntityType<PrincipalPropertyDto>()
-                .HasKey(x => x.Id);
         }
     }
+
+   
 }

@@ -3,6 +3,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity;
     using App.Core.Infrastructure.Db.Schema.Conventions;
+    using App.Core.Shared.Models.Entities.Base;
     using App.Module2.Infrastructure.Initialization;
     using App.Module2.Infrastructure.Initialization.Db;
     using App.Module2.Shared.Models.Entities;
@@ -10,11 +11,19 @@
     public class
         AppModule2DbContextModelBuilderDefineEducationOrganisation : IHasAppModule2DbContextModelBuilderInitializer
     {
+        private readonly TenantFKEtcConvention _tenantFkEtcConvention;
+
+        
+        public AppModule2DbContextModelBuilderDefineEducationOrganisation(TenantFKEtcConvention _tenantFkEtcConvention)
+        {
+            this._tenantFkEtcConvention = _tenantFkEtcConvention;
+        }
+
         public void Define(DbModelBuilder modelBuilder)
         {
             var order = 1;
 
-            new TenantFKEtcConvention().Define<EducationOrganisation>(modelBuilder, ref order);
+            this._tenantFkEtcConvention.Define<EducationOrganisation>(modelBuilder, ref order);
 
             modelBuilder.Entity<EducationOrganisation>()
                 .Property(x => x.Id)

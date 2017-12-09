@@ -5,4 +5,11 @@
     {
         void Initialize();
     }
+
+
+    public interface IHasInitialize<in T>
+    {
+        void Initialize(T argument);
+    }
+
 }

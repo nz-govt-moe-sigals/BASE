@@ -1,35 +1,81 @@
 namespace App.Module2.Infrastructure.Services
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using App.Core.Infrastructure.Services;
+    using App.Core.Shared.Models;
     using App.Core.Shared.Models.Entities;
+    using App.Core.Shared.Models.Entities.Base;
+    using App.Module2.Infrastructure.Constants.Db;
     using App.Module2.Shared.Models.Entities;
     using App.Module2.Shared.Models.Messages.Imports;
 
+    class XXX
+    {
+        public string Key
+        {
+            get; set;
+        }
+    }
     public class StudentRawImportService : IStudentRawImportService
     {
         private readonly IRepositoryService _repositoryService;
         private readonly ISchoolCsvImporterService _schoolCsvImporterService;
         private readonly IUnitOfWorkService _unitOfWorkService;
+        private readonly INameParsingService _nameParsingService;
 
-        public StudentRawImportService(IRepositoryService repositoryService, ISchoolCsvImporterService schoolCsvImporterService, IUnitOfWorkService unitOfWorkService)
+        List<SchoolAuthority> _schoolAuthority;
+        List<SchoolDecile> _schoolDecile;
+        List<SchoolDefinition> _schoolDefinition;
+        List<SchoolEducationRegion> _schoolEducationRegion;
+        List<SchoolGender> _schoolGender;
+        List<SchoolGeneralElectorate> _schoolGeneralElectorate;
+        List<SchoolMaoriElectorate> _schoolMaoriElectorate;
+        List<SchoolMinistryOfEducationLocalOffice> _schoolMinistryOfEducationLocalOffice;
+        List<SchoolRegionalCouncil> _schoolRegionalCouncil;
+        List<SchoolTerritorialAuthorityWithAucklandLocalBoard> _schoolTerritorialAuthorityWithAucklandLocalBoard;
+        List<SchoolType> _schoolTypes;
+
+
+        public StudentRawImportService(IRepositoryService repositoryService, ISchoolCsvImporterService schoolCsvImporterService, IUnitOfWorkService unitOfWorkService, INameParsingService nameParsingService)
         {
             this._repositoryService = repositoryService;
             this._schoolCsvImporterService = schoolCsvImporterService;
             this._unitOfWorkService = unitOfWorkService;
+            this._nameParsingService = nameParsingService;
         }
+
         public void Do(Stream stream)
         {
 
             this._unitOfWorkService.Commit();
 
+            this.PrepareKnownReferenceDataLists();
+
             int counter = 0;
             int schoolBaseCounter = 1000;
             int principalBaseCounter = schoolBaseCounter * 200;
 
-            foreach (SchoolDescriptionRaw schoolDescriptionRaw in this._schoolCsvImporterService.Import(stream)) //  SchoolSeedingData.data.Take(10))
+            SchoolDescriptionRaw[] schoolDescriptionRawSet = this._schoolCsvImporterService.Import(stream);
+
+
+            try
+            {
+                BuildReferenceData(schoolDescriptionRawSet);
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+
+
+            this._unitOfWorkService.Commit();
+
+
+
+            foreach (SchoolDescriptionRaw schoolDescriptionRaw in schoolDescriptionRawSet) //  SchoolSeedingData.data.Take(10))
             {
                 counter++;
 
@@ -41,46 +87,14 @@ namespace App.Module2.Infrastructure.Services
 
 
                 //Create the Org backing the School:
-                var schoolBody = new Body
-                {
-                    Id = schoolGuid,
-                    TenantFK = 1.ToGuid(),
-                    RecordState = RecordPersistenceState.Active,
-                    CategoryFK = 1.ToGuid(),
-                    Type = BodyType.Organisation,
-                    Name = schoolDescriptionRaw.Name
-                };
+                var esatablishmentOrganisation = BuildEstablishmentOrganisation(schoolDescriptionRaw, schoolGuid);
 
-                //Add a Name to the Org, then make it Preferred:
-
-                //Save after saving BodyName:
-                this._repositoryService.AddOrUpdate<Body>(Constants.Db.AppModule2DbContextNames.Module2, p => p.Id, schoolBody);
-
-                var schoolName = new BodyAlias
-                {
-                    Id = schoolGuid,
-                    TenantFK = 1.ToGuid(),
-                    OwnerFK = schoolBody.Id,
-                    Title = schoolDescriptionRaw.Name,
-                    Name = schoolDescriptionRaw.Name
-                };
-                this._repositoryService.AddOrUpdate<BodyAlias>(Constants.Db.AppModule2DbContextNames.Module2, p => p.Id, schoolName);
+                var establishmentOrganisationAlias = BuildEstablishmentOrganisationName(schoolDescriptionRaw, schoolGuid, esatablishmentOrganisation);
 
                 //schoolBody.PreferredName = schoolName;
 
-
-
                 ////Add a chanel to the Org:
-                var orgChannel = new BodyChannel
-                {
-                    Id = schoolGuid,
-                    TenantFK = 1.ToGuid(),
-                    OwnerFK = schoolGuid,
-                    Title = "Office Phone",
-                    Protocol = BodyChannelType.Landline,
-                    Address = schoolDescriptionRaw.Telephone
-                };
-                this._repositoryService.AddOrUpdate<BodyChannel>(Constants.Db.AppModule2DbContextNames.Module2, p => p.Id, orgChannel);
+                var establishmentOrganisationChannel = BuildEstablishmentOrganisationChannel(schoolDescriptionRaw, schoolGuid);
 
                 ////Ensure the Channel is part of the Org:
                 //if (!schoolBody.Channels.Any(x => x.Id == orgChannel.Id))
@@ -91,54 +105,247 @@ namespace App.Module2.Infrastructure.Services
 
 
 
-                //Add claims
-                if (schoolBody.Claims.SingleOrDefault(x => x.Key == "Longitude") == null)
-                {
-                    schoolBody.Claims.Add(new BodyClaim { TenantFK = 1.ToGuid(), Authority = "Foo", AuthoritySignature = "Bar", Key = "Longitude", Value = schoolDescriptionRaw.Longitude });
-                }
-                if (schoolBody.Claims.SingleOrDefault(x => x.Key == "Latitude") == null)
-                {
-                    schoolBody.Claims.Add(new BodyClaim { TenantFK = 1.ToGuid(), Authority = "Foo", AuthoritySignature = "Bar", Key = "Latitude", Value = schoolDescriptionRaw.Latitude });
-                }
+                BuildEducationEstablishmentOrganisationClaims(schoolDescriptionRaw, esatablishmentOrganisation);
 
-                if (schoolBody.Properties.SingleOrDefault(x => x.Key == "Longitude") == null)
-                {
-                    schoolBody.Properties.Add(new BodyProperty { TenantFK = 1.ToGuid(), Key = "Longitude", Value = schoolDescriptionRaw.Longitude });
-                }
-                if (schoolBody.Properties.SingleOrDefault(x => x.Key == "Latitude") == null)
-                {
-                    schoolBody.Properties.Add(new BodyProperty { TenantFK = 1.ToGuid(), Key = "Latitude", Value = schoolDescriptionRaw.Latitude });
-                }
-
-
+                BuildEducationEstablishmentOrganisationProperties(schoolDescriptionRaw, esatablishmentOrganisation);
 
                 ////Now do the principal:
-                var principal = new Body
-                {
-                    Id = principalGuid,
-                    TenantFK = 1.ToGuid(),
-                    Type = BodyType.Person,
-                    CategoryFK = 2.ToGuid(),
-                    Name = schoolDescriptionRaw.Principal
-                };
+                var principal = BuildEducationEstablishmentPrincipal(schoolDescriptionRaw, principalGuid);
 
-                this._repositoryService.AddOrUpdate<Body>(Constants.Db.AppModule2DbContextNames.Module2, p => p.Id, principal);
-
-
-
-                //Make a school with both Org and Principal:
-                var school = new EducationOrganisation { Id = schoolGuid, TenantFK = 1.ToGuid(), Type = SchoolEstablishmentType.School, Key = schoolDescriptionRaw.Name, OrganisationFK = schoolBody.Id, PrincipalFK = principal.Id };
-                this._repositoryService.AddOrUpdate<EducationOrganisation>(Constants.Db.AppModule2DbContextNames.Module2, p => p.Id, school);
-
+                BuildEducationEstablishment(schoolDescriptionRaw, schoolGuid, esatablishmentOrganisation, principal);
 
                 //this._unitOfWorkService.Commit(Constants.Db.AppModule2DbContextNames.Module2);
+            }
+        }
+
+        private int BuildReferenceData(SchoolDescriptionRaw[] schoolDescriptionRaw)
+        {
+            int score = 0;
+            score+= BuildReferenceData_EducationEstablishmentAuthority<SchoolAuthority>(schoolDescriptionRaw.Select(x => x.Authority).Distinct().ToArray(), _schoolAuthority);
+            score += BuildReferenceData_EducationEstablishmentAuthority<SchoolDecile>(schoolDescriptionRaw.Select(x => x.Decile).Distinct().ToArray(), _schoolDecile);
+            score+= BuildReferenceData_EducationEstablishmentAuthority<SchoolDefinition>(schoolDescriptionRaw.Select(x => x.Definition).Distinct().ToArray(), _schoolDefinition);
+            score+= BuildReferenceData_EducationEstablishmentAuthority<SchoolEducationRegion>(schoolDescriptionRaw.Select(x => x.EducationRegion).Distinct().ToArray(), _schoolEducationRegion);
+            score+= BuildReferenceData_EducationEstablishmentAuthority<SchoolGender>(schoolDescriptionRaw.Select(x => x.GenderofStudents).Distinct().ToArray(), _schoolGender);
+            score+= BuildReferenceData_EducationEstablishmentAuthority<SchoolGeneralElectorate>(schoolDescriptionRaw.Select(x => x.GeneralElectorate).Distinct().ToArray(), _schoolGeneralElectorate);
+            score+= BuildReferenceData_EducationEstablishmentAuthority<SchoolMaoriElectorate>(schoolDescriptionRaw.Select(x => x.MaoriElectorate).Distinct().ToArray(), _schoolMaoriElectorate);
+            score+= BuildReferenceData_EducationEstablishmentAuthority<SchoolMinistryOfEducationLocalOffice>(schoolDescriptionRaw.Select(x => x.MinistryofEducationLocalOffice).Distinct().ToArray(), _schoolMinistryOfEducationLocalOffice);
+            score+= BuildReferenceData_EducationEstablishmentAuthority<SchoolRegionalCouncil>(schoolDescriptionRaw.Select(x => x.RegionalCouncil).Distinct().ToArray(), _schoolRegionalCouncil);
+            score += BuildReferenceData_EducationEstablishmentAuthority<SchoolTerritorialAuthorityWithAucklandLocalBoard>(schoolDescriptionRaw.Select(x => x.TerritorialAuthoritywithAucklandLocalBoard).Distinct().ToArray(), _schoolTerritorialAuthorityWithAucklandLocalBoard);
+            //score += BuildReferenceData_EducationEstablishmentAuthority<SchoolType>(schoolDescriptionRaw.Select(x => x.Type).Distinct().ToArray(), _schoolAuthority);
+            return score;
+        }
 
 
+        private int BuildReferenceData_EducationEstablishmentAuthority<T>(string[] srcRecords, IEnumerable<IHasText> _source)
+            where T: TenantedGuidIdReferenceDataBase,new()
+        {
+
+
+            var missing = GetMissingRecords<IHasText>(srcRecords, _source);
+
+            foreach (string tmp in missing )
+            {
+                var newRec = new T
+                {
+                    Enabled = true,
+                    Text = tmp,
+                };
+                this._repositoryService.AddOnCommit<T>(Constants.Db.AppModule2DbContextNames.Module2, newRec);
             }
 
+            return missing.Count();
 
-            
         }
+
+ 
+
+
+        private string[] GetMissingRecords<T>(string[] inSource, IEnumerable<T> inDb) where T : IHasText
+        {
+            var notYetInDb = inSource.Where(x => !inDb.Any(y => y.Text == x)).ToArray();
+            return notYetInDb;
+        }
+
+
+        private void BuildReferenceData_EducationEstablishmentGender(SchoolDescriptionRaw[] schoolDescriptionRaw)
+        {
+            var tmp = schoolDescriptionRaw.Select(x => new
+            {
+                Key = x.GenderofStudents
+            }).Distinct();
+        }
+
+        private static void BuildEducationEstablishmentOrganisationProperties(SchoolDescriptionRaw schoolDescriptionRaw, Body esatablishmentOrganisation)
+        {
+            if (esatablishmentOrganisation.Properties.SingleOrDefault(x => x.Key == OrganisationPropertyKeys.Longitude) == null)
+            {
+                esatablishmentOrganisation.Properties.Add(new BodyProperty
+                {
+                    TenantFK = 1.ToGuid(),
+                    Key = OrganisationPropertyKeys.Longitude,
+                    Value = schoolDescriptionRaw.Longitude
+                });
+            }
+            if (esatablishmentOrganisation.Properties.SingleOrDefault(x => x.Key == OrganisationPropertyKeys.Latitude) == null)
+            {
+                esatablishmentOrganisation.Properties.Add(new BodyProperty
+                {
+                    TenantFK = 1.ToGuid(),
+                    Key = OrganisationPropertyKeys.Latitude,
+                    Value = schoolDescriptionRaw.Latitude
+                });
+            }
+        }
+
+        private static void BuildEducationEstablishmentOrganisationClaims(SchoolDescriptionRaw schoolDescriptionRaw, Body esatablishmentOrganisation)
+        {
+//Add claims
+            if (esatablishmentOrganisation.Claims.SingleOrDefault(x => x.Key == OrganisationPropertyKeys.Longitude) == null)
+            {
+                esatablishmentOrganisation.Claims.Add(new BodyClaim
+                {
+                    TenantFK = 1.ToGuid(),
+                    Authority = "Foo",
+                    AuthoritySignature = "Bar",
+                    Key = OrganisationPropertyKeys.Longitude,
+                    Value = schoolDescriptionRaw.Longitude
+                });
+            }
+
+            if (esatablishmentOrganisation.Claims.SingleOrDefault(x => x.Key == OrganisationPropertyKeys.Latitude) == null)
+            {
+                esatablishmentOrganisation.Claims.Add(new BodyClaim
+                {
+                    TenantFK = 1.ToGuid(),
+                    Authority = "Foo",
+                    AuthoritySignature = "Bar",
+                    Key = OrganisationPropertyKeys.Latitude,
+                    Value = schoolDescriptionRaw.Latitude
+                });
+            }
+        }
+
+
+        private Body BuildEstablishmentOrganisation(SchoolDescriptionRaw schoolDescriptionRaw, Guid schoolGuid)
+        {
+            var educationEstablishmentOrganisation = new Body
+            {
+                Id = schoolGuid,
+                TenantFK = 1.ToGuid(),
+                RecordState = RecordPersistenceState.Active,
+                CategoryFK = 1.ToGuid(),
+                Type = BodyType.Organisation,
+                Name = schoolDescriptionRaw.Name
+            };
+
+            //Add a Name to the Org, then make it Preferred:
+
+            //Save after saving BodyName:
+            this._repositoryService.AddOrUpdate<Body>(Constants.Db.AppModule2DbContextNames.Module2, p => p.Id, educationEstablishmentOrganisation);
+            return educationEstablishmentOrganisation;
+        }
+
+        private BodyAlias BuildEstablishmentOrganisationName(SchoolDescriptionRaw schoolDescriptionRaw, Guid schoolGuid, Body schoolBody)
+        {
+            var educationEstablishmentOrganisationName = new BodyAlias
+            {
+                Id = schoolGuid,
+                TenantFK = 1.ToGuid(),
+                OwnerFK = schoolBody.Id,
+                Title = schoolDescriptionRaw.Name,
+                Name = schoolDescriptionRaw.Name
+            };
+            this._repositoryService.AddOrUpdate<BodyAlias>(Constants.Db.AppModule2DbContextNames.Module2, p => p.Id,
+                educationEstablishmentOrganisationName);
+
+            return educationEstablishmentOrganisationName;
+        }
+
+
+        private BodyChannel BuildEstablishmentOrganisationChannel(SchoolDescriptionRaw schoolDescriptionRaw, Guid schoolGuid)
+        {
+            var educationEstablishmentOrganisationChannel = new BodyChannel
+            {
+                Id = schoolGuid,
+                TenantFK = 1.ToGuid(),
+                OwnerFK = schoolGuid,
+                Title = OrganisationPropertyKeys.OfficePhone,
+                Protocol = BodyChannelType.Landline,
+                Address = schoolDescriptionRaw.Telephone
+            };
+
+            this._repositoryService.AddOrUpdate<BodyChannel>(Constants.Db.AppModule2DbContextNames.Module2, p => p.Id,
+                educationEstablishmentOrganisationChannel);
+
+            return educationEstablishmentOrganisationChannel;
+        }
+
+
+
+
+        private Body BuildEducationEstablishmentPrincipal(SchoolDescriptionRaw schoolDescriptionRaw, Guid principalGuid)
+        {
+            var parsedNames = _nameParsingService.Parse(schoolDescriptionRaw.Principal, singleNameIsLastName: true);
+
+            var principal = new Body
+            {
+                Id = principalGuid,
+                TenantFK = 1.ToGuid(),
+                Type = BodyType.Person,
+                CategoryFK = 2.ToGuid(),
+
+                //Name = schoolDescriptionRaw.Principal,
+                Prefix = parsedNames.Prefix,
+                GivenName = parsedNames.Givenname,
+                MiddleNames = parsedNames.Middlenames,
+                SurName = parsedNames.Surname,
+                Suffix = parsedNames.Suffix
+            };
+
+            this._repositoryService.AddOrUpdate<Body>(Constants.Db.AppModule2DbContextNames.Module2, p => p.Id,
+                principal);
+
+            return principal;
+        }
+
+
+
+
+
+        private void BuildEducationEstablishment(SchoolDescriptionRaw schoolDescriptionRaw, Guid schoolGuid,
+            Body esatablishmentOrganisation, Body principal)
+        {
+            //Make a school with both Org and Principal:
+
+            var educationEstablishment = new EducationOrganisation
+            {
+                Id = schoolGuid,
+                TenantFK = 1.ToGuid(),
+                Type = SchoolEstablishmentType.School,
+                Key = schoolDescriptionRaw.Name,
+                OrganisationFK = esatablishmentOrganisation.Id,
+                PrincipalFK = principal.Id
+            };
+
+            this._repositoryService.AddOrUpdate<EducationOrganisation>(Constants.Db.AppModule2DbContextNames.Module2,
+                p => p.Id, educationEstablishment);
+        }
+
+        private void PrepareKnownReferenceDataLists()
+        {
+            _schoolAuthority = this._repositoryService.GetQueryableSet<SchoolAuthority>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
+            _schoolDecile = this._repositoryService.GetQueryableSet<SchoolDecile>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
+            _schoolDefinition = this._repositoryService.GetQueryableSet<SchoolDefinition>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
+            _schoolEducationRegion = this._repositoryService.GetQueryableSet<SchoolEducationRegion>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
+            _schoolGender = this._repositoryService.GetQueryableSet<SchoolGender>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
+            _schoolGeneralElectorate = this._repositoryService.GetQueryableSet<SchoolGeneralElectorate>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
+            _schoolMaoriElectorate = this._repositoryService.GetQueryableSet<SchoolMaoriElectorate>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
+            _schoolMinistryOfEducationLocalOffice = this._repositoryService.GetQueryableSet<SchoolMinistryOfEducationLocalOffice>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
+            _schoolRegionalCouncil = this._repositoryService.GetQueryableSet<SchoolRegionalCouncil>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
+            _schoolTerritorialAuthorityWithAucklandLocalBoard = this._repositoryService.GetQueryableSet<SchoolTerritorialAuthorityWithAucklandLocalBoard>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
+            _schoolTypes = this._repositoryService.GetQueryableSet<SchoolType>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
+        }
+
 
     }
 }

@@ -8,34 +8,18 @@
 
     public class AppModule2DbContextModelBuilderDefineBodyCategory : IHasAppModule2DbContextModelBuilderInitializer
     {
+        private readonly TenantedReferenceDataConvention _tenantedReferenceDataConvention;
+
+        public AppModule2DbContextModelBuilderDefineBodyCategory(TenantedReferenceDataConvention tenantedReferenceDataConvention)
+        {
+            this._tenantedReferenceDataConvention = tenantedReferenceDataConvention;
+        }
+
         public void Define(DbModelBuilder modelBuilder)
         {
             var order = 1;
 
-
-            new TenantFKEtcConvention().Define<BodyCategory>(modelBuilder, ref order);
-
-            modelBuilder.Entity<BodyCategory>()
-                .Property(x => x.Enabled)
-                .HasColumnOrder(order++)
-                .IsRequired();
-
-            modelBuilder.Entity<BodyCategory>()
-                .Property(x => x.Text)
-                .HasColumnOrder(order++)
-                .HasMaxLength(50)
-                .IsRequired();
-
-            modelBuilder.Entity<BodyCategory>()
-                .Property(x => x.DisplayOrderHint)
-                .HasColumnOrder(order++)
-                .IsRequired();
-
-            modelBuilder.Entity<BodyCategory>()
-                .Property(x => x.DisplayStyleHint)
-                .HasColumnOrder(order++)
-                .HasMaxLength(50)
-                .IsOptional();
+            _tenantedReferenceDataConvention.Define<BodyCategory>(modelBuilder, ref order);
 
 
         }
