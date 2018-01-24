@@ -5,6 +5,15 @@
     public class BundleConfig
     {
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
+
+
+        /// <summary>
+        /// Registers the bundles.
+        /// <para>
+        /// Invoked from <see cref="WebMvcConfig.Configure"/>
+        /// </para>
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(

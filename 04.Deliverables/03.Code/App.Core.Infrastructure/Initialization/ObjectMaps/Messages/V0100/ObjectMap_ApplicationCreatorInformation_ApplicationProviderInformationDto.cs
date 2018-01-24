@@ -1,0 +1,20 @@
+namespace App.Core.Infrastructure.Initialization.ObjectMaps.Messages.V0100
+{
+    using App.Core.Shared.Models.Configuration;
+    using App.Core.Shared.Models.Messages.APIs.V0100;
+    using AutoMapper;
+
+    public class ObjectMap_ApplicationCreatorInformation_ApplicationProviderInformationDto : IHasAutomapperInitializer
+    {
+        public void Initialize(IMapperConfigurationExpression config)
+        {
+            config.CreateMap<ApplicationCreatorInformation, ApplicationProviderInformationDto>()
+                .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
+                .ForMember(t => t.Name, opt => opt.MapFrom(s => s.Name))
+                .ForMember(t => t.Description, opt => opt.MapFrom(s => s.Description))
+                .ForMember(t => t.SiteUrl, opt => opt.MapFrom(s => s.SiteUrl))
+                .ForMember(t => t.ContactUrl, opt => opt.MapFrom(s => s.ContactUrl))
+                ;
+        }
+    }
+}

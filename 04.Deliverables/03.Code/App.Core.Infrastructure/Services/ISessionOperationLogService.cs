@@ -3,6 +3,13 @@
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Services;
 
+    /// <summary>
+    ///  Contract for an Infrastructure Service to
+    /// record the current <see cref="SessionOperation"/>
+    /// log that will be Committed at the end of the 
+    /// Request (delayed so that it can record the Response Code).
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Services.IHasAppCoreService" />
     public interface ISessionOperationLogService : IHasAppCoreService
     {
         /// <summary>

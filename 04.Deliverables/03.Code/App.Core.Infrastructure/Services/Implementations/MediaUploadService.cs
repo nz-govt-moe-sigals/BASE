@@ -8,7 +8,7 @@
     public class MediaUploadService : IMediaUploadService
     {
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
-        private readonly IMediaMalwareVerificationService _mediaMalwareVerificationService;
+        private readonly IMediaMalwareDetectionService _mediaMalwareVerificationService;
         private readonly IMediaMetadataService _mediaMetadataService;
         private readonly IRepositoryService _repositoryService;
         private readonly IUniversalDateTimeService _universalDateTimeService;
@@ -16,7 +16,7 @@
 
         public MediaUploadService(IDiagnosticsTracingService diagnosticsTracingService, IUniversalDateTimeService universalDateTimeService,
             IStorageService storageService,
-            IMediaMalwareVerificationService mediaMalwareVerificationService,
+            IMediaMalwareDetectionService mediaMalwareVerificationService,
             IMediaMetadataService mediaMetadataService, IRepositoryService repositoryService)
         {
             this._diagnosticsTracingService = diagnosticsTracingService;

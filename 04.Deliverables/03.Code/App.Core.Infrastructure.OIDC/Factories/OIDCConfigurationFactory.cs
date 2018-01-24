@@ -18,22 +18,22 @@
 //            var result = new OIDCConfiguration();
 
 //            #region Tenant Specific
-//            result.Tenant = ConfigurationManager.AppSettings.Get(prefix + Constants.HostSettingsKeys.B2CKeys.Tenant);
-//            result.TenantAaInstance = ConfigurationManager.AppSettings.Get(prefix + Constants.HostSettingsKeys.B2CKeys.AadInstance);
+//            result.Tenant = _hostSettingsService.Get(prefix + Constants.HostSettingsKeys.B2CKeys.Tenant);
+//            result.TenantAaInstance = _hostSettingsService.Get(prefix + Constants.HostSettingsKeys.B2CKeys.AadInstance);
 //#pragma warning disable CS0612 // Type or member is obsolete
-//            result.TenantSignUpPolicyId = ConfigurationManager.AppSettings.Get(prefix + Constants.HostSettingsKeys.B2CKeys.SignUpPolicyId);
-//            result.TenantSignInPolicyId = ConfigurationManager.AppSettings.Get(prefix + Constants.HostSettingsKeys.B2CKeys.SignInPolicyId);
+//            result.TenantSignUpPolicyId = _hostSettingsService.Get(prefix + Constants.HostSettingsKeys.B2CKeys.SignUpPolicyId);
+//            result.TenantSignInPolicyId = _hostSettingsService.Get(prefix + Constants.HostSettingsKeys.B2CKeys.SignInPolicyId);
 //#pragma warning restore CS0612 // Type or member is obsolete
-//            result.TenantSignUpSignInPolicyId = ConfigurationManager.AppSettings.Get(prefix + Constants.HostSettingsKeys.B2CKeys.SignUpSignInPolicyId);
-//            result.TenantUserProfilePolicyId = ConfigurationManager.AppSettings.Get(prefix + Constants.HostSettingsKeys.B2CKeys.UserProfilePolicyId);
-//            result.TenantEditProfilePolicyId = ConfigurationManager.AppSettings.Get(prefix + Constants.HostSettingsKeys.B2CKeys.EditProfilePolicyId);
-//            result.TenantResetPasswordPolicyId = ConfigurationManager.AppSettings.Get(prefix + Constants.HostSettingsKeys.B2CKeys.ResetPasswordPolicyId);
+//            result.TenantSignUpSignInPolicyId = _hostSettingsService.Get(prefix + Constants.HostSettingsKeys.B2CKeys.SignUpSignInPolicyId);
+//            result.TenantUserProfilePolicyId = _hostSettingsService.Get(prefix + Constants.HostSettingsKeys.B2CKeys.UserProfilePolicyId);
+//            result.TenantEditProfilePolicyId = _hostSettingsService.Get(prefix + Constants.HostSettingsKeys.B2CKeys.EditProfilePolicyId);
+//            result.TenantResetPasswordPolicyId = _hostSettingsService.Get(prefix + Constants.HostSettingsKeys.B2CKeys.ResetPasswordPolicyId);
 //            #endregion
 
 //            #region Client Specific
-//            result.ClientId = ConfigurationManager.AppSettings.Get(prefix + Constants.HostSettingsKeys.B2CKeys.ClientId);
-//            result.ClientSecret = ConfigurationManager.AppSettings.Get(prefix + Constants.HostSettingsKeys.B2CKeys.ClientSecret);
-//            result.ClientRedirectUri = ConfigurationManager.AppSettings.Get(prefix + Constants.HostSettingsKeys.B2CKeys.ClientRedirectUri);
+//            result.ClientId = _hostSettingsService.Get(prefix + Constants.HostSettingsKeys.B2CKeys.ClientId);
+//            result.ClientSecret = _hostSettingsService.Get(prefix + Constants.HostSettingsKeys.B2CKeys.ClientSecret);
+//            result.ClientRedirectUri = _hostSettingsService.Get(prefix + Constants.HostSettingsKeys.B2CKeys.ClientRedirectUri);
 //            #endregion
 
 //            return result;

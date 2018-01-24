@@ -2,6 +2,17 @@
 {
     using App.Core.Shared.Services;
 
+
+
+    /// <summary>
+    /// Contract for an common Infrastructure Service to 
+    /// manage Host specific, immutable Settings
+    /// (commonly this wraps web.config, etc. settings
+    /// that were injected at deployment time by the 
+    /// Build Engine).
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Services.IImmutableSetingsService" />
+    /// <seealso cref="App.Core.Infrastructure.Services.IHasAppCoreService" />
     public interface IHostSettingsService : IImmutableSetingsService, IHasAppCoreService
     {
         /// <summary>

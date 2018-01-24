@@ -7,19 +7,40 @@
     using App.Core.Infrastructure.Services.Implementations;
     using App.Core.Shared.Models.Messages;
 
+    /// <summary>
+    /// Injectable Startup class for 
+    /// Configuring WebApi Filters.
+    /// </summary>
     public class WebApiFilterConfig
     {
         private readonly ISessionOperationLogService _sessionOperationLogService;
         private readonly IPrincipalService _principalService;
         private readonly IConfigurationStepService _configurationStepService;
 
-        public WebApiFilterConfig(ISessionOperationLogService sessionOperationLogService, IPrincipalService principalService, IConfigurationStepService configurationStepService )
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WebApiFilterConfig"/> class.
+        /// </summary>
+        /// <param name="sessionOperationLogService">The session operation log service.</param>
+        /// <param name="principalService">The principal service.</param>
+        /// <param name="configurationStepService">The configuration step service.</param>
+        public WebApiFilterConfig(
+            ISessionOperationLogService sessionOperationLogService, 
+            IPrincipalService principalService, 
+            IConfigurationStepService configurationStepService)
         {
             this._sessionOperationLogService = sessionOperationLogService;
             this._principalService = principalService;
             this._configurationStepService = configurationStepService;
         }
 
+        /// <summary>
+        /// Registers the global WebApi filters.
+        /// <para>
+        /// Invoked from <see cref="StartupExtended.Configure"/>.
+        /// </para>
+        /// </summary>
+        /// <param name="httpConfiguration">The HTTP configuration.</param>
+        /// <param name="sessionOperationLogService">The session operation log service.</param>
         public void RegisterGlobalFilters(HttpConfiguration httpConfiguration,
             ISessionOperationLogService sessionOperationLogService)
         {

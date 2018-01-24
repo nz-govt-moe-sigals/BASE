@@ -22,6 +22,7 @@
                 : this.container.GetInstance(serviceType, key);
         }
 
+
         protected override IEnumerable<object> DoGetAllInstances(Type serviceType)
         {
             return this.container.GetAllInstances(serviceType).Cast<object>();

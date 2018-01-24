@@ -3,13 +3,26 @@
 }
 
 <div class="jumbotron">
-    <h1>Enterprise App Stack Scaffolding</h1>
+    <h1>Base API Service Environment (BASE)</h1>
     <p class="lead">
-        <a hre>The @Html.ActionLink("Purpose", "Purpose", "About") is to provide a base for building secure enterprise grade applications with the following characteristics:
+        <a hre>The @Html.ActionLink("Purpose", "Purpose", "About") is to provide a base for building secure enterprise grade API-First Services with the following characteristics:
         <ul>
-            <li>@Html.ActionLink("Security", "Security", "About")
+            <li>
+                @Html.ActionLink("Security", "Security", "About")
                 <ul>
-                    <li>@Html.ActionLink("OIDC", "OIDC", "About") authentication/authorisation ready</li>
+                    <li>@Html.ActionLink("OIDC", "OIDC", "About") authentication ready</li>
+                    <li>In transit security enforced using Secure communication channel (TLS 1.2 HTTPS)and Secure cookie handling (Secure and HttpOnly cookies)</li>
+                    <li>Data classified resources protected by enforcing Role based Access Controls (RBAC)</li>
+                    <li>At rest security enforced by persist data at rest in encrypted formats.</li>
+                    <li>Leverages AAD based integrated security, minimizing reliance on leakable Secrets.</li>
+                </ul>
+            </li>
+            <li>
+                Resilient Design:
+                <ul>
+                    <li>Stateless load balancing and dynamic horizontal scaling.</li>
+                    <li>DoS attack protection applied at both the system and enviroment level.</li>
+                    <li>uploaded media is scanned for malware before being persisted, and periodically afterwards.</li>
                 </ul>
             </li>
             <li>
@@ -18,12 +31,6 @@
                     <li>Self Documenting APIs using OpenAPI Standard (OAS) via <a href="swagger">Swagger</a>.</li>
                     <li>@Html.ActionLink("Versioned", "Versioning", "About") accessible and maintainable API endpoints using DTOs.</li>
                     <li>@Html.ActionLink("ODATA", "OData", "About") enhanced REST API endpoints.</li>
-                </ul>
-            </li>
-            <li>
-                Strong Security:
-                <ul>
-                    <li>Enforced Secure communication channel and cookie handling (over SSL)</li>
                 </ul>
             </li>
             <li>

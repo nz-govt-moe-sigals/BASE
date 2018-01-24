@@ -35,7 +35,7 @@ namespace App.Core.Infrastructure.IDA.Services
                 CreateConfidentialClientApplication(httpContextBase, authorityUriOverride,
                     oidcConfidentialClientConfiguration);
 
-            var accessToken = AcquireTokenSilently(confidentialClientApplication, authorityUri, fqScopes).Result;
+            var accessToken = await AcquireTokenSilently(confidentialClientApplication, authorityUri, fqScopes);
 
             var client = new HttpClient();
 
@@ -96,17 +96,19 @@ namespace App.Core.Infrastructure.IDA.Services
             //            throw new Exception(
             //                "The User is NULL.  Please clear your cookies and try again.  Specifically delete cookies for 'login.microsoftonline.com'.  See this GitHub issue for more details: https://github.com/Azure-Samples/active-directory-b2c-dotnet-webapp-and-webapi/issues/9");
             //        }
-            var start = DateTime.UtcNow;
-            var result = await confidentialClientApplication.AcquireTokenSilentAsync(
-                fqScopes,
-                user,
-                authority,
-                false
-            );
+            using (ElapsedTime elapsedTime = new ElapsedTime())
+            {
+                var result = await confidentialClientApplication.AcquireTokenSilentAsync(
+                    fqScopes,
+                    user,
+                    authority,
+                    false
+                );
+                var elapsed = elapsedTime.ElapsedText;
+                return result.AccessToken;
+            }
 
-            var elapsed = DateTime.UtcNow.Subtract(start);
 
-            return result.AccessToken;
         }
 
         /// <summary>

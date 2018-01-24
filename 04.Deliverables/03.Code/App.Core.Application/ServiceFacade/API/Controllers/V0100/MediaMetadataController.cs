@@ -10,6 +10,11 @@
 
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
+    /// <summary>
+    /// OData Queryable REST Controller for
+    /// <see cref="MediaMetadataDto"/> messages 
+    /// 
+        /// </summary>
     //[ODataRoutePrefix("body")]
     public class MediaMetadataController : ODataControllerStandardDataBase<MediaMetadata, MediaMetadataDto>
     {

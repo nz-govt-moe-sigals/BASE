@@ -1,4 +1,4 @@
-﻿namespace App.Core.Infrastructure.Services
+﻿namespace App.Core.Infrastructure.Services.Implementations
 {
     using App.Core.Infrastructure.Services.Configuration;
 

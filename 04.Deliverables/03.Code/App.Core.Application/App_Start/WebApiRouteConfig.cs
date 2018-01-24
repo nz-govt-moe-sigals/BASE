@@ -9,7 +9,13 @@
     public static class WebApiRouteConfig
     {
 
-
+        /// <summary>
+        /// Configures the specified HTTP configuration.
+        /// <para>
+        /// Invoked from <see cref="WebApiConfig.Configure"/>
+        /// </para>
+        /// </summary>
+        /// <param name="httpConfiguration">The HTTP configuration.</param>
         public static void Configure(HttpConfiguration httpConfiguration)
         {
             // Leave existing configuration (ensure after 'config.MapODataServiceRoute')

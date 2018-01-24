@@ -316,6 +316,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\InitializerConfig.cs" />
     <Compile Include="DependencyResolution\AppModule1Registry.cs" />
     <Compile Include="Initialization\DependencyResolution\AppCoreRegistry.cs" />
     <Compile Include="Initialization\OData\IAppOdataModelBuilder.cs" />
@@ -342,6 +343,7 @@
     <Compile Include="Initialization\OData\IAppCoreOdataModelBuilder.cs" />
     <Compile Include="Initialization\OData\Implementations\BaseClasses\AppCoreODataModelBuilderConfigurationBase.cs" />
     <Compile Include="Initialization\OData\Implementations\DataClassificationOdataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\ApplicationDescriptionOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\ExceptionRecordOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\ConfigurationStepRecordOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\MediaMetadataOdataModelBuilderConfiguration.cs" />
@@ -395,6 +397,7 @@
     <Compile Include="ServiceFacade\API\ApiControllerBase.cs" />
     <Compile Include="ServiceFacade\API\Controllers\ODataControllerBase.cs" />
     <Compile Include="ServiceFacade\API\Controllers\ODataControllerStandardDataBase.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\V0100\ApplicationDescriptionController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\DataClassificationController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\RoleController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\ExceptionRecordController.cs" />
@@ -404,6 +407,9 @@
     <Compile Include="ServiceFacade\API\Controllers\V0100\NotificationUpdateController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\SearchController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\SessionOperationController.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\V0100\SystemDeveloperController.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\V0100\SystemDocumentationController.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\V0100\SystemInformationController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\TenantController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\PrincipalController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\SessionController.cs" />
@@ -423,6 +429,7 @@
     <Compile Include="Services\ITaskService.cs" />
     <Compile Include="Services\Implementations\TaskService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="StartupExtended.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\images\system_description\ddd_overview.png" />

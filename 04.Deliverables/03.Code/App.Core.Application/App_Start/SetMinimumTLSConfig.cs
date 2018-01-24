@@ -8,13 +8,20 @@
 
     public class SetMinimumTLSConfig
     {
-        public static void Config()
+        private readonly IHostSettingsService _hostSettingsService;
+
+        public SetMinimumTLSConfig(IHostSettingsService hostSettingsService)
+        {
+            this._hostSettingsService = hostSettingsService;
+        }
+
+        public  void Config()
         {
             DisableWeakTLSForIncoming();
             DisableWeakTLSForOutgoing();
         }
 
-        private static void DisableWeakTLSForIncoming()
+        private void DisableWeakTLSForIncoming()
         {
             // Regarding ensuring that TLS1.2 or higher is used for incoming traffic, 
             // when hosted in Standard Azure... without more infrastructure around it...
@@ -42,13 +49,15 @@
 
         }
 
-        private static void DisableWeakTLSForOutgoing()
+        private void DisableWeakTLSForOutgoing()
         {
             //To ensure *OUTBOUND* connections are over TLS1.2:
 
             //Must be the very first thing the application does because ServicePointManager will initialize only once. 
             SecurityProtocolType setting;
-            if (!Enum.TryParse(ConfigurationManager.AppSettings["App:Core:TLS:SecurityProtocol"], out setting))
+            var tmp = this._hostSettingsService.GetObject<string>("App:Core:TLS:SecurityProtocol");
+
+            if (!Enum.TryParse(tmp, out setting))
             {
                 return;
             }

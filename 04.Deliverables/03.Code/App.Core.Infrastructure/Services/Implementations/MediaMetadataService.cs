@@ -2,21 +2,22 @@
 {
     using System.Security.Cryptography;
     using System.Text;
+    using App.Core.Infrastructure.Services.Configuration.Implementations;
     using App.Core.Shared.Models.Configuration;
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages;
 
     public class MediaMetadataService : IMediaMetadataService
     {
-        private readonly IHostSettingsService _hostSettingsService;
+        //private readonly IHostSettingsService _hostSettingsService;
+        private readonly MediaMetadataServiceConfiguration _metadataServiceConfiguration;
+
         private readonly IUniversalDateTimeService _universalDateTimeService;
-        MediaManagementConfiguration _configuration;
         
-        public MediaMetadataService(IHostSettingsService hostSettingsService, IUniversalDateTimeService universalDateTimeService)
+        public MediaMetadataService(MediaMetadataServiceConfiguration metadataServiceConfiguration, IHostSettingsService hostSettingsService, IUniversalDateTimeService universalDateTimeService)
         {
-            this._hostSettingsService = hostSettingsService;
+            this._metadataServiceConfiguration = metadataServiceConfiguration;
             this._universalDateTimeService = universalDateTimeService;
-            _configuration = this._hostSettingsService.GetObject<MediaManagementConfiguration>();
 
         }
 
@@ -28,7 +29,7 @@
             result.ContentSize = uploadedMedia.Length;
             result.SourceFileName = uploadedMedia.FileName;
             result.DataClassificationFK = dataClassification;
-            result.ContentHash = uploadedMedia.Stream.GetHashAsString(this._configuration.HashType);
+            result.ContentHash = uploadedMedia.Stream.GetHashAsString(this._metadataServiceConfiguration.MediaManagementConfiguration.HashType);
             result.MimeType = uploadedMedia.ContentType;
 
             result.UploadedDateTimeUtc = this._universalDateTimeService.NowUtc().UtcDateTime;

@@ -10,11 +10,25 @@
     {
         private readonly WebMvcFilterConfig _webMvcFilterConfig;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WebMvcConfig"/> class.
+        /// </summary>
+        /// <param name="webMvcFilterConfig">The web MVC filter configuration.</param>
         public WebMvcConfig(WebMvcFilterConfig webMvcFilterConfig)
         {
             this._webMvcFilterConfig = webMvcFilterConfig;
         }
 
+
+
+
+        /// <summary>
+        /// Configures the specified application builder.
+        /// <para>
+        /// Invoked from <see cref="StartupExtended.Configure"/>
+        /// </para>
+        /// </summary>
+        /// <param name="appBuilder">The application builder.</param>
         public void Configure(IAppBuilder appBuilder)
         {
             ExtendRazorViewEngineUsedToLocateViews();

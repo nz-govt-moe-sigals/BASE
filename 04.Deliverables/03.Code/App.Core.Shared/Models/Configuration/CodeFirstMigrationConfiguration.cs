@@ -2,6 +2,11 @@
 {
     using App.Core.Shared.Attributes;
 
+    /// <summary>
+    /// An immutable host configuration object 
+    /// describing the configuration of 
+    /// EF CodeFirst.
+    /// </summary>
     public class CodeFirstMigrationConfiguration
     {
         [Alias("App:Core:CodeFirst:AttachDebuggerToPSSeeding")]

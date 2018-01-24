@@ -10,19 +10,21 @@
     {
         private static readonly string _cacheKey = "ResourceTenantKey";
         private readonly IOperationContextService _contextService;
-        private readonly AppCoreDbContext _dbContext;
+        private readonly ICachingService _cachingService;
+        private readonly IRepositoryService _repositoryService;
         private readonly IOperationContextService _operationContextService;
         private readonly IPrincipalService _principalService;
         private Tenant _defaultTenant;
 
 
         public TenantService(IOperationContextService operationContextService, IPrincipalService principalService,
-            IOperationContextService contextService, ICachingService cachingService, AppCoreDbContext dbContext)
+            IOperationContextService contextService, ICachingService cachingService, IRepositoryService repositoryService)
         {
             this._operationContextService = operationContextService;
             this._principalService = principalService;
             this._contextService = contextService;
-            this._dbContext = dbContext;
+            this._cachingService = cachingService;
+            this._repositoryService = repositoryService;
         }
 
         /// <summary>
@@ -114,8 +116,7 @@
                 {
                     return result;
                 }
-                result = this._dbContext.Set<Tenant>()
-                    .FirstOrDefault(x => tenantKey == x.Key);
+                result = this._repositoryService.GetSingle<Tenant>(Constants.Db.AppCoreDbContextNames.Core, x => tenantKey == x.Key);
                 if (result != null)
                 {
                     list.Add(result);
@@ -131,8 +132,7 @@
             {
                 return result;
             }
-            result = this._dbContext.Set<Tenant>()
-                .FirstOrDefault(x => tenantKey == x.Key || hostName == x.HostName);
+            result = this._repositoryService.GetSingle<Tenant>(Constants.Db.AppCoreDbContextNames.Core, x => tenantKey == x.Key || hostName == x.HostName);
             if (result != null)
             {
                 list.Add(result);
@@ -144,7 +144,7 @@
         {
             if (this._defaultTenant == null)
             {
-                this._defaultTenant = this._dbContext.Set<Tenant>().FirstOrDefault(x => x.IsDefault == true);
+                this._defaultTenant = this._repositoryService.GetSingle<Tenant>(Constants.Db.AppCoreDbContextNames.Core, x => x.IsDefault == true);
             }
             return this._defaultTenant;
         }

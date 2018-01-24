@@ -11,6 +11,11 @@
 
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
+    /// <summary>
+    /// OData Queryable REST Controller for
+    /// <see cref="DataClassificationDto"/> messages 
+    /// for User Agents to cache as reference data.
+    /// </summary>
     //[ODataRoutePrefix("body")]
     public class DataClassificationController : ODataControllerBase // ODataControllerStandardDataBase<DataClassification,DataClassificationDto>
     {

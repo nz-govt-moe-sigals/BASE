@@ -7,6 +7,13 @@
 
     public class ResponseHeaderConfig
     {
+        /// <summary>
+        /// Configures the specified application builder.
+        /// <para>
+        /// Invoked from <see cref="StartupExtended.Configure"/>
+        /// </para>
+        /// </summary>
+        /// <param name="appBuilder">The application builder.</param>
         public static void Configure(IAppBuilder appBuilder)
         {
             // SETUP STEP: Remove the X-AspNetMvc-Version Header disclosing too much:

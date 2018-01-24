@@ -11,6 +11,8 @@
     {
         protected void Application_Start()
         {
+            //RoleEnvironment.Changed += RoleEnvironment_Changed;
+            
             //Must be the very first thing the application does because ServicePointManager will initialize only once. 
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 

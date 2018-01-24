@@ -17,7 +17,14 @@
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         private readonly RestClient client;
 
-        public ScaniiClient(IDiagnosticsTracingService diagnosticsTracingService, string key, string secret,
+        public string BaseUri
+        {
+            get;
+        }
+
+
+        public ScaniiClient(
+            IDiagnosticsTracingService diagnosticsTracingService, string key, string secret,
             string baseUri = "https://api.scanii.com/v2.1")
         {
             this.BaseUri = baseUri;
@@ -40,7 +47,23 @@
             Log("Base URI: " + this.BaseUri);
         }
 
-        public string BaseUri { get; }
+
+
+        public bool Ping()
+        {
+
+            var req = new RestRequest("/ping}") { RequestFormat = DataFormat.Json };
+            var resp = this.client.Get(req);
+
+            Log("content " + resp.Content);
+            Log("status code " + resp.StatusCode);
+
+            if (resp.StatusCode != HttpStatusCode.OK)
+            {
+                return false;
+            }
+            return true;
+        }
 
 
         public ScaniiResult Process(byte[] bytes, string fileName, string contentMimeType,
@@ -102,6 +125,7 @@
             Log("response: " + resp.Content);
             return resp.Content;
         }
+
 
 
         private void Log(string message)

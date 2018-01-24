@@ -98,7 +98,7 @@
         {
             // OWIN auth middleware constants
             var objectIdElement = "http://schemas.microsoft.com/identity/claims/objectidentifier";
-            return this._principalService.Current.FindFirst(objectIdElement).Value;
+            return this._principalService.CurrentPrincipal.FindFirst(objectIdElement).Value;
         }
     }
 }

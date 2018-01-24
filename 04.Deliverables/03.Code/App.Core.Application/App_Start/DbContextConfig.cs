@@ -7,6 +7,14 @@
     /// </summary>
     public static class DbContextConfig
     {
+
+        /// <summary>
+        /// Configures the specified application builder.
+        /// <para>
+        /// Invoked from <see cref="StartupExtended.Configure"/>
+        /// </para>
+        /// </summary>
+        /// <param name="appBuilder">The application builder.</param>
         public static void Configure(IAppBuilder appBuilder)
         {
             // Used to set initializer.

@@ -10,6 +10,15 @@
     // case structure map)
     public class ServiceLocatorConfig
     {
+
+
+        /// <summary>
+        /// Configures the specified application builder.
+        /// <para>
+        /// Invoked from <see cref="Startup.Configuration"/>
+        /// </para>
+        /// </summary>
+        /// <param name="appBuilder">The application builder.</param>
         public static void Configure(IAppBuilder appBuilder)
         {
             // Do the work down in Infrastructure, 

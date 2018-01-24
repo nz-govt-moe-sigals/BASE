@@ -10,6 +10,12 @@
 
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
+    /// <summary>
+    /// OData Queryable REST Controller for
+    /// <see cref="ExceptionRecordDto"/> messages 
+    /// for Application Support Specialists to 
+    /// query what Exceptions have happened of late.
+    /// </summary>
     //[ODataRoutePrefix("body")]
     public class ExceptionRecordController : ODataControllerStandardDataBase<ExceptionRecord, ExceptionRecordDto>
     {

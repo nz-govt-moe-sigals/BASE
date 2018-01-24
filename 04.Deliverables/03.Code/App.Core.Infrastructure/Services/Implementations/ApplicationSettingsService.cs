@@ -1,6 +1,6 @@
 ﻿namespace App.Core.Infrastructure.Services.Implementations
 {
-    internal class ApplicationSettingsService
-    {
-    }
+    //public class ApplicationSettingsService : IApplicationSettingsService
+    //{
+    //}
 }

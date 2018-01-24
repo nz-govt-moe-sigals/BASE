@@ -52,7 +52,13 @@
     <Compile Include="ExtensionMethods\IntExtensions.cs" />
     <Compile Include="Factories\GuidFactory.cs" />
     <Compile Include="Models\Configuration\AnalyticsConfiguration.cs" />
+    <Compile Include="Models\Configuration\ApplicationCreatorInformation.cs" />
+    <Compile Include="Models\Configuration\ApplicationDistributorInformation.cs" />
+    <Compile Include="Models\Configuration\AzureKeyVaultConfiguration.cs" />
+    <Compile Include="Models\Configuration\AzureStorageAccountConfiguration.cs" />
+    <Compile Include="Models\Configuration\AadApplicationClientCrededential.cs" />
     <Compile Include="Models\Configuration\CodeFirstMigrationConfiguration.cs" />
+    <Compile Include="Models\Configuration\DemoConfiguration.cs" />
     <Compile Include="Models\Configuration\MediaManagement.cs" />
     <Compile Include="Models\Configuration\ScaniiConfiguration.cs" />
     <Compile Include="Models\Contracts\IHasAuditability.cs" />
@@ -88,6 +94,8 @@
     <Compile Include="Models\Entities\Enums\NZDataClassification.cs" />
     <Compile Include="Models\Entities\Enums\NotificationType.cs" />
     <Compile Include="Models\Messages\APIs\SmokeTestItem.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ApplicationDescriptionDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ApplicationProviderInformationDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\DataClassificationDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\ConfigurationStepRecordDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\ExceptionRecordDto.cs" />
@@ -109,6 +117,7 @@
     <Compile Include="Models\Entities\DataToken.cs" />
     <Compile Include="Models\Entities\PrincipalSetting.cs" />
     <Compile Include="Models\Messages\APIs\V0100\NotificationUpdateDto.cs" />
+    <Compile Include="Models\Configuration\ApplicationDescription.cs" />
     <Compile Include="Models\Messages\BaseClasses\ReferenceDtoBase.cs" />
     <Compile Include="Models\Messages\ConfigurationTestStepSummary.cs" />
     <Compile Include="Models\Messages\Enums\ConfigurationStepStatus.cs" />
@@ -154,6 +163,9 @@
   <ItemGroup>
     <Folder Include="Models\Messages\APIs\V0100\Dtos\" />
     <Folder Include="Models\Messages\APIs\V0100\Enums\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\Configuration\REAMDE.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

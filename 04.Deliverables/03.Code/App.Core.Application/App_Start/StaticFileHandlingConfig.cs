@@ -6,6 +6,14 @@
 
     public class StaticFileHandlingConfig
     {
+
+        /// <summary>
+        /// Configures the specified HTTP configuration.
+        /// <para>
+        /// Invoked from <see cref="StartupExtended.Configure"/>
+        /// </para>
+        /// </summary>
+        /// <param name="httpConfiguration">The HTTP configuration.</param>
         public static void Configure(HttpConfiguration httpConfiguration)
         {
             // SETUP STEP: Allow for static resources (eg: Avatar images) to be 

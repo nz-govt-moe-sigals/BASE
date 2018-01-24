@@ -7,6 +7,14 @@
 
     public class WebMvcRouteConfig
     {
+
+
+        /// <summary>
+        /// Registers the web MVC routes.
+        /// <para>
+        /// Invoked from <see cref="WebMvcConfig.Configure"/>.
+        /// </para>
+        ///  </summary>
         public static void RegisterWebMvcRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");

@@ -14,7 +14,15 @@ namespace App.Core.Application.App_Start
     public class EnabledAnalytics
     {
 
-        // Must be invoked before ServiceLocatorConfig is invoked.
+        /// <summary>
+        /// <para>
+        /// Invoked from <see cref="StartupConfigure.Configure"/>
+        /// </para>
+        /// <para>
+        /// Must be invoked before ServiceLocatorConfig is invoked.
+        /// </para>
+        /// </summary>
+        /// <param name="appBuilder"></param>
         public static void Configure(IAppBuilder appBuilder)
         {
 
@@ -23,7 +31,7 @@ namespace App.Core.Application.App_Start
 
             if (string.IsNullOrWhiteSpace(analyticsConfiguration.Key))
             {
-                throw new ConfigurationErrorsException("Missing app setting 'App:Core:Analytics:ApplicationInsights:InstrumentationKey' used for Application Insights.");
+                throw new ConfigurationErrorsException("Missing app setting 'App:Core:Integration:Azure:ApplicationInsights:InstrumentationKey' used for Application Insights.");
             }
             TelemetryConfiguration.Active.InstrumentationKey = analyticsConfiguration.Key;
             TelemetryConfiguration.Active.DisableTelemetry = analyticsConfiguration.DisableTelemetry;

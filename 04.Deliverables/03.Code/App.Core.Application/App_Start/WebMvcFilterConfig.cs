@@ -24,6 +24,13 @@
         private readonly IConfigurationStepService _configurationStepService;
         private readonly DbContexCommenttWebMvcActionFilterAttribute _dbContexCommenttWebMvcActionFilterAttribute;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WebMvcFilterConfig"/> class.
+        /// </summary>
+        /// <param name="sessionOperationLogService">The session operation log service.</param>
+        /// <param name="principalService">The principal service.</param>
+        /// <param name="configurationStepService">The configuration step service.</param>
+        /// <param name="dbContexCommenttWebMvcActionFilterAttribute">The database contex commentt web MVC action filter attribute.</param>
         public WebMvcFilterConfig(ISessionOperationLogService sessionOperationLogService,
             IPrincipalService principalService,
             IConfigurationStepService configurationStepService,
@@ -35,6 +42,11 @@
             this._dbContexCommenttWebMvcActionFilterAttribute = dbContexCommenttWebMvcActionFilterAttribute;
         }
 
+        /// <summary>
+        /// <para>
+        /// Invoked from <see cref="WebMvcConfig.Configure"/></para>
+        /// </summary>
+        /// <param name="filters"></param>
         // Register MVC (not WebAPI) filters:
         public void RegisterWebMvcGlobalFilters(GlobalFilterCollection filters)
         {

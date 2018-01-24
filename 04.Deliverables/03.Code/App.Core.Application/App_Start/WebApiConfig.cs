@@ -6,6 +6,9 @@
 
     public static class WebApiConfig
     {
+        /// <para>
+        /// Invoked from <see cref="StartupExtended.Configure"/>.
+        /// </para>
         public static void Configure(HttpConfiguration httpConfiguration)
         {
             // VERSIONING:

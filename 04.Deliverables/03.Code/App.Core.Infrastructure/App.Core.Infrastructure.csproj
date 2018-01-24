@@ -20,6 +20,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <RegisterForComInterop>false</RegisterForComInterop>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -42,8 +44,44 @@
     <Reference Include="Microsoft.ApplicationInsights, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.2.4.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.2.3.2\lib\net452\Microsoft.Azure.KeyVault.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.WebKey, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.WebKey.2.0.7\lib\net452\Microsoft.Azure.KeyVault.WebKey.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Edm, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.8.2\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.8.2\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.8.2\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=3.17.2.31801, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.17.2\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory.Platform, Version=3.17.2.31801, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.17.2\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.8\lib\net452\Microsoft.Rest.ClientRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Rest.ClientRuntime.Azure, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.Azure.3.3.7\lib\net452\Microsoft.Rest.ClientRuntime.Azure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=8.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.8.6.0\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -65,6 +103,9 @@
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Spatial, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.8.2\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -77,8 +118,12 @@
     <Compile Include="Constants\Context\AppContextKeys.cs" />
     <Compile Include="Constants\Db\Db.cs" />
     <Compile Include="Constants\Db\TextFieldSizes.cs" />
+    <Compile Include="Constants\Exceptions\ExceptionMessages.cs" />
     <Compile Include="Constants\IDA\ClaimTitles.cs" />
+    <Compile Include="Constants\KeyStores\Keys.cs" />
+    <Compile Include="Constants\KeyStores\Keystores.cs" />
     <Compile Include="Constants\Roles\RoleNames.cs" />
+    <Compile Include="Constants\Todo\Todo.cs" />
     <Compile Include="Db\Context\AppCoreDbContext.cs" />
     <Compile Include="Db\Context\AppCoreDbContextFactory.cs" />
     <Compile Include="Db\Context\AppCoreDatabaseInitializer.cs" />
@@ -142,7 +187,18 @@
     <Compile Include="Exceptions\ConfigurationException.cs" />
     <Compile Include="Exceptions\ToDoException.cs" />
     <Compile Include="ExtensionMethods\ByteArrayExtensions.cs" />
+    <Compile Include="ExtensionMethods\CloudBlobClientExtensions.cs" />
+    <Compile Include="ExtensionMethods\CloudBlobContainerExtensions.cs" />
+    <Compile Include="ExtensionMethods\CloudBlobExtensions.cs" />
+    <Compile Include="ExtensionMethods\CloudStorageAccountExtensions.cs" />
+    <Compile Include="Factories\ClientCredentialFactory.cs" />
     <Compile Include="Factories\DbContextFactory.cs" />
+    <Compile Include="Factories\ExtendedConfigurationFactory.cs" />
+    <Compile Include="Helpers\ElapsedTime.cs" />
+    <Compile Include="Initialization\Integration\Azure\AzureApplicationRegistrationIntegrationInitializer.cs" />
+    <Compile Include="Initialization\Integration\Azure\AzureIntegrationInitializer.cs" />
+    <Compile Include="Initialization\Integration\Azure\AzureKeyVaultIntegrationInitializer.cs" />
+    <Compile Include="Initialization\Integration\Azure\AzureStorageIntegrationInitializer.cs" />
     <Compile Include="Initialization\DependencyResolution\AppCoreRegistry.cs" />
     <Compile Include="Initialization\DependencyResolution\AppDependencyLocator.cs" />
     <Compile Include="Initialization\DependencyResolution\CommonServiceLocatorInitiator.cs" />
@@ -163,12 +219,17 @@
     <Compile Include="Factories\ConfigurationFactory.cs" />
     <Compile Include="Factories\ServiceLocator.cs" />
     <Compile Include="Initialization\Db\IHasAppCoreDbContextModelBuilderInitializer.cs" />
+    <Compile Include="Initialization\IHasAppCoreInitializer.cs" />
+    <Compile Include="Initialization\Integration\Scanii\ScaniiIntegrationInitializer.cs" />
     <Compile Include="Initialization\ObjectMaps\IHasAutomapperInitializer.cs" />
     <Compile Include="Initialization\Db\IHasAppCoreDbContextSeedInitializer.cs" />
     <Compile Include="Initialization\Authentication\IHasOidcScopeInitializer.cs" />
     <Compile Include="Initialization\IInitializer.cs" />
     <Compile Include="Initialization\Implementations\HasOidcScopeInitializer.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\Base\ObjectMap_TenantedReferenceType_TenantedReferenceTypeDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ApplicationCreatorInformation_ApplicationProviderInformationDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ApplicationDistributorInformation_ApplicationProviderInformationDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ApplicationDescription_ApplicationDescriptionDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ConfigurationStepRecord_ConfigurationStepRecordDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_DataClassification_DataClassificationDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_Role_RoleDto.cs" />
@@ -184,7 +245,22 @@
     <Compile Include="Initialization\Search\Implementations\TenantSearchProvider.cs" />
     <Compile Include="Initialization\Search\ISearchProvider.cs" />
     <Compile Include="Initialization\DependencyResolution\PowershellServiceLocatorConfig.cs" />
+    <Compile Include="Initialization\Integration\Spikes.cs" />
+    <Compile Include="Factories\KeyVaultClientFactory.cs" />
+    <Compile Include="Initialization\Verification\ApplicationSettingsInitializer.cs" />
+    <Compile Include="Initialization\Verification\VerificationInitializer.cs" />
     <Compile Include="Interceptors\Class1.cs" />
+    <Compile Include="Services\Configuration\Implementations\AzureKeyVaultServiceConfiguration.cs" />
+    <Compile Include="Services\Configuration\Implementations\AzureStorageManangementServiceConfiguration.cs" />
+    <Compile Include="Services\Configuration\Implementations\MediaMetadataServiceConfiguration.cs" />
+    <Compile Include="Services\Configuration\Implementations\SMTPServiceConfiguration.cs" />
+    <Compile Include="Services\IAzureKeyVaultService.cs" />
+    <Compile Include="Services\IAzureStorageManagementService.cs" />
+    <Compile Include="Services\Configuration\Implementations\ApplicationInformationServiceConfiguration.cs" />
+    <Compile Include="Services\Implementations\AzureKeyVaultService.cs" />
+    <Compile Include="Services\Implementations\AzureStorageManagementService.cs" />
+    <Compile Include="Services\Implementations\AzureStorageService.cs" />
+    <Compile Include="Services\Configuration\Implementations\ConfigurationObjectCache.cs" />
     <Compile Include="Services\Implementations\ContextService.cs" />
     <Compile Include="Services\IAuthenticationService.cs" />
     <Compile Include="Services\IAuthorisationService.cs" />
@@ -206,7 +282,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScaniiClient.cs" />
     <Compile Include="Services\Configuration\Implementations\MediaMalwareDetectionServiceConfiguration.cs" />
-    <Compile Include="Services\DictionaryBasedMimeTypeService.cs" />
+    <Compile Include="Services\Implementations\DictionaryBasedMimeTypeService.cs" />
     <Compile Include="Services\Configuration\Implementations\DictionaryBasedMimeTypeServiceConfiguration.cs" />
     <Compile Include="Services\Configuration\IDictionaryBasedMimeTypeServiceConfiguration.cs" />
     <Compile Include="Services\IApplicationSettingsService.cs" />
@@ -219,7 +295,7 @@
     <Compile Include="Services\IHostSettingsService.cs" />
     <Compile Include="Services\IImmutableSetingsService.cs" />
     <Compile Include="Services\ILocalisationService.cs" />
-    <Compile Include="Services\IMediaMalwareVerificationService.cs" />
+    <Compile Include="Services\IMediaMalwareDetectionService.cs" />
     <Compile Include="Services\IMediaMetadataService.cs" />
     <Compile Include="Services\IMediaUploadService.cs" />
     <Compile Include="Services\Implementations\Base\AppCoreServiceBase.cs" />
@@ -233,10 +309,13 @@
     <Compile Include="Services\Implementations\HostSettingsService.cs" />
     <Compile Include="Services\IDbContextPreCommitService.cs" />
     <Compile Include="Db\Interception\IDbCommitPreCommitProcessingStrategy.cs" />
+    <Compile Include="Services\IAzureStorageService.cs" />
+    <Compile Include="Services\IApplicationInformationService.cs" />
+    <Compile Include="Services\Implementations\ApplicationInformationService.cs" />
     <Compile Include="Services\Implementations\OIDCNotificationHandlerService.cs" />
     <Compile Include="Services\Implementations\SystemRoleRecordManagmentService.cs" />
     <Compile Include="Services\Implementations\LocalisationService.cs" />
-    <Compile Include="Services\Implementations\MediaMalwareVerificationService.cs" />
+    <Compile Include="Services\Implementations\MediaMalwareDetectionService.cs" />
     <Compile Include="Services\Implementations\MediaMetadataService.cs" />
     <Compile Include="Services\Implementations\MediaUploadService.cs" />
     <Compile Include="Services\Implementations\ObjectMappingService.cs" />
@@ -275,6 +354,7 @@
     <Compile Include="Services\IUnitOfWorkService.cs" />
     <Compile Include="Services\IUniversalDateTimeService.cs" />
     <Compile Include="Services\Implementations\UniversalDateTimeService.cs" />
+    <Compile Include="Validator\AadApplicationRegistrationInformationValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\App.Core.Shared\App.Core.Shared.csproj">
@@ -284,7 +364,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Integration\Azure\KeyVault\README.MD" />
     <None Include="packages.config" />
+    <None Include="Services\Configuration\REAMDE.md" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Db\Interception\README.txt" />
@@ -302,6 +384,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Constants\AppSettingKeys\" />
+    <Folder Include="Initialization\Integration\Azure\AzureStorage\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Db\Migrations\Core\201712040611471_Initialize.resx">

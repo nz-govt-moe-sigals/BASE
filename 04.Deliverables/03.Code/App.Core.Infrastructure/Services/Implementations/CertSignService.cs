@@ -7,6 +7,11 @@
 
     public class CertSignService : AppCoreServiceBase, ICertSignService
     {
+        public CertSignService()
+        {
+        }
+
+
         public byte[] Sign(string text, X509FindType certFindType, string certSearchTerm)
         {
             var encoding = new UnicodeEncoding();

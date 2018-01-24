@@ -7,6 +7,13 @@
 
     public class WebApiJsonSerializerConfig
     {
+        /// <summary>
+        /// Configures the specified HTTP configuration.
+        /// <para>
+        /// Invoked from <see cref="StartupExtended.Configure"/>.
+        /// </para>
+        /// </summary>
+        /// <param name="httpConfiguration">The HTTP configuration.</param>
         public static void Configure(HttpConfiguration httpConfiguration)
         {
             // JSON chokes on most EF models:

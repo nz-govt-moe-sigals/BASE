@@ -8,13 +8,24 @@ namespace App.Core.Infrastructure.Db.Interception.Implementations.Base
 
     /// <summary>
     ///     Abstract base class for a strategy to be applied when persisting changes.
+    /// <para>
+    /// Invoked when the Request is wrapping up, 
+    /// and invokes <see cref="IUnitOfWorkService"/>'s 
+    /// commit operation, 
+    /// which in turn invokes each DbContext's SaveChanges, 
+    /// which are individually overridden, to in turn 
+    /// invoke <see cref="IDbContextPreCommitService"/>
+    /// which invokes 
+    /// all PreCommitProcessingStrategy implementations, such 
+    /// as this.
+    /// </para>
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class DbContextPreCommitProcessingStrategyBase<T> : IDbCommitPreCommitProcessingStrategy
         where T : class
     {
         /// <summary>
-        ///     The _current user
+        ///     The _current user (TODO: what, name? id?)
         /// </summary>
         protected string _currentUser;
 
@@ -90,7 +101,7 @@ namespace App.Core.Infrastructure.Db.Interception.Implementations.Base
             this._dbChangeTracker = this._dbContext.ChangeTracker;
 
             this._nowUtc = this._dateTimeService.NowUtc();
-            this._currentUser = this._principalService.CurrentName;
+            this._currentUser = this._principalService.CurrentPrincipalName;
 
             this.Enabled = true;
 

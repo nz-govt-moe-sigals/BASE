@@ -22,7 +22,7 @@
 
 //            if (!File.Exists(path))
 //            {
-//                path = System.Configuration.ConfigurationManager.AppSettings["CodeFirstSeedingDataPath"];
+//                path = _hostSettingsService.Get["CodeFirstSeedingDataPath"];
 //                path = System.IO.Path.Combine(path, relativePath);
 //            }
 //            using (TextReader textReader = File.OpenText(path))

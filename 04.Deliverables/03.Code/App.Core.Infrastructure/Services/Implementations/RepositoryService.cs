@@ -11,6 +11,12 @@
 
     public class RepositoryService : IRepositoryService
     {
+
+        public RepositoryService()
+        {
+        }
+
+
         public bool HasChanges(string contextKey)
         {
             return GetDbContext(contextKey).ChangeTracker.HasChanges();

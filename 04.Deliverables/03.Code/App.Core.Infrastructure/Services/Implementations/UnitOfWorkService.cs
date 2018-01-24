@@ -2,10 +2,21 @@
 {
     using System.Data.Entity;
 
+
+    /// <summary>
+    /// Implementation of a
+    /// Contract for an Infrastructure Service 
+    /// for a generic unit of work service
+    /// which manages the persistence of entities
+    /// using one or more channels (note 
+    /// that in most apps, this is usually just wrapping
+    /// one -- the DbContext client). 
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Services.IUnitOfWorkService" />
     public class UnitOfWorkService : IUnitOfWorkService
     {
         /// <summary>
-        ///     Commit the specific DbContext.
+        /// Commits a single specific named repository, or all of pending changes.
         /// </summary>
         /// <param name="contextName"></param>
         /// <returns></returns>
@@ -17,6 +28,11 @@
             {
                 try
                 {
+                    // Note that I've sort of forgetten how, 
+                    // it's wired up, but this will trigger 
+                    // calls to all instances of 
+                    // IDbCommitPreCommitProcessingStrategy
+                    // via IDbContextPreCommitService
                     result += dbContext.SaveChanges();
                 }
                 catch (System.Exception e)
