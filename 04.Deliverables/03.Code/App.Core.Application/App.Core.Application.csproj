@@ -546,10 +546,6 @@
     <Content Include="Views\Usage\Organisation.cshtml" />
     <Content Include="Views\Usage\Person.cshtml" />
     <Content Include="Views\Usage\MiscExamples.cshtml" />
-    <None Include="web.config.appsettings.secret">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
