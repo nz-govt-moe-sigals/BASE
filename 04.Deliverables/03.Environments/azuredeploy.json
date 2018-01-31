@@ -1,0 +1,61 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "resourceGroupLocation": {
+            "type": "string",
+            "minLength": 1,
+            "defaultValue": "[resourceGroup().location]",
+            "metadata": {
+                "description": "The location within which to develop the Resources."
+            }
+        },
+        "_artifactsLocation": {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "The URI of the storage blob containing linked templates"
+            }
+        },
+        "_artifactsLocationSasToken": {
+            "type": "securestring",
+            "minLength": 1,
+            "metadata": {
+                "description": "The SAS token for accessing the storage account used for storing linked templates"
+            }
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Deploys the App Service Plan",
+            
+            "apiVersion": "2017-05-10",
+            "name": "azuredeploy.asp",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('_artifactsLocation'),'/azuredeploy.asp.json', parameters('_artifactsLocationSasToken'))]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "dummmy": {
+                        "value": "[parameters('dummy')]"
+                    },
+                    "resourceGroupLocation"
+                    : {
+                        "value": "[parameters('resourceGroupLocation')]"
+                    },
+                }
+            },
+            
+        }
+    ],
+    "outputs": {
+        "myOutput": {
+            "value": "[reference('azuredeploy.ap').outputs.webFrontEndName.value]",
+            "type": "string"
+          }
+    }
+}
