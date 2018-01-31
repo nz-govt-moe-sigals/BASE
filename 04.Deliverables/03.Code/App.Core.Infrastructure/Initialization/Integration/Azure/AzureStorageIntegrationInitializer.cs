@@ -93,7 +93,7 @@ namespace App.Core.Infrastructure.Initialization.Integration.Azure
             //    //Blob-level public access. Anonymous clients can read blob data within this container, but not container data.
             //    accessType
             //);
-            return null /*cloudBlobContainer*/;
+            //return null /*cloudBlobContainer*/;
         }
 
     }

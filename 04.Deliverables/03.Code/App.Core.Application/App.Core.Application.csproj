@@ -508,9 +508,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\About\Index.cshtml" />
-    <Content Include="_web.config.appsettings.ignore">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Views\Setup\ConfigureOIDCIntegration.cshtml" />
     <Content Include="Views\Setup\PrerequisitesCodeBase.cshtml" />
     <Content Include="Views\Setup\Index.cshtml" />
