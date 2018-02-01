@@ -25,7 +25,9 @@
             }
         }
     },
-    "variables": {},
+    "variables": {
+        "envLetter": "[if(equals(parameters('environment'),'dev'),'d',if(equals(parameters('environment'),'test'),'t',if(equals(parameters('environment'),'uat'),'u',if(equals(parameters('environment'),'prod'),'p',json('null')))))]",        
+    },
     "resources": [
         {
             "comments": "Deploys the App Service Plan",
@@ -46,11 +48,47 @@
                     "resourceGroupLocation"
                     : {
                         "value": "[parameters('resourceGroupLocation')]"
-                    },
+                    }
                 }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "azuredeploy.as",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+              "mode": "Incremental",
+              "templateLink": {
+                "uri": "[concat(parameters('_artifactsLocation'),'/azuredeploy.as.json',parameters('_artifactsLocationSasToken'))]",
+                "contentVersion": "1.0.0.0"
+              },
+              "parameters": {
+                "serverFarmResourceId": { "value": "[reference('azuredeploy.asp').outputs.appServicePlanResourceId.value]" },
+                "webFrontEndName": {"value": "[variables('v_webFrontEndName')]"}
+              }
             },
-            
-        }
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/deployments', 'azuredeploy.ap')]"
+            ],
+            "comments": "Deploys the Web Front End App Service"
+          },      
+          
+
+          {
+            "condition": "[not(equals(parameters('webFrontEndAlternateHostName'),'<NONEDEFINED>'))]",
+            "apiVersion": "2017-05-10",
+            "name": "azuredeploy.ap.hostbinding",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+              "mode": "Incremental",
+              "templateLink": {
+                "uri": "[concat(parameters('_artifactsLocation'),'/azuredeploy.ap.hostbinding.json',parameters('_artifactsLocationSasToken'))]",
+                "contentVersion": "1.0.0.0"
+              },
+            }
+          
+
+
     ],
     "outputs": {
         "myOutput": {
