@@ -5,35 +5,83 @@
         "defaultResourceLocation": {
             "type": "string",
             "minLength": 1,
+            "allowedValues": [
+                "Australia East",
+                "Australia Southeast"
+            ],
             "defaultValue": "[resourceGroup().location]",
             "metadata": {
-                "description": "The location within which to develop the Resources."
+                "description": "The default location within which to develop the Resources Group and its inner Resources."
             }
         },
-        "resourceNamePrefix": {
+        "defaultResourceNameOrgIdentifier": {
             "type": "string",
             "minLength": 1,
+            "defaultValue": "",
             "metadata": {
-                "description": "The prefix to attach to auto generated Resource Names (eg: 'FOO-')."
+                "description": "The Org Identifier (eg: 'MYORG') used to build up the default Resource Name Template (eg: 'MYORG-MYAPP-AppService-xyz123')."
             }
         },
-        "resourceNameSuffix": {
+        "defaultResourceNameAppIdentifier": {
             "type": "string",
             "minLength": 1,
+            "defaultValue": "",
             "metadata": {
-                "description": "The suffix to attach to auo generated Resource Names (eg: '-BAR')."
+                "description": "The App Identifier (eg: 'MYAPP') used to build up the default Resource Name Template  (eg: 'MYORG-MYAPP-AppService-xyz123')."
+            }
+        },
+        "defaultResourceNameTemplate": {
+            "type": "string",
+            "minLength": 1,
+            "defaultValue": "{ORG}-{APP}-{RESOURCETYPE}-{RESOURCEUNIQUESTRING}",
+            "metadata": {
+                "description": "The default name template for Resources. Keywords replaced include: '{ORG}', '{APP}', '{RESOURCETYPE}', '{RESOURCEUNIQUESTRING}', '{RESOURCEUNIQUEGUID}'."
+            }
+        },
+        "databaseServerName": {
+            "type": "string",
+            "minLength": 0,
+            "defaultValue": "",
+            "metadata": {
+                "description": "If provided, look for specified database server, and create the database there. It's cheaper to reuse a common db (but it should be outside this Resource group)."
+            }
+            
+        },
+        "armTemplateBaseUrl": {
+            "type": "string",
+            "minLength": 0,
+            "defaultValue": "{TEMPLATEFILENAME}",
+            "metadata": {
+                "description": "The relative or otherwise base url for finding ARM Templates to download (replaces '{TEMPLATEFILENAME}' within strings, where found)."
+            }
+            
+        }
+    },
+    "variables": {
+        "uniqueResourceId": {
+            "type": "string",
+            "value": "[uniqueString(resourceGroup().id)]",
+            "metadata": {
+                "description": "The ResourceGroup scoped unique 13 character Id. Same for all resources within the Resource Group. Make unique using prefixes, and suffixes."
             }
         }
     },
-    "variables": {},
     "resources": [
         {
         }
     ],
     "outputs": {
-        "myOutput": {
-            "value": "foobar",
+        "uniqueResourceId": {
+            "type": "string",
+            "value": "[variables('uniqueResourceId')]", 
+            "metadata": {
+                "description": "The ResourceGroup scoped unique 13 character Id."
+            }
+
+        },
+        "defaultTemplateName": {
+            "value": "[parameters('defaultResourceNameTemplate')]",
             "type": "string"
-          }
+        }
     }
 }
