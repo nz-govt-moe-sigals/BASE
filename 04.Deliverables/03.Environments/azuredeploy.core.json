@@ -58,14 +58,7 @@
         }
     },
     "variables": {
-        "uniqueResourceId": {
-            "type": "string",
-            "minLength": 0,
-            "value": "[uniqueString(resourceGroup().id)]",
-            "metadata": {
-                "description": "The ResourceGroup scoped unique 13 character Id. Same for all resources within the Resource Group. Make unique using prefixes, and suffixes."
-            }
-        }
+        "uniqueResourceId":  "[uniqueString(resourceGroup().id)]"
     },
     "resources": [
 
