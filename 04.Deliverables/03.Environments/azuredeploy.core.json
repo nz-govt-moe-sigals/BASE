@@ -16,7 +16,7 @@
         },
         "defaultResourceNameOrgIdentifier": {
             "type": "string",
-            "minLength": 1,
+            "minLength": 0,
             "defaultValue": "",
             "metadata": {
                 "description": "The Org Identifier (eg: 'MYORG') used to build up the default Resource Name Template (eg: 'MYORG-MYAPP-AppService-xyz123')."
@@ -24,7 +24,7 @@
         },
         "defaultResourceNameAppIdentifier": {
             "type": "string",
-            "minLength": 1,
+            "minLength": 0,
             "defaultValue": "",
             "metadata": {
                 "description": "The App Identifier (eg: 'MYAPP') used to build up the default Resource Name Template  (eg: 'MYORG-MYAPP-AppService-xyz123')."
@@ -32,7 +32,7 @@
         },
         "defaultResourceNameTemplate": {
             "type": "string",
-            "minLength": 1,
+            "minLength": 3,
             "defaultValue": "{ORG}-{APP}-{APPINST}-{RESOURCETYPE}-{RESOURCEUNIQUESTRING}",
             "metadata": {
                 "description": "The default name template for Resources. Keywords replaced include: '{ORG}', '{APP}', '{RESOURCETYPE}', '{RESOURCEUNIQUESTRING}', '{RESOURCEUNIQUEGUID}'."
@@ -60,6 +60,7 @@
     "variables": {
         "uniqueResourceId": {
             "type": "string",
+            "minLength": 0,
             "value": "[uniqueString(resourceGroup().id)]",
             "metadata": {
                 "description": "The ResourceGroup scoped unique 13 character Id. Same for all resources within the Resource Group. Make unique using prefixes, and suffixes."
