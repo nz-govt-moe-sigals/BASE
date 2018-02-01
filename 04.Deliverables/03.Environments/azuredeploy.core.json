@@ -80,7 +80,7 @@
         },
         "defaultTemplateName": {
             "type": "string",
-            "value": "[parameters('defaultResourceNameTemplate')]",
+            "value": "[parameters('defaultResourceNameTemplate')]"
         }
     }
 }

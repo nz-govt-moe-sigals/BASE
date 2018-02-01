@@ -6,13 +6,13 @@
             "value": "Australia East"
           },
           "defaultResourceNameOrgIdentifier": {
-        "value": "MOE"
-      },
-      "defaultResourceNameAppIdentifier": {
+         "value": "MOE"
+         },
+         "defaultResourceNameAppIdentifier": {
         "value": "CORE"
       },
       "armTemplateBaseUrl": { 
           "value": "http://nowhere.for.now/"
       }
     }
-}
+  }
