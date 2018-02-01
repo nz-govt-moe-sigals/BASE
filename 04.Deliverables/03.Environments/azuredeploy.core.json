@@ -33,7 +33,7 @@
         "defaultResourceNameTemplate": {
             "type": "string",
             "minLength": 1,
-            "defaultValue": "{ORG}-{APP}-{RESOURCETYPE}-{RESOURCEUNIQUESTRING}",
+            "defaultValue": "{ORG}-{APP}-{APPINST}-{RESOURCETYPE}-{RESOURCEUNIQUESTRING}",
             "metadata": {
                 "description": "The default name template for Resources. Keywords replaced include: '{ORG}', '{APP}', '{RESOURCETYPE}', '{RESOURCEUNIQUESTRING}', '{RESOURCEUNIQUEGUID}'."
             }
@@ -67,8 +67,7 @@
         }
     },
     "resources": [
-        {
-        }
+
     ],
     "outputs": {
         "uniqueResourceId": {
@@ -80,8 +79,8 @@
 
         },
         "defaultTemplateName": {
+            "type": "string",
             "value": "[parameters('defaultResourceNameTemplate')]",
-            "type": "string"
         }
     }
 }
