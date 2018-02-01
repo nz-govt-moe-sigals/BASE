@@ -1,0 +1,39 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "defaultResourceLocation": {
+            "type": "string",
+            "minLength": 1,
+            "defaultValue": "[resourceGroup().location]",
+            "metadata": {
+                "description": "The location within which to develop the Resources."
+            }
+        },
+        "resourceNamePrefix": {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "The prefix to attach to auto generated Resource Names (eg: 'FOO-')."
+            }
+        },
+        "resourceNameSuffix": {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "The suffix to attach to auo generated Resource Names (eg: '-BAR')."
+            }
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+        }
+    ],
+    "outputs": {
+        "myOutput": {
+            "value": "foobar",
+            "type": "string"
+          }
+    }
+}
