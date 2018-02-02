@@ -3,6 +3,7 @@
 #   Your Build Definition will need custom Variables:
 #   custom.vars.AppInstance = "";
 #   custom.vars.resourceNameTemplate = "MYORG-MYAPP-{APPINST}-{RESOURCETYPE}";
+#   custom.vars.subscriptionName = "...";
 
 # README
 # * Build Variables are automatically passed to PowerShell scripts as environment variables.
