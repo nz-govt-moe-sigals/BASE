@@ -16,7 +16,6 @@
 
 # https://docs.microsoft.com/en-gb/vsts/build-release/concepts/definitions/release/variables?tabs=batch#default-variables
 
-System.TeamProjectId
 Write-Host "...System.TeamProject: $(ENV:System_TeamProject)"
 Write-Host "...System.TeamProjectId: $(ENV:System_TeamProjectId)"
 
