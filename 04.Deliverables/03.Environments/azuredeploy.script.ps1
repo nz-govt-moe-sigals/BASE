@@ -118,7 +118,7 @@ $resourceNameTemplate= $resourceNameTemplate `
                         -replace "{ENVIDENTIFIER}", $resourceEnvIdentifier `
                         -replace "{ENVID}", $resourceEnvIdentifier `
                         -replace "{ENV}", $resourceEnvIdentifier
-                        
+
 Write-Host "...Replacing '{SOURCEBRANCHNAME}'/'{SOURCEBRANCH}'/'{BRANCHNAME}'/'{BRANCH} found within 'env:CUSTOM_VARS_RESOURCENAMETEMPLATE':"
 $resourceNameTemplate= $resourceNameTemplate `
                         -replace "{SOURCEBRANCHNAME}", $buildSourceBranchName `
@@ -126,7 +126,7 @@ $resourceNameTemplate= $resourceNameTemplate `
                         -replace "{BRANCHNAME}", $buildSourceBranchName `
                         -replace "{BRANCH}", $buildSourceBranchName
 # Remove final dashes and duplicates:
-$resourceNameTemplate = $resourceNameTemplate.Replace("--", "-")
+$resourceNameTemplate = $resourceNameTemplate -replace "--", "-"
 # $resourceNameTemplate= [Regex]::Replace($resourceNameTemplate.Replace("--", "-"),"(.*)-*$","$1");
 Write-Host "...resourceNameTemplate (cleaned up): $resourceNameTemplate"
 
