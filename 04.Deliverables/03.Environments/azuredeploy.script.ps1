@@ -75,6 +75,8 @@ $resourceNameTemplate = $env:CUSTOM_VARS_RESOURCENAMETEMPLATE;
 if ($resourceNameTemplate -eq $null){$resourceNameTemplate = "";}
 $defaultArmLocation = $env:custom_vars_DEFAULTARMLOCATION;
 if ($defaultArmLocation -eq $null){$defaultArmLocation = "";}
+$defaultResourceLocation = $env:custom_vars_DEFAULTRESOURCELOCATION;
+if ($defaultResourceLocation -eq $null){$defaultResourceLocation = "Australia East";}
 
 # Output System, Build's default and injected Variables:
 Write-Host "Agent Variable of potential interests:"
@@ -111,7 +113,7 @@ Write-Host "...resourceNameTemplate: $resourceNameTemplate"
 Write-Host ""
 
 # Create Name of ResourceGroup
-Write-Host "Solving Resouce Group Name Template"
+Write-Host "Solving Resource Group Name Template"
 Write-Host "...resourceNameTemplate: $resourceNameTemplate"
 Write-Host "...Replacing '{ENV}'/'{ENVID}'/'{ENVIDENTIFIER} found within 'env:CUSTOM_VARS_RESOURCENAMETEMPLATE':"
 $resourceNameTemplate= $resourceNameTemplate `
@@ -134,9 +136,9 @@ Write-Host "...resourceNameTemplate (cleaned up): $resourceNameTemplate"
 Select-AzureRmSubscription -SubscriptionName "$subscriptionName"
 
 # Create Resource Group
-# New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName-TemplateUri $templateUri
+New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName #-TemplateUri $templateUri
 
-
+New-AzureRmResourceGroup -Name $resourceGroupName -Location $defaultResourceLocation
 
 # Set output variables:
 Write-host $env:OutputVar
