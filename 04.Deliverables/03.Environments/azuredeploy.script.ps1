@@ -65,9 +65,10 @@ $defaultArmLocation = $env:custom_vars_DEFAULTARMLOCATION;
 if ($defaultArmLocation -eq $null){$defaultArmLocation = "";}
 Write-Host "...defaultArmLocation: $(defaultArmLocation)"
 # ...Cleanup the AppInstanceIdentifier:
-$appInstanceIdentifier = $env:custom_vars_APPINSTANCE;
-if ($appInstanceIdentifier -eq $null){$appInstanceIdentifier = "";}
-Write-Host "...appInstanceIdentifier: $(appInstanceIdentifier)"
+$resourceEnvIdentifier = $env:custom_vars_resourceEnvIdentifier;
+if ($appInstanceIdentifier -eq $null){$resourceEnvIdentifier = "";}
+Write-Host "...resourceEnvIdentifier: $(resourceEnvIdentifier)"
+
 # ...Cleanup the resourceNameTemplate:
 $resourceNameTemplate = $env:CUSTOM_VARS_RESOURCENAMETEMPLATE;
 if ($resourceNameTemplate -eq $null){$resourceNameTemplate = "";}
@@ -79,9 +80,9 @@ Write-Host "...resourceNameTemplate: $(resourceNameTemplate)"
 Write-Host "Solving Resouce Group Name Template"
 Write-Host "...resourceNameTemplate: $(resourceNameTemplate)"
 Write-Host "...Replaceing '{ENV}'/'{ENVID}'/'{ENVIDENTIFIER} found within 'env:CUSTOM_VARS_RESOURCENAMETEMPLATE':"
-$resourceNameTemplate= $resourceNameTemplate.Replace("{ENVIDENTIFIER}", $targetEnvironmentIdentifier);
-$resourceNameTemplate= $resourceNameTemplate.Replace("{ENVID}", $targetEnvironmentIdentifier);
-$resourceNameTemplate= $resourceNameTemplate.Replace("{ENV}", $targetEnvironmentIdentifier);
+$resourceNameTemplate= $resourceNameTemplate.Replace("{ENVIDENTIFIER}", $resourceEnvIdentifier);
+$resourceNameTemplate= $resourceNameTemplate.Replace("{ENVID}", $resourceEnvIdentifier);
+$resourceNameTemplate= $resourceNameTemplate.Replace("{ENV}", $resourceEnvIdentifier);
 $resourceNameTemplate= $resourceNameTemplate.Replace("{SOURCEBRANCHNAME}", $buildSourceBranchName);
 $resourceNameTemplate= $resourceNameTemplate.Replace("{SOURCEBRANCH}", $buildSourceBranchName);
 $resourceNameTemplate= $resourceNameTemplate.Replace("{BRANCHNAME}", $buildSourceBranchName);
