@@ -7,8 +7,9 @@
 
 # README
 # * Build Variables are automatically passed to PowerShell scripts as environment variables.
-#   Note thate "." is converted to "_", so a custom variable with a key of
-#   'custom.vars.Foo' is available as '$env:custom_vars_Foo'
+#   Vars Must be Uppercase.
+#   And "." is converted to "_", so a custom variable with a key of
+#   'custom.vars.Foo' is available as '$env:CUSTOM_VARS_FOO'
 # * Arguments
 
 # Context:
@@ -16,8 +17,8 @@
 
 # https://docs.microsoft.com/en-gb/vsts/build-release/concepts/definitions/release/variables?tabs=batch#default-variables
 
-Write-Host "...System.TeamProject: $(ENV:System_TeamProject)"
-Write-Host "...System.TeamProjectId: $(ENV:System_TeamProjectId)"
+Write-Host "...System.TeamProject: $(ENV:SYSTEM_TEAMPROJECT)"
+Write-Host "...System.TeamProjectId: $(ENV:SYSTEM_TEAMPROJECTID)"
 
 Write-Host "...."
 
