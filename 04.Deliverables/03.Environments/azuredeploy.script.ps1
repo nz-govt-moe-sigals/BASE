@@ -20,7 +20,9 @@
   * http://skysigal.com/it/ad/powershell/howto/syntax_basics/home 
 
   ### PREREQUISITE KNOWLEDGE: HOW TO GET CONTEXT INFO WITHIN YOUR SCRIPTS.
-  Essentially, by the time this script is invoked, VSO will have pumped into a ton of variables:
+  Essentially, by the time this script is invoked, VSO will have pumped into a ton of variables.
+  * More info: https://docs.microsoft.com/en-us/vsts/build-release/concepts/definitions/build/variables?tabs=batch#predefined-variables
+  * There is an Agent object
   * There is also a Server object
   * There is also a Build object
   * Every Custom Variable (eg: 'custom.Vars.Foo') you create in a VSO Build Definition will 
@@ -75,6 +77,13 @@ $defaultArmLocation = $env:custom_vars_DEFAULTARMLOCATION;
 if ($defaultArmLocation -eq $null){$defaultArmLocation = "";}
 
 # Output System, Build's default and injected Variables:
+Write-Host "Agent Variable of potential interests:"
+Write-Host "...Agent.Id: $ENV:AGENT_ID"
+Write-Host "...Agent.MachineName: $ENV:AGENT_MACHINENAME"
+Write-Host "...Agent.BuildDirectory: $ENV:AGENT_BUILDDIRECTORY"
+Write-Host "...Agent.WorkFolder: $ENV:AGENT_WORKFOLDER"
+Write-Host "...Agent.JobStatus: $ENV:AGENT_JOBSTATUS"
+
 Write-Host "System Variable of potential interests:"
 Write-Host "...System.TeamProject: $ENV:SYSTEM_TEAMPROJECT"
 Write-Host "...System.TeamProjectId: $ENV:SYSTEM_TEAMPROJECTID"
