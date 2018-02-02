@@ -133,12 +133,15 @@ $resourceNameTemplate = $resourceNameTemplate -replace "--", "-"
 Write-Host "...resourceNameTemplate (cleaned up): $resourceNameTemplate"
 
 # Set Subscription
-Select-AzureRmSubscription -SubscriptionName "$subscriptionName"
+Select-AzureRmSubscription -SubscriptionName "$subscriptionName" 
 
 # Create Resource Group
-New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName #-TemplateUri $templateUri
+New-AzureRmResourceGroup -Name $resourceGroupName -Location $defaultResourceLocation -Tag @{PROJ="EDU/MOE/CORE"}
 
-New-AzureRmResourceGroup -Name $resourceGroupName -Location $defaultResourceLocation
+
+# Deploy to Existing Resource Group
+#New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName #-TemplateUri $templateUri
+
 
 # Set output variables:
 Write-host $env:OutputVar
