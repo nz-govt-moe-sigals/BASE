@@ -102,17 +102,17 @@ Write-Host "...BUILD_SOURCEBRANCH: $ENV:BUILD_SOURCEBRANCH"
 Write-Host "...BUILD_SOURCEBRANCH_NAME: $ENV:BUILD_SOURCEBRANCH_NAME"
 
 Write-Host "Injected Task Variables:"
-Write-Host "...subscriptionName: $(subscriptionName)"
-Write-Host "...defaultArmLocation: $(defaultArmLocation)"
-Write-Host "...resourceEnvIdentifier: $(resourceEnvIdentifier)"
-Write-Host "...resourceNameTemplate: $(resourceNameTemplate)"
+Write-Host "...subscriptionName: $subscriptionName"
+Write-Host "...defaultArmLocation: $defaultArmLocation"
+Write-Host "...resourceEnvIdentifier: $resourceEnvIdentifier"
+Write-Host "...resourceNameTemplate: $resourceNameTemplate"
 
 
 Write-Host ""
 
 # Create Name of ResourceGroup
 Write-Host "Solving Resouce Group Name Template"
-Write-Host "...resourceNameTemplate: $(resourceNameTemplate)"
+Write-Host "...resourceNameTemplate: $resourceNameTemplate"
 Write-Host "...Replacing '{ENV}'/'{ENVID}'/'{ENVIDENTIFIER} found within 'env:CUSTOM_VARS_RESOURCENAMETEMPLATE':"
 $resourceNameTemplate= $resourceNameTemplate
                             .Replace("{ENVIDENTIFIER}", $resourceEnvIdentifier)
@@ -127,7 +127,7 @@ Write-Host "...Replacing '{SOURCEBRANCHNAME}'/'{SOURCEBRANCH}'/'{BRANCHNAME}'/'{
 # Remove final dashes and duplicates:
 $resourceNameTemplate = $resourceNameTemplate.Replace("--", "-")
 # $resourceNameTemplate= [Regex]::Replace($resourceNameTemplate.Replace("--", "-"),"(.*)-*$","$1");
-Write-Host "...resourceNameTemplate (cleaned up): $(resourceNameTemplate)"
+Write-Host "...resourceNameTemplate (cleaned up): $resourceNameTemplate"
 
 # Set Subscription
 Select-AzureRmSubscription -SubscriptionName "$subscriptionName"
@@ -139,6 +139,7 @@ Select-AzureRmSubscription -SubscriptionName "$subscriptionName"
 
 # Set output variables:
 Write-host $env:OutputVar
-Write-Output ("##vso[task.setvariable variable=CUSTOM_VARS_RESOURCENAMETEMPLATE;]$(resourceNameTemplate)")
-Write-Output ("##vso[task.setvariable variable=CUSTOM_VARS_APPINSTANCE;]$(appInstanceIdentifier)")
-Write-host $env:OutputVar
+Write-Output ("##vso[task.setvariable variable=CUSTOM_VARS_RESOURCENAMETEMPLATE;]$resourceNameTemplate")
+Write-Output ("##vso[task.setvariable variable=CUSTOM_VARS_APPINSTANCE;]$appInstanceIdentifier")
+Write-host $env:CUSTOM_VARS_RESOURCENAMETEMPLATE
+Write-host $env:CUSTOM_VARS_CUSTOM_VARS_APPINSTANCE
