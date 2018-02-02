@@ -49,6 +49,11 @@ Write-Host "...BUILD_SOURCEBRANCH_NAME: $(ENV:BUILD_SOURCEBRANCH_NAME)"
 # Create Temp Vars:
 
 # Cleanup Parameters:
+$subscriptionName = $ENV:CUSTOM_VARS_SUBSCRIPTION_NAME;
+if ($subscriptionName -eq $null){$subscriptionName = $ENV:CUSTOM_VARS_SUBSCRIPTIONNAME;}
+if ($subscriptionName -eq $null){$subscriptionName = "";}
+Write-Host "...subscriptionName: $(subscriptionName)"
+
 # ...Branch Name:
 $buildSourceBranchName = $ENV:BUILD_SOURCEBRANCH_NAME;
 if ($buildSourceBranchName -eq $null){$buildSourceBranchName = "";}
@@ -83,6 +88,8 @@ $resourceNameTemplate= $resourceNameTemplate.Replace("{BRANCH}", $buildSourceBra
 $resourceNameTemplate= $resourceNameTemplate.Replace("--", "-");
 Write-Host "...resourceNameTemplate: $(resourceNameTemplate)"
 
+# Set Subscription
+Select-AzureRmSubscription -SubscriptionName "$subscriptionName"
 
 # Create Resource Group
 # New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName-TemplateUri $templateUri
