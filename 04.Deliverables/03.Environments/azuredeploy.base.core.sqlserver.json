@@ -2,6 +2,21 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+      "resourceLocation": {
+        "type": "string",
+        "defaultValue": "[resourceGroup().location]",
+        "allowedValues": [
+          "East US",
+          "South Central US",
+          "Southeast Asia",
+          "West Central US",
+          "West Europe",
+          "West US 2"
+        ],
+        "metadata": {
+          "description": "The location for the SQL service. This is parameterised because SQL servers cannot be deployed in all regions for subscription types."
+        }
+      },
       "sqlServerName": {
         "type": "string",
         "minLength": 1
@@ -13,6 +28,8 @@
       "sqlServerAdminLoginPassword": {
         "type": "securestring"
       },
+
+
       "sqlDBName": {
         "type": "string",
         "minLength": 1
@@ -31,6 +48,7 @@
           "Premium"
         ]
       },
+      
       "sqlDBPerformanceLevel": {
         "type": "string",
         "defaultValue": "S1",
@@ -45,21 +63,6 @@
         ],
         "metadata": {
           "description": "Describes the performance level for Edition"
-        }
-      },
-      "sqlServiceLocation": {
-        "type": "string",
-        "defaultValue": "[resourceGroup().location]",
-        "allowedValues": [
-          "East US",
-          "South Central US",
-          "Southeast Asia",
-          "West Central US",
-          "West Europe",
-          "West US 2"
-        ],
-        "metadata": {
-          "description": "The location for the SQL service. This is parameterised because SQL servers cannot be deployed in all regions for subscription types."
         }
       },
       "dbAuditStorageAccountName": {
@@ -78,7 +81,7 @@
       {
         "name": "[parameters('sqlServerName')]",
         "type": "Microsoft.Sql/servers",
-        "location": "[parameters('sqlServiceLocation')]",
+        "location": "[parameters('resourceLocation')]",
         "apiVersion": "2014-04-01-preview",
         "dependsOn": [],
         "tags": {
@@ -92,7 +95,7 @@
           {
             "name": "AllowAllWindowsAzureIps",
             "type": "firewallrules",
-            "location": "[parameters('sqlServiceLocation')]",
+            "location": "[parameters('resourceLocation')]",
             "apiVersion": "2014-04-01-preview",
             "dependsOn": [
               "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]"
@@ -105,7 +108,7 @@
           {
             "name": "[parameters('sqlDBName')]",
             "type": "databases",
-            "location": "[parameters('sqlServiceLocation')]",
+            "location": "[parameters('resourceLocation')]",
             "apiVersion": "2014-04-01-preview",
             "tags": {
               "displayName": "SQL Database"
@@ -127,7 +130,7 @@
         "type": "Microsoft.Sql/servers/auditingPolicies",
         "name": "[concat(parameters('sqlServerName'), '/standardAuditPolicy')]",
         "apiVersion": "2014-04-01",
-        "location": "[parameters('sqlServiceLocation')]",
+        "location": "[parameters('resourceLocation')]",
         "scale": null,
         "properties": {
           "auditingState": "Disabled",
@@ -179,7 +182,7 @@
         "comments": "DB Audit Storage Account",
         "name": "[parameters('dbAuditStorageAccountName')]",
         "type": "Microsoft.Storage/storageAccounts",
-        "location": "[parameters('sqlServiceLocation')]",
+        "location": "[parameters('resourceLocation')]",
         "apiVersion": "2017-06-01",
         "sku": {
           "name": "Standard_LRS",
@@ -212,7 +215,7 @@
         "comments": "DB data storage account",
         "name": "[parameters('dbContainerStorageAccountName')]",
         "type": "Microsoft.Storage/storageAccounts",
-        "location": "[parameters('sqlServiceLocation')]",
+        "location": "[parameters('resourceLocation')]",
         "apiVersion": "2017-06-01",
         "sku": {
           "name": "Standard_LRS",

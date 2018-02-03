@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "defaultResourceLocation": {
+        "resourceLocation": {
             "metadata": {
                 "description": "The default location within which to develop the Resources Group and its child Resources."
             },
@@ -93,8 +93,12 @@
                 },
                 "parameters": {
                     "resourceLocation": {
-                        "value": "[parameters('resourceGroupLocation')]"
+                        "value": "[parameters('resourceLocation')]"
+                    },
+                    "sku": {
+                        "value": "[parameters('serverFarmSkuName')]"
                     }
+
                 }
             }
         }

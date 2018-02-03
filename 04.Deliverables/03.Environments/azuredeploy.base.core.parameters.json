@@ -7,6 +7,9 @@
       },
       "armTemplateRoot": { 
           "value": "http://nowhere.for.now/"
+      },
+      "serverFarmSkuName": {
+        "value":"S1"
       }
     }
   }

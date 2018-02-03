@@ -14,7 +14,7 @@
         "type": "string",
         "minLength": 1
       },
-      "serverFarmSkuName": {
+      "sku": {
         "type": "string",
         "defaultValue": "S1",
         "allowedValues": [
@@ -38,7 +38,7 @@
         "location": "[parameters('resourceGroupLocation')]",
         "apiVersion": "2015-08-01",
         "sku": {
-          "name": "[parameters('serverFarmSkuName')]"
+          "name": "[parameters('sku')]"
         },
         "dependsOn": [],
         "tags": {
