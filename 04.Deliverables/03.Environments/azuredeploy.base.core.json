@@ -86,36 +86,33 @@
         "uniqueResourceId": "[uniqueString(resourceGroup().id)]",
         "resourceNamePrefix": "azuredeploy.base.core",
         "armTemplateRoot": "[parameters('armTemplateRoot')]",
-        "resourceLocation": [
-            "parameters('resourceLocation')"
-        ],
-        "resourceNameTemplate": [
-            "parameters('resourceNameTemplate')"
-        ],
+        "resourceLocation": "parameters('resourceLocation')",
+        "resourceNameTemplate": "parameters('resourceNameTemplate')",
         "webServerFarm": {
-            "id":"[concat(variables('resourceNamePrefix'),'.appServicePan')]",
-            "armPath":"[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.appServicePan', '.json')]",
+            "id": "[concat(variables('resourceNamePrefix'),'.appServicePan')]",
+            "armPath": "[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.appServicePan', '.json')]",
             "location": "[parameters('resourceLocation')]",
-            "name": "[replace(parameters('resourceNameTemplate', '{RESOURCETYPE}', 'WSP')]",
+            "name": "[replace(parameters('resourceNameTemplate', '{RESOURCETYPE}', 'WSP'))]",
             "sku": "[coalesce(parameters('webServerFarmSku')]"
         },
-        "storageAccount":{
-            "id":"[concat(variables('resourceNamePrefix'),'.storageAccount')]",
-            "armPath":"[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.storageAccount', '.json')]"
+        "storageAccount": {
+            "id": "[concat(variables('resourceNamePrefix'),'.storageAccount')]",
+            "armPath": "[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.storageAccount', '.json')]",
+            "location": "[parameters('resourceLocation')]",
+            "name": "[replace(parameters('resourceNameTemplate', '{RESOURCETYPE}', 'SA'))]",
         },
-
-
-        "sqlServerDatabaseName": "[concat(variables('resourceNamePrefix'),'.sqlServerDatabase')]",
-        "sqlServerDatabasePath": "[concat(variables('armTemplateRoot'), '/', variables('sqlServerDatabaseName'), '.json')]",
-
         "sqlServer": {
-            "id":"[concat(variables('resourceNamePrefix'),'.sqlServerDatabaseServer')]",
-            "armPath":"[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.sqlServerDatabaseServer', '.json')]",
+            "id": "[concat(variables('resourceNamePrefix'),'.sqlServerDatabaseServer')]",
+            "armPath": "[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.sqlServerDatabaseServer', '.json')]",
             "Administrator": {
                 "sku": "[coalesce(parameters('sqlServerSku'), parameters('webServerFarmSku'))]",
                 "login": "[parameters('sqlServerAdministratorLogin')]",
                 "password": "[parameters('sqlServerAdministratorPassword')]"
             }
+        },
+        "sqlServerDatabase": {
+            "id": "[concat(variables('resourceNamePrefix'),'.sqlServerDatabase')]",
+            "armPath": "[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.sqlServerDatabase', '.json')]"
         }
     },
     "resources": [
@@ -142,8 +139,28 @@
                     }
                 }
             }
-        }
-    ],
+        },
+        {
+            "comments": "Ensures a Resource Group scoped unique Storage Account",
+            "name": "[variables('storageAccount.id')]",
+            "apiVersion": "2017-05-10",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('storageAccount.armPath')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "resourceLocation": {
+                        "value": "[variables('storageAccount.location')]"
+                    },
+                    "name": {
+                        "value": "[variables('storageAccount.name')]"
+                    }
+                }
+            }
+        }    ],
     "outputs": {
         "uniqueResourceId": {
             "type": "string",
