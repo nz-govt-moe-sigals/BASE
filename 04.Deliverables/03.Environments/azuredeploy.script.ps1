@@ -33,12 +33,17 @@
   ### PREREQUISITE KNOWLEDGE: AZURE AUTHENTICATION/SUBSCRIPTION CONTEXT
   Variables are then used to create or privision Resources within a specific target Azure Subscription. 
 
+  ### PREREQUISITES KNOWLEDGE: ARMS
+  You can find ARM Templates to look at here: https://azure.microsoft.com/en-us/resources/templates/?sort=Popular
+
   ### PREREQUISITES: VARIABLES
   The script is expecting the following Custom Variable Inputs being set in the Build Definition Variables:
   * NO: Legacy: custom.vars.subscriptionName
   * custom.vars.resourceNameTemplate
   * custom.vars.envIdentifier
   * custom.vars.armTemplateRoot
+
+
 #>
 
 

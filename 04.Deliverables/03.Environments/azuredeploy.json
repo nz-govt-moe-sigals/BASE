@@ -31,7 +31,6 @@
     "resources": [
         {
             "comments": "Deploys the App Service Plan",
-            
             "apiVersion": "2017-05-10",
             "name": "azuredeploy.asp",
             "type": "Microsoft.Resources/deployments",
@@ -52,7 +51,8 @@
                 }
             }
         },
-        {
+        { 
+            "comments": "Deploys the Web Front End App Service",
             "apiVersion": "2017-05-10",
             "name": "azuredeploy.as",
             "type": "Microsoft.Resources/deployments",
@@ -69,8 +69,7 @@
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Resources/deployments', 'azuredeploy.ap')]"
-            ],
-            "comments": "Deploys the Web Front End App Service"
+            ]
           },      
           
 

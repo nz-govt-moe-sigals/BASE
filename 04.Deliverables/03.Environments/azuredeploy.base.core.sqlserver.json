@@ -1,0 +1,243 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "sqlServerName": {
+        "type": "string",
+        "minLength": 1
+      },
+      "sqlServerAdminLogin": {
+        "type": "string",
+        "minLength": 1
+      },
+      "sqlServerAdminLoginPassword": {
+        "type": "securestring"
+      },
+      "sqlDBName": {
+        "type": "string",
+        "minLength": 1
+      },
+      "sqlDBCollation": {
+        "type": "string",
+        "minLength": 1,
+        "defaultValue": "SQL_Latin1_General_CP1_CI_AS"
+      },
+      "sqlDBEdition": {
+        "type": "string",
+        "defaultValue": "Standard",
+        "allowedValues": [
+          "Basic",
+          "Standard",
+          "Premium"
+        ]
+      },
+      "sqlDBPerformanceLevel": {
+        "type": "string",
+        "defaultValue": "S1",
+        "allowedValues": [
+          "Basic",
+          "S0",
+          "S1",
+          "S2",
+          "P1",
+          "P2",
+          "P3"
+        ],
+        "metadata": {
+          "description": "Describes the performance level for Edition"
+        }
+      },
+      "sqlServiceLocation": {
+        "type": "string",
+        "defaultValue": "[resourceGroup().location]",
+        "allowedValues": [
+          "East US",
+          "South Central US",
+          "Southeast Asia",
+          "West Central US",
+          "West Europe",
+          "West US 2"
+        ],
+        "metadata": {
+          "description": "The location for the SQL service. This is parameterised because SQL servers cannot be deployed in all regions for subscription types."
+        }
+      },
+      "dbAuditStorageAccountName": {
+        "type": "string",
+        "minLength": 1
+      },
+      "dbContainerStorageAccountName": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "variables": {},
+    "resources": [
+      {
+        "name": "[parameters('sqlServerName')]",
+        "type": "Microsoft.Sql/servers",
+        "location": "[parameters('sqlServiceLocation')]",
+        "apiVersion": "2014-04-01-preview",
+        "dependsOn": [],
+        "tags": {
+          "displayName": "SQL Server"
+        },
+        "properties": {
+          "administratorLogin": "[parameters('sqlServerAdminLogin')]",
+          "administratorLoginPassword": "[parameters('sqlServerAdminLoginPassword')]"
+        },
+        "resources": [
+          {
+            "name": "AllowAllWindowsAzureIps",
+            "type": "firewallrules",
+            "location": "[parameters('sqlServiceLocation')]",
+            "apiVersion": "2014-04-01-preview",
+            "dependsOn": [
+              "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]"
+            ],
+            "properties": {
+              "startIpAddress": "0.0.0.0",
+              "endIpAddress": "0.0.0.0"
+            }
+          },
+          {
+            "name": "[parameters('sqlDBName')]",
+            "type": "databases",
+            "location": "[parameters('sqlServiceLocation')]",
+            "apiVersion": "2014-04-01-preview",
+            "tags": {
+              "displayName": "SQL Database"
+            },
+            "properties": {
+              "collation": "[parameters('sqlDBCollation')]",
+              "edition": "[parameters('sqlDBEdition')]",
+              "maxSizeBytes": "268435456000",
+              "requestedServiceObjectiveName": "[parameters('sqlDBPerformanceLevel')]"
+            },
+            "dependsOn": [
+              "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]"
+            ]
+          }
+        ]
+      },
+      {
+        "comments": "Database Audit Policies and tie to storage",
+        "type": "Microsoft.Sql/servers/auditingPolicies",
+        "name": "[concat(parameters('sqlServerName'), '/standardAuditPolicy')]",
+        "apiVersion": "2014-04-01",
+        "location": "[parameters('sqlServiceLocation')]",
+        "scale": null,
+        "properties": {
+          "auditingState": "Disabled",
+          "eventTypesToAudit": "PlainSQL_Success,PlainSQL_Failure,ParameterizedSQL_Success,ParameterizedSQL_Failure,StoredProcedure_Success,StoredProcedure_Failure,Login_Success,Login_Failure,TransactionManagement_Success,TransactionManagement_Failure",
+          "storageAccountName": "auditStorageAccountName",
+          "storageAccountKey": null,
+          "storageAccountSecondaryKey": null,
+          "storageTableEndpoint": "[concat('https', '://', parameters('dbAuditStorageAccountName'), '.table.core.windows.net', '/')]",
+          "storageAccountResourceGroupName": "[resourceGroup().name]",
+          "storageAccountSubscriptionId": "[subscription().id]",
+          "fullAuditLogsTableName": "[concat('SQLDBAuditLogs',parameters('sqlServerName'))]",
+          "auditLogsTableName": "[parameters('sqlServerName')]",
+          "retentionDays": "31"
+        },
+        "dependsOn": [
+          "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]",
+          "[resourceId('Microsoft.Storage/storageAccounts', parameters('dbAuditStorageAccountName'))]"
+        ]
+      },
+      {
+        "comments": "Database auto tuning - Create Index",
+        "type": "Microsoft.Sql/servers/databases/advisors",
+        "name": "[concat(parameters('sqlServerName'), '/', parameters('sqlDBName'), '/CreateIndex')]",
+        "apiVersion": "2014-04-01",
+        "scale": null,
+        "properties": {
+          "autoExecuteValue": "Enabled"
+        },
+        "dependsOn": [
+          "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]",
+          "[resourceId('Microsoft.Sql/servers/databases', parameters('sqlServerName'), parameters('sqlDBName'))]"
+        ]
+      },
+      {
+        "comments": "Database auto tuning - Drop Index",
+        "type": "Microsoft.Sql/servers/databases/advisors",
+        "name": "[concat(parameters('sqlServerName'), '/', parameters('sqlDBName'), '/DropIndex')]",
+        "apiVersion": "2014-04-01",
+        "scale": null,
+        "properties": {
+          "autoExecuteValue": "Enabled"
+        },
+        "dependsOn": [
+          "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]",
+          "[resourceId('Microsoft.Sql/servers/databases', parameters('sqlServerName'), parameters('sqlDBName'))]"
+        ]
+      },
+      {
+        "comments": "DB Audit Storage Account",
+        "name": "[parameters('dbAuditStorageAccountName')]",
+        "type": "Microsoft.Storage/storageAccounts",
+        "location": "[parameters('sqlServiceLocation')]",
+        "apiVersion": "2017-06-01",
+        "sku": {
+          "name": "Standard_LRS",
+          "tier": "Standard"
+        },
+        "dependsOn": [],
+        "tags": {
+          "displayName": "SQL DB Audit Storage Account"
+        },
+        "kind": "Storage",
+        "properties": {
+          "encryption": {
+            "keySource": "Microsoft.Storage",
+            "services": {
+              "blob": {
+                "enabled": true
+              }
+            }
+          },
+          "networkAcls": {
+            "bypass": "AzureServices",
+            "defaultAction": "Allow",
+            "ipRules": [],
+            "virtualNetworkRules": []
+          },
+          "supportsHttpsTrafficOnly": false
+        }
+      },
+      {
+        "comments": "DB data storage account",
+        "name": "[parameters('dbContainerStorageAccountName')]",
+        "type": "Microsoft.Storage/storageAccounts",
+        "location": "[parameters('sqlServiceLocation')]",
+        "apiVersion": "2017-06-01",
+        "sku": {
+          "name": "Standard_LRS",
+          "tier": "Standard"
+        },
+        "tags": {
+          "displayName": "SQL DB Container Storage Account"
+        },
+        "kind": "Storage",
+        "properties": {
+          "encryption": {
+            "keySource": "Microsoft.Storage",
+            "services": {
+              "blob": {
+                "enabled": true
+              }
+            }
+          },
+          "networkAcls": {
+            "bypass": "AzureServices",
+            "defaultAction": "Allow",
+            "ipRules": [],
+            "virtualNetworkRules": []
+          },
+          "supportsHttpsTrafficOnly": false
+        },
+        "dependsOn": []
+      }
+    ]
+  }
