@@ -112,7 +112,7 @@
             "id":"[concat(variables('resourceNamePrefix'),'.sqlServerDatabaseServer')]",
             "armPath":"[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.sqlServerDatabaseServer', '.json')]",
             "Administrator": {
-                "sku": "[coalesce(parameters('sqlServerSku'),parameters('webServerFarmSku'))]",
+                "sku": "[coalesce(parameters('sqlServerSku'), parameters('webServerFarmSku'))]",
                 "login": "[parameters('sqlServerAdministratorLogin')]",
                 "password": "[parameters('sqlServerAdministratorPassword')]"
             }

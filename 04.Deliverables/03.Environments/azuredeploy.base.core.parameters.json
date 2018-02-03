@@ -11,8 +11,5 @@
       "webServerFarmSku": {
         "value":"S1"
       },
-      "sqlServerSku": {
-        "value":null
-      }
     }
   }
