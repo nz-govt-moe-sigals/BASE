@@ -11,3 +11,9 @@ It controls billing.
   * Inputs:
     * Location. Note that the Location is where the ASP definition is saved. Does not define where it's servers are saved.
     * SKU
+
+
+
+## Resources ##
+
+* https://docs.microsoft.com/en-us/azure/templates/microsoft.web/serverfarms

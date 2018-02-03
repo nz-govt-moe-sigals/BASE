@@ -10,7 +10,9 @@
             "type": "string",
             "allowedValues": [
                 "Australia East",
-                "Australia Southeast"
+                "Australia Southeast",
+                "australiaeast",
+                "australiasoutheast",
             ],
             "defaultValue": "[resourceGroup().location]"        
         },
