@@ -16,7 +16,7 @@
         },
         "resourceNameTemplate": {
             "type": "string",
-            "minLength": 4,
+            "minLength": 0,
             "defaultValue": "",
             "metadata": {
                 "description": "The default name template for Resources (eg: 'MYORG-MYAPP-{ENVID}-{RESOURCETYPE}')'."

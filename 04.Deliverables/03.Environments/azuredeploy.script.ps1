@@ -157,7 +157,12 @@ Write-Host "...Ensure ResourceGroup -Name $resourceName -Location $defaultResour
 New-AzureRmResourceGroup -Name $resourceName -Location $defaultResourceLocation -Tag @{PROJ="EDU/MOE/CORE"} -Force
 
 
-# Deploy to Existing Resource Group
+# Deploy to Existing Resource Group.
+# The theory here is 
+# import the ARM, with its default values
+# and the ARM Params, which might be incomplete
+# and pass some params 'on the fly'
+# so that the fly fill in any gaps in the params (but params get precedence) 
 if (($armTemplatePath.StartsWith('http:')) -or ($armTemplatePath.StartsWith('https:')) ){
   New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceName -TemplateUri $armTemplatePath  -TemplateParameterUri $armTemplateParameterPath -resourceNameTemplate $resourceNameTemplate  -armTemplateRoot $armTemplateRoot
 }else{
