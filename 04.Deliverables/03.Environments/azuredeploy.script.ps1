@@ -38,7 +38,7 @@
   * NO: Legacy: custom.vars.subscriptionName
   * custom.vars.resourceNameTemplate
   * custom.vars.envIdentifier
-  * custom.vars.defaultArmRootLocation
+  * custom.vars.armTemplateRoot
 #>
 
 
@@ -67,14 +67,18 @@ if ($resourceNameTemplate -eq $null){$resourceNameTemplate = "";}
 $defaultResourceLocation = $env:custom_vars_DEFAULTRESOURCELOCATION;
 if ($defaultResourceLocation -eq $null){$defaultResourceLocation = "Australia East";}
 # as for the ARM Templates:
+$armTemplateRoot = $env:custom_vars_armTemplateRoot;
+if ($armTemplateRoot -eq $null){$armTemplateRoot = "";}
 $armTemplatePath = $env:custom_vars_armTemplatePath;
 if ($armTemplatePath -eq $null){$armTemplatePath = "";}
+if ([System.IO.Path]::IsPathRooted($armTemplatePath) -eq $false){
+  $armTemplatePath = [System.IO.Path]::Combine($armTemplateRoot, $armTemplatePath)
+}
 $armTemplateParameterPath = $env:custom_vars_armTemplateParameterPath;
 if ($armTemplateParameterPath -eq $null){$armTemplateParameterPath = "";}
-# as for where nested ARM Templates can find more templates:
-$defaultArmRootLocation = $env:custom_vars_DEFAULTARMROOTLOCATION;
-if ($defaultArmRootLocation -eq $null){$defaultArmRootLocation = "";}
-
+if ([System.IO.Path]::IsPathRooted($armTemplateParameterPath) -eq $false){
+  $armTemplateParameterPath = [System.IO.Path]::Combine($armTemplateRoot, $armTemplateParameterPath)
+}
 
 
 
@@ -109,9 +113,11 @@ Write-Host "...BUILD_SOURCEBRANCHNAME: $ENV:BUILD_SOURCEBRANCHNAME"
 
 Write-Host "Injected Task Variables:"
 # Legacy: Write-Host "...subscriptionName: $subscriptionName"
-Write-Host "...defaultArmRootLocation: $defaultArmRootLocation"
 Write-Host "...envIdentifier: $envIdentifier"
 Write-Host "...resourceNameTemplate: $resourceNameTemplate"
+Write-Host "...armTemplateRoot: $armTemplateRoot"
+Write-Host "...armTemplatePath: $armTemplatePath"
+Write-Host "...armTemplateParameterPath: $armTemplateParameterPath"
 
 
 Write-Host ""
