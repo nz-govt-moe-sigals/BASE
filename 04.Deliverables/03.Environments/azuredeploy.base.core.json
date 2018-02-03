@@ -59,30 +59,30 @@
         "armTemplateRoot" : "[parameters('armTemplateRoot')]",
 
         "appServicePlanName": "[concat(variables('resourceNamePrefix'),'.appServicePan')]",
-        "appServicePlanPath": "[concat(variables('armTemplateRoot'),'/', variables('appServicePlanName'),'.json')]",
+        "appServicePlanPath": "[concat(variables('armTemplateRoot'), '/', variables('appServicePlanName'), '.json')]",
 
         "storageAccountName": "[concat(variables('resourceNamePrefix'),'.storageAccount')]",
-        "storageAccountPath": "[concat(variables('armTemplateRoot'),'/', variables('storageAccountName'),'.json')]",
+        "storageAccountPath": "[concat(variables('armTemplateRoot'), '/', variables('storageAccountName'), '.json')]",
 
         "storageAccountContainerName": "[concat(variables('resourceNamePrefix'),'.storageAccountContainer')]",
-        "storageAccountContainerPath": "[concat(variables('armTemplateRoot'),'/', variables('storageAccountContainerName'),'.json')]",
+        "storageAccountContainerPath": "[concat(variables('armTemplateRoot'), '/', variables('storageAccountContainerName'), '.json')]",
 
         "storageAccountPrivateContainerName": "[concat(variables('resourceNamePrefix'),'.storageAccountPrivateContainer')]",
-        "storageAccountPrivateContainerPath": "[concat(variables('armTemplateRoot'),'/', variables('storageAccountContainerName'),'.json')]",
+        "storageAccountPrivateContainerPath": "[concat(variables('armTemplateRoot'), '/', variables('storageAccountContainerName'), '.json')]",
         
         "storageAccountPublicContainerName": "[concat(variables('resourceNamePrefix'),'.storageAccountPublicContainer')]",
-        "storageAccountPublicContainerPath": "[concat(variables('armTemplateRoot'),'/', variables('storageAccountContainerName'),'.json')]",
+        "storageAccountPublicContainerPath": "[concat(variables('armTemplateRoot'), '/', variables('storageAccountContainerName'), '.json')]",
 
         "sqlServerDatabaseServerName": "[concat(variables('resourceNamePrefix'),'.sqlServerDatabaseServer')]",
-        "sqlServerDatabaseServerPath": "[concat(variables('armTemplateRoot'),'/', variables('sqlServerDatabaseServerName'),'.json')]",
+        "sqlServerDatabaseServerPath": "[concat(variables('armTemplateRoot'), '/', variables('sqlServerDatabaseServerName'), '.json')]",
 
         "sqlServerDatabaseName": "[concat(variables('resourceNamePrefix'),'.sqlServerDatabase')]",
-        "sqlServerDatabasePath": "[concat(variables('armTemplateRoot'),'/', variables('sqlServerDatabaseName'),'.json')]"
+        "sqlServerDatabasePath": "[concat(variables('armTemplateRoot'), '/', variables('sqlServerDatabaseName'), '.json')]"
     },
     "resources": [
         {
             "comments": "Ensures a Resource Group scoped unique App Service Plan",
-            "name": "[variables('appServicePlanName'))]",
+            "name": "[variables('appServicePlanName')]",
             "apiVersion": "2017-05-10",
             "type": "Microsoft.Resources/deployments",
             "properties": {
@@ -92,9 +92,6 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "dummmy": {
-                        "value": "[parameters('dummy')]"
-                    },
                     "resourceLocation": {
                         "value": "[parameters('resourceGroupLocation')]"
                     }

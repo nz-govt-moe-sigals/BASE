@@ -71,7 +71,9 @@
         "minLength": 1
       }
     },
-    "variables": {},
+    "variables": {
+
+    },
     "resources": [
       {
         "name": "[parameters('sqlServerName')]",

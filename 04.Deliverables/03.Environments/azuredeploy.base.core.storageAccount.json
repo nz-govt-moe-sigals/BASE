@@ -41,9 +41,7 @@
                 "name": "[parameters('accountType')]"
             },
             "kind": "[parameters('kind')]",
-            "tags": {}
-            },
-            
+            "tags": {},
             "properties": {
                 "supportsHttpsTrafficOnly": true,
                 "encryption": {
