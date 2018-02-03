@@ -69,6 +69,7 @@ if ($defaultResourceLocation -eq $null){$defaultResourceLocation = "Australia Ea
 # as for the ARM Templates:
 $armTemplateRoot = $env:custom_vars_armTemplateRoot;
 if ($armTemplateRoot -eq $null){$armTemplateRoot = "";}
+if ($armTemplateRoot -eq ""){$armTemplateRoot = $ENV:BUILD_SOURCEDIRECTORY}
 $armTemplatePath = $env:custom_vars_armTemplatePath;
 if ($armTemplatePath -eq $null){$armTemplatePath = "";}
 if ([System.IO.Path]::IsPathRooted($armTemplatePath) -eq $false){
