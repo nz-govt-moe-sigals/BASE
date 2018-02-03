@@ -34,26 +34,13 @@
   Variables are then used to create or privision Resources within a specific target Azure Subscription. 
 
   ### PREREQUISITES: VARIABLES
-  The script is expecting the following Custom Variable Inputs:
-  * custom.vars.subscriptionName
+  The script is expecting the following Custom Variable Inputs being set in the Build Definition Variables:
+  * NO: Legacy: custom.vars.subscriptionName
   * custom.vars.resourceNameTemplate
   * custom.vars.resourceEnvIdentifier
   * custom.vars.defaultArmLocation
 #>
 
-# README: PREREQUISITES
-# * Custom Variables:
-#   Your Build Definition will need custom Variables:
-#   custom.vars.AppInstance = "";
-#   custom.vars.resourceNameTemplate = "MYORG-MYAPP-{APPINST}-{RESOURCETYPE}";
-#   custom.vars.subscriptionName = "...";
-
-# README
-# * Build Variables are automatically passed to PowerShell scripts as environment variables.
-#   Vars Must be Uppercase.
-#   And "." is converted to "_", so a custom variable with a key of
-#   'custom.vars.Foo' is available as '$env:CUSTOM_VARS_FOO'
-# * Arguments
 
 # Context:
 #BUILD_ARTIFACTSTAGINGDIRECTORY
@@ -64,8 +51,8 @@
 #Write-Host "...System.TeamProjectId: $(System.TeamProjectId)"
 
 # Cleanup Variables, Parameters and make local parameters:
-$subscriptionName = $ENV:CUSTOM_VARS_SUBSCRIPTIONNAME;
-if ($subscriptionName -eq $null){$subscriptionName = "";}
+# Legacy: $subscriptionName = $ENV:CUSTOM_VARS_SUBSCRIPTIONNAME;
+# Legacy: if ($subscriptionName -eq $null){$subscriptionName = "";}
 $buildSourceBranchName = $ENV:BUILD_SOURCEBRANCH_NAME;
 if ($buildSourceBranchName -eq $null){$buildSourceBranchName = "";}
 if ($buildSourceBranchName -eq "master"){$buildSourceBranchName = "";}
@@ -104,7 +91,7 @@ Write-Host "...BUILD_SOURCEBRANCH: $ENV:BUILD_SOURCEBRANCH"
 Write-Host "...BUILD_SOURCEBRANCH_NAME: $ENV:BUILD_SOURCEBRANCH_NAME"
 
 Write-Host "Injected Task Variables:"
-Write-Host "...subscriptionName: $subscriptionName"
+# Legacy: Write-Host "...subscriptionName: $subscriptionName"
 Write-Host "...defaultArmLocation: $defaultArmLocation"
 Write-Host "...resourceEnvIdentifier: $resourceEnvIdentifier"
 Write-Host "...resourceNameTemplate: $resourceNameTemplate"
@@ -133,7 +120,9 @@ $resourceNameTemplate = $resourceNameTemplate -replace "--", "-"
 Write-Host "...resourceNameTemplate (cleaned up): $resourceNameTemplate"
 
 # Set Subscription
-Select-AzureRmSubscription -SubscriptionName "$subscriptionName" 
+# Legacy: No need to, as we are in the Azure PostScript Task which has already 
+# connected to the Service Principal, and Subscription:
+# Select-AzureRmSubscription -SubscriptionName "$subscriptionName" 
 
 $ resourceNameTemplate  = $resourceNameTemplate `
                         -replace "{RESOURCETYPE}", "RG" 
