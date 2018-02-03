@@ -37,7 +37,7 @@
   The script is expecting the following Custom Variable Inputs being set in the Build Definition Variables:
   * NO: Legacy: custom.vars.subscriptionName
   * custom.vars.resourceNameTemplate
-  * custom.vars.resourceEnvIdentifier
+  * custom.vars.envIdentifier
   * custom.vars.defaultArmRootLocation
 #>
 
@@ -58,8 +58,10 @@
 $buildSourceBranchName = $ENV:BUILD_SOURCEBRANCH_NAME;
 if ($buildSourceBranchName -eq $null){$buildSourceBranchName = "";}
 if ($buildSourceBranchName -eq "master"){$buildSourceBranchName = "";}
-$resourceEnvIdentifier = $env:custom_vars_resourceEnvIdentifier;
-if ($resourceEnvIdentifier -eq $null){$resourceEnvIdentifier = "";}
+# EnvIdentifier is going to be something like BT, DT, ST, UAT, PROD, etc.
+$envIdentifier = $env:custom_vars_envIdentifier;
+if ($envIdentifier -eq $null){$envIdentifier = "";}
+# resourceNameTemplate is going to be something like MYORG-MYAPP-{ENVID}-{BRANCHNAME}-{RESOURCETYPE}
 $resourceNameTemplate = $env:CUSTOM_VARS_RESOURCENAMETEMPLATE;
 if ($resourceNameTemplate -eq $null){$resourceNameTemplate = "";}
 $defaultResourceLocation = $env:custom_vars_DEFAULTRESOURCELOCATION;
@@ -108,7 +110,7 @@ Write-Host "...BUILD_SOURCEBRANCHNAME: $ENV:BUILD_SOURCEBRANCHNAME"
 Write-Host "Injected Task Variables:"
 # Legacy: Write-Host "...subscriptionName: $subscriptionName"
 Write-Host "...defaultArmRootLocation: $defaultArmRootLocation"
-Write-Host "...resourceEnvIdentifier: $resourceEnvIdentifier"
+Write-Host "...envIdentifier: $envIdentifier"
 Write-Host "...resourceNameTemplate: $resourceNameTemplate"
 
 
@@ -119,9 +121,9 @@ Write-Host "Solving Resource Group Name Template"
 Write-Host "...resourceNameTemplate: $resourceNameTemplate"
 Write-Host "...Replacing {ENV[ID][ENTIFIER]} within 'env:CUSTOM_VARS_RESOURCENAMETEMPLATE':"
 $resourceNameTemplate= $resourceNameTemplate `
-                        -replace "{ENVIDENTIFIER}", $resourceEnvIdentifier `
-                        -replace "{ENVID}", $resourceEnvIdentifier `
-                        -replace "{ENV}", $resourceEnvIdentifier
+                        -replace "{ENVIDENTIFIER}", $envIdentifier `
+                        -replace "{ENVID}", $envIdentifier `
+                        -replace "{ENV}", $envIdentifier
 
 Write-Host "...Replacing '{[SOURCE]BRANCH[NAME]}' within 'env:CUSTOM_VARS_RESOURCENAMETEMPLATE':"
 $resourceNameTemplate= $resourceNameTemplate `
