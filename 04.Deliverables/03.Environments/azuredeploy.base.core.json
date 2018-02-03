@@ -58,26 +58,26 @@
         "resourceNamePrefix": "azuredeploy.base.core",
         "armTemplateRoot" : "[parameters('armTemplateRoot')]",
 
-        "appServicePlanName": "[concat(variables('resourceNamePrefix'),'.appServicePan']",
-        "appServicePlanPath": "[concat(variables('armTemplateRoot'),'/', variables('appServicePlanName'),'.json']",
+        "appServicePlanName": "[concat(variables('resourceNamePrefix'),'.appServicePan')]",
+        "appServicePlanPath": "[concat(variables('armTemplateRoot'),'/', variables('appServicePlanName'),'.json')]",
 
-        "storageAccountName": "[concat(variables('resourceNamePrefix'),'.storageAccount']",
-        "storageAccountPath": "[concat(variables('armTemplateRoot'),'/', variables('storageAccountName'),'.json']",
+        "storageAccountName": "[concat(variables('resourceNamePrefix'),'.storageAccount')]",
+        "storageAccountPath": "[concat(variables('armTemplateRoot'),'/', variables('storageAccountName'),'.json')]",
 
-        "storageAccountContainerName": "[concat(variables('resourceNamePrefix'),'.storageAccountContainer']",
-        "storageAccountContainerPath": "[concat(variables('armTemplateRoot'),'/', variables('storageAccountContainerName'),'.json']",
+        "storageAccountContainerName": "[concat(variables('resourceNamePrefix'),'.storageAccountContainer')]",
+        "storageAccountContainerPath": "[concat(variables('armTemplateRoot'),'/', variables('storageAccountContainerName'),'.json')]",
 
-        "storageAccountPrivateContainerName": "[concat(variables('resourceNamePrefix'),'.storageAccountPrivateContainer']",
-        "storageAccountPrivateContainerPath": "[concat(variables('armTemplateRoot'),'/', variables('storageAccountContainerName'),'.json']",
+        "storageAccountPrivateContainerName": "[concat(variables('resourceNamePrefix'),'.storageAccountPrivateContainer')]",
+        "storageAccountPrivateContainerPath": "[concat(variables('armTemplateRoot'),'/', variables('storageAccountContainerName'),'.json')]",
         
-        "storageAccountPublicContainerName": "[concat(variables('resourceNamePrefix'),'.storageAccountPublicContainer']",
-        "storageAccountPublicContainerPath": "[concat(variables('armTemplateRoot'),'/', variables('storageAccountContainerName'),'.json']",
+        "storageAccountPublicContainerName": "[concat(variables('resourceNamePrefix'),'.storageAccountPublicContainer')]",
+        "storageAccountPublicContainerPath": "[concat(variables('armTemplateRoot'),'/', variables('storageAccountContainerName'),'.json')]",
 
-        "sqlServerDatabaseServerName": "[concat(variables('resourceNamePrefix'),'.sqlServerDatabaseServer']",
-        "sqlServerDatabaseServerPath": "[concat(variables('armTemplateRoot'),'/', variables('sqlServerDatabaseServerName'),'.json']",
+        "sqlServerDatabaseServerName": "[concat(variables('resourceNamePrefix'),'.sqlServerDatabaseServer')]",
+        "sqlServerDatabaseServerPath": "[concat(variables('armTemplateRoot'),'/', variables('sqlServerDatabaseServerName'),'.json')]",
 
-        "sqlServerDatabaseName": "[concat(variables('resourceNamePrefix'),'.sqlServerDatabase']",
-        "sqlServerDatabasePath": "[concat(variables('armTemplateRoot'),'/', variables('sqlServerDatabaseName'),'.json']"
+        "sqlServerDatabaseName": "[concat(variables('resourceNamePrefix'),'.sqlServerDatabase')]",
+        "sqlServerDatabasePath": "[concat(variables('armTemplateRoot'),'/', variables('sqlServerDatabaseName'),'.json')]"
     },
     "resources": [
         {
