@@ -148,7 +148,7 @@
         },
         {
             "comments": "Ensures a Resource Group scoped unique Storage Account",
-            "name": "[variables('storageAccount.id')]",
+            "name": "[variables('storageAccount').id]",
             "apiVersion": "2017-05-10",
             "type": "Microsoft.Resources/deployments",
             "properties": {
