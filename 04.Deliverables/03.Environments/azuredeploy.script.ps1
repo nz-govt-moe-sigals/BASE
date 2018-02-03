@@ -127,13 +127,13 @@ Write-Host ""
 Write-Host "Solving Resource Group Name Template"
 Write-Host "...resourceNameTemplate: $resourceNameTemplate"
 Write-Host "...Replacing {ENV[ID][ENTIFIER]} within 'env:CUSTOM_VARS_RESOURCENAMETEMPLATE':"
-$resourceNameTemplate= $resourceNameTemplate `
+$resourceNameTemplate = $resourceNameTemplate `
                         -replace "{ENVIDENTIFIER}", $envIdentifier `
                         -replace "{ENVID}", $envIdentifier `
                         -replace "{ENV}", $envIdentifier
 
 Write-Host "...Replacing '{[SOURCE]BRANCH[NAME]}' within 'env:CUSTOM_VARS_RESOURCENAMETEMPLATE':"
-$resourceNameTemplate= $resourceNameTemplate `
+$resourceNameTemplate = $resourceNameTemplate `
                         -replace "{SOURCEBRANCHNAME}", $buildSourceBranchName `
                         -replace "{SOURCEBRANCH}", $buildSourceBranchName `
                         -replace "{BRANCHNAME}", $buildSourceBranchName `
@@ -149,10 +149,10 @@ Write-Host "...resourceNameTemplate (cleaned up): $resourceNameTemplate"
 # Select-AzureRmSubscription -SubscriptionName "$subscriptionName" 
 
                         
-# Create Resource Group
+# Create/Ensure Resource Group
 $resourceName  = $resourceNameTemplate `
                         -replace "{RESOURCETYPE}", "RG" `
-                        -replace "{TYPE}", "RG" 
+                        -replace "{TYPE}", "RG"
 Write-Host "...Ensure ResourceGroup -Name $resourceName -Location $defaultResourceLocation -Force"
 New-AzureRmResourceGroup -Name $resourceName -Location $defaultResourceLocation -Tag @{PROJ="EDU/MOE/CORE"} -Force
 
@@ -163,6 +163,7 @@ if (($armTemplatePath.StartsWith('http:')) -or ($armTemplatePath.StartsWith('htt
 }else{
   New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceName -TemplateFile $armTemplatePath  -TemplateParameterFile $armTemplateParameterPath
 }
+
 
 
 

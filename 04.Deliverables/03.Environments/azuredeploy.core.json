@@ -14,18 +14,18 @@
                 "description": "The default location within which to develop the Resources Group and its child Resources."
             }
         },
-        "defaultResourceNameTemplate": {
+        "resourceNameTemplate": {
             "type": "string",
-            "minLength": 3,
-            "defaultValue": "{ORG}-{APP}-{APPINST}-{RESOURCETYPE}-{RESOURCEUNIQUESTRING}",
+            "minLength": 4,
+            "defaultValue": "",
             "metadata": {
-                "description": "The default name template for Resources (eg: 'MYORG-MYAPP-MYENV-{RESOURCETYPE}-{RESOURCEUNIQUESTRING}')'."
+                "description": "The default name template for Resources (eg: 'MYORG-MYAPP-{ENVID}-{RESOURCETYPE}')'."
             }
         },
-        "defaultARMTemplateBaseUrl": {
+        "armTemplateRoot": {
             "type": "string",
             "minLength": 0,
-            "defaultValue": "{TEMPLATEFILENAME}",
+            "defaultValue": "",
             "metadata": {
                 "description": "The relative or otherwise base url for finding ARM Templates to download (replaces '{TEMPLATEFILENAME}' within strings, where found)."
             }
