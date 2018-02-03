@@ -93,13 +93,13 @@
             "armPath": "[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.appServicePan', '.json')]",
             "location": "[parameters('resourceLocation')]",
             "name": "[replace(parameters('resourceNameTemplate', '{RESOURCETYPE}', 'WSP'))]",
-            "sku": "[coalesce(parameters('webServerFarmSku')]"
+            "sku": "[parameters('webServerFarmSku')]"
         },
         "storageAccount": {
             "id": "[concat(variables('resourceNamePrefix'),'.storageAccount')]",
             "armPath": "[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.storageAccount', '.json')]",
             "location": "[parameters('resourceLocation')]",
-            "name": "[replace(parameters('resourceNameTemplate', '{RESOURCETYPE}', 'SA'))]",
+            "name": "[replace(parameters('resourceNameTemplate', '{RESOURCETYPE}', 'SA'))]"
         },
         "sqlServer": {
             "id": "[concat(variables('resourceNamePrefix'),'.sqlServerDatabaseServer')]",
