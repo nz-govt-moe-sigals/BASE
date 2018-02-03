@@ -50,8 +50,6 @@
 #Write-Host "...System.TeamProject: $(System.TeamProject)"
 #Write-Host "...System.TeamProjectId: $(System.TeamProjectId)"
 
-# Ensure Variables exist:
-if (Test-Path variable:global:foo)
 
 # Cleanup Variables, Parameters and make local parameters:
 # Legacy: $subscriptionName = $ENV:CUSTOM_VARS_SUBSCRIPTIONNAME;
@@ -105,13 +103,13 @@ Write-Host ""
 # Create Name of ResourceGroup
 Write-Host "Solving Resource Group Name Template"
 Write-Host "...resourceNameTemplate: $resourceNameTemplate"
-Write-Host "...Replacing '{ENV}'/'{ENVID}'/'{ENVIDENTIFIER} found within 'env:CUSTOM_VARS_RESOURCENAMETEMPLATE':"
+Write-Host "...Replacing {ENV[ID][ENTIFIER]} within 'env:CUSTOM_VARS_RESOURCENAMETEMPLATE':"
 $resourceNameTemplate= $resourceNameTemplate `
                         -replace "{ENVIDENTIFIER}", $resourceEnvIdentifier `
                         -replace "{ENVID}", $resourceEnvIdentifier `
                         -replace "{ENV}", $resourceEnvIdentifier
 
-Write-Host "...Replacing '{SOURCEBRANCHNAME}'/'{SOURCEBRANCH}'/'{BRANCHNAME}'/'{BRANCH} found within 'env:CUSTOM_VARS_RESOURCENAMETEMPLATE':"
+Write-Host "...Replacing '{[SOURCE]BRANCH[NAME]}' within 'env:CUSTOM_VARS_RESOURCENAMETEMPLATE':"
 $resourceNameTemplate= $resourceNameTemplate `
                         -replace "{SOURCEBRANCHNAME}", $buildSourceBranchName `
                         -replace "{SOURCEBRANCH}", $buildSourceBranchName `
@@ -146,3 +144,4 @@ Write-Output ("##vso[task.setvariable variable=CUSTOM_VARS_RESOURCENAMETEMPLATE;
 Write-Output ("##vso[task.setvariable variable=CUSTOM_VARS_APPINSTANCE;]$appInstanceIdentifier")
 Write-host $env:CUSTOM_VARS_RESOURCENAMETEMPLATE
 Write-host $env:CUSTOM_VARS_CUSTOM_VARS_APPINSTANCE
+
