@@ -38,7 +38,7 @@
   * NO: Legacy: custom.vars.subscriptionName
   * custom.vars.resourceNameTemplate
   * custom.vars.resourceEnvIdentifier
-  * custom.vars.defaultArmLocation
+  * custom.vars.defaultArmRootLocation
 #>
 
 
@@ -62,10 +62,20 @@ $resourceEnvIdentifier = $env:custom_vars_resourceEnvIdentifier;
 if ($resourceEnvIdentifier -eq $null){$resourceEnvIdentifier = "";}
 $resourceNameTemplate = $env:CUSTOM_VARS_RESOURCENAMETEMPLATE;
 if ($resourceNameTemplate -eq $null){$resourceNameTemplate = "";}
-$defaultArmLocation = $env:custom_vars_DEFAULTARMLOCATION;
-if ($defaultArmLocation -eq $null){$defaultArmLocation = "";}
 $defaultResourceLocation = $env:custom_vars_DEFAULTRESOURCELOCATION;
 if ($defaultResourceLocation -eq $null){$defaultResourceLocation = "Australia East";}
+# as for the ARM Templates:
+$armTemplatePath = $env:custom_vars_armTemplatePath;
+if ($armTemplatePath -eq $null){$armTemplatePath = "";}
+$armTemplateParameterPath = $env:custom_vars_armTemplateParameterPath;
+if ($armTemplateParameterPath -eq $null){$armTemplateParameterPath = "";}
+# as for where nested ARM Templates can find more templates:
+$defaultArmRootLocation = $env:custom_vars_DEFAULTARMROOTLOCATION;
+if ($defaultArmRootLocation -eq $null){$defaultArmRootLocation = "";}
+
+
+
+
 
 # Output System, Build's default and injected Variables:
 Write-Host "Script variables of potential interest:"
@@ -97,7 +107,7 @@ Write-Host "...BUILD_SOURCEBRANCHNAME: $ENV:BUILD_SOURCEBRANCHNAME"
 
 Write-Host "Injected Task Variables:"
 # Legacy: Write-Host "...subscriptionName: $subscriptionName"
-Write-Host "...defaultArmLocation: $defaultArmLocation"
+Write-Host "...defaultArmRootLocation: $defaultArmRootLocation"
 Write-Host "...resourceEnvIdentifier: $resourceEnvIdentifier"
 Write-Host "...resourceNameTemplate: $resourceNameTemplate"
 
@@ -134,12 +144,17 @@ Write-Host "...resourceNameTemplate (cleaned up): $resourceNameTemplate"
 $resourceName  = $resourceNameTemplate `
                         -replace "{RESOURCETYPE}", "RG" `
                         -replace "{TYPE}", "RG" 
-Write-Host "...Ensure ResourceGroup -Name $resourceName -Location $defaultResourceLocation :"
+Write-Host "...Ensure ResourceGroup -Name $resourceName -Location $defaultResourceLocation -Force"
 New-AzureRmResourceGroup -Name $resourceName -Location $defaultResourceLocation -Tag @{PROJ="EDU/MOE/CORE"} -Force
 
 
 # Deploy to Existing Resource Group
-#New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceName #-TemplateUri $templateUri
+if (($templatePath.StartsWith('http:')) -or ($templatePath.StartsWith('https:')) ){
+  New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceName -TemplateUri $armTemplatePath  -TemplateParameterUri $armTemplateParameterPath
+}else{
+  New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceName -TemplateFile $armTemplatePath  -TemplateParameterFile $armTemplateParameterPath
+}
+
 
 
 # Set output variables:
