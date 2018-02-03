@@ -159,10 +159,11 @@ New-AzureRmResourceGroup -Name $resourceName -Location $defaultResourceLocation 
 
 # Deploy to Existing Resource Group
 if (($armTemplatePath.StartsWith('http:')) -or ($armTemplatePath.StartsWith('https:')) ){
-  New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceName -TemplateUri $armTemplatePath  -TemplateParameterUri $armTemplateParameterPath
+  New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceName -TemplateUri $armTemplatePath  -TemplateParameterUri $armTemplateParameterPath -resourceNameTemplate $resourceNameTemplate  -armTemplateRoot $armTemplateRoot
 }else{
-  New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceName -TemplateFile $armTemplatePath  -TemplateParameterFile $armTemplateParameterPath
+  New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceName -TemplateFile $armTemplatePath  -TemplateParameterFile $armTemplateParameterPath -resourceNameTemplate $resourceNameTemplate  -armTemplateRoot $armTemplateRoot
 }
+
 
 
 
