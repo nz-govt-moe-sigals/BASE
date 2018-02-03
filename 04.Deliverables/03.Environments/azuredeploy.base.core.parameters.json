@@ -8,7 +8,7 @@
       "armTemplateRoot": { 
           "value": "http://nowhere.for.now/"
       },
-      "serverFarmSku": {
+      "webServerFarmSku": {
         "value":"S1"
       },
       "sqlServerSku": {

@@ -30,7 +30,7 @@
             "minLength": 0,
             "defaultValue": ""
         },
-        "serverFarmSku": {
+        "webServerFarmSku": {
             "metadata": {
                 "description": "App Service server pricing tier and capacity. Check details at https://azure.microsoft.com/en-us/pricing/details/app-service/"
             },
@@ -91,10 +91,13 @@
         "uniqueResourceId": "[uniqueString(resourceGroup().id)]",
         "resourceNamePrefix": "azuredeploy.base.core",
         "armTemplateRoot" : "[parameters('armTemplateRoot')]",
+        "resourceLocation" : ["parameters('resourceLocation')"],
 
         "webServerFarmName": "[concat(variables('resourceNamePrefix'),'.appServicePan')]",
         "webServerFarmPath": "[concat(variables('armTemplateRoot'), '/', variables('webServerFarmName'), '.json')]",
-
+        "webServerFarm":{
+            "sku":"[coalesce(parameters('webServerFarmSku')]"
+        },
         "storageAccountName": "[concat(variables('resourceNamePrefix'),'.storageAccount')]",
         "storageAccountPath": "[concat(variables('armTemplateRoot'), '/', variables('storageAccountName'), '.json')]",
 
@@ -112,9 +115,14 @@
 
         "sqlServerDatabaseName": "[concat(variables('resourceNamePrefix'),'.sqlServerDatabase')]",
         "sqlServerDatabasePath": "[concat(variables('armTemplateRoot'), '/', variables('sqlServerDatabaseName'), '.json')]",
-
-        "sqlServerSku": "[coalesce(parameters('sqlServerSku'),parameters('serverFarmSku')]"
-    },
+        "sqlServer": {
+            "Administrator" : {
+                "sku": "[coalesce(parameters('sqlServerSku'),parameters('webServerFarmSku'))]",
+                "login": "[parameters('sqlServerAdministratorLogin')]",
+                "password": "[parameters('sqlServerAdministratorPassword')]"
+                }
+            }
+        },
     "resources": [
         {
             "comments": "Ensures a Resource Group scoped unique App Service Plan",
@@ -129,12 +137,11 @@
                 },
                 "parameters": {
                     "resourceLocation": {
-                        "value": "[parameters('resourceLocation')]"
+                        "value": "[variables('resourceLocation')]"
                     },
                     "sku": {
-                        "value": "[parameters('serverFarmSkuName')]"
+                        "value": "[variables('webServerFarm.Sku')]"
                     }
-
                 }
             }
         }
@@ -151,5 +158,6 @@
             "type": "string",
             "value": "[parameters('resourceNameTemplate')]"
         }
+
     }
 }
