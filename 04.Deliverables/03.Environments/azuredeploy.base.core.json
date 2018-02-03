@@ -95,23 +95,23 @@
           "resourceNameTemplate": "[parameters('resourceNameTemplate')]"
         },
         "webServerFarm": {
-            "id": "[concat(variables('resourceNamePrefix'),'.appServicePan')]",
-            "armPath": "[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.appServicePan', '.json')]",
+            "id": "[concat(variables('resourceNamePrefix'),'.appServicePan' )]",
+            "armPath": "[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.appServicePan', '.json' )]",
             "location": "[parameters('resourceLocation')]",
             "sku": "[parameters('webServerFarmSku')]",
-            "name": "[replace(parameters('resourceNameTemplate', '{RESOURCETYPE}', 'WSP'))]"
+            "name": "[replace(parameters('resourceNameTemplate'), '{RESOURCETYPE}', 'WSP')]"
         },
         "storageAccount": {
             "id": "[concat(variables('resourceNamePrefix'),'.storageAccount')]",
             "armPath": "[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.storageAccount', '.json')]",
             "location": "[parameters('resourceLocation')]",
-            "name": "[replace(parameters('resourceNameTemplate', '{RESOURCETYPE}', 'SA'))]"
+            "name": "[replace(parameters('resourceNameTemplate'), '{RESOURCETYPE}', 'SA')]"
         },
         "sqlServer": {
             "id": "[concat(variables('resourceNamePrefix'),'.sqlServerDatabaseServer')]",
             "armPath": "[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.sqlServerDatabaseServer', '.json')]",
             "Administrator": {
-                "sku": "[coalesce(parameters('sqlServerSku'), parameters('webServerFarmSku'))]",
+                "sku": "[coalesce(parameters('sqlServerSku'), parameters('webServerFarmSku') )]",
                 "login": "[parameters('sqlServerAdministratorLogin')]",
                 "password": "[parameters('sqlServerAdministratorPassword')]"
             }
