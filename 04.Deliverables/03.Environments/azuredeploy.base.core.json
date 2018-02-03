@@ -86,20 +86,26 @@
         "uniqueResourceId": "[uniqueString(resourceGroup().id)]",
         "resourceNamePrefix": "azuredeploy.base.core",
         "armTemplateRoot": "[parameters('armTemplateRoot')]",
-        "resourceLocation": "parameters('resourceLocation')",
-        "resourceNameTemplate": "parameters('resourceNameTemplate')",
+        "resourceLocation": "[parameters('resourceLocation')]",
+        "resourceNameTemplate": "[parameters('resourceNameTemplate')]",
+        "resource" : {
+          "uniqueId":"[uniqueString(resourceGroup().id)]",
+          "location": "[parameters('resourceLocation')]",
+          "templateRoot": "[parameters('armTemplateRoot')]",
+          "resourceNameTemplate": "[parameters('resourceNameTemplate')]"
+        },
         "webServerFarm": {
             "id": "[concat(variables('resourceNamePrefix'),'.appServicePan')]",
             "armPath": "[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.appServicePan', '.json')]",
             "location": "[parameters('resourceLocation')]",
-            "name": "[replace(parameters('resourceNameTemplate'), '{RESOURCETYPE}', 'WSP')]",
-            "sku": "[parameters('webServerFarmSku')]"
+            "sku": "[parameters('webServerFarmSku')]",
+            "name": "[replace(parameters('resourceNameTemplate', '{RESOURCETYPE}', 'WSP'))]"
         },
         "storageAccount": {
             "id": "[concat(variables('resourceNamePrefix'),'.storageAccount')]",
             "armPath": "[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.storageAccount', '.json')]",
             "location": "[parameters('resourceLocation')]",
-            "name": "[replace(parameters('resourceNameTemplate'), '{RESOURCETYPE}', 'SA')]"
+            "name": "[replace(parameters('resourceNameTemplate', '{RESOURCETYPE}', 'SA'))]"
         },
         "sqlServer": {
             "id": "[concat(variables('resourceNamePrefix'),'.sqlServerDatabaseServer')]",
@@ -118,24 +124,24 @@
     "resources": [
         {
             "comments": "Ensures a Resource Group scoped unique App Service Plan",
-            "name": "[variables('webServerFarm.id')]",
+            "name": "[variables('webServerFarm').id]",
             "apiVersion": "2017-05-10",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[variables('webServerFarm.armPath')]",
+                    "uri": "[variables('webServerFarm').armPath]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
                     "resourceLocation": {
-                        "value": "[variables('webServerFarm.location')]"
+                        "value": "[variables('webServerFarm').location]"
                     },
                     "sku": {
-                        "value": "[variables('webServerFarm.sku')]"
+                        "value": "[variables('webServerFarm').sku]"
                     },
                     "name": {
-                        "value": "[variables('webServerFarm.name')]"
+                        "value": "[variables('webServerFarm').name]"
                     }
                 }
             }
@@ -148,15 +154,15 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[variables('storageAccount.armPath')]",
+                    "uri": "[variables('storageAccount').armPath]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
                     "resourceLocation": {
-                        "value": "[variables('storageAccount.location')]"
+                        "value": "[variables('storageAccount').location]"
                     },
                     "name": {
-                        "value": "[variables('storageAccount.name')]"
+                        "value": "[variables('storageAccount').name]"
                     }
                 }
             }
