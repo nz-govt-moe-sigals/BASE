@@ -28,7 +28,15 @@
             },
             "type": "string",
             "minLength": 0,
-            "defaultValue": ""
+            "defaultValue": null
+        },
+        "armTemplateParamtersRoot": {
+            "metadata": {
+                "description": "The relative or otherwise base url for finding ARM Templates Parameters to download (replaces '{TEMPLATEFILENAME}' within strings, where found)."
+            },
+            "type": "string",
+            "minLength": 0,
+            "defaultValue": null
         },
         "webServerFarmSku": {
             "metadata": {
@@ -83,23 +91,33 @@
         }
     },
     "variables": {
+        "metadata": {
+            "comments00": "So...Templates are a set of sequential parameters, variables, resources, output sections for a reason.",
+            "comments01": "Using the Variables to shape the incoming Parameters, using Functions.",
+            "comments02": "Variables are grouped as complex objects. Note that when later referencing",
+            "comments03": "child properties, the dot is *outside* the top var name: `variables('top').childProperty`"
+        },
         "uniqueResourceId": "[uniqueString(resourceGroup().id)]",
+        "currentTemplateUri": "[deployment().properties.templateLink.uri]",
+        "currentTemplateUriRoot": "[uri(deployment().properties.templateLink.uri, '')",
         "resourceNamePrefix": "azuredeploy.base.core",
-        "armTemplateRoot": "[parameters('armTemplateRoot')]",
+        "armTemplateRoot": "[coalesce(parameters('armTemplateRoot'), parameters('currentTemplateUriRoot')]",
         "resourceLocation": "[parameters('resourceLocation')]",
         "resourceNameTemplate": "[parameters('resourceNameTemplate')]",
-        "resource" : {
-          "uniqueId":"[uniqueString(resourceGroup().id)]",
-          "location": "[parameters('resourceLocation')]",
-          "templateRoot": "[parameters('armTemplateRoot')]",
-          "resourceNameTemplate": "[parameters('resourceNameTemplate')]"
+        "resource": {
+            "currentTemplateUri": "[deployment().properties.templateLink.uri]",
+            "currentTemplateUriRoot": "[uri(deployment().properties.templateLink.uri, '')",
+            "uniqueId": "[uniqueString(resourceGroup().id)]",
+            "location": "[parameters('resourceLocation')]",
+            "armTemplateRoot": "[coalesce(parameters('armTemplateRoot'), parameters('currentTemplateUriRoot')]",
+            "resourceNameTemplate": "[parameters('resourceNameTemplate')]"
         },
         "webServerFarm": {
             "id": "[concat(variables('resourceNamePrefix'),'.appServicePan' )]",
-            "armPath": "[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.appServicePan', '.json' )]",
+            "armPath": "[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.webServerFarm', '.json' )]",
             "location": "[parameters('resourceLocation')]",
             "sku": "[parameters('webServerFarmSku')]",
-            "name": "[replace(parameters('resourceNameTemplate'), '{RESOURCETYPE}', 'WSP')]"
+            "name": "[replace(parameters('resourceNameTemplate'), '{RESOURCETYPE}', 'WSF')]"
         },
         "storageAccount": {
             "id": "[concat(variables('resourceNamePrefix'),'.storageAccount')]",
@@ -166,7 +184,8 @@
                     }
                 }
             }
-        }    ],
+        }
+    ],
     "outputs": {
         "uniqueResourceId": {
             "type": "string",
