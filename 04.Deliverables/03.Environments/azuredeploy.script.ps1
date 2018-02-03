@@ -135,6 +135,10 @@ Write-Host "...resourceNameTemplate (cleaned up): $resourceNameTemplate"
 # Set Subscription
 Select-AzureRmSubscription -SubscriptionName "$subscriptionName" 
 
+$ resourceNameTemplate  = $resourceNameTemplate `
+                        -replace "{RESOURCETYPE}", "RG" 
+                        -replace "{TYPE}", "RG" 
+                        
 # Create Resource Group
 New-AzureRmResourceGroup -Name $resourceGroupName -Location $defaultResourceLocation -Tag @{PROJ="EDU/MOE/CORE"}
 
