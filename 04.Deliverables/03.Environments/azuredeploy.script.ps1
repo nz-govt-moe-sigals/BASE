@@ -50,6 +50,9 @@
 #Write-Host "...System.TeamProject: $(System.TeamProject)"
 #Write-Host "...System.TeamProjectId: $(System.TeamProjectId)"
 
+# Ensure Variables exist:
+if (Test-Path variable:global:foo)
+
 # Cleanup Variables, Parameters and make local parameters:
 # Legacy: $subscriptionName = $ENV:CUSTOM_VARS_SUBSCRIPTIONNAME;
 # Legacy: if ($subscriptionName -eq $null){$subscriptionName = "";}
@@ -88,7 +91,7 @@ Write-Host "...BUILD_WORKINGDIRECTORY: $ENV:BUILD_WORKINGDIRECTORY"
 Write-Host "...BUILD_REASON: $ENV:BUILD_REASON"
 Write-Host "...BUILD_REPOSITORY_CLEAN: $ENV:BUILD_REPOSITORY_CLEAN"
 Write-Host "...BUILD_SOURCEBRANCH: $ENV:BUILD_SOURCEBRANCH"
-Write-Host "...BUILD_SOURCEBRANCH_NAME: $ENV:BUILD_SOURCEBRANCH_NAME"
+Write-Host "...BUILD_SOURCEBRANCHNAME: $ENV:BUILD_SOURCEBRANCHNAME"
 
 Write-Host "Injected Task Variables:"
 # Legacy: Write-Host "...subscriptionName: $subscriptionName"
