@@ -124,16 +124,17 @@ Write-Host "...resourceNameTemplate (cleaned up): $resourceNameTemplate"
 # connected to the Service Principal, and Subscription:
 # Select-AzureRmSubscription -SubscriptionName "$subscriptionName" 
 
-$ resourceNameTemplate  = $resourceNameTemplate `
-                        -replace "{RESOURCETYPE}", "RG" 
-                        -replace "{TYPE}", "RG" 
                         
 # Create Resource Group
-New-AzureRmResourceGroup -Name $resourceGroupName -Location $defaultResourceLocation -Tag @{PROJ="EDU/MOE/CORE"}
+$ resourceName  = $resourceNameTemplate `
+-replace "{RESOURCETYPE}", "RG" 
+-replace "{TYPE}", "RG" 
+Write-Host "...Ensure ResourceGroup -Name $resourceName -Location $defaultResourceLocation :"
+New-AzureRmResourceGroup -Name $resourceName -Location $defaultResourceLocation -Tag @{PROJ="EDU/MOE/CORE"}
 
 
 # Deploy to Existing Resource Group
-#New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName #-TemplateUri $templateUri
+#New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceName #-TemplateUri $templateUri
 
 
 # Set output variables:
