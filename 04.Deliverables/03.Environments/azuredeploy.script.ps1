@@ -43,6 +43,7 @@
 
 
 # Context:
+
 #BUILD_ARTIFACTSTAGINGDIRECTORY
 
 # https://docs.microsoft.com/en-gb/vsts/build-release/concepts/definitions/release/variables?tabs=batch#default-variables
@@ -67,6 +68,9 @@ $defaultResourceLocation = $env:custom_vars_DEFAULTRESOURCELOCATION;
 if ($defaultResourceLocation -eq $null){$defaultResourceLocation = "Australia East";}
 
 # Output System, Build's default and injected Variables:
+Write-Host "Script variables of potential interest:"
+Write-Host "...PSScriptRoot: $PSScriptRoot"
+
 Write-Host "Agent Variable of potential interests:"
 Write-Host "...Agent.Id: $ENV:AGENT_ID"
 Write-Host "...Agent.MachineName: $ENV:AGENT_MACHINENAME"
@@ -131,7 +135,7 @@ $resourceName  = $resourceNameTemplate `
                         -replace "{RESOURCETYPE}", "RG" `
                         -replace "{TYPE}", "RG" 
 Write-Host "...Ensure ResourceGroup -Name $resourceName -Location $defaultResourceLocation :"
-New-AzureRmResourceGroup -Name $resourceName -Location $defaultResourceLocation -Tag @{PROJ="EDU/MOE/CORE"}
+New-AzureRmResourceGroup -Name $resourceName -Location $defaultResourceLocation -Tag @{PROJ="EDU/MOE/CORE"} -Force
 
 
 # Deploy to Existing Resource Group
