@@ -16,7 +16,7 @@
 
 
 # Tips 
-* Use Ctrl-Alt-F to reformat JSON Code in Visual Code.
+* Use Shift-Alt-F to reformat JSON Code in Visual Code.
 * Notice how when ARM Templates "resources" other ARM Templates, the "type" is set to "Microsoft.Resources/deployments".
   * See more about nesting templates: https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-linked-templates
  

@@ -156,8 +156,7 @@ Write-Host "...resourceNameTemplate (cleaned up): $resourceNameTemplate"
                         
 # Create/Ensure Resource Group
 $resourceName  = $resourceNameTemplate `
-                        -replace "{RESOURCETYPE}", "RG" `
-                        -replace "{TYPE}", "RG"
+                        -replace "{RESOURCETYPE}", "RG" 
 Write-Host "...Ensure ResourceGroup -Name $resourceName -Location $defaultResourceLocation -Force"
 New-AzureRmResourceGroup -Name $resourceName -Location $defaultResourceLocation -Tag @{PROJ="EDU/MOE/CORE"} -Force
 

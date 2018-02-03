@@ -57,8 +57,6 @@
                 "S2"
             ]
         },
-        
-        
         "sqlServerAdministratorLogin": {
             "metadata": {
                 "description": "administrator Login for when creating new SqlServers."
@@ -75,9 +73,6 @@
             "minLength": 12,
             "defaultValue": "NOTANACCEPTABLECOMPLEXTWELVELETTERPASSWORD"
         },
-
-
-
         "defaultSqlDatabaseServerName": {
             "metadata": {
                 "description": "If provided, look for specified database server, and create the database there. It's cheaper to reuse a common db (but it should be outside this Resource group)."
@@ -90,57 +85,60 @@
     "variables": {
         "uniqueResourceId": "[uniqueString(resourceGroup().id)]",
         "resourceNamePrefix": "azuredeploy.base.core",
-        "armTemplateRoot" : "[parameters('armTemplateRoot')]",
-        "resourceLocation" : ["parameters('resourceLocation')"],
-
-        "webServerFarmName": "[concat(variables('resourceNamePrefix'),'.appServicePan')]",
-        "webServerFarmPath": "[concat(variables('armTemplateRoot'), '/', variables('webServerFarmName'), '.json')]",
-        "webServerFarm":{
-            "sku":"[coalesce(parameters('webServerFarmSku')]"
+        "armTemplateRoot": "[parameters('armTemplateRoot')]",
+        "resourceLocation": [
+            "parameters('resourceLocation')"
+        ],
+        "resourceNameTemplate": [
+            "parameters('resourceNameTemplate')"
+        ],
+        "webServerFarm": {
+            "id":"[concat(variables('resourceNamePrefix'),'.appServicePan')]",
+            "armPath":"[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.appServicePan', '.json')]",
+            "location": "[parameters('resourceLocation')]",
+            "name": "[replace(parameters('resourceNameTemplate', '{RESOURCETYPE}', 'WSP')]",
+            "sku": "[coalesce(parameters('webServerFarmSku')]"
         },
-        "storageAccountName": "[concat(variables('resourceNamePrefix'),'.storageAccount')]",
-        "storageAccountPath": "[concat(variables('armTemplateRoot'), '/', variables('storageAccountName'), '.json')]",
+        "storageAccount":{
+            "id":"[concat(variables('resourceNamePrefix'),'.storageAccount')]",
+            "armPath":"[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.storageAccount', '.json')]"
+        },
 
-        "storageAccountContainerName": "[concat(variables('resourceNamePrefix'),'.storageAccountContainer')]",
-        "storageAccountContainerPath": "[concat(variables('armTemplateRoot'), '/', variables('storageAccountContainerName'), '.json')]",
-
-        "storageAccountPrivateContainerName": "[concat(variables('resourceNamePrefix'),'.storageAccountPrivateContainer')]",
-        "storageAccountPrivateContainerPath": "[concat(variables('armTemplateRoot'), '/', variables('storageAccountContainerName'), '.json')]",
-        
-        "storageAccountPublicContainerName": "[concat(variables('resourceNamePrefix'),'.storageAccountPublicContainer')]",
-        "storageAccountPublicContainerPath": "[concat(variables('armTemplateRoot'), '/', variables('storageAccountContainerName'), '.json')]",
-
-        "sqlServerDatabaseServerName": "[concat(variables('resourceNamePrefix'),'.sqlServerDatabaseServer')]",
-        "sqlServerDatabaseServerPath": "[concat(variables('armTemplateRoot'), '/', variables('sqlServerDatabaseServerName'), '.json')]",
 
         "sqlServerDatabaseName": "[concat(variables('resourceNamePrefix'),'.sqlServerDatabase')]",
         "sqlServerDatabasePath": "[concat(variables('armTemplateRoot'), '/', variables('sqlServerDatabaseName'), '.json')]",
+
         "sqlServer": {
-            "Administrator" : {
+            "id":"[concat(variables('resourceNamePrefix'),'.sqlServerDatabaseServer')]",
+            "armPath":"[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.sqlServerDatabaseServer', '.json')]",
+            "Administrator": {
                 "sku": "[coalesce(parameters('sqlServerSku'),parameters('webServerFarmSku'))]",
                 "login": "[parameters('sqlServerAdministratorLogin')]",
                 "password": "[parameters('sqlServerAdministratorPassword')]"
-                }
             }
-        },
+        }
+    },
     "resources": [
         {
             "comments": "Ensures a Resource Group scoped unique App Service Plan",
-            "name": "[variables('webServerFarmName')]",
+            "name": "[variables('webServerFarm.id')]",
             "apiVersion": "2017-05-10",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[variables('webServerFarmPath')]",
+                    "uri": "[variables('webServerFarm.armPath')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
                     "resourceLocation": {
-                        "value": "[variables('resourceLocation')]"
+                        "value": "[variables('webServerFarm.location')]"
                     },
                     "sku": {
-                        "value": "[variables('webServerFarm.Sku')]"
+                        "value": "[variables('webServerFarm.sku')]"
+                    },
+                    "name": {
+                        "value": "[variables('webServerFarm.name')]"
                     }
                 }
             }
@@ -158,6 +156,5 @@
             "type": "string",
             "value": "[parameters('resourceNameTemplate')]"
         }
-
     }
 }
