@@ -12,7 +12,7 @@
                 "Australia East",
                 "Australia Southeast",
                 "australiaeast",
-                "australiasoutheast",
+                "australiasoutheast"
             ],
             "defaultValue": "[resourceGroup().location]"        
         },
