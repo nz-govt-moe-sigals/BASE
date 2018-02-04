@@ -104,7 +104,7 @@ if ([System.IO.Path]::IsPathRooted($armTemplatePath) -eq $false) {
 Write-Output ("##vso[task.setvariable variable=custom_vars_armTemplatePath;]$armTemplatePath")
 # the path to the entry point ARM parameters could be just a filename, in which case, prepend with the root Uri:
 $armTemplateParameterPath = $env:custom_vars_armTemplateParameterPath;
-if ([string]::IsNullOrWhiteSpace(($armTemplateParameterPath)) {$armTemplateParameterPath = ""; }
+if ([string]::IsNullOrWhiteSpace($armTemplateParameterPath)) {$armTemplateParameterPath = ""; }
 if ([System.IO.Path]::IsPathRooted($armTemplateParameterPath) -eq $false) {
     $armTemplateParameterPath = [System.IO.Path]::Combine($armTemplateParameterRootUri, $armTemplateParameterPath)
 }
@@ -195,13 +195,13 @@ Write-Output ("##vso[task.setvariable variable=CUSTOM_VARS_RESOURCENAMETEMPLATE;
 # or leave it to a subsequent Build/Release Task to sort out, based on drag/drop approach. 
 if ($deployResourceGroupByPowerShell) {
 
-  # Set Subscription
-  # Legacy: No need to, as we are in the Azure PostScript Task which has already 
-  # connected to the Service Principal, and Subscription:
-  # Select-AzureRmSubscription -SubscriptionName "$subscriptionName" 
+    # Set Subscription
+    # Legacy: No need to, as we are in the Azure PostScript Task which has already 
+    # connected to the Service Principal, and Subscription:
+    # Select-AzureRmSubscription -SubscriptionName "$subscriptionName" 
 
 
-# Create/Ensure Resource Group
+    # Create/Ensure Resource Group
     $resourceName = $resourceNameTemplate `
         -replace "{RESOURCETYPE}", "RG" 
     Write-Host "...Ensure ResourceGroup -Name $resourceName -Location $defaultResourceLocation -Force"
