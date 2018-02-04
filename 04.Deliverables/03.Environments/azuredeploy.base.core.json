@@ -30,7 +30,7 @@
             "minLength": 0,
             "defaultValue": null
         },
-        "armTemplateParamtersRoot": {
+        "armTemplateParametersRoot": {
             "metadata": {
                 "description": "The relative or otherwise base url for finding ARM Templates Parameters to download (replaces '{TEMPLATEFILENAME}' within strings, where found)."
             },

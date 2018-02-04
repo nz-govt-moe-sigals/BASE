@@ -41,7 +41,13 @@
   * NO: Legacy: custom.vars.subscriptionName
   * custom.vars.resourceNameTemplate
   * custom.vars.envIdentifier
-  * custom.vars.armTemplateRoot
+  // These are for the entry point ARM:
+  * custom_vars_armTemplatePath
+  // These vars are for ARM Linking to work:
+  * custom.vars.armTemplateRootUri
+  * custom.vars.armTemplateRootSas
+  * custom.vars.armTemplateParameterRootUri
+  * custom.vars.armTemplateParameterRootSas
 
 
 #>
@@ -61,32 +67,42 @@
 # Legacy: $subscriptionName = $ENV:CUSTOM_VARS_SUBSCRIPTIONNAME;
 # Legacy: if ($subscriptionName -eq $null){$subscriptionName = "";}
 $buildSourceBranchName = $ENV:BUILD_SOURCEBRANCH_NAME;
-if ($buildSourceBranchName -eq $null){$buildSourceBranchName = "";}
-if ($buildSourceBranchName -eq "master"){$buildSourceBranchName = "";}
+if ([string]::IsNullOrEmpty($buildSourceBranchName)){$buildSourceBranchName = "";}
+if ($buildSourceBranchName -eq "master") {$buildSourceBranchName = ""; }
 # EnvIdentifier is going to be something like BT, DT, ST, UAT, PROD, etc.
 $envIdentifier = $env:custom_vars_envIdentifier;
-if ($envIdentifier -eq $null){$envIdentifier = "";}
+if ($envIdentifier -eq $null) {$envIdentifier = ""; }
 # resourceNameTemplate is going to be something like MYORG-MYAPP-{ENVID}-{BRANCHNAME}-{RESOURCETYPE}
 $resourceNameTemplate = $env:CUSTOM_VARS_RESOURCENAMETEMPLATE;
-if ($resourceNameTemplate -eq $null){$resourceNameTemplate = "";}
+if ([string]::IsNullOrEmpty($resourceNameTemplate)){$resourceNameTemplate = "";}
 $defaultResourceLocation = $env:custom_vars_DEFAULTRESOURCELOCATION;
-if ($defaultResourceLocation -eq $null){$defaultResourceLocation = "Australia East";}
+if ([string]::IsNullOrEmpty($defaultResourceLocation)){$defaultResourceLocation = "Australia East";}
 # as for the ARM Templates:
-$armTemplateRoot = $env:custom_vars_armTemplateRoot;
-if ($armTemplateRoot -eq $null){$armTemplateRoot = "";}
-if ($armTemplateRoot -eq ""){$armTemplateRoot = $ENV:BUILD_SOURCEDIRECTORY}
+# the Root template as to where to find ARM files should be set to an HTTPS location.
+# in the most trivial of ARM templates (with no child templates) the local Src dir could
+# work in a pinch (low chance of that working...)
+$armTemplateRootUri = $env:custom_vars_armTemplateRootUri;
+if ([string]::IsNullOrEmpty($armTemplateRootUri)){$armTemplateRootUri = $ENV:BUILD_SOURCEDIRECTORY;}
+$armTemplateRootSas = $env:custom_vars_armTemplateRootSas;
+# whereas templates can be from public, well-known urls, 
+# its normally that params are from the same source. but can be different (private)
+$armTemplateParameterRootUri = $env:custom_vars_armTemplateParameterRootUri;
+if ([string]::IsNullOrEmpty($armTemplateParameterRootUri)){$armTemplateParameterRootUri = $armTemplateRootUri;}
+$armTemplateParameterRootSas = $env:custom_vars_armTemplateParameterRootSas;
+if ([string]::IsNullOrEmpty($armTemplateParameterRootSas)){$armTemplateParameterRootSas = $armTemplateRootSas;}
+
+# the path to the entry point ARM could be just a filename, in which case, prepend with the root Uri:
 $armTemplatePath = $env:custom_vars_armTemplatePath;
-if ($armTemplatePath -eq $null){$armTemplatePath = "";}
-if ([System.IO.Path]::IsPathRooted($armTemplatePath) -eq $false){
-  $armTemplatePath = [System.IO.Path]::Combine($armTemplateRoot, $armTemplatePath)
+if ([string]::IsNullOrEmpty($armTemplatePath)){$armTemplatePath = "";}
+if ([System.IO.Path]::IsPathRooted($armTemplatePath) -eq $false) {
+    $armTemplatePath = [System.IO.Path]::Combine($armTemplateRootUri, $armTemplatePath)
 }
+# the path to the entry point ARM parameters could be just a filename, in which case, prepend with the root Uri:
 $armTemplateParameterPath = $env:custom_vars_armTemplateParameterPath;
-if ($armTemplateParameterPath -eq $null){$armTemplateParameterPath = "";}
-if ([System.IO.Path]::IsPathRooted($armTemplateParameterPath) -eq $false){
-  $armTemplateParameterPath = [System.IO.Path]::Combine($armTemplateRoot, $armTemplateParameterPath)
+if ([string]::IsNullOrEmpty($armTemplateParameterPath)){$armTemplateParameterPath = "";}
+if ([System.IO.Path]::IsPathRooted($armTemplateParameterPath) -eq $false) {
+    $armTemplateParameterPath = [System.IO.Path]::Combine($armTemplateParameterRootUri, $armTemplateParameterPath)
 }
-
-
 
 
 # Output System, Build's default and injected Variables:
@@ -121,7 +137,7 @@ Write-Host "Injected Task Variables:"
 # Legacy: Write-Host "...subscriptionName: $subscriptionName"
 Write-Host "...envIdentifier: $envIdentifier"
 Write-Host "...resourceNameTemplate: $resourceNameTemplate"
-Write-Host "...armTemplateRoot: $armTemplateRoot"
+Write-Host "...armTemplateRootUri: $armTemplateRootUri"
 Write-Host "...armTemplatePath: $armTemplatePath"
 Write-Host "...armTemplateParameterPath: $armTemplateParameterPath"
 
@@ -133,16 +149,21 @@ Write-Host "Solving Resource Group Name Template"
 Write-Host "...resourceNameTemplate: $resourceNameTemplate"
 Write-Host "...Replacing {ENV[ID][ENTIFIER]} within 'env:CUSTOM_VARS_RESOURCENAMETEMPLATE':"
 $resourceNameTemplate = $resourceNameTemplate `
-                        -replace "{ENVIDENTIFIER}", $envIdentifier `
-                        -replace "{ENVID}", $envIdentifier `
-                        -replace "{ENV}", $envIdentifier
+    -replace "{ENVIDENTIFIER}", $envIdentifier `
+    -replace "{ENVID}", $envIdentifier `
+    -replace "{ENV}", $envIdentifier
 
-Write-Host "...Replacing '{[SOURCE]BRANCH[NAME]}' within 'env:CUSTOM_VARS_RESOURCENAMETEMPLATE':"
+Write-Host "...Replacing '{[SOURCE]BRANCH[NAME|ID[DENTIFIER]]}' within 'env:CUSTOM_VARS_RESOURCENAMETEMPLATE':"
 $resourceNameTemplate = $resourceNameTemplate `
-                        -replace "{SOURCEBRANCHNAME}", $buildSourceBranchName `
-                        -replace "{SOURCEBRANCH}", $buildSourceBranchName `
-                        -replace "{BRANCHNAME}", $buildSourceBranchName `
-                        -replace "{BRANCH}", $buildSourceBranchName
+    -replace "{SOURCEBRANCHIDENTIFIER}", $buildSourceBranchName `
+    -replace "{SOURCEBRANCHID}", $buildSourceBranchName `
+    -replace "{BRANCHIDENTIFIER}", $buildSourceBranchName `
+    -replace "{BRANCHID}", $buildSourceBranchName `
+    -replace "{SOURCEBRANCHID}", $buildSourceBranchName `
+    -replace "{SOURCEBRANCHNAME}", $buildSourceBranchName `
+    -replace "{SOURCEBRANCH}", $buildSourceBranchName `
+    -replace "{BRANCHNAME}", $buildSourceBranchName `
+    -replace "{BRANCH}", $buildSourceBranchName
 # Remove final dashes and duplicates:
 $resourceNameTemplate = $resourceNameTemplate -replace "--", "-"
 # $resourceNameTemplate= [Regex]::Replace($resourceNameTemplate.Replace("--", "-"),"(.*)-*$","$1");
@@ -155,10 +176,10 @@ Write-Host "...resourceNameTemplate (cleaned up): $resourceNameTemplate"
 
                         
 # Create/Ensure Resource Group
-$resourceName  = $resourceNameTemplate `
-                        -replace "{RESOURCETYPE}", "RG" 
+$resourceName = $resourceNameTemplate `
+    -replace "{RESOURCETYPE}", "RG" 
 Write-Host "...Ensure ResourceGroup -Name $resourceName -Location $defaultResourceLocation -Force"
-New-AzureRmResourceGroup -Name $resourceName -Location $defaultResourceLocation -Tag @{PROJ="EDU/MOE/CORE"} -Force
+New-AzureRmResourceGroup -Name $resourceName -Location $defaultResourceLocation -Tag @{PROJ = "EDU/MOE/CORE"} -Force
 
 
 # Deploy to Existing Resource Group.
@@ -167,14 +188,32 @@ New-AzureRmResourceGroup -Name $resourceName -Location $defaultResourceLocation 
 # and the ARM Params, which might be incomplete
 # and pass some params 'on the fly'
 # so that the fly fill in any gaps in the params (but params get precedence) 
-if (($armTemplatePath.StartsWith('http:')) -or ($armTemplatePath.StartsWith('https:')) ){
-  New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceName -TemplateUri $armTemplatePath  -TemplateParameterUri $armTemplateParameterPath -resourceNameTemplate $resourceNameTemplate  -armTemplateRoot $armTemplateRoot
-}else{
-  New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceName -TemplateFile $armTemplatePath  -TemplateParameterFile $armTemplateParameterPath -resourceNameTemplate $resourceNameTemplate  -armTemplateRoot $armTemplateRoot
+if (($armTemplatePath.StartsWith('http:')) -or ($armTemplatePath.StartsWith('https:')) ) {
+    New-AzureRmResourceGroupDeployment `
+        -TemplateUri $armTemplatePath `
+        -TemplateParameterUri $armTemplateParameterPath `
+        `
+        -ResourceGroupName $resourceName `
+        -armTemplateRootUri $armTemplateRootUri `
+        -armTemplateRootSas $armTemplateRootSas `
+        -armTemplateParameterRootUri $armTemplateParameterRootUri `
+        -armTemplateParameterRootSas $armTemplateParameterRootSas `
+        -resourceNameTemplate $resourceNameTemplate
+
 }
+else {
+    New-AzureRmResourceGroupDeployment `
+        -TemplateFile $armTemplatePath  `
+        -TemplateParameterFile $armTemplateParameterPath `
+        `
+        -ResourceGroupName $resourceName `
+        -armTemplateRootUri $armTemplateRootUri `
+        -armTemplateRootSas $armTemplateRootSas `
+        -armTemplateParameterRootUri $armTemplateParameterRootUri `
+        -armTemplateParameterRootSas $armTemplateParameterRootSas `
+        -resourceNameTemplate $resourceNameTemplate
 
-
-
+}
 
 
 # Set output variables:
