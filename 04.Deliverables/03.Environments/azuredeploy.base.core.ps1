@@ -41,15 +41,14 @@
   * NO: Legacy: custom.vars.subscriptionName
   * custom.vars.resourceNameTemplate
   * custom.vars.envIdentifier
-  // These are for the entry point ARM:
+  // These are for the entry point top ARM Template:
   * custom_vars_armTemplatePath
   // These vars are for ARM Linking to work:
   * custom.vars.armTemplateRootUri
   * custom.vars.armTemplateRootSas
   * custom.vars.armTemplateParameterRootUri
   * custom.vars.armTemplateParameterRootSas
-
-
+  * custom.vars.deployResourceGroupByPowerShell
 #>
 
 
@@ -67,43 +66,56 @@
 # Legacy: $subscriptionName = $ENV:CUSTOM_VARS_SUBSCRIPTIONNAME;
 # Legacy: if ($subscriptionName -eq $null){$subscriptionName = "";}
 $buildSourceBranchName = $ENV:BUILD_SOURCEBRANCH_NAME;
-if ([string]::IsNullOrEmpty($buildSourceBranchName)){$buildSourceBranchName = "";}
+if ([string]::IsNullOrEmpty($buildSourceBranchName)) {$buildSourceBranchName = ""; }
 if ($buildSourceBranchName -eq "master") {$buildSourceBranchName = ""; }
 # EnvIdentifier is going to be something like BT, DT, ST, UAT, PROD, etc.
 $envIdentifier = $env:custom_vars_envIdentifier;
-if ($envIdentifier -eq $null) {$envIdentifier = ""; }
-# resourceNameTemplate is going to be something like MYORG-MYAPP-{ENVID}-{BRANCHNAME}-{RESOURCETYPE}
-$resourceNameTemplate = $env:CUSTOM_VARS_RESOURCENAMETEMPLATE;
-if ([string]::IsNullOrEmpty($resourceNameTemplate)){$resourceNameTemplate = "";}
-$defaultResourceLocation = $env:custom_vars_DEFAULTRESOURCELOCATION;
-if ([string]::IsNullOrEmpty($defaultResourceLocation)){$defaultResourceLocation = "Australia East";}
+if ([string]::IsNullOrEmpty($envIdentifier)) {$envIdentifier = ""; }
+Write-Output ("##vso[task.setvariable variable=custom_vars_envIdentifier;]$envIdentifier")
+$defaultResourceLocation = $env:custom_vars_defaultResourceLocation;
+if ([string]::IsNullOrEmpty($defaultResourceLocation)) {$defaultResourceLocation = "Australia East"; }
+Write-Output ("##vso[task.setvariable variable=custom_vars_defaultResourceLocation;]$defaultResourceLocation")
+
 # as for the ARM Templates:
 # the Root template as to where to find ARM files should be set to an HTTPS location.
 # in the most trivial of ARM templates (with no child templates) the local Src dir could
 # work in a pinch (low chance of that working...)
 $armTemplateRootUri = $env:custom_vars_armTemplateRootUri;
-if ([string]::IsNullOrEmpty($armTemplateRootUri)){$armTemplateRootUri = $ENV:BUILD_SOURCEDIRECTORY;}
+if ([string]::IsNullOrWhiteSpace($armTemplateRootUri)) {$armTemplateRootUri = $ENV:BUILD_SOURCEDIRECTORY; }
+Write-Output ("##vso[task.setvariable variable=custom_vars_armTemplateRootUri;]$armTemplateRootUri")
 $armTemplateRootSas = $env:custom_vars_armTemplateRootSas;
+if ([string]::IsNullOrWhiteSpace($armTemplateRootSas)) {$armTemplateRootSas = ""; }
+Write-Output ("##vso[task.setvariable variable=custom_vars_armTemplateRootSas;]$armTemplateRootSas")
 # whereas templates can be from public, well-known urls, 
 # its normally that params are from the same source. but can be different (private)
 $armTemplateParameterRootUri = $env:custom_vars_armTemplateParameterRootUri;
-if ([string]::IsNullOrEmpty($armTemplateParameterRootUri)){$armTemplateParameterRootUri = $armTemplateRootUri;}
+if ([string]::IsNullOrWhiteSpace($armTemplateParameterRootUri)) {$armTemplateParameterRootUri = $armTemplateRootUri; }
+Write-Output ("##vso[task.setvariable variable=custom_vars_armTemplateParameterRootUri;]$armTemplateParameterRootUri")
+# Root SAS:
 $armTemplateParameterRootSas = $env:custom_vars_armTemplateParameterRootSas;
-if ([string]::IsNullOrEmpty($armTemplateParameterRootSas)){$armTemplateParameterRootSas = $armTemplateRootSas;}
-
+if ([string]::IsNullOrWhiteSpace($armTemplateParameterRootSas)) {$armTemplateParameterRootSas = $armTemplateRootSas; }
+Write-Output ("##vso[task.setvariable variable=custom_vars_armTemplateParameterRootSas;]$armTemplateParameterRootSas")
 # the path to the entry point ARM could be just a filename, in which case, prepend with the root Uri:
 $armTemplatePath = $env:custom_vars_armTemplatePath;
-if ([string]::IsNullOrEmpty($armTemplatePath)){$armTemplatePath = "";}
+if ([string]::IsNullOrWhiteSpace($armTemplatePath)) {$armTemplatePath = ""; }
 if ([System.IO.Path]::IsPathRooted($armTemplatePath) -eq $false) {
     $armTemplatePath = [System.IO.Path]::Combine($armTemplateRootUri, $armTemplatePath)
 }
+Write-Output ("##vso[task.setvariable variable=custom_vars_armTemplatePath;]$armTemplatePath")
 # the path to the entry point ARM parameters could be just a filename, in which case, prepend with the root Uri:
 $armTemplateParameterPath = $env:custom_vars_armTemplateParameterPath;
-if ([string]::IsNullOrEmpty($armTemplateParameterPath)){$armTemplateParameterPath = "";}
+if ([string]::IsNullOrWhiteSpace(($armTemplateParameterPath)) {$armTemplateParameterPath = ""; }
 if ([System.IO.Path]::IsPathRooted($armTemplateParameterPath) -eq $false) {
     $armTemplateParameterPath = [System.IO.Path]::Combine($armTemplateParameterRootUri, $armTemplateParameterPath)
 }
-
+Write-Output ("##vso[task.setvariable variable=custom_vars_armTemplateParameterPath;]$armTemplateParameterPath")
+# resourceNameTemplate is going to be something like MYORG-MYAPP-{ENVID}-{BRANCHNAME}-{RESOURCETYPE}
+$resourceNameTemplate = $env:custom_vars_resourceNameTemplate;
+if ([string]::IsNullOrWhiteSpace($resourceNameTemplate)) {$resourceNameTemplate = ""; }
+Write-Output ("##vso[task.setvariable variable=custom_vars_resourceNameTemplate;]$resourceNameTemplate")
+# finally. Should we be deploying by code, or not?
+$deployResourceGroupByPowerShell = $false;
+[bool]::TryParse($env:custom_vars_deployResourceGroupByPowerShell, [ref]$deployResourceGroupByPowerShell);
 
 # Output System, Build's default and injected Variables:
 Write-Host "Script variables of potential interest:"
@@ -168,58 +180,68 @@ $resourceNameTemplate = $resourceNameTemplate `
 $resourceNameTemplate = $resourceNameTemplate -replace "--", "-"
 # $resourceNameTemplate= [Regex]::Replace($resourceNameTemplate.Replace("--", "-"),"(.*)-*$","$1");
 Write-Host "...resourceNameTemplate (cleaned up): $resourceNameTemplate"
-
-# Set Subscription
-# Legacy: No need to, as we are in the Azure PostScript Task which has already 
-# connected to the Service Principal, and Subscription:
-# Select-AzureRmSubscription -SubscriptionName "$subscriptionName" 
-
-                        
-# Create/Ensure Resource Group
-$resourceName = $resourceNameTemplate `
-    -replace "{RESOURCETYPE}", "RG" 
-Write-Host "...Ensure ResourceGroup -Name $resourceName -Location $defaultResourceLocation -Force"
-New-AzureRmResourceGroup -Name $resourceName -Location $defaultResourceLocation -Tag @{PROJ = "EDU/MOE/CORE"} -Force
-
-
-# Deploy to Existing Resource Group.
-# The theory here is 
-# import the ARM, with its default values
-# and the ARM Params, which might be incomplete
-# and pass some params 'on the fly'
-# so that the fly fill in any gaps in the params (but params get precedence) 
-if (($armTemplatePath.StartsWith('http:')) -or ($armTemplatePath.StartsWith('https:')) ) {
-    New-AzureRmResourceGroupDeployment `
-        -ResourceGroupName $resourceName `
-        -TemplateUri $armTemplatePath `
-        -TemplateParameterUri $armTemplateParameterPath `
-        `
-        -armTemplateRootUri $armTemplateRootUri `
-        -armTemplateRootSas $armTemplateRootSas `
-        -armTemplateParameterRootUri $armTemplateParameterRootUri `
-        -armTemplateParameterRootSas $armTemplateParameterRootSas `
-        -resourceNameTemplate $resourceNameTemplate
-
-}
-else {
-    New-AzureRmResourceGroupDeployment `
-        -ResourceGroupName $resourceName `
-        -TemplateFile $armTemplatePath  `
-        -TemplateParameterFile $armTemplateParameterPath `
-        `
-        -armTemplateRootUri $armTemplateRootUri `
-        -armTemplateRootSas $armTemplateRootSas `
-        -armTemplateParameterRootUri $armTemplateParameterRootUri `
-        -armTemplateParameterRootSas $armTemplateParameterRootSas `
-        -resourceNameTemplate $resourceNameTemplate
-
-}
-
-
-# Set output variables:
-Write-host $env:OutputVar
+# Set output variables, affecting the Variables, so that next Tasks can use it:
 Write-Output ("##vso[task.setvariable variable=CUSTOM_VARS_RESOURCENAMETEMPLATE;]$resourceNameTemplate")
-Write-Output ("##vso[task.setvariable variable=CUSTOM_VARS_APPINSTANCE;]$appInstanceIdentifier")
-Write-host $env:CUSTOM_VARS_RESOURCENAMETEMPLATE
-Write-host $env:CUSTOM_VARS_CUSTOM_VARS_APPINSTANCE
+ 
+
+
+
+
+
+# After saving the variables in the globally available Variables, 
+# you have the option of deploying ResourceGroups (and ARM templates)
+# by Code (I like that approach as it makes it one more thing that is version controlled, but 
+# Azure based Powershell scripts are so much slower)
+# or leave it to a subsequent Build/Release Task to sort out, based on drag/drop approach. 
+if ($deployResourceGroupByPowerShell) {
+
+  # Set Subscription
+  # Legacy: No need to, as we are in the Azure PostScript Task which has already 
+  # connected to the Service Principal, and Subscription:
+  # Select-AzureRmSubscription -SubscriptionName "$subscriptionName" 
+
+
+# Create/Ensure Resource Group
+    $resourceName = $resourceNameTemplate `
+        -replace "{RESOURCETYPE}", "RG" 
+    Write-Host "...Ensure ResourceGroup -Name $resourceName -Location $defaultResourceLocation -Force"
+    New-AzureRmResourceGroup -Name $resourceName -Location $defaultResourceLocation -Tag @{PROJ = "EDU/MOE/CORE"} -Force
+
+
+    # Deploy to Existing Resource Group.
+    # The theory here is 
+    # import the ARM, with its default values
+    # and the ARM Params, which might be incomplete
+    # and pass some params 'on the fly'
+    # so that the fly fill in any gaps in the params (but params get precedence) 
+    if (($armTemplatePath.StartsWith('http:')) -or ($armTemplatePath.StartsWith('https:')) ) {
+        New-AzureRmResourceGroupDeployment `
+            -ResourceGroupName $resourceName `
+            -TemplateUri $armTemplatePath `
+            -TemplateParameterUri $armTemplateParameterPath `
+        `
+            -armTemplateRootUri $armTemplateRootUri `
+            -armTemplateRootSas $armTemplateRootSas `
+            -armTemplateParameterRootUri $armTemplateParameterRootUri `
+            -armTemplateParameterRootSas $armTemplateParameterRootSas `
+            -resourceNameTemplate $resourceNameTemplate
+
+    }
+    else {
+        New-AzureRmResourceGroupDeployment `
+            -ResourceGroupName $resourceName `
+            -TemplateFile $armTemplatePath  `
+            -TemplateParameterFile $armTemplateParameterPath `
+        `
+            -armTemplateRootUri $armTemplateRootUri `
+            -armTemplateRootSas $armTemplateRootSas `
+            -armTemplateParameterRootUri $armTemplateParameterRootUri `
+            -armTemplateParameterRootSas $armTemplateParameterRootSas `
+            -resourceNameTemplate $resourceNameTemplate
+
+    }
+}
+
+
+
 
