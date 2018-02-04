@@ -190,10 +190,10 @@ New-AzureRmResourceGroup -Name $resourceName -Location $defaultResourceLocation 
 # so that the fly fill in any gaps in the params (but params get precedence) 
 if (($armTemplatePath.StartsWith('http:')) -or ($armTemplatePath.StartsWith('https:')) ) {
     New-AzureRmResourceGroupDeployment `
+        -ResourceGroupName $resourceName `
         -TemplateUri $armTemplatePath `
         -TemplateParameterUri $armTemplateParameterPath `
         `
-        -ResourceGroupName $resourceName `
         -armTemplateRootUri $armTemplateRootUri `
         -armTemplateRootSas $armTemplateRootSas `
         -armTemplateParameterRootUri $armTemplateParameterRootUri `
@@ -203,10 +203,10 @@ if (($armTemplatePath.StartsWith('http:')) -or ($armTemplatePath.StartsWith('htt
 }
 else {
     New-AzureRmResourceGroupDeployment `
+        -ResourceGroupName $resourceName `
         -TemplateFile $armTemplatePath  `
         -TemplateParameterFile $armTemplateParameterPath `
         `
-        -ResourceGroupName $resourceName `
         -armTemplateRootUri $armTemplateRootUri `
         -armTemplateRootSas $armTemplateRootSas `
         -armTemplateParameterRootUri $armTemplateParameterRootUri `

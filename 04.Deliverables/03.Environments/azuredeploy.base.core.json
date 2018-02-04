@@ -19,24 +19,21 @@
                 "description": "The default name template for Resources (eg: 'MYORG-MYAPP-{ENVID}-{RESOURCETYPE}')'."
             },
             "type": "string",
-            "minLength": 0,
-            "defaultValue": "MYORG-MYMAPP-{ENVID}-{RESOURCETYPE}"
+            "minLength": 6
         },
-        "armTemplateRoot": {
+        "armTemplateRootUri": {
             "metadata": {
                 "description": "The relative or otherwise base url for finding ARM Templates to download (replaces '{TEMPLATEFILENAME}' within strings, where found)."
             },
             "type": "string",
-            "minLength": 0,
-            "defaultValue": null
+            "minLength": 10
         },
-        "armTemplateParametersRoot": {
+        "armTemplateParameterRootUri": {
             "metadata": {
                 "description": "The relative or otherwise base url for finding ARM Templates Parameters to download (replaces '{TEMPLATEFILENAME}' within strings, where found)."
             },
             "type": "string",
-            "minLength": 0,
-            "defaultValue": null
+            "minLength": 10
         },
         "webServerFarmSku": {
             "metadata": {
@@ -70,16 +67,14 @@
                 "description": "administrator Login for when creating new SqlServers."
             },
             "type": "securestring",
-            "minLength": 6,
-            "defaultValue": "NOTADMIN"
+            "minLength": 6
         },
         "sqlServerAdministratorPassword": {
             "metadata": {
                 "description": "administrator Password for when creating new SqlServers."
             },
             "type": "securestring",
-            "minLength": 12,
-            "defaultValue": "NOTANACCEPTABLECOMPLEXTWELVELETTERPASSWORD"
+            "minLength": 12
         },
         "defaultSqlDatabaseServerName": {
             "metadata": {
@@ -101,7 +96,7 @@
         "currentTemplateUri": "[deployment().properties.templateLink.uri]",
         "currentTemplateUriRoot": "[uri(deployment().properties.templateLink.uri, '')",
         "resourceNamePrefix": "azuredeploy.base.core",
-        "armTemplateRoot": "[coalesce(parameters('armTemplateRoot'), parameters('currentTemplateUriRoot')]",
+        "armTemplateRootUri": "[coalesce(parameters('armTemplateRootUri'), parameters('currentTemplateUriRoot')]",
         "resourceLocation": "[parameters('resourceLocation')]",
         "resourceNameTemplate": "[parameters('resourceNameTemplate')]",
         "resource": {
@@ -109,25 +104,25 @@
             "currentTemplateUriRoot": "[uri(deployment().properties.templateLink.uri, '')",
             "uniqueId": "[uniqueString(resourceGroup().id)]",
             "location": "[parameters('resourceLocation')]",
-            "armTemplateRoot": "[coalesce(parameters('armTemplateRoot'), parameters('currentTemplateUriRoot')]",
+            "armTemplateRootUri": "[coalesce(parameters('armTemplateRootUri'), parameters('currentTemplateUriRoot')]",
             "resourceNameTemplate": "[parameters('resourceNameTemplate')]"
         },
         "webServerFarm": {
             "id": "[concat(variables('resourceNamePrefix'),'.appServicePan' )]",
-            "armPath": "[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.webServerFarm', '.json' )]",
+            "armPath": "[concat(variables('armTemplateRootUri'), '/', variables('resourceNamePrefix'),'.webServerFarm', '.json' )]",
             "location": "[parameters('resourceLocation')]",
             "sku": "[parameters('webServerFarmSku')]",
             "name": "[replace(parameters('resourceNameTemplate'), '{RESOURCETYPE}', 'WSF')]"
         },
         "storageAccount": {
             "id": "[concat(variables('resourceNamePrefix'),'.storageAccount')]",
-            "armPath": "[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.storageAccount', '.json')]",
+            "armPath": "[concat(variables('armTemplateRootUri'), '/', variables('resourceNamePrefix'),'.storageAccount', '.json')]",
             "location": "[parameters('resourceLocation')]",
             "name": "[replace(parameters('resourceNameTemplate'), '{RESOURCETYPE}', 'SA')]"
         },
         "sqlServer": {
             "id": "[concat(variables('resourceNamePrefix'),'.sqlServerDatabaseServer')]",
-            "armPath": "[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.sqlServerDatabaseServer', '.json')]",
+            "armPath": "[concat(variables('armTemplateRootUri'), '/', variables('resourceNamePrefix'),'.sqlServerDatabaseServer', '.json')]",
             "Administrator": {
                 "sku": "[coalesce(parameters('sqlServerSku'), parameters('webServerFarmSku') )]",
                 "login": "[parameters('sqlServerAdministratorLogin')]",
@@ -136,7 +131,7 @@
         },
         "sqlServerDatabase": {
             "id": "[concat(variables('resourceNamePrefix'),'.sqlServerDatabase')]",
-            "armPath": "[concat(variables('armTemplateRoot'), '/', variables('resourceNamePrefix'),'.sqlServerDatabase', '.json')]"
+            "armPath": "[concat(variables('armTemplateRootUri'), '/', variables('resourceNamePrefix'),'.sqlServerDatabase', '.json')]"
         }
     },
     "resources": [

@@ -30,6 +30,8 @@
         }
     },
     "variables": {
+        "currentTemplateUri": "[deployment().properties.templateLink.uri]",
+        "currentTemplateUriRoot": "[uri(deployment().properties.templateLink.uri, '')"
     },
     "resources": [
         {
