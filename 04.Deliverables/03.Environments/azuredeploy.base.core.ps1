@@ -72,9 +72,12 @@ if ($buildSourceBranchName -eq "master") {$buildSourceBranchName = ""; }
 $envIdentifier = $env:custom_vars_envIdentifier;
 if ([string]::IsNullOrEmpty($envIdentifier)) {$envIdentifier = ""; }
 Write-Output ("##vso[task.setvariable variable=custom_vars_envIdentifier;]$envIdentifier")
+Write-Host "Result: $env:custom_vars_envIdentifier"
+
 $defaultResourceLocation = $env:custom_vars_defaultResourceLocation;
 if ([string]::IsNullOrEmpty($defaultResourceLocation)) {$defaultResourceLocation = "Australia East"; }
 Write-Output ("##vso[task.setvariable variable=custom_vars_defaultResourceLocation;]$defaultResourceLocation")
+Write-Host "Result: $env:custom_vars_defaultResourceLocation"
 
 # as for the ARM Templates:
 # the Root template as to where to find ARM files should be set to an HTTPS location.
@@ -83,18 +86,22 @@ Write-Output ("##vso[task.setvariable variable=custom_vars_defaultResourceLocati
 $armTemplateRootUri = $env:custom_vars_armTemplateRootUri;
 if ([string]::IsNullOrWhiteSpace($armTemplateRootUri)) {$armTemplateRootUri = $ENV:BUILD_SOURCEDIRECTORY; }
 Write-Output ("##vso[task.setvariable variable=custom_vars_armTemplateRootUri;]$armTemplateRootUri")
+Write-Host "Result: $env:custom_vars_armTemplateRootUri"
 $armTemplateRootSas = $env:custom_vars_armTemplateRootSas;
 if ([string]::IsNullOrWhiteSpace($armTemplateRootSas)) {$armTemplateRootSas = ""; }
 Write-Output ("##vso[task.setvariable variable=custom_vars_armTemplateRootSas;]$armTemplateRootSas")
+Write-Host "Result: $env:custom_vars_armTemplateRootSas"
 # whereas templates can be from public, well-known urls, 
 # its normally that params are from the same source. but can be different (private)
 $armTemplateParameterRootUri = $env:custom_vars_armTemplateParameterRootUri;
 if ([string]::IsNullOrWhiteSpace($armTemplateParameterRootUri)) {$armTemplateParameterRootUri = $armTemplateRootUri; }
 Write-Output ("##vso[task.setvariable variable=custom_vars_armTemplateParameterRootUri;]$armTemplateParameterRootUri")
+Write-Host "Result: $env:custom_vars_armTemplateParameterRootUri"
 # Root SAS:
 $armTemplateParameterRootSas = $env:custom_vars_armTemplateParameterRootSas;
 if ([string]::IsNullOrWhiteSpace($armTemplateParameterRootSas)) {$armTemplateParameterRootSas = $armTemplateRootSas; }
 Write-Output ("##vso[task.setvariable variable=custom_vars_armTemplateParameterRootSas;]$armTemplateParameterRootSas")
+Write-Host "Result: $env:custom_vars_armTemplateParameterRootSas"
 # the path to the entry point ARM could be just a filename, in which case, prepend with the root Uri:
 $armTemplatePath = $env:custom_vars_armTemplatePath;
 if ([string]::IsNullOrWhiteSpace($armTemplatePath)) {$armTemplatePath = ""; }
@@ -102,6 +109,7 @@ if ([System.IO.Path]::IsPathRooted($armTemplatePath) -eq $false) {
     $armTemplatePath = [System.IO.Path]::Combine($armTemplateRootUri, $armTemplatePath)
 }
 Write-Output ("##vso[task.setvariable variable=custom_vars_armTemplatePath;]$armTemplatePath")
+Write-Host "Result: $env:custom_vars_armTemplatePath"
 # the path to the entry point ARM parameters could be just a filename, in which case, prepend with the root Uri:
 $armTemplateParameterPath = $env:custom_vars_armTemplateParameterPath;
 if ([string]::IsNullOrWhiteSpace($armTemplateParameterPath)) {$armTemplateParameterPath = ""; }
@@ -109,10 +117,14 @@ if ([System.IO.Path]::IsPathRooted($armTemplateParameterPath) -eq $false) {
     $armTemplateParameterPath = [System.IO.Path]::Combine($armTemplateParameterRootUri, $armTemplateParameterPath)
 }
 Write-Output ("##vso[task.setvariable variable=custom_vars_armTemplateParameterPath;]$armTemplateParameterPath")
+Write-Host "Result: $env:custom_vars_armTemplateParameterPath"
 # resourceNameTemplate is going to be something like MYORG-MYAPP-{ENVID}-{BRANCHNAME}-{RESOURCETYPE}
 $resourceNameTemplate = $env:custom_vars_resourceNameTemplate;
 if ([string]::IsNullOrWhiteSpace($resourceNameTemplate)) {$resourceNameTemplate = ""; }
 Write-Output ("##vso[task.setvariable variable=custom_vars_resourceNameTemplate;]$resourceNameTemplate")
+Write-Host "Result: $env:custom_vars_resourceNameTemplate"
+
+
 # finally. Should we be deploying by code, or not?
 $deployResourceGroupByPowerShell = $false;
 [bool]::TryParse($env:custom_vars_deployResourceGroupByPowerShell, [ref]$deployResourceGroupByPowerShell);
@@ -182,7 +194,8 @@ $resourceNameTemplate = $resourceNameTemplate -replace "--", "-"
 Write-Host "...resourceNameTemplate (cleaned up): $resourceNameTemplate"
 # Set output variables, affecting the Variables, so that next Tasks can use it:
 Write-Output ("##vso[task.setvariable variable=CUSTOM_VARS_RESOURCENAMETEMPLATE;]$resourceNameTemplate")
- 
+Write-Host "Result: $env:CUSTOM_VARS_RESOURCENAMETEMPLATE"
+
 
 
 
