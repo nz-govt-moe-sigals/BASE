@@ -255,7 +255,18 @@ if ($deployResourceGroupByPowerShell) {
     Write-Host "...Deploying Resource Group Template..."
     if (($armTemplatePath.StartsWith('http:')) -or ($armTemplatePath.StartsWith('https:')) ) {
         Write-Host "...via Web path..."
-      New-AzureRmResourceGroupDeployment `
+        Write-Host "...New-AzureRmResourceGroupDeployment `
+        -ResourceGroupName $resourceName `
+        -TemplateUri $armTemplatePath `
+        -TemplateParameterUri $armTemplateParameterPath `
+    `
+        -armTemplateRootUri $armTemplateRootUri `
+        -armTemplateRootSas $armTemplateRootSas `
+        -armTemplateParameterRootUri $armTemplateParameterRootUri `
+        -armTemplateParameterRootSas $armTemplateParameterRootSas `
+        -resourceNameTemplate $resourceNameTemplate"
+
+        New-AzureRmResourceGroupDeployment `
             -ResourceGroupName $resourceName `
             -TemplateUri $armTemplatePath `
             -TemplateParameterUri $armTemplateParameterPath `
@@ -269,7 +280,18 @@ if ($deployResourceGroupByPowerShell) {
     }
     else {
       Write-Host "...via File path..."
-      New-AzureRmResourceGroupDeployment `
+        Write-Host "...New-AzureRmResourceGroupDeployment `
+        -ResourceGroupName $resourceName `
+        -TemplateFile $armTemplatePath  `
+        -TemplateParameterFile $armTemplateParameterPath `
+    `
+        -armTemplateRootUri $armTemplateRootUri `
+        -armTemplateRootSas $armTemplateRootSas `
+        -armTemplateParameterRootUri $armTemplateParameterRootUri `
+        -armTemplateParameterRootSas $armTemplateParameterRootSas `
+
+
+        New-AzureRmResourceGroupDeployment `
             -ResourceGroupName $resourceName `
             -TemplateFile $armTemplatePath  `
             -TemplateParameterFile $armTemplateParameterPath `
