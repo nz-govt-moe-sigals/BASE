@@ -227,10 +227,8 @@ Write-Host "Result: $env:test"
 # Azure based Powershell scripts are so much slower)
 # or leave it to a subsequent Build/Release Task to sort out, based on drag/drop approach. 
 
-## Override
-#$deployResourceGroupByPowerShell = $true;
 
-Write-Host "Build Environment: $deployResourceGroupByPowerShell"
+Write-Host "vars.custom.deployResourceGroupByPowerShell: $deployResourceGroupByPowerShell"
 if ($deployResourceGroupByPowerShell) {
 
   
