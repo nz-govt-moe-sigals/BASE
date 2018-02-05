@@ -25,8 +25,8 @@
   * There is an Agent object
   * There is also a Server object
   * There is also a Build object
-  * Every Custom Variable (eg: 'custom.Vars.Foo') you create in a VSO Build Definition will 
-    be pumped into this memory space as $ENV:CUSTOM_VARS_FOO (note how it is an Env var, and the dots
+  * Every Custom Variable (eg: 'custom.task.vars.Foo') you create in a VSO Build Definition will 
+    be pumped into this memory space as $ENV:custom_task_vars_FOO (note how it is an Env var, and the dots
     are replaced with '_')
   * you can also pass arguments to the script when you invoke it.
 
@@ -38,17 +38,17 @@
 
   ### PREREQUISITES: VARIABLES
   The script is expecting the following Custom Variable Inputs being set in the Build Definition Variables:
-  * NO: Legacy: custom.vars.subscriptionName
-  * custom.vars.resourceNameTemplate
-  * custom.vars.envIdentifier
+  * NO: Legacy: custom.task.vars.subscriptionName
+  * custom.task.vars.resourceNameTemplate
+  * custom.task.vars.envIdentifier
   // These are for the entry point top ARM Template:
-  * custom_vars_armTemplatePath
+  * custom_task_vars_armTemplatePath
   // These vars are for ARM Linking to work:
-  * custom.vars.armTemplateRootUri
-  * custom.vars.armTemplateRootSas
-  * custom.vars.armTemplateParameterRootUri
-  * custom.vars.armTemplateParameterRootSas
-  * custom.vars.deployResourceGroupByPowerShell
+  * custom.task.vars.armTemplateRootUri
+  * custom.task.vars.armTemplateRootSas
+  * custom.task.vars.armTemplateParameterRootUri
+  * custom.task.vars.armTemplateParameterRootSas
+  * custom.task.vars.deployResourceGroupByPowerShell
 
   ### RESOURCES
   * https://github.com/Microsoft/vsts-tasks/blob/master/docs/authoring/commands.md
@@ -69,71 +69,71 @@
 
 
 # Cleanup Variables, Parameters and make local parameters:
-# Legacy: $subscriptionName = $ENV:CUSTOM_VARS_SUBSCRIPTIONNAME;
+# Legacy: $subscriptionName = $ENV:custom_task_vars_SUBSCRIPTIONNAME;
 # Legacy: if ($subscriptionName -eq $null){$subscriptionName = "";}
 $buildSourceBranchName = $ENV:BUILD_SOURCEBRANCH_NAME;
 if ([string]::IsNullOrEmpty($buildSourceBranchName)) {$buildSourceBranchName = ""; }
 if ($buildSourceBranchName -eq "master") {$buildSourceBranchName = ""; }
 # EnvIdentifier is going to be something like BT, DT, ST, UAT, PROD, etc.
-$envIdentifier = $env:custom_vars_envIdentifier;
+$envIdentifier = $env:custom_task_vars_envIdentifier;
 if ([string]::IsNullOrEmpty($envIdentifier)) {$envIdentifier = ""; }
-Write-Host "##vso[task.setvariable variable=custom_vars_envIdentifier;]$envIdentifier"
-Write-Host "Result: $env:custom_vars_envIdentifier"
+Write-Host "##vso[task.setvariable variable=custom_task_vars_envIdentifier;]$envIdentifier"
+Write-Host "Result: $env:custom_task_vars_envIdentifier"
 
-$defaultResourceLocation = $env:custom_vars_defaultResourceLocation;
+$defaultResourceLocation = $env:custom_task_vars_defaultResourceLocation;
 if ([string]::IsNullOrEmpty($defaultResourceLocation)) {$defaultResourceLocation = "Australia East"; }
-Write-Host "##vso[task.setvariable variable=custom_vars_defaultResourceLocation;]$defaultResourceLocation"
-Write-Host "Result: $env:custom_vars_defaultResourceLocation"
+Write-Host "##vso[task.setvariable variable=custom_task_vars_defaultResourceLocation;]$defaultResourceLocation"
+Write-Host "Result: $env:custom_task_vars_defaultResourceLocation"
 
 # as for the ARM Templates:
 # the Root template as to where to find ARM files should be set to an HTTPS location.
 # in the most trivial of ARM templates (with no child templates) the local Src dir could
 # work in a pinch (low chance of that working...)
-$armTemplateRootUri = $env:custom_vars_armTemplateRootUri;
+$armTemplateRootUri = $env:custom_task_vars_armTemplateRootUri;
 if ([string]::IsNullOrWhiteSpace($armTemplateRootUri)) {$armTemplateRootUri = $ENV:BUILD_SOURCEDIRECTORY; }
-Write-Host "##vso[task.setvariable variable=custom_vars_armTemplateRootUri;]$armTemplateRootUri"
-Write-Host "Result: $env:custom_vars_armTemplateRootUri"
-$armTemplateRootSas = $env:custom_vars_armTemplateRootSas;
+Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateRootUri;]$armTemplateRootUri"
+Write-Host "Result: $env:custom_task_vars_armTemplateRootUri"
+$armTemplateRootSas = $env:custom_task_vars_armTemplateRootSas;
 if ([string]::IsNullOrWhiteSpace($armTemplateRootSas)) {$armTemplateRootSas = ""; }
-Write-Host "##vso[task.setvariable variable=custom_vars_armTemplateRootSas;]$armTemplateRootSas"
-Write-Host "Result: $env:custom_vars_armTemplateRootSas"
+Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateRootSas;]$armTemplateRootSas"
+Write-Host "Result: $env:custom_task_vars_armTemplateRootSas"
 # whereas templates can be from public, well-known urls, 
 # its normally that params are from the same source. but can be different (private)
-$armTemplateParameterRootUri = $env:custom_vars_armTemplateParameterRootUri;
+$armTemplateParameterRootUri = $env:custom_task_vars_armTemplateParameterRootUri;
 if ([string]::IsNullOrWhiteSpace($armTemplateParameterRootUri)) {$armTemplateParameterRootUri = $armTemplateRootUri; }
-Write-Host "##vso[task.setvariable variable=custom_vars_armTemplateParameterRootUri;]$armTemplateParameterRootUri"
-Write-Host "Result: $env:custom_vars_armTemplateParameterRootUri"
+Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateParameterRootUri;]$armTemplateParameterRootUri"
+Write-Host "Result: $env:custom_task_vars_armTemplateParameterRootUri"
 # Root SAS:
-$armTemplateParameterRootSas = $env:custom_vars_armTemplateParameterRootSas;
+$armTemplateParameterRootSas = $env:custom_task_vars_armTemplateParameterRootSas;
 if ([string]::IsNullOrWhiteSpace($armTemplateParameterRootSas)) {$armTemplateParameterRootSas = $armTemplateRootSas; }
-Write-Host "##vso[task.setvariable variable=custom_vars_armTemplateParameterRootSas;]$armTemplateParameterRootSas"
-Write-Host "Result: $env:custom_vars_armTemplateParameterRootSas"
+Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateParameterRootSas;]$armTemplateParameterRootSas"
+Write-Host "Result: $env:custom_task_vars_armTemplateParameterRootSas"
 # the path to the entry point ARM could be just a filename, in which case, prepend with the root Uri:
-$armTemplatePath = $env:custom_vars_armTemplatePath;
+$armTemplatePath = $env:custom_task_vars_armTemplatePath;
 if ([string]::IsNullOrWhiteSpace($armTemplatePath)) {$armTemplatePath = ""; }
 if ([System.IO.Path]::IsPathRooted($armTemplatePath) -eq $false) {
     $armTemplatePath = [System.IO.Path]::Combine($armTemplateRootUri, $armTemplatePath)
 }
-Write-Host "##vso[task.setvariable variable=custom_vars_armTemplatePath;]$armTemplatePath"
-Write-Host "Result: $env:custom_vars_armTemplatePath"
+Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplatePath;]$armTemplatePath"
+Write-Host "Result: $env:custom_task_vars_armTemplatePath"
 # the path to the entry point ARM parameters could be just a filename, in which case, prepend with the root Uri:
-$armTemplateParameterPath = $env:custom_vars_armTemplateParameterPath;
+$armTemplateParameterPath = $env:custom_task_vars_armTemplateParameterPath;
 if ([string]::IsNullOrWhiteSpace($armTemplateParameterPath)) {$armTemplateParameterPath = ""; }
 if ([System.IO.Path]::IsPathRooted($armTemplateParameterPath) -eq $false) {
     $armTemplateParameterPath = [System.IO.Path]::Combine($armTemplateParameterRootUri, $armTemplateParameterPath)
 }
-Write-Host "##vso[task.setvariable variable=custom_vars_armTemplateParameterPath;]$armTemplateParameterPath"
-Write-Host "Result: $env:custom_vars_armTemplateParameterPath"
+Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateParameterPath;]$armTemplateParameterPath"
+Write-Host "Result: $env:custom_task_vars_armTemplateParameterPath"
 # resourceNameTemplate is going to be something like MYORG-MYAPP-{ENVID}-{BRANCHNAME}-{RESOURCETYPE}
-$resourceNameTemplate = $env:custom_vars_resourceNameTemplate;
+$resourceNameTemplate = $env:custom_task_vars_resourceNameTemplate;
 if ([string]::IsNullOrWhiteSpace($resourceNameTemplate)) {$resourceNameTemplate = ""; }
-Write-Host "##vso[task.setvariable variable=custom_vars_resourceNameTemplate;]$resourceNameTemplate"
-Write-Host "Result: $env:custom_vars_resourceNameTemplate"
+Write-Host "##vso[task.setvariable variable=custom_task_vars_resourceNameTemplate;]$resourceNameTemplate"
+Write-Host "Result: $env:custom_task_vars_resourceNameTemplate"
 
 
 # finally. Should we be deploying by code, or not?
 $deployResourceGroupByPowerShell = $false;
-[bool]::TryParse($env:custom_vars_deployResourceGroupByPowerShell, [ref]$deployResourceGroupByPowerShell);
+[bool]::TryParse($env:custom_task_vars_deployResourceGroupByPowerShell, [ref]$deployResourceGroupByPowerShell);
 
 # Output System, Build's default and injected Variables:
 Write-Host "Script variables of potential interest:"
@@ -177,13 +177,13 @@ Write-Host ""
 # Create Name of ResourceGroup
 Write-Host "Solving Resource Group Name Template"
 Write-Host "...resourceNameTemplate: $resourceNameTemplate"
-Write-Host "...Replacing {ENV[ID][ENTIFIER]} within 'env:CUSTOM_VARS_RESOURCENAMETEMPLATE':"
+Write-Host "...Replacing {ENV[ID][ENTIFIER]} within 'env:custom_task_vars_RESOURCENAMETEMPLATE':"
 $resourceNameTemplate = $resourceNameTemplate `
     -replace "{ENVIDENTIFIER}", $envIdentifier `
     -replace "{ENVID}", $envIdentifier `
     -replace "{ENV}", $envIdentifier
 
-Write-Host "...Replacing '{[SOURCE]BRANCH[NAME|ID[DENTIFIER]]}' within 'env:CUSTOM_VARS_RESOURCENAMETEMPLATE':"
+Write-Host "...Replacing '{[SOURCE]BRANCH[NAME|ID[DENTIFIER]]}' within 'env:custom_task_vars_RESOURCENAMETEMPLATE':"
 $resourceNameTemplate = $resourceNameTemplate `
     -replace "{SOURCEBRANCHIDENTIFIER}", $buildSourceBranchName `
     -replace "{SOURCEBRANCHID}", $buildSourceBranchName `
@@ -199,21 +199,21 @@ $resourceNameTemplate = $resourceNameTemplate -replace "--", "-"
 # $resourceNameTemplate= [Regex]::Replace($resourceNameTemplate.Replace("--", "-"),"(.*)-*$","$1");
 Write-Host "...resourceNameTemplate (cleaned up): $resourceNameTemplate"
 # Set output variables, affecting the Variables, so that next Tasks can use it:
-Write-Host "##vso[task.setvariable variable=custom_vars_resourceNameTemplate;]$resourceNameTemplate"
-Write-Host "Result: $env:CUSTOM_VARS_RESOURCENAMETEMPLATE"
-Write-Host "##vso[task.setvariable variable=custom_vars_resourceNameTemplate_New;]$resourceNameTemplate"
-Write-Host "Result: $env:custom_vars_resourceNameTemplate_New"
-Write-Host "##vso[task.setvariable variable=custom_vars_short;]$resourceNameTemplate"
-Write-Host "Result: $env:custom_vars_short"
-Write-Host "Result: $env:CUSTOM_VARS_SHORT"
+Write-Host "##vso[task.setvariable variable=custom_task_vars_resourceNameTemplate;]$resourceNameTemplate"
+Write-Host "Result: $env:custom_task_vars_RESOURCENAMETEMPLATE"
+Write-Host "##vso[task.setvariable variable=custom_task_vars_resourceNameTemplate_New;]$resourceNameTemplate"
+Write-Host "Result: $env:custom_task_vars_resourceNameTemplate_New"
+Write-Host "##vso[task.setvariable variable=custom_task_vars_short;]$resourceNameTemplate"
+Write-Host "Result: $env:custom_task_vars_short"
+Write-Host "Result: $env:custom_task_vars_SHORT"
 Write-Host "##vso[task.setvariable variable=CUSTOM_VAR_SHORT2;]$resourceNameTemplate"
-Write-Host "Result: $env:custom_vars_short2"
-Write-Host "Result: $env:CUSTOM_VARS_SHORT2"
+Write-Host "Result: $env:custom_task_vars_short2"
+Write-Host "Result: $env:custom_task_vars_SHORT2"
 
 
-Write-Host "##vso[task.setvariable variable=custom_vars_without_using_dot;]$resourceNameTemplate"
-Write-Host "Result: $env:custom_vars_without_using_dot"
-Write-Host "Result: $env:CUSTOM_VARS_without_using_dot"
+Write-Host "##vso[task.setvariable variable=custom_task_vars_without_using_dot;]$resourceNameTemplate"
+Write-Host "Result: $env:custom_task_vars_without_using_dot"
+Write-Host "Result: $env:custom_task_vars_without_using_dot"
 ##vso[task.setvariable variable=testvar;]testvalu
 Write-Host "##vso[task.setvariable variable=TEST;]$resourceNameTemplate"
 Write-Host "Result: $env:TEST"
@@ -240,8 +240,7 @@ if ($deployResourceGroupByPowerShell) {
 
     # Create/Ensure Resource Group
     Write-Host "...Ensuring ResourceGroup Exists..."
-    $resourceName = $resourceNameTemplate `
-        -replace "{RESOURCETYPE}", "RG" 
+    $resourceName = $resourceNameTemplate -replace "{RESOURCETYPE}", "RG" 
     Write-Host "...Ensure ResourceGroup -Name $resourceName -Location $defaultResourceLocation -Force"
     New-AzureRmResourceGroup -Name $resourceName -Location $defaultResourceLocation -Tag @{PROJ = "EDU/MOE/CORE"} -Force
 
@@ -279,7 +278,7 @@ if ($deployResourceGroupByPowerShell) {
 
     }
     else {
-      Write-Host "...via File path..."
+        Write-Host "...via File path..."
         Write-Host "...New-AzureRmResourceGroupDeployment `
         -ResourceGroupName $resourceName `
         -TemplateFile $armTemplatePath  `
@@ -289,7 +288,8 @@ if ($deployResourceGroupByPowerShell) {
         -armTemplateRootSas $armTemplateRootSas `
         -armTemplateParameterRootUri $armTemplateParameterRootUri `
         -armTemplateParameterRootSas $armTemplateParameterRootSas `
-
+        -resourceNameTemplate $resourceNameTemplate"
+        
 
         New-AzureRmResourceGroupDeployment `
             -ResourceGroupName $resourceName `
@@ -304,9 +304,6 @@ if ($deployResourceGroupByPowerShell) {
 
     }
     Write-Host "...Resources Deployment complete."
-  }
-  Write-Host "Task Complete."
+}
+Write-Host "Task Complete."
   
-
-
-
