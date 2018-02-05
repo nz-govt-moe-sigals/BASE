@@ -57,7 +57,6 @@
   #>
 
 ## Overrides
-$deployResourceGroupByPowerShell = $true;
 
 # Context:
 
@@ -227,6 +226,9 @@ Write-Host "Result: $env:test"
 # by Code (I like that approach as it makes it one more thing that is version controlled, but 
 # Azure based Powershell scripts are so much slower)
 # or leave it to a subsequent Build/Release Task to sort out, based on drag/drop approach. 
+
+## Override
+#$deployResourceGroupByPowerShell = $true;
 
 if ($deployResourceGroupByPowerShell) {
 
