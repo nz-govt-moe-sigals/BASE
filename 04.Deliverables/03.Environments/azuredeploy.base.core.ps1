@@ -52,8 +52,12 @@
 
   ### RESOURCES
   * https://github.com/Microsoft/vsts-tasks/blob/master/docs/authoring/commands.md
-#>
 
+
+  #>
+
+## Overrides
+$deployResourceGroupByPowerShell = $true;
 
 # Context:
 
@@ -211,10 +215,10 @@ Write-Host "Result: $env:CUSTOM_VARS_SHORT2"
 Write-Host "##vso[task.setvariable variable=custom_vars_without_using_dot;]$resourceNameTemplate"
 Write-Host "Result: $env:custom_vars_without_using_dot"
 Write-Host "Result: $env:CUSTOM_VARS_without_using_dot"
+##vso[task.setvariable variable=testvar;]testvalu
 Write-Host "##vso[task.setvariable variable=TEST;]$resourceNameTemplate"
 Write-Host "Result: $env:TEST"
 Write-Host "Result: $env:test"
-
 
 
 
@@ -223,6 +227,7 @@ Write-Host "Result: $env:test"
 # by Code (I like that approach as it makes it one more thing that is version controlled, but 
 # Azure based Powershell scripts are so much slower)
 # or leave it to a subsequent Build/Release Task to sort out, based on drag/drop approach. 
+
 if ($deployResourceGroupByPowerShell) {
 
     # Set Subscription
