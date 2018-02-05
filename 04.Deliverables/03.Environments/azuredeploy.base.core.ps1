@@ -126,8 +126,6 @@ $resourceNameTemplate = $env:custom_vars_resourceNameTemplate;
 if ([string]::IsNullOrWhiteSpace($resourceNameTemplate)) {$resourceNameTemplate = ""; }
 Write-Host ("##vso[task.setvariable variable=custom_vars_resourceNameTemplate;]$resourceNameTemplate")
 Write-Host "Result: $env:custom_vars_resourceNameTemplate"
-Write-Host ("##vso[task.setvariable variable=custom_vars_resourceNameTemplate_New;]$resourceNameTemplate")
-Write-Host "Result: $env:custom_vars_resourceNameTemplate_New"
 
 
 # finally. Should we be deploying by code, or not?
@@ -198,8 +196,10 @@ $resourceNameTemplate = $resourceNameTemplate -replace "--", "-"
 # $resourceNameTemplate= [Regex]::Replace($resourceNameTemplate.Replace("--", "-"),"(.*)-*$","$1");
 Write-Host "...resourceNameTemplate (cleaned up): $resourceNameTemplate"
 # Set output variables, affecting the Variables, so that next Tasks can use it:
-Write-Host ("##vso[task.setvariable variable=CUSTOM_VARS_RESOURCENAMETEMPLATE;]$resourceNameTemplate")
+Write-Host ("##vso[task.setvariable variable=custom_vars_resourceNameTemplate;]$resourceNameTemplate")
 Write-Host "Result: $env:CUSTOM_VARS_RESOURCENAMETEMPLATE"
+Write-Host ("##vso[task.setvariable variable=custom_vars_resourceNameTemplate_New;]$resourceNameTemplate")
+Write-Host "Result: $env:custom_vars_resourceNameTemplate_New"
 
 
 
