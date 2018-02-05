@@ -74,12 +74,12 @@ if ($buildSourceBranchName -eq "master") {$buildSourceBranchName = ""; }
 # EnvIdentifier is going to be something like BT, DT, ST, UAT, PROD, etc.
 $envIdentifier = $env:custom_vars_envIdentifier;
 if ([string]::IsNullOrEmpty($envIdentifier)) {$envIdentifier = ""; }
-Write-Host ("##vso[task.setvariable variable=custom_vars_envIdentifier;]$envIdentifier")
+Write-Host "##vso[task.setvariable variable=custom_vars_envIdentifier;]$envIdentifier"
 Write-Host "Result: $env:custom_vars_envIdentifier"
 
 $defaultResourceLocation = $env:custom_vars_defaultResourceLocation;
 if ([string]::IsNullOrEmpty($defaultResourceLocation)) {$defaultResourceLocation = "Australia East"; }
-Write-Host ("##vso[task.setvariable variable=custom_vars_defaultResourceLocation;]$defaultResourceLocation")
+Write-Host "##vso[task.setvariable variable=custom_vars_defaultResourceLocation;]$defaultResourceLocation"
 Write-Host "Result: $env:custom_vars_defaultResourceLocation"
 
 # as for the ARM Templates:
@@ -88,22 +88,22 @@ Write-Host "Result: $env:custom_vars_defaultResourceLocation"
 # work in a pinch (low chance of that working...)
 $armTemplateRootUri = $env:custom_vars_armTemplateRootUri;
 if ([string]::IsNullOrWhiteSpace($armTemplateRootUri)) {$armTemplateRootUri = $ENV:BUILD_SOURCEDIRECTORY; }
-Write-Host ("##vso[task.setvariable variable=custom_vars_armTemplateRootUri;]$armTemplateRootUri")
+Write-Host "##vso[task.setvariable variable=custom_vars_armTemplateRootUri;]$armTemplateRootUri"
 Write-Host "Result: $env:custom_vars_armTemplateRootUri"
 $armTemplateRootSas = $env:custom_vars_armTemplateRootSas;
 if ([string]::IsNullOrWhiteSpace($armTemplateRootSas)) {$armTemplateRootSas = ""; }
-Write-Host ("##vso[task.setvariable variable=custom_vars_armTemplateRootSas;]$armTemplateRootSas")
+Write-Host "##vso[task.setvariable variable=custom_vars_armTemplateRootSas;]$armTemplateRootSas"
 Write-Host "Result: $env:custom_vars_armTemplateRootSas"
 # whereas templates can be from public, well-known urls, 
 # its normally that params are from the same source. but can be different (private)
 $armTemplateParameterRootUri = $env:custom_vars_armTemplateParameterRootUri;
 if ([string]::IsNullOrWhiteSpace($armTemplateParameterRootUri)) {$armTemplateParameterRootUri = $armTemplateRootUri; }
-Write-Host ("##vso[task.setvariable variable=custom_vars_armTemplateParameterRootUri;]$armTemplateParameterRootUri")
+Write-Host "##vso[task.setvariable variable=custom_vars_armTemplateParameterRootUri;]$armTemplateParameterRootUri"
 Write-Host "Result: $env:custom_vars_armTemplateParameterRootUri"
 # Root SAS:
 $armTemplateParameterRootSas = $env:custom_vars_armTemplateParameterRootSas;
 if ([string]::IsNullOrWhiteSpace($armTemplateParameterRootSas)) {$armTemplateParameterRootSas = $armTemplateRootSas; }
-Write-Host ("##vso[task.setvariable variable=custom_vars_armTemplateParameterRootSas;]$armTemplateParameterRootSas")
+Write-Host "##vso[task.setvariable variable=custom_vars_armTemplateParameterRootSas;]$armTemplateParameterRootSas"
 Write-Host "Result: $env:custom_vars_armTemplateParameterRootSas"
 # the path to the entry point ARM could be just a filename, in which case, prepend with the root Uri:
 $armTemplatePath = $env:custom_vars_armTemplatePath;
@@ -111,7 +111,7 @@ if ([string]::IsNullOrWhiteSpace($armTemplatePath)) {$armTemplatePath = ""; }
 if ([System.IO.Path]::IsPathRooted($armTemplatePath) -eq $false) {
     $armTemplatePath = [System.IO.Path]::Combine($armTemplateRootUri, $armTemplatePath)
 }
-Write-Host ("##vso[task.setvariable variable=custom_vars_armTemplatePath;]$armTemplatePath")
+Write-Host "##vso[task.setvariable variable=custom_vars_armTemplatePath;]$armTemplatePath"
 Write-Host "Result: $env:custom_vars_armTemplatePath"
 # the path to the entry point ARM parameters could be just a filename, in which case, prepend with the root Uri:
 $armTemplateParameterPath = $env:custom_vars_armTemplateParameterPath;
@@ -119,12 +119,12 @@ if ([string]::IsNullOrWhiteSpace($armTemplateParameterPath)) {$armTemplateParame
 if ([System.IO.Path]::IsPathRooted($armTemplateParameterPath) -eq $false) {
     $armTemplateParameterPath = [System.IO.Path]::Combine($armTemplateParameterRootUri, $armTemplateParameterPath)
 }
-Write-Host ("##vso[task.setvariable variable=custom_vars_armTemplateParameterPath;]$armTemplateParameterPath")
+Write-Host "##vso[task.setvariable variable=custom_vars_armTemplateParameterPath;]$armTemplateParameterPath"
 Write-Host "Result: $env:custom_vars_armTemplateParameterPath"
 # resourceNameTemplate is going to be something like MYORG-MYAPP-{ENVID}-{BRANCHNAME}-{RESOURCETYPE}
 $resourceNameTemplate = $env:custom_vars_resourceNameTemplate;
 if ([string]::IsNullOrWhiteSpace($resourceNameTemplate)) {$resourceNameTemplate = ""; }
-Write-Host ("##vso[task.setvariable variable=custom_vars_resourceNameTemplate;]$resourceNameTemplate")
+Write-Host "##vso[task.setvariable variable=custom_vars_resourceNameTemplate;]$resourceNameTemplate"
 Write-Host "Result: $env:custom_vars_resourceNameTemplate"
 
 
@@ -196,14 +196,14 @@ $resourceNameTemplate = $resourceNameTemplate -replace "--", "-"
 # $resourceNameTemplate= [Regex]::Replace($resourceNameTemplate.Replace("--", "-"),"(.*)-*$","$1");
 Write-Host "...resourceNameTemplate (cleaned up): $resourceNameTemplate"
 # Set output variables, affecting the Variables, so that next Tasks can use it:
-Write-Host ("##vso[task.setvariable variable=custom_vars_resourceNameTemplate;]$resourceNameTemplate")
+Write-Host "##vso[task.setvariable variable=custom_vars_resourceNameTemplate;]$resourceNameTemplate"
 Write-Host "Result: $env:CUSTOM_VARS_RESOURCENAMETEMPLATE"
-Write-Host ("##vso[task.setvariable variable=custom_vars_resourceNameTemplate_New;]$resourceNameTemplate")
+Write-Host "##vso[task.setvariable variable=custom_vars_resourceNameTemplate_New;]$resourceNameTemplate"
 Write-Host "Result: $env:custom_vars_resourceNameTemplate_New"
-Write-Host ("##vso[task.setvariable variable=custom_vars_short;]$resourceNameTemplate")
+Write-Host "##vso[task.setvariable variable=custom_vars_short;]$resourceNameTemplate"
 Write-Host "Result: $env:custom_vars_short"
 Write-Host "Result: $env:CUSTOM_VARS_SHORT"
-Write-Host ("##vso[task.setvariable variable=CUSTOM_VAR_SHORT2;]$resourceNameTemplate")
+Write-Host "##vso[task.setvariable variable=CUSTOM_VAR_SHORT2;]$resourceNameTemplate"
 Write-Host "Result: $env:custom_vars_short2"
 Write-Host "Result: $env:CUSTOM_VARS_SHORT2"
 
