@@ -292,6 +292,10 @@ if ($deployResourceGroupByPowerShell) {
     Write-Host "...Resources Deployment complete."
 }
 
+# Know that Setting Variables does not update the Global till the end of this 
+# task, before the next (that's why I didn't put them above the invocation of the ARM templates - as
+# they won't yet be available... (ie, different behaviour than when you use the Drop/Drop deploy ARM Template task, which can refer 
+# to them, as they are in a different Task)
 Write-Host "Updating Global Env Variables for next tasks..."
 Write-Host "##vso[task.setvariable variable=custom_task_vars_envIdentifier;]$envIdentifier"
 Write-Host "##vso[task.setvariable variable=custom_task_vars_resourceNameTemplate;]$resourceNameTemplate"
