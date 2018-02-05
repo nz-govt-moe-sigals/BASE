@@ -230,8 +230,10 @@ Write-Host "Result: $env:test"
 ## Override
 #$deployResourceGroupByPowerShell = $true;
 
+Write-Host "Build Environment: $deployResourceGroupByPowerShell"
 if ($deployResourceGroupByPowerShell) {
 
+  
     # Set Subscription
     # Legacy: No need to, as we are in the Azure PostScript Task which has already 
     # connected to the Service Principal, and Subscription:
@@ -239,6 +241,7 @@ if ($deployResourceGroupByPowerShell) {
 
 
     # Create/Ensure Resource Group
+    Write-Host "...Ensuring ResourceGroup Exists..."
     $resourceName = $resourceNameTemplate `
         -replace "{RESOURCETYPE}", "RG" 
     Write-Host "...Ensure ResourceGroup -Name $resourceName -Location $defaultResourceLocation -Force"
@@ -251,8 +254,10 @@ if ($deployResourceGroupByPowerShell) {
     # and the ARM Params, which might be incomplete
     # and pass some params 'on the fly'
     # so that the fly fill in any gaps in the params (but params get precedence) 
+    Write-Host "...Deploying Resource Group Template..."
     if (($armTemplatePath.StartsWith('http:')) -or ($armTemplatePath.StartsWith('https:')) ) {
-        New-AzureRmResourceGroupDeployment `
+        Write-Host "...via Web path..."
+      New-AzureRmResourceGroupDeployment `
             -ResourceGroupName $resourceName `
             -TemplateUri $armTemplatePath `
             -TemplateParameterUri $armTemplateParameterPath `
@@ -265,7 +270,8 @@ if ($deployResourceGroupByPowerShell) {
 
     }
     else {
-        New-AzureRmResourceGroupDeployment `
+      Write-Host "...via File path..."
+      New-AzureRmResourceGroupDeployment `
             -ResourceGroupName $resourceName `
             -TemplateFile $armTemplatePath  `
             -TemplateParameterFile $armTemplateParameterPath `
@@ -277,8 +283,10 @@ if ($deployResourceGroupByPowerShell) {
             -resourceNameTemplate $resourceNameTemplate
 
     }
-}
-
+    Write-Host "...Resources Deployment complete."
+  }
+  Write-Host "Task Complete."
+  
 
 
 
