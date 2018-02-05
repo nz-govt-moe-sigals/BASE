@@ -26,14 +26,14 @@
                 "description": "The relative or otherwise base url for finding ARM Templates to download (replaces '{TEMPLATEFILENAME}' within strings, where found)."
             },
             "type": "string",
-            "minLength": 10
+            "minLength": 0
         },
         "armTemplateParameterRootUri": {
             "metadata": {
                 "description": "The relative or otherwise base url for finding ARM Templates Parameters to download (replaces '{TEMPLATEFILENAME}' within strings, where found)."
             },
             "type": "string",
-            "minLength": 10
+            "minLength": 0
         },
         "webServerFarmSku": {
             "metadata": {
