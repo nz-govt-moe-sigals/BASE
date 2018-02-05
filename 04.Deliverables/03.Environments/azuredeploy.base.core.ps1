@@ -200,6 +200,12 @@ Write-Host ("##vso[task.setvariable variable=custom_vars_resourceNameTemplate;]$
 Write-Host "Result: $env:CUSTOM_VARS_RESOURCENAMETEMPLATE"
 Write-Host ("##vso[task.setvariable variable=custom_vars_resourceNameTemplate_New;]$resourceNameTemplate")
 Write-Host "Result: $env:custom_vars_resourceNameTemplate_New"
+Write-Host ("##vso[task.setvariable variable=custom_vars_short;]$resourceNameTemplate")
+Write-Host "Result: $env:custom_vars_short"
+Write-Host "Result: $env:CUSTOM_VARS_SHORT"
+Write-Host ("##vso[task.setvariable variable=CUSTOM_VAR_SHORT2;]$resourceNameTemplate")
+Write-Host "Result: $env:custom_vars_short2"
+Write-Host "Result: $env:CUSTOM_VARS_SHORT2"
 
 
 
