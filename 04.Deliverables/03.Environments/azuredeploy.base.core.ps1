@@ -211,8 +211,8 @@ Write-Host "Result: $env:CUSTOM_VARS_SHORT2"
 Write-Host "##vso[task.setvariable variable=custom_vars_without_using_dot;]$resourceNameTemplate"
 Write-Host "Result: $env:custom_vars_without_using_dot"
 Write-Host "Result: $env:CUSTOM_VARS_without_using_dot"
-Write-Host "##vso[task.setvariable variable=test;]$test"
-Write-Host "Result: $env:test"
+Write-Host "##vso[task.setvariable variable=TEST;]$resourceNameTemplate"
+Write-Host "Result: $env:TEST"
 Write-Host "Result: $env:test"
 
 
