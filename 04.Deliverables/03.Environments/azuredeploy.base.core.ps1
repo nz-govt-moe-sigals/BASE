@@ -49,6 +49,9 @@
   * custom.vars.armTemplateParameterRootUri
   * custom.vars.armTemplateParameterRootSas
   * custom.vars.deployResourceGroupByPowerShell
+
+  ### RESOURCES
+  * https://github.com/Microsoft/vsts-tasks/blob/master/docs/authoring/commands.md
 #>
 
 
