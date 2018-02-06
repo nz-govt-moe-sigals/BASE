@@ -86,12 +86,15 @@ if ([string]::IsNullOrEmpty($defaultResourceLocation)) {$defaultResourceLocation
 # in the most trivial of ARM templates (with no child templates) the local Src dir could
 # work in a pinch (low chance of that working...)
 $armTemplateRootUri = $env:custom_task_vars_armTemplateRootUri;
-if ([string]::IsNullOrWhiteSpace($armTemplateRootUri)) {$armTemplateRootUri = $ENV:BUILD_SOURCEDIRECTORY; }
+if ($armTemplateRootUri.StartsWith("https")-eq "http"){$armTemplateRootUri = "";}
+# DUMB, since most of the time it should be coming from a public url:
+# if ([string]::IsNullOrWhiteSpace($armTemplateRootUri)) {$armTemplateRootUri = $ENV:BUILD_SOURCEDIRECTORY; }
 $armTemplateRootSas = $env:custom_task_vars_armTemplateRootSas;
 if ([string]::IsNullOrWhiteSpace($armTemplateRootSas)) {$armTemplateRootSas = ""; }
 # whereas templates can be from public, well-known urls, 
 # its normally that params are from the same source. but can be different (private)
 $armTemplateParameterRootUri = $env:custom_task_vars_armTemplateParameterRootUri;
+if ($armTemplateParameterRootUri.StartsWith("https")-eq "http"){$armTemplateParameterRootUri = "";}
 if ([string]::IsNullOrWhiteSpace($armTemplateParameterRootUri)) {$armTemplateParameterRootUri = $armTemplateRootUri; }
 # Root SAS:
 $armTemplateParameterRootSas = $env:custom_task_vars_armTemplateParameterRootSas;
