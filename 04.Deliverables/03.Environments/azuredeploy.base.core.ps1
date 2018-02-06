@@ -25,7 +25,7 @@
   * There is an Agent object
   * There is also a Server object
   * There is also a Build object
-  * Every Custom Variable (eg: 'custom_tasks_vars_Foo') you create in a VSO Build Definition will 
+  * Every Custom Variable (eg: 'custom_task_vars_Foo') you create in a VSO Build Definition will 
     be pumped into this memory space as $ENV:custom_task_vars_FOO (note how it is an Env var, and the dots
     are replaced with '_')
   * you can also pass arguments to the script when you invoke it.
@@ -38,17 +38,17 @@
 
   ### PREREQUISITES: VARIABLES
   The script is expecting the following Custom Variable Inputs being set in the Build Definition Variables:
-  * NO: Legacy: custom_tasks_vars_subscriptionName
-  * custom_tasks_vars_resourceNameTemplate
-  * custom_tasks_vars_envIdentifier
+  * NO: Legacy: custom_task_vars_subscriptionName
+  * custom_task_vars_resourceNameTemplate
+  * custom_task_vars_envIdentifier
   // These are for the entry point top ARM Template:
   * custom_task_vars_armTemplatePath
   // These vars are for ARM Linking to work:
-  * custom_tasks_vars_armTemplateRootUri
-  * custom_tasks_vars_armTemplateRootSas
-  * custom_tasks_vars_armTemplateParameterRootUri
-  * custom_tasks_vars_armTemplateParameterRootSas
-  * custom_tasks_vars_deployResourceGroupByPowerShell
+  * custom_task_vars_armTemplateRootUri
+  * custom_task_vars_armTemplateRootSas
+  * custom_task_vars_armTemplateParameterRootUri
+  * custom_task_vars_armTemplateParameterRootSas
+  * custom_task_vars_deployResourceGroupByPowerShell
 
   ### RESOURCES
   * https://github.com/Microsoft/vsts-tasks/blob/master/docs/authoring/commands.md
@@ -194,7 +194,7 @@ Write-Host "...resourceNameTemplate (cleaned up): $resourceNameTemplate"
 # or leave it to a subsequent Build/Release Task to sort out, based on drag/drop approach. 
 
 
-Write-Host "custom_tasks_vars_deployResourceGroupByPowerShell: $deployResourceGroupByPowerShell"
+Write-Host "custom_task_vars_deployResourceGroupByPowerShell: $deployResourceGroupByPowerShell"
 if ($deployResourceGroupByPowerShell) {
 
   
@@ -282,15 +282,15 @@ if ($deployResourceGroupByPowerShell) {
 # to them, as they are in a different Task)
 # TIP: You have to name the vars as they were registered ('with dots, not dashes)
 Write-Host "Updating Global Env Variables for next tasks..."
-Write-Host "##vso[task.setvariable variable=custom_tasks_vars_envIdentifier;]$envIdentifier"
-Write-Host "##vso[task.setvariable variable=custom_tasks_vars_resourceNameTemplate;]$resourceNameTemplate"
-Write-Host "##vso[task.setvariable variable=custom_tasks_vars_defaultResourceLocation;]$defaultResourceLocation"
-Write-Host "##vso[task.setvariable variable=custom_tasks_vars_armTemplatePath;]$armTemplatePath"
-Write-Host "##vso[task.setvariable variable=custom_tasks_vars_armTemplateParameterPath;]$armTemplateParameterPath"
-Write-Host "##vso[task.setvariable variable=custom_tasks_vars_armTemplateRootUri;]$armTemplateRootUri"
-Write-Host "##vso[task.setvariable variable=custom_tasks_vars_armTemplateRootSas;]$armTemplateRootSas"
-Write-Host "##vso[task.setvariable variable=custom_tasks_vars_armTemplateParameterRootUri;]$armTemplateParameterRootUri"
-Write-Host "##vso[task.setvariable variable=custom_tasks_vars_armTemplateParameterRootSas;]$armTemplateParameterRootSas"
+Write-Host "##vso[task.setvariable variable=custom_task_vars_envIdentifier;]$envIdentifier"
+Write-Host "##vso[task.setvariable variable=custom_task_vars_resourceNameTemplate;]$resourceNameTemplate"
+Write-Host "##vso[task.setvariable variable=custom_task_vars_defaultResourceLocation;]$defaultResourceLocation"
+Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplatePath;]$armTemplatePath"
+Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateParameterPath;]$armTemplateParameterPath"
+Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateRootUri;]$armTemplateRootUri"
+Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateRootSas;]$armTemplateRootSas"
+Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateParameterRootUri;]$armTemplateParameterRootUri"
+Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateParameterRootSas;]$armTemplateParameterRootSas"
 
 
 
