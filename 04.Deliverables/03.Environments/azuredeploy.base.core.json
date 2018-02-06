@@ -4,7 +4,7 @@
     "parameters": {
         "resourceLocation": {
             "metadata": {
-                "description": "The default location within which to develop the Resources Group and its child Resources."
+                "description": "The default location within which to develop the Resources Group and its child Resources, unless specifically defined otherwise (not all resources - such as SqlServers - are available in all resources)."
             },
             "type": "string",
             "minLength": 1,
@@ -16,38 +16,53 @@
         },
         "resourceNameTemplate": {
             "metadata": {
-                "description": "The default name template for Resources (eg: 'MYORG-MYAPP-{ENVID}-{RESOURCETYPE}')'."
+                "description": "The default name template to use when developing the names of newly created Resources (eg: 'MYORG-MYAPP-{ENVID}-{BRANCHID}-{RESOURCETYPE}')'."
             },
             "type": "string",
             "minLength": 6
         },
         "armTemplateRootUri": {
             "metadata": {
-                "description": "The relative or otherwise base url for finding ARM Templates to download (replaces '{TEMPLATEFILENAME}' within strings, where found)."
+                "description": "The http based base url from which to download referenced ARM Templates. In most cases will be an Url to a Storage Account Container Url to which newly downloaded Source Files (just the ARM Templates) are copied to."
+            },
+            "type": "string",
+            "minLength": 0
+        },
+        "armTemplateRootUriSAS": {
+            "metadata": {
+                "description": "The (optional) Single Access Signature (SAS) required to append to ARM Template Uris in order to get them out of a secured Storage Account Container."
             },
             "type": "string",
             "minLength": 0
         },
         "armTemplateParameterRootUri": {
             "metadata": {
-                "description": "The relative or otherwise base url for finding ARM Templates Parameters to download (replaces '{TEMPLATEFILENAME}' within strings, where found)."
+                "description": "The http based base url from which to download referenced ARM Templates. In most cases will be an Url to a Storage Account Container Url to which newly downloaded Source Files (just the ARM Templates) are copied to."
             },
             "type": "string",
             "minLength": 0
         },
-        "webServerFarmSku": {
+        "armTemplateParameterRootUriSAS": {
             "metadata": {
-                "description": "App Service server pricing tier and capacity. Check details at https://azure.microsoft.com/en-us/pricing/details/app-service/"
+                "description": "The (optional) Single Access Signature (SAS) required to append to ARM Template Paramter Uris in order to get them out of a secured Storage Account Container."
             },
             "type": "string",
-            "defaultValue": "S1",
+            "minLength": 0
+        },
+        "sqlServerLocation": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
             "allowedValues": [
-                "F1",
-                "D1",
-                "B1",
-                "S1",
-                "S2"
-            ]
+                "East US",
+                "South Central US",
+                "Southeast Asia",
+                "West Central US",
+                "West Europe",
+                "West US 2"
+            ],
+            "metadata": {
+                "description": "The location for the SQL service. This is parameterised because SQL servers cannot be deployed in all regions for subscription types."
+            }
         },
         "sqlServerSku": {
             "metadata": {
@@ -61,6 +76,21 @@
                 "S1",
                 "S2"
             ]
+        },
+        "defaultSqlDatabaseServerName": {
+            "metadata": {
+                "description": "If provided, look for specified database server, and create the database there. It's cheaper to reuse a common db (but it should be outside this Resource group)."
+            },
+            "type": "string",
+            "minLength": 0,
+            "defaultValue": ""
+        },
+        "sqlServerName": {
+            "type": "string",
+            "defaultValue": "<INTERNALLYDEFINED>",
+            "metadata": {
+                "description": "Optional: Defined automatically according to naming convention but can be overriden here"
+            }
         },
         "sqlServerAdministratorLogin": {
             "metadata": {
@@ -76,13 +106,47 @@
             "type": "securestring",
             "minLength": 12
         },
-        "defaultSqlDatabaseServerName": {
+        "webServerFarmSku": {
             "metadata": {
-                "description": "If provided, look for specified database server, and create the database there. It's cheaper to reuse a common db (but it should be outside this Resource group)."
+                "description": "App Service server pricing tier and capacity. Check details at https://azure.microsoft.com/en-us/pricing/details/app-service/"
             },
             "type": "string",
-            "minLength": 0,
-            "defaultValue": ""
+            "defaultValue": "S1",
+            "allowedValues": [
+                "F1",
+                "D1",
+                "B1",
+                "S1",
+                "S2"
+            ]
+        },
+        "appServiceName": {
+            "type": "string",
+            "defaultValue": "<INTERNALLYDEFINED>",
+            "metadata": {
+                "description": "Optional: Defined automatically according to naming convention but can be overriden here"
+            }
+        },
+        "appServiceWebSiteHostName": {
+            "type": "string",
+            "defaultValue": "<NONEDEFINED>",
+            "metadata": {
+                "description": "Optional: If an custom (ie, alternate) DNS entry is to be applied to the app service (e.g: myapp.myorg.tld)."
+            }
+        },
+        "sslCertPfxBase64": {
+            "type": "securestring",
+            "defaultValue": "<NONEDEFINED>",
+            "metadata": {
+                "description": "Optional: Base64 encoded PFX certificate for appService Web Site SSL. Required to match the information within appServiceWebSiteHostName."
+            }
+        },
+        "sslCertPfxPassword": {
+            "type": "securestring",
+            "defaultValue": "<NONEDEFINED>",
+            "metadata": {
+                "description": "Optional: Password for the appService Web Site SSL Pfx Certificate. Only required if `sslCertPfxBase64` is provided."
+            }
         }
     },
     "variables": {
