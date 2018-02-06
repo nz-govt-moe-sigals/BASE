@@ -92,7 +92,7 @@ function Provision-Variables {
     #Write-Host "...System.TeamProjectId: $(System.TeamProjectId)"
 
 
-    # Cleanup Variacustom_task_vars_armTemplateRootUribles, Parameters and make local parameters:
+    # Cleanup Variables, Parameters and make local parameters:
     # Legacy: $subscriptionName = $ENV:custom_task_vars_SUBSCRIPTIONNAME;
     # Legacy: if ($subscriptionName -eq $null){$subscriptionName = "";}
     $buildSourceBranchName = $ENV:BUILD_SOURCEBRANCH_NAME;
@@ -113,9 +113,9 @@ function Provision-Variables {
     $armTemplateRootUri = $env:custom_task_vars_armTemplateRootUri;
     if ($armTemplateRootUri.StartsWith("http") -eq $false) {
         $armTemplateRootUri = ""; 
-        Write-Host "env:custom_task_vars_armTemplateRootUri did not start with http...stripping out."
+        Write-Host "custom_task_vars_armTemplateRootUri did not start with http...stripping out."
     }
-    Write-Host "env:custom_task_vars_armTemplateRootUri: $env:custom_task_vars_armTemplateRootUri"
+    Write-Host "armTemplateRootUri: $armTemplateRootUri"
     # DUMB, since most of the time it should be coming from a public url:
     # if ([string]::IsNullOrWhiteSpace($armTemplateRootUri)) {$armTemplateRootUri = $ENV:BUILD_SOURCEDIRECTORY; }
     $armTemplateRootSas = $env:custom_task_vars_armTemplateRootSas;
@@ -125,12 +125,18 @@ function Provision-Variables {
     $armTemplateParameterRootUri = $env:custom_task_vars_armTemplateParameterRootUri;
     if ($armTemplateParameterRootUri.StartsWith("http") -eq $false) {
         $armTemplateParameterRootUri = ""; 
-        Write-Host "env:custom_task_vars_armTemplateParameterRootUri did not start with http...stripping out."
+        Write-Host "armTemplateParameterRootUri did not start with http...stripping out."
     }
-    if ([string]::IsNullOrWhiteSpace($armTemplateParameterRootUri)) {$armTemplateParameterRootUri = $armTemplateRootUri; }
+    if ([string]::IsNullOrWhiteSpace($armTemplateParameterRootUri)) {
+      $armTemplateParameterRootUri = $armTemplateRootUri; 
+      Write-Host "Blank, therefore setting armTemplateParameterRootUri to armTemplateRootUri."
+    }
     # Root SAS:
     $armTemplateParameterRootSas = $env:custom_task_vars_armTemplateParameterRootSas;
-    if ([string]::IsNullOrWhiteSpace($armTemplateParameterRootSas)) {$armTemplateParameterRootSas = $armTemplateRootSas; }
+    if ([string]::IsNullOrWhiteSpace($armTemplateParameterRootSas)) {
+      $armTemplateParameterRootSas = $armTemplateRootSas; 
+      Write-Host "Blank, therefore setting armTemplateParameterRootSas to armTemplateRootSas."
+    }
     # the path to the entry point ARM could be just a filename, in which case, prepend with the root Uri:
     $armTemplatePath = $env:custom_task_vars_armTemplatePath;
     if ([string]::IsNullOrWhiteSpace($armTemplatePath)) {$armTemplatePath = ""; }
