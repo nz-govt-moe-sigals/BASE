@@ -180,26 +180,7 @@ $resourceNameTemplate = $resourceNameTemplate `
 $resourceNameTemplate = $resourceNameTemplate -replace "--", "-"
 # $resourceNameTemplate= [Regex]::Replace($resourceNameTemplate.Replace("--", "-"),"(.*)-*$","$1");
 Write-Host "...resourceNameTemplate (cleaned up): $resourceNameTemplate"
-# Set output variables, affecting the Variables, so that next Tasks can use it:
-Write-Host "##vso[task.setvariable variable=custom_task_vars_resourceNameTemplate;]$resourceNameTemplate"
-Write-Host "Result: $env:custom_task_vars_RESOURCENAMETEMPLATE"
-Write-Host "##vso[task.setvariable variable=custom_task_vars_resourceNameTemplate_New;]$resourceNameTemplate"
-Write-Host "Result: $env:custom_task_vars_resourceNameTemplate_New"
-Write-Host "##vso[task.setvariable variable=custom_task_vars_short;]$resourceNameTemplate"
-Write-Host "Result: $env:custom_task_vars_short"
-Write-Host "Result: $env:custom_task_vars_SHORT"
-Write-Host "##vso[task.setvariable variable=CUSTOM_VAR_SHORT2;]$resourceNameTemplate"
-Write-Host "Result: $env:custom_task_vars_short2"
-Write-Host "Result: $env:custom_task_vars_SHORT2"
 
-
-Write-Host "##vso[task.setvariable variable=custom_task_vars_without_using_dot;]$resourceNameTemplate"
-Write-Host "Result: $env:custom_task_vars_without_using_dot"
-Write-Host "Result: $env:custom_task_vars_without_using_dot"
-##vso[task.setvariable variable=testvar;]testvalu
-Write-Host "##vso[task.setvariable variable=TEST;]$resourceNameTemplate"
-Write-Host "Result: $env:TEST"
-Write-Host "Result: $env:test"
 
 
 
@@ -296,16 +277,17 @@ if ($deployResourceGroupByPowerShell) {
 # task, before the next (that's why I didn't put them above the invocation of the ARM templates - as
 # they won't yet be available... (ie, different behaviour than when you use the Drop/Drop deploy ARM Template task, which can refer 
 # to them, as they are in a different Task)
+# TIP: You have to name the vars as they were registered ('with dots, not dashes)
 Write-Host "Updating Global Env Variables for next tasks..."
-Write-Host "##vso[task.setvariable variable=custom_task_vars_envIdentifier;]$envIdentifier"
-Write-Host "##vso[task.setvariable variable=custom_task_vars_resourceNameTemplate;]$resourceNameTemplate"
-Write-Host "##vso[task.setvariable variable=custom_task_vars_defaultResourceLocation;]$defaultResourceLocation"
-Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplatePath;]$armTemplatePath"
-Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateParameterPath;]$armTemplateParameterPath"
-Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateRootUri;]$armTemplateRootUri"
-Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateRootSas;]$armTemplateRootSas"
-Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateParameterRootUri;]$armTemplateParameterRootUri"
-Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateParameterRootSas;]$armTemplateParameterRootSas"
+Write-Host "##vso[task.setvariable variable=custom.task.vars.envIdentifier;]$envIdentifier"
+Write-Host "##vso[task.setvariable variable=custom.task.vars.resourceNameTemplate;]$resourceNameTemplate"
+Write-Host "##vso[task.setvariable variable=custom.task.vars.defaultResourceLocation;]$defaultResourceLocation"
+Write-Host "##vso[task.setvariable variable=custom.task.vars.armTemplatePath;]$armTemplatePath"
+Write-Host "##vso[task.setvariable variable=custom.task.vars.armTemplateParameterPath;]$armTemplateParameterPath"
+Write-Host "##vso[task.setvariable variable=custom.task.vars.armTemplateRootUri;]$armTemplateRootUri"
+Write-Host "##vso[task.setvariable variable=custom.task.vars.armTemplateRootSas;]$armTemplateRootSas"
+Write-Host "##vso[task.setvariable variable=custom.task.vars.armTemplateParameterRootUri;]$armTemplateParameterRootUri"
+Write-Host "##vso[task.setvariable variable=custom.task.vars.armTemplateParameterRootSas;]$armTemplateParameterRootSas"
 
 
 
