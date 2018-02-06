@@ -119,6 +119,10 @@ function Provision-Variables {
     # if ([string]::IsNullOrWhiteSpace($armTemplateRootUri)) {$armTemplateRootUri = $ENV:BUILD_SOURCEDIRECTORY; }
     $armTemplateRootSas = $env:custom_task_vars_armTemplateRootSas;
     if ([string]::IsNullOrWhiteSpace($armTemplateRootSas)) {$armTemplateRootSas = ""; }
+    if ($armTemplateRootSas.StartsWith("?") -eq $false) {
+        $armTemplateRootSas = ""; 
+        Write-Host "armTemplateRootSas did not start with ?...stripping out."
+    }
     # whereas templates can be from public, well-known urls, 
     # its normally that params are from the same source. but can be different (private)
     $armTemplateParameterRootUri = $env:custom_task_vars_armTemplateParameterRootUri;
@@ -127,14 +131,19 @@ function Provision-Variables {
         Write-Host "armTemplateParameterRootUri did not start with http...stripping out."
     }
     if ([string]::IsNullOrWhiteSpace($armTemplateParameterRootUri)) {
-      $armTemplateParameterRootUri = $armTemplateRootUri; 
-      Write-Host "Blank, therefore setting armTemplateParameterRootUri to armTemplateRootUri."
+        $armTemplateParameterRootUri = $armTemplateRootUri; 
+        Write-Host "Blank, therefore setting armTemplateParameterRootUri to armTemplateRootUri."
     }
     # Root SAS:
     $armTemplateParameterRootSas = $env:custom_task_vars_armTemplateParameterRootSas;
+    if ([string]::IsNullOrWhiteSpace($armTemplateParameterRootSas)) {$armTemplateParameterRootSas = ""; }
+    if ($armTemplateParameterRootSas.StartsWith("?") -eq $false) {
+        $armTemplateParameterRootSas = ""; 
+        Write-Host "armTemplateParameterRootSas did not start with ?...stripping out."
+    }
     if ([string]::IsNullOrWhiteSpace($armTemplateParameterRootSas)) {
-      $armTemplateParameterRootSas = $armTemplateRootSas; 
-      Write-Host "Blank, therefore setting armTemplateParameterRootSas to armTemplateRootSas."
+        $armTemplateParameterRootSas = $armTemplateRootSas; 
+        Write-Host "Blank, therefore setting armTemplateParameterRootSas to armTemplateRootSas."
     }
     # the path to the entry point ARM could be just a filename, in which case, prepend with the root Uri:
     $armTemplatePath = $env:custom_task_vars_armTemplatePath;
