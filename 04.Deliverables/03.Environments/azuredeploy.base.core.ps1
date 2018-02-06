@@ -17,8 +17,7 @@ function Provision-Variables {
     #>
     [CmdletBinding()]
     Param (
-        [Parameter(mandatory = $false)] [string]$adDomainName = "foo", 
-        [Parameter(mandatory = $false)] [int] $bar = 3     
+        [Parameter(mandatory = $false)] [bool]$deployResourceGroupByPowerShell = $false
     )
 
     
@@ -63,16 +62,16 @@ function Provision-Variables {
   ### PREREQUISITES: VARIABLES
   The script is expecting the following Custom Variable Inputs being set in the Build Definition Variables:
   * NO: Legacy: custom_task_vars_subscriptionName
-  * custom_task_vars_resourceNameTemplate
-  * custom_task_vars_envIdentifier
+  * custom_task_vars_resourceNameTemplate: the template string for naming new resources.
+  * custom_task_vars_envIdentifier: the Environment Identifier (eg: BT, ST, UAT, etc.)
   // These are for the entry point top ARM Template:
-  * custom_task_vars_armTemplatePath
+  * custom_task_vars_armTemplatePath (the relative file path to the entry point ARM. If none given, prepended with custom_task_vars_armTemplateRootUri and suffixed with custom_task_vars_armTemplateRootSas)
   // These vars are for ARM Linking to work:
-  * custom_task_vars_armTemplateRootUri
-  * custom_task_vars_armTemplateRootSas
-  * custom_task_vars_armTemplateParameterRootUri
-  * custom_task_vars_armTemplateParameterRootSas
-  * custom_task_vars_deployResourceGroupByPowerShell
+  * custom_task_vars_armTemplateRootUri: the http uri to find neste templates
+  * custom_task_vars_armTemplateRootSas: the SaS to access neste templates
+  * custom_task_vars_armTemplateParameterRootUri: the http uri to find neste templates
+  * custom_task_vars_armTemplateParameterRootSas: the SaS to access neste templates
+  * custom_task_vars_deployResourceGroupByPowerShell: a flag as to whether to deploy things here, or wait for another task.
 
   ### RESOURCES
   * https://github.com/Microsoft/vsts-tasks/blob/master/docs/authoring/commands.md
@@ -158,9 +157,6 @@ function Provision-Variables {
     if ([string]::IsNullOrWhiteSpace($resourceNameTemplate)) {$resourceNameTemplate = ""; }
 
 
-    # finally. Should we be deploying by code, or not?
-    $deployResourceGroupByPowerShell = $false;
-    [bool]::TryParse($env:custom_task_vars_deployResourceGroupByPowerShell, [ref]$deployResourceGroupByPowerShell);
 
     # Output System, Build's default and injected Variables:
     Write-Host "Script variables of potential interest:"
@@ -345,4 +341,7 @@ function Provision-Variables {
 }
 
 # Invoke Method
-Provision-Variables
+$deployResourceGroupByPowerShell = $false;
+[bool]::TryParse($env:custom_task_vars_deployResourceGroupByPowerShell, [ref]$deployResourceGroupByPowerShell);
+
+Provision-Variables -deployResourceGroupByPowerShell $deployResourceGroupByPowerShell
