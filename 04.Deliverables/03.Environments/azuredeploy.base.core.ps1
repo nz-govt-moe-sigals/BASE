@@ -143,7 +143,7 @@ function Provision-Variables {
     if ([System.IO.Path]::IsPathRooted($armTemplatePath) -eq $false) {
         Write-Host "env:custom_task_vars_armTemplatePath is not rooted. Prepending with $armTemplateRootUri."
         $armTemplatePath = [System.IO.Path]::Combine($armTemplateRootUri, $armTemplatePath, $armTemplateRootSas)
-    }
+    }         
 
 
     # the path to the entry point ARM parameters could be just a filename, in which case, prepend with the root Uri:
