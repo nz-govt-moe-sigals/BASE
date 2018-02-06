@@ -142,7 +142,7 @@ function Provision-Variables {
     if ([string]::IsNullOrWhiteSpace($armTemplatePath)) {$armTemplatePath = ""; }
     if ([System.IO.Path]::IsPathRooted($armTemplatePath) -eq $false) {
         Write-Host "env:custom_task_vars_armTemplatePath is not rooted. Prepending with $armTemplateRootUri."
-        $armTemplatePath = [System.IO.Path]::Combine($armTemplateRootUri, $armTemplatePath)
+        $armTemplatePath = [System.IO.Path]::Combine($armTemplateRootUri, $armTemplatePath, $armTemplateRootSas)
     }
 
 
@@ -151,7 +151,7 @@ function Provision-Variables {
     if ([string]::IsNullOrWhiteSpace($armTemplateParameterPath)) {$armTemplateParameterPath = ""; }
     if ([System.IO.Path]::IsPathRooted($armTemplateParameterPath) -eq $false) {
         Write-Host "env:custom_task_vars_armTemplateParameterPath is not rooted. Prepending with $armTemplateParameterRootUri."
-        $armTemplateParameterPath = [System.IO.Path]::Combine($armTemplateParameterRootUri, $armTemplateParameterPath)
+        $armTemplateParameterPath = [System.IO.Path]::Combine($armTemplateParameterRootUri, $armTemplateParameterPath, $armTemplateParameterRootSas)
     }
     # resourceNameTemplate is going to be something like MYORG-MYAPP-{ENVID}-{BRANCHNAME}-{RESOURCETYPE}
     $resourceNameTemplate = $env:custom_task_vars_resourceNameTemplate;
