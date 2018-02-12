@@ -2,21 +2,27 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "name": {
+        "storageAccountResourceMode": {
+            "type": "string",
+            "minLength": 1,
+            "defaultValue": "Incremental",
+            "allowedValues": [
+                "Incremental"
+            ]
+        },
+        "storageAccountName": {
             "type": "string",
             "minLength": 4
         },
-        "resourceLocation": {
+        "storageAccountLocation": {
             "type": "string",
             "allowedValues": [
                 "Australia East",
-                "Australia Southeast",
-                "australiaeast",
-                "australiasoutheast"
+                "Australia Southeast"
             ],
-            "defaultValue": "[resourceGroup().location]"        
+            "defaultValue": "[resourceGroup().location]"
         },
-        "accountType": {
+        "storageAccountSku": {
             "type": "string",
             "allowedValues": [
                 "Storage",
@@ -25,24 +31,33 @@
             ],
             "defaultValue": "Storage"
         },
-        "kind": {
+        "storageAccountKind": {
             "type": "string"
         }
     },
     "variables": {
-        "currentTemplateUri": "[deployment().properties.templateLink.uri]",
-        "currentTemplateUriRoot": "[uri(deployment().properties.templateLink.uri, '')"
+        "currentTemplateUrl": "[deployment().properties.templateLink.uri]",
+        "currentTemplateUriRoot": "[uri(deployment().properties.templateLink.uri, '')]",
+        "storageAccount": {
+            "resourceMode": "[parameters('storageAccountResourceMode')]",
+            "resourceName": "[parameters('storageAccountResourceName')]",
+            "resourceType": "Microsoft.Storage/storageAccounts",
+            "resourceLocation": "[parameters('storageAccountResourceLocation')]",
+            "resourceSku": "[parameters('storageAccountResourceSku')]",
+            "kind": "[parameters('storageAccountKind')]"
+        }
     },
     "resources": [
         {
-            "apiVersion": "2017-10-01",
-            "name": "[parameters('name')]",
-            "resourceLocation": "[parameters('resourceLocation')]",
+            "dependsOn": [],
             "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2017-10-01",
+            "name": "[variables('storageAccount').resourceName]",
+            "resourceLocation": "[variables('storageAccount').resourceLocation]",
             "sku": {
-                "name": "[parameters('accountType')]"
+                "name": "[variables('storageAccount').resourceSku)]"
             },
-            "kind": "[parameters('kind')]",
+            "kind": "[variables('storageAccount').kind]",
             "tags": {},
             "properties": {
                 "supportsHttpsTrafficOnly": true,
@@ -57,8 +72,13 @@
                     },
                     "keySource": "Microsoft.Storage"
                 }
-            },
-            "dependsOn": []
+            }
         }
-    ]
+    ],
+    "outputs": {
+        "resourceId": {
+            "value": "[resourceId(variables('storageAccount').resourceType, variables('storageAccount').resourceName)]",
+            "type": "string"
+        }
+    }
 }

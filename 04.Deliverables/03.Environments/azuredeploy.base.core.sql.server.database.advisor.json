@@ -1,0 +1,28 @@
+{
+  "dependsOn": [
+    "[resourceId('Microsoft.Sql/servers', variables('sqlServerResourceName'))]",
+    "[resourceId('Microsoft.Sql/servers/databases', variables('sqlServerResourceName'), parameters('sqlServerDatabaseName'))]"
+  ]
+  "comments": "Database auto tuning - Create Index",
+    "type": "Microsoft.Sql/servers/databases/advisors",
+    "name": "[concat(variables('sqlServerResourceName'), '/', parameters('sqlServerDatabaseName'), '/CreateIndex')]",
+    "apiVersion": "2014-04-01",
+    "scale": null,
+    "properties": {
+      "autoExecuteValue": "Enabled"
+    },
+  },
+  {
+    "dependsOn": [
+      "[resourceId('Microsoft.Sql/servers', variables('sqlServerResourceName'))]",
+      "[resourceId('Microsoft.Sql/servers/databases', variables('sqlServerResourceName'), parameters('sqlServerDatabaseName'))]"
+    ]
+    "comments": "Database auto tuning - Drop Index",
+    "type": "Microsoft.Sql/servers/databases/advisors",
+    "name": "[concat(variables('sqlServerResourceName'), '/', parameters('sqlServerDatabaseName'), '/DropIndex')]",
+    "apiVersion": "2014-04-01",
+    "scale": null,
+    "properties": {
+      "autoExecuteValue": "Enabled"
+    },
+  },

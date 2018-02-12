@@ -1,3 +1,9 @@
+"miscUrl": "[concat('https', '://', parameters('dbAuditStorageAccountName'), '.table.core.windows.net', '/')]"
+
+"storageTableEndpoint": "[concat('https', '://', parameters('dbAuditStorageAccountName'), '.table.core.windows.net', '/')]",
+"fullAuditLogsTableName": "[concat('sqlServerDatabaseAuditLogs',variables('sqlServerResourceName'))]",
+"auditLogsTableName": "[variables('sqlServerResourceName')]"
+
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
@@ -7,6 +13,7 @@
                 "description": "The default location within which to develop the Resources Group and its child Resources, unless specifically defined otherwise (not all resources - such as SqlServers - are available in all resources)."
             },
             "type": "string",
+            "minLength": 1,
             "allowedValues": [
                 "Australia East",
                 "Australia Southeast"
@@ -32,43 +39,26 @@
                 "description": "The (optional) Single Access Signature (SAS) required to append to ARM Template Uris in order to get them out of a secured Storage Account Container."
             },
             "type": "string",
-            "minLength": 0,
-            "defaultValue": ""
+            "minLength": 0
         },
         "armTemplateParameterRootUri": {
             "metadata": {
                 "description": "The http based base url from which to download referenced ARM Templates. In most cases will be an Url to a Storage Account Container Url to which newly downloaded Source Files (just the ARM Templates) are copied to."
             },
-            "type": "string"
+            "type": "string",
+            "minLength": 0
         },
         "armTemplateParameterRootSas": {
             "metadata": {
                 "description": "The (optional) Single Access Signature (SAS) required to append to ARM Template Paramter Uris in order to get them out of a secured Storage Account Container."
             },
             "type": "string",
-            "defaultValue": ""
+            "minLength": 0
         },
-        "storageAccountResourceLocation": {
-            "type": "string",
-            "defaultValue": "[resourceGroup().location]"
-        },
-        "storageAccountDiagnosticsResourceName": {
-            "type": "string",
-            "defaultValue": null
-        },
-        "storageAccountBackupResourceName": {
-            "type": "string",
-            "defaultValue": null
-        },
-        "storageAccountMediaResourceName": {
-            "type": "string",
-            "defaultValue": null
-        },
-        "sqlServerResourceLocation": {
+        "sqlServerLocation": {
             "type": "string",
             "defaultValue": "[resourceGroup().location]",
             "allowedValues": [
-                "australiaeast",
                 "East US",
                 "South Central US",
                 "Southeast Asia",
@@ -85,7 +75,7 @@
                 "description": "App Service server pricing tier and capacity. Check details at https://azure.microsoft.com/en-us/pricing/details/app-service/"
             },
             "type": "string",
-            "defaultValue": "Basic",
+            "defaultValue": "S1",
             "allowedValues": [
                 "Basic",
                 "S0",
@@ -103,7 +93,7 @@
         },
         "sqlServerResourceName": {
             "type": "string",
-            "defaultValue": null,
+            "defaultValue": "<INTERNALLYDEFINED>",
             "metadata": {
                 "description": "Optional: Defined automatically according to naming convention but can be overriden here"
             }
@@ -124,26 +114,22 @@
         },
         "sqlServerFirewallRuleResourceName": {
             "type": "string",
-            "minLength": 1,
-            "defaultValue":"AllowAzure"
+            "minLength": 1
         },
         "sqlServerFirewallRuleResourceLocation": {
-            "type": "string",
-            "defaultValue": "[resourceGroup().location]"
+            "type": "string"
         },
         "sqlServerFirewallRuleStartIpAddress": {
             "type": "string",
             "metadata": {
                 "description": "Ensure the Database has firewall rules in place. Tip: The range should be permissive (0.0.0.0 - 0.0.0.0), controlling access using AzureAD and integrated security."
-            },
-            "defaultValue": "0.0.0.0"
+            }
         },
         "sqlServerFirewallRuleEndIpAddress": {
             "type": "string",
             "metadata": {
                 "description": "Ensure the Database has firewall rules in place. Tip: The range should be permissive (0.0.0.0 - 0.0.0.0), controlling access using AzureAD and integrated security."
-            },
-            "defaultValue": "0.0.0.0"
+            }
         },
         "webServerFarmSku": {
             "metadata": {
@@ -199,7 +185,7 @@
         "uniqueResourceId": "[uniqueString(resourceGroup().id)]",
         "currentTemplateUrl": "[deployment().properties.templateLink.uri]",
         "currentTemplateUriRoot": "[uri(deployment().properties.templateLink.uri, '')]",
-        "armTemplateRootUrl": "[coalesce(parameters('armTemplateRootUrl'), parameters('currentTemplateUriRoot'))]",
+        "armTemplateRootUrl": "[coalesce(parameters('armTemplateRootUrl'), parameters('currentTemplateUriRoot')]",
         "resourceLocation": "[parameters('resourceLocation')]",
         "resourceNameTemplate": "[parameters('resourceNameTemplate')]",
         "resource": {
@@ -212,13 +198,13 @@
             "resourceNameTemplate": "[parameters('resourceNameTemplate')]"
         },
         "storageAccount": {
-            "backup": {
+            "databaseBackups": {
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for database Backup storage.",
-                "id": "[concat(variables('resourceNamePrefix'),'.storageAccount.backup')]",
+                "id": "[concat(variables('resourceNamePrefix'),'.storageAccount.databaseBackups')]",
                 "armUrl": "[concat(variables('armTemplateRootUrl'), '/', variables('resourceNamePrefix'),'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat(variables('armTemplateParameterRootUri'), '/', variables('resourceNamePrefix'),'.storageAccount.database.backup', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                "armParametersUrl": "[concat(variables('armTemplateParameterRootUri'), '/', variables('resourceNamePrefix'),'.storageAccount.database.backups', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace(parameters('resourceNameTemplate'), '{RESOURCETYPE}', 'SA')]",
-                "resourceLocation": "[coalesce(parameters('storageAccountbackup'), parameters('resourceLocation'), resourceGroup().location)]"
+                "resourceLocation": "[parameters('resourceLocation')]"
             },
             "media": {
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for database Private (proxied) storage.",
@@ -226,7 +212,7 @@
                 "armUrl": "[concat(variables('armTemplateRootUrl'), '/', variables('resourceNamePrefix'),'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
                 "armParametersUrl": "[concat(variables('armTemplateParameterRootUri'), '/', variables('resourceNamePrefix'),'.storageAccount.private', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace(parameters('resourceNameTemplate'), '{RESOURCETYPE}', 'SA_MEDIA')]",
-                "resourceLocation": "[coalesce(parameters('storageAccountMedia'), parameters('resourceLocation'), resourceGroup().location)]"
+                "resourceLocation": "[parameters('resourceLocation')]"
             }
         },
         "sql": {
@@ -235,20 +221,20 @@
                 "id": "[concat(variables('resourceNamePrefix'),'.sqlServerDatabaseServer')]",
                 "armUrl": "[concat(variables('armTemplateRootUrl'), '/', variables('resourceNamePrefix'),'.sqlServer', '.json', parameters('armTemplateRootSas'))]",
                 "armParametersUrl": "[concat(variables('armTemplateParameterRootUri'), '/', variables('resourceNamePrefix'),'.sqlServer', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceLocation": "[coalesce(parameters('sqlServerResourceLocation'), parameters('resourceLocation'), resourceGroup().location)]",
-                "resourceName": "[coalesce(parameters('sqlServerResourceName'), replace(parameters('resourceNameTemplate'), '{RESOURCETYPE}', 'SS'))]",
+                "resourceLocation": "[parameters('resourceLocation')]",
+                "resourceName": "[replace(parameters('resourceNameTemplate'), '{RESOURCETYPE}', 'SS')]",
                 "sku": "[coalesce(parameters('sqlServerSku'), parameters('webServerFarmSku') )]",
                 "administrator": {
                     "login": "[parameters('sqlServerAdministratorLogin')]",
                     "password": "[parameters('sqlServerAdministratorLoginPassword')]"
                 }
-            },
-            "firewallRule": {
+            }
+            "firewallRule" : {
                 "comment": "A collection of variables for passing to the SqlServerFirewallRule ARM Template.",
                 "id": "[concat(variables('resourceNamePrefix'),'.sqlServer.fireWallRule')]",
                 "armUrl": "[concat(variables('armTemplateRootUrl'), '/', variables('resourceNamePrefix'),'.sqlServer.firewallrule', '.json', parameters('armTemplateRootSas'))]",
                 "armParametersUrl": "[concat(variables('armTemplateParameterRootUri'), '/', variables('resourceNamePrefix'),'.sqlServer.firewallrules', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceLocation": "[coalesce(parameters('firewallRuleResourceLocation'), parameters('resourceLocation'), resourceGroup().location)]",
+                "resourceLocation": "[parameters('resourceLocation')]",
                 "resourceName": "[replace(parameters('resourceNameTemplate'), '{RESOURCETYPE}', 'SS_FWR')]",
                 "startIpAddress": "[parameters('sqlServerFirewallRuleStartIpAddress')]",
                 "endIpAddress": "[parameters('sqlServerFirewallRuleEndIpAddress')]"
@@ -271,7 +257,7 @@
                 "id": "[concat(variables('resourceNamePrefix'),'.appServicePan' )]",
                 "armUrl": "[concat(variables('armTemplateRootUrl'), '/', variables('resourceNamePrefix'),'.webServerFarm', '.json' , parameters('armTemplateRootSas'))]",
                 "armParametersUrl": "[concat(variables('armTemplateParameterRootUri'), '/', variables('resourceNamePrefix'),'.webServerFarm', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceLocation": "[coalesce(parameters('webServerFarmResourceLocation'), parameters('resourceLocation'), resourceGroup().location)]",
+                "resourceLocation": "[parameters('resourceLocation')]",
                 "resourceName": "[replace(parameters('resourceNameTemplate'), '{RESOURCETYPE}', 'WSF')]",
                 "sku": "[parameters('webServerFarmSku')]"
             },
@@ -280,7 +266,7 @@
                     "comments": "",
                     "resourceName": "[parameters('webSiteHostBindingResourceName')]",
                     "resourceType": "Microsoft.Web/sites/hostNameBindings",
-                    "resourceLocation": "[coalesce(parameters('webHostBindingLocation'), parameters('resourceLocation'), resourceGroup().location)]",
+                    "resourceLocation": "[parameters('webServerFarmResourceLocation')]",
                     "hostName": "[parameters('webSiteHostBindingHostName')]",
                     "thumbprint": "[parameters('webSiteHostBindingCertificateThumbprint')]"
                 }
@@ -288,7 +274,7 @@
             "certificate": {
                 "resourceName": "[parameters('webCertificateResourceName')]",
                 "resourceType": "Microsoft.Web/certificates",
-                "resourceLocation": "[coalesce(parameters('webCertificateResourceLocation'), parameters('resourceLocation'), resourceGroup().location)]",
+                "resourceLocation": "parameters('webCertificateResourceLocation')]",
                 "pfxBlob": "[parameters('webCertificateBase64')]",
                 "password": "[parameters('webCertificatePassword')]"
             }
@@ -296,26 +282,266 @@
     },
     "resources": [
         {
-            "comments": "Ensures a Resource Group scoped unique backup Storage Account (for Db)",
-            "name": "[variables('storageAccount').backup.id]",
+            "comments": "Ensures a Resource Group scoped unique Database Backups Storage Account",
+            "name": "[variables('storageAccount').databaseBackups.id]",
             "apiVersion": "2017-05-10",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[variables('storageAccount').backup.armUrl]",
+                    "uri": "[variables('storageAccount').databaseBackups.armUrl]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "storageAccountResourceName": {
-                        "value": "[variables('storageAccount').backup.resourceName]"
+                    "resourceName": {
+                        "value": "[variables('storageAccount').databaseBackups.resourceName]"
                     },
-                    "storageAccountResourceLocation": {
-                        "value": "[variables('storageAccount').backup.resourceLocation]"
+                    "resourceLocation": {
+                        "value": "[variables('storageAccount').databaseBackups.resourceLocation]"
                     }
                 }
             }
-        }
+        },
+        {
+            "comments": "Ensures a Resource Group scoped unique Media Storage Account",
+            "name": "[variables('storageAccount').media.id]",
+            "apiVersion": "2017-05-10",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('storageAccount').media.armUrl]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "resourceName": {
+                        "value": "[variables('storageAccount').media.resourceName]"
+                    },
+                    "resourceLocation": {
+                        "value": "[variables('storageAccount').media.resourceLocation]"
+                    }
+                }
+            }
+        },
+        {
+            "comments": "Ensure Resource Group SqlServer. Is a dependency for the subsequent deployment of the FirewallRule, and the SqlServerDatabase.",
+            "type": "Microsoft.Resources/deployments",
+            "name": "[variables('sql').server.id]",
+            "apiVersion": "2017-05-10",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('sql').server.armPath]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "sqlServerResourceName": {
+                        "value": "[variables('sql').server.resourceName]"
+                    },
+                    "sqlServerLocation": {
+                        "value": "[variables('sql').server.resourceLocation]"
+                    },
+                    "sqlServerSku": {
+                        "value": "[variables('sql').server.sku]"
+                    },
+                    "sqlServerAdministratorLogin": {
+                        "value": "[variables('sql').server.administratorLogin]"
+                    },
+                    "sqlServerAdministratorLoginPassword": {
+                        "value": "[variables('sql').server.administratorLoginPassword]"
+                    }
+                }
+            }
+        },
+        {
+            "dependsOn": [
+                "[variables('sql').server.id]"
+            ],
+            "comments": "Ensures a Resource Group scoped Database Firewall Rule. Depends on `SqlServer` database being ensured as deployed first.",
+            "name": "[variables('sql').server.firewallRule.id]",
+            "apiVersion": "2017-05-10",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('sql').server.firewallRule.armUrl]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "sqlServerFirewallRuleResourceName": {
+                        "value": "[variables('sql').server.firewallRule.resourceName]"
+                    },
+                    "sqlServerFirewallRuleResourceLocation": {
+                        "value": "[variables('sql').server.firewallRule.resourceLocation]"
+                    },
+                    "sqlServerFirewallRuleStartIpAddress": {
+                        "value": "[variables('sql').server.firewallRule.startIPAddress]"
+                    },
+                    "sqlServerFirewallRuleEndIpAddress": {
+                        "value": "[variables('sql').server.firewallRule.endIPAddress]"
+                    }
+                },
+                "parametersLink": "[variables('sql').server.firewallRule.armParametersUri]"
+            },
+            "tags": {}
+        },
+        {
+            "dependsOn": [
+                "[variables('sql').server.id]",
+                "[variables('storageAccount').databaseBackups.id]"
+            ],
+        "comments": "Ensures the Database is backing up to a dedicated storage Account.",
+            "name": "[variables('sql').server.auditingPolicies.id]",
+            "apiVersion": "2017-05-10",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('sql').server.auditingPolicies.armUrl]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {}
+            }
+        },
+        {
+            "dependsOn": [
+                "[variables('sql').server.firewallRule.id]",
+                "[variables('sql').server.id]"
+            ],
+            "comments": "Ensures a (blank) primary Database is deployed. Note: This should not be necessary (as an app should use DbAsCode/CodeFirst to create it on first run)...but it allows for the setting of collation, and other properties.",
+            "name": "[variables('sqlServerDatabase').id]",
+            "apiVersion": "2017-05-10",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "parameters": {
+                    "sqlServerDatabaseResourceName": {
+                        "value": "[variables('sqlServerDatabase').resourceName]"
+                    },
+                    "sqlServerDatabaseLocation": {
+                        "value": "[variables('sqlServerDatabase').resourceLocation]"
+                    },
+                    "sqlServerDatabaseCollation": {
+                        "value": "[variables('sqlServerDatabase').collation]"
+                    },
+                    "sqlServerDatabaseEdition": {
+                        "value": "[variables('sqlServerDatabase').edition]"
+                    },
+                    "sqlServerDatabaseZoneRedundant": {
+                        "value": "[variables('sqlServerDatabase').zoneRedundant]"
+                    },
+                    "sqlServerDatabaseMaxSizeBytes": {
+                        "value": "[variables('sqlServerDatabase').maxSizeBytes]"
+                    },
+                    "requestedServiceObjectiveId": {
+                        "value": "[variables('sqlServerDatabase').requestedServiceObjectiveId]"
+                    }
+                }
+            },
+            "tags": {}
+        },
+        {
+            "comments": "Ensures a Resource Group scoped unique App Service Plan",
+            "name": "[variables('web').serverFarm.id]",
+            "apiVersion": "2017-05-10",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('web').serverFarm.armUrl]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "webServiceFarmResourceName": {
+                        "value": "[variables('web').serverFarm.resourceName]"
+                    },
+                    "webServiceFarmResourceLocation": {
+                        "value": "[variables('web').serverFarm.resourceLocation]"
+                    },
+                    "webServiceFarmSku": {
+                        "value": "[variables('web').serverFarm.sku]"
+                    }
+                }
+            }
+        },
+        {
+            "dependsOn": [
+                "[variables('web').site.id]"
+            ],
+            "comments": "Ensures a Resource Group scoped web certificate is deployed",
+            "name": "[variables('web').certificate.id]",
+            "apiVersion": "2017-05-10",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('web').certificate.armUrl]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "webCertificateResourceName": {
+                        "value": "[variables('web').certificate.resourceName]"
+                    },
+                    "webCertificateResourceLocation": {
+                        "value": "[variables('web').certificate.resourceLocation]"
+                    },
+                    "webCertificateBase64": {
+                        "value": "[variables('web').certificate.base64]"
+                    },
+                    "webCertificatePassword": {
+                        "value": "[variables('web').certificate.password]"
+                    }
+                }
+            }
+        },
+        {
+            "dependsOn": [
+                "[variables('web').site.id]"
+            ],
+            "comments": "Ensures a Resource Group scoped web hostBinding is deployed",
+            "name": "[variables('web').site.hostBinding.id]",
+            "apiVersion": "2017-05-10",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('web').site.hostBinding.armUrl]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "webSiteHostBindingArmUrl": {
+                        "value": "[variables('web').site.hosting.binding.armUrl]"
+                    },
+                    "webSiteHostBindingResourceName": {
+                        "value": "[variables('web').site.hosting.binding.resourceName]"
+                    },
+                    "webSiteHostBindingResourceLocation": {
+                        "value": "[variables('web').site.hosting.binding.resourceLocation]"
+                    },
+                    "webSiteHostBindingHostName": {
+                        "value": "[variables('web').site.hosting.binding.hostName]"
+                    },
+                    "webSiteHostBindingCertificateThumbprint": {
+                        "value": "[variables('web').site.hosting.binding.certificateThumbprint]"
+                    }
+                }
+            }
+        },
+        {
+            "dependsOn": [
+                "[variables('web').serverFarm.id]"
+            ],
+            "comments": "Ensures a Resource Group scoped web site is deployed",
+            "name": "[variables('web.site').id]",
+            "apiVersion": "2017-05-10",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "parameters": {}
+            }
+        },
+        [reference(resourceId('Microsoft.Web/certificates', variables('certificateName')), providers('Microsoft.Web', 'certificates').apiVersions[
+                0
+            ]).thumbprint
+        ]"
     ],
     "outputs": {
         "uniqueResourceId": {

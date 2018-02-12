@@ -1,0 +1,80 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "webServerFarmResourceMode": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "Incremental",
+      "allowedValues": [
+        "Incremental"
+      ]
+    },
+    "webServerFarmResourceName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "webServerFarmResourceLocation": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "[resourceGroup().location]",
+      "metadata": {
+        "description": "The location within which to develop the App Service plan resource."
+      }
+    },
+    "webServerFarmResourceSku": {
+      "type": "string",
+      "defaultValue": "S1",
+      "allowedValues": [
+        "F1",
+        "D1",
+        "B1",
+        "S1",
+        "S2"
+      ],
+      "metadata": {
+        "description": "Describes plan's pricing tier and capacity. Check details at https://azure.microsoft.com/en-us/pricing/details/app-service/"
+      }
+    }
+  },
+  "variables": {
+    "currentTemplateUrl": "[deployment().properties.templateLink.uri]",
+    "currentTemplateUriRoot": "[uri(deployment().properties.templateLink.uri, '')]",
+    "web": {
+      "serverFarm": {
+        "resourceMode": "[parameters('webSiteResourceMode')]",
+        "resourceType": "Microsoft.Web/serverfarms",
+        "resourceName": "[parameters('webServerFarmResourceName')]",
+        "resourceLocation": "[parameters('webServerFarmResourceLocation')]",
+        "resourceSku": "[parameters('webServerFarmResourceSku')]"
+      }
+    }
+  },
+  "resources": [
+    {
+      
+      "dependsOn": [],
+      "type": "Microsoft.Web/serverfarms",
+      "name": "[variables('web').serverFarm.resourceName]",
+      "location": "[variables('web').serverFarm.resourceLocation]",
+      "apiVersion": "2015-08-01",
+      "sku": {
+        "name": "[parameters('webServerFarmResource').resourceSku]"
+      },
+      "tags": {
+        "displayName": "Server Farm"
+      },
+      "properties": {
+        "mode": "[variables('web').serverFarm.resourceMode')]",
+        "name": "[variables('web').serverFarm.resourceName]",
+        "numberOfWorkers": 1
+      }
+    }
+  ],
+  "outputs": {
+    "resourceId": {
+      "value": "[resourceId(variables('web').serverFarm.resourceType, variables('web').serverFarm.resourceName)]",
+      "type": "string"
+    }
+  }
+}

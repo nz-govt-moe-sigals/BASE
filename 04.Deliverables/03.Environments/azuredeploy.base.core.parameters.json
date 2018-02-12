@@ -3,13 +3,11 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
       "resourceLocation": {
-        "value": "Australia East"
-      },
-      "armTemplateRoot": { 
-          "value": "http://nowhere.for.now/"
+        "value": "Australia East---------"
       },
       "webServerFarmSku": {
         "value":"S1"
-      },
+      }
+      
     }
   }

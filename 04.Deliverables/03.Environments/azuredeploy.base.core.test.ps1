@@ -2,7 +2,7 @@
 
 # Login-AzureRmAccount
 
-$subscriptionName = "ESL-EDU-B2C-ProdUAT-01";
+$subscriptionName = "EDU-MOE-BASE-TestDev-01";
 Select-AzureRmSubscription -SubscriptionName "$subscriptionName" 
 
 
@@ -25,22 +25,30 @@ $env:CUSTOM_VARS_armTemplateRootSas = "";
 $env:CUSTOM_VARS_armTemplateParameterRootUri = "https://basecoredeploytmp.blob.core.windows.net/public/base/core/arm";
 $env:CUSTOM_VARS_armTemplateParameterRootSas = ""; 
 
-$secureLogin = ConvertTo-SecureString "NOTADMIN" -AsPlainText -Force;
-$securePassword = ConvertTo-SecureString "NOTPASSWORD" -AsPlainText -Force;
+$secureLogin = "NOTADMIN"| ConvertTo-SecureString  -AsPlainText -Force
+$securePassword = "NOTAPASSWORD" | ConvertTo-SecureString  -AsPlainText -Force
 
+Write-Host $secureLogin
 
 Test-AzureRmResourceGroupDeployment `
     -ResourceGroupName "MYORG-MYAPP-MYBT-RG" `
     -TemplateFile "./azuredeploy.base.core.json" `
-    -TemplateParameterFile "./azuredeploy.base.core.parameter.json" `
+    -TemplateParameterFile "./azuredeploy.base.core.parameters.json" `
     -Mode "Incremental" `
     `
     -resourceLocation "Australia East" `
     -resourceNameTemplate "MYORG-MYAPP-MYENV-MYBRANCH-MYMY-{RESOURCETYPE}" `
-    -armTemplateRootUri "https://basecoredeploytmp.blob.core.windows.net/public/base/core/arm" `
+    -armTemplateRootUrl "https://basecoredeploytmp.blob.core.windows.net/public/base/core/arm" `
     -armTemplateParameterRootUri "https://basecoredeploytmp.blob.core.windows.net/public/base/core/arm" `
-    -sqlServerAdministratorLogin $secureLogin `
-    -sqlServerAdministratorPassword $securePassword
+    `
+    -storageAccountDiagnosticsResourceName "FOO-DIAG"`
+    -storageAccountBackupResourceName "FOO-BACKUP"`
+    -storageAccountMediaResourceName "FOO-MEDIA"`
+    `
+    -sqlServerResourceName $null`
+    -sqlServerAdministratorLogin "NOTADMIN"| ConvertTo-SecureString  -AsPlainText -Force `
+    -sqlServerAdministratorLoginPassword $securePassword`
+    `
     
 
  

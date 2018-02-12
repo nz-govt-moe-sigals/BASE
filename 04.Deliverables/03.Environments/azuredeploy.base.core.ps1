@@ -109,14 +109,14 @@ function Provision-Variables {
     # in the most trivial of ARM templates (with no child templates) the local Src dir could
     # work in a pinch (low chance of that working...)
     Write-Host "env:custom_task_vars_armTemplateRootUri: $env:custom_task_vars_armTemplateRootUri"
-    $armTemplateRootUri = $env:custom_task_vars_armTemplateRootUri;
-    if ($armTemplateRootUri.StartsWith("http") -eq $false) {
-        $armTemplateRootUri = ""; 
+    $armTemplateRootUrl = $env:custom_task_vars_armTemplateRootUri;
+    if ($armTemplateRootUrl.StartsWith("http") -eq $false) {
+        $armTemplateRootUrl = ""; 
         Write-Host "custom_task_vars_armTemplateRootUri did not start with http...stripping out."
     }
-    Write-Host "armTemplateRootUri: $armTemplateRootUri"
+    Write-Host "armTemplateRootUrl: $armTemplateRootUrl"
     # DUMB, since most of the time it should be coming from a public url:
-    # if ([string]::IsNullOrWhiteSpace($armTemplateRootUri)) {$armTemplateRootUri = $ENV:BUILD_SOURCEDIRECTORY; }
+    # if ([string]::IsNullOrWhiteSpace($armTemplateRootUrl)) {$armTemplateRootUrl = $ENV:BUILD_SOURCEDIRECTORY; }
     $armTemplateRootSas = $env:custom_task_vars_armTemplateRootSas;
     if ([string]::IsNullOrWhiteSpace($armTemplateRootSas)) {$armTemplateRootSas = ""; }
     if ($armTemplateRootSas.StartsWith("?") -eq $false) {
@@ -131,8 +131,8 @@ function Provision-Variables {
         Write-Host "armTemplateParameterRootUri did not start with http...stripping out."
     }
     if ([string]::IsNullOrWhiteSpace($armTemplateParameterRootUri)) {
-        $armTemplateParameterRootUri = $armTemplateRootUri; 
-        Write-Host "Blank, therefore setting armTemplateParameterRootUri to armTemplateRootUri."
+        $armTemplateParameterRootUri = $armTemplateRootUrl; 
+        Write-Host "Blank, therefore setting armTemplateParameterRootUri to armTemplateRootUrl."
     }
     # Root SAS:
     $armTemplateParameterRootSas = $env:custom_task_vars_armTemplateParameterRootSas;
@@ -149,8 +149,8 @@ function Provision-Variables {
     $armTemplatePath = $env:custom_task_vars_armTemplatePath;
     if ([string]::IsNullOrWhiteSpace($armTemplatePath)) {$armTemplatePath = ""; }
     if ([System.IO.Path]::IsPathRooted($armTemplatePath) -eq $false) {
-        Write-Host "env:custom_task_vars_armTemplatePath is not rooted. Prepending with $armTemplateRootUri."
-        $armTemplatePath = [System.IO.Path]::Combine($armTemplateRootUri, $armTemplatePath, $armTemplateRootSas)
+        Write-Host "env:custom_task_vars_armTemplatePath is not rooted. Prepending with $armTemplateRootUrl."
+        $armTemplatePath = [System.IO.Path]::Combine($armTemplateRootUrl, $armTemplatePath, $armTemplateRootSas)
     }         
 
 
@@ -202,7 +202,7 @@ function Provision-Variables {
     Write-Host "...defaultResourceLocation: $defaultResourceLocation"
     Write-Host "...armTemplatePath: $armTemplatePath"
     Write-Host "...armTemplateParameterPath: $armTemplateParameterPath"
-    Write-Host "...armTemplateRootUri: $armTemplateRootUri"
+    Write-Host "...armTemplateRootUrl: $armTemplateRootUrl"
     Write-Host "...armTemplateRootSas: $armTemplateRootSas"
     Write-Host "...armTemplateParameterRootUri: $armTemplateParameterRootUri"
     Write-Host "...armTemplateParameterRootSas: $armTemplateParameterRootSas"
@@ -252,8 +252,9 @@ function Provision-Variables {
         # Set Subscription
         # Legacy: No need to, as we are in the Azure PostScript Task which has already 
         # connected to the Service Principal, and Subscription:
-        # Select-AzureRmSubscription -SubscriptionName "$subscriptionName" 
-
+        if ($false){
+          Select-AzureRmSubscription -SubscriptionName "$subscriptionName" 
+        } 
 
         # Create/Ensure Resource Group
         Write-Host "...Ensuring ResourceGroup Exists..."
@@ -280,7 +281,7 @@ function Provision-Variables {
         -TemplateUri $armTemplatePath `
         -TemplateParameterUri $armTemplateParameterPath `
     `
-        -armTemplateRootUri $armTemplateRootUri `
+        -armTemplateRootUrl $armTemplateRootUrl `
         -armTemplateRootSas $armTemplateRootSas `
         -armTemplateParameterRootUri $armTemplateParameterRootUri `
         -armTemplateParameterRootSas $armTemplateParameterRootSas `
@@ -291,7 +292,7 @@ function Provision-Variables {
                 -TemplateUri $armTemplatePath `
                 -TemplateParameterUri $armTemplateParameterPath `
         `
-                -armTemplateRootUri $armTemplateRootUri `
+                -armTemplateRootUrl $armTemplateRootUrl `
                 -armTemplateRootSas $armTemplateRootSas `
                 -armTemplateParameterRootUri $armTemplateParameterRootUri `
                 -armTemplateParameterRootSas $armTemplateParameterRootSas `
@@ -305,7 +306,7 @@ function Provision-Variables {
         -TemplateFile $armTemplatePath  `
         -TemplateParameterFile $armTemplateParameterPath `
     `
-        -armTemplateRootUri $armTemplateRootUri `
+        -armTemplateRootUrl $armTemplateRootUrl `
         -armTemplateRootSas $armTemplateRootSas `
         -armTemplateParameterRootUri $armTemplateParameterRootUri `
         -armTemplateParameterRootSas $armTemplateParameterRootSas `
@@ -317,7 +318,7 @@ function Provision-Variables {
                 -TemplateFile $armTemplatePath  `
                 -TemplateParameterFile $armTemplateParameterPath `
         `
-                -armTemplateRootUri $armTemplateRootUri `
+                -armTemplateRootUrl $armTemplateRootUrl `
                 -armTemplateRootSas $armTemplateRootSas `
                 -armTemplateParameterRootUri $armTemplateParameterRootUri `
                 -armTemplateParameterRootSas $armTemplateParameterRootSas `
@@ -338,7 +339,7 @@ function Provision-Variables {
     Write-Host "##vso[task.setvariable variable=custom_task_vars_defaultResourceLocation;]$defaultResourceLocation"
     Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplatePath;]$armTemplatePath"
     Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateParameterPath;]$armTemplateParameterPath"
-    Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateRootUri;]$armTemplateRootUri"
+    Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateRootUri;]$armTemplateRootUrl"
     Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateRootSas;]$armTemplateRootSas"
     Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateParameterRootUri;]$armTemplateParameterRootUri"
     Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateParameterRootSas;]$armTemplateParameterRootSas"

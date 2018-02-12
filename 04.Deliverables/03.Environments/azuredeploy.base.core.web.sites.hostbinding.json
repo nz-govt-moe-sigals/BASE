@@ -1,0 +1,63 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "webSiteHostBindingResourceName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "webSiteHostBindingResourceLocation": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "[resourceGroup().location]",
+      "metadata": {
+        "description": "The location within which to develop the App Service plan resource."
+      }
+    },
+    "webSiteHostBindingHostName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "webSiteHostBindingCertificateThumbprint": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "variables": {
+    "web": {
+      "site": {
+        "hostBinding": {
+          "comments": "",
+          "resourceName": "[parameters('webSiteHostBindingResourceName')]",
+          "resourceType": "Microsoft.Web/sites/hostNameBindings",
+          "resourceLocation": "[parameters('webServerFarmResourceLocation')]",
+          "hostName": "[parameters('webSiteHostBindingHostName')]",
+          "thumbprint":"[parameters('webSiteHostBindingCertificateThumbprint')]"
+        }
+      }
+    }
+  },
+  "resources": [
+    {
+      "dependsOn": [],
+      "type": "Microsoft.Web/sites/hostNameBindings",
+      "name": "[variables('web').site.hostBinding.resourceName]",
+      "apiVersion": "2016-08-01",
+      "location": "[variables('web').site.hostBinding.location]",
+      "scale": null,
+      "properties": {
+        "siteName": "[parameters('webFrontEndName')]",
+        "domainId": null,
+        "hostNameType": "Verified",
+        "sslState": "SniEnabled",
+        "thumbprint": "[variables('web').site.hostBinding.thumbrint]"
+      }
+    }
+  ],
+  "outputs": {
+    "resourceId": {
+      "value": "[resourceId(variables('web').site.hostNameBindings.resourceType, variables('web').certificate.resourceName)]",
+      "type": "string"
+    }
+  }
+}

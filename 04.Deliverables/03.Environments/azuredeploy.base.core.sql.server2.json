@@ -61,9 +61,9 @@
             "comments": "Generalized from resource: '/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/MT-BASE-RG002/providers/Microsoft.Sql/servers/t2222'.",
             "type": "Microsoft.Sql/servers",
             "kind": "v12.0",
-            "name": "[parameters('parameters('sqlServerName')')]",
+            "name": "['parameters('sqlServerName')]",
             "apiVersion": "2015-05-01-preview",
-            "location": "australiaeast",
+            "location": "australi aeast",
             "scale": null,
             "properties": {
                 "administratorLogin": "[parameters('sqlServerAdminLogin')]",
