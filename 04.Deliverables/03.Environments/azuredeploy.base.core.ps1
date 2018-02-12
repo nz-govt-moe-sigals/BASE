@@ -1,4 +1,5 @@
 
+[cmdletbinding]
 # Define method before invoking it
 function Provision-Variables {
     <#
@@ -125,14 +126,14 @@ function Provision-Variables {
     }
     # whereas templates can be from public, well-known urls, 
     # its normally that params are from the same source. but can be different (private)
-    $armTemplateParameterRootUri = $env:custom_task_vars_armTemplateParameterRootUri;
-    if ($armTemplateParameterRootUri.StartsWith("http") -eq $false) {
-        $armTemplateParameterRootUri = ""; 
-        Write-Host "armTemplateParameterRootUri did not start with http...stripping out."
+    $armTemplateParameterRootUrl = $env:custom_task_vars_armTemplateParameterRootUri;
+    if ($armTemplateParameterRootUrl.StartsWith("http") -eq $false) {
+        $armTemplateParameterRootUrl = ""; 
+        Write-Host "armTemplateParameterRootUrl did not start with http...stripping out."
     }
-    if ([string]::IsNullOrWhiteSpace($armTemplateParameterRootUri)) {
-        $armTemplateParameterRootUri = $armTemplateRootUrl; 
-        Write-Host "Blank, therefore setting armTemplateParameterRootUri to armTemplateRootUrl."
+    if ([string]::IsNullOrWhiteSpace($armTemplateParameterRootUrl)) {
+        $armTemplateParameterRootUrl = $armTemplateRootUrl; 
+        Write-Host "Blank, therefore setting armTemplateParameterRootUrl to armTemplateRootUrl."
     }
     # Root SAS:
     $armTemplateParameterRootSas = $env:custom_task_vars_armTemplateParameterRootSas;
@@ -158,8 +159,8 @@ function Provision-Variables {
     $armTemplateParameterPath = $env:custom_task_vars_armTemplateParameterPath;
     if ([string]::IsNullOrWhiteSpace($armTemplateParameterPath)) {$armTemplateParameterPath = ""; }
     if ([System.IO.Path]::IsPathRooted($armTemplateParameterPath) -eq $false) {
-        Write-Host "env:custom_task_vars_armTemplateParameterPath is not rooted. Prepending with $armTemplateParameterRootUri."
-        $armTemplateParameterPath = [System.IO.Path]::Combine($armTemplateParameterRootUri, $armTemplateParameterPath, $armTemplateParameterRootSas)
+        Write-Host "env:custom_task_vars_armTemplateParameterPath is not rooted. Prepending with $armTemplateParameterRootUrl."
+        $armTemplateParameterPath = [System.IO.Path]::Combine($armTemplateParameterRootUrl, $armTemplateParameterPath, $armTemplateParameterRootSas)
     }
     # resourceNameTemplate is going to be something like MYORG-MYAPP-{ENVID}-{BRANCHNAME}-{RESOURCETYPE}
     $resourceNameTemplate = $env:custom_task_vars_resourceNameTemplate;
@@ -204,7 +205,7 @@ function Provision-Variables {
     Write-Host "...armTemplateParameterPath: $armTemplateParameterPath"
     Write-Host "...armTemplateRootUrl: $armTemplateRootUrl"
     Write-Host "...armTemplateRootSas: $armTemplateRootSas"
-    Write-Host "...armTemplateParameterRootUri: $armTemplateParameterRootUri"
+    Write-Host "...armTemplateParameterRootUrl: $armTemplateParameterRootUrl"
     Write-Host "...armTemplateParameterRootSas: $armTemplateParameterRootSas"
 
 
@@ -283,7 +284,7 @@ function Provision-Variables {
     `
         -armTemplateRootUrl $armTemplateRootUrl `
         -armTemplateRootSas $armTemplateRootSas `
-        -armTemplateParameterRootUri $armTemplateParameterRootUri `
+        -armTemplateParameterRootUrl $armTemplateParameterRootUrl `
         -armTemplateParameterRootSas $armTemplateParameterRootSas `
         -resourceNameTemplate $resourceNameTemplate"
 
@@ -294,7 +295,7 @@ function Provision-Variables {
         `
                 -armTemplateRootUrl $armTemplateRootUrl `
                 -armTemplateRootSas $armTemplateRootSas `
-                -armTemplateParameterRootUri $armTemplateParameterRootUri `
+                -armTemplateParameterRootUrl $armTemplateParameterRootUrl `
                 -armTemplateParameterRootSas $armTemplateParameterRootSas `
                 -resourceNameTemplate $resourceNameTemplate
 
@@ -308,7 +309,7 @@ function Provision-Variables {
     `
         -armTemplateRootUrl $armTemplateRootUrl `
         -armTemplateRootSas $armTemplateRootSas `
-        -armTemplateParameterRootUri $armTemplateParameterRootUri `
+        -armTemplateParameterRootUrl $armTemplateParameterRootUrl `
         -armTemplateParameterRootSas $armTemplateParameterRootSas `
         -resourceNameTemplate $resourceNameTemplate"
         
@@ -320,7 +321,7 @@ function Provision-Variables {
         `
                 -armTemplateRootUrl $armTemplateRootUrl `
                 -armTemplateRootSas $armTemplateRootSas `
-                -armTemplateParameterRootUri $armTemplateParameterRootUri `
+                -armTemplateParameterRootUrl $armTemplateParameterRootUrl `
                 -armTemplateParameterRootSas $armTemplateParameterRootSas `
                 -resourceNameTemplate $resourceNameTemplate
 
@@ -341,7 +342,7 @@ function Provision-Variables {
     Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateParameterPath;]$armTemplateParameterPath"
     Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateRootUri;]$armTemplateRootUrl"
     Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateRootSas;]$armTemplateRootSas"
-    Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateParameterRootUri;]$armTemplateParameterRootUri"
+    Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateParameterRootUri;]$armTemplateParameterRootUrl"
     Write-Host "##vso[task.setvariable variable=custom_task_vars_armTemplateParameterRootSas;]$armTemplateParameterRootSas"
 
 

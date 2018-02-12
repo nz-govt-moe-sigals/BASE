@@ -41,7 +41,7 @@
             "type": "string",
             "minLength": 0
         },
-        "armTemplateParameterRootUri": {
+        "armTemplateParameterRootUrl": {
             "metadata": {
                 "description": "The http based base url from which to download referenced ARM Templates. In most cases will be an Url to a Storage Account Container Url to which newly downloaded Source Files (just the ARM Templates) are copied to."
             },
@@ -202,7 +202,7 @@
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for database Backup storage.",
                 "id": "[concat(variables('resourceNamePrefix'),'.storageAccount.databaseBackups')]",
                 "armUrl": "[concat(variables('armTemplateRootUrl'), '/', variables('resourceNamePrefix'),'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat(variables('armTemplateParameterRootUri'), '/', variables('resourceNamePrefix'),'.storageAccount.database.backups', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                "armParametersUrl": "[concat(variables('armTemplateParameterRootUrl'), '/', variables('resourceNamePrefix'),'.storageAccount.database.backups', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace(parameters('resourceNameTemplate'), '{RESOURCETYPE}', 'SA')]",
                 "resourceLocation": "[parameters('resourceLocation')]"
             },
@@ -210,7 +210,7 @@
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for database Private (proxied) storage.",
                 "id": "[concat(variables('resourceNamePrefix'),'.storageAccount.database.media')]",
                 "armUrl": "[concat(variables('armTemplateRootUrl'), '/', variables('resourceNamePrefix'),'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat(variables('armTemplateParameterRootUri'), '/', variables('resourceNamePrefix'),'.storageAccount.private', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                "armParametersUrl": "[concat(variables('armTemplateParameterRootUrl'), '/', variables('resourceNamePrefix'),'.storageAccount.private', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace(parameters('resourceNameTemplate'), '{RESOURCETYPE}', 'SA_MEDIA')]",
                 "resourceLocation": "[parameters('resourceLocation')]"
             }
@@ -220,7 +220,7 @@
                 "comment": "A collection of variables for passing to the SqlServer ARM Template -- via the proxy of the sqlServerDatabase ARM that depends on it.",
                 "id": "[concat(variables('resourceNamePrefix'),'.sqlServerDatabaseServer')]",
                 "armUrl": "[concat(variables('armTemplateRootUrl'), '/', variables('resourceNamePrefix'),'.sqlServer', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat(variables('armTemplateParameterRootUri'), '/', variables('resourceNamePrefix'),'.sqlServer', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                "armParametersUrl": "[concat(variables('armTemplateParameterRootUrl'), '/', variables('resourceNamePrefix'),'.sqlServer', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceLocation": "[parameters('resourceLocation')]",
                 "resourceName": "[replace(parameters('resourceNameTemplate'), '{RESOURCETYPE}', 'SS')]",
                 "sku": "[coalesce(parameters('sqlServerSku'), parameters('webServerFarmSku') )]",
@@ -233,7 +233,7 @@
                 "comment": "A collection of variables for passing to the SqlServerFirewallRule ARM Template.",
                 "id": "[concat(variables('resourceNamePrefix'),'.sqlServer.fireWallRule')]",
                 "armUrl": "[concat(variables('armTemplateRootUrl'), '/', variables('resourceNamePrefix'),'.sqlServer.firewallrule', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat(variables('armTemplateParameterRootUri'), '/', variables('resourceNamePrefix'),'.sqlServer.firewallrules', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                "armParametersUrl": "[concat(variables('armTemplateParameterRootUrl'), '/', variables('resourceNamePrefix'),'.sqlServer.firewallrules', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceLocation": "[parameters('resourceLocation')]",
                 "resourceName": "[replace(parameters('resourceNameTemplate'), '{RESOURCETYPE}', 'SS_FWR')]",
                 "startIpAddress": "[parameters('sqlServerFirewallRuleStartIpAddress')]",
@@ -247,7 +247,7 @@
                 "comment": "A collection of variables for passing to the SqlServerDatabase ARM Template.",
                 "id": "[concat(variables('resourceNamePrefix'),'.sqlServer.database')]",
                 "armUrl": "[concat(variables('armTemplateRootUrl'), '/', variables('resourceNamePrefix'),'.sqlServer.database', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat(variables('armTemplateParameterRootUri'), '/', variables('resourceNamePrefix'),'.sqlServer.database', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                "armParametersUrl": "[concat(variables('armTemplateParameterRootUrl'), '/', variables('resourceNamePrefix'),'.sqlServer.database', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace(parameters('resourceNameTemplate'), '{RESOURCETYPE}', 'SSDB')]"
             }
         },
@@ -256,7 +256,7 @@
                 "comment": "A collection of variables for passing to the webServer  ARM Template.",
                 "id": "[concat(variables('resourceNamePrefix'),'.appServicePan' )]",
                 "armUrl": "[concat(variables('armTemplateRootUrl'), '/', variables('resourceNamePrefix'),'.webServerFarm', '.json' , parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat(variables('armTemplateParameterRootUri'), '/', variables('resourceNamePrefix'),'.webServerFarm', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                "armParametersUrl": "[concat(variables('armTemplateParameterRootUrl'), '/', variables('resourceNamePrefix'),'.webServerFarm', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceLocation": "[parameters('resourceLocation')]",
                 "resourceName": "[replace(parameters('resourceNameTemplate'), '{RESOURCETYPE}', 'WSF')]",
                 "sku": "[parameters('webServerFarmSku')]"

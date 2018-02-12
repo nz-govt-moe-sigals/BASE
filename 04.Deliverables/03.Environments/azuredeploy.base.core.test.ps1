@@ -39,15 +39,14 @@ Test-AzureRmResourceGroupDeployment `
     -resourceLocation "Australia East" `
     -resourceNameTemplate "MYORG-MYAPP-MYENV-MYBRANCH-MYMY-{RESOURCETYPE}" `
     -armTemplateRootUrl "https://basecoredeploytmp.blob.core.windows.net/public/base/core/arm" `
-    -armTemplateParameterRootUri "https://basecoredeploytmp.blob.core.windows.net/public/base/core/arm" `
+    -armTemplateParameterRootUrl "https://basecoredeploytmp.blob.core.windows.net/public/base/core/arm" `
     `
-    -storageAccountDiagnosticsResourceName "FOO-DIAG"`
-    -storageAccountBackupResourceName "FOO-BACKUP"`
-    -storageAccountMediaResourceName "FOO-MEDIA"`
+    -storageAccountDiagnosticsResourceName "FOO-DIAG" `
+    -storageAccountBackupResourceName "FOO-BACKUP" `
+    -storageAccountMediaResourceName "FOO-MEDIA" `
     `
-    -sqlServerResourceName $null`
-    -sqlServerAdministratorLogin "NOTADMIN"| ConvertTo-SecureString  -AsPlainText -Force `
-    -sqlServerAdministratorLoginPassword $securePassword`
+    -sqlServerAdministratorLogin $secureLogin `
+    -sqlServerAdministratorLoginPassword $securePassword `
     `
     
 
