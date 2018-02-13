@@ -41,41 +41,9 @@
             "resourceNamePrefix": "azuredeploy.base.core"
         },
         "storageAccount": {
-            "resourceType": "Microsoft.Storage/storageAccounts",
-            "resourceName": "[replace(parameters('storageAccountResourceName'), '{RESOURCETYPE}', 'STORAGEACCOUNT')]",
-            "resourceLocation": "[if (not (equals (parameters('storageAccountResourceLocation'), '')), parameters('storageAccountResourceLocation'), resourceGroup().location)]",
-            "resourceSku": "[parameters('storageAccountResourceSku')]",
-            "resourceMode": "[parameters('storageAccountResourceMode')]",
-            "kind": "[parameters('storageAccountKind')]"
         }
     },
     "resources": [
-        {
-            "dependsOn": [],
-            "type": "Microsoft.Storage/storageAccounts",
-            "apiVersion": "2016-01-01",
-            "name": "[variables('storageAccount').resourceName]",
-            "location": "[variables('storageAccount').resourceLocation]",
-            "sku": {
-                "name": "[variables('storageAccount').resourceSku]"
-            },
-            "kind": "[variables('storageAccount').kind]",
-            "tags": {},
-            "properties": {
-                "supportsHttpsTrafficOnly": true,
-                "encryption": {
-                    "services": {
-                        "blob": {
-                            "enabled": true
-                        },
-                        "file": {
-                            "enabled": true
-                        }
-                    },
-                    "keySource": "Microsoft.Storage"
-                }
-            }
-        }
     ],
     "outputs": {
         "resourceId": {
