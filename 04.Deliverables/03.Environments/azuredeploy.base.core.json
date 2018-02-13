@@ -32,7 +32,6 @@
                 "description": "The (optional) Single Access Signature (SAS) required to append to ARM Template Uris in order to get them out of a secured Storage Account Container."
             },
             "type": "string",
-            "minLength": 0,
             "defaultValue": ""
         },
         "armTemplateParameterRootUrl": {
@@ -55,19 +54,47 @@
         },
         "storageAccountDiagnosticsResourceName": {
             "type": "string",
-            "defaultValue": ""
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. If it can be set. If left blank, defined automatically according to naming convention."
+            }
         },
         "storageAccountBackupResourceName": {
             "type": "string",
-            "defaultValue": ""
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. If it can be set. If left blank, defined automatically according to naming convention."
+            }
         },
         "storageAccountMediaResourceName": {
             "type": "string",
-            "defaultValue": ""
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. If it can be set. If left blank, defined automatically according to naming convention."
+            }
         },
-        "storageAccountProxiedAccessResourceName": {
+        "storageAccountPrivateAccessResourceName": {
             "type": "string",
-            "defaultValue": ""
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. If it can be set. If left blank, defined automatically according to naming convention."
+            }
+        },
+
+
+
+
+
+
+
+
+
+        "sqlServerResourceName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. If it can be set. If left blank, defined automatically according to naming convention."
+            }
         },
         "sqlServerResourceLocation": {
             "type": "string",
@@ -98,12 +125,6 @@
                 "S2"
             ]
         },
-        "sqlServerResourceName": {
-            "type": "string",
-            "metadata": {
-                "description": "Optional: Defined automatically according to naming convention but can be overriden here"
-            }
-        },
         "sqlServerAdministratorLogin": {
             "metadata": {
                 "description": "Required. Administrator Login. Required for when creating new SqlServers."
@@ -118,10 +139,16 @@
             "type": "securestring",
             "minLength": 12
         },
+
+
+
         "sqlServerFirewallRuleResourceName": {
             "type": "string",
             "minLength": 1,
-            "defaultValue":"AllowAzure"
+            "defaultValue":"AllowAzure",
+            "metadata": {
+                "description": "Optional. Default name is 'AllowAzure'."
+            }
         },
         "sqlServerFirewallRuleResourceLocation": {
             "type": "string",
@@ -144,10 +171,16 @@
 
 
 
+
+
+
+
         "sqlServerAuditingPoliciesResourceName": {
             "type": "string",
-            "minLength": 1,
-            "defaultValue":"AllowAzure"
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. If it can be set. If left blank, defined automatically according to naming convention."
+            }
         },
         "sqlServerAuditingPoliciesResourceLocation": {
             "type": "string",
@@ -165,8 +198,10 @@
         
         "sqlServerDatabaseResourceName": {
             "type": "string",
-            "minLength": 1,
-            "defaultValue":""
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. If it can be set. If left blank, defined automatically according to naming convention."
+            }
         },
         "sqlServerDatabaseResourceLocation": {
             "type": "string",
@@ -181,11 +216,13 @@
             }
         },
 
+
         "webServerFarmResourceName": {
             "type": "string",
             "defaultValue": "",
+            "defaultValue": "",
             "metadata": {
-                "description": "Optional: Defined automatically according to naming convention but can be overriden here"
+                "description": "Optional. If it can be set. If left blank, defined automatically according to naming convention."
             }
         },
         "webServerFarmResourceLocation": {
@@ -214,20 +251,6 @@
                 "S1",
                 "S2"
             ]
-        },
-        "appServiceResourceName": {
-            "type": "string",
-            "defaultValue": "<INTERNALLYDEFINED>",
-            "metadata": {
-                "description": "Optional: Defined automatically according to naming convention but can be overriden here"
-            }
-        },
-        "appServiceWebSiteHostName": {
-            "type": "string",
-            "defaultValue": "<NONEDEFINED>",
-            "metadata": {
-                "description": "Optional: If an custom (ie, alternate) DNS entry is to be applied to the app service (e.g: myapp.myorg.tld)."
-            }
         },
 
 
@@ -269,8 +292,9 @@
 
         "webSiteHostBindingResourceName": {
             "type": "string",
+            "defaultValue": "",
             "metadata": {
-                "description": "."
+                "description": "Optional. If it can be set. If left blank, defined automatically according to naming convention."
             }
         },
         "webSiteHostBindingResourceLocation": {
@@ -296,6 +320,27 @@
             "metadata": {
                 "description": "."
             }
+        },
+
+
+        "webSiteResourceName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional: Defined automatically according to naming convention but can be overriden here"
+            }
+        },
+        "webSiteResourceLocation": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
+            "allowedValues": [
+                "australiaeast",
+                "Australia East",
+                "Australia Southeast"
+            ],
+            "metadata": {
+                "description": "The location for the Certificate, if it can be set."
+            }
         }
     },
     "variables": {
@@ -309,8 +354,6 @@
             "comment": "A collection of variables for use within this template (and any linked child templates).",
             "resourceNamePrefix": "azuredeploy.base.core",
             "uniqueResourceId": "[uniqueString(resourceGroup().id)]",
-            "currentTemplateUrl": "[deployment().properties.templateLink.uri]",
-            "currentTemplateUriRoot": "[uri(deployment().properties.templateLink.uri, '')]",
             "resourceLocation": "[if (not (equals (parameters('resourceLocation'),'')), parameters('resourceLocation'), resourceGroup().location)]",
             "armTemplateRootUrl": "[parameters('armTemplateRootUrl')]",
             "armTemplateParameterRootUrl": "[parameters('armTemplateParameterRootUrl')]",
@@ -319,23 +362,23 @@
         "storageAccount": {
             "diagnostics": {
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for system diagnostics Backup storage.",
-                "id": "[concat(variables('resource').resourceNamePrefix,'.storageAccount.backup')]",
+                "id": "[concat(variables('resource').resourceNamePrefix,'.storageAccount.diagnostics')]",
                 "armUrl": "[concat(variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
                 "armParametersUrl": "[concat(variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.diagnostics', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace(if (not (equals (parameters('storageAccountDiagnosticsResourceName'),'')), parameters('storageAccountDiagnosticsResourceName'), variables('resource').resourceNameTemplate), '{RESOURCETYPE}', 'SA_DIAGNOSTICS')]",
                 "resourceLocation": "[if (not (equals (parameters('storageAccountResourceLocation'), '')), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]"
             },
-            "backup": {
+            "backups": {
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for Backup storage.",
-                "id": "[concat(variables('resource').resourceNamePrefix,'.storageAccount.backup')]",
+                "id": "[concat(variables('resource').resourceNamePrefix,'.storageAccount.backups')]",
                 "armUrl": "[concat(variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat(variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.backup', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                "armParametersUrl": "[concat(variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.backups', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace(if (not (equals (parameters('storageAccountBackupResourceName'),'')), parameters('storageAccountBackupResourceName'), variables('resource').resourceNameTemplate), '{RESOURCETYPE}', 'SA_BACKUPS')]",
                 "resourceLocation": "[if (not (equals (parameters('storageAccountResourceLocation'), '')), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]"
             },
             "media": {
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for Media storage.",
-                "id": "[concat(variables('resource').resourceNamePrefix,'.storageAccount.database.media')]",
+                "id": "[concat(variables('resource').resourceNamePrefix,'.storageAccount.media')]",
                 "armUrl": "[concat(variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
                 "armParametersUrl": "[concat(variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.media', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace(if (not (equals (parameters('storageAccountMediaResourceName'),'')), parameters('storageAccountMediaResourceName'), variables('resource').resourceNameTemplate), '{RESOURCETYPE}', 'SA_MEDIA')]",
@@ -343,10 +386,10 @@
             },
             "private": {
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for Media storage.",
-                "id": "[concat(variables('resource').resourceNamePrefix,'.storageAccount.database.media')]",
+                "id": "[concat(variables('resource').resourceNamePrefix,'.storageAccount.private')]",
                 "armUrl": "[concat(variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
                 "armParametersUrl": "[concat(variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.private', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[replace(if (not (equals (parameters('storageAccountProxiedAccessResourceName'),'')), parameters('storageAccountProxiedAccessResourceName'), variables('resource').resourceNameTemplate), '{RESOURCETYPE}', 'SA_PROXIED')]",
+                "resourceName": "[replace(if (not (equals (parameters('storageAccountPrivateAccessResourceName'),'')), parameters('storageAccountPrivateAccessResourceName'), variables('resource').resourceNameTemplate), '{RESOURCETYPE}', 'SA_PROXIED')]",
                 "resourceLocation": "[if (not (equals (parameters('storageAccountResourceLocation'), '')), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]"
             }
         },
@@ -400,6 +443,12 @@
                 "sku": "[parameters('webServerFarmSku')]"
             },
             "site": {
+                "resourceName": "[replace(if (not (equals (parameters('webSiteResourceName'),'')), parameters('webSiteResourceName'), variables('resource').resourceNameTemplate), '{RESOURCETYPE}', 'WEB_SITE')]",
+                "resourceLocation": "[if (not (equals (parameters('webSiteResourceLocation'), '')), parameters('webSiteResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
+                "mode": "MODE:TODO",
+                "serverFarmResourceId": "TODO",
+
+
                 "hostBinding": {
                     "comments": "",
                     "resourceType": "Microsoft.Web/sites/hostNameBindings",
@@ -413,29 +462,29 @@
                 "resourceType": "Microsoft.Web/certificates",
                 "resourceName": "[replace(if (not (equals (parameters('webCertificateResourceName'),'')), parameters('webCertificateResourceName'), variables('resource').resourceNameTemplate), '{RESOURCETYPE}', 'WEB_CERTIFICATE')]",
                 "resourceLocation": "[coalesce(parameters('webCertificateResourceLocation'), variables('resource').resourceLocation, resourceGroup().location)]",
-                "pfxBlob": "[parameters('webCertificateBase64')]",
-                "password": "[parameters('webCertificatePassword')]"
+                "pfxBlob": "[coalesce(parameters('webCertificateBase64'),'ERROR:NO PFX BLOB PROVIDED')]",
+                "password": "[coalesce(parameters('webCertificatePassword'),'ERROR:NO PFX PASSWORD PROVIDED')]"
             }
         }
     },
     "resources": [
         {
             "comments": "Ensures a Resource Group scoped unique backup Storage Account (for Db)",
-            "name": "[variables('storageAccount').backup.id]",
+            "name": "[variables('storageAccount').backups.id]",
             "apiVersion": "2017-05-10",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[variables('storageAccount').backup.armUrl]",
+                    "uri": "[variables('storageAccount').backups.armUrl]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
                     "storageAccountResourceName": {
-                        "value": "[variables('storageAccount').backup.resourceName]"
+                        "value": "[variables('storageAccount').backups.resourceName]"
                     },
                     "storageAccountResourceLocation": {
-                        "value": "[variables('storageAccount').backup.resourceLocation]"
+                        "value": "[variables('storageAccount').backups.resourceLocation]"
                     }
                 }
             }
