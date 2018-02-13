@@ -42,7 +42,7 @@
         },
         "storageAccount": {
             "resourceType": "Microsoft.Storage/storageAccounts",
-            "resourceName": "[replace(if (not (equals (parameters('storageAccountResourceName'),'')), parameters('storageAccountResourceName'), variables('resource').resourceNameTemplate), '{RESOURCETYPE}', 'STORAGEACCOUNT')]",
+            "resourceName": "[replace(parameters('storageAccountResourceName'), '{RESOURCETYPE}', 'STORAGEACCOUNT')]",
             "resourceLocation": "[if (not (equals (parameters('storageAccountResourceLocation'), '')), parameters('storageAccountResourceLocation'), resourceGroup().location)]",
             "resourceSku": "[parameters('storageAccountResourceSku')]",
             "resourceMode": "[parameters('storageAccountResourceMode')]",
