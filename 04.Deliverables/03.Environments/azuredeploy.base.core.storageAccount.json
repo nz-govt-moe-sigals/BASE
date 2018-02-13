@@ -10,11 +10,11 @@
                 "Incremental"
             ]
         },
-        "storageAccountName": {
+        "storageAccountResourceName": {
             "type": "string",
             "minLength": 4
         },
-        "storageAccountLocation": {
+        "storageAccountResourceLocation": {
             "type": "string",
             "allowedValues": [
                 "Australia East",
@@ -22,7 +22,7 @@
             ],
             "defaultValue": "[resourceGroup().location]"
         },
-        "storageAccountSku": {
+        "storageAccountResourceSku": {
             "type": "string",
             "allowedValues": [
                 "Storage",
@@ -36,13 +36,11 @@
         }
     },
     "variables": {
-        "currentTemplateUrl": "[deployment().properties.templateLink.uri]",
-        "currentTemplateUriRoot": "[uri(deployment().properties.templateLink.uri, '')]",
         "storageAccount": {
-            "resourceMode": "[parameters('storageAccountResourceMode')]",
             "resourceName": "[parameters('storageAccountResourceName')]",
             "resourceType": "Microsoft.Storage/storageAccounts",
             "resourceLocation": "[parameters('storageAccountResourceLocation')]",
+            "resourceMode": "[parameters('storageAccountResourceMode')]",
             "resourceSku": "[parameters('storageAccountResourceSku')]",
             "kind": "[parameters('storageAccountKind')]"
         }
