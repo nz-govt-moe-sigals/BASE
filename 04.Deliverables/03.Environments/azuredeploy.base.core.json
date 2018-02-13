@@ -468,27 +468,6 @@
         }
     },
     "resources": [
-        {
-            "comments": "Ensures a Resource Group scoped unique backup Storage Account (for Db)",
-            "name": "[variables('storageAccount').backups.id]",
-            "apiVersion": "2017-05-10",
-            "type": "Microsoft.Resources/deployments",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[variables('storageAccount').backups.armUrl]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "storageAccountResourceName": {
-                        "value": "[variables('storageAccount').backups.resourceName]"
-                    },
-                    "storageAccountResourceLocation": {
-                        "value": "[variables('storageAccount').backups.resourceLocation]"
-                    }
-                }
-            }
-        }
     ],
     "outputs": {
         "uniqueResourceId": {
