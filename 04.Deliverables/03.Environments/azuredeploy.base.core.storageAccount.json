@@ -49,11 +49,11 @@
         {
             "dependsOn": [],
             "type": "Microsoft.Storage/storageAccounts",
-            "apiVersion": "2017-10-01",
+            "apiVersion": "2016-10-01",
             "name": "[variables('storageAccount').resourceName]",
             "resourceLocation": "[variables('storageAccount').resourceLocation]",
             "sku": {
-                "name": "[variables('storageAccount').resourceSku)]"
+                "name": "[variables('storageAccount').resourceSku]"
             },
             "kind": "[variables('storageAccount').kind]",
             "tags": {},
