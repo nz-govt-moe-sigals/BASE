@@ -36,19 +36,9 @@
         }
     },
     "variables": {
-        "resource": {
-            "comment": "A collection of variables for use within this template (and any linked child templates).",
-            "resourceNamePrefix": "azuredeploy.base.core"
-        },
-        "storageAccount": {
-        }
     },
     "resources": [
     ],
     "outputs": {
-        "resourceId": {
-            "value": "[resourceId(variables('storageAccount').resourceType, variables('storageAccount').resourceName)]",
-            "type": "string"
-        }
     }
 }
