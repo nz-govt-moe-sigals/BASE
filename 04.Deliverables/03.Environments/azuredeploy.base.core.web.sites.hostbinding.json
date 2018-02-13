@@ -30,7 +30,7 @@
           "comments": "",
           "resourceName": "[parameters('webSiteHostBindingResourceName')]",
           "resourceType": "Microsoft.Web/sites/hostNameBindings",
-          "resourceLocation": "[parameters('webServerFarmResourceLocation')]",
+          "resourceLocation": "[parameters('webSiteHostBindingResourceLocation')]",
           "hostName": "[parameters('webSiteHostBindingHostName')]",
           "thumbprint":"[parameters('webSiteHostBindingCertificateThumbprint')]"
         }
@@ -43,14 +43,14 @@
       "type": "Microsoft.Web/sites/hostNameBindings",
       "name": "[variables('web').site.hostBinding.resourceName]",
       "apiVersion": "2016-08-01",
-      "location": "[variables('web').site.hostBinding.location]",
+      "location": "[variables('web').site.hostBinding.resourceLocation]",
       "scale": null,
       "properties": {
-        "siteName": "[parameters('webFrontEndName')]",
+        "siteName": "[variables('web').site.hostBinding.hostName]",
         "domainId": null,
         "hostNameType": "Verified",
         "sslState": "SniEnabled",
-        "thumbprint": "[variables('web').site.hostBinding.thumbrint]"
+        "thumbprint": "[variables('web').site.hostBinding.thumbprint]"
       }
     }
   ],
