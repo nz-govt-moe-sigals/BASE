@@ -18,27 +18,81 @@
             "type": "string",
             "allowedValues": [
                 "Australia East",
-                "Australia Southeast"
+                "Australia Southeast",
+                "australiaeast",
+                "australiasoutheast"
             ],
             "defaultValue": "[resourceGroup().location]"
         },
         "storageAccountResourceSku": {
             "type": "string",
             "allowedValues": [
+                "Premium_LRS",
+                "Standard_GRS",
+               "Standard_LRS",
+               "Standard_RAGRS",
+               "Standard_ZRS"
+            ],
+            "defaultValue": "Standard_LRS"
+        },
+        "storageAccountKind": {
+            "type": "string",
+            "allowedValues": [
                 "Storage",
                 "StorageV2",
                 "BlobStorage"
             ],
-            "defaultValue": "Storage"
-        },
-        "storageAccountKind": {
-            "type": "string"
+            "defaultValue": "StorageV2"
+
         }
     },
     "variables": {
+        "resource": {
+            "comment": "A collection of variables for use within this template (and any linked child templates).",
+            "resourceNamePrefix": "azuredeploy.base.core"
+        },
+        "storageAccount": {
+            "resourceType": "Microsoft.Storage/storageAccounts",
+            "resourceName": "[toLower(replace(replace(parameters('storageAccountResourceName'), '{RESOURCETYPE}', 'STORAGEACCOUNT'),'-',''))]",
+            "resourceLocation": "[if (not (equals (parameters('storageAccountResourceLocation'), '')), parameters('storageAccountResourceLocation'), resourceGroup().location)]",
+            "resourceSku": "[parameters('storageAccountResourceSku')]",
+            "resourceMode": "[parameters('storageAccountResourceMode')]",
+            "kind": "[parameters('storageAccountKind')]"
+        }
     },
     "resources": [
+        {
+            "dependsOn": [],
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2016-01-01",
+            "name": "[variables('storageAccount').resourceName]",
+            "location": "[variables('storageAccount').resourceLocation]",
+            "sku": {
+                "name": "[variables('storageAccount').resourceSku]"
+            },
+            "kind": "[variables('storageAccount').kind]",
+            "tags": {},
+            "properties": {
+                "supportsHttpsTrafficOnly": true,
+                
+                "encryption": {
+                    "services": {
+                        "blob": {
+                            "enabled": true
+                        },
+                        "file": {
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                }
+            }
+        }
     ],
     "outputs": {
+        "resourceId": {
+            "value": "[resourceId(variables('storageAccount').resourceType, variables('storageAccount').resourceName)]",
+            "type": "string"
+        }
     }
 }

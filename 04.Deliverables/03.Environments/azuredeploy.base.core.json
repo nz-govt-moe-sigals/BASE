@@ -365,7 +365,7 @@
                 "id": "[concat(variables('resource').resourceNamePrefix,'.storageAccount.diagnostics')]",
                 "armUrl": "[concat(variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
                 "armParametersUrl": "[concat(variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.diagnostics', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[replace(if (not (equals (parameters('storageAccountDiagnosticsResourceName'),'')), parameters('storageAccountDiagnosticsResourceName'), variables('resource').resourceNameTemplate), '{RESOURCETYPE}', 'SA_DIAGNOSTICS')]",
+                "resourceName": "[replace(if (not (empty (parameters('storageAccountDiagnosticsResourceName'))), parameters('storageAccountDiagnosticsResourceName'), variables('resource').resourceNameTemplate), '{RESOURCETYPE}', 'SA_DIAGNOSTICS')]",
                 "resourceLocation": "[if (not (equals (parameters('storageAccountResourceLocation'), '')), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]"
             },
             "backups": {

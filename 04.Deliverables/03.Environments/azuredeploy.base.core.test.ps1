@@ -1,9 +1,35 @@
+# RUN 
+
+#NO npm install http-server -g
+#NO http-server . -d -p 3000 -o -cors -c-1
+# better
+# https://www.npmjs.com/package/local-web-server
+
+
 # .\azuredeploy.base.core.test.ps1
 
 # Login-AzureRmAccount
 
 $subscriptionName = "EDU-MOE-BASE-TestDev-01";
 Select-AzureRmSubscription -SubscriptionName "$subscriptionName" 
+
+
+$storageAccountName = "basecoredeploytmp" 
+$storageAccountKey = "4oy2aAxotGS68vuByKj6xErC51iK88hPqDZ8h0oLhhezufTKK+L/VS7MNYpvKUTzNAUCJIlYktQO74FsC5G3qg=="
+$storageAccountContainerName = "public"
+$localFileDirectory = "./"
+$storageAccountContainerPath = "base/core/";
+
+$ctx = New-AzureStorageContext -StorageAccountName $storageAccountName -StorageAccountKey $storageAccountKey
+
+
+foreach($file in Get-ChildItem -Path $localFileDirectory -Recurse -File)
+{
+    $localFile = $localFileDirectory+$file
+    $blobName = $storageAccountContainerPath  + $file
+    Write-Host $blobName;
+    Set-AzureStorageBlobContent -Context $ctx -File $localFile -Container $storageAccountcontainerName -Blob $blobName -Force
+}
 
 
 #Next startment provides a listing of all Resourceproviders and thier status in the subscription
@@ -28,7 +54,12 @@ $env:CUSTOM_VARS_armTemplateParameterRootSas = "";
 $secureLogin = "NOTADMIN"| ConvertTo-SecureString  -AsPlainText -Force
 $securePassword = "NOTAPASSWORD" | ConvertTo-SecureString  -AsPlainText -Force
 
+
 Write-Host $secureLogin
+
+    #-armTemplateRootUrl "https://basecoredeploytmp.blob.core.windows.net/public/base/core/arm" `
+    #-armTemplateParameterRootUrl "https://basecoredeploytmp.blob.core.windows.net/public/base/core/arm" `
+
 
 Test-AzureRmResourceGroupDeployment `
     -ResourceGroupName "MYORG-MYAPP-MYBT-RG" `
@@ -38,16 +69,18 @@ Test-AzureRmResourceGroupDeployment `
     `
     -resourceLocation "Australia East" `
     -resourceNameTemplate "MYORG-MYAPP-MYENV-MYBRANCH-MYMY-{RESOURCETYPE}" `
-    -armTemplateRootUrl "https://basecoredeploytmp.blob.core.windows.net/public/base/core/arm" `
-    -armTemplateParameterRootUrl "https://basecoredeploytmp.blob.core.windows.net/public/base/core/arm" `
+    -armTemplateRootUrl "https://basecoredeploytmp.blob.core.windows.net/public/base/core" `
+    -armTemplateParameterRootUrl "https://basecoredeploytmp.blob.core.windows.net/public/base/core" `
     `
-    -storageAccountDiagnosticsResourceName "FOO-DIAG" `
+    -storageAccountDiagnosticsResourceName "FOO-DIAG123" `
     -storageAccountBackupResourceName "FOO-BACKUP" `
     -storageAccountMediaResourceName "FOO-MEDIA" `
     `
     -sqlServerAdministratorLogin $secureLogin `
     -sqlServerAdministratorLoginPassword $securePassword `
     `
+    -debug `
+
     
 
  
