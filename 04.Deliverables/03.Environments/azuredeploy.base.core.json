@@ -894,7 +894,7 @@
             "properties": {
                 "mode": "[variables('resource').resourceMode]",
                 "templateLink": {
-                    "uri": "[variables('storageAccount').deployment.armUrl]",
+                    "uri": "[variables('keyVault').vault.armUrl]",
                     "contentVersion": "1.0.0.0"
                 },
 
@@ -912,8 +912,8 @@
                     "keyVaultVaultEnabledForDeployment": {
                         "value": "[variables('keyVault').vault.enabledForDeployment]"
                     },
-                    "keyVaultVaultEnabledForEncryption": {
-                        "value": "[variables('keyVault').vault.enabledForEncryption]"
+                    "keyVaultVaultEnabledForDiskEncryption": {
+                        "value": "[variables('keyVault').vault.enabledForDiskEncryption]"
                     },
                     "keyVaultVaultEnableSoftDelete": {
                         "value": "[variables('keyVault').vault.enableSoftDelete]"

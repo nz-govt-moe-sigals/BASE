@@ -87,33 +87,57 @@ function Test-ArmTemplates {
 
     #https://blog.mexia.com.au/testing-arm-templates-with-pester
     #https://bentaylor.work/2017/10/unit-testing-azure-arm-templates-with-pester/
-    $rawResponse = $($successStream = Test-AzureRmResourceGroupDeployment `
-        -ResourceGroupName "MYORG-MYAPP-MYBT-RG" `
-        -TemplateFile "./azuredeploy.base.core.json" `
-        -TemplateParameterFile "./azuredeploy.base.core.parameters.json" `
-        -Mode "Incremental" `
-        -resourceLocation "Australia East" `
-        -resourceNameTemplate "ORG-APP-ENV-BRANCH-{RT}" `
-        -armTemplateRootUrl "https://basecoredeploytmp.blob.core.windows.net/public/base/core" `
-        -armTemplateParameterRootUrl "https://basecoredeploytmp.blob.core.windows.net/public/base/core" `
-        -sqlServerAdministratorLogin $secureLogin `
-        -sqlServerAdministratorLoginPassword $securePassword `
-        -debug `
-        -ErrorAction Stop) *>&1
+
+
+    $testRun = $true
+
+    if ($testRun) {
+        $rawResponse = $($successStream = Test-AzureRmResourceGroupDeployment `
+                -ResourceGroupName "MYORG-MYAPP-MYBT-RG" `
+                -TemplateFile "./azuredeploy.base.core.json" `
+                -TemplateParameterFile "./azuredeploy.base.core.parameters.json" `
+                -Mode "Incremental" `
+                -resourceLocation "Australia East" `
+                -resourceNameTemplate "ORG-APP-ENV-BRANCH-{RT}" `
+                -armTemplateRootUrl "https://basecoredeploytmp.blob.core.windows.net/public/base/core" `
+                -armTemplateParameterRootUrl "https://basecoredeploytmp.blob.core.windows.net/public/base/core" `
+                -sqlServerAdministratorLogin $secureLogin `
+                -sqlServerAdministratorLoginPassword $securePassword `
+                -debug `
+                -ErrorAction Stop) *>&1
 
         Write-Host   $rawResponse
 
-       # take from the 32nth line of the response
-       $result = (($rawResponse[32] -split "Body:")[1] | ConvertFrom-Json)
+        # take from the 32nth line of the response
+        $result = (($rawResponse[32] -split "Body:")[1] | ConvertFrom-Json)
 
-       if ($result.properties.provisioningState -eq "Succeeded") {
-          Write-Host "Yay!"
-       }else {
-          Write-Host "NOT SO GOOD!"
-      }
+        if ($result.properties.provisioningState -eq "Succeeded") {
+            Write-Host "Yay!"
+        }
+        else {
+            Write-Host "NOT SO GOOD!"
+        }
+    }else{
+        $rawResponse = $($successStream = New-AzureRmResourceGroupDeployment  `
+                -ResourceGroupName "MYORG-MYAPP-MYBT-RG" `
+                -TemplateFile "./azuredeploy.base.core.json" `
+                -TemplateParameterFile "./azuredeploy.base.core.parameters.json" `
+                -Mode "Incremental" `
+                -resourceLocation "Australia East" `
+                -resourceNameTemplate "ORG-APP-ENV-BRANCH-{RT}" `
+                -armTemplateRootUrl "https://basecoredeploytmp.blob.core.windows.net/public/base/core" `
+                -armTemplateParameterRootUrl "https://basecoredeploytmp.blob.core.windows.net/public/base/core" `
+                -sqlServerAdministratorLogin $secureLogin `
+                -sqlServerAdministratorLoginPassword $securePassword `
+                -debug `
+                -ErrorAction Stop) *>&1
 
-
+                
+        Write-Host   $rawResponse
+        
     }
+
+}
 
 
 # INVOKE:

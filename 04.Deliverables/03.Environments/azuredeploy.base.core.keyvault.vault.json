@@ -57,9 +57,14 @@
         }
     },
     "variables": {
+
+        "tmp":{
+            "resourceName": "[parameters('keyVaultVaultResourceName')]"
+        },
         "keyVault": {
             "vault": {
-                "resourceName": "[parameters('keyVaultVaultResourceName')]",
+                "resourceName": "[variables('tmp').resourceName]",
+                "resourceNameUrl": "[take( toLower( variables('tmp').resourceName), 24)]",
                 "resourceLocation": "[coalesce(parameters('keyVaultVaultResourceLocation'))]",
                 "resourceType": "Microsoft.KeyVault/vaults",
                 "resourceSku": "[parameters('keyVaultVaultResourceSku')]",
@@ -67,14 +72,13 @@
                 "enabledForTemplateDeployment": "[parameters('keyVaultVaultEnabledForTemplateDeployment')]",
                 "enabledForDiskEncryption": "[parameters('keyVaultVaultEnabledForDiskEncryption')]",
                 "enableSoftDelete": "[parameters('keyVaultVaultEnableSoftDelete')]",
-
                 "tags": "[parameters('keyVaultVaultTags')]"
             }
         }
     },
     "resources":[
         {
-            "name": "[variables('keyVault').vault.resourceName]",
+            "name": "[variables('keyVault').vault.resourceNameUrl]",
             "type": "Microsoft.KeyVault/vaults",
             "apiVersion": "2016-10-01",
             "location": "[variables('keyVault').vault.resourceLocation]",
@@ -117,9 +121,13 @@
     ],
     "outputs": {
         "resourceId": {
-            "value": "[resourceId(variables('keyVault').vault.resourceType, variables('keyVault').vault.resourceName)]",
-            "type": "string"
-        }    
+            "type": "string",
+            "value": "[resourceId(variables('keyVault').vault.resourceType, variables('keyVault').vault.resourceNameUrl)]"
+        },
+        "resourceNameUrl":{
+            "type": "string",
+            "value": "[variables('keyVault').vault.resourceNameUrl]"
+        }
     }
 }
 

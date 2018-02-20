@@ -54,14 +54,17 @@
         }
     },
     "variables": {
-        "tmp": {},
+        "tmp": {
+            "resourceName": "[replace( replace ( replace(replace(parameters('storageAccountResourceName'), '{RESOURCETYPE}', 'STORAGEACCOUNT'), '{RT}', 'STORAGEACCOUNT'),'-',''),'_','')]"
+        },
         "resource": {
             "comment": "A collection of variables for use within this template (and any linked child templates).",
             "resourceNamePrefix": "azuredeploy.base.core"
         },
         "storageAccount": {
             "resourceType": "Microsoft.Storage/storageAccounts",
-            "resourceName": "[take( toLower( replace( replace ( replace(replace(parameters('storageAccountResourceName'), '{RESOURCETYPE}', 'STORAGEACCOUNT'), '{RT}', 'STORAGEACCOUNT'),'-',''),'_','')),24)]",
+            "resourceName": "[variables('tmp').resourceName]",
+            "resourceNameUrl": "[take( toLower( variables('tmp').resourceName), 24)]",
             "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), resourceGroup().location)]",
             "resourceSku": "[parameters('storageAccountResourceSku')]",
             "resourceMode": "[parameters('storageAccountResourceMode')]",
@@ -74,7 +77,7 @@
             "dependsOn": [],
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2016-01-01",
-            "name": "[variables('storageAccount').resourceName]",
+            "name": "[variables('storageAccount').resourceNameUrl]",
             "location": "[variables('storageAccount').resourceLocation]",
             "sku": {
                 "name": "[variables('storageAccount').resourceSku]"
@@ -99,8 +102,12 @@
     ],
     "outputs": {
         "resourceId": {
-            "value": "[resourceId(variables('storageAccount').resourceType, variables('storageAccount').resourceName)]",
-            "type": "string"
+            "type": "string",
+            "value": "[resourceId(variables('storageAccount').resourceType, variables('storageAccount').resourceNameUrl)]"
+        },
+        "resourceNameUrl":{
+            "type": "string",
+            "value": "[variables('storageAccount').resourceNameUrl]"
         }
     }
 }
