@@ -13,14 +13,21 @@
             "type": "string",
             "defaultValue": "Standard",
             "allowedValues": [
-              "Standard",
-              "Premium"
+                "Standard",
+                "Premium"
             ],
             "metadata": {
-              "description": "..."
+                "description": "..."
             }
-          },
-          "keyVaultVaultEnabledForDeployment": {
+        },
+        "keyVaultVaultSubscriptionId": {
+            "type": "string",
+            "defaultValue": "[subscription().subscriptionId]",
+            "metadata": {
+                "description": "The current subscription."
+            }
+        },
+        "keyVaultVaultEnabledForDeployment": {
             "type": "bool",
             "defaultValue": false,
             "metadata": {
@@ -43,7 +50,7 @@
         },
         "keyVaultVaultEnableSoftDelete": {
             "type": "bool",
-            "defaultValue": false,
+            "defaultValue": true,
             "metadata": {
                 "description": "Specifies if the vault is enabled for volume encryption"
             }
@@ -57,14 +64,13 @@
         }
     },
     "variables": {
-
-        "tmp":{
+        "tmp": {
             "resourceName": "[parameters('keyVaultVaultResourceName')]"
         },
         "keyVault": {
             "vault": {
                 "resourceName": "[variables('tmp').resourceName]",
-                "resourceNameUrl": "[take( toLower( variables('tmp').resourceName), 24)]",
+                "resourceNameUrl": "[take( toLower( replace( replace ( variables('tmp').resourceName,'-',''),'_','')), 24)]",
                 "resourceLocation": "[coalesce(parameters('keyVaultVaultResourceLocation'))]",
                 "resourceType": "Microsoft.KeyVault/vaults",
                 "resourceSku": "[parameters('keyVaultVaultResourceSku')]",
@@ -72,66 +78,47 @@
                 "enabledForTemplateDeployment": "[parameters('keyVaultVaultEnabledForTemplateDeployment')]",
                 "enabledForDiskEncryption": "[parameters('keyVaultVaultEnabledForDiskEncryption')]",
                 "enableSoftDelete": "[parameters('keyVaultVaultEnableSoftDelete')]",
+                "subscriptionId": "[parameters('keyVaultVaultSubscriptionId')]",
                 "tags": "[parameters('keyVaultVaultTags')]"
             }
         }
     },
-    "resources":[
+    "resources": [
         {
-            "name": "[variables('keyVault').vault.resourceNameUrl]",
+            "name": "[variables('keyVault').vault.resourceName]",
             "type": "Microsoft.KeyVault/vaults",
             "apiVersion": "2016-10-01",
             "location": "[variables('keyVault').vault.resourceLocation]",
             "tags": "[variables('keyVault').vault.tags]",
             "properties": {
-              "tenantId": "string",
-              "sku": {
-                "family": "A",
-                "name": "[variables('keyVault').vault.resourceSku]"
-              },
-              "accessPolicies": [
-                {
-                  "tenantId": "string",
-                  "objectId": "string",
-                  "applicationId": "string",
-                  "permissions": {
-                    "keys": [
-                      "string"
-                    ],
-                    "secrets": [
-                      "string"
-                    ],
-                    "certificates": [
-                      "string"
-                    ],
-                    "storage": [
-                      "string"
-                    ]
-                  }
-                }
-              ],
-              "vaultUri": "string",
-              "enabledForDeployment": "[variables('keyVault').vault.enabledForDeployment]",
-              "enabledForDiskEncryption": "[variables('keyVault').vault.enabledForDiskEncryption]",
-              "enabledForTemplateDeployment": "[variables('keyVault').vault.enabledForTemplateDeployment]",
-              "enableSoftDelete": "[variables('keyVault').vault.enableSoftDelete]",
-              "createMode": "string"
+                "tenantId": "[variables('keyVault').vault.subscriptionId]",
+                "sku": {
+                    "family": "A",
+                    "name": "[variables('keyVault').vault.resourceSku]"
+                },
+                "accessPolicies": [
+
+                ],
+                
+                "vaultUri": "[variables('keyVault').vault.resourceNameUrl]",
+                "enabledForDeployment": "[variables('keyVault').vault.enabledForDeployment]",
+                "enabledForDiskEncryption": "[variables('keyVault').vault.enabledForDiskEncryption]",
+                "enabledForTemplateDeployment": "[variables('keyVault').vault.enabledForTemplateDeployment]",
+                "enableSoftDelete": "[variables('keyVault').vault.enableSoftDelete]",
+                "createMode":"default"
+                
+
             }
-          }        
+        }
     ],
     "outputs": {
         "resourceId": {
             "type": "string",
             "value": "[resourceId(variables('keyVault').vault.resourceType, variables('keyVault').vault.resourceNameUrl)]"
         },
-        "resourceNameUrl":{
+        "resourceNameUrl": {
             "type": "string",
-            "value": "[variables('keyVault').vault.resourceNameUrl]"
+            "value": "[variables('keyVault').vault.resourceName]"
         }
     }
 }
-
-
-
-
-

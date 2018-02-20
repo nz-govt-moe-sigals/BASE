@@ -114,11 +114,15 @@
     },
     "variables": {
         "resources": {},
+        "tmp": {
+            "resourceName": "[parameters('webSiteResourceName')]"
+        },
         "web": {
             "site": {
                 "resourceMode": "[parameters('webSiteResourceMode')]",
                 "resourceType": "Microsoft.Web/sites",
-                "resourceName": "[parameters('webSiteResourceName')]",
+                "resourceName": "[variables('tmp').resourceName]",
+                "resourceNameUrl": "[take( toLower( replace( replace ( variables('tmp').resourceName,'-',''),'_','')), 24)]",
                 "resourceLocation": "[parameters('webSiteResourceLocation')]",
                 "resourceSku": "[parameters('webSiteResourceSku')]",
                 "parentResourceId": "[parameters('webSiteParentResourceId')]",
@@ -144,7 +148,7 @@
             "type": "Microsoft.Web/sites",
             "apiVersion": "2016-08-01",
             "scale": null,
-            "name": "[variables('web').site.resourceName]",
+            "name": "[variables('web').site.resourceNameUrl]",
             "properties": {
                 "mode": "[variables('web').site.resourceMode]",
                 "parameters": {
@@ -178,5 +182,15 @@
             "comments": "This depends on the Web Site being deployed first, and picking up its output (resourceId)."
         }
     ],
-    "outputs": {}
+    "outputs": {
+        "resourceId": {
+            "type": "string",
+            "value": "[resourceId(variables('web').site.resourceType, variables('web').site.resourceNameUrl)]"
+        },
+        "resourceNameUrl":{
+            "type": "string",
+            "value": "[variables('web').site.resourceNameUrl]"
+        }
+        
+    }
 }

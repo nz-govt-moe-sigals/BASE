@@ -1,7 +1,6 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    /*holly shit! One can comment in ARMS, even if it is not valid JSON!*/
     "parameters": {
         "resourceMode": {
             "metadata": {
@@ -32,6 +31,7 @@
             "minLength": 6,
             "maxLength": 24
         },
+
         "armTemplateRootUrl": {
             "metadata": {
                 "description": "The http based base url from which to download referenced ARM Templates. In most cases will be an Url to a Storage Account Container Url to which newly downloaded Source Files (just the ARM Templates) are copied to."
@@ -39,6 +39,7 @@
             "type": "string",
             "defaultValue": ""
         },
+
         "armTemplateRootSas": {
             "metadata": {
                 "description": "The (optional) Single Access Signature (SAS) required to append to ARM Template Uris in order to get them out of a secured Storage Account Container."
@@ -46,6 +47,7 @@
             "type": "string",
             "defaultValue": ""
         },
+
         "armTemplateParameterRootUrl": {
             "metadata": {
                 "description": "The http based base url from which to download referenced ARM Templates. In most cases will be an Url to a Storage Account Container Url to which newly downloaded Source Files (just the ARM Templates) are copied to."
@@ -53,6 +55,7 @@
             "type": "string",
             "defaultValue": ""
         },
+
         "armTemplateParameterRootSas": {
             "metadata": {
                 "description": "The (optional) Single Access Signature (SAS) required to append to ARM Template Paramter Uris in order to get them out of a secured Storage Account Container."
@@ -61,9 +64,6 @@
             "defaultValue": ""
         },
 
-        // ----------------------------------------------------------------------
-        //Rsource Specific Key Vault Parameters 
-        // ----------------------------------------------------------------------
         "keyVaultVaultResourceName": {
             "type": "string"
         },
@@ -105,7 +105,7 @@
         },
         "keyVaultVaultEnableSoftDelete": {
             "type": "bool",
-            "defaultValue": false,
+            "defaultValue": true,
             "metadata": {
                 "description": "Specifies if the vault is enabled for volume encryption"
             }
@@ -119,9 +119,6 @@
         },
 
 
-        // ----------------------------------------------------------------------
-        // General StorageAccount Parameters 
-        // ----------------------------------------------------------------------
         "storageAccountResourceLocation": {
             "type": "string",
             "defaultValue": "[resourceGroup().location]"
@@ -133,9 +130,8 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-        // ----------------------------------------------------------------------
-        // Specific Storage Accounts Parameters 
-        // ----------------------------------------------------------------------
+
+
         "storageAccountDeploymentResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -171,9 +167,7 @@
                 "description": "Optional. If it can be set. If left blank, defined automatically according to naming convention."
             }
         },
-        // ----------------------------------------------------------------------
-        // SQL Server Firewall Rule Parameters
-        // ----------------------------------------------------------------------
+
         "sqlServerResourceLocation": {
             "type": "string",
             "defaultValue": "[resourceGroup().location]",
@@ -191,6 +185,7 @@
                 "description": "The location for the SQL service. This is parameterised because SQL servers cannot be deployed in all regions for subscription types."
             }
         },
+
         "sqlServerAdministratorLogin": {
             "metadata": {
                 "description": "Required. Administrator Login. Required for when creating new SqlServers."
@@ -212,12 +207,6 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-
-        /*@ 
-        // ----------------------------------------------------------------------
-        Dependencies:  Has dependency on SQL Server being there first.
-        // ----------------------------------------------------------------------
-        */
 
         "sqlServerFirewallRuleResourceName": {
             "type": "string",
@@ -252,10 +241,9 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-        // ----------------------------------------------------------------------
-        // SQL Server Auditing Policies Parameters
-        // Has dependency on SQL Server being there first.
-        // ----------------------------------------------------------------------
+
+
+
         "sqlServerAuditingPoliciesResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -282,10 +270,8 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-        // ----------------------------------------------------------------------
-        // SQL Server Database Parameters
-        // Has dependency on SQL Server being there first.
-        // ----------------------------------------------------------------------
+
+
         "sqlServerDatabaseResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -347,9 +333,10 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-        // ----------------------------------------------------------------------
-        // DocumentDb CosmosDb Parameters
-        // ----------------------------------------------------------------------
+
+
+
+
         "documentDbDatabaseAccountResourceName": {
             "type": "string",
             "metadata": {
@@ -413,9 +400,8 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-        // ----------------------------------------------------------------------
-        // Web ServerFarm Parameters
-        // ----------------------------------------------------------------------
+
+
         "webServerFarmResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -463,10 +449,8 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-        // ----------------------------------------------------------------------
-        // Web Certificate Parameters
-        // Has dependency on Web ServerFarm being there first.
-        // ----------------------------------------------------------------------
+
+
         "webCertificateResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -505,10 +489,8 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-        // ----------------------------------------------------------------------
-        // Web Certificate Parameters
-        // Has dependency on Web ServerFarm being there first.
-        // ----------------------------------------------------------------------
+
+
         "webSiteHostBindingResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -547,10 +529,7 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-        // ----------------------------------------------------------------------
-        // Web Site Parameters
-        // Has dependency on Web ServerFarm being there first.
-        // ----------------------------------------------------------------------
+
         "webSiteResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -666,11 +645,25 @@
             ]
         }
     },
-    // ----------------------------------------------------------------------
-    // ----------------------------------------------------------------------
-    // Variables
-    // ----------------------------------------------------------------------
-    // ----------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     "variables": {
         "metadata": {
             "comments00": "So...Templates are a set of sequential parameters, variables, resources, output sections for a reason.",
@@ -693,7 +686,8 @@
             "resourceLocation": "[if (not (empty (parameters('resourceLocation'))), parameters('resourceLocation'), resourceGroup().location)]",
             "armTemplateRootUrl": "[parameters('armTemplateRootUrl')]",
             "armTemplateParameterRootUrl": "[parameters('armTemplateParameterRootUrl')]",
-            "resourceNameTemplate": "[replace(parameters('resourceNameTemplate'),'{RESOURCE_TYPE}','{RT}')]"
+            "resourceNameTemplate": "[replace(parameters('resourceNameTemplate'),'{RESOURCE_TYPE}','{RT}')]",
+            "parametersSuffix" : ".parameters"
         },
 
 
@@ -701,9 +695,8 @@
             "vault": {
                 "id": "[concat( variables('resource').resourceNamePrefix,'.keyVault.vault' )]",
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.keyvault.vault', '.json' , parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.keyvault.vault', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
-
-                "resourceName": "[parameters('keyVaultVaultResourceName')]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.keyvault.vault', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+                "resourceName": "[replace(if (not( empty (parameters('keyVaultVaultResourceName'))), parameters('keyVaultVaultResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'KEYVAULT')]",
                 "resourceLocation": "[coalesce(parameters('keyVaultVaultResourceLocation'))]",
                 "resourceType": "Microsoft.KeyVault/vaults",
                 "resourceSku": "[parameters('keyVaultVaultResourceSku')]",
@@ -715,15 +708,14 @@
                 "tags": "[parameters('keyVaultVaultTags')]"
             }
         },
-
-
+        
         "storageAccount": {
             "deployment": {
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for system diagnostics Backup storage.",
                 "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.deployment')]",
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.deployment', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[take( toLower( replace ( replace( replace( if (not (empty (parameters('storageAccountDiagnosticsResourceName'))), parameters('storageAccountDiagnosticsResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_DEPLOY'),'-',''),'_','')),24)]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.deployment', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+                "resourceName": "[replace( if (not (empty (parameters('storageAccountDiagnosticsResourceName'))), parameters('storageAccountDiagnosticsResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_DEPLOY')]",
                 "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                 "tags": "[parameters('storageAccountTags')]"
             },
@@ -731,8 +723,8 @@
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for system diagnostics Backup storage.",
                 "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.diagnostics')]",
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.diagnostics', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[take( toLower( replace ( replace( replace( if (not (empty (parameters('storageAccountDiagnosticsResourceName'))), parameters('storageAccountDiagnosticsResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_DIAG'),'-',''),'_','')),24)]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.diagnostics', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+                "resourceName": "[replace( if (not (empty (parameters('storageAccountDiagnosticsResourceName'))), parameters('storageAccountDiagnosticsResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_DIAG')]",
                 "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                 "tags": "[parameters('storageAccountTags')]"
             },
@@ -740,8 +732,8 @@
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for Backup storage.",
                 "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.backups')]",
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.backups', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[take( toLower( replace ( replace( replace( if (not (empty (parameters('storageAccountBackupResourceName'))), parameters('storageAccountBackupResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_BACKUP'),'-',''),'_','')),24)]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.backups', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+                "resourceName": "[replace( if (not (empty (parameters('storageAccountBackupResourceName'))), parameters('storageAccountBackupResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_BACKUP')]",
                 "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                 "tags": "[parameters('storageAccountTags')]"
             },
@@ -749,8 +741,8 @@
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for Media storage.",
                 "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.media')]",
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.media', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[take( toLower( replace ( replace( replace( if (not (empty (parameters('storageAccountMediaResourceName'))), parameters('storageAccountMediaResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_MEDIA'),'-',''),'_','')),24)]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.media', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+                "resourceName": "[replace( if (not (empty (parameters('storageAccountMediaResourceName'))), parameters('storageAccountMediaResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_MEDIA')]",
                 "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                 "tags": "[parameters('storageAccountTags')]"
             },
@@ -758,8 +750,8 @@
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for Media storage.",
                 "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.media2')]",
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.media2', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[take( toLower( replace( replace( replace( if (not (empty (parameters('storageAccountMedia2ResourceName'))), parameters('storageAccountMedia2ResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_MEDIA_2'),'-',''),'_','')),24)]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.media2', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+                "resourceName": "[replace( if (not (empty (parameters('storageAccountMedia2ResourceName'))), parameters('storageAccountMedia2ResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_MEDIA_2')]",
                 "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                 "tags": "[parameters('storageAccountTags')]"
             }
@@ -769,7 +761,7 @@
                 "comment": "A collection of variables for passing to the SqlServer ARM Template -- via the proxy of the sqlServerDatabase ARM that depends on it.",
                 "id": "[concat( variables('resource').resourceNamePrefix,'.sql.server')]",
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace( variables('resource').resourceNameTemplate, '{RT}', 'SQLSERVER')]",
                 "resourceLocation": "[if (not(contains(parameters('_invalidValidSqlServerResourceLocation'), variables('tmp').tmpSqlResourceLocation1)), variables('tmp').tmpSqlResourceLocation1,'Southeast Asia')]",
                 "administrator": {
@@ -782,7 +774,7 @@
                         "comment": "A collection of variables for passing to the SqlServerFirewallRule ARM Template.",
                         "id": "[concat( variables('resource').resourceNamePrefix,'.sql.server','.firewallRule.openToAzure')]",
                         "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server.firewallrule', '.json', parameters('armTemplateRootSas'))]",
-                        "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server.firewallrule.opentoazure', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                        "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server.firewallrule.opentoazure', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
                         "resourceName": "[concat( replace( variables('resource').resourceNameTemplate, '{RT}', 'SQLSERVER'),'/','rules.opentoazure')]",
                         "resourceLocation": "[if (not (empty (parameters('sqlServerFirewallRuleResourceLocation'))), parameters('sqlServerFirewallRuleResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                         "startIpAddress": "[parameters('sqlServerFirewallRuleStartIpAddress')]",
@@ -794,7 +786,7 @@
                     "comment": "A collection of variables for passing to the SqlServerDatabase ARM Template.",
                     "id": "[concat( variables('resource').resourceNamePrefix,'.sql.server.database')]",
                     "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server.database', '.json', parameters('armTemplateRootSas'))]",
-                    "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server.database', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                    "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server.database', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
                     "resourceName": "[replace( if (not (empty (parameters('sqlServerDatabaseResourceName'))), parameters('sqlServerDatabaseResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SQLSERVER/DATABASE')]",
                     "resourceLocation": "[if (not (empty (parameters('sqlServerDatabaseResourceLocation'))), parameters('sqlServerDatabaseResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                     "resourceSku": "[parameters('sqlServerDatabaseResourceSku')]",
@@ -817,8 +809,8 @@
             "databaseAccount": {
                 "id": "[concat( variables('resource').resourceNamePrefix,'.documentDb.databaseAccount' )]",
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.documentdb.databaseaccount', '.json' , parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.documentdb.databaseaccount', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[parameters('documentDbDatabaseAccountResourceName')]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.documentdb.databaseaccount', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+                "resourceName": "[replace( if (not (empty (parameters('documentDbDatabaseAccountResourceName'))), parameters('documentDbDatabaseAccountResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'WEB_SERVER_FARM')]",
                 "resourceType": "Microsoft.DocumentDB/databaseAccounts",
                 "resourceLocation": "[parameters('documentDbDatabaseAccountResourceLocation')]",
                 "kind": "[parameters('documentDbDatabaseAccountKind')]",
@@ -832,7 +824,7 @@
                 "comment": "A collection of variables for passing to the webServer  ARM Template.",
                 "id": "[concat( variables('resource').resourceNamePrefix,'.web.appServicePlan' )]",
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.web.serverfarm', '.json' , parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.web.serverfarm', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.web.serverfarm', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace( if (not (empty (parameters('webServerFarmResourceName'))), parameters('webServerFarmResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'WEB_SERVER_FARM')]",
                 "resourceLocation": "[if (not (empty (parameters('webServerFarmResourceLocation'))), parameters('webServerFarmResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                 "resourceSku": "[parameters('webServerFarmResourceSku')]",
@@ -842,7 +834,7 @@
             "site": {
                 "id": "[concat( variables('resource').resourceNamePrefix,'.web.site' )]",
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.web.site', '.json' , parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.web.site', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.web.site', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace( if (not (empty (parameters('webSiteResourceName'))), parameters('webSiteResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'WEB_SITE')]",
                 "resourceLocation": "[if (not (empty (parameters('webSiteResourceLocation'))), parameters('webSiteResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                 "resourceSku": "[parameters('webSiteResourceSku')]",
@@ -897,8 +889,6 @@
                     "uri": "[variables('keyVault').vault.armUrl]",
                     "contentVersion": "1.0.0.0"
                 },
-
-
                 "parameters": {
                     "keyVaultVaultResourceName": {
                         "value": "[variables('keyVault').vault.resourceName]"
@@ -924,6 +914,9 @@
                 }
             }
         },
+
+/*
+
         {
             "comments": "Ensures a Resource Group scoped unique backup Storage Account (for Db)",
             "name": "[variables('storageAccount').deployment.id]",
@@ -1270,6 +1263,9 @@
                 }
             }
         }
+
+*/
+
     ],
     "outputs": {
         "uniqueResourceId": {
@@ -1279,9 +1275,14 @@
                 "description": "The ResourceGroup scoped unique 13 character Id."
             }
         },
-        "resourceName": {
+        "resourceNameTemplate": {
             "type": "string",
             "value": "[variables('resource').resourceNameTemplate]"
-        }
+        },
+        // The Identifier for the KeyVault that was created:
+        "keyVaultResourceId": {
+            "type": "string",
+            "value": "[reference(variables('keyVault').vault.id).outputs.resourceId.value]"
+        }        
     }
 }

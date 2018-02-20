@@ -55,7 +55,7 @@
     },
     "variables": {
         "tmp": {
-            "resourceName": "[replace( replace ( replace(replace(parameters('storageAccountResourceName'), '{RESOURCETYPE}', 'STORAGEACCOUNT'), '{RT}', 'STORAGEACCOUNT'),'-',''),'_','')]"
+            "resourceName": "[parameters('storageAccountResourceName')]"
         },
         "resource": {
             "comment": "A collection of variables for use within this template (and any linked child templates).",
@@ -64,7 +64,7 @@
         "storageAccount": {
             "resourceType": "Microsoft.Storage/storageAccounts",
             "resourceName": "[variables('tmp').resourceName]",
-            "resourceNameUrl": "[take( toLower( variables('tmp').resourceName), 24)]",
+            "resourceNameUrl": "[take( toLower( replace( replace ( variables('tmp').resourceName,'-',''),'_','')), 24)]",
             "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), resourceGroup().location)]",
             "resourceSku": "[parameters('storageAccountResourceSku')]",
             "resourceMode": "[parameters('storageAccountResourceMode')]",
