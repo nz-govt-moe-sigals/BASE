@@ -1,7 +1,8 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {
+    /*holly shit! One can comment in ARMS, even if it is not valid JSON!*/
+     "parameters": {
         "resourceMode": {
             "metadata": {
                 "description": "Incremental..."
@@ -59,10 +60,29 @@
             "type": "string",
             "defaultValue": ""
         },
+
+
+        // ----------------------------------------------------------------------
+        // General StorageAccount Parameters 
+        // ----------------------------------------------------------------------
+
+
         "storageAccountResourceLocation": {
             "type": "string",
             "defaultValue": "[resourceGroup().location]"
         },
+        "storageAccountTags": {
+            "type": "object",
+            "defaultValue": {},
+            "metadata": {
+                "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+            }
+        },
+
+        // ----------------------------------------------------------------------
+        // Specific Storage Accounts Parameters 
+        // ----------------------------------------------------------------------
+
         "storageAccountDeploymentResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -98,6 +118,11 @@
                 "description": "Optional. If it can be set. If left blank, defined automatically according to naming convention."
             }
         },
+
+        // ----------------------------------------------------------------------
+        // SQL Server Firewall Rule Parameters
+        // ----------------------------------------------------------------------
+
         "sqlServerResourceLocation": {
             "type": "string",
             "defaultValue": "[resourceGroup().location]",
@@ -130,7 +155,18 @@
             "minLength": 12
         },
 
+        "sqlServerTags": {
+            "type": "object",
+            "defaultValue": {},
+            "metadata": {
+                "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+            }
+        },
 
+        // ----------------------------------------------------------------------
+        // SQL Server Firewall Rule Parameters
+        // Has dependency on SQL Server being there first.
+        // ----------------------------------------------------------------------
 
         "sqlServerFirewallRuleResourceName": {
             "type": "string",
@@ -161,6 +197,18 @@
 
 
 
+        "sqlServerFirewallRuleTags": {
+            "type": "object",
+            "defaultValue": {},
+            "metadata": {
+                "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+            }
+        },
+
+        // ----------------------------------------------------------------------
+        // SQL Server Auditing Policies Parameters
+        // Has dependency on SQL Server being there first.
+        // ----------------------------------------------------------------------
 
 
 
@@ -186,6 +234,19 @@
         },
 
         
+        "sqlServerAuditingPoliciesTags": {
+            "type": "object",
+            "defaultValue": {},
+            "metadata": {
+                "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+            }
+        },
+
+        // ----------------------------------------------------------------------
+        // SQL Server Database Parameters
+        // Has dependency on SQL Server being there first.
+        // ----------------------------------------------------------------------
+
         "sqlServerDatabaseResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -218,6 +279,44 @@
                 "description": "Describes the performance level of the Database. Default is Basic ($8/m, 5 DTU, sufficient for 2GB). S0 is plenty at 25$/m. 10 DTUs, 250Gb. "
               }
             },
+
+
+            "sqlServerDatabaseZoneRedundant": {
+                "type": "bool",
+                "defaultValue": false
+            },
+            "sqlServerDatabaseEdition": {
+                "type": "string",
+                "defaultValue": "Standard",
+                "allowedValues": [
+                    "Basic",
+                    "Standard",
+                    "Premium"
+                ]
+            },
+            "sqlServerDatabaseCollation": {
+                "type": "string",
+                "minLength": 1,
+                "defaultValue": "SQL_Latin1_General_CP1_CI_AS"
+            },
+            "sqlServerDatabaseMaxSizeBytes": {
+                "type": "string",
+                "defaultValue": "268435456000"
+            },
+
+            "sqlServerDatabaseTags": {
+                "type": "object",
+                "defaultValue": {},
+                "metadata": {
+                    "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+                }
+            },
+    
+            // ----------------------------------------------------------------------
+            // Web ServerFarm Parameters
+            // ----------------------------------------------------------------------
+    
+
 
         "webServerFarmResourceName": {
             "type": "string",
@@ -254,9 +353,29 @@
                 "S2"
             ]
         },
-
+        "webServerFarmNumberOfWorkers": {
+            "type": "int",
+            "minValue": 1,
+            "maxValue": 3,
+            "defaultValue": 1
+        },
 
         
+        "webServerFarmTags": {
+            "type": "object",
+            "defaultValue": {},
+            "metadata": {
+                "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+            }
+        },
+
+        // ----------------------------------------------------------------------
+        // Web Certificate Parameters
+        // Has dependency on Web ServerFarm being there first.
+        // ----------------------------------------------------------------------
+
+
+
 
         "webCertificateResourceName": {
             "type": "string",
@@ -292,6 +411,22 @@
             }
         },
 
+        "webCertificateTags": {
+            "type": "object",
+            "defaultValue": {},
+            "metadata": {
+                "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+            }
+        },
+
+        // ----------------------------------------------------------------------
+        // Web Certificate Parameters
+        // Has dependency on Web ServerFarm being there first.
+        // ----------------------------------------------------------------------
+
+
+
+
         "webSiteHostBindingResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -324,6 +459,19 @@
             }
         },
 
+        "webSiteHostBindingTags": {
+            "type": "object",
+            "defaultValue": {},
+            "metadata": {
+                "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+            }
+        },
+
+        // ----------------------------------------------------------------------
+        // Web Site Parameters
+        // Has dependency on Web ServerFarm being there first.
+        // ----------------------------------------------------------------------
+
 
         "webSiteResourceName": {
             "type": "string",
@@ -344,13 +492,107 @@
                 "description": "The location for the Certificate, if it can be set."
             }
         },
+        "webSiteResourceSku": {
+            "metadata": {
+                "description": ""
+            },
+            "type": "string",
+            "defaultValue": "X",
+            "allowedValues": [
+                "X"
+            ]
+        },
+        "webSiteAlwaysOn": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "TODO."
+            }
+        },
+        "webSiteDetailedErrorLoggingEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "TODO."
+            }
+        },
+        "webSiteLogsDirectorySizeLimit": {
+            "type": "int",
+            "defaultValue": 35,
+            "metadata": {
+                "description": "TODO."
+            }
+        },
+        "webSiteHttpLoggingEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "TODO."
+            }
+        },
+        "webSiteRemoteDebuggingEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "TODO."
+            }
+        },
+        "webSiteRemoteDebuggingVersion": {
+            "type": "string",
+            "defaultValue": "VS2012",
+            "allowedValues": [
+                "VS2012",
+                "VS2013"
+            ],
+            "metadata": {
+                "description": "TODO."
+            }
+        },
+        "webSiteRequestTracingEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "TODO."
+            }
+        },
+        "webSiteWebSocketsEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "TODO."
+            }
+        },
+        "webSiteConfigAppSettings": {
+            "type": "object",
+            "defaultValue": {
+              "ExampleKey" :"exampleValue"
+            },
+            "metadata": {
+                "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target site as AppSettings."
+            }
+          },
+          "webSiteTags": {
+            "type": "object",
+            "defaultValue": {},
+            "metadata": {
+                "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+            }
+        },
+
         "_invalidValidSqlServerResourceLocation": {
             "type":"array",
             "defaultValue": ["Australia East","Australia Southeast", "australiaeast", "australiasoutheast"]
         }
-
-
     },
+
+
+        // ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
+        // Variables
+        // ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
+
+
     "variables": {
         "metadata": {
             "comments00": "So...Templates are a set of sequential parameters, variables, resources, output sections for a reason.",
@@ -382,7 +624,8 @@
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
                 "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.deployment', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[take( toLower( replace ( replace( replace( if (not (empty (parameters('storageAccountDiagnosticsResourceName'))), parameters('storageAccountDiagnosticsResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_DEPLOY'),'-',''),'_','')),24)]",
-                "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]"
+                "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
+                "tags": "[parameters('storageAccountTags')]"
             },
             "diagnostics": {
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for system diagnostics Backup storage.",
@@ -390,7 +633,8 @@
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
                 "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.diagnostics', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[take( toLower( replace ( replace( replace( if (not (empty (parameters('storageAccountDiagnosticsResourceName'))), parameters('storageAccountDiagnosticsResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_DIAG'),'-',''),'_','')),24)]",
-                "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]"
+                "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
+                "tags": "[parameters('storageAccountTags')]"
             },
             "backups": {
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for Backup storage.",
@@ -398,7 +642,8 @@
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
                 "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.backups', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[take( toLower( replace ( replace( replace( if (not (empty (parameters('storageAccountBackupResourceName'))), parameters('storageAccountBackupResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_BACKUP'),'-',''),'_','')),24)]",
-                "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]"
+                "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
+                "tags": "[parameters('storageAccountTags')]"
             },
             "media": {
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for Media storage.",
@@ -406,7 +651,8 @@
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
                 "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.media', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[take( toLower( replace ( replace( replace( if (not (empty (parameters('storageAccountMediaResourceName'))), parameters('storageAccountMediaResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_MEDIA'),'-',''),'_','')),24)]",
-                "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]"
+                "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
+                "tags": "[parameters('storageAccountTags')]"
             },
             "media2": {
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for Media storage.",
@@ -414,7 +660,8 @@
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
                 "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.media2', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[take( toLower( replace( replace( replace( if (not (empty (parameters('storageAccountMedia2ResourceName'))), parameters('storageAccountMedia2ResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_MEDIA_2'),'-',''),'_','')),24)]",
-                "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]"
+                "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
+                "tags": "[parameters('storageAccountTags')]"
             }
         },
         "sql": {
@@ -429,49 +676,78 @@
                     "login": "[parameters('sqlServerAdministratorLogin')]",
                     "loginPassword": "[parameters('sqlServerAdministratorLoginPassword')]"
                 },
+                "tags": "[parameters('sqlServerTags')]",
+
+
                 "firewallRule": {
                     "openToAzure": {
                         "comment": "A collection of variables for passing to the SqlServerFirewallRule ARM Template.",
-                        "id": "[concat( concat( variables('resource').resourceNamePrefix,'.sql.server'),'.firewallRule.openToAzure')]",
+                        "id": "[concat( variables('resource').resourceNamePrefix,'.sql.server','.firewallRule.openToAzure')]",
                         "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server.firewallrule', '.json', parameters('armTemplateRootSas'))]",
                         "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server.firewallrule.opentoazure', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
-                        "resourceName": "[concat( replace( variables('resource').resourceNameTemplate, '{RT}', 'SQLSERVER'),'/','rules')]",
+                        "resourceName": "[concat( replace( variables('resource').resourceNameTemplate, '{RT}', 'SQLSERVER'),'/','rules.opentoazure')]",
                         "resourceLocation": "[if (not (empty (parameters('sqlServerFirewallRuleResourceLocation'))), parameters('sqlServerFirewallRuleResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                         "startIpAddress": "[parameters('sqlServerFirewallRuleStartIpAddress')]",
-                        "endIpAddress": "[parameters('sqlServerFirewallRuleEndIpAddress')]"
+                        "endIpAddress": "[parameters('sqlServerFirewallRuleEndIpAddress')]",
+                        "tags": "[parameters('sqlServerFirewallRuleTags')]"
                     }
+                },
+                "database": {
+                    "comment": "A collection of variables for passing to the SqlServerDatabase ARM Template.",
+                    "id": "[concat( variables('resource').resourceNamePrefix,'.sql.server.database')]",
+                    "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server.database', '.json', parameters('armTemplateRootSas'))]",
+                    "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server.database', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                    "resourceName": "[replace( if (not (empty (parameters('sqlServerDatabaseResourceName'))), parameters('sqlServerDatabaseResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SQLSERVER/DATABASE')]",
+                    "resourceLocation": "[if (not (empty (parameters('sqlServerDatabaseResourceLocation'))), parameters('sqlServerDatabaseResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
+                    "resourceSku": "[parameters('sqlServerDatabaseResourceSku')]",
+                    "collation": "[parameters('sqlServerDatabaseCollation')]",
+                    "edition": "[parameters('sqlServerDatabaseEdition')]",
+                    "maxSizeBytes": "[parameters('sqlServerDatabaseMaxSizeBytes')]",
+                    "zoneRedundant": "[parameters('sqlServerDatabaseZoneRedundant')]",
+                    "tags": "[parameters('sqlServerDatabaseTags')]"
                 }
             },
             "auditingPolicies": {
                 "comment": "A collection of variables for passing to the SqlServerAuditingPolicies ARM Template.",
                 "id": "[concat( variables('resource').resourceNamePrefix,'.sqlServer.auditingPolicies')]",
                 "resourceName": "[replace( if (not (empty (parameters('sqlServerAuditingPoliciesResourceName'))), parameters('sqlServerAuditingPoliciesResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SQLSERVER_AUDITING_POLICIES')]",
-                "resourceLocation": "[if (not (empty (parameters('sqlServerAuditingPoliciesResourceLocation'))), parameters('sqlServerAuditingPoliciesResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]"
-            },
-            "database": {
-                "comment": "A collection of variables for passing to the SqlServerDatabase ARM Template.",
-                "id": "[concat( variables('resource').resourceNamePrefix,'.sqlServer.database')]",
-                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.sqlServer.database', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.sqlServer.database', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[replace( if (not (empty (parameters('sqlServerDatabaseResourceName'))), parameters('sqlServerDatabaseResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SQLSERVER_DATABASE')]",
-                "resourceLocation": "[if (not (empty (parameters('sqlServerDatabaseResourceLocation'))), parameters('sqlServerDatabaseResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]"
+                "resourceLocation": "[if (not (empty (parameters('sqlServerAuditingPoliciesResourceLocation'))), parameters('sqlServerAuditingPoliciesResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
+                "tags": "[parameters('sqlServerAuditingPoliciesTags')]"
             }
         },
         "web": {
-            "ServerFarm": {
+            "serverFarm": {
                 "comment": "A collection of variables for passing to the webServer  ARM Template.",
-                "id": "[concat( variables('resource').resourceNamePrefix,'.appServicePan' )]",
-                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.webServerFarm', '.json' , parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.webServerFarm', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                "id": "[concat( variables('resource').resourceNamePrefix,'.web.appServicePan' )]",
+                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.web.serverfarm', '.json' , parameters('armTemplateRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.web.serverfarm', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace( if (not (empty (parameters('webServerFarmResourceName'))), parameters('webServerFarmResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'WEB_SERVER_FARM')]",
                 "resourceLocation": "[if (not (empty (parameters('webServerFarmResourceLocation'))), parameters('webServerFarmResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
-                "sku": "[parameters('webServerFarmResourceSku')]"
+                "resourceSku": "[parameters('webServerFarmResourceSku')]",
+                "numberOfWorkers": "[parameters('webServerFarmNumberOfWorkers')]",
+                "tags": "[parameters('webServerFarmTags')]"
             },
             "site": {
+                "id": "[concat( variables('resource').resourceNamePrefix,'.web.site' )]",
+                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.web.site', '.json' , parameters('armTemplateRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.web.site', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace( if (not (empty (parameters('webSiteResourceName'))), parameters('webSiteResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'WEB_SITE')]",
                 "resourceLocation": "[if (not (empty (parameters('webSiteResourceLocation'))), parameters('webSiteResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
-                "mode": "MODE:TODO",
+                "resourceSku": "[parameters('webSiteResourceSku')]",
                 "serverFarmResourceId": "TODO",
+                "mode": "MODE:TODO",
+                "alwaysOn": "[parameters('webSiteAlwaysOn')]",
+                "detailedErrorLoggingEnabled": "[parameters('webSiteDetailedErrorLoggingEnabled')]",
+                "logsDirectorySizeLimit": "[parameters('webSiteLogsDirectorySizeLimit')]",
+                "httpLoggingEnabled": "[parameters('webSiteHttpLoggingEnabled')]",
+                "remoteDebuggingEnabled": "[parameters('webSiteRemoteDebuggingEnabled')]",
+                "remoteDebuggingVersion": "[parameters('webSiteRemoteDebuggingVersion')]",
+                "requestTracingEnabled": "[parameters('webSiteRequestTracingEnabled')]",
+                "webSocketsEnabled": "[parameters('webSiteWebSocketsEnabled')]",
+                "config": {
+                    "appSettings": "[parameters('webSiteConfigAppSettings')]"
+                },
+                "tags": "[parameters('webSiteTags')]",
 
                 "hostBinding": {
                     "comments": "",
@@ -479,19 +755,29 @@
                     "resourceName": "[concat(replace( if (not (empty (parameters('webSiteHostBindingResourceName'))), parameters('webSiteHostBindingResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'WEB_SITE'),'/rule')]",
                     "resourceLocation": "[if (not (empty (parameters('webSiteHostBindingResourceLocation'))), parameters('webSiteHostBindingResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                     "hostName": "[parameters('webSiteHostBindingHostName')]",
-                    "thumbprint": "[parameters('webSiteHostBindingCertificateThumbprint')]"
+                    "thumbprint": "[parameters('webSiteHostBindingCertificateThumbprint')]",
+                    "tags": "[parameters('webSiteHostBindingTags')]"
                 }
+
+
+                
             },
             "certificate": {
                 "resourceType": "Microsoft.Web/certificates",
                 "resourceName": "[replace( if (not (empty (parameters('webCertificateResourceName'))), parameters('webCertificateResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'WEB_CERTIFICATE')]",
                 "resourceLocation": "[coalesce(parameters('webCertificateResourceLocation'), variables('resource').resourceLocation, resourceGroup().location)]",
                 "pfxBlob": "[coalesce(parameters('webCertificateBase64'),'ERROR:NO PFX BLOB PROVIDED')]",
-                "password": "[coalesce(parameters('webCertificatePassword'),'ERROR:NO PFX PASSWORD PROVIDED')]"
+                "password": "[coalesce(parameters('webCertificatePassword'),'ERROR:NO PFX PASSWORD PROVIDED')]",
+                "tags": "[parameters('webCertificateTags')]"
             }
         }
     },
-    "resources": [
+        // ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
+        // Resources
+        // ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
+        "resources": [
         {
             "comments": "Ensures a Resource Group scoped unique backup Storage Account (for Db)",
             "name": "[variables('storageAccount').deployment.id]",
@@ -509,6 +795,9 @@
                     },
                     "storageAccountResourceLocation": {
                         "value": "[variables('storageAccount').deployment.resourceLocation]"
+                    },
+                    "storageAccountTags": {
+                        "value": "[variables('storageAccount').deployment.tags]"
                     }
                 }
             }
@@ -530,6 +819,9 @@
                     },
                     "storageAccountResourceLocation": {
                         "value": "[variables('storageAccount').diagnostics.resourceLocation]"
+                    },
+                    "storageAccountTags": {
+                        "value": "[variables('storageAccount').diagnostics.tags]"
                     }
                 }
             }
@@ -551,6 +843,9 @@
                     },
                     "storageAccountResourceLocation": {
                         "value": "[variables('storageAccount').backups.resourceLocation]"
+                    },
+                    "storageAccountTags": {
+                        "value": "[variables('storageAccount').backups.tags]"
                     }
                 }
             }
@@ -572,6 +867,9 @@
                     },
                     "storageAccountResourceLocation": {
                         "value": "[variables('storageAccount').media.resourceLocation]"
+                    },
+                    "storageAccountTags": {
+                        "value": "[variables('storageAccount').media.tags]"
                     }
                 }
             }
@@ -593,15 +891,13 @@
                     },
                     "storageAccountResourceLocation": {
                         "value": "[variables('storageAccount').media2.resourceLocation]"
+                    },
+                    "storageAccountTags": {
+                        "value": "[variables('storageAccount').media2.tags]"
                     }
                 }
             }
         },
-
-
-
-
-
 
 
         {
@@ -627,6 +923,9 @@
                     },
                     "sqlServerAdministratorLoginPassword": {
                         "value": "[variables('sql').server.administrator.loginPassword]"
+                    },
+                    "sqlServerTags": {
+                        "value": "[variables('sql').server.tags]"
                     }
                 }
             }
@@ -656,19 +955,141 @@
                     },
                     "sqlServerFirewallRuleEndIpAddress": {
                         "value": "[variables('sql').server.firewallRule.openToAzure.endIpAddress]"
+                    },
+                    "sqlServerFirewallRuleTags": {
+                        "value": "[variables('sql').server.firewallRule.openToAzure.tags]"
                     }
+                }
+            }
+        },
+        {
+            "dependsOn": [
+                "[variables('sql').server.id]",
+                "[variables('sql').server.firewallRule.openToAzure.id]"
+            ],
+            "comments": "Ensures a (blank) primary Database is deployed. Note: This should not be necessary (as an app should use DbAsCode/CodeFirst to create it on first run)...but it allows for the setting of collation, and other properties.",
+            "name": "[variables('sql').server.database.id]",
+            "apiVersion": "2017-05-10",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('sql').server.database.armUrl]",
+                    "contentVersion": "1.0.0.0"
                 },
-                "parametersLink": "[variables('sql').server.firewallRule.openToAzure.armParametersUrl]"
+                "parameters": {
+                    "sqlServerDatabaseResourceName": {
+                        "value": "[variables('sql').server.database.resourceName]"
+                    },
+                    "sqlServerDatabaseResourceLocation": {
+                        "value": "[variables('sql').server.database.resourceLocation]"
+                    },
+                    "sqlServerDatabaseResourceSku": {
+                        "value": "[variables('sql').server.database.resourceSku]"
+                    },
+                    "sqlServerDatabaseCollation": {
+                        "value": "[variables('sql').server.database.collation]"
+                    },
+                    "sqlServerDatabaseEdition": {
+                        "value": "[variables('sql').server.database.edition]"
+                    },
+                    "sqlServerDatabaseZoneRedundant": {
+                        "value": "[variables('sql').server.database.zoneRedundant]"
+                    },
+                    "sqlServerDatabaseMaxSizeBytes": {
+                        "value": "[variables('sql').server.database.maxSizeBytes]"
+                    },
+                    "sqlServerDatabaseTags": {
+                        "value": "[variables('sql').server.database.tags]"
+                    }
+                }
+            }
             },
-            "tags": {}
-        }
 
-
-
-
-
-
-
+            {
+                "comments": "Ensures a Resource Group scoped unique App Service Plan",
+                "name": "[variables('web').serverFarm.id]",
+                "apiVersion": "2017-05-10",
+                "type": "Microsoft.Resources/deployments",
+                "properties": {
+                    "mode": "Incremental",
+                    "templateLink": {
+                        "uri": "[variables('web').serverFarm.armUrl]",
+                        "contentVersion": "1.0.0.0"
+                    },
+                    "parameters": {
+                        "webServerFarmResourceName": {
+                            "value": "[variables('web').serverFarm.resourceName]"
+                        },
+                        "webServerFarmResourceLocation": {
+                            "value": "[variables('web').serverFarm.resourceLocation]"
+                        },
+                        "webServerFarmResourceSku": {
+                            "value": "[variables('web').serverFarm.resourceSku]"
+                        },
+                        "webServerFarmNumberOfWorkers": {
+                            "value": "[variables('web').serverFarm.numberOfWorkers]"
+                        },
+                        "webServerFarmTags": {
+                            "value": "[variables('web').serverFarm.tags]"
+                        }
+                    }
+                }
+            },
+            {
+                "dependsOn": [
+                    "[variables('web').serverFarm.id]"
+                ],
+                "comments": "Ensures a Resource Group scoped web site is deployed",
+                "name": "[variables('web').site.id]",
+                "apiVersion": "2017-05-10",
+                "type": "Microsoft.Resources/deployments",
+                "properties": {
+                    "mode": "Incremental",
+                    "templateLink": {
+                        "uri": "[variables('web').site.armUrl]",
+                        "contentVersion": "1.0.0.0"
+                    },
+                    "parameters":{
+                        "webSiteResourceName": {
+                            "value": "[variables('web').site.resourceName]"
+                        },
+                        "webSiteResourceLocation": {
+                            "value": "[variables('web').site.resourceLocation]"
+                        },
+                        "webSiteResourceSku": {
+                            "value": "[variables('web').site.resourceSku]"
+                        },
+                        "webSiteWebServerFarmResourceId": {
+                            "value": "[reference(variables('web').serverFarm.id).outputs.resourceId.value]"
+                        },
+                        "webSiteAlwaysOn": {
+                            "value": "[variables('web').site.alwaysOn]"
+                        },
+                        "webSiteDetailedErrorLoggingEnabled": {
+                            "value": "[variables('web').site.detailedErrorLoggingEnabled]"
+                        },
+                        "webSiteLogsDirectorySizeLimit": {
+                            "value": "[variables('web').site.logsDirectorySizeLimit]"
+                        },
+                        "webSiteRemoteDebuggingEnabled": {
+                            "value": "[variables('web').site.remoteDebuggingEnabled]"
+                        },
+                        "webSiteRemoteDebuggingVersion": {
+                            "value": "[variables('web').site.remoteDebuggingVersion]"
+                        },
+                        "webSiteRequestTracingEnabled": {
+                            "value": "[variables('web').site.requestTracingEnabled]"
+                        },
+                        "webSiteWebSocketsEnabled": {
+                            "value": "[variables('web').site.webSocketsEnabled]"
+                        },
+                        "webSiteConfigAppSettings": {
+                            "value": "[variables('web').site.config.appSettings]"
+                        }
+                    }
+                }
+            }
     ],
     "outputs": {
         "uniqueResourceId": {

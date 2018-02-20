@@ -5,7 +5,7 @@
         "sqlServerDatabaseResourceName": {
             "type": "string"
         },
-        "sqlServerDatabaseLocation": {
+        "sqlServerDatabaseResourceLocation": {
             "type": "string"
         },
         "sqlServerDatabaseResourceSku": {
@@ -43,8 +43,12 @@
             "type": "string",
             "defaultValue": "268435456000"
         },
-        "sqlServerDatabaseRequestedServiceObjectiveId": {
-            "type": "string"
+        "sqlServerDatabaseTags": {
+            "type": "object",
+            "defaultValue": {},
+            "metadata": {
+                "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+            }
         }
     },
     "variables": {
@@ -55,14 +59,13 @@
                     "id": "[concat(variables('idPrefix'),'.sqlServerDatabase' )]",
                     "resourceName": "[parameters('sqlServerDatabaseResourceName')]",
                     "resourceType": "Microsoft.Sql/servers/databases",
-                    "resourceLocation": "[coalesce(parameters('sqlServerDatabaseLocation'),parameters('sqlServerDatabaseLocation'))]",
+                    "resourceLocation": "[coalesce(parameters('sqlServerDatabaseResourceLocation'))]",
                     "resourceSku": "[parameters('sqlServerDatabaseResourceSku')]",
                     "collation": "[parameters('sqlServerDatabaseCollation')]",
                     "edition": "[parameters('sqlServerDatabaseEdition')]",
                     "maxSizeBytes": "[parameters('sqlServerDatabaseMaxSizeBytes')]",
                     "zoneRedundant": "[parameters('sqlServerDatabaseZoneRedundant')]",
-                    "requestedServiceObjectiveId": "[parameters('sqlServerDatabaseRequestedServiceObjectiveId')]"
-                }
+                    "tags": "[parameters('sqlServerDatabaseTags')]"                }
             }
         }
     },
@@ -75,12 +78,12 @@
             "location": "[variables('sql').server.database.resourceLocation]",
             "properties": {
                 "collation": "[variables('sql').server.database.collation]",
-                "edition": "[variables('sql').server.database.Edition]",
+                "edition": "[variables('sql').server.database.edition]",
                 "maxSizeBytes": "[variables('sql').server.database.maxSizeBytes]",
                 "zoneRedundant": "[variables('sql').server.database.zoneRedundant]",
-                "requestedServiceObjectiveId": "[variables('sql').server.database.requestedServiceObjectiveId]"
+                "requestedServiceObjectiveName": "[variables('sql').server.database.resourceSku]"
             },
-            "tags": {}
+            "tags": "[variables('sql').server.database.tags]"
         }
     ],
     "outputs": {

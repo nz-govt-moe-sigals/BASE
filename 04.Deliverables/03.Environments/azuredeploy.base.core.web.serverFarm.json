@@ -35,41 +35,53 @@
       "metadata": {
         "description": "Describes plan's pricing tier and capacity. Check details at https://azure.microsoft.com/en-us/pricing/details/app-service/"
       }
-    }
-  },
+    },
+    "webServerFarmNumberOfWorkers": {
+      "type": "int",
+      "minValue": 1,
+      "maxValue": 3,
+      "defaultValue": 1
+    },
+    "webServerFarmTags": {
+      "type": "object",
+      "defaultValue": {},
+      "metadata": {
+          "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+      }
+  }
+},
   "variables": {
     "currentTemplateUrl": "[deployment().properties.templateLink.uri]",
     "currentTemplateUriRoot": "[uri(deployment().properties.templateLink.uri, '')]",
     "web": {
       "serverFarm": {
-        "resourceMode": "[parameters('webSiteResourceMode')]",
         "resourceType": "Microsoft.Web/serverfarms",
+        "resourceMode": "[parameters('webServerFarmResourceMode')]",
         "resourceName": "[parameters('webServerFarmResourceName')]",
         "resourceLocation": "[parameters('webServerFarmResourceLocation')]",
-        "resourceSku": "[parameters('webServerFarmResourceSku')]"
+        "resourceSku": "[parameters('webServerFarmResourceSku')]",
+        "numberOfWorkers": "[parameters('webServerFarmNumberOfWorkers')]",
+        "tags": "[parameters('webServerFarmTags')]"
       }
     }
   },
   "resources": [
     {
       
-      "dependsOn": [],
       "type": "Microsoft.Web/serverfarms",
       "name": "[variables('web').serverFarm.resourceName]",
       "location": "[variables('web').serverFarm.resourceLocation]",
       "apiVersion": "2015-08-01",
       "sku": {
-        "name": "[parameters('webServerFarmResource').resourceSku]"
-      },
-      "tags": {
-        "displayName": "Server Farm"
+        "name": "[variables('web').serverFarm.resourceSku]"
       },
       "properties": {
-        "mode": "[variables('web').serverFarm.resourceMode')]",
         "name": "[variables('web').serverFarm.resourceName]",
-        "numberOfWorkers": 1
+        "numberOfWorkers": "[variables('web').serverFarm.numberOfWorkers]"
+
+        },
+      "tags": "[variables('web').serverFarm.tags]"
       }
-    }
   ],
   "outputs": {
     "resourceId": {

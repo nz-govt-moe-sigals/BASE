@@ -30,9 +30,9 @@
             "allowedValues": [
                 "Premium_LRS",
                 "Standard_GRS",
-               "Standard_LRS",
-               "Standard_RAGRS",
-               "Standard_ZRS"
+                "Standard_LRS",
+                "Standard_RAGRS",
+                "Standard_ZRS"
             ],
             "defaultValue": "Standard_LRS"
         },
@@ -44,13 +44,17 @@
                 "BlobStorage"
             ],
             "defaultValue": "StorageV2"
-
+        },
+        "storageAccountTags": {
+            "type": "object",
+            "defaultValue": {},
+            "metadata": {
+                "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+            }
         }
     },
     "variables": {
-        "tmp" : {
-
-        },
+        "tmp": {},
         "resource": {
             "comment": "A collection of variables for use within this template (and any linked child templates).",
             "resourceNamePrefix": "azuredeploy.base.core"
@@ -61,7 +65,8 @@
             "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), resourceGroup().location)]",
             "resourceSku": "[parameters('storageAccountResourceSku')]",
             "resourceMode": "[parameters('storageAccountResourceMode')]",
-            "kind": "[parameters('storageAccountKind')]"
+            "kind": "[parameters('storageAccountKind')]",
+            "tags": "[parameters('storageAccountTags')]"
         }
     },
     "resources": [
@@ -75,10 +80,8 @@
                 "name": "[variables('storageAccount').resourceSku]"
             },
             "kind": "[variables('storageAccount').kind]",
-            "tags": {},
             "properties": {
                 "supportsHttpsTrafficOnly": true,
-                
                 "encryption": {
                     "services": {
                         "blob": {
@@ -90,7 +93,8 @@
                     },
                     "keySource": "Microsoft.Storage"
                 }
-            }
+            },
+            "tags": "[variables('storageAccount').tags]"
         }
     ],
     "outputs": {

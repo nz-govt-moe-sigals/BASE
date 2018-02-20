@@ -352,6 +352,9 @@
                     "sqlServerDatabaseLocation": {
                         "value": "[variables('sqlServerDatabase').resourceLocation]"
                     },
+                    "sqlServerDatabaseResourceSku": {
+                        "value": "[variables('sqlServerDatabase').resourceSku]"
+                    },
                     "sqlServerDatabaseCollation": {
                         "value": "[variables('sqlServerDatabase').collation]"
                     },
@@ -403,30 +406,6 @@ WORKS!!!
 
 
 
-        {
-            "comments": "Ensures a Resource Group scoped unique App Service Plan",
-            "name": "[variables('web').serverFarm.id]",
-            "apiVersion": "2017-05-10",
-            "type": "Microsoft.Resources/deployments",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[variables('web').serverFarm.armUrl]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "webServiceFarmResourceName": {
-                        "value": "[variables('web').serverFarm.resourceName]"
-                    },
-                    "webServiceFarmResourceLocation": {
-                        "value": "[variables('web').serverFarm.resourceLocation]"
-                    },
-                    "webServiceFarmSku": {
-                        "value": "[variables('web').serverFarm.sku]"
-                    }
-                }
-            }
-        },
         {
             "dependsOn": [
                 "[variables('web').site.id]"
@@ -488,6 +467,7 @@ WORKS!!!
                     "webSiteHostBindingCertificateThumbprint": {
                         "value": "[variables('web').site.hosting.binding.certificateThumbprint]"
                     }
+
                 }
             }
         },

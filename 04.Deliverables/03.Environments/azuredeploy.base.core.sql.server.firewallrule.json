@@ -2,10 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "sqlServerResourceName": {
-            "type": "string",
-            "minLength": 1
-        },
         "sqlServerFirewallRuleResourceName": {
             "type": "string",
             "minLength": 1
@@ -20,18 +16,25 @@
         "sqlServerFirewallRuleEndIpAddress": {
             "type": "string",
             "minLength": 1
+        },
+        "sqlServerFirewallRuleTags": {
+            "type": "object",
+            "defaultValue": {},
+            "metadata": {
+                "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+            }
         }
     },
     "variables": {
         "sql": {
             "server": {
-                "resourceName": "[parameters('sqlServerResourceName')]",
                 "firewallRule": {
                     "resourceType": "Microsoft.Sql/servers/firewallrules",
                     "resourceName": "[parameters('sqlServerFirewallRuleResourceName')]",
                     "resourceLocation": "[parameters('sqlServerFirewallRuleResourceLocation')]",
                     "startIpAddress": "[parameters('sqlServerFirewallRuleStartIpAddress')]",
-                    "endIpAddress": "[parameters('sqlServerFirewallRuleEndIpAddress')]"
+                    "endIpAddress": "[parameters('sqlServerFirewallRuleEndIpAddress')]",
+                    "tags": "[parameters('sqlServerFirewallRuleTags')]"
                 }
             }
         }
@@ -47,6 +50,7 @@
                 "startIpAddress": "variables('sql').server.firewallRule.startIpAddress]",
                 "endIpAddress": "[variables('sql').server.firewallRule.endIpAddress]"
             },
+            "tags": "[variables('sql').server.firewallRule.tags]",
             "comments": "The default, all open range is 0.0.0.0 - 0.0.0.0, controlled by Azure AD role access."
         }
     ],

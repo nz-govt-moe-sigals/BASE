@@ -417,7 +417,7 @@
                     "sqlServerDatabaseResourceName": {
                         "value": "[variables('sqlServerDatabase').resourceName]"
                     },
-                    "sqlServerDatabaseLocation": {
+                    "sqlServerDatabaseResourceLocation": {
                         "value": "[variables('sqlServerDatabase').resourceLocation]"
                     },
                     "sqlServerDatabaseCollation": {

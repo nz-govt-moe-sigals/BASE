@@ -1,0 +1,176 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "webSiteResourceMode": {
+            "type": "string",
+            "minLength": 1,
+            "defaultValue": "Incremental",
+            "allowedValues": [
+                "Incremental"
+            ]
+        },
+        "webSiteResourceName": {
+            "type": "string",
+            "minLength": 1
+        },
+        "webSiteResourceLocation": {
+            "type": "string",
+            "minLength": 1,
+            "defaultValue": "[resourceGroup().location]",
+            "metadata": {
+                "description": "The location within which to develop the App Service plan resource."
+            }
+        },
+        "webSiteResourceSku": {
+            "type": "string",
+            "defaultValue": "X",
+            "allowedValues": [
+                "X"
+            ]
+        },
+        "webSiteWebServerFarmResourceId": {
+            "type": "string",
+            "minLength": 1,
+            "defaultValue": "",
+            "metadata": {
+                "description": "TODO."
+            }
+        },
+        "webSiteAlwaysOn": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "TODO."
+            }
+        },
+        "webSiteDetailedErrorLoggingEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "TODO."
+            }
+        },
+        "webSiteHttpLoggingEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "TODO."
+            }
+        },
+        "webSiteLogsDirectorySizeLimit": {
+            "type": "int",
+            "defaultValue": 35,
+            "metadata": {
+                "description": "TODO."
+            }
+        },
+        "webSiteRemoteDebuggingEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "TODO."
+            }
+        },
+        "webSiteRemoteDebuggingVersion": {
+            "type": "string",
+            "defaultValue": "VS2012",
+            "allowedValues": [
+                "VS2012",
+                "VS2013"
+            ],
+            "metadata": {
+                "description": "TODO."
+            }
+        },
+        "webSiteRequestTracingEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "TODO."
+            }
+        },
+        
+        "webSiteWebSocketsEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "TODO."
+            }
+        },
+        "webSiteConfigAppSettings": {
+            "type": "object",
+            "defaultValue": {
+              "ExampleKey" :"exampleValue"
+            },
+            "metadata": {
+                "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target site as AppSettings."
+            }
+          }
+    },
+    "variables": {
+        "resources": {},
+        "web": {
+            "site": {
+                "resourceMode": "[parameters('webSiteResourceMode')]",
+                "resourceType": "Microsoft.Web/sites",
+                "resourceName": "[parameters('webSiteResourceName')]",
+                "resourceLocation": "[parameters('webSiteResourceLocation')]",
+                "resourceSku": "[parameters('webSiteResourceSku')]",
+                "alwaysOn": "[parameters('webSiteAlwaysOn')]",
+                "detailedErrorLoggingEnabled": "[parameters('webSiteDetailedErrorLoggingEnabled')]",
+                "logsDirectorySizeLimit": "[parameters('webSiteLogsDirectorySizeLimit')]",
+                "httpLoggingEnabled": "[parameters('webSiteHttpLoggingEnabled')]",
+                "remoteDebuggingEnabled": "[parameters('webSiteRemoteDebuggingEnabled')]",
+                "remoteDebuggingVersion": "[parameters('webSiteRemoteDebuggingVersion')]",
+                "requestTracingEnabled": "[parameters('webSiteRequestTracingEnabled')]",
+                "webSocketsEnabled": "[parameters('webSiteWebSocketsEnabled')]",
+                "config": {
+                    "appSettings": "[parameters('webSiteConfigAppSettings')]"
+                }
+            }
+        },
+        "misc": {
+            "serverFarmId": "[parameters('webSiteWebServerFarmResourceId')]"
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2016-08-01",
+            "scale": null,
+            "name": "[variables('web').site.resourceName]",
+            "properties": {
+                "mode": "[variables('web').site.resourceMode]",
+                "parameters": {
+                    "defaultDocuments": [
+                        "Default.htm",
+                        "Default.html",
+                        "index.htm",
+                        "index.html",
+                        "iisstart.htm",
+                        "default.aspx",
+                        "hostingstart.html"
+                    ],
+                    "httpLoggingEnabled": "[variables('web').site.httpLoggingEnabled]",
+                    "detailedErrorLoggingEnabled": "[variables('web').site.detailedErrorLoggingEnabled]",
+                    "logsDirectorySizeLimit": "[variables('web').site.logsDirectorySizeLimit]",
+                    "remoteDebuggingEnabled": "[variables('web').site.remoteDebuggingEnabled]",
+                    "remoteDebuggingVersion": "[variables('web').site.remoteDebuggingVersion]",
+                    "requestTracingEnabled": "[variables('web').site.requestTracingEnabled]",
+                    "requestTracingExpirationTime": null,
+                    "siteConfig": {
+                        "alwaysOn": "[variables('web').site.alwaysOn]"
+                    },
+                    "webSiteWebSocketsEnabled": "[variables('web').site.webSocketsEnabled]"
+
+                }
+            },
+            "tags": {
+                "displayName": "Web Site"
+            },
+            "comments": "This depends on the Web Site being deployed first, and picking up its output (resourceId)."
+        }
+    ],
+    "outputs": {}
+}

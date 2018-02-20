@@ -41,6 +41,13 @@
       "metadata": {
         "description": "Provide the Sql Server Administrator's Password. Required when creating a new Database Server. This is unfortunate as it requires risk-mitigation processes around deployment to correctly secure the secret and not leave it in the hands of stakeholders that don't absolutely need to know it. Developers don't."
       }
+    },
+    "sqlServerTags": {
+      "type": "object",
+      "defaultValue": {},
+      "metadata": {
+        "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+      }
     }
   },
   "variables": {
@@ -55,20 +62,17 @@
         "administrator": {
           "login": "[parameters('sqlServerAdministratorLogin')]",
           "loginPassword": "[parameters('sqlServerAdministratorLoginPassword')]"
-        }
+        },
+        "tags": "[parameters('sqlServerTags')]"
       }
     }
   },
   "resources": [
     {
-      "dependsOn": [],
       "type": "Microsoft.Sql/servers",
       "name": "[variables('sql').server.resourceName]",
       "location": "[variables('sql').server.location]",
       "apiVersion": "2015-05-01-preview",
-      "tags": {
-        "displayName": "SQL Server"
-      },
       "identity": {
         "type": "SystemAssigned"
       },
@@ -76,6 +80,7 @@
         "administratorLogin": "[variables('sql').server.administrator.login]",
         "administratorLoginPassword": "[variables('sql').server.administrator.loginPassword]"
       },
+      "tags": "[variables('sql').server.tags]",
       "comments": ""
     }
   ],

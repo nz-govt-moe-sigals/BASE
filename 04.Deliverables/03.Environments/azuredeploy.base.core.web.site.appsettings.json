@@ -1,0 +1,63 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "webSiteConfigAppSettingsResourceMode": {
+            "type": "string",
+            "minLength": 1,
+            "defaultValue": "Incremental",
+            "allowedValues": [
+              "Incremental"
+            ]
+          },
+          "webSiteConfigAppSettingsResourceName": {
+            "type": "string",
+            "minLength": 1
+          },
+          "webSiteConfigAppSettingsResourceLocation": {
+            "type": "string",
+            "minLength": 1,
+            "defaultValue": "[resourceGroup().location]",
+            "metadata": {
+              "description": "The location within which to develop the App Service plan resource."
+            }
+          },
+            "webSiteConfigAppSettings": {
+        "type": "object",
+        "defaultValue": {}
+        
+      },
+      "webSiteConfigAppSettingsTags": {
+        "type": "object",
+        "defaultValue": {},
+        "metadata": {
+            "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+        }
+  }
+},
+    "variables": {
+        "web": {
+            "site": {
+                "config" : {
+
+                    "resourceType": "Microsoft.Web/sites/config",
+                    "resourceMode": "[parameters('webSiteConfigAppSettingsResourceMode')]",
+                    "resourceName": "[parameters('webSiteConfigAppSettingsResourceName')]",
+                    "resourceLocation": "[parameters('webSiteConfigAppSettingsResourceLocation')]",
+                    "appSettings": "[parameters('webSiteConfigAppSettings')]",
+                    "tags": "[parameters('webSiteConfigAppSettingsTags')]"
+                }
+            }
+        }
+    },
+    "resources": [
+        {
+            /*depends on website being deployed already*/
+            "name": "[variables('web').site.config.resourceName]",
+            "type": "Microsoft.Web/sites/config",
+            "apiVersion": "2016-08-01",
+            "properties": "[variables('web').site.config.appSettings]",
+            "tags": "[variables('web').site.config.tags]"
+        }
+    ]
+}
