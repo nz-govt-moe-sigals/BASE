@@ -2,6 +2,10 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "sqlServerResourceName": {
+            "type": "string",
+            "minLength": 1
+        },
         "sqlServerFirewallRuleResourceName": {
             "type": "string",
             "minLength": 1
@@ -21,10 +25,11 @@
     "variables": {
         "sql": {
             "server": {
-                "firewallrule": {
+                "resourceName": "[parameters('sqlServerResourceName')]",
+                "firewallRule": {
                     "resourceType": "Microsoft.Sql/servers/firewallrules",
                     "resourceName": "[parameters('sqlServerFirewallRuleResourceName')]",
-                    "resourceLocation": "[parameters('sqlServerFirewallRuleLocation')]",
+                    "resourceLocation": "[parameters('sqlServerFirewallRuleResourceLocation')]",
                     "startIpAddress": "[parameters('sqlServerFirewallRuleStartIpAddress')]",
                     "endIpAddress": "[parameters('sqlServerFirewallRuleEndIpAddress')]"
                 }
@@ -33,16 +38,16 @@
     },
     "resources": [
         {
-            
-            "name": "[variables('sql').server.firewallRule.resourceName]",
-            "type": "Microsoft.Sql/servers/firewallrules",
-            "location": "[variables('sql').server.firewallRule.resourceLocation]",
-            "apiVersion": "2014-04-01-preview",
             "dependsOn": [],
+            "name": "[variables('sql').server.firewallRule.resourceName]",
+            "type": "Microsoft.Sql/servers/firewallRules",
+            "location": "[variables('sql').server.firewallRule.resourceLocation]",
+            "apiVersion": "2015-05-01-preview",
             "properties": {
                 "startIpAddress": "variables('sql').server.firewallRule.startIpAddress]",
                 "endIpAddress": "[variables('sql').server.firewallRule.endIpAddress]"
-            }
+            },
+            "comments": "The default, all open range is 0.0.0.0 - 0.0.0.0, controlled by Azure AD role access."
         }
     ],
     "outputs": {

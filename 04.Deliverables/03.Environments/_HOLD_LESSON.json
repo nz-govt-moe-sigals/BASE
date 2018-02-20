@@ -1,0 +1,192 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "databaseserver": {
+            "type": "string"
+        },
+        "databaselist": {
+            "type": "array",
+            "metadata": {}
+        },
+        "firewallruleList": {
+            "type": "array",
+            "metadata": {}
+        },
+        "sqladminlogin": {
+            "type": "securestring"
+        },
+        "sqladminpassword": {
+            "type": "securestring"
+        },
+        "emailaddresses": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "databaseServerName": "[toLower(parameters('databaseServer'))]",
+        "databaseServerLocation": "West US",
+        "databaseServerAdminLogin": "[parameters('sqladminlogin')]",
+        "databaseServerAdminLoginPassword": "[parameters('sqladminpassword')]",
+        "storageAccountName": "[toLower(parameters('databaseServer'))]",
+        "emailAddresses": "[parameters('emailaddresses')]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "name": "[variables('storageAccountName')]",
+            "apiVersion": "2016-01-01",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "Standard_LRS"
+            },
+            "kind": "Storage",
+            "properties": {}
+        },
+        {
+            "name": "[variables('databaseServerName')]",
+            "type": "Microsoft.Sql/servers",
+            "location": "[variables('databaseServerLocation')]",
+            "apiVersion": "2014-04-01-preview",
+            "dependsOn": [],
+            "tags": {
+                "DisplayName": "[variables('databaseServerName')]"
+            },
+            "properties": {
+                "administratorLogin": "[variables('databaseServerAdminLogin')]",
+                "administratorLoginPassword": "[variables('databaseServerAdminLoginPassword')]",
+                "version": "12.0"
+            },
+            "resources": [
+                {
+                    "apiVersion": "2014-04-01-preview",
+                    "type": "auditingPolicies",
+                    "name": "DefaultAuditPolicy",
+                    "dependsOn": [
+                        "[variables('databaseServerName')]",
+                        "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
+                        "DatabaseLoop"
+                    ],
+                    "properties": {
+                        "auditingState": "Enabled",
+                        "storageAccountName": "[variables('storageAccountName')]",
+                        "storageAccountKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value]",
+                        "storageAccountResourceGroupName": "[resourceGroup().name]",
+                        "storageAccountSubscriptionId": "[subscription().subscriptionId]",
+                        "eventTypesToAudit": "All"
+                    }
+                },
+                {
+                    "apiVersion": "2015-05-01-preview",
+                    "type": "securityAlertPolicies",
+                    "name": "DefaultSecurityAlert",
+                    "dependsOn": [
+                        "[variables('databaseServerName')]",
+                        "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
+                        "[concat('Microsoft.Sql/servers/', variables('databaseServerName'), '/auditingPolicies/DefaultAuditPolicy')]"
+                    ],
+                    "properties": {
+                        "state": "Enabled",
+                        "disabledAlerts": "",
+                        "emailAddresses": "[variables('emailaddresses')]",
+                        "emailAccountAdmins": "Enabled",
+                        "retentionDays": "10",
+                        "storageEndpoint": "[concat('https://', variables ('storageAccountName'), '.blob.core.windows.net/')]",
+                        "storageAccountAccessKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value]"
+                    }
+                }
+            ]
+        },
+        {
+            "type": "Microsoft.Sql/servers/firewallrules",
+            "name": "[concat(variables('databaseServerName'), '/', parameters('firewallRuleList')[copyIndex()].name)]",
+            "apiVersion": "2014-04-01-preview",
+            "location": "[variables('databaseServerLocation')]",
+            "properties": {
+                "startIpAddress": "[parameters('firewallRuleList')[copyIndex()].startIpAddress]",
+                "endIpAddress": "[parameters('firewallRuleList')[copyIndex()].endIpAddress]"
+            },
+            "resources": [],
+            "dependsOn": [
+                "[concat('Microsoft.Sql/servers/', variables('databaseServerName'))]"
+            ],
+            "copy": {
+                "name": "FirewallLoop",
+                "count": "[length(parameters('firewallRuleList'))]"
+            }
+        },
+        {
+            "apiVersion": "2014-04-01-preview",
+            "type": "Microsoft.Sql/servers/databases",
+            "copy": {
+                "name": "DatabaseLoop",
+                "count": "[length(parameters('databaseList'))]"
+            },
+            "dependsOn": [
+                "[concat('Microsoft.Sql/servers/', variables('databaseServerName'))]"
+            ],
+            "location": "[variables('databaseServerLocation')]",
+            "name": "[concat(variables('databaseServerName'), '/', string(parameters('databaseList')[copyIndex()].databaseName))]",
+            "properties": {
+                "collation": "[parameters('databaseList')[copyIndex()].collation]",
+                "edition": "[parameters('databaseList')[copyIndex()].edition]",
+                "maxSizeBytes": "[parameters('databaseList')[copyIndex()].maxsize]"
+            },
+            "tags": {
+                "DisplayName": "[variables('databaseServerName')]"
+            },
+            "resources": [
+                {
+                    "name": "current",
+                    "type": "transparentDataEncryption",
+                    "dependsOn": [
+                        "[parameters('databaseList')[copyIndex()].databaseName]"
+                    ],
+                    "location": null,
+                    "apiVersion": "2014-04-01-preview",
+                    "properties": {
+                        "status": "Enabled"
+                    }
+                },
+                {
+                    "apiVersion": "2014-04-01-preview",
+                    "type": "auditingPolicies",
+                    "name": "DatabaseAuditingPolicies",
+                    "dependsOn": [
+                        "[concat('Microsoft.Sql/servers/', variables('databaseServerName'), '/databases/', string(parameters('databaseList')[copyIndex()].databaseName))]",
+                        "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
+                        "[concat('Microsoft.Sql/servers/', variables('databaseServerName'), '/databases/', string(parameters('databaseList')[copyIndex()].databaseName), '/transparentDataEncryption/current')]"
+                    ],
+                    "properties": {
+                        "auditingState": "Enabled",
+                        "storageAccountName": "[variables('storageAccountName')]",
+                        "storageAccountKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value]",
+                        "storageAccountResourceGroupName": "[resourceGroup().name]",
+                        "storageAccountSubscriptionId": "[subscription().subscriptionId]",
+                        "eventTypesToAudit": "[parameters('databaseList')[copyIndex()].auditedevents]"
+                    }
+                },
+                {
+                    "apiVersion": "2014-04-01-preview",
+                    "type": "securityAlertPolicies",
+                    "name": "DatabaseSecurityAlertPolicies",
+                    "dependsOn": [
+                        "[concat('Microsoft.Sql/servers/', variables('databaseServerName'), '/databases/' , string(parameters('databaseList')[copyIndex()].databaseName))]",
+                        "[concat('Microsoft.Sql/servers/', variables('databaseServerName'), '/databases/' , string(parameters('databaseList')[copyIndex()].databaseName), '/auditingPolicies/DatabaseAuditingPolicies')]",
+                        "[concat('Microsoft.Sql/servers/', variables('databaseServerName'), '/databases/', string(parameters('databaseList')[copyIndex()].databaseName), '/transparentDataEncryption/current')]"
+                    ],
+                    "properties": {
+                        "state": "Enabled",
+                        "disabledAlerts": "",
+                        "emailAddresses": "[variables('emailaddresses')]",
+                        "emailAccountAdmins": "Enabled",
+                        "retentionDays": "10",
+                        "storageEndpoint": "[concat('https://', variables ('storageAccountName'), '.blob.core.windows.net/')]",
+                        "storageAccountAccessKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value]"
+                    }
+                }
+            ]
+        }
+    ],
+    "outputs": {}
+}

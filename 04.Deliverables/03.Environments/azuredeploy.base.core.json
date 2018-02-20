@@ -2,6 +2,16 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "resourceMode": {
+            "metadata": {
+                "description": "Incremental..."
+            },
+            "allowedValues": [
+                "Incremental"
+            ],
+            "defaultValue": "Incremental",
+            "type": "string"
+        },
         "resourceLocation": {
             "metadata": {
                 "description": "The default location within which to develop the Resources Group and its child Resources, unless specifically defined otherwise (not all resources - such as SqlServers - are available in all resources)."
@@ -18,7 +28,8 @@
                 "description": "The default name template to use when developing the names of newly created Resources (eg: 'MYORG-MYAPP-{ENVID}-{BRANCHID}-{RESOURCETYPE}')'."
             },
             "type": "string",
-            "minLength": 6
+            "minLength": 6,
+            "maxLength": 24
         },
         "armTemplateRootUrl": {
             "metadata": {
@@ -52,6 +63,13 @@
             "type": "string",
             "defaultValue": "[resourceGroup().location]"
         },
+        "storageAccountDeploymentResourceName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. If it can be set. If left blank, defined automatically according to naming convention."
+            }
+        },
         "storageAccountDiagnosticsResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -73,23 +91,7 @@
                 "description": "Optional. If it can be set. If left blank, defined automatically according to naming convention."
             }
         },
-        "storageAccountPrivateAccessResourceName": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. If it can be set. If left blank, defined automatically according to naming convention."
-            }
-        },
-
-
-
-
-
-
-
-
-
-        "sqlServerResourceName": {
+        "storageAccountMedia2ResourceName": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
@@ -100,6 +102,7 @@
             "type": "string",
             "defaultValue": "[resourceGroup().location]",
             "allowedValues": [
+                "australiasoutheast",
                 "australiaeast",
                 "East US",
                 "South Central US",
@@ -111,19 +114,6 @@
             "metadata": {
                 "description": "The location for the SQL service. This is parameterised because SQL servers cannot be deployed in all regions for subscription types."
             }
-        },
-        "sqlServerSku": {
-            "metadata": {
-                "description": "App Service server pricing tier and capacity. Check details at https://azure.microsoft.com/en-us/pricing/details/app-service/"
-            },
-            "type": "string",
-            "defaultValue": "Basic",
-            "allowedValues": [
-                "Basic",
-                "S0",
-                "S1",
-                "S2"
-            ]
         },
         "sqlServerAdministratorLogin": {
             "metadata": {
@@ -212,10 +202,22 @@
                 "Australia Souteast"
             ],
             "metadata": {
-                "description": "The location for the Database."
+                "description": "The location for the Database. Can't be Nearshore Australia."
             }
         },
-
+        "sqlServerDatabaseResourceSku": {
+            "type": "string",
+            "defaultValue": "Basic",
+            "allowedValues": [
+              "Basic",
+              "S0",
+              "S1",
+              "S2"
+            ],
+            "metadata": {
+                "description": "Describes the performance level of the Database. Default is Basic ($8/m, 5 DTU, sufficient for 2GB). S0 is plenty at 25$/m. 10 DTUs, 250Gb. "
+              }
+            },
 
         "webServerFarmResourceName": {
             "type": "string",
@@ -238,7 +240,7 @@
             }
         },
 
-        "webServerFarmSku": {
+        "webServerFarmResourceSku": {
             "metadata": {
                 "description": "App Service server pricing tier and capacity. Check details at https://azure.microsoft.com/en-us/pricing/details/app-service/"
             },
@@ -341,126 +343,148 @@
             "metadata": {
                 "description": "The location for the Certificate, if it can be set."
             }
+        },
+        "_invalidValidSqlServerResourceLocation": {
+            "type":"array",
+            "defaultValue": ["Australia East","Australia Southeast", "australiaeast", "australiasoutheast"]
         }
+
+
     },
     "variables": {
         "metadata": {
             "comments00": "So...Templates are a set of sequential parameters, variables, resources, output sections for a reason.",
-            "comments01": "Using the Variables to shape the incoming Parameters, using Functions.",
-            "comments02": "Variables are grouped as complex objects. Note that when later referencing",
-            "comments03": "child properties, the dot is *outside* the top var name: `variables('top').childProperty`"
+            "conventions":{
+                "useVariables": "Using the Variables to shape the incoming Parameters, using Functions.",
+                "complexVariables": "Variables are grouped as complex objects. ",
+                "complexVariablesChildProperties": "Note that when later referencing child properties of complex variables, the dot is *outside* the top var name: `variables('top').childProperty`",
+                "lowerCaseUrls": "Blob storage urls are case-sensitive: so convention is to keep arm template and parameter filenames lower case."
+            }
+        },
+        "tmp": {
+            "tmpResourceLocation1": "[if (not (empty (parameters('resourceLocation'))), parameters('resourceLocation'), resourceGroup().location)]",
+            "tmpSqlResourceLocation1": "[if (not (empty (parameters('sqlServerResourceLocation'))), parameters('sqlServerResourceLocation'), if (not (empty (parameters('resourceLocation'))), parameters('resourceLocation'), resourceGroup().location))]"
         },
         "resource": {
             "comment": "A collection of variables for use within this template (and any linked child templates).",
-            "resourceNamePrefix": "azuredeploy.base.core",
+            "resourceNamePrefix": "[toLower('azuredeploy.base.core')]",
             "uniqueResourceId": "[uniqueString(resourceGroup().id)]",
-            "resourceLocation": "[if (not (equals (parameters('resourceLocation'),'')), parameters('resourceLocation'), resourceGroup().location)]",
+            "resourceMode": "[parameters('resourceMode')]",
+            "resourceLocation": "[if (not (empty (parameters('resourceLocation'))), parameters('resourceLocation'), resourceGroup().location)]",
             "armTemplateRootUrl": "[parameters('armTemplateRootUrl')]",
             "armTemplateParameterRootUrl": "[parameters('armTemplateParameterRootUrl')]",
-            "resourceNameTemplate": "[parameters('resourceNameTemplate')]"
+            "resourceNameTemplate": "[replace(parameters('resourceNameTemplate'),'{RESOURCE_TYPE}','{RT}')]"
         },
         "storageAccount": {
+            "deployment": {
+                "comment": "A collection of variables for passing to the storageAccount ARM Template for system diagnostics Backup storage.",
+                "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.deployment')]",
+                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.deployment', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                "resourceName": "[take( toLower( replace ( replace( replace( if (not (empty (parameters('storageAccountDiagnosticsResourceName'))), parameters('storageAccountDiagnosticsResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_DEPLOY'),'-',''),'_','')),24)]",
+                "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]"
+            },
             "diagnostics": {
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for system diagnostics Backup storage.",
-                "id": "[concat(variables('resource').resourceNamePrefix,'.storageAccount.diagnostics')]",
-                "armUrl": "[concat(variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat(variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.diagnostics', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[replace(if (not (empty (parameters('storageAccountDiagnosticsResourceName'))), parameters('storageAccountDiagnosticsResourceName'), variables('resource').resourceNameTemplate), '{RESOURCETYPE}', 'SA_DIAGNOSTICS')]",
-                "resourceLocation": "[if (not (equals (parameters('storageAccountResourceLocation'), '')), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]"
+                "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.diagnostics')]",
+                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.diagnostics', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                "resourceName": "[take( toLower( replace ( replace( replace( if (not (empty (parameters('storageAccountDiagnosticsResourceName'))), parameters('storageAccountDiagnosticsResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_DIAG'),'-',''),'_','')),24)]",
+                "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]"
             },
             "backups": {
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for Backup storage.",
-                "id": "[concat(variables('resource').resourceNamePrefix,'.storageAccount.backups')]",
-                "armUrl": "[concat(variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat(variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.backups', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[replace(if (not (equals (parameters('storageAccountBackupResourceName'),'')), parameters('storageAccountBackupResourceName'), variables('resource').resourceNameTemplate), '{RESOURCETYPE}', 'SA_BACKUPS')]",
-                "resourceLocation": "[if (not (equals (parameters('storageAccountResourceLocation'), '')), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]"
+                "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.backups')]",
+                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.backups', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                "resourceName": "[take( toLower( replace ( replace( replace( if (not (empty (parameters('storageAccountBackupResourceName'))), parameters('storageAccountBackupResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_BACKUP'),'-',''),'_','')),24)]",
+                "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]"
             },
             "media": {
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for Media storage.",
-                "id": "[concat(variables('resource').resourceNamePrefix,'.storageAccount.media')]",
-                "armUrl": "[concat(variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat(variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.media', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[replace(if (not (equals (parameters('storageAccountMediaResourceName'),'')), parameters('storageAccountMediaResourceName'), variables('resource').resourceNameTemplate), '{RESOURCETYPE}', 'SA_MEDIA')]",
-                "resourceLocation": "[if (not (equals (parameters('storageAccountResourceLocation'), '')), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]"
+                "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.media')]",
+                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.media', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                "resourceName": "[take( toLower( replace ( replace( replace( if (not (empty (parameters('storageAccountMediaResourceName'))), parameters('storageAccountMediaResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_MEDIA'),'-',''),'_','')),24)]",
+                "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]"
             },
-            "private": {
+            "media2": {
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for Media storage.",
-                "id": "[concat(variables('resource').resourceNamePrefix,'.storageAccount.private')]",
-                "armUrl": "[concat(variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat(variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.private', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[replace(if (not (equals (parameters('storageAccountPrivateAccessResourceName'),'')), parameters('storageAccountPrivateAccessResourceName'), variables('resource').resourceNameTemplate), '{RESOURCETYPE}', 'SA_PROXIED')]",
-                "resourceLocation": "[if (not (equals (parameters('storageAccountResourceLocation'), '')), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]"
+                "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.media2')]",
+                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.media2', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                "resourceName": "[take( toLower( replace( replace( replace( if (not (empty (parameters('storageAccountMedia2ResourceName'))), parameters('storageAccountMedia2ResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_MEDIA_2'),'-',''),'_','')),24)]",
+                "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]"
             }
         },
         "sql": {
             "server": {
                 "comment": "A collection of variables for passing to the SqlServer ARM Template -- via the proxy of the sqlServerDatabase ARM that depends on it.",
-                "id": "[concat(variables('resource').resourceNamePrefix,'.sqlServerDatabaseServer')]",
-                "armUrl": "[concat(variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.sqlServer', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat(variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.sqlServer', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceLocation": "[if (not (equals (parameters('sqlServerResourceLocation'), '')), parameters('sqlServerResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
-                "resourceName": "[replace(if (not (equals (parameters('sqlServerResourceName'),'')), parameters('sqlServerResourceName'), variables('resource').resourceNameTemplate), '{RESOURCETYPE}', 'SQLSERVER')]",
-                "sku": "[coalesce(parameters('sqlServerSku'), parameters('webServerFarmSku') )]",
+                "id": "[concat( variables('resource').resourceNamePrefix,'.sql.server')]",
+                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server', '.json', parameters('armTemplateRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                "resourceName": "[replace( variables('resource').resourceNameTemplate, '{RT}', 'SQLSERVER')]",
+                "resourceLocation": "[if (not(contains(parameters('_invalidValidSqlServerResourceLocation'), variables('tmp').tmpSqlResourceLocation1)), variables('tmp').tmpSqlResourceLocation1,'Southeast Asia')]",
                 "administrator": {
                     "login": "[parameters('sqlServerAdministratorLogin')]",
-                    "password": "[parameters('sqlServerAdministratorLoginPassword')]"
+                    "loginPassword": "[parameters('sqlServerAdministratorLoginPassword')]"
+                },
+                "firewallRule": {
+                    "openToAzure": {
+                        "comment": "A collection of variables for passing to the SqlServerFirewallRule ARM Template.",
+                        "id": "[concat( concat( variables('resource').resourceNamePrefix,'.sql.server'),'.firewallRule.openToAzure')]",
+                        "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server.firewallrule', '.json', parameters('armTemplateRootSas'))]",
+                        "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server.firewallrule.opentoazure', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                        "resourceName": "[concat( replace( variables('resource').resourceNameTemplate, '{RT}', 'SQLSERVER'),'/','rules')]",
+                        "resourceLocation": "[if (not (empty (parameters('sqlServerFirewallRuleResourceLocation'))), parameters('sqlServerFirewallRuleResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
+                        "startIpAddress": "[parameters('sqlServerFirewallRuleStartIpAddress')]",
+                        "endIpAddress": "[parameters('sqlServerFirewallRuleEndIpAddress')]"
+                    }
                 }
-            },
-            "firewallRule": {
-                "comment": "A collection of variables for passing to the SqlServerFirewallRule ARM Template.",
-                "id": "[concat(variables('resource').resourceNamePrefix,'.sqlServer.fireWallRule')]",
-                "armUrl": "[concat(variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.sqlServer.firewallrule', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat(variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.sqlServer.firewallrules', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceLocation": "[if (not (equals (parameters('sqlServerFirewallRuleResourceLocation'), '')), parameters('sqlServerFirewallRuleResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
-                "resourceName": "[replace(if (not (equals (parameters('sqlServerFirewallRuleResourceName'),'')), parameters('sqlServerFirewallRuleResourceName'), variables('resource').resourceNameTemplate), '{RESOURCETYPE}', 'SQLSERVER_FIREWALL_RULE')]",
-                "startIpAddress": "[parameters('sqlServerFirewallRuleStartIpAddress')]",
-                "endIpAddress": "[parameters('sqlServerFirewallRuleEndIpAddress')]"
             },
             "auditingPolicies": {
                 "comment": "A collection of variables for passing to the SqlServerAuditingPolicies ARM Template.",
-                "id": "[concat(variables('resource').resourceNamePrefix,'.sqlServer.auditingPolicies')]",
-                "resourceName": "[replace(if (not (equals (parameters('sqlServerAuditingPoliciesResourceName'),'')), parameters('sqlServerAuditingPoliciesResourceName'), variables('resource').resourceNameTemplate), '{RESOURCETYPE}', 'SQLSERVER_AUDITING_POLICIES')]",
-                "resourceLocation": "[if (not (equals (parameters('sqlServerAuditingPoliciesResourceLocation'), '')), parameters('sqlServerAuditingPoliciesResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]"
+                "id": "[concat( variables('resource').resourceNamePrefix,'.sqlServer.auditingPolicies')]",
+                "resourceName": "[replace( if (not (empty (parameters('sqlServerAuditingPoliciesResourceName'))), parameters('sqlServerAuditingPoliciesResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SQLSERVER_AUDITING_POLICIES')]",
+                "resourceLocation": "[if (not (empty (parameters('sqlServerAuditingPoliciesResourceLocation'))), parameters('sqlServerAuditingPoliciesResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]"
             },
             "database": {
                 "comment": "A collection of variables for passing to the SqlServerDatabase ARM Template.",
-                "id": "[concat(variables('resource').resourceNamePrefix,'.sqlServer.database')]",
-                "armUrl": "[concat(variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.sqlServer.database', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat(variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.sqlServer.database', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[replace(if (not (equals (parameters('sqlServerDatabaseResourceName'),'')), parameters('sqlServerDatabaseResourceName'), variables('resource').resourceNameTemplate), '{RESOURCETYPE}', 'SQLSERVER_DATABASE')]",
-                "resourceLocation": "[if (not (equals (parameters('sqlServerDatabaseResourceLocation'), '')), parameters('sqlServerDatabaseResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]"
+                "id": "[concat( variables('resource').resourceNamePrefix,'.sqlServer.database')]",
+                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.sqlServer.database', '.json', parameters('armTemplateRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.sqlServer.database', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                "resourceName": "[replace( if (not (empty (parameters('sqlServerDatabaseResourceName'))), parameters('sqlServerDatabaseResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SQLSERVER_DATABASE')]",
+                "resourceLocation": "[if (not (empty (parameters('sqlServerDatabaseResourceLocation'))), parameters('sqlServerDatabaseResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]"
             }
         },
         "web": {
             "ServerFarm": {
                 "comment": "A collection of variables for passing to the webServer  ARM Template.",
-                "id": "[concat(variables('resource').resourceNamePrefix,'.appServicePan' )]",
-                "armUrl": "[concat(variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.webServerFarm', '.json' , parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat(variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.webServerFarm', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[replace(if (not (equals (parameters('webServerFarmResourceName'),'')), parameters('webServerFarmResourceName'), variables('resource').resourceNameTemplate), '{RESOURCETYPE}', 'WEB_SERVER_FARM')]",
-                "resourceLocation": "[if (not (equals (parameters('webServerFarmResourceLocation'), '')), parameters('webServerFarmResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
-                "sku": "[parameters('webServerFarmSku')]"
+                "id": "[concat( variables('resource').resourceNamePrefix,'.appServicePan' )]",
+                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.webServerFarm', '.json' , parameters('armTemplateRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.webServerFarm', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                "resourceName": "[replace( if (not (empty (parameters('webServerFarmResourceName'))), parameters('webServerFarmResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'WEB_SERVER_FARM')]",
+                "resourceLocation": "[if (not (empty (parameters('webServerFarmResourceLocation'))), parameters('webServerFarmResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
+                "sku": "[parameters('webServerFarmResourceSku')]"
             },
             "site": {
-                "resourceName": "[replace(if (not (equals (parameters('webSiteResourceName'),'')), parameters('webSiteResourceName'), variables('resource').resourceNameTemplate), '{RESOURCETYPE}', 'WEB_SITE')]",
-                "resourceLocation": "[if (not (equals (parameters('webSiteResourceLocation'), '')), parameters('webSiteResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
+                "resourceName": "[replace( if (not (empty (parameters('webSiteResourceName'))), parameters('webSiteResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'WEB_SITE')]",
+                "resourceLocation": "[if (not (empty (parameters('webSiteResourceLocation'))), parameters('webSiteResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                 "mode": "MODE:TODO",
                 "serverFarmResourceId": "TODO",
-
 
                 "hostBinding": {
                     "comments": "",
                     "resourceType": "Microsoft.Web/sites/hostNameBindings",
-                    "resourceName": "[replace(if (not (equals (parameters('webSiteHostBindingResourceName'),'')), parameters('webSiteHostBindingResourceName'), variables('resource').resourceNameTemplate), '{RESOURCETYPE}', 'WEB_SERVER_HOST_BINDING')]",
-                    "resourceLocation": "[if (not (equals (parameters('webSiteHostBindingResourceLocation'), '')), parameters('webSiteHostBindingResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
+                    "resourceName": "[concat(replace( if (not (empty (parameters('webSiteHostBindingResourceName'))), parameters('webSiteHostBindingResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'WEB_SITE'),'/rule')]",
+                    "resourceLocation": "[if (not (empty (parameters('webSiteHostBindingResourceLocation'))), parameters('webSiteHostBindingResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                     "hostName": "[parameters('webSiteHostBindingHostName')]",
                     "thumbprint": "[parameters('webSiteHostBindingCertificateThumbprint')]"
                 }
             },
             "certificate": {
                 "resourceType": "Microsoft.Web/certificates",
-                "resourceName": "[replace(if (not (equals (parameters('webCertificateResourceName'),'')), parameters('webCertificateResourceName'), variables('resource').resourceNameTemplate), '{RESOURCETYPE}', 'WEB_CERTIFICATE')]",
+                "resourceName": "[replace( if (not (empty (parameters('webCertificateResourceName'))), parameters('webCertificateResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'WEB_CERTIFICATE')]",
                 "resourceLocation": "[coalesce(parameters('webCertificateResourceLocation'), variables('resource').resourceLocation, resourceGroup().location)]",
                 "pfxBlob": "[coalesce(parameters('webCertificateBase64'),'ERROR:NO PFX BLOB PROVIDED')]",
                 "password": "[coalesce(parameters('webCertificatePassword'),'ERROR:NO PFX PASSWORD PROVIDED')]"
@@ -470,11 +494,32 @@
     "resources": [
         {
             "comments": "Ensures a Resource Group scoped unique backup Storage Account (for Db)",
+            "name": "[variables('storageAccount').deployment.id]",
+            "apiVersion": "2017-05-10",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "[variables('resource').resourceMode]",
+                "templateLink": {
+                    "uri": "[variables('storageAccount').deployment.armUrl]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "storageAccountResourceName": {
+                        "value": "[variables('storageAccount').deployment.resourceName]"
+                    },
+                    "storageAccountResourceLocation": {
+                        "value": "[variables('storageAccount').deployment.resourceLocation]"
+                    }
+                }
+            }
+        },
+        {
+            "comments": "Ensures a Resource Group scoped unique backup Storage Account (for Db)",
             "name": "[variables('storageAccount').diagnostics.id]",
             "apiVersion": "2017-05-10",
             "type": "Microsoft.Resources/deployments",
             "properties": {
-                "mode": "Incremental",
+                "mode": "[variables('resource').resourceMode]",
                 "templateLink": {
                     "uri": "[variables('storageAccount').diagnostics.armUrl]",
                     "contentVersion": "1.0.0.0"
@@ -488,7 +533,142 @@
                     }
                 }
             }
+        },
+        {
+            "comments": "Ensures a Resource Group scoped unique Database Backups Storage Account",
+            "name": "[variables('storageAccount').backups.id]",
+            "apiVersion": "2017-05-10",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "[variables('resource').resourceMode]",
+                "templateLink": {
+                    "uri": "[variables('storageAccount').backups.armUrl]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "storageAccountResourceName": {
+                        "value": "[variables('storageAccount').backups.resourceName]"
+                    },
+                    "storageAccountResourceLocation": {
+                        "value": "[variables('storageAccount').backups.resourceLocation]"
+                    }
+                }
+            }
+        },
+        {
+            "comments": "Ensures a Resource Group scoped unique Media Storage Account",
+            "name": "[variables('storageAccount').media.id]",
+            "apiVersion": "2017-05-10",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "[variables('resource').resourceMode]",
+                "templateLink": {
+                    "uri": "[variables('storageAccount').media.armUrl]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "storageAccountResourceName": {
+                        "value": "[variables('storageAccount').media.resourceName]"
+                    },
+                    "storageAccountResourceLocation": {
+                        "value": "[variables('storageAccount').media.resourceLocation]"
+                    }
+                }
+            }
+        },
+        {
+            "comments": "Ensures a Resource Group scoped unique Media (2) Storage Account",
+            "name": "[variables('storageAccount').media2.id]",
+            "apiVersion": "2017-05-10",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "[variables('resource').resourceMode]",
+                "templateLink": {
+                    "uri": "[variables('storageAccount').media2.armUrl]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "storageAccountResourceName": {
+                        "value": "[variables('storageAccount').media2.resourceName]"
+                    },
+                    "storageAccountResourceLocation": {
+                        "value": "[variables('storageAccount').media2.resourceLocation]"
+                    }
+                }
+            }
+        },
+
+
+
+
+
+
+
+        {
+            "comments": "Ensure a Resource Group scoped SqlServer. Is a dependency for the subsequent deployment of the FirewallRule, and the SqlServerDatabase.",
+            "type": "Microsoft.Resources/deployments",
+            "name": "[variables('sql').server.id]",
+            "apiVersion": "2017-05-10",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('sql').server.armUrl]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "sqlServerResourceName": {
+                        "value": "[variables('sql').server.resourceName]"
+                    },
+                    "sqlServerResourceLocation": {
+                        "value": "[variables('sql').server.resourceLocation]"
+                    },
+                    "sqlServerAdministratorLogin": {
+                        "value": "[variables('sql').server.administrator.login]"
+                    },
+                    "sqlServerAdministratorLoginPassword": {
+                        "value": "[variables('sql').server.administrator.loginPassword]"
+                    }
+                }
+            }
+        },
+
+        {
+            "dependsOn": ["[variables('sql').server.id]"],
+            "comments": "Ensures a Resource Group scoped Database Firewall Rule. Depends on `SqlServer` database being ensured as deployed first.",
+            "name": "[variables('sql').server.firewallRule.openToAzure.id]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2017-05-10",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('sql').server.firewallRule.openToAzure.armUrl]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "sqlServerFirewallRuleResourceName": {
+                        "value": "[variables('sql').server.firewallRule.openToAzure.resourceName]"
+                    },
+                    "sqlServerFirewallRuleResourceLocation": {
+                        "value": "[variables('sql').server.firewallRule.openToAzure.resourceLocation]"
+                    },
+                    "sqlServerFirewallRuleStartIpAddress": {
+                        "value": "[variables('sql').server.firewallRule.openToAzure.startIpAddress]"
+                    },
+                    "sqlServerFirewallRuleEndIpAddress": {
+                        "value": "[variables('sql').server.firewallRule.openToAzure.endIpAddress]"
+                    }
+                },
+                "parametersLink": "[variables('sql').server.firewallRule.openToAzure.armParametersUrl]"
+            },
+            "tags": {}
         }
+
+
+
+
+
+
+
     ],
     "outputs": {
         "uniqueResourceId": {

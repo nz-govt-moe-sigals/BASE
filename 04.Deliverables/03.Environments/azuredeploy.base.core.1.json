@@ -131,7 +131,7 @@
                 "description": "Ensure the Database has firewall rules in place. Tip: The range should be permissive (0.0.0.0 - 0.0.0.0), controlling access using AzureAD and integrated security."
             }
         },
-        "webServerFarmSku": {
+        "webServerFarmResourceSku": {
             "metadata": {
                 "description": "App Service server pricing tier and capacity. Check details at https://azure.microsoft.com/en-us/pricing/details/app-service/"
             },
@@ -223,7 +223,7 @@
                 "armParametersUrl": "[concat(variables('armTemplateParameterRootUrl'), '/', variables('resourceNamePrefix'),'.sqlServer', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceLocation": "[parameters('resourceLocation')]",
                 "resourceName": "[replace(parameters('resourceNameTemplate'), '{RESOURCETYPE}', 'SS')]",
-                "sku": "[coalesce(parameters('sqlServerSku'), parameters('webServerFarmSku') )]",
+                "sku": "[coalesce(parameters('sqlServerSku'), parameters('webServerFarmResourceSku') )]",
                 "administrator": {
                     "login": "[parameters('sqlServerAdministratorLogin')]",
                     "password": "[parameters('sqlServerAdministratorLoginPassword')]"
@@ -259,7 +259,7 @@
                 "armParametersUrl": "[concat(variables('armTemplateParameterRootUrl'), '/', variables('resourceNamePrefix'),'.webServerFarm', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceLocation": "[parameters('resourceLocation')]",
                 "resourceName": "[replace(parameters('resourceNameTemplate'), '{RESOURCETYPE}', 'WSF')]",
-                "sku": "[parameters('webServerFarmSku')]"
+                "sku": "[parameters('webServerFarmResourceSku')]"
             },
             "site": {
                 "hostBinding": {
@@ -281,110 +281,42 @@
         }
     },
     "resources": [
-        {
-            "comments": "Ensures a Resource Group scoped unique Database Backups Storage Account",
-            "name": "[variables('storageAccount').databaseBackups.id]",
-            "apiVersion": "2017-05-10",
-            "type": "Microsoft.Resources/deployments",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[variables('storageAccount').databaseBackups.armUrl]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "resourceName": {
-                        "value": "[variables('storageAccount').databaseBackups.resourceName]"
-                    },
-                    "resourceLocation": {
-                        "value": "[variables('storageAccount').databaseBackups.resourceLocation]"
-                    }
-                }
-            }
-        },
-        {
-            "comments": "Ensures a Resource Group scoped unique Media Storage Account",
-            "name": "[variables('storageAccount').media.id]",
-            "apiVersion": "2017-05-10",
-            "type": "Microsoft.Resources/deployments",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[variables('storageAccount').media.armUrl]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "resourceName": {
-                        "value": "[variables('storageAccount').media.resourceName]"
-                    },
-                    "resourceLocation": {
-                        "value": "[variables('storageAccount').media.resourceLocation]"
-                    }
-                }
-            }
-        },
-        {
-            "comments": "Ensure Resource Group SqlServer. Is a dependency for the subsequent deployment of the FirewallRule, and the SqlServerDatabase.",
-            "type": "Microsoft.Resources/deployments",
-            "name": "[variables('sql').server.id]",
-            "apiVersion": "2017-05-10",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[variables('sql').server.armPath]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "sqlServerResourceName": {
-                        "value": "[variables('sql').server.resourceName]"
-                    },
-                    "sqlServerLocation": {
-                        "value": "[variables('sql').server.resourceLocation]"
-                    },
-                    "sqlServerSku": {
-                        "value": "[variables('sql').server.sku]"
-                    },
-                    "sqlServerAdministratorLogin": {
-                        "value": "[variables('sql').server.administratorLogin]"
-                    },
-                    "sqlServerAdministratorLoginPassword": {
-                        "value": "[variables('sql').server.administratorLoginPassword]"
-                    }
-                }
-            }
-        },
+
         {
             "dependsOn": [
-                "[variables('sql').server.id]"
+                "[concat('Microsoft.Sql/servers/', variables('sql').server.id)]"
             ],
             "comments": "Ensures a Resource Group scoped Database Firewall Rule. Depends on `SqlServer` database being ensured as deployed first.",
-            "name": "[variables('sql').server.firewallRule.id]",
-            "apiVersion": "2017-05-10",
+            "name": "[variables('sql').server.firewallRule.openToAzure.id]",
             "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2017-05-10",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[variables('sql').server.firewallRule.armUrl]",
+                    "uri": "[variables('sql').server.firewallRule.openToAzure.armUrl]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
                     "sqlServerFirewallRuleResourceName": {
-                        "value": "[variables('sql').server.firewallRule.resourceName]"
+                        "value": "[variables('sql').server.firewallRule.openToAzure.resourceName]"
                     },
                     "sqlServerFirewallRuleResourceLocation": {
-                        "value": "[variables('sql').server.firewallRule.resourceLocation]"
+                        "value": "[variables('sql').server.firewallRule.openToAzure.resourceLocation]"
                     },
                     "sqlServerFirewallRuleStartIpAddress": {
-                        "value": "[variables('sql').server.firewallRule.startIPAddress]"
+                        "value": "[variables('sql').server.firewallRule.openToAzure.startIpAddress]"
                     },
                     "sqlServerFirewallRuleEndIpAddress": {
-                        "value": "[variables('sql').server.firewallRule.endIPAddress]"
+                        "value": "[variables('sql').server.firewallRule.openToAzure.endIpAddress]"
                     }
                 },
-                "parametersLink": "[variables('sql').server.firewallRule.armParametersUri]"
+                "parametersLink": "[variables('sql').server.firewallRule.openToAzure.armParametersUrl]"
             },
             "tags": {}
         },
+
+
+
         {
             "dependsOn": [
                 "[variables('sql').server.id]",
@@ -439,6 +371,38 @@
             },
             "tags": {}
             },
+
+
+
+
+
+
+
+
+
+WORKS!!!
+
+
+
+
+            {
+                "dependsOn": ["[variables('sql').server.id]"],
+                "name": "[variables('sql').server.firewallRule.openToAzure.resourceName]",
+                "type": "Microsoft.Sql/servers/firewallRules",
+                "location": "[variables('sql').server.firewallRule.openToAzure.resourceLocation]",
+                "apiVersion": "2015-05-01-preview",
+                "properties": {
+                    "startIpAddress": "variables('sql').server.firewallRule.openToAzure.startIpAddress]",
+                    "endIpAddress": "[variables('sql').server.firewallRule.openToAzure.endIpAddress]"
+                },
+                "comments": "The default, all open range is 0.0.0.0 - 0.0.0.0, controlled by Azure AD role access."
+            }
+
+
+
+
+
+
         {
             "comments": "Ensures a Resource Group scoped unique App Service Plan",
             "name": "[variables('web').serverFarm.id]",

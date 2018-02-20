@@ -131,7 +131,7 @@
                 "description": "Ensure the Database has firewall rules in place. Tip: The range should be permissive (0.0.0.0 - 0.0.0.0), controlling access using AzureAD and integrated security."
             }
         },
-        "webServerFarmSku": {
+        "webServerFarmResourceSku": {
             "metadata": {
                 "description": "App Service server pricing tier and capacity. Check details at https://azure.microsoft.com/en-us/pricing/details/app-service/"
             },
@@ -223,7 +223,7 @@
                 "armParametersUrl": "[concat(variables('armTemplateParameterRootUrl'), '/', variables('resourceNamePrefix'),'.sqlServer', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceLocation": "[parameters('resourceLocation')]",
                 "resourceName": "[replace(parameters('resourceNameTemplate'), '{RESOURCETYPE}', 'SS')]",
-                "sku": "[coalesce(parameters('sqlServerSku'), parameters('webServerFarmSku') )]",
+                "sku": "[coalesce(parameters('sqlServerSku'), parameters('webServerFarmResourceSku') )]",
                 "administrator": {
                     "login": "[parameters('sqlServerAdministratorLogin')]",
                     "password": "[parameters('sqlServerAdministratorLoginPassword')]"
@@ -259,7 +259,7 @@
                 "armParametersUrl": "[concat(variables('armTemplateParameterRootUrl'), '/', variables('resourceNamePrefix'),'.webServerFarm', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceLocation": "[parameters('resourceLocation')]",
                 "resourceName": "[replace(parameters('resourceNameTemplate'), '{RESOURCETYPE}', 'WSF')]",
-                "sku": "[parameters('webServerFarmSku')]"
+                "sku": "[parameters('webServerFarmResourceSku')]"
             },
             "site": {
                 "hostBinding": {
