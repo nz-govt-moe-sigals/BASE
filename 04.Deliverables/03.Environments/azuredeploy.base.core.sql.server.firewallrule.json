@@ -9,6 +9,9 @@
         "sqlServerFirewallRuleResourceLocation": {
             "type": "string"
         },
+        "sqlServerFirewallRuleParentResourceId": {
+            "type": "string"
+        },
         "sqlServerFirewallRuleStartIpAddress": {
             "type": "string",
             "minLength": 1
@@ -32,6 +35,7 @@
                     "resourceType": "Microsoft.Sql/servers/firewallrules",
                     "resourceName": "[parameters('sqlServerFirewallRuleResourceName')]",
                     "resourceLocation": "[parameters('sqlServerFirewallRuleResourceLocation')]",
+                    "parentResourceId": "[parameters('sqlServerFirewallRuleParentResourceId')]",
                     "startIpAddress": "[parameters('sqlServerFirewallRuleStartIpAddress')]",
                     "endIpAddress": "[parameters('sqlServerFirewallRuleEndIpAddress')]",
                     "tags": "[parameters('sqlServerFirewallRuleTags')]"

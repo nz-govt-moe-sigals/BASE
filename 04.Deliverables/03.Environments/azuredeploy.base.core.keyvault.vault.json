@@ -1,0 +1,129 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "keyVaultVaultResourceName": {
+            "type": "string"
+        },
+        "keyVaultVaultResourceLocation": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]"
+        },
+        "keyVaultVaultResourceSku": {
+            "type": "string",
+            "defaultValue": "Standard",
+            "allowedValues": [
+              "Standard",
+              "Premium"
+            ],
+            "metadata": {
+              "description": "..."
+            }
+          },
+          "keyVaultVaultEnabledForDeployment": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Specifies if the vault is enabled for VM or Service Fabric deployment"
+            }
+        },
+        "keyVaultVaultEnabledForTemplateDeployment": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Specifies if the vault is enabled for ARM template deployment"
+            }
+        },
+        "keyVaultVaultEnabledForDiskEncryption": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Specifies if the vault is enabled for volume encryption"
+            }
+        },
+        "keyVaultVaultEnableSoftDelete": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Specifies if the vault is enabled for volume encryption"
+            }
+        },
+        "keyVaultVaultTags": {
+            "type": "object",
+            "defaultValue": {},
+            "metadata": {
+                "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+            }
+        }
+    },
+    "variables": {
+        "keyVault": {
+            "vault": {
+                "resourceName": "[parameters('keyVaultVaultResourceName')]",
+                "resourceLocation": "[coalesce(parameters('keyVaultVaultResourceLocation'))]",
+                "resourceType": "Microsoft.KeyVault/vaults",
+                "resourceSku": "[parameters('keyVaultVaultResourceSku')]",
+                "enabledForDeployment": "[parameters('keyVaultVaultEnabledForDeployment')]",
+                "enabledForTemplateDeployment": "[parameters('keyVaultVaultEnabledForTemplateDeployment')]",
+                "enabledForDiskEncryption": "[parameters('keyVaultVaultEnabledForDiskEncryption')]",
+                "enableSoftDelete": "[parameters('keyVaultVaultEnableSoftDelete')]",
+
+                "tags": "[parameters('keyVaultVaultTags')]"
+            }
+        }
+    },
+    "resources":[
+        {
+            "name": "[variables('keyVault').vault.resourceName]",
+            "type": "Microsoft.KeyVault/vaults",
+            "apiVersion": "2016-10-01",
+            "location": "[variables('keyVault').vault.resourceLocation]",
+            "tags": "[variables('keyVault').vault.tags]",
+            "properties": {
+              "tenantId": "string",
+              "sku": {
+                "family": "A",
+                "name": "[variables('keyVault').vault.resourceSku]"
+              },
+              "accessPolicies": [
+                {
+                  "tenantId": "string",
+                  "objectId": "string",
+                  "applicationId": "string",
+                  "permissions": {
+                    "keys": [
+                      "string"
+                    ],
+                    "secrets": [
+                      "string"
+                    ],
+                    "certificates": [
+                      "string"
+                    ],
+                    "storage": [
+                      "string"
+                    ]
+                  }
+                }
+              ],
+              "vaultUri": "string",
+              "enabledForDeployment": "[variables('keyVault').vault.enabledForDeployment]",
+              "enabledForDiskEncryption": "[variables('keyVault').vault.enabledForDiskEncryption]",
+              "enabledForTemplateDeployment": "[variables('keyVault').vault.enabledForTemplateDeployment]",
+              "enableSoftDelete": "[variables('keyVault').vault.enableSoftDelete]",
+              "createMode": "string"
+            }
+          }        
+    ],
+    "outputs": {
+        "resourceId": {
+            "value": "[resourceId(variables('keyVault').vault.resourceType, variables('keyVault').vault.resourceName)]",
+            "type": "string"
+        }    
+    }
+}
+
+
+
+
+

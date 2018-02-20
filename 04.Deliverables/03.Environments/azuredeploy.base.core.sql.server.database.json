@@ -6,7 +6,7 @@
             "type": "string"
         },
         "sqlServerDatabaseResourceLocation": {
-            "type": "string"
+            "type": "string",
         },
         "sqlServerDatabaseResourceSku": {
             "type": "string",
@@ -88,7 +88,7 @@
     ],
     "outputs": {
         "resourceId": {
-            "value": "[resourceId(variables('sql').server.database.resourceName, variables('sql').server.database.resourceName)]",
+            "value": "[resourceId(variables('sql').server.database.resourceType, variables('sql').server.database.resourceName)]",
             "type": "string"
         }
     }

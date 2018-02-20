@@ -41,7 +41,7 @@
                     "resourceType": "Microsoft.Sql/servers/auditingPolicies",
                     "resourceName": "[parameters('sqlServerAuditingPoliciesResourceName')]",
                     "resourceLocation": "[parameters('sqlServerAuditingPoliciesLocation')]",
-                    "eventTypesToAudit": "[parameters('sqlServerAuditPoliciesEventTypesToAudit]",
+                    "eventTypesToAudit": "[parameters('sqlServerAuditingPoliciesEventTypesToAudit]",
                     "auditsLogTable": "[parameters('sqlServerAuditingPoliciesAuditLogsTable')]",
                     "fullAuditLogsTableName": "[parameters('sqlServerAuditingPoliciesFullAuditLogsTable')]",
                     "retentionDays": "[parameters('sqlServerAuditingPoliciesRetentionDays')]",
@@ -86,7 +86,7 @@
     ],
     "outputs": {
         "resourceId": {
-            "value": "[resourceId(variables('sql').server.database.resourceName, variables('sql').server.database.resourceName)]",
+            "value": "[resourceId(variables('sql').server.database.resourceType, variables('sql').server.database.resourceName)]",
             "type": "string"
         }
     }

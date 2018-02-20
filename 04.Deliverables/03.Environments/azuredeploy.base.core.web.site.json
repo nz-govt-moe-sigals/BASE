@@ -22,6 +22,10 @@
                 "description": "The location within which to develop the App Service plan resource."
             }
         },
+        "webSiteParentResourceId": {
+            "type": "string",
+            "minLength": 1
+        },
         "webSiteResourceSku": {
             "type": "string",
             "defaultValue": "X",
@@ -117,6 +121,7 @@
                 "resourceName": "[parameters('webSiteResourceName')]",
                 "resourceLocation": "[parameters('webSiteResourceLocation')]",
                 "resourceSku": "[parameters('webSiteResourceSku')]",
+                "parentResourceId": "[parameters('webSiteParentResourceId')]",
                 "alwaysOn": "[parameters('webSiteAlwaysOn')]",
                 "detailedErrorLoggingEnabled": "[parameters('webSiteDetailedErrorLoggingEnabled')]",
                 "logsDirectorySizeLimit": "[parameters('webSiteLogsDirectorySizeLimit')]",
@@ -143,6 +148,7 @@
             "properties": {
                 "mode": "[variables('web').site.resourceMode]",
                 "parameters": {
+                    
                     "defaultDocuments": [
                         "Default.htm",
                         "Default.html",

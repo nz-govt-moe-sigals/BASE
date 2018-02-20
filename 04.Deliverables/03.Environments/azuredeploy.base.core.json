@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     /*holly shit! One can comment in ARMS, even if it is not valid JSON!*/
-     "parameters": {
+    "parameters": {
         "resourceMode": {
             "metadata": {
                 "description": "Incremental..."
@@ -61,12 +61,67 @@
             "defaultValue": ""
         },
 
+        // ----------------------------------------------------------------------
+        //Rsource Specific Key Vault Parameters 
+        // ----------------------------------------------------------------------
+        "keyVaultVaultResourceName": {
+            "type": "string"
+        },
+        "keyVaultVaultResourceLocation": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]"
+        },
+        "keyVaultVaultResourceSku": {
+            "type": "string",
+            "defaultValue": "Standard",
+            "allowedValues": [
+              "Standard",
+              "Premium"
+            ],
+            "metadata": {
+              "description": "..."
+            }
+          },
+          "keyVaultVaultEnabledForDeployment": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Specifies if the vault is enabled for VM or Service Fabric deployment"
+            }
+        },
+        "keyVaultVaultEnabledForTemplateDeployment": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Specifies if the vault is enabled for ARM template deployment"
+            }
+        },
+        "keyVaultVaultEnabledForDiskEncryption": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Specifies if the vault is enabled for volume encryption"
+            }
+        },
+        "keyVaultVaultEnableSoftDelete": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Specifies if the vault is enabled for volume encryption"
+            }
+        },
+        "keyVaultVaultTags": {
+            "type": "object",
+            "defaultValue": {},
+            "metadata": {
+                "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+            }
+        },
+
 
         // ----------------------------------------------------------------------
         // General StorageAccount Parameters 
         // ----------------------------------------------------------------------
-
-
         "storageAccountResourceLocation": {
             "type": "string",
             "defaultValue": "[resourceGroup().location]"
@@ -78,11 +133,9 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-
         // ----------------------------------------------------------------------
         // Specific Storage Accounts Parameters 
         // ----------------------------------------------------------------------
-
         "storageAccountDeploymentResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -118,11 +171,9 @@
                 "description": "Optional. If it can be set. If left blank, defined automatically according to naming convention."
             }
         },
-
         // ----------------------------------------------------------------------
         // SQL Server Firewall Rule Parameters
         // ----------------------------------------------------------------------
-
         "sqlServerResourceLocation": {
             "type": "string",
             "defaultValue": "[resourceGroup().location]",
@@ -154,7 +205,6 @@
             "type": "securestring",
             "minLength": 12
         },
-
         "sqlServerTags": {
             "type": "object",
             "defaultValue": {},
@@ -163,15 +213,16 @@
             }
         },
 
+        /*@ 
         // ----------------------------------------------------------------------
-        // SQL Server Firewall Rule Parameters
-        // Has dependency on SQL Server being there first.
+        Dependencies:  Has dependency on SQL Server being there first.
         // ----------------------------------------------------------------------
+        */
 
         "sqlServerFirewallRuleResourceName": {
             "type": "string",
             "minLength": 1,
-            "defaultValue":"AllowAzure",
+            "defaultValue": "AllowAzure",
             "metadata": {
                 "description": "Optional. Default name is 'AllowAzure'."
             }
@@ -194,9 +245,6 @@
             },
             "defaultValue": "0.0.0.0"
         },
-
-
-
         "sqlServerFirewallRuleTags": {
             "type": "object",
             "defaultValue": {},
@@ -204,15 +252,10 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-
         // ----------------------------------------------------------------------
         // SQL Server Auditing Policies Parameters
         // Has dependency on SQL Server being there first.
         // ----------------------------------------------------------------------
-
-
-
-
         "sqlServerAuditingPoliciesResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -232,8 +275,6 @@
                 "description": "The location for the Auditing Policies."
             }
         },
-
-        
         "sqlServerAuditingPoliciesTags": {
             "type": "object",
             "defaultValue": {},
@@ -241,12 +282,10 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-
         // ----------------------------------------------------------------------
         // SQL Server Database Parameters
         // Has dependency on SQL Server being there first.
         // ----------------------------------------------------------------------
-
         "sqlServerDatabaseResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -270,54 +309,113 @@
             "type": "string",
             "defaultValue": "Basic",
             "allowedValues": [
-              "Basic",
-              "S0",
-              "S1",
-              "S2"
+                "Basic",
+                "S0",
+                "S1",
+                "S2"
             ],
             "metadata": {
                 "description": "Describes the performance level of the Database. Default is Basic ($8/m, 5 DTU, sufficient for 2GB). S0 is plenty at 25$/m. 10 DTUs, 250Gb. "
-              }
-            },
-
-
-            "sqlServerDatabaseZoneRedundant": {
-                "type": "bool",
-                "defaultValue": false
-            },
-            "sqlServerDatabaseEdition": {
-                "type": "string",
-                "defaultValue": "Standard",
-                "allowedValues": [
-                    "Basic",
-                    "Standard",
-                    "Premium"
-                ]
-            },
-            "sqlServerDatabaseCollation": {
-                "type": "string",
-                "minLength": 1,
-                "defaultValue": "SQL_Latin1_General_CP1_CI_AS"
-            },
-            "sqlServerDatabaseMaxSizeBytes": {
-                "type": "string",
-                "defaultValue": "268435456000"
-            },
-
-            "sqlServerDatabaseTags": {
-                "type": "object",
-                "defaultValue": {},
-                "metadata": {
-                    "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
-                }
-            },
-    
-            // ----------------------------------------------------------------------
-            // Web ServerFarm Parameters
-            // ----------------------------------------------------------------------
-    
-
-
+            }
+        },
+        "sqlServerDatabaseZoneRedundant": {
+            "type": "bool",
+            "defaultValue": false
+        },
+        "sqlServerDatabaseEdition": {
+            "type": "string",
+            "defaultValue": "Standard",
+            "allowedValues": [
+                "Basic",
+                "Standard",
+                "Premium"
+            ]
+        },
+        "sqlServerDatabaseCollation": {
+            "type": "string",
+            "minLength": 1,
+            "defaultValue": "SQL_Latin1_General_CP1_CI_AS"
+        },
+        "sqlServerDatabaseMaxSizeBytes": {
+            "type": "string",
+            "defaultValue": "268435456000"
+        },
+        "sqlServerDatabaseTags": {
+            "type": "object",
+            "defaultValue": {},
+            "metadata": {
+                "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+            }
+        },
+        // ----------------------------------------------------------------------
+        // DocumentDb CosmosDb Parameters
+        // ----------------------------------------------------------------------
+        "documentDbDatabaseAccountResourceName": {
+            "type": "string",
+            "metadata": {
+                "description": "The MongoDB database account name. Needs to be globally unique."
+            }
+        },
+        "documentDbDatabaseAccountResourceLocation": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]"
+        },
+        "documentDbDatabaseAccountResourceSku": {
+            "type": "string",
+            "defaultValue": "X",
+            "allowedValues": [
+                "X"
+            ],
+            "metadata": {
+                "description": "Describes the performance level of the Database. Default is Basic ($8/m, 5 DTU, sufficient for 2GB). S0 is plenty at 25$/m. 10 DTUs, 250Gb. "
+            }
+        },
+        "documentDbDatabaseAccountConsistencyPolicy": {
+            "type": "string",
+            "defaultValue": "Eventual",
+            "allowedValues": [
+                "Eventual",
+                "Session",
+                "BoundedStaleness",
+                "Strong",
+                "ConsistentPrefix"
+            ],
+            "metadata": {
+                "description": "Describes the performance level of the Database. Default is Basic ($8/m, 5 DTU, sufficient for 2GB). S0 is plenty at 25$/m. 10 DTUs, 250Gb. "
+            }
+        },
+        "documentDbDatabaseAccountKind": {
+            "type": "string",
+            "defaultValue": "MongoDB",
+            "allowedValues": [
+                "MongoDB",
+                "GlobalDocumentDB",
+                "Parse"
+            ],
+            "metadata": {
+                "description": "The kind of Document Db needed. Default is MongoDB"
+            }
+        },
+        "documentDbDatabaseAccountOfferType": {
+            "type": "string",
+            "defaultValue": "Standard",
+            "allowedValues": [
+                "Standard"
+            ],
+            "metadata": {
+                "description": "TODO: Only choice is Standard"
+            }
+        },
+        "documentDbDatabaseAccountTags": {
+            "type": "object",
+            "defaultValue": {},
+            "metadata": {
+                "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+            }
+        },
+        // ----------------------------------------------------------------------
+        // Web ServerFarm Parameters
+        // ----------------------------------------------------------------------
         "webServerFarmResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -338,7 +436,6 @@
                 "description": "The location for the Database."
             }
         },
-
         "webServerFarmResourceSku": {
             "metadata": {
                 "description": "App Service server pricing tier and capacity. Check details at https://azure.microsoft.com/en-us/pricing/details/app-service/"
@@ -359,8 +456,6 @@
             "maxValue": 3,
             "defaultValue": 1
         },
-
-        
         "webServerFarmTags": {
             "type": "object",
             "defaultValue": {},
@@ -368,15 +463,10 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-
         // ----------------------------------------------------------------------
         // Web Certificate Parameters
         // Has dependency on Web ServerFarm being there first.
         // ----------------------------------------------------------------------
-
-
-
-
         "webCertificateResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -384,7 +474,6 @@
                 "description": "Optional. If it can be set. If left blank, defined automatically according to naming convention."
             }
         },
-
         "webCertificateResourceLocation": {
             "type": "string",
             "defaultValue": "[resourceGroup().location]",
@@ -397,7 +486,6 @@
                 "description": "Optional. If it can be set. If left blank, defined automatically."
             }
         },
-
         "webCertificateBase64": {
             "type": "string",
             "metadata": {
@@ -410,7 +498,6 @@
                 "description": "Optional: Password for the appService Web Site SSL Pfx Certificate. Only required if `sslCertificateBase64` is provided."
             }
         },
-
         "webCertificateTags": {
             "type": "object",
             "defaultValue": {},
@@ -418,15 +505,10 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-
         // ----------------------------------------------------------------------
         // Web Certificate Parameters
         // Has dependency on Web ServerFarm being there first.
         // ----------------------------------------------------------------------
-
-
-
-
         "webSiteHostBindingResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -458,7 +540,6 @@
                 "description": "."
             }
         },
-
         "webSiteHostBindingTags": {
             "type": "object",
             "defaultValue": {},
@@ -466,13 +547,10 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-
         // ----------------------------------------------------------------------
         // Web Site Parameters
         // Has dependency on Web ServerFarm being there first.
         // ----------------------------------------------------------------------
-
-
         "webSiteResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -565,38 +643,38 @@
         "webSiteConfigAppSettings": {
             "type": "object",
             "defaultValue": {
-              "ExampleKey" :"exampleValue"
+                "ExampleKey": "exampleValue"
             },
             "metadata": {
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target site as AppSettings."
             }
-          },
-          "webSiteTags": {
+        },
+        "webSiteTags": {
             "type": "object",
             "defaultValue": {},
             "metadata": {
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-
         "_invalidValidSqlServerResourceLocation": {
-            "type":"array",
-            "defaultValue": ["Australia East","Australia Southeast", "australiaeast", "australiasoutheast"]
+            "type": "array",
+            "defaultValue": [
+                "Australia East",
+                "Australia Southeast",
+                "australiaeast",
+                "australiasoutheast"
+            ]
         }
     },
-
-
-        // ----------------------------------------------------------------------
-        // ----------------------------------------------------------------------
-        // Variables
-        // ----------------------------------------------------------------------
-        // ----------------------------------------------------------------------
-
-
+    // ----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
+    // Variables
+    // ----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     "variables": {
         "metadata": {
             "comments00": "So...Templates are a set of sequential parameters, variables, resources, output sections for a reason.",
-            "conventions":{
+            "conventions": {
                 "useVariables": "Using the Variables to shape the incoming Parameters, using Functions.",
                 "complexVariables": "Variables are grouped as complex objects. ",
                 "complexVariablesChildProperties": "Note that when later referencing child properties of complex variables, the dot is *outside* the top var name: `variables('top').childProperty`",
@@ -617,6 +695,28 @@
             "armTemplateParameterRootUrl": "[parameters('armTemplateParameterRootUrl')]",
             "resourceNameTemplate": "[replace(parameters('resourceNameTemplate'),'{RESOURCE_TYPE}','{RT}')]"
         },
+
+
+        "keyVault": {
+            "vault": {
+                "id": "[concat( variables('resource').resourceNamePrefix,'.keyVault.vault' )]",
+                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.keyvault.vault', '.json' , parameters('armTemplateRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.keyvault.vault', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+
+                "resourceName": "[parameters('keyVaultVaultResourceName')]",
+                "resourceLocation": "[coalesce(parameters('keyVaultVaultResourceLocation'))]",
+                "resourceType": "Microsoft.KeyVault/vaults",
+                "resourceSku": "[parameters('keyVaultVaultResourceSku')]",
+                "enabledForDeployment": "[parameters('keyVaultVaultEnabledForDeployment')]",
+                "enabledForTemplateDeployment": "[parameters('keyVaultVaultEnabledForTemplateDeployment')]",
+                "enabledForDiskEncryption": "[parameters('keyVaultVaultEnabledForDiskEncryption')]",
+                "enableSoftDelete": "[parameters('keyVaultVaultEnableSoftDelete')]",
+
+                "tags": "[parameters('keyVaultVaultTags')]"
+            }
+        },
+
+
         "storageAccount": {
             "deployment": {
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for system diagnostics Backup storage.",
@@ -677,8 +777,6 @@
                     "loginPassword": "[parameters('sqlServerAdministratorLoginPassword')]"
                 },
                 "tags": "[parameters('sqlServerTags')]",
-
-
                 "firewallRule": {
                     "openToAzure": {
                         "comment": "A collection of variables for passing to the SqlServerFirewallRule ARM Template.",
@@ -715,10 +813,24 @@
                 "tags": "[parameters('sqlServerAuditingPoliciesTags')]"
             }
         },
+        "documentDb": {
+            "databaseAccount": {
+                "id": "[concat( variables('resource').resourceNamePrefix,'.documentDb.databaseAccount' )]",
+                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.documentdb.databaseaccount', '.json' , parameters('armTemplateRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.documentdb.databaseaccount', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
+                "resourceName": "[parameters('documentDbDatabaseAccountResourceName')]",
+                "resourceType": "Microsoft.DocumentDB/databaseAccounts",
+                "resourceLocation": "[parameters('documentDbDatabaseAccountResourceLocation')]",
+                "kind": "[parameters('documentDbDatabaseAccountKind')]",
+                "offerType": "[parameters('documentDbDatabaseAccountOfferType')]",
+                "consistencyPolicy": "[parameters('documentDbDatabaseAccountConsistencyPolicy')]",
+                "tags": "[parameters('documentDbDatabaseAccountTags')]"
+            }
+        },
         "web": {
             "serverFarm": {
                 "comment": "A collection of variables for passing to the webServer  ARM Template.",
-                "id": "[concat( variables('resource').resourceNamePrefix,'.web.appServicePan' )]",
+                "id": "[concat( variables('resource').resourceNamePrefix,'.web.appServicePlan' )]",
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.web.serverfarm', '.json' , parameters('armTemplateRootSas'))]",
                 "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.web.serverfarm', '.parameters.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace( if (not (empty (parameters('webServerFarmResourceName'))), parameters('webServerFarmResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'WEB_SERVER_FARM')]",
@@ -748,7 +860,6 @@
                     "appSettings": "[parameters('webSiteConfigAppSettings')]"
                 },
                 "tags": "[parameters('webSiteTags')]",
-
                 "hostBinding": {
                     "comments": "",
                     "resourceType": "Microsoft.Web/sites/hostNameBindings",
@@ -758,9 +869,6 @@
                     "thumbprint": "[parameters('webSiteHostBindingCertificateThumbprint')]",
                     "tags": "[parameters('webSiteHostBindingTags')]"
                 }
-
-
-                
             },
             "certificate": {
                 "resourceType": "Microsoft.Web/certificates",
@@ -772,12 +880,50 @@
             }
         }
     },
-        // ----------------------------------------------------------------------
-        // ----------------------------------------------------------------------
-        // Resources
-        // ----------------------------------------------------------------------
-        // ----------------------------------------------------------------------
-        "resources": [
+    // ----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
+    // Resources
+    // ----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
+    "resources": [
+        {
+            "comments": "Ensures a Resource Group scoped key vault. WARNING. There can be advantages to keeping KeyVaults outside of a Resource Group",
+            "name": "[variables('keyVault').vault.id]",
+            "apiVersion": "2017-05-10",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "[variables('resource').resourceMode]",
+                "templateLink": {
+                    "uri": "[variables('storageAccount').deployment.armUrl]",
+                    "contentVersion": "1.0.0.0"
+                },
+
+
+                "parameters": {
+                    "keyVaultVaultResourceName": {
+                        "value": "[variables('keyVault').vault.resourceName]"
+                    },
+                    "keyVaultVaultResourceLocation": {
+                        "value": "[variables('keyVault').vault.resourceLocation]"
+                    },
+                    "keyVaultVaultResourceSku": {
+                        "value": "[variables('keyVault').vault.resourceSku]"
+                    },
+                    "keyVaultVaultEnabledForDeployment": {
+                        "value": "[variables('keyVault').vault.enabledForDeployment]"
+                    },
+                    "keyVaultVaultEnabledForEncryption": {
+                        "value": "[variables('keyVault').vault.enabledForEncryption]"
+                    },
+                    "keyVaultVaultEnableSoftDelete": {
+                        "value": "[variables('keyVault').vault.enableSoftDelete]"
+                    },
+                    "keyVaultVaultTags": {
+                        "value": "[variables('keyVault').vault.tags]"
+                    }
+                }
+            }
+        },
         {
             "comments": "Ensures a Resource Group scoped unique backup Storage Account (for Db)",
             "name": "[variables('storageAccount').deployment.id]",
@@ -898,8 +1044,6 @@
                 }
             }
         },
-
-
         {
             "comments": "Ensure a Resource Group scoped SqlServer. Is a dependency for the subsequent deployment of the FirewallRule, and the SqlServerDatabase.",
             "type": "Microsoft.Resources/deployments",
@@ -930,9 +1074,10 @@
                 }
             }
         },
-
         {
-            "dependsOn": ["[variables('sql').server.id]"],
+            "dependsOn": [
+                "[variables('sql').server.id]"
+            ],
             "comments": "Ensures a Resource Group scoped Database Firewall Rule. Depends on `SqlServer` database being ensured as deployed first.",
             "name": "[variables('sql').server.firewallRule.openToAzure.id]",
             "type": "Microsoft.Resources/deployments",
@@ -949,6 +1094,9 @@
                     },
                     "sqlServerFirewallRuleResourceLocation": {
                         "value": "[variables('sql').server.firewallRule.openToAzure.resourceLocation]"
+                    },
+                    "sqlServerFirewallRuleParentResourceId": {
+                        "value": "[reference(variables('sql').server.id).outputs.resourceId.value]"
                     },
                     "sqlServerFirewallRuleStartIpAddress": {
                         "value": "[variables('sql').server.firewallRule.openToAzure.startIpAddress]"
@@ -1004,92 +1152,124 @@
                     }
                 }
             }
-            },
-
-            {
-                "comments": "Ensures a Resource Group scoped unique App Service Plan",
-                "name": "[variables('web').serverFarm.id]",
-                "apiVersion": "2017-05-10",
-                "type": "Microsoft.Resources/deployments",
-                "properties": {
-                    "mode": "Incremental",
-                    "templateLink": {
-                        "uri": "[variables('web').serverFarm.armUrl]",
-                        "contentVersion": "1.0.0.0"
+        },
+        {
+            "comments": "Ensures a Resource Group scoped unique App Service Plan",
+            "name": "[variables('documentDb').databaseAccount.id]",
+            "apiVersion": "2017-05-10",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('documentDb').databaseAccount.armUrl]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "documentDbDatabaseAccountResourceName": {
+                        "value": "[variables('documentDb').databaseAccount.resourceName]"
                     },
-                    "parameters": {
-                        "webServerFarmResourceName": {
-                            "value": "[variables('web').serverFarm.resourceName]"
-                        },
-                        "webServerFarmResourceLocation": {
-                            "value": "[variables('web').serverFarm.resourceLocation]"
-                        },
-                        "webServerFarmResourceSku": {
-                            "value": "[variables('web').serverFarm.resourceSku]"
-                        },
-                        "webServerFarmNumberOfWorkers": {
-                            "value": "[variables('web').serverFarm.numberOfWorkers]"
-                        },
-                        "webServerFarmTags": {
-                            "value": "[variables('web').serverFarm.tags]"
-                        }
-                    }
-                }
-            },
-            {
-                "dependsOn": [
-                    "[variables('web').serverFarm.id]"
-                ],
-                "comments": "Ensures a Resource Group scoped web site is deployed",
-                "name": "[variables('web').site.id]",
-                "apiVersion": "2017-05-10",
-                "type": "Microsoft.Resources/deployments",
-                "properties": {
-                    "mode": "Incremental",
-                    "templateLink": {
-                        "uri": "[variables('web').site.armUrl]",
-                        "contentVersion": "1.0.0.0"
+                    "documentDbDatabaseAccountResourceLocation": {
+                        "value": "[variables('documentDb').databaseAccount.resourceLocation]"
                     },
-                    "parameters":{
-                        "webSiteResourceName": {
-                            "value": "[variables('web').site.resourceName]"
-                        },
-                        "webSiteResourceLocation": {
-                            "value": "[variables('web').site.resourceLocation]"
-                        },
-                        "webSiteResourceSku": {
-                            "value": "[variables('web').site.resourceSku]"
-                        },
-                        "webSiteWebServerFarmResourceId": {
-                            "value": "[reference(variables('web').serverFarm.id).outputs.resourceId.value]"
-                        },
-                        "webSiteAlwaysOn": {
-                            "value": "[variables('web').site.alwaysOn]"
-                        },
-                        "webSiteDetailedErrorLoggingEnabled": {
-                            "value": "[variables('web').site.detailedErrorLoggingEnabled]"
-                        },
-                        "webSiteLogsDirectorySizeLimit": {
-                            "value": "[variables('web').site.logsDirectorySizeLimit]"
-                        },
-                        "webSiteRemoteDebuggingEnabled": {
-                            "value": "[variables('web').site.remoteDebuggingEnabled]"
-                        },
-                        "webSiteRemoteDebuggingVersion": {
-                            "value": "[variables('web').site.remoteDebuggingVersion]"
-                        },
-                        "webSiteRequestTracingEnabled": {
-                            "value": "[variables('web').site.requestTracingEnabled]"
-                        },
-                        "webSiteWebSocketsEnabled": {
-                            "value": "[variables('web').site.webSocketsEnabled]"
-                        },
-                        "webSiteConfigAppSettings": {
-                            "value": "[variables('web').site.config.appSettings]"
-                        }
+                    "documentDbDatabaseAccountKind": {
+                        "value": "[variables('documentDb').databaseAccount.kind]"
+                    },
+                    "documentDbDatabaseAccountOfferType": {
+                        "value": "[variables('documentDb').databaseAccount.offerType]"
+                    },
+                    "documentDbDatabaseAccountConsistencyPolicy": {
+                        "value": "[variables('documentDb').databaseAccount.consistencyPolicy]"
+                    },
+                    "documentDbDatabaseAccountTags": {
+                        "value": "[variables('documentDb').databaseAccount.tags]"
                     }
                 }
             }
+        },
+        {
+            "comments": "Ensures a Resource Group scoped unique App Service Plan",
+            "name": "[variables('web').serverFarm.id]",
+            "apiVersion": "2017-05-10",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('web').serverFarm.armUrl]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "webServerFarmResourceName": {
+                        "value": "[variables('web').serverFarm.resourceName]"
+                    },
+                    "webServerFarmResourceLocation": {
+                        "value": "[variables('web').serverFarm.resourceLocation]"
+                    },
+                    "webServerFarmResourceSku": {
+                        "value": "[variables('web').serverFarm.resourceSku]"
+                    },
+                    "webServerFarmNumberOfWorkers": {
+                        "value": "[variables('web').serverFarm.numberOfWorkers]"
+                    },
+                    "webServerFarmTags": {
+                        "value": "[variables('web').serverFarm.tags]"
+                    }
+                }
+            }
+        },
+        {
+            "dependsOn": [
+                "[variables('web').serverFarm.id]"
+            ],
+            "comments": "Ensures a Resource Group scoped web site is deployed",
+            "name": "[variables('web').site.id]",
+            "apiVersion": "2017-05-10",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('web').site.armUrl]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "webSiteResourceName": {
+                        "value": "[variables('web').site.resourceName]"
+                    },
+                    "webSiteResourceLocation": {
+                        "value": "[variables('web').site.resourceLocation]"
+                    },
+                    "webSiteResourceSku": {
+                        "value": "[variables('web').site.resourceSku]"
+                    },
+                    "webSiteParentResourceId": {
+                        "value": "[reference(variables('web').serverFarm.id).outputs.resourceId.value]"
+                    },
+                    "webSiteAlwaysOn": {
+                        "value": "[variables('web').site.alwaysOn]"
+                    },
+                    "webSiteDetailedErrorLoggingEnabled": {
+                        "value": "[variables('web').site.detailedErrorLoggingEnabled]"
+                    },
+                    "webSiteLogsDirectorySizeLimit": {
+                        "value": "[variables('web').site.logsDirectorySizeLimit]"
+                    },
+                    "webSiteRemoteDebuggingEnabled": {
+                        "value": "[variables('web').site.remoteDebuggingEnabled]"
+                    },
+                    "webSiteRemoteDebuggingVersion": {
+                        "value": "[variables('web').site.remoteDebuggingVersion]"
+                    },
+                    "webSiteRequestTracingEnabled": {
+                        "value": "[variables('web').site.requestTracingEnabled]"
+                    },
+                    "webSiteWebSocketsEnabled": {
+                        "value": "[variables('web').site.webSocketsEnabled]"
+                    },
+                    "webSiteConfigAppSettings": {
+                        "value": "[variables('web').site.config.appSettings]"
+                    }
+                }
+            }
+        }
     ],
     "outputs": {
         "uniqueResourceId": {

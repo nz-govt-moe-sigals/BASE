@@ -1,0 +1,99 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "documentDbDatabaseAccountResourceName": {
+            "type": "string",
+            "metadata": {
+                "description": "The MongoDB database account name. Needs to be globally unique."
+            }
+        },
+        "documentDbDatabaseAccountResourceLocation": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]"
+        },
+        "documentDbDatabaseAccountResourceSku": {
+            "type": "string",
+            "defaultValue": "X",
+            "allowedValues": [
+                "X"
+            ],
+            "metadata": {
+                "description": "Describes the performance level of the Database. Default is Basic ($8/m, 5 DTU, sufficient for 2GB). S0 is plenty at 25$/m. 10 DTUs, 250Gb. "
+            }
+        },
+        "documentDbDatabaseAccountConsistencyPolicy": {
+            "type": "string",
+            "defaultValue": "Eventual",
+            "allowedValues": [
+                "Eventual",
+                "Session",
+                "BoundedStaleness",
+                "Strong",
+                "ConsistentPrefix"
+            ],
+            "metadata": {
+                "description": "Describes the performance level of the Database. Default is Basic ($8/m, 5 DTU, sufficient for 2GB). S0 is plenty at 25$/m. 10 DTUs, 250Gb. "
+            }
+        },
+        "documentDbDatabaseAccountKind": {
+            "type": "string",
+            "defaultValue": "MongoDB",
+            "allowedValues": [
+                "MongoDB",
+                "GlobalDocumentDB",
+                "Parse"
+            ],
+            "metadata": {
+                "description": "The kind of Document Db needed. Default is MongoDB"
+            }
+        },
+        "documentDbDatabaseAccountOfferType": {
+            "type": "string",
+            "defaultValue": "Standard",
+            "allowedValues": [
+                "Standard"
+            ],
+            "metadata": {
+                "description": "TODO: Only choice is Standard"
+            }
+        },
+
+        "documentDbDatabaseAccountTags": {
+            "type": "object",
+            "defaultValue": {},
+            "metadata": {
+                "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+            }
+        }
+    },
+    "variables": {
+        "idPrefix": "azuredeploy.base.core",
+        "documentDb": {
+            "databaseAccount": {
+                "resourceName": "[parameters('documentDbDatabaseAccountResourceName')]",
+                "resourceType": "Microsoft.DocumentDB/databaseAccounts",
+                "resourceLocation": "[parameters('documentDbDatabaseAccountResourceLocation')]",
+                "kind": "[parameters('documentDbDatabaseAccountKind')]",
+                "offerType": "[parameters('documentDbDatabaseAccountOfferType')]",
+                "consistencyPolicy": "[parameters('documentDbDatabaseAccountConsistencyPolicy')]",
+                "tags": "[parameters('documentDbDatabaseAccountTags')]"   
+            }
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "2015-04-08",
+            "type": "Microsoft.DocumentDB/databaseAccounts",
+            "name": "[variables('documentDb').databaseAccount.resourceName]",
+            "location": "[variables('documentDb').databaseAccount.resourceLocation]",
+            "kind": "[variables('documentDb').databaseAccount.kind]",
+            "properties": {
+                "databaseAccountOfferType": "[variables('documentDb').databaseAccount.offerType]",
+                "name": "[variables('documentDb').databaseAccount.resourceName]",
+                "consistencyPolicy":"[variables('documentDb').databaseAccount.consistencyPolicy]"
+            },
+            "tags": "[variables('documentDb').databaseAccount.tags]"
+        }
+    ]
+}
