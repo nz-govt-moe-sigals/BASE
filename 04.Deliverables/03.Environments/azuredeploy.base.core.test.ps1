@@ -89,7 +89,7 @@ function Test-ArmTemplates {
     #https://bentaylor.work/2017/10/unit-testing-azure-arm-templates-with-pester/
 
 
-    $testRun = $true
+    $testRun = $false
 
     if ($testRun) {
         $rawResponse = $($successStream = Test-AzureRmResourceGroupDeployment `

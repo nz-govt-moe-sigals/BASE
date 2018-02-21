@@ -4,7 +4,6 @@
     "parameters": {
         "storageAccountResourceMode": {
             "type": "string",
-            "minLength": 1,
             "defaultValue": "Incremental",
             "allowedValues": [
                 "Incremental"

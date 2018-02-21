@@ -31,7 +31,6 @@
             "minLength": 6,
             "maxLength": 24
         },
-
         "armTemplateRootUrl": {
             "metadata": {
                 "description": "The http based base url from which to download referenced ARM Templates. In most cases will be an Url to a Storage Account Container Url to which newly downloaded Source Files (just the ARM Templates) are copied to."
@@ -39,7 +38,6 @@
             "type": "string",
             "defaultValue": ""
         },
-
         "armTemplateRootSas": {
             "metadata": {
                 "description": "The (optional) Single Access Signature (SAS) required to append to ARM Template Uris in order to get them out of a secured Storage Account Container."
@@ -47,7 +45,6 @@
             "type": "string",
             "defaultValue": ""
         },
-
         "armTemplateParameterRootUrl": {
             "metadata": {
                 "description": "The http based base url from which to download referenced ARM Templates. In most cases will be an Url to a Storage Account Container Url to which newly downloaded Source Files (just the ARM Templates) are copied to."
@@ -55,7 +52,6 @@
             "type": "string",
             "defaultValue": ""
         },
-
         "armTemplateParameterRootSas": {
             "metadata": {
                 "description": "The (optional) Single Access Signature (SAS) required to append to ARM Template Paramter Uris in order to get them out of a secured Storage Account Container."
@@ -63,9 +59,9 @@
             "type": "string",
             "defaultValue": ""
         },
-
         "keyVaultVaultResourceName": {
-            "type": "string"
+            "type": "string",
+            "defaultValue": ""
         },
         "keyVaultVaultResourceLocation": {
             "type": "string",
@@ -75,14 +71,14 @@
             "type": "string",
             "defaultValue": "Standard",
             "allowedValues": [
-              "Standard",
-              "Premium"
+                "Standard",
+                "Premium"
             ],
             "metadata": {
-              "description": "..."
+                "description": "..."
             }
-          },
-          "keyVaultVaultEnabledForDeployment": {
+        },
+        "keyVaultVaultEnabledForDeployment": {
             "type": "bool",
             "defaultValue": false,
             "metadata": {
@@ -117,11 +113,29 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-
-
         "storageAccountResourceLocation": {
             "type": "string",
             "defaultValue": "[resourceGroup().location]"
+        },
+        "storageAccountResourceSku": {
+            "type": "string",
+            "allowedValues": [
+                "Premium_LRS",
+                "Standard_GRS",
+                "Standard_LRS",
+                "Standard_RAGRS",
+                "Standard_ZRS"
+            ],
+            "defaultValue": "Standard_LRS"
+        },
+        "storageAccountKind": {
+            "type": "string",
+            "allowedValues": [
+                "Storage",
+                "StorageV2",
+                "BlobStorage"
+            ],
+            "defaultValue": "StorageV2"
         },
         "storageAccountTags": {
             "type": "object",
@@ -130,8 +144,6 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-
-
         "storageAccountDeploymentResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -167,7 +179,6 @@
                 "description": "Optional. If it can be set. If left blank, defined automatically according to naming convention."
             }
         },
-
         "sqlServerResourceLocation": {
             "type": "string",
             "defaultValue": "[resourceGroup().location]",
@@ -185,7 +196,6 @@
                 "description": "The location for the SQL service. This is parameterised because SQL servers cannot be deployed in all regions for subscription types."
             }
         },
-
         "sqlServerAdministratorLogin": {
             "metadata": {
                 "description": "Required. Administrator Login. Required for when creating new SqlServers."
@@ -207,7 +217,6 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-
         "sqlServerFirewallRuleResourceName": {
             "type": "string",
             "minLength": 1,
@@ -241,9 +250,6 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-
-
-
         "sqlServerAuditingPoliciesResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -270,8 +276,6 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-
-
         "sqlServerDatabaseResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -333,10 +337,6 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-
-
-
-
         "documentDbDatabaseAccountResourceName": {
             "type": "string",
             "metadata": {
@@ -400,8 +400,6 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-
-
         "webServerFarmResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -449,8 +447,6 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-
-
         "webCertificateResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -489,8 +485,6 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-
-
         "webSiteHostBindingResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -529,7 +523,6 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-
         "webSiteResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -645,25 +638,6 @@
             ]
         }
     },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     "variables": {
         "metadata": {
             "comments00": "So...Templates are a set of sequential parameters, variables, resources, output sections for a reason.",
@@ -687,10 +661,8 @@
             "armTemplateRootUrl": "[parameters('armTemplateRootUrl')]",
             "armTemplateParameterRootUrl": "[parameters('armTemplateParameterRootUrl')]",
             "resourceNameTemplate": "[replace(parameters('resourceNameTemplate'),'{RESOURCE_TYPE}','{RT}')]",
-            "parametersSuffix" : ".parameters"
+            "parametersSuffix": ".parameters"
         },
-
-
         "keyVault": {
             "vault": {
                 "id": "[concat( variables('resource').resourceNamePrefix,'.keyVault.vault' )]",
@@ -704,11 +676,9 @@
                 "enabledForTemplateDeployment": "[parameters('keyVaultVaultEnabledForTemplateDeployment')]",
                 "enabledForDiskEncryption": "[parameters('keyVaultVaultEnabledForDiskEncryption')]",
                 "enableSoftDelete": "[parameters('keyVaultVaultEnableSoftDelete')]",
-
                 "tags": "[parameters('keyVaultVaultTags')]"
             }
         },
-        
         "storageAccount": {
             "deployment": {
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for system diagnostics Backup storage.",
@@ -717,6 +687,8 @@
                 "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.deployment', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace( if (not (empty (parameters('storageAccountDiagnosticsResourceName'))), parameters('storageAccountDiagnosticsResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_DEPLOY')]",
                 "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
+                "resourceSku": "[parameters('storageAccountResourceSku')]",
+                "kind": "[parameters('storageAccountKind')]",
                 "tags": "[parameters('storageAccountTags')]"
             },
             "diagnostics": {
@@ -726,6 +698,8 @@
                 "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.diagnostics', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace( if (not (empty (parameters('storageAccountDiagnosticsResourceName'))), parameters('storageAccountDiagnosticsResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_DIAG')]",
                 "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
+                "resourceSku": "[parameters('storageAccountResourceSku')]",
+                "kind": "[parameters('storageAccountKind')]",
                 "tags": "[parameters('storageAccountTags')]"
             },
             "backups": {
@@ -735,6 +709,8 @@
                 "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.backups', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace( if (not (empty (parameters('storageAccountBackupResourceName'))), parameters('storageAccountBackupResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_BACKUP')]",
                 "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
+                "resourceSku": "[parameters('storageAccountResourceSku')]",
+                "kind": "[parameters('storageAccountKind')]",
                 "tags": "[parameters('storageAccountTags')]"
             },
             "media": {
@@ -744,6 +720,8 @@
                 "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.media', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace( if (not (empty (parameters('storageAccountMediaResourceName'))), parameters('storageAccountMediaResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_MEDIA')]",
                 "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
+                "resourceSku": "[parameters('storageAccountResourceSku')]",
+                "kind": "[parameters('storageAccountKind')]",
                 "tags": "[parameters('storageAccountTags')]"
             },
             "media2": {
@@ -753,6 +731,8 @@
                 "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.media2', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace( if (not (empty (parameters('storageAccountMedia2ResourceName'))), parameters('storageAccountMedia2ResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA_MEDIA_2')]",
                 "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
+                "resourceSku": "[parameters('storageAccountResourceSku')]",
+                "kind": "[parameters('storageAccountKind')]",
                 "tags": "[parameters('storageAccountTags')]"
             }
         },
@@ -872,11 +852,6 @@
             }
         }
     },
-    // ----------------------------------------------------------------------
-    // ----------------------------------------------------------------------
-    // Resources
-    // ----------------------------------------------------------------------
-    // ----------------------------------------------------------------------
     "resources": [
         {
             "comments": "Ensures a Resource Group scoped key vault. WARNING. There can be advantages to keeping KeyVaults outside of a Resource Group",
@@ -914,9 +889,6 @@
                 }
             }
         },
-
-/*
-
         {
             "comments": "Ensures a Resource Group scoped unique backup Storage Account (for Db)",
             "name": "[variables('storageAccount').deployment.id]",
@@ -935,12 +907,19 @@
                     "storageAccountResourceLocation": {
                         "value": "[variables('storageAccount').deployment.resourceLocation]"
                     },
+                    "storageAccountResourceSku": {
+                        "value": "[variables('storageAccount').deployment.resourceSku]"
+                    },
+                    "storageAccountResourceKind": {
+                        "value": "[variables('storageAccount').deployment.kind]"
+                    },
                     "storageAccountTags": {
                         "value": "[variables('storageAccount').deployment.tags]"
                     }
                 }
             }
-        },
+            /*
+
         {
             "comments": "Ensures a Resource Group scoped unique backup Storage Account (for Db)",
             "name": "[variables('storageAccount').diagnostics.id]",
@@ -958,6 +937,12 @@
                     },
                     "storageAccountResourceLocation": {
                         "value": "[variables('storageAccount').diagnostics.resourceLocation]"
+                    },
+                    "storageAccountResourceSku": {
+                        "value": "[variables('storageAccount').diagnostics.resourceSku]"
+                    },
+                    "storageAccountResourceKind": {
+                        "value": "[variables('storageAccount').diagnostics.kind]"
                     },
                     "storageAccountTags": {
                         "value": "[variables('storageAccount').diagnostics.tags]"
@@ -983,6 +968,12 @@
                     "storageAccountResourceLocation": {
                         "value": "[variables('storageAccount').backups.resourceLocation]"
                     },
+                    "storageAccountResourceSku": {
+                        "value": "[variables('storageAccount').backups.resourceSku]"
+                    },
+                    "storageAccountResourceKind": {
+                        "value": "[variables('storageAccount').backups.kind]"
+                    },
                     "storageAccountTags": {
                         "value": "[variables('storageAccount').backups.tags]"
                     }
@@ -1007,6 +998,12 @@
                     "storageAccountResourceLocation": {
                         "value": "[variables('storageAccount').media.resourceLocation]"
                     },
+                    "storageAccountResourceSku": {
+                        "value": "[variables('storageAccount').media.resourceSku]"
+                    },
+                    "storageAccountResourceKind": {
+                        "value": "[variables('storageAccount').media.kind]"
+                    },
                     "storageAccountTags": {
                         "value": "[variables('storageAccount').media.tags]"
                     }
@@ -1030,6 +1027,12 @@
                     },
                     "storageAccountResourceLocation": {
                         "value": "[variables('storageAccount').media2.resourceLocation]"
+                    },
+                    "storageAccountResourceSku": {
+                        "value": "[variables('storageAccount').media2.resourceSku]"
+                    },
+                    "storageAccountResourceKind": {
+                        "value": "[variables('storageAccount').media2.kind]"
                     },
                     "storageAccountTags": {
                         "value": "[variables('storageAccount').media2.tags]"
@@ -1265,24 +1268,100 @@
         }
 
 */
+        ],
+        "outputs": {
+            "uniqueResourceId": {
+                "type": "string",
+                "value": "[variables('resource').uniqueResourceId]",
+                "metadata": {
+                    "description": "The ResourceGroup scoped unique 13 character Id."
+                }
+            },
+            "resourceNameTemplate": {
+                "type": "string",
+                "value": "[variables('resource').resourceNameTemplate]"
+            },
+            "keyVaultResourceId": {
+                "type": "string",
+                "value": "[reference(variables('keyVault').vault.id).outputs.resourceId.value]"
+            },
+            "keyVaultResourceName": {
+                "type": "string",
+                "value": "[reference(variables('keyVault').vault.id).outputs.resourceName.value]"
+            },
+            "keyVaultResourceNameUrl": {
+                "type": "string",
+                "value": "[reference(variables('keyVault').vault.id).outputs.resourceNameUrl.value]"
+            },
+            "keyVaultSubscriptionId": {
+                "type": "string",
+                "value": "[reference(variables('keyVault').vault.id).outputs.subscriptionId.value]"
+            },
+            "storageAccountDeploymentResourceId": {
+                "type": "string",
+                "value": "[reference(variables('storageAccount').deployment.id).outputs.resourceId.value]"
+            },
+            "storageAccountDeploymentResourceName": {
+                "type": "string",
+                "value": "[reference(variables('storageAccount').deployment.id).outputs.resourceName.value]"
+            },
+            "storageAccountDeploymentResourceNameUrl": {
+                "type": "string",
+                "value": "[reference(variables('storageAccount').deployment.id).outputs.resourceNameUrl.value]"
+            },
+            /*
 
-    ],
-    "outputs": {
-        "uniqueResourceId": {
+        "storageAccountDeploymentDiagnosticsResourceId": {
             "type": "string",
-            "value": "[variables('resource').uniqueResourceId]",
-            "metadata": {
-                "description": "The ResourceGroup scoped unique 13 character Id."
-            }
+            "value": "[reference(variables('storageAccount').diagnostics.id).outputs.resourceId.value]"
         },
-        "resourceNameTemplate": {
+        "storageAccountDiagnosticsResourceName": {
             "type": "string",
-            "value": "[variables('resource').resourceNameTemplate]"
+            "value": "[reference(variables('storageAccount').diagnostics.id).outputs.resourceName.value]"
         },
-        // The Identifier for the KeyVault that was created:
-        "keyVaultResourceId": {
+        "storageAccountDiagnosticsResourceNameUrl": {
             "type": "string",
-            "value": "[reference(variables('keyVault').vault.id).outputs.resourceId.value]"
-        }        
+            "value": "[reference(variables('storageAccount').diagnostics.id).outputs.resourceNameUrl.value]"
+        },
+
+        "storageAccountBackupsResourceId": {
+            "type": "string",
+            "value": "[reference(variables('storageAccount').backups.id).outputs.resourceId.value]"
+        },
+        "storageAccountBackupsResourceName": {
+            "type": "string",
+            "value": "[reference(variables('storageAccount').backups.id).outputs.resourceName.value]"
+        },
+        "storageAccountBackupsResourceNameUrl": {
+            "type": "string",
+            "value": "[reference(variables('storageAccount').backups.id).outputs.resourceNameUrl.value]"
+        },
+
+        "storageAccountMediaResourceId": {
+            "type": "string",
+            "value": "[reference(variables('storageAccount').media.id).outputs.resourceId.value]"
+        },
+        "storageAccountMediaResourceName": {
+            "type": "string",
+            "value": "[reference(variables('storageAccount').media.id).outputs.resourceName.value]"
+        },
+        "storageAccountMediaResourceNameUrl": {
+            "type": "string",
+            "value": "[reference(variables('storageAccount').media.id).outputs.resourceNameUrl.value]"
+        },
+
+        "storageAccountMedia2ResourceId": {
+            "type": "string",
+            "value": "[reference(variables('storageAccount').media2.id).outputs.resourceId.value]"
+        },
+        "storageAccountMedia2ResourceName": {
+            "type": "string",
+            "value": "[reference(variables('storageAccount').media2.id).outputs.resourceName.value]"
+        },
+        "storageAccountMedia2ResourceNameUrl": {
+            "type": "string",
+            "value": "[reference(variables('storageAccount').media2.id).outputs.resourceNameUrl.value]"
+        }
+*/
+        }
     }
-}

@@ -85,7 +85,7 @@
     },
     "resources": [
         {
-            "name": "[variables('keyVault').vault.resourceName]",
+            "name": "[variables('keyVault').vault.resourceNameUrl]",
             "type": "Microsoft.KeyVault/vaults",
             "apiVersion": "2016-10-01",
             "location": "[variables('keyVault').vault.resourceLocation]",
@@ -116,9 +116,17 @@
             "type": "string",
             "value": "[resourceId(variables('keyVault').vault.resourceType, variables('keyVault').vault.resourceNameUrl)]"
         },
-        "resourceNameUrl": {
+        "resourceName": {
             "type": "string",
             "value": "[variables('keyVault').vault.resourceName]"
+        },
+        "resourceNameUrl": {
+            "type": "string",
+            "value": "[variables('keyVault').vault.resourceNameUrl]"
+        },
+        "subscriptionId": {
+            "type": "string",
+            "value": "[variables('keyVault').vault.subscriptionId]"
         }
     }
 }
