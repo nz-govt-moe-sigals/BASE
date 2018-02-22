@@ -129,7 +129,6 @@
             "type": "string",
             "defaultValue": "[resourceGroup().location]"
         },
-
         "storageAccountResourceSku": {
             "type": "string",
             "allowedValues": [
@@ -387,15 +386,18 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
-
         // -------------------------------------------------------
         // DOCUMENDB PARAMETERS
         // -------------------------------------------------------
+
+        // If blank, uses the default resourceNameTemplate parameter.
+        // This becomes the subdomain for the 'documents.azure.com' dns namespace.
         "documentDbDatabaseAccountResourceName": {
             "type": "string",
             "defaultValue": "",
+            "maxLength": 32,
             "metadata": {
-                "description": "The MongoDB database account name. Needs to be globally unique."
+                "description": "The DocumentDb database account name. Needs to be globally unique, lowercase, between 3 and 32 characters long (after token search/replacement)."
             }
         },
         "documentDbDatabaseAccountResourceLocation": {
@@ -412,9 +414,9 @@
                 "description": "Describes the performance level of the Database. Default is Basic ($8/m, 5 DTU, sufficient for 2GB). S0 is plenty at 25$/m. 10 DTUs, 250Gb. "
             }
         },
-        "documentDbDatabaseAccountConsistencyPolicy": {
+        "documentDbDatabaseAccountConsistencyPolicyLevel": {
             "type": "string",
-            "defaultValue": "Eventual",
+            "defaultValue": "Session",
             "allowedValues": [
                 "Eventual",
                 "Session",
@@ -424,6 +426,24 @@
             ],
             "metadata": {
                 "description": "Describes the performance level of the Database. Default is Basic ($8/m, 5 DTU, sufficient for 2GB). S0 is plenty at 25$/m. 10 DTUs, 250Gb. "
+            }
+        },
+        "documentDbDatabaseAccountConsistencyMaxStalenessPrefix": {
+            "type": "int",
+            "minValue": 10,
+            "maxValue": 1000,
+            "defaultValue": 10,
+            "metadata": {
+                "description": "When consistencyLevel is set to BoundedStaleness, then this value is required, else it can be ignored."
+            }
+        },
+        "documentDbDatabaseAccountConsistencyMaxIntervalInSeconds": {
+            "type": "int",
+            "minValue": 5,
+            "maxValue": 600,
+            "defaultValue": 10,
+            "metadata": {
+                "description": "When consistencyLevel is set to BoundedStaleness, then this value is required, else it can be ignored."
             }
         },
         "documentDbDatabaseAccountKind": {
@@ -445,7 +465,7 @@
                 "Graph"
             ],
             "metadata": {
-                "description": "The kind of API to offer"
+                "description": "The kind of API to offer (Graph)"
             }
         },
         "documentDbDatabaseAccountOfferType": {
@@ -455,7 +475,7 @@
                 "Standard"
             ],
             "metadata": {
-                "description": "TODO: Only choice is Standard"
+                "description": "Only choice is Standard"
             }
         },
         "documentDbDatabaseAccountTags": {
@@ -731,10 +751,10 @@
         "tmp": {
             "tmpResourceLocation1": "[if (not (empty (parameters('resourceLocation'))), parameters('resourceLocation'), resourceGroup().location)]",
             "tmpSqlResourceLocation1": "[if (not (empty (parameters('sqlServerResourceLocation'))), parameters('sqlServerResourceLocation'), if (not (empty (parameters('resourceLocation'))), parameters('resourceLocation'), resourceGroup().location))]",
-            "resourceNameTemplate": "[replace(replace(parameters('resourceNameTemplate'),'{RESOURCE_TYPE}','{RT}'),'_','-')]"
+            "resourceNameTemplate": "[replace(replace(replace(parameters('resourceNameTemplate'),'{RESOURCE_TYPE}','{RT}'),'_','-'),'.','-')]"
         },
         "tmp2": {
-            "sqlServerResourceName": "[toLower(replace( variables('tmp').resourceNameTemplate, '{RT}', 'SQLSERVER'))]",
+            "sqlServerResourceName": "[toLower(replace( variables('tmp').resourceNameTemplate, '{RT}', 'sqlserver'))]",
             "sqlServerResourceLocation": "[if (not(contains(parameters('_invalidValidSqlServerResourceLocation'), variables('tmp').tmpSqlResourceLocation1)), variables('tmp').tmpSqlResourceLocation1,'Southeast Asia')]"
         },
         "resource": {
@@ -753,7 +773,7 @@
                 "id": "[concat( variables('resource').resourceNamePrefix,'.keyVault.vault' )]",
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.keyvault.vault', '.json' , parameters('armTemplateRootSas'))]",
                 "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.keyvault.vault', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[replace(if (not( empty (parameters('keyVaultVaultResourceName'))), parameters('keyVaultVaultResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'KEYVAULT')]",
+                "resourceName": "[replace(if (not( empty (parameters('keyVaultVaultResourceName'))), parameters('keyVaultVaultResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'keyvault')]",
                 "resourceLocation": "[coalesce(parameters('keyVaultVaultResourceLocation'))]",
                 "resourceType": "Microsoft.KeyVault/vaults",
                 "resourceSku": "[parameters('keyVaultVaultResourceSku')]",
@@ -770,7 +790,7 @@
                 "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.deployment')]",
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
                 "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.deployment', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[replace( if (not (empty (parameters('storageAccountDiagnosticsResourceName'))), parameters('storageAccountDiagnosticsResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA-DEPLOY')]",
+                "resourceName": "[replace( if (not (empty (parameters('storageAccountDiagnosticsResourceName'))), parameters('storageAccountDiagnosticsResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'sa-deploy')]",
                 "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                 "resourceSku": "[parameters('storageAccountResourceSku')]",
                 "kind": "[parameters('storageAccountKind')]",
@@ -781,7 +801,7 @@
                 "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.diagnostics')]",
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
                 "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.diagnostics', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[replace( if (not (empty (parameters('storageAccountDiagnosticsResourceName'))), parameters('storageAccountDiagnosticsResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA-DIAG')]",
+                "resourceName": "[replace( if (not (empty (parameters('storageAccountDiagnosticsResourceName'))), parameters('storageAccountDiagnosticsResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'sa-diag')]",
                 "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                 "resourceSku": "[parameters('storageAccountResourceSku')]",
                 "kind": "[parameters('storageAccountKind')]",
@@ -792,7 +812,7 @@
                 "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.backups')]",
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
                 "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.backups', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[replace( if (not (empty (parameters('storageAccountBackupResourceName'))), parameters('storageAccountBackupResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA-BACKUP')]",
+                "resourceName": "[replace( if (not (empty (parameters('storageAccountBackupResourceName'))), parameters('storageAccountBackupResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'sa-backup')]",
                 "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                 "resourceSku": "[parameters('storageAccountResourceSku')]",
                 "kind": "[parameters('storageAccountKind')]",
@@ -803,7 +823,7 @@
                 "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.media')]",
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
                 "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.media', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[replace( if (not (empty (parameters('storageAccountMediaResourceName'))), parameters('storageAccountMediaResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA-MEDIA')]",
+                "resourceName": "[replace( if (not (empty (parameters('storageAccountMediaResourceName'))), parameters('storageAccountMediaResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'sa-media')]",
                 "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                 "resourceSku": "[parameters('storageAccountResourceSku')]",
                 "kind": "[parameters('storageAccountKind')]",
@@ -814,7 +834,7 @@
                 "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.media2')]",
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
                 "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.media2', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[replace( if (not (empty (parameters('storageAccountMedia2ResourceName'))), parameters('storageAccountMedia2ResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SA-MEDIA-2')]",
+                "resourceName": "[replace( if (not (empty (parameters('storageAccountMedia2ResourceName'))), parameters('storageAccountMedia2ResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'sa-media-2')]",
                 "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                 "resourceSku": "[parameters('storageAccountResourceSku')]",
                 "kind": "[parameters('storageAccountKind')]",
@@ -841,9 +861,9 @@
                         "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server.firewallrule', '.json', parameters('armTemplateRootSas'))]",
                         "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server.firewallrule.opentoazure', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
                         // the names of child nested resources are prefixed with the name used by the parent object.
-                       "resourceName": "[concat(variables('tmp2').sqlServerResourceName, '/rules-opentoazure', if (not (empty (parameters('sqlServerDatabaseResourceName'))), concat('-', parameters('sqlServerDatabaseResourceName')),''))]", 
-                       "resourceLocation": "[variables('tmp2').sqlServerResourceLocation]",
-                       "startIpAddress": "[parameters('sqlServerFirewallRuleStartIpAddress')]",
+                        "resourceName": "[concat(variables('tmp2').sqlServerResourceName, '/rules-opentoazure', if (not (empty (parameters('sqlServerDatabaseResourceName'))), concat('-', parameters('sqlServerDatabaseResourceName')),''))]",
+                        "resourceLocation": "[variables('tmp2').sqlServerResourceLocation]",
+                        "startIpAddress": "[parameters('sqlServerFirewallRuleStartIpAddress')]",
                         "endIpAddress": "[parameters('sqlServerFirewallRuleEndIpAddress')]",
                         "tags": "[parameters('sqlServerFirewallRuleTags')]"
                     }
@@ -855,7 +875,7 @@
                     "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server.database', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
                     // the names of child nested resources are prefixed with the name used by the parent object.
                     "parentResourceName": "[variables('tmp2').sqlServerResourceName]",
-                    "resourceName": "[replace( if (not (empty (parameters('sqlServerDatabaseResourceName'))), parameters('sqlServerDatabaseResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'DB')]",
+                    "resourceName": "[replace( if (not (empty (parameters('sqlServerDatabaseResourceName'))), parameters('sqlServerDatabaseResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'db')]",
                     "resourceLocation": "[variables('tmp2').sqlServerResourceLocation]",
                     "resourceSku": "[parameters('sqlServerDatabaseResourceSku')]",
                     "collation": "[parameters('sqlServerDatabaseCollation')]",
@@ -868,7 +888,7 @@
             "auditingPolicies": {
                 "comment": "A collection of variables for passing to the SqlServerAuditingPolicies ARM Template.",
                 "id": "[concat( variables('resource').resourceNamePrefix,'.sqlServer.auditingPolicies')]",
-                "resourceName": "[replace( if (not (empty (parameters('sqlServerAuditingPoliciesResourceName'))), parameters('sqlServerAuditingPoliciesResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'SQLSERVER-AUDITING-POLICIES')]",
+                "resourceName": "[replace( if (not (empty (parameters('sqlServerAuditingPoliciesResourceName'))), parameters('sqlServerAuditingPoliciesResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'sqlserver-auditing-policies')]",
                 "resourceLocation": "[if (not (empty (parameters('sqlServerAuditingPoliciesResourceLocation'))), parameters('sqlServerAuditingPoliciesResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                 "tags": "[parameters('sqlServerAuditingPoliciesTags')]"
             }
@@ -878,12 +898,16 @@
                 "id": "[concat( variables('resource').resourceNamePrefix,'.documentDb.databaseAccount' )]",
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.documentdb.databaseaccount', '.json' , parameters('armTemplateRootSas'))]",
                 "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.documentdb.databaseaccount', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[replace( if (not (empty (parameters('documentDbDatabaseAccountResourceName'))), parameters('documentDbDatabaseAccountResourceName'), variables('resource').resourceNameTemplate ), '{RT}', 'DOCUMENTDB-DATABASEACCOUNT')]",
+                "resourceName": "[take(replace( if (not (empty (parameters('documentDbDatabaseAccountResourceName'))), parameters('documentDbDatabaseAccountResourceName'), variables('resource').resourceNameTemplate ), '{RT}', 'docdb-dbaccnt'), 24)]",
                 "resourceType": "Microsoft.DocumentDB/databaseAccounts",
                 "resourceLocation": "[parameters('documentDbDatabaseAccountResourceLocation')]",
                 "kind": "[parameters('documentDbDatabaseAccountKind')]",
                 "offerType": "[parameters('documentDbDatabaseAccountOfferType')]",
-                "consistencyPolicy": "[parameters('documentDbDatabaseAccountConsistencyPolicy')]",
+                "consistencyPolicy": {
+                    "level": "[parameters('documentDbDatabaseAccountConsistencyPolicyLevel')]",
+                    "maxStalenessPrefix": "[parameters('documentDbDatabaseAccountConsistencyMaxStalenessPrefix')]",
+                    "maxIntervalInSeconds": "[parameters('documentDbDatabaseAccountConsistencyMaxIntervalInSeconds')]"
+                },
                 "tags": "[parameters('documentDbDatabaseAccountTags')]"
             }
         },
@@ -893,7 +917,7 @@
                 "id": "[concat( variables('resource').resourceNamePrefix,'.web.appServicePlan' )]",
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.web.serverfarm', '.json' , parameters('armTemplateRootSas'))]",
                 "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.web.serverfarm', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[replace( if (not (empty (parameters('webServerFarmResourceName'))), parameters('webServerFarmResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'WEB-SERVER-FARM')]",
+                "resourceName": "[toLower(replace( if (not (empty (parameters('webServerFarmResourceName'))), parameters('webServerFarmResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'web-server-farm'))]",
                 "resourceLocation": "[if (not (empty (parameters('webServerFarmResourceLocation'))), parameters('webServerFarmResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                 "resourceSku": "[parameters('webServerFarmResourceSku')]",
                 "numberOfWorkers": "[parameters('webServerFarmNumberOfWorkers')]",
@@ -903,7 +927,7 @@
                 "id": "[concat( variables('resource').resourceNamePrefix,'.web.site' )]",
                 "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.web.site', '.json' , parameters('armTemplateRootSas'))]",
                 "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.web.site', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[replace( if (not (empty (parameters('webSiteResourceName'))), parameters('webSiteResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'WEB-SITE')]",
+                "resourceName": "[toLower(replace( if (not (empty (parameters('webSiteResourceName'))), parameters('webSiteResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'web-site'))]",
                 "resourceLocation": "[if (not (empty (parameters('webSiteResourceLocation'))), parameters('webSiteResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                 "resourceSku": "[parameters('webSiteResourceSku')]",
                 "serverFarmResourceId": "TODO",
@@ -923,7 +947,7 @@
                 "hostBinding": {
                     "comments": "",
                     "resourceType": "Microsoft.Web/sites/hostNameBindings",
-                    "resourceName": "[concat(replace( if (not (empty (parameters('webSiteHostBindingResourceName'))), parameters('webSiteHostBindingResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'WEB-SITE'),'/rule')]",
+                    "resourceName": "[concat(replace( if (not (empty (parameters('webSiteHostBindingResourceName'))), parameters('webSiteHostBindingResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'web-site'),'/rule')]",
                     "resourceLocation": "[if (not (empty (parameters('webSiteHostBindingResourceLocation'))), parameters('webSiteHostBindingResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                     "hostName": "[parameters('webSiteHostBindingHostName')]",
                     "thumbprint": "[parameters('webSiteHostBindingCertificateThumbprint')]",
@@ -932,7 +956,7 @@
             },
             "certificate": {
                 "resourceType": "Microsoft.Web/certificates",
-                "resourceName": "[replace( if (not (empty (parameters('webCertificateResourceName'))), parameters('webCertificateResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'WEB-CERTIFICATE')]",
+                "resourceName": "[replace( if (not (empty (parameters('webCertificateResourceName'))), parameters('webCertificateResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'web-certificate')]",
                 "resourceLocation": "[coalesce(parameters('webCertificateResourceLocation'), variables('resource').resourceLocation, resourceGroup().location)]",
                 "pfxBlob": "[coalesce(parameters('webCertificateBase64'),'ERROR:NO PFX BLOB PROVIDED')]",
                 "password": "[coalesce(parameters('webCertificatePassword'),'ERROR:NO PFX PASSWORD PROVIDED')]",
@@ -982,7 +1006,6 @@
                 }
             }
         },
-
         {
             "comments": "Ensures a Resource Group scoped unique backup Storage Account (for Db)",
             "name": "[variables('storageAccount').deployment.id]",
@@ -1013,9 +1036,6 @@
                 }
             }
         },
-
-
-
         {
             "comments": "Ensures a Resource Group scoped unique backup Storage Account (for Db)",
             "name": "[variables('storageAccount').diagnostics.id]",
@@ -1112,8 +1132,6 @@
                 }
             }
         },
-
-
         {
             "comments": "Ensure a Resource Group scoped SqlServer. Is a dependency for the subsequent deployment of the FirewallRule, and the SqlServerDatabase.",
             "type": "Microsoft.Resources/deployments",
@@ -1144,8 +1162,7 @@
                 }
             }
         },
-
-/*
+        /*
 
         {
             "dependsOn": [
@@ -1183,8 +1200,7 @@
                 }
             }
         },
-*/  
-
+*/
         // -------------------------------------------------------
         // SQL SERVER
         // -------------------------------------------------------
@@ -1234,6 +1250,7 @@
                 }
             }
         },
+
         // -------------------------------------------------------
         // MONGO/COSMO DB
         // -------------------------------------------------------
@@ -1261,8 +1278,14 @@
                     "documentDbDatabaseAccountOfferType": {
                         "value": "[variables('documentDb').databaseAccount.offerType]"
                     },
-                    "documentDbDatabaseAccountConsistencyPolicy": {
-                        "value": "[variables('documentDb').databaseAccount.consistencyPolicy]"
+                    "documentDbDatabaseAccountConsistencyPolicyLevel": {
+                        "value": "[variables('documentDb').databaseAccount.consistencyPolicy.level]"
+                    },
+                    "documentDbDatabaseAccountConsistencyMaxStalenessPrefix": {
+                        "value": "[variables('documentDb').databaseAccount.consistencyPolicy.maxStalenessPrefix]"
+                    },
+                    "documentDbDatabaseAccountConsistencyMaxIntervalInSeconds": {
+                        "value": "[variables('documentDb').databaseAccount.consistencyPolicy.maxIntervalInSeconds]"
                     },
                     "documentDbDatabaseAccountTags": {
                         "value": "[variables('documentDb').databaseAccount.tags]"
@@ -1271,16 +1294,10 @@
             }
         },
 
-
-
-
-
-
-
+        
         // -------------------------------------------------------
         // WEB SERVER FARM
         // -------------------------------------------------------
-
         {
             "comments": "Ensures a Resource Group scoped unique App Service Plan",
             "name": "[variables('web').serverFarm.id]",
@@ -1375,11 +1392,9 @@
 
 */
     ],
-
-        // -------------------------------------------------------
-        // OUTPUTS
-        // -------------------------------------------------------
-
+    // -------------------------------------------------------
+    // OUTPUTS
+    // -------------------------------------------------------
     "outputs": {
         // --------------------------------------------------
         // Common:
@@ -1410,8 +1425,6 @@
             "type": "string",
             "value": "[reference(variables('keyVault').vault.id).outputs.subscriptionId.value]"
         },
-
-
         // --------------------------------------------------
         // Output from StorageAccount used for Deployment:
         "storageAccountDeploymentResourceId": {
@@ -1603,6 +1616,8 @@
         }
         */
 
+
+        /*
         // --------------------------------------------------
         // Output from DocumentDb
         "documentDbDatabaseAccountResourceId": {
@@ -1629,7 +1644,6 @@
             "type": "string",
             "value": "[reference(variables('documentDb').databaseAccount.id).outputs.offerType.value]"
         }
-
-        
+        */
     }
 }

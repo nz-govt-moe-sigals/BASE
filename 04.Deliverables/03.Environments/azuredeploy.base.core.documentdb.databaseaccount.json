@@ -5,9 +5,9 @@
         "documentDbDatabaseAccountResourceName": {
             "type": "string",
             "minLength": 3,
-            "maxLength": 50,
+            "maxLength": 32,
             "metadata": {
-                "description": "The MongoDB database account name. Needs to be globally unique."
+                "description": "The document database account name. Needs to be globally unique. Lowercase. Between 3 and 50 long."
             }
         },
         "documentDbDatabaseAccountResourceLocation": {
@@ -15,18 +15,14 @@
             "defaultValue": "[resourceGroup().location]",
             "allowedValues": [
                 "southeastasia",
-                "westus",
-                "northeurope",
-                "westeurope",
                 "australiaeast",
                 "australiasoutheast"
-              ],
-              "metadata": {
-                  "description": "The region where the read/write database is located."
-              }            
-
+            ],
+            "metadata": {
+                "description": "The region where the read/write database is located. Should be close to the app. "
+            }
         },
-        "documentDbDatabaseAccountConsistencyPolicy": {
+        "documentDbDatabaseAccountConsistencyPolicyLevel": {
             "type": "string",
             "defaultValue": "Session",
             "allowedValues": [
@@ -38,6 +34,24 @@
             ],
             "metadata": {
                 "description": "The default value is 'Session'."
+            }
+        },
+        "documentDbDatabaseAccountConsistencyMaxStalenessPrefix": {
+            "type": "int",
+            "minValue": 10,
+            "maxValue": 1000,
+            "defaultValue": 10,
+            "metadata": {
+                "description": "When consistencyLevel is set to BoundedStaleness, then this value is required, else it can be ignored."
+            }
+        },
+        "documentDbDatabaseAccountConsistencyMaxIntervalInSeconds": {
+            "type": "int",
+            "minValue": 5,
+            "maxValue": 600,
+            "defaultValue": 10,
+            "metadata": {
+                "description": "When consistencyLevel is set to BoundedStaleness, then this value is required, else it can be ignored."
             }
         },
         "documentDbDatabaseAccountKind": {
@@ -69,10 +83,9 @@
                 "Standard"
             ],
             "metadata": {
-                "description": "TODO: Only choice is Standard"
+                "description": "The DocumentDB default consistency level for this account."
             }
         },
-
         "documentDbDatabaseAccountTags": {
             "type": "object",
             "defaultValue": {},
@@ -85,14 +98,18 @@
         "idPrefix": "azuredeploy.base.core",
         "documentDb": {
             "databaseAccount": {
-                "resourceName": "[toLower(parameters('documentDbDatabaseAccountResourceName'))]",
+                "resourceName": "[take(toLower(replace(parameters('documentDbDatabaseAccountResourceName'),'-','')),32)]",
                 "resourceType": "Microsoft.DocumentDB/databaseAccounts",
                 "resourceLocation": "[parameters('documentDbDatabaseAccountResourceLocation')]",
                 "kind": "[parameters('documentDbDatabaseAccountKind')]",
-                "experience": "[parameters('documentDbDatabaseAccountDefaultExperience')]",                
+                "experience": "[parameters('documentDbDatabaseAccountDefaultExperience')]",
                 "offerType": "[parameters('documentDbDatabaseAccountOfferType')]",
-                "consistencyPolicy": "[parameters('documentDbDatabaseAccountConsistencyPolicy')]",
-                "tags": "[parameters('documentDbDatabaseAccountTags')]"   
+                "consistencyPolicy": {
+                    "level": "[parameters('documentDbDatabaseAccountConsistencyPolicyLevel')]",
+                    "maxStalenessPrefix": "[parameters('documentDbDatabaseAccountConsistencyMaxStalenessPrefix')]",
+                    "maxIntervalInSeconds": "[parameters('documentDbDatabaseAccountConsistencyMaxIntervalInSeconds')]"
+                },
+                "tags": "[parameters('documentDbDatabaseAccountTags')]"
             }
         }
     },
@@ -100,32 +117,42 @@
         {
             "apiVersion": "2015-04-08",
             "type": "Microsoft.DocumentDB/databaseAccounts",
-            //Name must be lowercase, more than 3, less than 50 characters.
-            "name": "test192834756",
+            // Name must be lowercase, more than 3, less than 50 characters.
+            "name": "[variables('documentDb').databaseAccount.resourceName]",
             "location": "[variables('documentDb').databaseAccount.resourceLocation]",
             "kind": "[variables('documentDb').databaseAccount.kind]",
+            /*
             "tags": {
                 "defaultExperience": "[variables('documentDb').databaseAccount.experience]"
             },
-            "scale":null,
+            */
+            "scale": null,
             "properties": {
                 // If name not provided, even though not listed in docs, complains.
-                //"name": "[variables('documentDb').databaseAccount.resourceName]",
-                "name": "test19283475600000",
+                // "name": "[variables('documentDb').databaseAccount.resourceName]",
+                "name": "[variables('documentDb').databaseAccount.resourceName]",
                 "consistencyPolicy": {
-                    "defaultConsistencyLevel": "[variables('documentDb').databaseAccount.consistencyPolicy]",
-                    "maxIntervalInSeconds": 5,
-                    "maxStalenessPrefix": 100
+                    "defaultConsistencyLevel": "[variables('documentDb').databaseAccount.consistencyPolicy.level]",
+                    "maxIntervalInSeconds": "[variables('documentDb').databaseAccount.consistencyPolicy.maxIntervalInSeconds]",
+                    "maxStalenessPrefix": "[variables('documentDb').databaseAccount.consistencyPolicy.maxStalenessPrefix]"
                 },
                 "databaseAccountOfferType": "[variables('documentDb').databaseAccount.offerType]",
-                "locations":[
+                "locations": [
                     {
-                        //This template creates a database account with only one read region. To create the database account with more than one read region, add it to the 'locations' array in the azuredeploy.json file. Failover priority values must be unique and greater than 0 for read regions.
-
+                        // This template creates a database account with only one read region. To create the database account with more than one read region, add it to the 'locations' array in the azuredeploy.json file. Failover priority values must be unique and greater than 0 for read regions.
                         "locationName": "[variables('documentDb').databaseAccount.resourceLocation]",
                         "failoverPriority": 0
-                      }
-                ]
+                        // You can add more environments, with lower priority, as readonly copies, 
+                        // to deal with the very low chance of region being offline.
+                    }
+                ],
+                "capabilities": [
+                    {
+                        "name": "EnableGremlin"
+                    }
+                ],
+                "ipRangeFilter": null,
+                "enableAutomaticFailover": false
             },
             "tags": "[variables('documentDb').databaseAccount.tags]"
         }
@@ -134,27 +161,26 @@
         "resourceId": {
             "value": "[resourceId(variables('documentDb').databaseAccount.resourceType, variables('documentDb').databaseAccount.resourceName)]",
             "type": "string"
-          },
-          "resourceName": {
+        },
+        "resourceName": {
             "value": "[variables('documentDb').databaseAccount.resourceName]",
             "type": "string"
-          },
-          "resourceLocation": {
+        },
+        "resourceLocation": {
             "value": "[variables('documentDb').databaseAccount.resourceLocation]",
             "type": "string"
-          },
-          "kind": {
+        },
+        "kind": {
             "value": "[variables('documentDb').databaseAccount.kind]",
             "type": "string"
-          },
-          "experience": {
+        },
+        "experience": {
             "value": "[variables('documentDb').databaseAccount.experience]",
             "type": "string"
-          },
-          "offerType": {
+        },
+        "offerType": {
             "value": "[variables('documentDb').databaseAccount.offerType]",
             "type": "string"
-          }
-      
+        }
     }
 }
