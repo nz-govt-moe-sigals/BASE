@@ -43,11 +43,15 @@ function Test-ArmTemplates {
     $storageAccountKey = "4oy2aAxotGS68vuByKj6xErC51iK88hPqDZ8h0oLhhezufTKK+L/VS7MNYpvKUTzNAUCJIlYktQO74FsC5G3qg=="
     $storageAccountContainerName = "public"
     $localFileDirectory = "./"
-    $storageAccountContainerPath = "base/core/";
+    $storageAccountContainerPath = "base/core/"
 
     $ctx = New-AzureStorageContext -StorageAccountName $storageAccountName -StorageAccountKey $storageAccountKey
 
+    # delete previous scripts:
+    $filter = $storageAccountContainerPath + "*"
+    Get-AzureStorageBlob -Container $storageAccountContainerName -blob $filter -Context $ctx | ForEach-Object {Remove-AzureStorageBlob -Blob $_.Name -Container $storageAccountContainerName -Context $ctx}
 
+    # upload new ones:
     foreach ($file in Get-ChildItem -Path $localFileDirectory -Recurse -File) {
         $localFile = $localFileDirectory + $file
         $blobName = $storageAccountContainerPath + $file
@@ -76,7 +80,7 @@ function Test-ArmTemplates {
     $env:CUSTOM_VARS_armTemplateParameterRootSas = ""; 
 
     $secureLogin = "NOTADMIN"| ConvertTo-SecureString  -AsPlainText -Force
-    $securePassword = "NOTAPASSWORD" | ConvertTo-SecureString  -AsPlainText -Force
+    $securePassword = "N0t@P@ssword" | ConvertTo-SecureString  -AsPlainText -Force
 
 
     Write-Host $secureLogin
@@ -142,3 +146,6 @@ function Test-ArmTemplates {
 
 # INVOKE:
 Test-ArmTemplates
+
+# Get-AzureRmResourceGroupDeployment -ResourceGRoupName "MYORG-MYAPP-MYBT-RG"
+# Stop-AzureRMResourceGroupDeployment -ResourceGRoupName "MYORG-MYAPP-MYBT-RG"-name azuredeploy.base.core.sql.server.firewallRule.openToAzure  -whatif

@@ -2,32 +2,35 @@
     "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "sqlServerDatabaseParentResourceName": {
+            "type": "string"
+        },
         "sqlServerDatabaseResourceName": {
             "type": "string"
         },
         "sqlServerDatabaseResourceLocation": {
-            "type": "string",
+            "type": "string"
         },
         "sqlServerDatabaseResourceSku": {
             "type": "string",
             "defaultValue": "Basic",
             "allowedValues": [
-              "Basic",
-              "S0",
-              "S1",
-              "S2"
+                "Basic",
+                "S0",
+                "S1",
+                "S2"
             ],
             "metadata": {
-              "description": "Describes the performance level of the Database. Default is Basic ($8/m, 5 DTU, sufficient for 2GB). S0 is plenty at 25$/m. 10 DTUs, 250Gb. "
+                "description": "Describes the performance level of the Database. Default is Basic ($8/m, 5 DTU, sufficient for 2GB). S0 is plenty at 25$/m. 10 DTUs, 250Gb. "
             }
-          },
+        },
         "sqlServerDatabaseZoneRedundant": {
             "type": "bool",
             "defaultValue": false
         },
         "sqlServerDatabaseEdition": {
             "type": "string",
-            "defaultValue": "Standard",
+            "defaultValue": "Basic",
             "allowedValues": [
                 "Basic",
                 "Standard",
@@ -37,11 +40,36 @@
         "sqlServerDatabaseCollation": {
             "type": "string",
             "minLength": 1,
-            "defaultValue": "SQL_Latin1_General_CP1_CI_AS"
+            "defaultValue": "SQL_Latin1_General_CP1_CI_AS",
+            "allowedValues": [
+                "SQL_Latin1_General_CP1_CI_AS"
+            ]
         },
         "sqlServerDatabaseMaxSizeBytes": {
             "type": "string",
-            "defaultValue": "268435456000"
+            "allowedValues": [
+                "104857600",
+                "524288000",
+                "1073741824",
+                "2147483648",
+                "5368709120",
+                "10737418240",
+                "21474836480",
+                "32212254720",
+                "42949672960",
+                "53687091200",
+                "107374182400",
+                "161061273600",
+                "214748364800",
+                "268435456000",
+                "322122547200",
+                "429496729600",
+                "536870912000"
+            ],
+            // NOTE:
+            // When using Basic, you only can have a 2Gb drive.
+            // Which is fine (and less expensive), for most enterprise apps.
+            "defaultValue": "2147483648"
         },
         "sqlServerDatabaseTags": {
             "type": "object",
@@ -53,11 +81,18 @@
     },
     "variables": {
         "idPrefix": "azuredeploy.base.core",
+            /*the database name part of the two part name must be lowercase, [a-z0-9\-] */
+        "tmpServerName": "[toLower(parameters('sqlServerDatabaseParentResourceName'))]",
+        "tmpDatabaseName": "[toLower(parameters('sqlServerDatabaseResourceName'))]",
+        "tmpCombinedName": "[concat( variables('tmpServerName'), if (not( empty( variables('tmpServerName'))),'/',''), variables('tmpDatabaseName'))]",
+        "tmp": {
+            "resourceName": "[variables('tmpCombinedName')]"
+        },
         "sql": {
             "server": {
                 "database": {
                     "id": "[concat(variables('idPrefix'),'.sqlServerDatabase' )]",
-                    "resourceName": "[parameters('sqlServerDatabaseResourceName')]",
+                    "resourceName": "[variables('tmp').resourceName]",
                     "resourceType": "Microsoft.Sql/servers/databases",
                     "resourceLocation": "[coalesce(parameters('sqlServerDatabaseResourceLocation'))]",
                     "resourceSku": "[parameters('sqlServerDatabaseResourceSku')]",
@@ -65,7 +100,8 @@
                     "edition": "[parameters('sqlServerDatabaseEdition')]",
                     "maxSizeBytes": "[parameters('sqlServerDatabaseMaxSizeBytes')]",
                     "zoneRedundant": "[parameters('sqlServerDatabaseZoneRedundant')]",
-                    "tags": "[parameters('sqlServerDatabaseTags')]"                }
+                    "tags": "[parameters('sqlServerDatabaseTags')]"
+                }
             }
         }
     },
@@ -77,6 +113,7 @@
             "apiVersion": "2014-04-01-preview",
             "location": "[variables('sql').server.database.resourceLocation]",
             "properties": {
+                "createMode": "Default",
                 "collation": "[variables('sql').server.database.collation]",
                 "edition": "[variables('sql').server.database.edition]",
                 "maxSizeBytes": "[variables('sql').server.database.maxSizeBytes]",
@@ -88,8 +125,41 @@
     ],
     "outputs": {
         "resourceId": {
-            "value": "[resourceId(variables('sql').server.database.resourceType, variables('sql').server.database.resourceName)]",
+            // NOTE:
+            // When it's a Nested Child Resource, notice how the path is made up differently:
+            // Parent Path, Parent Resource Name, child type, child resource name
+            // And the output will look different as well, in that it becomes
+            // Parent Path, Parent Resource Name, child type, child resource name
+            "value": "[resourceId('Microsoft.Sql/servers/databases', variables('tmpServerName'), variables('tmpDatabaseName'))]",
             "type": "string"
+        },
+        "resourceName": {
+            "value": "[variables('tmpDatabaseName')]",
+            "type": "string"
+        },
+        "resourceLocation": {
+            "value": "[variables('sql').server.database.resourceLocation]",
+            "type": "string"
+        },
+        "resourceSku": {
+            "value": "[variables('sql').server.database.resourceSku]",
+            "type": "string"
+        },
+        "maxSizeBytes": {
+            "value": "[variables('sql').server.database.maxSizeBytes]",
+            "type": "string"
+        },
+        "edition": {
+            "value": "[variables('sql').server.database.edition]",
+            "type": "string"
+        },
+        "maxSizeBytes": {
+            "value": "[variables('sql').server.database.maxSizeBytes]",
+            "type": "string"
+        },
+        "zoneRedundant": {
+            "value": "[variables('sql').server.database.zoneRedundant]",
+            "type": "bool"
         }
     }
 }

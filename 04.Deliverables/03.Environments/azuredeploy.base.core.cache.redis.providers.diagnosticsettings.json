@@ -1,0 +1,68 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+
+    parentResourceName,
+    ProvidersDiagnosticSettings
+  },
+  "variables": {
+    "currentTemplateUrl": "[deployment().properties.templateLink.uri]",
+    "currentTemplateUriRoot": "[uri(deployment().properties.templateLink.uri, '')]",
+    "cache": {
+      "redis": {
+        "providers": {
+          "diagnosticSettings": {
+            "resourceMode": "[parameters('cacheRedisProvidersDiagnosticSettingsResourceMode')]",
+            "resourceType": "Microsoft.Cache/redis/providers/diagnosticsettings",
+            "resourceName": "[parameters('cacheRedisProvidersDiagnosticSettingsResourceName')]",
+            "resourceLocation": "[parameters('cacheRedisProvidersDiagnosticSettingsResourceLocation')]",
+          }
+        }
+      }
+    }
+  },
+  "resources": [
+    {
+      "apiVersion": "2015-07-01",
+      "type": "Microsoft.Cache/redis/providers/diagnosticsettings",
+      "name": "[concat(parameters('redisCacheName'), '/Microsoft.Insights/service')]",
+      "location": "[parameters('redisCacheLocation')]",
+      "dependsOn": [
+        "[concat('Microsoft.Cache/Redis/', parameters('redisCacheName'))]"
+      ],
+      "properties": {
+        "status": "[parameters('diagnosticsStatus')]",
+        "storageAccountName": "[parameters('existingDiagnosticsStorageAccountName')]"
+      }
+            "tags": "[variables('cache').redis.tags]"
+    }
+  ],
+
+
+
+
+
+  "outputs": {
+    "resourceId": {
+      "value": "[resourceId(variables('cache').redis.resourceType, variables('cache').redis.resourceName)]",
+      "type": "string"
+    },
+    "resourceName": {
+      "value": "[variables('cache').redis.resourceName]",
+      "type": "string"
+    },
+    "resourceLocation": {
+      "value": "[variables('cache').redis.resourceLocation]",
+      "type": "string"
+    },
+    "resourceSku": {
+      "value": "[concat(variables('cache').redis.sku.name,':',variables('cache').redis.sku.family,':',variables('cache').redis.sku.capacity)]",
+      "type": "string"
+    },
+    "enableNonSslPort": {
+      "value": false,
+      "type": "bool"
+    }
+  }
+}

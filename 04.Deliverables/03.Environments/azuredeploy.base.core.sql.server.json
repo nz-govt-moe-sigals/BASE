@@ -53,11 +53,20 @@
   "variables": {
     "currentTemplateUrl": "[deployment().properties.templateLink.uri]",
     "currentTemplateUriRoot": "[uri(deployment().properties.templateLink.uri, '')]",
+    "tmp": {
+      // although a database can be created with capitals via script, subsequently creating a db can run into issues...as
+      // it really does expect a lowercase name, [a-z0-9\-], limited to 63 chracters, so that it is available as a subdomain:
+      // xyz.database.windows.net
+      "resourceName": "[parameters('sqlServerResourceName')]",
+      // and the lowercase version of the name is what is expected when creating the database next 
+      // where the sql server part of a database name (before the single slash) must be lowercase, [a-z0-9\-]
+        "resourceNameUrl": "[toLower(replace(parameters('sqlServerResourceName'),'_','-'))]"
+    },
     "sql": {
       "server": {
         "resourceType": "Microsoft.Sql/servers",
         "resourceMode": "[parameters('SqlServerResourceMode')]",
-        "resourceName": "[parameters('sqlServerResourceName')]",
+        "resourceName": "[variables('tmp').resourceNameUrl]",
         "location": "[parameters('sqlServerResourceLocation')]",
         "administrator": {
           "login": "[parameters('sqlServerAdministratorLogin')]",
@@ -87,6 +96,22 @@
   "outputs": {
     "resourceId": {
       "value": "[resourceId(variables('sql').server.resourceType, variables('sql').server.resourceName)]",
+      "type": "string"
+    },
+    "resourceName": {
+      "value": "[variables('sql').server.resourceName]",
+      "type": "string"
+    },
+    "resourceLocation": {
+      "value": "[variables('sql').server.location]",
+      "type": "string"
+    },
+    "administratorLogin": {
+      "value": "[variables('sql').server.administrator.loginPassword]",
+      "type": "string"
+    },
+    "administratorPassword": {
+      "value": "[take(variables('sql').server.administrator.loginPassword, 3)]",
       "type": "string"
     }
   }

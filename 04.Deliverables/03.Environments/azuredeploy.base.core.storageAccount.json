@@ -42,7 +42,7 @@
                 "StorageV2",
                 "BlobStorage"
             ],
-            "defaultValue": "StorageV2"
+            "defaultValue": "Storage"
         },
         "storageAccountTags": {
             "type": "object",
@@ -61,12 +61,12 @@
             "resourceNamePrefix": "azuredeploy.base.core"
         },
         "storageAccount": {
+            "resourceMode": "[parameters('storageAccountResourceMode')]",
             "resourceType": "Microsoft.Storage/storageAccounts",
             "resourceName": "[variables('tmp').resourceName]",
             "resourceNameUrl": "[take( toLower( replace( replace ( variables('tmp').resourceName,'-',''),'_','')), 24)]",
             "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), resourceGroup().location)]",
             "resourceSku": "[parameters('storageAccountResourceSku')]",
-            "resourceMode": "[parameters('storageAccountResourceMode')]",
             "kind": "[parameters('storageAccountKind')]",
             "tags": "[parameters('storageAccountTags')]"
         }
@@ -89,9 +89,11 @@
                         "blob": {
                             "enabled": true
                         },
+                        /*
                         "file": {
                             "enabled": true
-                        }
+                        }*/
+                        
                     },
                     "keySource": "Microsoft.Storage"
                 }
@@ -104,9 +106,25 @@
             "type": "string",
             "value": "[resourceId(variables('storageAccount').resourceType, variables('storageAccount').resourceNameUrl)]"
         },
+        "resourceName":{
+            "type": "string",
+            "value": "[variables('storageAccount').resourceName]"
+        },
         "resourceNameUrl":{
             "type": "string",
             "value": "[variables('storageAccount').resourceNameUrl]"
+        },
+        "resourceLocation":{
+            "type": "string",
+            "value": "[variables('storageAccount').resourceLocation]"
+        },
+        "resourceSku":{
+            "type": "string",
+            "value": "[variables('storageAccount').resourceSku]"
+        },
+        "kind":{
+            "type": "string",
+            "value": "[variables('storageAccount').kind]"
         }
     }
 }
