@@ -17,13 +17,7 @@
       "type": "string",
       "defaultValue": "[resourceGroup().location]",
       "allowedValues": [
-        "southeastasia",
-        "East US",
-        "South Central US",
-        "Southeast Asia",
-        "West Central US",
-        "West Europe",
-        "West US 2"
+        "southeastasia"
       ],
       "metadata": {
         "description": "The location for the SQL service. This is parameterised because SQL servers cannot be deployed in all regions for subscription types."

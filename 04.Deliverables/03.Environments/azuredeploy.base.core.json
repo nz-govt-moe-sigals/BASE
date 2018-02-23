@@ -29,6 +29,16 @@
             ],
             "defaultValue": "[resourceGroup().location]"
         },
+        "altResourceLocation": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
+            "allowedValues": [
+              "southeastasia"
+            ],
+            "metadata": {
+                "description": "The alt resource location, used for Databases, and any other resources that can't be location in the primary resourceLocation."
+            },
+        },
         "resourceNameTemplate": {
             "metadata": {
                 "description": "The default name template to use when developing the names of newly created Resources (eg: 'MYORG-MYAPP-{ENVID}-{BRANCHID}-{RESOURCETYPE}')'."
@@ -74,7 +84,15 @@
         },
         "keyVaultVaultResourceLocation": {
             "type": "string",
-            "defaultValue": "[resourceGroup().location]"
+            "defaultValue": "[resourceGroup().location]",
+            "allowedValues": [
+              "australiaeast",
+              "australiasoutheast",
+              "southeastasia"
+            ],
+            "metadata": {
+              "description": "The location within which to develop the resource."
+            }
         },
         "keyVaultVaultResourceSku": {
             "type": "string",
@@ -127,7 +145,15 @@
         // -------------------------------------------------------
         "storageAccountResourceLocation": {
             "type": "string",
-            "defaultValue": "[resourceGroup().location]"
+            "defaultValue": "[resourceGroup().location]",
+            "allowedValues": [
+              "australiaeast",
+              "australiasoutheast",
+              "southeastasia"
+            ],
+            "metadata": {
+              "description": "The location within which to develop the resource."
+            }
         },
         "storageAccountResourceSku": {
             "type": "string",
@@ -201,14 +227,9 @@
             "type": "string",
             "defaultValue": "[resourceGroup().location]",
             "allowedValues": [
-                "australiasoutheast",
-                "australiaeast",
-                "East US",
-                "South Central US",
-                "Southeast Asia",
-                "West Central US",
-                "West Europe",
-                "West US 2"
+              "australiaeast",
+              "australiasoutheast",
+              "southeastasia"
             ],
             "metadata": {
                 "description": "The location for the SQL service. This is parameterised because SQL servers cannot be deployed in all regions for subscription types."
@@ -248,7 +269,13 @@
         },
         "sqlServerFirewallRuleResourceLocation": {
             "type": "string",
-            "defaultValue": "[resourceGroup().location]"
+            "defaultValue": "[resourceGroup().location]",
+            "allowedValues": [
+              "southeastasia"
+            ],
+            "metadata": {
+              "description": "The location within which to develop the resource. Must equal the parent SqlServer resource location."
+            }
         },
         "sqlServerFirewallRuleStartIpAddress": {
             "type": "string",
@@ -285,12 +312,12 @@
             "type": "string",
             "defaultValue": "[resourceGroup().location]",
             "allowedValues": [
-                "australiaeast",
-                "Australia East",
-                "Australia Souteast"
+              "australiaeast",
+              "australiasoutheast",
+              "southeastasia"
             ],
             "metadata": {
-                "description": "The location for the Auditing Policies."
+              "description": "The location within which to develop the resource. Must equal the parent SQL Server Resource's location."
             }
         },
         "sqlServerAuditingPoliciesTags": {
@@ -314,12 +341,12 @@
             "type": "string",
             "defaultValue": "[resourceGroup().location]",
             "allowedValues": [
-                "australiaeast",
-                "Australia East",
-                "Australia Souteast"
+              "australiaeast",
+              "australiasoutheast",
+              "southeastasia"
             ],
             "metadata": {
-                "description": "The location for the Database. Can't be Nearshore Australia."
+              "description": "The location within which to develop the resource. Must equal the parent Sql Server Resource's location."
             }
         },
         "sqlServerDatabaseResourceSku": {
@@ -402,7 +429,15 @@
         },
         "documentDbDatabaseAccountResourceLocation": {
             "type": "string",
-            "defaultValue": "[resourceGroup().location]"
+            "defaultValue": "[resourceGroup().location]",
+            "allowedValues": [
+              "australiaeast",
+              "australiasoutheast",
+              "southeastasia"
+            ],
+            "metadata": {
+              "description": "The location within which to develop the resource."
+            }
         },
         "documentDbDatabaseAccountResourceSku": {
             "type": "string",
@@ -500,12 +535,12 @@
             "type": "string",
             "defaultValue": "[resourceGroup().location]",
             "allowedValues": [
-                "australiaeast",
-                "Australia East",
-                "Australia Souteast"
+              "australiaeast",
+              "australiasoutheast",
+              "southeastasia"
             ],
             "metadata": {
-                "description": "The location for the Database."
+              "description": "The location within which to develop the resource."
             }
         },
         "webServerFarmResourceSku": {
@@ -549,9 +584,9 @@
             "type": "string",
             "defaultValue": "[resourceGroup().location]",
             "allowedValues": [
-                "australiaeast",
-                "Australia East",
-                "Australia Southeast"
+              "australiaeast",
+              "australiasoutheast",
+              "southeastasia"
             ],
             "metadata": {
                 "description": "Optional. If it can be set. If left blank, defined automatically."
@@ -590,9 +625,9 @@
             "type": "string",
             "defaultValue": "[resourceGroup().location]",
             "allowedValues": [
-                "australiaeast",
-                "Australia East",
-                "Australia Southeast"
+              "australiaeast",
+              "australiasoutheast",
+              "southeastasia"
             ],
             "metadata": {
                 "description": "The location for the Certificate, if it can be set."
@@ -631,12 +666,12 @@
             "type": "string",
             "defaultValue": "[resourceGroup().location]",
             "allowedValues": [
-                "australiaeast",
-                "Australia East",
-                "Australia Southeast"
+              "australiaeast",
+              "australiasoutheast",
+              "southeastasia"
             ],
             "metadata": {
-                "description": "The location for the Certificate, if it can be set."
+              "description": "The location within which to develop the resource."
             }
         },
         "webSiteResourceSku": {
@@ -1350,6 +1385,9 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
+                    "webSiteParentResourceName": {
+                        "value": "[variables('sql').server.database.parentResourceName]"
+                    },
                     "webSiteResourceName": {
                         "value": "[variables('web').site.resourceName]"
                     },

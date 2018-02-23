@@ -16,13 +16,15 @@
         },
         "storageAccountResourceLocation": {
             "type": "string",
+            "defaultValue": "[resourceGroup().location]",
             "allowedValues": [
-                "Australia East",
-                "Australia Southeast",
-                "australiaeast",
-                "australiasoutheast"
+              "australiaeast",
+              "australiasoutheast",
+              "southeastasia"
             ],
-            "defaultValue": "[resourceGroup().location]"
+            "metadata": {
+              "description": "The location within which to develop the resource."
+            }
         },
         "storageAccountResourceSku": {
             "type": "string",

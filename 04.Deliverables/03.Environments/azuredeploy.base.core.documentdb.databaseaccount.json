@@ -14,12 +14,12 @@
             "type": "string",
             "defaultValue": "[resourceGroup().location]",
             "allowedValues": [
-                "southeastasia",
-                "australiaeast",
-                "australiasoutheast"
+              "australiaeast",
+              "australiasoutheast",
+              "southeastasia"
             ],
             "metadata": {
-                "description": "The region where the read/write database is located. Should be close to the app. "
+                "description": "The region where the read/write database is located. Should be closest to the app's region. "
             }
         },
         "documentDbDatabaseAccountConsistencyPolicyLevel": {

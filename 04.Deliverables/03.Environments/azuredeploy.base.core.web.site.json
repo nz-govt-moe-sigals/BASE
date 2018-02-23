@@ -16,10 +16,14 @@
         },
         "webSiteResourceLocation": {
             "type": "string",
-            "minLength": 1,
             "defaultValue": "[resourceGroup().location]",
+            "allowedValues": [
+              "australiaeast",
+              "australiasoutheast",
+              "southeastasia"
+            ],
             "metadata": {
-                "description": "The location within which to develop the App Service plan resource."
+              "description": "The location within which to develop the resource."
             }
         },
         "webSiteParentResourceId": {

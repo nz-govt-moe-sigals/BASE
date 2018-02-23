@@ -65,7 +65,15 @@
         },
         "keyVaultVaultResourceLocation": {
             "type": "string",
-            "defaultValue": "[resourceGroup().location]"
+            "defaultValue": "[resourceGroup().location]",
+            "allowedValues": [
+                "australiaeast",
+                "australiasoutheast",
+                "southeastasia"
+            ],
+            "metadata": {
+                "description": "The Location of the Resource."
+            }
         },
         "keyVaultVaultResourceSku": {
             "type": "string",
