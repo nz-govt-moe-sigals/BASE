@@ -24,20 +24,20 @@
             },
             "type": "string",
             "allowedValues": [
-                "Australia East",
-                "Australia Southeast"
+                "australiaeast",
+                "australiasoutheast"
             ],
             "defaultValue": "[resourceGroup().location]"
         },
         "altResourceLocation": {
             "type": "string",
-            "defaultValue": "[resourceGroup().location]",
+            "defaultValue": "southeastasia",
             "allowedValues": [
-              "southeastasia"
+                "southeastasia"
             ],
             "metadata": {
                 "description": "The alt resource location, used for Databases, and any other resources that can't be location in the primary resourceLocation."
-            },
+            }
         },
         "resourceNameTemplate": {
             "metadata": {
@@ -225,7 +225,7 @@
         // -------------------------------------------------------
         "sqlServerResourceLocation": {
             "type": "string",
-            "defaultValue": "[resourceGroup().location]",
+            "defaultValue": "southeastasia",
             "allowedValues": [
               "australiaeast",
               "australiasoutheast",
@@ -267,16 +267,21 @@
                 "description": "Optional. Default name is 'AllowAzure'."
             }
         },
+        /* 
+        // Not needed, as must be same as SqlServerResourceLocation:
         "sqlServerFirewallRuleResourceLocation": {
             "type": "string",
             "defaultValue": "[resourceGroup().location]",
             "allowedValues": [
-              "southeastasia"
+                "australiaeast",
+                "australiasoutheast",
+                "southeastasia"
             ],
             "metadata": {
               "description": "The location within which to develop the resource. Must equal the parent SqlServer resource location."
             }
         },
+        */
         "sqlServerFirewallRuleStartIpAddress": {
             "type": "string",
             "metadata": {
@@ -308,6 +313,8 @@
                 "description": "Optional. If it can be set. If left blank, defined automatically according to naming convention."
             }
         },
+        /*
+        // Not needed, as must be same as SqlServerResourceLocation:
         "sqlServerAuditingPoliciesResourceLocation": {
             "type": "string",
             "defaultValue": "[resourceGroup().location]",
@@ -320,6 +327,7 @@
               "description": "The location within which to develop the resource. Must equal the parent SQL Server Resource's location."
             }
         },
+        */
         "sqlServerAuditingPoliciesTags": {
             "type": "object",
             "defaultValue": {},
@@ -337,6 +345,8 @@
                 "description": "Optional. If it can be set. If left blank, defined automatically according to naming convention."
             }
         },
+        /*
+        // Not needed, as must be same as SqlServerResourceLocation:
         "sqlServerDatabaseResourceLocation": {
             "type": "string",
             "defaultValue": "[resourceGroup().location]",
@@ -349,6 +359,7 @@
               "description": "The location within which to develop the resource. Must equal the parent Sql Server Resource's location."
             }
         },
+        */
         "sqlServerDatabaseResourceSku": {
             "type": "string",
             "defaultValue": "Basic",
@@ -790,10 +801,10 @@
         },
         "tmp2": {
             "sqlServerResourceName": "[toLower(replace( variables('tmp').resourceNameTemplate, '{RT}', 'sqlserver'))]",
-            "sqlServerResourceLocation": "[if (not(contains(parameters('_invalidValidSqlServerResourceLocation'), variables('tmp').tmpSqlResourceLocation1)), variables('tmp').tmpSqlResourceLocation1,'Southeast Asia')]"
+            "sqlServerResourceLocation": "[if (not(contains(parameters('_invalidValidSqlServerResourceLocation'), variables('tmp').tmpSqlResourceLocation1)), variables('tmp').tmpSqlResourceLocation1, parameters('altResourceLocation'))]"
         },
         "resource": {
-            "comment": "A collection of variables for use within this template (and any linked child templates).",
+             // "A collection of variables for use within this template (and any linked child templates)."
             "resourceNamePrefix": "[toLower('azuredeploy.base.core')]",
             "uniqueResourceId": "[uniqueString(resourceGroup().id)]",
             "resourceMode": "[parameters('resourceMode')]",
@@ -924,7 +935,7 @@
                 "comment": "A collection of variables for passing to the SqlServerAuditingPolicies ARM Template.",
                 "id": "[concat( variables('resource').resourceNamePrefix,'.sqlServer.auditingPolicies')]",
                 "resourceName": "[replace( if (not (empty (parameters('sqlServerAuditingPoliciesResourceName'))), parameters('sqlServerAuditingPoliciesResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'sqlserver-auditing-policies')]",
-                "resourceLocation": "[if (not (empty (parameters('sqlServerAuditingPoliciesResourceLocation'))), parameters('sqlServerAuditingPoliciesResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
+                "resourceLocation": "[variables('tmp2').sqlServerResourceLocation]",
                 "tags": "[parameters('sqlServerAuditingPoliciesTags')]"
             }
         },

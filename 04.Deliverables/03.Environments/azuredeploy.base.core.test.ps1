@@ -42,7 +42,7 @@ function Test-ArmTemplates {
     $storageAccountName = "basecoredeploytmp" 
     $storageAccountKey = "4oy2aAxotGS68vuByKj6xErC51iK88hPqDZ8h0oLhhezufTKK+L/VS7MNYpvKUTzNAUCJIlYktQO74FsC5G3qg=="
     $storageAccountContainerName = "public"
-    $localFileDirectory = "./"
+    $localFileDirectory = Convert-Path "./"
     $storageAccountContainerPath = "base/core/"
 
     $ctx = New-AzureStorageContext -StorageAccountName $storageAccountName -StorageAccountKey $storageAccountKey
@@ -52,9 +52,15 @@ function Test-ArmTemplates {
     Get-AzureStorageBlob -Container $storageAccountContainerName -blob $filter -Context $ctx | ForEach-Object {Remove-AzureStorageBlob -Blob $_.Name -Container $storageAccountContainerName -Context $ctx}
 
     # upload new ones:
-    foreach ($file in Get-ChildItem -Path $localFileDirectory -Recurse -File) {
-        $localFile = $localFileDirectory + $file
-        $blobName = $storageAccountContainerPath + $file
+    $exclude = @("_HOLD")
+    foreach ($file in Get-ChildItem -Path $localFileDirectory -Recurse -File  ) {
+
+        $relativePath = $file.FullName.SubString($localFileDirectory.Length +1)
+        Write-Host $relativePath
+
+        $localFile = $localFileDirectory + "/" + $relativePath
+        $blobName = $storageAccountContainerPath + $relativePath.Replace("\","/")
+
         Write-Host $blobName;
         Set-AzureStorageBlobContent -Context $ctx -File $localFile -Container $storageAccountcontainerName -Blob $blobName -Force
     }
@@ -101,7 +107,7 @@ function Test-ArmTemplates {
                 -TemplateFile "./azuredeploy.base.core.json" `
                 -TemplateParameterFile "./azuredeploy.base.core.parameters.json" `
                 -Mode "Incremental" `
-                -resourceLocation "Australia East" `
+                -resourceLocation "australiaeast" `
                 -resourceNameTemplate "ORG-APP-ENV-BRANCH-{RT}" `
                 -armTemplateRootUrl "https://basecoredeploytmp.blob.core.windows.net/public/base/core" `
                 -armTemplateParameterRootUrl "https://basecoredeploytmp.blob.core.windows.net/public/base/core" `
@@ -127,7 +133,7 @@ function Test-ArmTemplates {
                 -TemplateFile "./azuredeploy.base.core.json" `
                 -TemplateParameterFile "./azuredeploy.base.core.parameters.json" `
                 -Mode "Incremental" `
-                -resourceLocation "Australia East" `
+                -resourceLocation "australiaeast" `
                 -resourceNameTemplate "ORG-APP-ENV-BRANCH-{RT}" `
                 -armTemplateRootUrl "https://basecoredeploytmp.blob.core.windows.net/public/base/core" `
                 -armTemplateParameterRootUrl "https://basecoredeploytmp.blob.core.windows.net/public/base/core" `

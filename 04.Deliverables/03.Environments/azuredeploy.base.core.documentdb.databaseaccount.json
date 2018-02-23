@@ -109,6 +109,11 @@
                     "maxStalenessPrefix": "[parameters('documentDbDatabaseAccountConsistencyMaxStalenessPrefix')]",
                     "maxIntervalInSeconds": "[parameters('documentDbDatabaseAccountConsistencyMaxIntervalInSeconds')]"
                 },
+                "capabilities": [
+                    {
+                      "name": "EnableGremlin"
+                    }
+                ],
                 "tags": "[parameters('documentDbDatabaseAccountTags')]"
             }
         }

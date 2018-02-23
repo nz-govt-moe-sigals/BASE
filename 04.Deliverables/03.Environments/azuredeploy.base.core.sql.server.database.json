@@ -128,11 +128,6 @@
                 "maxSizeBytes": "[variables('sql').server.database.maxSizeBytes]",
                 "zoneRedundant": "[variables('sql').server.database.zoneRedundant]",
                 "requestedServiceObjectiveName": "[variables('sql').server.database.resourceSku]",
-                "capabilities": [
-                    {
-                      "name": "EnableGremlin"
-                    }
-                ]
             },
             "tags": "[variables('sql').server.database.tags]"
         }
@@ -165,10 +160,6 @@
         },
         "edition": {
             "value": "[variables('sql').server.database.edition]",
-            "type": "string"
-        },
-        "maxSizeBytes": {
-            "value": "[variables('sql').server.database.maxSizeBytes]",
             "type": "string"
         },
         "zoneRedundant": {
