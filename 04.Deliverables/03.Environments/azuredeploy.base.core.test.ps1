@@ -150,9 +150,10 @@ function Test-ArmTemplates {
 
 }
 
+# Import-Module ./azuredeploy.base.test.ps1 -Verbose
 
 # INVOKE:
-Test-ArmTemplates -publish $true
+#Test-ArmTemplates -publish $true
 
 # Get-AzureRmResourceGroupDeployment -ResourceGRoupName "MYORG-MYAPP-MYBT-RG"
 # Stop-AzureRMResourceGroupDeployment -ResourceGRoupName "MYORG-MYAPP-MYBT-RG"-name azuredeploy.base.core.sql.server.firewallRule.openToAzure  -whatif
