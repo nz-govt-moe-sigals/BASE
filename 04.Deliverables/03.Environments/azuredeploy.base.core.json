@@ -817,8 +817,8 @@
         "keyVault": {
             "vault": {
                 "id": "[concat( variables('resource').resourceNamePrefix,'.keyVault.vault' )]",
-                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.keyvault.vault', '.json' , parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.keyvault.vault', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/keyvault/', variables('resource').resourceNamePrefix,'.keyvault.vault', '.json' , parameters('armTemplateRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/keyvault/', variables('resource').resourceNamePrefix,'.keyvault.vault', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace(if (not( empty (parameters('keyVaultVaultResourceName'))), parameters('keyVaultVaultResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'keyvault')]",
                 "resourceLocation": "[coalesce(parameters('keyVaultVaultResourceLocation'))]",
                 "resourceType": "Microsoft.KeyVault/vaults",
@@ -834,8 +834,8 @@
             "deployment": {
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for system diagnostics Backup storage.",
                 "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.deployment')]",
-                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.deployment', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/storageaccount/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/storageaccount/', variables('resource').resourceNamePrefix,'.storageAccount.deployment', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace( if (not (empty (parameters('storageAccountDiagnosticsResourceName'))), parameters('storageAccountDiagnosticsResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'sa-deploy')]",
                 "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                 "resourceSku": "[parameters('storageAccountResourceSku')]",
@@ -845,8 +845,8 @@
             "diagnostics": {
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for system diagnostics Backup storage.",
                 "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.diagnostics')]",
-                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.diagnostics', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/storageaccount/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/storageaccount/', variables('resource').resourceNamePrefix,'.storageAccount.diagnostics', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace( if (not (empty (parameters('storageAccountDiagnosticsResourceName'))), parameters('storageAccountDiagnosticsResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'sa-diag')]",
                 "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                 "resourceSku": "[parameters('storageAccountResourceSku')]",
@@ -856,8 +856,8 @@
             "backups": {
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for Backup storage.",
                 "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.backups')]",
-                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.backups', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/storageaccount/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/storageaccount/', variables('resource').resourceNamePrefix,'.storageAccount.backups', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace( if (not (empty (parameters('storageAccountBackupResourceName'))), parameters('storageAccountBackupResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'sa-backup')]",
                 "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                 "resourceSku": "[parameters('storageAccountResourceSku')]",
@@ -867,8 +867,8 @@
             "media": {
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for Media storage.",
                 "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.media')]",
-                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.media', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/storageaccount/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/storageaccount/', variables('resource').resourceNamePrefix,'.storageAccount.media', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace( if (not (empty (parameters('storageAccountMediaResourceName'))), parameters('storageAccountMediaResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'sa-media')]",
                 "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                 "resourceSku": "[parameters('storageAccountResourceSku')]",
@@ -878,8 +878,8 @@
             "media2": {
                 "comment": "A collection of variables for passing to the storageAccount ARM Template for Media storage.",
                 "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.media2')]",
-                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.storageAccount.media2', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/storageaccount/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/storageaccount/', variables('resource').resourceNamePrefix,'.storageAccount.media2', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[replace( if (not (empty (parameters('storageAccountMedia2ResourceName'))), parameters('storageAccountMedia2ResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'sa-media-2')]",
                 "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                 "resourceSku": "[parameters('storageAccountResourceSku')]",
@@ -891,8 +891,8 @@
             "server": {
                 "comment": "A collection of variables for passing to the SqlServer ARM Template -- via the proxy of the sqlServerDatabase ARM that depends on it.",
                 "id": "[concat( variables('resource').resourceNamePrefix,'.sql.server')]",
-                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/sql/', variables('resource').resourceNamePrefix,'.sql.server', '.json', parameters('armTemplateRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/sql/', variables('resource').resourceNamePrefix,'.sql.server', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[variables('tmp2').sqlServerResourceName]",
                 "resourceLocation": "[variables('tmp2').sqlServerResourceLocation]",
                 "administrator": {
@@ -904,8 +904,8 @@
                     "openToAzure": {
                         "comment": "A collection of variables for passing to the SqlServerFirewallRule ARM Template.",
                         "id": "[concat( variables('resource').resourceNamePrefix,'.sql.server','.firewallRule.openToAzure')]",
-                        "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server.firewallrule', '.json', parameters('armTemplateRootSas'))]",
-                        "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server.firewallrule.opentoazure', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+                        "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/sql/', variables('resource').resourceNamePrefix,'.sql.server.firewallrule', '.json', parameters('armTemplateRootSas'))]",
+                        "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/sql/', variables('resource').resourceNamePrefix,'.sql.server.firewallrule.opentoazure', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
                         // the names of child nested resources are prefixed with the name used by the parent object.
                         "resourceName": "[concat(variables('tmp2').sqlServerResourceName, '/rules-opentoazure', if (not (empty (parameters('sqlServerDatabaseResourceName'))), concat('-', parameters('sqlServerDatabaseResourceName')),''))]",
                         "resourceLocation": "[variables('tmp2').sqlServerResourceLocation]",
@@ -917,8 +917,8 @@
                 "database": {
                     "comment": "A collection of variables for passing to the SqlServerDatabase ARM Template.",
                     "id": "[concat( variables('resource').resourceNamePrefix,'.sql.server.database')]",
-                    "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server.database', '.json', parameters('armTemplateRootSas'))]",
-                    "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.sql.server.database', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+                    "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/sql/', variables('resource').resourceNamePrefix,'.sql.server.database', '.json', parameters('armTemplateRootSas'))]",
+                    "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/sql/', variables('resource').resourceNamePrefix,'.sql.server.database', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
                     // the names of child nested resources are prefixed with the name used by the parent object.
                     "parentResourceName": "[variables('tmp2').sqlServerResourceName]",
                     "resourceName": "[replace( if (not (empty (parameters('sqlServerDatabaseResourceName'))), parameters('sqlServerDatabaseResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'db')]",
@@ -942,8 +942,8 @@
         "documentDb": {
             "databaseAccount": {
                 "id": "[concat( variables('resource').resourceNamePrefix,'.documentDb.databaseAccount' )]",
-                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.documentdb.databaseaccount', '.json' , parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.documentdb.databaseaccount', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/documentdb/', variables('resource').resourceNamePrefix,'.documentdb.databaseaccount', '.json' , parameters('armTemplateRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/documentdb/', variables('resource').resourceNamePrefix,'.documentdb.databaseaccount', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[take(replace( if (not (empty (parameters('documentDbDatabaseAccountResourceName'))), parameters('documentDbDatabaseAccountResourceName'), variables('resource').resourceNameTemplate ), '{RT}', 'docdb-dbaccnt'), 24)]",
                 "resourceType": "Microsoft.DocumentDB/databaseAccounts",
                 "resourceLocation": "[parameters('documentDbDatabaseAccountResourceLocation')]",
@@ -961,8 +961,8 @@
             "serverFarm": {
                 "comment": "A collection of variables for passing to the webServer  ARM Template.",
                 "id": "[concat( variables('resource').resourceNamePrefix,'.web.appServicePlan' )]",
-                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.web.serverfarm', '.json' , parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.web.serverfarm', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/web/', variables('resource').resourceNamePrefix,'.web.serverfarm', '.json' , parameters('armTemplateRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/web/', variables('resource').resourceNamePrefix,'.web.serverfarm', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[toLower(replace( if (not (empty (parameters('webServerFarmResourceName'))), parameters('webServerFarmResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'web-server-farm'))]",
                 "resourceLocation": "[if (not (empty (parameters('webServerFarmResourceLocation'))), parameters('webServerFarmResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                 "resourceSku": "[parameters('webServerFarmResourceSku')]",
@@ -971,8 +971,8 @@
             },
             "site": {
                 "id": "[concat( variables('resource').resourceNamePrefix,'.web.site' )]",
-                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/', variables('resource').resourceNamePrefix,'.web.site', '.json' , parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/', variables('resource').resourceNamePrefix,'.web.site', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/web/', variables('resource').resourceNamePrefix,'.web.site', '.json' , parameters('armTemplateRootSas'))]",
+                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/web/', variables('resource').resourceNamePrefix,'.web.site', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
                 "resourceName": "[toLower(replace( if (not (empty (parameters('webSiteResourceName'))), parameters('webSiteResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'web-site'))]",
                 "resourceLocation": "[if (not (empty (parameters('webSiteResourceLocation'))), parameters('webSiteResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
                 "resourceSku": "[parameters('webSiteResourceSku')]",

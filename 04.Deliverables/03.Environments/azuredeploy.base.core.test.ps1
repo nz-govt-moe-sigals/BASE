@@ -19,6 +19,7 @@ function Test-ArmTemplates {
     #>
     [CmdletBinding()]
     Param (
+        [Parameter(mandatory = $false)] [bool]$publish = $false
         #[Parameter(mandatory = $false)] [bool]$deployResourceGroupByPowerShell = $false
     ) 
     
@@ -151,7 +152,7 @@ function Test-ArmTemplates {
 
 
 # INVOKE:
-Test-ArmTemplates
+Test-ArmTemplates -publish $true
 
 # Get-AzureRmResourceGroupDeployment -ResourceGRoupName "MYORG-MYAPP-MYBT-RG"
 # Stop-AzureRMResourceGroupDeployment -ResourceGRoupName "MYORG-MYAPP-MYBT-RG"-name azuredeploy.base.core.sql.server.firewallRule.openToAzure  -whatif
