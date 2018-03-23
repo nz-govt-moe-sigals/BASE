@@ -1,0 +1,139 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "cacheRedisResourceMode": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "Incremental",
+      "allowedValues": [
+        "Incremental"
+      ]
+    },
+    "cacheRedisResourceName": {
+      "type": "string"
+    },
+    "cacheRedisResourceLocation": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "allowedValues": [
+        "australiaeast",
+        "australiasoutheast",
+        "southeastasia"
+      ],
+      "metadata": {
+        "description": "The location within which to develop the resource."
+      }
+    },
+    "cacheRedisResourceSku": {
+      "type": "string",
+      "allowedValues": [
+        "Basic",
+        "Standard",
+        "Premium"
+      ],
+      "defaultValue": "Basic",
+      "metadata": {
+        "description": "The pricing tier of the new Azure Redis Cache."
+      }
+    },
+    "cacheRedisResourceSkuFamily": {
+      "type": "string",
+      "allowedValues": [
+        "C",
+        "P"
+      ],
+      "defaultValue": "C",
+      "metadata": {
+        "description": "The family for the Resource Sku."
+      }
+    },
+    "cacheRedisResourceSkuCapacity": {
+      "type": "string",
+      "allowedValues": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "defaultValue": 0,
+      "metadata": {
+        "description": " 0 = 250 MB, 1 = 1 GB, 2 = 2.5 GB, 3 = 6 GB, 4 = 13 GB, 5 = 26 GB, 6 = 53 GB. 0 is the default (you really don't need more!)"
+      }
+    },
+    "cacheRedisDiagnosticsStorageAccount": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "cacheRedisTags": {
+      "type": "object",
+      "defaultValue": {},
+      "metadata": {
+        "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+      }
+    }
+  },
+  "variables": {
+    "currentTemplateUrl": "[deployment().properties.templateLink.uri]",
+    "currentTemplateUriRoot": "[uri(deployment().properties.templateLink.uri, '')]",
+    "cache": {
+      "redis": {
+        "resourceMode": "[parameters('cacheRedisResourceMode')]",
+        "resourceType": "Microsoft.Cache/redis",
+        "resourceName": "[parameters('cacheRedisResourceName')]",
+        "resourceLocation": "[parameters('cacheRedisResourceLocation')]",
+        "sku": {
+          "name": "[parameters('cacheRedisResourceSku')]",
+          "family": "[parameters('cacheRedisResourceSkuFamily')]",
+          "capacity": "[parameters('cacheRedisResourceSkuCapacity')]"
+        },
+        "tags": "[parameters('cacheRedisTags')]"
+      }
+    }
+  },
+  "resources": [
+    {
+      "apiVersion": "2017-10-01",
+      "name": "[variables('cache').redis.resourceName]",
+      "type": "Microsoft.Cache/Redis",
+      "location": "[variables('cache').redis.resourceLocation]",
+      "properties": {
+        "enableNonSslPort": false,
+        "redisConfiguration": {},
+        "tenantSettings": {},
+        "shardCount": null,
+        "sku": {
+          "capacity": "[variables('cache').redis.sku.capacity]",
+          "family": "[variables('cache').redis.sku.family]",
+          "name": "[variables('cache').redis.sku.name]"
+        }
+      },
+      "tags": "[variables('cache').redis.tags]"
+    }
+  ],
+  "outputs": {
+    "resourceId": {
+      "value": "[resourceId(variables('cache').redis.resourceType, variables('cache').redis.resourceName)]",
+      "type": "string"
+    },
+    "resourceName": {
+      "value": "[variables('cache').redis.resourceName]",
+      "type": "string"
+    },
+    "resourceLocation": {
+      "value": "[variables('cache').redis.resourceLocation]",
+      "type": "string"
+    },
+    "resourceSku": {
+      "value": "[concat(variables('cache').redis.sku.name,':',variables('cache').redis.sku.family,':',variables('cache').redis.sku.capacity)]",
+      "type": "string"
+    },
+    "enableNonSslPort": {
+      "value": false,
+      "type": "bool"
+    }
+  }
+}

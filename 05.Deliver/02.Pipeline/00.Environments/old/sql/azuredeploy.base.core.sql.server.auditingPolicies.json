@@ -1,0 +1,93 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "sqlServerAuditingPoliciesResourceName": {
+            "type": "string"
+        },
+        "sqlServerAuditingPoliciesLocation": {
+            "type": "string"
+        },
+        "sqlServerAuditingPoliciesEventTypesToAudit": {
+            "type": "string",
+            "defaultValue": "PlainSQL_Success,PlainSQL_Failure,ParameterizedSQL_Success,ParameterizedSQL_Failure,StoredProcedure_Success,StoredProcedure_Failure,Login_Success,Login_Failure,TransactionManagement_Success,TransactionManagement_Failure"
+        },
+        "sqlServerAuditingPoliciesAuditLogsTable": {
+            "type": "string"
+        },
+        "sqlServerAuditingPoliciesFullAuditLogsTable": {
+            "type": "string"
+        },
+        "sqlServerAuditingPoliciesRetentionDays": {
+            "type": "integer",
+            "defaultValue": "31"
+        },
+        "sqlServerAuditingPoliciesStorageAccountName": {
+            "type": "string"
+        },
+        "sqlServerAuditingPoliciesStorageAccountUrl": {
+            "type": "string"
+        },
+        "sqlServerAuditingPoliciesStorageAccountName": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "idPrefix": "azuredeploy.base.core",
+        "sql": {
+            "server": {
+                "firewallAuditingPolicies": {
+                    "id": "[concat(variables('idPrefix'),'.sqlServerAuditingPolicies' )]",
+                    "resourceType": "Microsoft.Sql/servers/auditingPolicies",
+                    "resourceName": "[parameters('sqlServerAuditingPoliciesResourceName')]",
+                    "resourceLocation": "[parameters('sqlServerAuditingPoliciesLocation')]",
+                    "eventTypesToAudit": "[parameters('sqlServerAuditingPoliciesEventTypesToAudit]",
+                    "auditsLogTable": "[parameters('sqlServerAuditingPoliciesAuditLogsTable')]",
+                    "fullAuditLogsTableName": "[parameters('sqlServerAuditingPoliciesFullAuditLogsTable')]",
+                    "retentionDays": "[parameters('sqlServerAuditingPoliciesRetentionDays')]",
+                    "duration": "[parameters('sqlServerAuditingPoliciesFullAuditLogsTable')]"
+                }
+            }
+        },
+        "storageAccount": {
+            "databaseBackups": {
+                "resourceName": "[parameters('sqlServerAuditingPoliciesResourceName')]",
+                "accountName": "[parameters('sqlServerAuditingPoliciesStorageAccountName')]",
+                "accountUrl": "[parameters('sqlServerAuditingPoliciesStorageAccountUrl')]",
+                "storageTableEndpoint": "[parameters('sqlServerAuditingPoliciesStorageTableEndpoint')]"
+            }
+        }
+    },
+    "resources": [
+        {
+            "dependsOn": [
+                
+            ],
+            "comments": "Database Audit Policies. Has dependencies on the the sql database being there, and a storage account for the database information.",
+            "type": "Microsoft.Sql/servers/auditingPolicies",
+            "name": "[variables('sql').server.firewallAuditingPolicies.resourceName]",
+            "apiVersion": "2014-04-01",
+            "location": "[variables('sql').server.firewallAuditingPolicies.resourceLocation]",
+            "scale": null,
+            "properties": {
+                "auditingState": "Disabled",
+                "eventTypesToAudit": "[variables('sql').server.firewallAuditingPolicies.eventTypesToAudit]",
+                "fullAuditLogsTableName": "[variables('sql').server.firewallAuditingPolicies.fullAuditLogsTableName]",
+                "auditLogsTableName": "[variables('sql').server.firewallAuditingPolicies.auditLogsTableName]",
+                "retentionDays": "[variables('sql').server.firewallAuditingPolicies.retentionDays]",
+                "storageAccountSubscriptionId": "[subscription().id]",
+                "storageAccountResourceGroupName": "[resourceGroup().name]",
+                "storageAccountName": "[variables('storageAccount').databaseBackups.accountName]",
+                "storageTableEndpoint": "[variables('storageAccount').databaseBackups.accountUrl]",
+                "storageAccountKey": null,
+                "storageAccountSecondaryKey": null
+            }
+        }
+    ],
+    "outputs": {
+        "resourceId": {
+            "value": "[resourceId(variables('sql').server.database.resourceType, variables('sql').server.database.resourceName)]",
+            "type": "string"
+        }
+    }
+}

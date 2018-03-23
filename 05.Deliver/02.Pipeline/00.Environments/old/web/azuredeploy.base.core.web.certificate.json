@@ -1,0 +1,82 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "webCertificateResourceMode": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "Incremental",
+      "allowedValues": [
+        "Incremental"
+      ]
+    },
+    "webCertificateResourceName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "webCertificateResourceLocation": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "allowedValues": [
+        "australiaeast",
+        "australiasoutheast",
+        "southeastasia"
+      ],
+      "metadata": {
+        "description": "The location within which to develop the resource."
+      }
+    },
+    "webCertificateBase64": {
+      "type": "string",
+      "minLength": 1,
+      "metadata": {
+        "description": "Optional: Base64 encoded PFX certificate for appService Web Site SSL. Required to match the information within appServiceWebSiteHostName."
+      }
+    },
+    "webCertificatePassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Optional: Password for the appService Web Site SSL Pfx Certificate. Only required if `sslCertificateBase64` is provided."
+      }
+    },
+    "webCertificateTags": {
+      "type": "object",
+      "defaultValue": {},
+      "metadata": {
+        "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+      }
+    },
+    "variables": {
+      "web": {
+        "certificate": {
+          "resourceMode": "[parameters('webCertificateResourceMode')]",
+          "resourceName": "[parameters('webCertificateResourceName')]",
+          "resourceType": "Microsoft.Web/certificates",
+          "resourceLocation": "parameters('webCertificateResourceLocation')]",
+          "pfxBlob": "[parameters('webCertificateBase64')]",
+          "password": "[parameters('webCertificatePassword')]",
+          "tags": "[parameters('webCertificateTags')]"
+        }
+      }
+    },
+    "resources": [
+      {
+        "dependsOn": [],
+        "type": "Microsoft.Web/certificates",
+        "name": "[variables('web').certificate.resourceName]",
+        "apiVersion": "2015-08-01",
+        "location": "[variables('web').certificate.resourceLocation]",
+        "properties": {
+          "pfxBlob": "[variables('web').certificate.pfxBlob]",
+          "password": "[variables('web').certificate.password]"
+        },
+        "tags": "[variables('web').certificate.tags]"
+      }
+    ],
+    "outputs": {
+      "resourceId": {
+        "value": "[resourceId(variables('web').certificate.resourceType, variables('web').certificate.resourceName)]",
+        "type": "string"
+      }
+    }
+  }

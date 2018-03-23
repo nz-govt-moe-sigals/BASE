@@ -1,0 +1,407 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B503FF64-E103-4AC1-8039-5012570C8770}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>App.Core.Infrastructure</RootNamespace>
+    <AssemblyName>App.Core.Infrastructure</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <RegisterForComInterop>false</RegisterForComInterop>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.4.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.2.3.2\lib\net452\Microsoft.Azure.KeyVault.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.WebKey, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.WebKey.2.0.7\lib\net452\Microsoft.Azure.KeyVault.WebKey.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Edm, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.8.2\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.8.2\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.8.2\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=3.17.2.31801, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.17.2\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory.Platform, Version=3.17.2.31801, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.17.2\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.8\lib\net452\Microsoft.Rest.ClientRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Rest.ClientRuntime.Azure, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.Azure.3.3.7\lib\net452\Microsoft.Rest.ClientRuntime.Azure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=8.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.8.6.0\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net46\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.5.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StructureMap.4.5.1\lib\net45\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.web.4.0.0.315\lib\net40\StructureMap.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Spatial, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.8.2\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Constants\Context\AppContextKeys.cs" />
+    <Compile Include="Constants\Db\Db.cs" />
+    <Compile Include="Constants\Db\TextFieldSizes.cs" />
+    <Compile Include="Constants\Exceptions\ExceptionMessages.cs" />
+    <Compile Include="Constants\IDA\ClaimTitles.cs" />
+    <Compile Include="Constants\KeyStores\Keys.cs" />
+    <Compile Include="Constants\KeyStores\Keystores.cs" />
+    <Compile Include="Constants\Roles\RoleNames.cs" />
+    <Compile Include="Constants\Todo\Todo.cs" />
+    <Compile Include="Db\Context\AppCoreDbContext.cs" />
+    <Compile Include="Db\Context\AppCoreDbContextFactory.cs" />
+    <Compile Include="Db\Context\AppCoreDatabaseInitializer.cs" />
+    <Compile Include="Db\Interception\Implementations\HasInRecordAuditabilityDbContextPreCommitStrategy.cs" />
+    <Compile Include="Db\Interception\Implementations\Base\UnitOfWorkPreCommitProcessingStrategyBase.cs" />
+    <Compile Include="Db\Interception\Implementations\HasTenantFKAuditabilityDbContextPreCommitStrategy.cs" />
+    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederDataClassification.cs" />
+    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederExceptionRecord.cs" />
+    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederPrincipalCategory.cs" />
+    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederPrincipalClaim.cs" />
+    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederPrincipalLogin.cs" />
+    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederPrincipalProperty.cs" />
+    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederPrincipalTag.cs" />
+    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederSystemRole.cs" />
+    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederSessionOperation.cs" />
+    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederTenant.cs" />
+    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederTenantClaim.cs" />
+    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederTenantProperty.cs" />
+    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeedingOrchestrator.cs" />
+    <Compile Include="Db\Context\AppCoreDatabaseInitializerConfigurer.cs" />
+    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederNotification.cs" />
+    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederSession.cs" />
+    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederPrincipal.cs" />
+    <Compile Include="Db\Migrations\AppCoreDbMigrationsConfiguration.cs" />
+    <Compile Include="Db\Migrations\Core\201712040611471_Initialize.cs" />
+    <Compile Include="Db\Migrations\Core\201712040611471_Initialize.Designer.cs">
+      <DependentUpon>201712040611471_Initialize.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Db\Migrations\Core\201712051129121_MediaMetadata.LocalName.cs" />
+    <Compile Include="Db\Migrations\Core\201712051129121_MediaMetadata.LocalName.Designer.cs">
+      <DependentUpon>201712051129121_MediaMetadata.LocalName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Db\Migrations\Core\201712070939290_SchoolRefs.cs" />
+    <Compile Include="Db\Migrations\Core\201712070939290_SchoolRefs.Designer.cs">
+      <DependentUpon>201712070939290_SchoolRefs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineDataClassification.cs" />
+    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineExceptionRecord.cs" />
+    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefinePrincipal2Tags.cs" />
+    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalLogin.cs" />
+    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalTag.cs" />
+    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineSystemRole.cs" />
+    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineSession.cs" />
+    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineNotification.cs" />
+    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefinePrincipal2Role.cs" />
+    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineMediaMetadata.cs" />
+    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalCategory.cs" />
+    <Compile Include="Db\Schema\AppModuleModelBuilderCommonConfiguration.cs" />
+    <Compile Include="Db\Schema\Conventions\IdConvention.cs" />
+    <Compile Include="Db\Schema\Conventions\TenantedReferenceDataConvention.cs" />
+    <Compile Include="Db\Schema\Conventions\TenantFKEtcConvention.cs" />
+    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefinePrincipal.cs" />
+    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalProperty.cs" />
+    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineSessionOperationLog.cs" />
+    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineTenant.cs" />
+    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalClaim.cs" />
+    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineTenantClaim.cs" />
+    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineTenantProperty.cs" />
+    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineDataToken.cs" />
+    <Compile Include="Db\Schema\AppCoreModelBuilderOrchestrator.cs" />
+    <Compile Include="Exceptions\ConfigurationException.cs" />
+    <Compile Include="Exceptions\ToDoException.cs" />
+    <Compile Include="ExtensionMethods\ByteArrayExtensions.cs" />
+    <Compile Include="ExtensionMethods\CloudBlobClientExtensions.cs" />
+    <Compile Include="ExtensionMethods\CloudBlobContainerExtensions.cs" />
+    <Compile Include="ExtensionMethods\CloudBlobExtensions.cs" />
+    <Compile Include="ExtensionMethods\CloudStorageAccountExtensions.cs" />
+    <Compile Include="Factories\ClientCredentialFactory.cs" />
+    <Compile Include="Factories\DbContextFactory.cs" />
+    <Compile Include="Factories\ExtendedConfigurationFactory.cs" />
+    <Compile Include="Helpers\ElapsedTime.cs" />
+    <Compile Include="Initialization\Integration\Azure\AzureApplicationRegistrationIntegrationInitializer.cs" />
+    <Compile Include="Initialization\Integration\Azure\AzureIntegrationInitializer.cs" />
+    <Compile Include="Initialization\Integration\Azure\AzureKeyVaultIntegrationInitializer.cs" />
+    <Compile Include="Initialization\Integration\Azure\AzureStorageIntegrationInitializer.cs" />
+    <Compile Include="Initialization\DependencyResolution\AppCoreRegistry.cs" />
+    <Compile Include="Initialization\DependencyResolution\AppDependencyLocator.cs" />
+    <Compile Include="Initialization\DependencyResolution\CommonServiceLocatorInitiator.cs" />
+    <Compile Include="Initialization\DependencyResolution\StructureMapContainerLocator.cs" />
+    <Compile Include="Initialization\DependencyResolution\ICustomRegistrationConvention.cs" />
+    <Compile Include="Initialization\DependencyResolution\IoC.cs" />
+    <Compile Include="Initialization\DependencyResolution\StructureMapRepository.cs" />
+    <Compile Include="Initialization\DependencyResolution\StructureMapServiceResolution.cs" />
+    <Compile Include="ExtensionMethods\AppDomainExtensions.cs" />
+    <Compile Include="ExtensionMethods\AssemblyExtensions.cs" />
+    <Compile Include="ExtensionMethods\DbContextExtensions.cs" />
+    <Compile Include="ExtensionMethods\IEnumerableExtensions.cs" />
+    <Compile Include="ExtensionMethods\IHasSerializedTypeValueExtensions.cs" />
+    <Compile Include="ExtensionMethods\IntegerExtensions.cs" />
+    <Compile Include="ExtensionMethods\ObjectExtensions.cs" />
+    <Compile Include="ExtensionMethods\RegistryExtensions.cs" />
+    <Compile Include="ExtensionMethods\TypeExtensions.cs" />
+    <Compile Include="Factories\ConfigurationObjectFactory.cs" />
+    <Compile Include="Factories\ServiceLocator.cs" />
+    <Compile Include="Initialization\Db\IHasAppCoreDbContextModelBuilderInitializer.cs" />
+    <Compile Include="Initialization\IHasAppCoreInitializer.cs" />
+    <Compile Include="Initialization\Integration\Scanii\ScaniiIntegrationInitializer.cs" />
+    <Compile Include="Initialization\ObjectMaps\IHasAutomapperInitializer.cs" />
+    <Compile Include="Initialization\Db\IHasAppCoreDbContextSeedInitializer.cs" />
+    <Compile Include="Initialization\Authentication\IHasOidcScopeInitializer.cs" />
+    <Compile Include="Initialization\IInitializer.cs" />
+    <Compile Include="Initialization\Implementations\HasOidcScopeInitializer.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\Base\ObjectMap_TenantedReferenceType_TenantedReferenceTypeDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ApplicationCreatorInformation_ApplicationProviderInformationDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ApplicationDistributorInformation_ApplicationProviderInformationDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ApplicationDescription_ApplicationDescriptionDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ConfigurationStepRecord_ConfigurationStepRecordDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_DataClassification_DataClassificationDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_Role_RoleDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_MediaMetadata_MediaMetadataDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_PrincipalTag_PrincipalTagDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_PrincipalCategory_PrincipalCategoryDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ExceptionRecord_ExceptionRecordDto.cs" />
+    <Compile Include="Initialization\OData\IAppCoreODataModelBuilderConfigurationBase.cs" />
+    <Compile Include="Initialization\OData\IAppCoreOdataModelBuilderBase.cs" />
+    <Compile Include="Initialization\OData\IOdataModelBuilderConfigurationBase.cs" />
+    <Compile Include="Initialization\OData\IOdataModelBuilderBase.cs" />
+    <Compile Include="Initialization\Search\Implementations\SearchProviderBase.cs" />
+    <Compile Include="Initialization\Search\Implementations\TenantSearchProvider.cs" />
+    <Compile Include="Initialization\Search\ISearchProvider.cs" />
+    <Compile Include="Initialization\DependencyResolution\PowershellServiceLocatorConfig.cs" />
+    <Compile Include="Initialization\Integration\IntegrationSpikes.cs" />
+    <Compile Include="Factories\KeyVaultClientFactory.cs" />
+    <Compile Include="Initialization\Verification\ApplicationSettingsInitializer.cs" />
+    <Compile Include="Initialization\Verification\VerificationInitializer.cs" />
+    <Compile Include="Interceptors\Class1.cs" />
+    <Compile Include="Services\Configuration\IServiceConfigurationObject.cs" />
+    <Compile Include="Services\Configuration\Implementations\AzureKeyVaultServiceConfiguration.cs" />
+    <Compile Include="Services\Configuration\Implementations\AzureStorageManangementServiceConfiguration.cs" />
+    <Compile Include="Services\Configuration\Implementations\MediaMetadataServiceConfiguration.cs" />
+    <Compile Include="Services\Configuration\Implementations\SMTPServiceConfiguration.cs" />
+    <Compile Include="Services\IAzureKeyVaultService.cs" />
+    <Compile Include="Services\IAzureStorageManagementService.cs" />
+    <Compile Include="Services\Configuration\Implementations\ApplicationInformationServiceConfiguration.cs" />
+    <Compile Include="Services\Implementations\AzureKeyVaultService.cs" />
+    <Compile Include="Services\Implementations\AzureStorageManagementService.cs" />
+    <Compile Include="Services\Implementations\AzureStorageService.cs" />
+    <Compile Include="Services\Caches\Implementations\HostSettingsServiceConfigurationObjectCache.cs" />
+    <Compile Include="Services\Implementations\ContextService.cs" />
+    <Compile Include="Services\IAuthenticationService.cs" />
+    <Compile Include="Services\IAuthorisationService.cs" />
+    <Compile Include="Services\IConfigurationStepService.cs" />
+    <Compile Include="Services\IContextService.cs" />
+    <Compile Include="Services\Implementations\AuthenticationService.cs" />
+    <Compile Include="Services\Implementations\AuthorisationService.cs" />
+    <Compile Include="Services\Implementations\ConfigurationStepService.cs" />
+    <Compile Include="Services\Implementations\DbContextPreCommitService.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_Notification_NotificationDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SessionOperation_SessionOperationDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_Session_SessionDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_TenantClaim_TenantClaimDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_TenantProperty_TenantPropertyDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_Tenant_TenantDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_PrincipalClaim_PrincipalClaimDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_PrincipalProperty_PrincipalPropertyDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_Principal_PrincipalDto.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScaniiClient.cs" />
+    <Compile Include="Services\Configuration\Implementations\MediaMalwareDetectionServiceConfiguration.cs" />
+    <Compile Include="Services\Implementations\DictionaryBasedMimeTypeService.cs" />
+    <Compile Include="Services\Configuration\Implementations\DictionaryBasedMimeTypeServiceConfiguration.cs" />
+    <Compile Include="_old\IDictionaryBasedMimeTypeServiceConfiguration.cs" />
+    <Compile Include="Services\IApplicationSettingsService.cs" />
+    <Compile Include="Services\ICachingService.cs" />
+    <Compile Include="Services\ICertSignService.cs" />
+    <Compile Include="Services\IConversionService.cs" />
+    <Compile Include="Services\IDiagnosticsTracingService.cs" />
+    <Compile Include="Services\IDictionaryBasedMimeTypeService.cs" />
+    <Compile Include="Services\IExampleInfrastructureService.cs" />
+    <Compile Include="Services\IHostSettingsService.cs" />
+    <Compile Include="Services\IImmutableSetingsService.cs" />
+    <Compile Include="Services\ILocalisationService.cs" />
+    <Compile Include="Services\IMediaMalwareDetectionService.cs" />
+    <Compile Include="Services\IMediaMetadataService.cs" />
+    <Compile Include="Services\IMediaUploadService.cs" />
+    <Compile Include="Services\Implementations\Base\AppCoreServiceBase.cs" />
+    <Compile Include="Services\Implementations\ApplicationSettingsService.cs" />
+    <Compile Include="Services\Implementations\CachingService.cs" />
+    <Compile Include="Services\Implementations\CertSignService.cs" />
+    <Compile Include="Services\Implementations\ConversionService.cs" />
+    <Compile Include="Services\Implementations\DiagnosticsTracingService.cs" />
+    <Compile Include="Services\Implementations\ExampleInfrastructureService.cs" />
+    <Compile Include="Services\IHasAppCoreService.cs" />
+    <Compile Include="Services\Implementations\HostSettingsService.cs" />
+    <Compile Include="Services\IDbContextPreCommitService.cs" />
+    <Compile Include="Db\Interception\IDbCommitPreCommitProcessingStrategy.cs" />
+    <Compile Include="Services\IAzureStorageService.cs" />
+    <Compile Include="Services\IApplicationInformationService.cs" />
+    <Compile Include="Services\Implementations\ApplicationInformationService.cs" />
+    <Compile Include="Services\Implementations\OIDCNotificationHandlerService.cs" />
+    <Compile Include="Services\Implementations\SystemRoleRecordManagmentService.cs" />
+    <Compile Include="Services\Implementations\LocalisationService.cs" />
+    <Compile Include="Services\Implementations\MediaMalwareDetectionService.cs" />
+    <Compile Include="Services\Implementations\MediaMetadataService.cs" />
+    <Compile Include="Services\Implementations\MediaUploadService.cs" />
+    <Compile Include="Services\Implementations\ObjectMappingService.cs" />
+    <Compile Include="Services\Implementations\OperationContextService.cs" />
+    <Compile Include="Services\Implementations\PrincipalManagmentService.cs" />
+    <Compile Include="Services\Implementations\PrincipalService.cs" />
+    <Compile Include="Services\Implementations\RepositoryService.cs" />
+    <Compile Include="Services\Implementations\SecureAPIMessageAttributeService.cs" />
+    <Compile Include="Services\Implementations\SecureDataTokenService.cs" />
+    <Compile Include="Services\Implementations\SessionOperationLogService.cs" />
+    <Compile Include="Services\Implementations\SessionService.cs" />
+    <Compile Include="Services\Implementations\SMTPService.cs" />
+    <Compile Include="Services\Implementations\StorageService.cs" />
+    <Compile Include="Services\Implementations\TelemetrySevice.cs" />
+    <Compile Include="Services\Implementations\TenantService.cs" />
+    <Compile Include="Services\Implementations\TransientLocalFileStorageService.cs" />
+    <Compile Include="Services\Implementations\UnitOfWorkService.cs" />
+    <Compile Include="Services\IMutableSettingsService.cs" />
+    <Compile Include="Services\IObjectMappingService.cs" />
+    <Compile Include="Services\IOIDCNotificationHandlerService.cs" />
+    <Compile Include="Services\IOperationContextService.cs" />
+    <Compile Include="Services\IPrincipalManagmentService.cs" />
+    <Compile Include="Services\IPrincipalService.cs" />
+    <Compile Include="Services\IRepositoryService.cs" />
+    <Compile Include="Services\ISystemRoleRecordManagmentService.cs" />
+    <Compile Include="Services\ISchedulingService.cs" />
+    <Compile Include="Services\ISecureAPIMessageAttributeService.cs" />
+    <Compile Include="Services\ISecureDataTokenService.cs" />
+    <Compile Include="Services\ISessionOperationLogService.cs" />
+    <Compile Include="Services\ISessionService.cs" />
+    <Compile Include="Services\ISMTPService.cs" />
+    <Compile Include="Services\IStorageService.cs" />
+    <Compile Include="Services\ITelemetryService.cs" />
+    <Compile Include="Services\ITenantService.cs" />
+    <Compile Include="Services\ITransientLocalFileStorageService.cs" />
+    <Compile Include="Services\IUnitOfWorkService.cs" />
+    <Compile Include="Services\IUniversalDateTimeService.cs" />
+    <Compile Include="Services\Implementations\UniversalDateTimeService.cs" />
+    <Compile Include="Validator\AadApplicationRegistrationInformationValidator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\App.Core.Shared\App.Core.Shared.csproj">
+      <Project>{74aa77d2-5a81-490b-a160-c058b375524a}</Project>
+      <Name>App.Core.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Integration\Azure\KeyVault\README.MD" />
+    <None Include="packages.config" />
+    <None Include="Services\Caches\Implementations\_readme.md" />
+    <None Include="Services\Configuration\Implementations\_readme.md" />
+    <None Include="Services\Configuration\_readme.md" />
+    <None Include="Services\Implementations\_readme.md" />
+    <None Include="Services\_readme.md" />
+    <None Include="_old\_readme.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Db\Interception\README.txt" />
+    <Content Include="Db\Migrations\CORE.README.txt" />
+    <Content Include="Db\README.txt" />
+    <Content Include="Db\Schema\Conventions\README.txt" />
+    <Content Include="Db\Schema\README.MANY-TO-MANY.txt" />
+    <Content Include="Db\Schema\README.MANY2ONE.txt" />
+    <Content Include="Db\Schema\README.ONE2MANY.txt" />
+    <Content Include="Db\Schema\README.ONE2ONE.txt" />
+    <Content Include="Initialization\DependencyResolution\README.STRUCTUREMAP.IDEMPOTENCY.txt" />
+    <Content Include="Initialization\DependencyResolution\README.txt" />
+    <Content Include="Initialization\Search\README.txt" />
+    <Content Include="Initialization\ObjectMaps\README.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Constants\AppSettingKeys\" />
+    <Folder Include="Initialization\Integration\Azure\AzureStorage\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Db\Migrations\Core\201712040611471_Initialize.resx">
+      <DependentUpon>201712040611471_Initialize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Db\Migrations\Core\201712051129121_MediaMetadata.LocalName.resx">
+      <DependentUpon>201712051129121_MediaMetadata.LocalName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Db\Migrations\Core\201712070939290_SchoolRefs.resx">
+      <DependentUpon>201712070939290_SchoolRefs.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
