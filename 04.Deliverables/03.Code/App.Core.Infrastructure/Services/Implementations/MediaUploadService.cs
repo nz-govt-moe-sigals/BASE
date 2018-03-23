@@ -5,6 +5,12 @@
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages;
 
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="IMediaUploadService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Services.IMediaUploadService" />
     public class MediaUploadService : IMediaUploadService
     {
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;

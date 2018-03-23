@@ -7,6 +7,11 @@
     using AutoMapper;
     using Owin;
 
+    /// <summary>
+    /// An <see cref="StartupExtended"/> invoked class to configure
+    /// Automapper using ServiceLocator discovered implementations
+    /// of <see cref="IHasAutomapperInitializer"/>.
+    /// </summary>
     public class AutoMapperConfig
     {
         /// <summary>

@@ -5,7 +5,7 @@
     public class AADOidcConfidentialClientConfiguration : OidcConfidentialClientConfiguration,
         IAADOidcConfidentialClientConfiguration
     {
-        private string _authorityUri;
+        //private string _authorityUri;
 
         private string _authorityUriType;
 

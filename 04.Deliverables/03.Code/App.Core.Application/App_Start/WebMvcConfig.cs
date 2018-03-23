@@ -6,12 +6,22 @@
     using App.Core.Application.MvcModifications;
     using Owin;
 
+    /// <summary>
+    /// An <see cref="StartupExtended"/> invoked class to configure 
+    /// MVC View management.
+    /// <para>
+    /// Note that it is injected with <see cref="WebMvcFilterConfig"/>
+    /// </para>
+    /// </summary>
     public class WebMvcConfig
     {
         private readonly WebMvcFilterConfig _webMvcFilterConfig;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WebMvcConfig"/> class.
+        /// <para>
+        /// Invoked from <see cref="WebMvcConfig.Configure"/>.
+        /// </para>
         /// </summary>
         /// <param name="webMvcFilterConfig">The web MVC filter configuration.</param>
         public WebMvcConfig(WebMvcFilterConfig webMvcFilterConfig)

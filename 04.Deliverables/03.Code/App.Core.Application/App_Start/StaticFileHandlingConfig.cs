@@ -4,6 +4,13 @@
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Messages;
 
+    /// <summary>
+    /// An <see cref="StartupExtended"/> invoked class to configure 
+    /// the handling of Static Files. 
+    /// Specifically, Assets (images, etc.) and 
+    /// Uploads (although that is not used in Cloud environments, 
+    /// where BlobStorage is the norm).
+    /// </summary>
     public class StaticFileHandlingConfig
     {
 

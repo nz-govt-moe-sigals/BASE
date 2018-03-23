@@ -2,7 +2,12 @@
 {
     using System.Collections.Generic;
     using App.Core.Shared.Models.Entities;
-
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="IDiagnosticsTracingService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Services.IDiagnosticsTracingService" />
     public class DiagnosticsTracingService : IDiagnosticsTracingService
     {
         private readonly Queue<TraceEntry> _cache = new Queue<TraceEntry>();

@@ -2,6 +2,12 @@
 {
     using System.Web;
 
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="IOperationContextService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Services.IOperationContextService" />
     public class OperationContextService : IOperationContextService
     {
         private readonly IConversionService _conversionService;

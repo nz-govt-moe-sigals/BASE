@@ -9,7 +9,7 @@ namespace App.Core.Infrastructure.Db.Schema
     {
         public void Define(DbModelBuilder modelBuilder)
         {
-            var order = 1;
+            //var order = 1;
 
             modelBuilder.Entity<Principal>()
                 .HasMany(s => s.Roles)

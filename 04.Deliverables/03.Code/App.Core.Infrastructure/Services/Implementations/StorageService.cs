@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 namespace App.Core.Infrastructure.Services.Implementations
 {
 
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="IStorageService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Services.IStorageService" />
     public class StorageService : IStorageService
     {
         private readonly ITransientLocalFileStorageService _transientLocalFileStorageService;

@@ -6,6 +6,10 @@
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Messages;
 
+    /// <summary>
+    /// An <see cref="StartupExtended"/> invoked class to configure
+    /// disable weak TLS for both incoming and outgoing connections.
+    /// </summary>
     public class SetMinimumTLSConfig
     {
         private readonly IHostSettingsService _hostSettingsService;
@@ -15,7 +19,13 @@
             this._hostSettingsService = hostSettingsService;
         }
 
-        public  void Config()
+        /// <summary>
+        /// Configurations this instance.
+        /// <para>
+        /// Invoked from <see cref="StartupExtended.Configure"/>.
+        /// </para>
+        /// </summary>
+        public void Config()
         {
             DisableWeakTLSForIncoming();
             DisableWeakTLSForOutgoing();

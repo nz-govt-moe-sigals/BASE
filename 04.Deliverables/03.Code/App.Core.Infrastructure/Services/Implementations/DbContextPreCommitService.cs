@@ -7,9 +7,10 @@
     using App.Core.Infrastructure.Db.Interception;
 
     /// <summary>
-    /// Implementation of
-    /// Contract for an Infrastructure Service to 
-    /// pre-process all new/updated/modified entities
+    ///     Implementation of the
+    ///     <see cref="IDbContextPreCommitService" />
+    ///     Infrastructure Service Contract
+    /// to pre-process all new/updated/modified entities
     /// belonging to a specific DbContext, before 
     /// they are saved.
     /// <para>

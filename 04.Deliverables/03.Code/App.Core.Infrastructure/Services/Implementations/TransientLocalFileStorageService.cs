@@ -9,6 +9,12 @@ namespace App.Core.Infrastructure.Services.Implementations
     using System.IO;
     using System.Web;
 
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="ITransientLocalFileStorageService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Services.ITransientLocalFileStorageService" />
     public class TransientLocalFileStorageService : ITransientLocalFileStorageService
     {
         public TransientLocalFileStorageService()

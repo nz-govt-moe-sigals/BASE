@@ -5,8 +5,13 @@
     using App.Core.Shared.Models.Messages;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// An <see cref="StartupExtended"/> invoked class to configure 
+    /// the specified HTTP configuration.
+    /// </summary>
     public class WebApiJsonSerializerConfig
     {
+
         /// <summary>
         /// Configures the specified HTTP configuration.
         /// <para>

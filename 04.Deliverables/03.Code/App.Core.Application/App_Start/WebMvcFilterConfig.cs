@@ -9,6 +9,10 @@
     using App.Core.Shared.Models.Messages;
 
     /// <summary>
+    /// An <see cref="StartupExtended"/> invoked class to configure 
+    /// WebMVC Filtering. This class is injected into 
+    /// <see cref="WebMvcConfig"/>.
+    /// <para>
     ///     Microsoft should maybe have called this MvcFilterConfig to ensure developers
     ///     did not think they could register WebAPI Filters here.
     ///     <para>
@@ -16,6 +20,7 @@
     ///         for a class named 'FilterConfig' in order to add its Filter.
     ///         Not sure what it does if not found.
     ///     </para>
+    /// </para>
     /// </summary>
     public class WebMvcFilterConfig
     {
@@ -26,6 +31,9 @@
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WebMvcFilterConfig"/> class.
+        /// <para>
+        /// Invoked from <see cref="WebMvcConfig.Configure"/>.
+        /// </para>
         /// </summary>
         /// <param name="sessionOperationLogService">The session operation log service.</param>
         /// <param name="principalService">The principal service.</param>
@@ -50,7 +58,7 @@
         // Register MVC (not WebAPI) filters:
         public void RegisterWebMvcGlobalFilters(GlobalFilterCollection filters)
         {
-            var usingWebActivator = false;
+            //var usingWebActivator = false;
 
             //Filters are processed in a certain order (by Type, then within that by Order, if defined):
 

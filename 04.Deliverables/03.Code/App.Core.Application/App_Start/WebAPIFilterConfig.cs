@@ -8,8 +8,8 @@
     using App.Core.Shared.Models.Messages;
 
     /// <summary>
-    /// Injectable Startup class for 
-    /// Configuring WebApi Filters.
+    /// An <see cref="StartupExtended"/> invoked class to configure 
+    /// WebApi Filters.
     /// </summary>
     public class WebApiFilterConfig
     {
@@ -19,6 +19,9 @@
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WebApiFilterConfig"/> class.
+        /// <para>
+        /// Invoked from <see cref="StartupExtended.Configure"/>.
+        /// </para>
         /// </summary>
         /// <param name="sessionOperationLogService">The session operation log service.</param>
         /// <param name="principalService">The principal service.</param>

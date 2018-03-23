@@ -5,6 +5,12 @@ namespace App.Core.Infrastructure.Services.Implementations
     using System.Linq;
     using App.Core.Shared.Models.Entities;
 
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="IPrincipalManagmentService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Services.IPrincipalManagmentService" />
     public class PrincipalManagmentService : IPrincipalManagmentService
     {
         private readonly IRepositoryService _repositoryService;

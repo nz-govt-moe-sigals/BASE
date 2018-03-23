@@ -16,7 +16,7 @@
 
     public class AADV2ForOIDCCookiesConfiguration
     {
-        private IOIDCNotificationHandlerService _oidcNotificationHandlerService;
+        //private IOIDCNotificationHandlerService _oidcNotificationHandlerService;
 
         /// <summary>
         ///     Helper class to be invoked from within Application's Startup Configuration method,

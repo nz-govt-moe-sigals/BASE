@@ -8,6 +8,12 @@ namespace App.Core.Infrastructure.Services.Implementations
 {
     using Microsoft.ApplicationInsights;
 
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="ITelemetryService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Services.ITelemetryService" />
     public class TelemetrySevice : ITelemetryService
     {
         public void TrackEvent(string message)

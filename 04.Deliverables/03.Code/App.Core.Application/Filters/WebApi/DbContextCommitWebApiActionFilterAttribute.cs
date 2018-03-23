@@ -43,7 +43,6 @@
                 {
                     PreprocessModelsBeforeSaving(dbContext);
                     dbContext.SaveChanges();
-                    var check = true;
                 }
             }
 

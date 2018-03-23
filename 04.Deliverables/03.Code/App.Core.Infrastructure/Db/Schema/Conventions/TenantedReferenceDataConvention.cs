@@ -5,11 +5,13 @@ namespace App.Core.Infrastructure.Db.Schema.Conventions
 
     public class TenantedReferenceDataConvention : TenantFKEtcConvention
     {
-        public void Define<T>(DbModelBuilder modelBuilder, ref int order)
+        public new void Define<T>(DbModelBuilder modelBuilder, ref int order)
             where T: TenantedGuidIdReferenceDataBase 
         {
+            // Call underlying method first:
             base.Define<T>(modelBuilder,ref order);
 
+            // then specific:
             modelBuilder.Entity<T>()
                 .Property(x => x.Enabled)
                 .HasColumnOrder(order++)

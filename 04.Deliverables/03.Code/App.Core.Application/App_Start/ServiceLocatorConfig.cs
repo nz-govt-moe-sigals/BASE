@@ -3,11 +3,14 @@
     using App.Core.Infrastructure.DependencyResolution;
     using Owin;
 
-    // Class to initialize the Microsoft Common ServiceLocator
-    // with the StructureMap service locator, so that one can 
-    // other libraries can use IoC without having to have a direct
-    // reference on any specific IoC lib provider/vendor (in this
-    // case structure map)
+
+    /// <summary>
+    /// Class to initialize the Microsoft Common ServiceLocator
+    /// with the StructureMap service locator, so that one can 
+    /// other libraries can use IoC without having to have a direct
+    /// reference on any specific IoC lib provider/vendor (in this
+    /// case structure map)
+    /// </summary>
     public class ServiceLocatorConfig
     {
 

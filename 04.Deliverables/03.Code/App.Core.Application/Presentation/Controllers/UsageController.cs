@@ -75,7 +75,8 @@ namespace App.Core.Application.Presentation.Controllers
             return View();
         }
 
-        public ActionResult Session()
+        // FIX: Cannot call this view 'Session', as underlying 'Controller' has a 'Session' Property. 
+        public ActionResult PrincipalSession()
         {
             return View();
         }

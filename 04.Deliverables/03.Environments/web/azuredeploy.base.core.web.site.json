@@ -1,4 +1,7 @@
 {
+    // Resources:
+    // Schema: https://docs.microsoft.com/en-us/azure/templates/microsoft.web/sites
+
     "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
@@ -26,10 +29,7 @@
               "description": "The location within which to develop the resource."
             }
         },
-        "webSiteParentResourceId": {
-            "type": "string",
-            "minLength": 1
-        },
+        /*
         "webSiteResourceSku": {
             "type": "string",
             "defaultValue": "X",
@@ -37,6 +37,7 @@
                 "X"
             ]
         },
+        */
         "webSiteWebServerFarmResourceId": {
             "type": "string",
             "minLength": 1,
@@ -114,22 +115,29 @@
             "metadata": {
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target site as AppSettings."
             }
-          }
+          },
+          "webSiteTags": {
+            "type": "object",
+            "defaultValue": {},
+            "metadata": {
+                "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+            }
+        }
     },
     "variables": {
-        "resources": {},
-        "tmp": {
+
+        "resource": {
             "resourceName": "[parameters('webSiteResourceName')]"
         },
         "web": {
             "site": {
                 "resourceMode": "[parameters('webSiteResourceMode')]",
                 "resourceType": "Microsoft.Web/sites",
-                "resourceName": "[variables('tmp').resourceName]",
-                "resourceNameUrl": "[take( toLower( replace( replace ( variables('tmp').resourceName,'-',''),'_','')), 24)]",
+                "resourceName": "[variables('resource').resourceName]",
+                "resourceNameUrl": "[take( toLower( replace( replace ( variables('resource').resourceName,'-',''),'_','')), 24)]",
                 "resourceLocation": "[parameters('webSiteResourceLocation')]",
-                "resourceSku": "[parameters('webSiteResourceSku')]",
-                "parentResourceId": "[parameters('webSiteParentResourceId')]",
+                //"resourceSku": "[parameters('webSiteResourceSku')]",
+                "serverFarmId":"[parameters('webSiteWebServerFarmResourceId')]",
                 "alwaysOn": "[parameters('webSiteAlwaysOn')]",
                 "detailedErrorLoggingEnabled": "[parameters('webSiteDetailedErrorLoggingEnabled')]",
                 "logsDirectorySizeLimit": "[parameters('webSiteLogsDirectorySizeLimit')]",
@@ -140,7 +148,8 @@
                 "webSocketsEnabled": "[parameters('webSiteWebSocketsEnabled')]",
                 "config": {
                     "appSettings": "[parameters('webSiteConfigAppSettings')]"
-                }
+                },
+                "tags": "[parameters('webSiteTags')]"
             }
         },
         "misc": {
@@ -153,10 +162,11 @@
             "apiVersion": "2016-08-01",
             "scale": null,
             "name": "[variables('web').site.resourceNameUrl]",
+            "location":"[variables('web').site.resourceLocation]",
             "properties": {
                 "mode": "[variables('web').site.resourceMode]",
                 "parameters": {
-                    
+                    "XXXXXXXXXXXXXXXXXXXXserverFarmId": "[variables('web').site.serverFarmId]",
                     "defaultDocuments": [
                         "Default.htm",
                         "Default.html",
@@ -166,6 +176,9 @@
                         "default.aspx",
                         "hostingstart.html"
                     ],
+                    // Ensure it is always false, or else the site can only be accessed via Azure:
+                    "hostNamesDisabled": false,
+                    "httpsOnly":false, // HTTP should redirect to HTTPS.
                     "httpLoggingEnabled": "[variables('web').site.httpLoggingEnabled]",
                     "detailedErrorLoggingEnabled": "[variables('web').site.detailedErrorLoggingEnabled]",
                     "logsDirectorySizeLimit": "[variables('web').site.logsDirectorySizeLimit]",
@@ -176,14 +189,14 @@
                     "siteConfig": {
                         "alwaysOn": "[variables('web').site.alwaysOn]"
                     },
+                    // This is important, or else - even when it scales up - you will still 
+                    // be on the same server, and not see much performance boost by scaling out:
+                    "clientAffinityEnabled": false,
                     "webSiteWebSocketsEnabled": "[variables('web').site.webSocketsEnabled]"
 
                 }
             },
-            "tags": {
-                "displayName": "Web Site"
-            },
-            "comments": "This depends on the Web Site being deployed first, and picking up its output (resourceId)."
+            "tags":  "[variables('web').site.tags]"
         }
     ],
     "outputs": {
@@ -191,10 +204,27 @@
             "type": "string",
             "value": "[resourceId(variables('web').site.resourceType, variables('web').site.resourceNameUrl)]"
         },
+        "resourceName":{
+            "type": "string",
+            "value": "[variables('web').site.resourceName]"
+        },
         "resourceNameUrl":{
             "type": "string",
             "value": "[variables('web').site.resourceNameUrl]"
+        },
+        "resourceLocation":{
+            "type": "string",
+            "value": "[variables('web').site.resourceLocation]"
+        },
+        "serverFarmId":{
+            "type": "string",
+            "value": "[variables('web').site.serverFarmId]"
+        },
+        "alwaysOn": {
+            "type": "bool",
+            "value": "[variables('web').site.alwaysOn]"
         }
+
         
     }
 }

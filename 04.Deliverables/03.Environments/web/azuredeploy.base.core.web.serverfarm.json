@@ -1,4 +1,7 @@
 {
+
+  // Schema: https://docs.microsoft.com/en-us/azure/templates/microsoft.web/serverfarms
+
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
@@ -50,10 +53,10 @@
       "type": "object",
       "defaultValue": {},
       "metadata": {
-          "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+        "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
       }
-  }
-},
+    }
+  },
   "variables": {
     "currentTemplateUrl": "[deployment().properties.templateLink.uri]",
     "currentTemplateUriRoot": "[uri(deployment().properties.templateLink.uri, '')]",
@@ -71,7 +74,6 @@
   },
   "resources": [
     {
-      
       "type": "Microsoft.Web/serverfarms",
       "name": "[variables('web').serverFarm.resourceName]",
       "location": "[variables('web').serverFarm.resourceLocation]",
@@ -82,15 +84,34 @@
       "properties": {
         "name": "[variables('web').serverFarm.resourceName]",
         "numberOfWorkers": "[variables('web').serverFarm.numberOfWorkers]"
-
-        },
+      },
       "tags": "[variables('web').serverFarm.tags]"
-      }
+    }
   ],
   "outputs": {
     "resourceId": {
       "value": "[resourceId(variables('web').serverFarm.resourceType, variables('web').serverFarm.resourceName)]",
       "type": "string"
+    },
+    "resourceName": {
+      "value": "[variables('web').serverFarm.resourceName]",
+      "type": "string"
+    },
+    "resourceLocation": {
+      "value": "[variables('web').serverFarm.resourceLocation]",
+      "type": "string"
+    },
+    "resourceSku": {
+      "value": "[variables('web').serverFarm.resourceSku]",
+      "type": "string"
+    },
+    "numberOfWorkers": {
+      "value": "[variables('web').serverFarm.numberOfWorkers]",
+      "type": "int"
     }
+
+
+
+
   }
 }

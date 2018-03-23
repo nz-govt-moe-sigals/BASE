@@ -2,6 +2,12 @@ namespace App.Core.Infrastructure.Services.Implementations
 {
     using System.Web;
 
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="IContextService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Services.IContextService" />
     public class ContextService : IContextService
     {
     public void Set(string key, object value)

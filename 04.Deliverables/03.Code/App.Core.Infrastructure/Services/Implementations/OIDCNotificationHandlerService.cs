@@ -10,6 +10,12 @@ namespace App.Core.Infrastructure.Services.Implementations
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Messages;
 
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="IOIDCNotificationHandlerService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Services.IOIDCNotificationHandlerService" />
     public class OIDCNotificationHandlerService : IOIDCNotificationHandlerService
     {
         private readonly IRepositoryService _repositoryService;

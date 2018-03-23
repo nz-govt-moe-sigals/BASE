@@ -4,11 +4,14 @@
     using App.Core.Shared.Services;
 
     /// <summary>
-    ///     Service of common conversions tools required
+    /// Contract for an Infrastructure Service to 
     ///     to convert types to alternate types.
     ///     <para>
     ///         Refer to implementations of
-    ///         <see cref="IHostSettingsService" />.
+    ///         <see cref="IHostSettingsService" />
+    /// that use it to convert settings for persistence
+    /// in datastores, and back again. It's used in other 
+    /// places too (front end conversion).
     ///     </para>
     /// </summary>
     public interface IConversionService : IHasAppCoreService

@@ -1,8 +1,12 @@
-﻿namespace App.Core.Infrastructure.Services.Implementations
+﻿namespace App.Core.Infrastructure.Services.Configuration.Implementations
 {
     using App.Core.Shared.Models.Configuration;
 
-    public class ApplicationInformationServiceConfiguration
+    /// <summary>
+    /// Configuration object to be injected into the 
+    /// implementation of <see cref="IApplicationInformationService"/>
+    /// </summary>
+    public class ApplicationInformationServiceConfiguration : IServiceConfigurationObject
     {
 
         public ApplicationDescription ApplicationInformation;

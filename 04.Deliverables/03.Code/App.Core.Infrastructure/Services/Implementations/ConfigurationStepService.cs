@@ -9,10 +9,15 @@ namespace App.Core.Infrastructure.Services.Implementations
     using App.Core.Shared.Models.Messages;
 
     /// <summary>
+    ///     Implementation of the
+    ///     <see cref="IConfigurationStepService" />
+    ///     Infrastructure Service Contract
+    /// <para>
     /// Implementation of the Infrastructure Service Contract to
     /// manage the recording of Setup Configuration Steps
     /// that can later be queried by Application and Infrastructure
     /// Support Speialists, via appropriate APIs.
+    /// </para>
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.IConfigurationStepService" />
     public class ConfigurationStepService : IConfigurationStepService

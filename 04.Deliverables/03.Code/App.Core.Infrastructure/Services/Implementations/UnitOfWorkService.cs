@@ -4,8 +4,9 @@
 
 
     /// <summary>
-    /// Implementation of a
-    /// Contract for an Infrastructure Service 
+    ///     Implementation of the
+    ///     <see cref="IUnitOfWorkService" />
+    ///     Infrastructure Service Contract
     /// for a generic unit of work service
     /// which manages the persistence of entities
     /// using one or more channels (note 

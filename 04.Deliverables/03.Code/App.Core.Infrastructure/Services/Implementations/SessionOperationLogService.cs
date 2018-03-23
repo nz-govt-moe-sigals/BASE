@@ -5,6 +5,12 @@
     using App.Core.Infrastructure.Constants.Db;
     using App.Core.Shared.Models.Entities;
 
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="ISessionOperationLogService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Services.ISessionOperationLogService" />
     public class SessionOperationLogService : ISessionOperationLogService
     {
         private readonly IContextService _contextService;

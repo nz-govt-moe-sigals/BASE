@@ -278,7 +278,9 @@
             {
                 result = await cca.AcquireTokenByAuthorizationCodeAsync(code, _fullyQualifiedScopesRequiredByTargetAPI);
             }
+#pragma warning disable CS0168 // Variable is declared but never used
             catch (Exception ex)
+#pragma warning restore CS0168 // Variable is declared but never used
             {
                 //TODO: Handle
                 throw;

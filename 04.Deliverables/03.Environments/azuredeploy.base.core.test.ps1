@@ -150,8 +150,7 @@ function Test-ArmTemplates {
 
 }
 
-# Import-Module ./azuredeploy.base.test.ps1 -Verbose
-
+# Import-Module ./azuredeploy.base.core.test.ps1 -Verbose
 # INVOKE:
 #Test-ArmTemplates -publish $true
 

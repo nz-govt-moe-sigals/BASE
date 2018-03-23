@@ -9,16 +9,19 @@
 
     public class TenantFKEtcConvention : NonTenantFKEtcConvention
     {
-        public void Define<T>(DbModelBuilder modelBuilder, ref int order)
+        public new void Define<T>(DbModelBuilder modelBuilder, ref int order)
             where T : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase
         {
-            new NonTenantFKEtcConvention().Define<T>(modelBuilder, ref order);
+            // Call underlying method to finish 
+            base.Define<T>(modelBuilder, ref order);
+            //Wrong way: new NonTenantFKEtcConvention().Define<T>(modelBuilder, ref order);
 
             modelBuilder.Entity<T>()
                 .Property(x => x.TenantFK)
                 .HasColumnOrder(order++)
                 .IsRequired()
                 ;
+
 
             //modelBuilder.Entity<T>()
             //    .HasRequired(x => x.Tenant)
@@ -30,13 +33,13 @@
 
     public class NonTenantFKEtcConvention  
     {
-        public void Define<T>(DbModelBuilder modelBuilder, ref int order)
+        public virtual void Define<T>(DbModelBuilder modelBuilder, ref int order)
             where T : UntenantedTimestampedAuditedRecordStatedGuidIdEntityBase
         {
             Define<T,Guid>(modelBuilder, ref order);
         }
 
-        public void Define<T,TId>(DbModelBuilder modelBuilder, ref int order)
+        public virtual void Define<T,TId>(DbModelBuilder modelBuilder, ref int order)
             where T : UntenantedTimestampedAuditedRecordStatedCustomIdEntityBase<TId>
             where TId: struct
         {

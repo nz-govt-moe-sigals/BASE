@@ -31,7 +31,7 @@ namespace App.Module1.Application.Presentation.Controllers
         private readonly IB2COidcConfidentialClientConfiguration _b2cOidcConfidentialClientConfiguration;
         private readonly IOIDCAPIClientService _oidcApiClientService;
 
-        private IOIDCConfidentialClientConfiguration confidentialClientConfiguration = null;
+        //private IOIDCConfidentialClientConfiguration confidentialClientConfiguration = null;
 
         // Constructor
         public ExamplesController(IHostSettingsService hostSettingsService, IOIDCAPIClientService oidcApiClientService)

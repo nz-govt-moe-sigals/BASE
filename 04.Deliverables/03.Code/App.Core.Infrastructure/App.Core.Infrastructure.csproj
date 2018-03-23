@@ -216,7 +216,7 @@
     <Compile Include="ExtensionMethods\ObjectExtensions.cs" />
     <Compile Include="ExtensionMethods\RegistryExtensions.cs" />
     <Compile Include="ExtensionMethods\TypeExtensions.cs" />
-    <Compile Include="Factories\ConfigurationFactory.cs" />
+    <Compile Include="Factories\ConfigurationObjectFactory.cs" />
     <Compile Include="Factories\ServiceLocator.cs" />
     <Compile Include="Initialization\Db\IHasAppCoreDbContextModelBuilderInitializer.cs" />
     <Compile Include="Initialization\IHasAppCoreInitializer.cs" />
@@ -245,11 +245,12 @@
     <Compile Include="Initialization\Search\Implementations\TenantSearchProvider.cs" />
     <Compile Include="Initialization\Search\ISearchProvider.cs" />
     <Compile Include="Initialization\DependencyResolution\PowershellServiceLocatorConfig.cs" />
-    <Compile Include="Initialization\Integration\Spikes.cs" />
+    <Compile Include="Initialization\Integration\IntegrationSpikes.cs" />
     <Compile Include="Factories\KeyVaultClientFactory.cs" />
     <Compile Include="Initialization\Verification\ApplicationSettingsInitializer.cs" />
     <Compile Include="Initialization\Verification\VerificationInitializer.cs" />
     <Compile Include="Interceptors\Class1.cs" />
+    <Compile Include="Services\Configuration\IServiceConfigurationObject.cs" />
     <Compile Include="Services\Configuration\Implementations\AzureKeyVaultServiceConfiguration.cs" />
     <Compile Include="Services\Configuration\Implementations\AzureStorageManangementServiceConfiguration.cs" />
     <Compile Include="Services\Configuration\Implementations\MediaMetadataServiceConfiguration.cs" />
@@ -260,7 +261,7 @@
     <Compile Include="Services\Implementations\AzureKeyVaultService.cs" />
     <Compile Include="Services\Implementations\AzureStorageManagementService.cs" />
     <Compile Include="Services\Implementations\AzureStorageService.cs" />
-    <Compile Include="Services\Configuration\Implementations\ConfigurationObjectCache.cs" />
+    <Compile Include="Services\Caches\Implementations\HostSettingsServiceConfigurationObjectCache.cs" />
     <Compile Include="Services\Implementations\ContextService.cs" />
     <Compile Include="Services\IAuthenticationService.cs" />
     <Compile Include="Services\IAuthorisationService.cs" />
@@ -284,7 +285,7 @@
     <Compile Include="Services\Configuration\Implementations\MediaMalwareDetectionServiceConfiguration.cs" />
     <Compile Include="Services\Implementations\DictionaryBasedMimeTypeService.cs" />
     <Compile Include="Services\Configuration\Implementations\DictionaryBasedMimeTypeServiceConfiguration.cs" />
-    <Compile Include="Services\Configuration\IDictionaryBasedMimeTypeServiceConfiguration.cs" />
+    <Compile Include="_old\IDictionaryBasedMimeTypeServiceConfiguration.cs" />
     <Compile Include="Services\IApplicationSettingsService.cs" />
     <Compile Include="Services\ICachingService.cs" />
     <Compile Include="Services\ICertSignService.cs" />
@@ -366,7 +367,12 @@
     <None Include="App.config" />
     <None Include="Integration\Azure\KeyVault\README.MD" />
     <None Include="packages.config" />
-    <None Include="Services\Configuration\REAMDE.md" />
+    <None Include="Services\Caches\Implementations\_readme.md" />
+    <None Include="Services\Configuration\Implementations\_readme.md" />
+    <None Include="Services\Configuration\_readme.md" />
+    <None Include="Services\Implementations\_readme.md" />
+    <None Include="Services\_readme.md" />
+    <None Include="_old\_readme.md" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Db\Interception\README.txt" />

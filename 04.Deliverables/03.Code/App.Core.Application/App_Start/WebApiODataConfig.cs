@@ -9,6 +9,10 @@
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Messages;
 
+    /// <summary>
+    /// An <see cref="StartupExtended"/> invoked class to configure 
+    /// the specified HTTP configuration.
+    /// </summary>
     public class WebApiODataConfig
     {
         /// <summary>

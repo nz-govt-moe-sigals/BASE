@@ -4,7 +4,11 @@ namespace App.Core.Infrastructure.Services.Configuration.Implementations
 {
     using App.Core.Shared.Models.Configuration;
 
-    public class AzureKeyVaultServiceConfiguration
+    /// <summary>
+    /// Configuration object to be injected into the 
+    /// implementation of <see cref="IAzureKeyVaultService"/>
+    /// </summary>
+    public class AzureKeyVaultServiceConfiguration : IServiceConfigurationObject
     {
         public string KeyVaultUrl;
 

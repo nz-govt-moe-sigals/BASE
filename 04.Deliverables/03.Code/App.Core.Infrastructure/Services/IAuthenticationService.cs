@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace App.Core.Infrastructure.Services
 {
     /// <summary>
-    /// Contract for a Service to Authenticate a User
+    /// Contract for an Infrastructure Service to 
+    /// Authenticate a User
     /// against an internal Store.
     /// </summary>
     public interface IAuthenticationService :  IHasAppCoreService

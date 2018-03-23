@@ -12,13 +12,13 @@
         {
             var answer = 0;
             "Given the number {0}" // or in C# 6 or later, $"Given the number {x}"
-                .f(() => { });
+                .x(() => { });
             "And the number {1}"
-                .f(() => { });
+                .x(() => { });
             "When I add the numbers together"
-                .f(() => answer = x + y);
+                .x(() => answer = x + y);
             "Then the answer is {2}"
-                .f(() => Assert.Equal(expectedAnswer, answer));
+                .x(() => Assert.Equal(expectedAnswer, answer));
         }
     }
 }

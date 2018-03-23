@@ -6,9 +6,10 @@
 
 
     /// <summary>
-    /// Implementation of a
-    /// Contract for an infrastructure service to 
-    /// work with the current thread Principal.
+    ///     Implementation of the
+    ///     <see cref="IPrincipalService" />
+    ///     Infrastructure Service Contract
+    /// to work with the current thread Principal.
     /// It does not work with any datastorage (ie it does not know how to
     /// retrieve a Principal record from the database). For that, use the
     /// PrincipalRecordService.

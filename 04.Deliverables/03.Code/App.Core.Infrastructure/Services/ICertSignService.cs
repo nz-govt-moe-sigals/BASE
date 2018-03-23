@@ -5,7 +5,8 @@
     using App.Core.Shared.Services;
 
     /// <summary>
-    ///     Contract for a Service to Sign data.
+    /// Contract for an Infrastructure Service to 
+    /// Sign data.
     ///     <para>
     ///         Use to sign OperationLog entries.
     ///     </para>

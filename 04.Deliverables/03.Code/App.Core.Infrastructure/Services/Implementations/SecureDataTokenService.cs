@@ -5,6 +5,12 @@
     using App.Core.Infrastructure.Constants.Db;
     using App.Core.Shared.Models.Entities;
 
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="ISecureDataTokenService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Services.ISecureDataTokenService" />
     public class SecureDataTokenService : ISecureDataTokenService
     {
         private readonly IRepositoryService _repositoryService;

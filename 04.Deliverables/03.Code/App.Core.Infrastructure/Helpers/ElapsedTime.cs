@@ -8,6 +8,14 @@ namespace App
 {
     /// <summary>
     /// A Disposable class to help with logging the durations of operations.
+    /// <para>
+    /// Of value during the startup stage when tracing how long operations
+    /// took, and what can be optimized.
+    /// </para>
+    /// <para>
+    /// Also of use when recording integration operations. Again, useful
+    /// for optimisation objectives.
+    /// </para>
     /// </summary>
     public class ElapsedTime : IDisposable
     {

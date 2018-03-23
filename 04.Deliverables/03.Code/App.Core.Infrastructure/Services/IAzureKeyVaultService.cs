@@ -7,6 +7,10 @@ namespace App.Core.Infrastructure.Services
     using Microsoft.Azure.KeyVault.Models;
     using Microsoft.Azure.KeyVault.WebKey;
 
+    /// <summary>
+    /// Contract for an Infrastructure Service to 
+    /// to manage access to an Azure KeyVault.
+    /// </summary>
     public interface IAzureKeyVaultService
     {
         Task<JsonWebKey> RetrieveKeyAsync(string vaultUrl,

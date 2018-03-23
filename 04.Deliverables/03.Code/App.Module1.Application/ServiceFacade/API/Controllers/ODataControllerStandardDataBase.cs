@@ -73,7 +73,9 @@ namespace App.Module1.Application.ServiceFacade.API.Controllers
                             .ProjectTo<TDto>()
                     ;
             }
+#pragma warning disable CS0168 // Variable is declared but never used
             catch (System.Exception e)
+#pragma warning restore CS0168 // Variable is declared but never used
             {
                 throw;
             }

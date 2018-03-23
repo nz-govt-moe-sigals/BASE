@@ -8,7 +8,11 @@ namespace App.Core.Infrastructure.Services.Configuration.Implementations
 {
     using App.Core.Shared.Models.Configuration;
 
-    public class MediaMetadataServiceConfiguration
+    /// <summary>
+    /// Configuration object to be injected into the 
+    /// implementation of <see cref="IMediaMetadataService"/>
+    /// </summary>
+    public class MediaMetadataServiceConfiguration : IServiceConfigurationObject
     {
         public readonly MediaManagementConfiguration MediaManagementConfiguration;
 

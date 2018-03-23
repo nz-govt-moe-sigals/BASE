@@ -11,18 +11,14 @@ namespace App.Core.Application.App_Start
 
     public class InitializerConfig
     {
-        private readonly AzureStorageIntegrationInitializer _azureStorage;
-        private readonly Spikes _spikes;
+        private readonly IntegrationSpikes _spikes;
 
-        public InitializerConfig(AzureStorageIntegrationInitializer azureStorage, Spikes spikes)
+        public InitializerConfig(IntegrationSpikes spikes)
         {
-            this._azureStorage = azureStorage;
             this._spikes = spikes;
         }
         public void Configure(IAppBuilder appBuilder)
         {
-            _azureStorage.Initialize();
-
             this._spikes.Initialize();
         }
     }

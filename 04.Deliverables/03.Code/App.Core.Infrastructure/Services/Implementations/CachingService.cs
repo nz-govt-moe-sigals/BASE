@@ -3,6 +3,11 @@
     using System;
     using System.Runtime.Caching;
 
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="ICachingService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
     public class CachingService : ICachingService
     {
         private readonly IUniversalDateTimeService _dateTimeService;

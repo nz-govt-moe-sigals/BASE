@@ -7,7 +7,7 @@
     ///     Implementation of
     ///     <see cref="IDictionaryBasedMimeTypeServiceConfiguration" />
     /// </summary>
-    public class DictionaryBasedMimeTypeServiceConfiguration : IDictionaryBasedMimeTypeServiceConfiguration
+    public class DictionaryBasedMimeTypeServiceConfiguration : IServiceConfigurationObject
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="DictionaryBasedMimeTypeServiceConfiguration" /> class.

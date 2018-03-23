@@ -6,8 +6,19 @@ using Swashbuckle.Application;
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 namespace App.Core.Application
 {
+    /// <summary>
+    /// An <see cref="StartupExtended"/> invoked class to configure
+    /// Swagger to generate documentation of registered REST APIs.
+    /// </summary>
     public class SwaggerConfig
     {
+
+        /// <summary>
+        /// Registers this instance.
+        /// <para>
+        /// Invoked from <see cref="StartupExtended.Configure"/>.
+        /// </para>
+        /// </summary>
         public static void Register()
         {
             var path = "docs/api/{apiVersion}/";

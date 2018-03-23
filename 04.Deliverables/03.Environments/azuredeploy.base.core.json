@@ -1,10 +1,70 @@
 {
+
+    // Using nested templates one can become more organised with templates and start re-using
+    // common templates as library building blocks through different projects.
+    // Refer to  reading Microsoft’s best practice guidance on designing complex templates.
+
+    // README:
+    // Templates are a set of sequential parameters, variables, resources, output sections for a reason.
+    // Parameters are the raw, unvalidated inputs -- whereas Variables are for staging, validating, 
+    // cleaning up the raw inputs into variables safe enough to be used, within resources. 
+    // 
+    // Conventions:
+    // * Resources should not reference parameters directly. It's quick and dirty to get 
+    //   up and running and fine (sortof) for a poc, demo, tutorial, etc. But this is a library intended
+    //   for reuse by different stakeholders, of varying ability -- and therefore
+    //   held up to a higher standard of development. Use the damn variables!
+    // * Parameters and Variables are named by convention to decrease inadvertent mistypings and 
+    //   hours lost debugging (which is expontially harder
+    //   in ARM due to the poor syntax accompanied by poor debugging tools.
+    //   * Each parameter is spelled out in full with the prefix of the type. So even if its obvious (ie, 
+    //     we're in an arm template called 'StorageAccount.json') the parameter's name 
+    //     is 'storageAccountResourceLocation' -- and not 'resourceLocation' or worse 'location'. 
+    //     The rationale is that when you have a error message saying 'locaation' is not right, 
+    //     and it's not even hinting as to which file it's annoyed wit...you have even a clue as 
+    //     to where to start (eg: with 'location'...good luck. 
+    //     You probably have 100 places to get yourself lost in.) 
+    //
+    // Tricks of the trade:
+    // Comments are great...but they are not valid JSON. 
+    // Consider using:
+    // npm install --global strip-json-comments-cli
+    // and then:
+    // strip-json-comments azuredeploy.base.core.json > azuredeploy.base-naked.json
+    // to check whether the json is valid (still going to have major issues anyway, but might as well 
+    // get that out of the way)
+
+    
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
+    // README:
+    // Parameters are to be considered raw/unvalidated/untrustable inputs.
+    // * Parameter Types: can be 'int','bool','string','object','array'.
+    // * Parameter Default Value: if null, will prompt and pause. Making it an empty string is a way to define
+    //   that it's the default nothing...and then use [empty(...)]
+    // * Parameter Allowed Values: prefer to use them, even if there is only one option to choose 
+    //   from (improves validation, and understandablity of any valiation errors raised) 
+    // * Location: ... is a difficult subject. 
+    //   By convention, you want everything near each other (ie db closest to server, which is closest to use)
+    //   But that's not always possible. For example. I might want all my servers in Australia....but 
+    //   database servers can't be created there 
+    //   (they're not offered). The closest accreditable 'nearshore' place I can find is 'southeastasia'.
+    //   So we can't go off and blindly use '[resourceGroup().location]' (mirroring the 
+    //   parent location, up to the resource group's location).
+    //   It will work in most cases -- but not all:  
+    //   * `altResourceLocation`: ...hence the need for the `altResourceLocation` parameter -- which 
+    //     is used where needed. For example, when the sqlServerLocation is determined, it first looks to see if it 
+    //     provided as a parameter. And if not, falls back to `altResourceLocation`
+    //   * And as for all child resources  (eg, sql firewall rules, database, etc.) they *have* to be match
+    //     the same location as the parent (sql server) resource. So they don't get much of a
+    //      say here -- we just reuse [variables('sql').server.resourceLocation] for them as well.
+    //   * Choice: I'm not going to give much choice as to where you build resources. 
+    //     These templates only allow Australia and southeastasia. Because
+    //     I prefer to not be sorry about this later.
     "parameters": {
         "sharedResourceGroup": {
             "metadata": {
-                "description": "The Resource Group used for Shared Resources (eg: shared KeyVault)"
+                "description": "The (optional) Resource Group used for Shared Resources (eg: shared KeyVault)"
             },
             "type": "string"
         },
@@ -18,17 +78,11 @@
             "defaultValue": "Incremental",
             "type": "string"
         },
-        "resourceLocation": {
-            "metadata": {
-                "description": "The default location within which to develop the Resources Group and its child Resources, unless specifically defined otherwise (not all resources - such as SqlServers - are available in all resources)."
-            },
-            "type": "string",
-            "allowedValues": [
-                "australiaeast",
-                "australiasoutheast"
-            ],
-            "defaultValue": "[resourceGroup().location]"
-        },
+
+        //Whereas a lot of different resource types can be developed in 'resourceLocation',
+        // not everything can. Specifically, sql server... Since we are limited as to where
+        // we are allowed to persist data to...you're free to choose any one of the following
+        // list of ....one:
         "altResourceLocation": {
             "type": "string",
             "defaultValue": "southeastasia",
@@ -36,24 +90,40 @@
                 "southeastasia"
             ],
             "metadata": {
-                "description": "The alt resource location, used for Databases, and any other resources that can't be location in the primary resourceLocation."
+                "description": "The (optional) alt resource location, used for Databases, and any other resources that can't be location in the primary resourceLocation."
             }
         },
+        // There should be absolutely no need to provide custom names for each resoource...
+        // Prefer Convention over Convention. 
+        // That said, you'll need some kind common template for the names of the resources.
+        // For example:
+        // MYORG-MYAPP-{ENVID}-{BRANCHID}-{RESOURCETYPE}
+        // or better yet:
+        // MYORG-MYAPP-{ENVID}-{BRANCHID}-{RT}
+        // where {RT} is automatically replaced as needed with a token to represent the final
+        // resource name. 
+        // An example output might be:
+        // MYORG-MYAPP-BT-US1023-SQL-SERVER
         "resourceNameTemplate": {
             "metadata": {
-                "description": "The default name template to use when developing the names of newly created Resources (eg: 'MYORG-MYAPP-{ENVID}-{BRANCHID}-{RESOURCETYPE}')'."
+                "description": "The (required) default name template to use when developing the names of newly created Resources (eg: 'MYORG-MYAPP-{ENVID}-{BRANCHID}-{RESOURCETYPE}')'."
             },
             "type": "string",
             "minLength": 6,
             "maxLength": 24
         },
+        // The http based base url from which to download referenced ARM Templates. 
+        // In most cases will be an Url to a Storage Account Container Url to which 
+        // newly downloaded Source Files (just the ARM Templates) are copied to
         "armTemplateRootUrl": {
             "metadata": {
-                "description": "The http based base url from which to download referenced ARM Templates. In most cases will be an Url to a Storage Account Container Url to which newly downloaded Source Files (just the ARM Templates) are copied to."
+                "description": "The (required) http based base url from which to download referenced ARM Templates. In most cases will be an Url to a Storage Account Container Url to which newly downloaded Source Files (just the ARM Templates) are copied to."
             },
             "type": "string",
             "defaultValue": ""
         },
+        // The (optional) Single Access Signature (SAS) required to append to ARM Template 
+        // Uris in order to get them out of a secured Storage Account Container.
         "armTemplateRootSas": {
             "metadata": {
                 "description": "The (optional) Single Access Signature (SAS) required to append to ARM Template Uris in order to get them out of a secured Storage Account Container."
@@ -61,13 +131,19 @@
             "type": "string",
             "defaultValue": ""
         },
+
+        // The http based base url from which to download referenced ARM Templates. 
+        // In most cases will be an Url to a Storage Account Container Url to which 
+        // newly downloaded Source Files (just the ARM Templates) are copied to.
         "armTemplateParameterRootUrl": {
             "metadata": {
-                "description": "The http based base url from which to download referenced ARM Templates. In most cases will be an Url to a Storage Account Container Url to which newly downloaded Source Files (just the ARM Templates) are copied to."
+                "description": "The (required) http based base url from which to download referenced ARM Templates. In most cases will be an Url to a Storage Account Container Url to which newly downloaded Source Files (just the ARM Templates) are copied to."
             },
             "type": "string",
             "defaultValue": ""
         },
+        // The (optional) Single Access Signature (SAS) required to append to ARM Template 
+        // Paramter Uris in order to get them out of a secured Storage Account Container.
         "armTemplateParameterRootSas": {
             "metadata": {
                 "description": "The (optional) Single Access Signature (SAS) required to append to ARM Template Paramter Uris in order to get them out of a secured Storage Account Container."
@@ -75,25 +151,30 @@
             "type": "string",
             "defaultValue": ""
         },
-        // -------------------------------------------------------
-        // KEY VAULT PARAMETERS
-        // -------------------------------------------------------
-        "keyVaultVaultResourceName": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "keyVaultVaultResourceLocation": {
-            "type": "string",
-            "defaultValue": "[resourceGroup().location]",
-            "allowedValues": [
-              "australiaeast",
-              "australiasoutheast",
-              "southeastasia"
-            ],
+        // Tags that are common to all resources.
+        "commonTags": {
+            "type": "object",
+            "defaultValue": {},
             "metadata": {
-              "description": "The location within which to develop the resource."
+                "description": "An (optional) Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
+
+        
+        // -------------------------------------------------------
+        // Parameters: KEY VAULT
+
+        // The (optional) name for the Resource. If not provided, falls 
+        // back to an 'resourceNameTemplate'-based, automatically generated resource name.
+        "keyVaultVaultResourceName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+              "description": "The (optional) name for the Resource. If not provided, falls back to an 'resourceNameTemplate'-based, automatically generated resource name."
+            }
+        },
+
+        // The (optional) resource's sku (which determines service cost...which is trivial in this case).
         "keyVaultVaultResourceSku": {
             "type": "string",
             "defaultValue": "Standard",
@@ -102,59 +183,50 @@
                 "Premium"
             ],
             "metadata": {
-                "description": "..."
+                "description": "The (optional) resource's sku (which determines service cost...which is trivial in this case)."
             }
         },
         "keyVaultVaultEnabledForDeployment": {
             "type": "bool",
             "defaultValue": false,
             "metadata": {
-                "description": "Specifies if the vault is enabled for VM or Service Fabric deployment"
+                "description": "An (optional) flag specifying if the vault is enabled for VM or Service Fabric deployment"
             }
         },
         "keyVaultVaultEnabledForTemplateDeployment": {
             "type": "bool",
             "defaultValue": false,
             "metadata": {
-                "description": "Specifies if the vault is enabled for ARM template deployment"
+                "description": "An (optional) flag specifying if the vault is enabled for ARM template deployment"
             }
         },
         "keyVaultVaultEnabledForDiskEncryption": {
             "type": "bool",
             "defaultValue": false,
             "metadata": {
-                "description": "Specifies if the vault is enabled for volume encryption"
+                "description": "An (optional) flag Specifying if the vault is enabled for volume encryption"
             }
         },
         "keyVaultVaultEnableSoftDelete": {
             "type": "bool",
             "defaultValue": true,
             "metadata": {
-                "description": "Specifies if the vault is enabled for volume encryption"
+                "description": "An (optional) flag specififying if the vault is enabled for volume encryption"
             }
         },
+
+        // Any optional tags to add to the target Resource. 
+        // Note that the tags are merged with the 'commonTags' before they
+        // are applied to the target Resource.
         "keyVaultVaultTags": {
             "type": "object",
             "defaultValue": {},
             "metadata": {
-                "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+                "description": "Am (optional) Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
         // -------------------------------------------------------
-        // STORAGE ACCOUNT PARAMETERS
-        // -------------------------------------------------------
-        "storageAccountResourceLocation": {
-            "type": "string",
-            "defaultValue": "[resourceGroup().location]",
-            "allowedValues": [
-              "australiaeast",
-              "australiasoutheast",
-              "southeastasia"
-            ],
-            "metadata": {
-              "description": "The location within which to develop the resource."
-            }
-        },
+        // Parameters: STORAGE ACCOUNT
         "storageAccountResourceSku": {
             "type": "string",
             "allowedValues": [
@@ -164,8 +236,11 @@
                 "Standard_RAGRS",
                 "Standard_ZRS"
             ],
-            "defaultValue": "Standard_LRS"
-        },
+            "defaultValue": "Standard_LRS",
+            "metadata": {
+                "description": "TODO"
+              }
+          },
         "storageAccountKind": {
             "type": "string",
             "allowedValues": [
@@ -173,8 +248,14 @@
                 "StorageV2",
                 "BlobStorage"
             ],
-            "defaultValue": "Storage"
+            "defaultValue": "Storage",
+            "metadata": {
+                "description": "TODO"
+              }
         },
+        // Any optional tags to add to the target Resource. 
+        // Note that the tags are merged with the 'commonTags' before they
+        // are applied to the target Resource.
         "storageAccountTags": {
             "type": "object",
             "defaultValue": {},
@@ -221,20 +302,20 @@
             }
         },
         // -------------------------------------------------------
-        // SQL SERVER PARAMETERS
-        // -------------------------------------------------------
+        // Parameters: SQL SERVER
         "sqlServerResourceLocation": {
             "type": "string",
             "defaultValue": "southeastasia",
             "allowedValues": [
-              "australiaeast",
-              "australiasoutheast",
+              //Not available: "australiaeast",
+              //Not available: "australiasoutheast",
               "southeastasia"
             ],
             "metadata": {
                 "description": "The location for the SQL service. This is parameterised because SQL servers cannot be deployed in all regions for subscription types."
             }
         },
+
         "sqlServerAdministratorLogin": {
             "metadata": {
                 "description": "Required. Administrator Login. Required for when creating new SqlServers."
@@ -249,6 +330,9 @@
             "type": "securestring",
             "minLength": 12
         },
+        // Any optional tags to add to the target Resource. 
+        // Note that the tags are merged with the 'commonTags' before they
+        // are applied to the target Resource.
         "sqlServerTags": {
             "type": "object",
             "defaultValue": {},
@@ -257,8 +341,7 @@
             }
         },
         // -------------------------------------------------------
-        // SQL SERVER / FIREWALL RULE PARAMETERS
-        // -------------------------------------------------------
+        // Parameters: SQL SERVER / FIREWALL RULE
         "sqlServerFirewallRuleResourceName": {
             "type": "string",
             "minLength": 1,
@@ -267,21 +350,12 @@
                 "description": "Optional. Default name is 'AllowAzure'."
             }
         },
-        /* 
-        // Not needed, as must be same as SqlServerResourceLocation:
-        "sqlServerFirewallRuleResourceLocation": {
-            "type": "string",
-            "defaultValue": "[resourceGroup().location]",
-            "allowedValues": [
-                "australiaeast",
-                "australiasoutheast",
-                "southeastasia"
-            ],
-            "metadata": {
-              "description": "The location within which to develop the resource. Must equal the parent SqlServer resource location."
-            }
-        },
-        */
+
+        //
+        // Not needed, as must be same as parent Resource Location:
+        // "sqlServerFirewallRuleResourceLocation"
+        //
+
         "sqlServerFirewallRuleStartIpAddress": {
             "type": "string",
             "metadata": {
@@ -296,6 +370,9 @@
             },
             "defaultValue": "0.0.0.0"
         },
+        // Any optional tags to add to the target Resource. 
+        // Note that the tags are merged with the 'commonTags' before they
+        // are applied to the target Resource.
         "sqlServerFirewallRuleTags": {
             "type": "object",
             "defaultValue": {},
@@ -304,8 +381,7 @@
             }
         },
         // -------------------------------------------------------
-        // SQL SERVER / AUDITING POLICIES PARAMETERS
-        // -------------------------------------------------------
+        // Parameters: SQL SERVER / AUDITING POLICIES
         "sqlServerAuditingPoliciesResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -313,21 +389,15 @@
                 "description": "Optional. If it can be set. If left blank, defined automatically according to naming convention."
             }
         },
-        /*
-        // Not needed, as must be same as SqlServerResourceLocation:
-        "sqlServerAuditingPoliciesResourceLocation": {
-            "type": "string",
-            "defaultValue": "[resourceGroup().location]",
-            "allowedValues": [
-              "australiaeast",
-              "australiasoutheast",
-              "southeastasia"
-            ],
-            "metadata": {
-              "description": "The location within which to develop the resource. Must equal the parent SQL Server Resource's location."
-            }
-        },
-        */
+
+        //
+        // Not needed, as must be same as parent Resource Location:
+        // "sqlServerAuditingPoliciesResourceLocation": 
+        //
+
+        // Any optional tags to add to the target Resource. 
+        // Note that the tags are merged with the 'commonTags' before they
+        // are applied to the target Resource.
         "sqlServerAuditingPoliciesTags": {
             "type": "object",
             "defaultValue": {},
@@ -336,8 +406,7 @@
             }
         },
         // -------------------------------------------------------
-        // SQL SERVER DATABASE PARAMETERS
-        // -------------------------------------------------------
+        // Parameters: SQL SERVER DATABASE
         "sqlServerDatabaseResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -345,21 +414,12 @@
                 "description": "Optional. If it can be set. If left blank, defined automatically according to naming convention."
             }
         },
-        /*
-        // Not needed, as must be same as SqlServerResourceLocation:
-        "sqlServerDatabaseResourceLocation": {
-            "type": "string",
-            "defaultValue": "[resourceGroup().location]",
-            "allowedValues": [
-              "australiaeast",
-              "australiasoutheast",
-              "southeastasia"
-            ],
-            "metadata": {
-              "description": "The location within which to develop the resource. Must equal the parent Sql Server Resource's location."
-            }
-        },
-        */
+
+        //
+        // Not needed, as must be same as parent Resource Location:
+        // "sqlServerDatabaseResourceLocation": 
+        // 
+
         "sqlServerDatabaseResourceSku": {
             "type": "string",
             "defaultValue": "Basic",
@@ -375,7 +435,10 @@
         },
         "sqlServerDatabaseZoneRedundant": {
             "type": "bool",
-            "defaultValue": false
+            "defaultValue": false,
+            "metadata": {
+                "description": "TODO"
+              }
         },
         "sqlServerDatabaseEdition": {
             "type": "string",
@@ -384,7 +447,10 @@
                 "Basic",
                 "Standard",
                 "Premium"
-            ]
+            ],
+            "metadata": {
+                "description": "TODO"
+              }
         },
         "sqlServerDatabaseCollation": {
             "type": "string",
@@ -392,7 +458,10 @@
             "defaultValue": "SQL_Latin1_General_CP1_CI_AS",
             "allowedValues": [
                 "SQL_Latin1_General_CP1_CI_AS"
-            ]
+            ],
+            "metadata": {
+                "description": "TODO"
+              }
         },
         "sqlServerDatabaseMaxSizeBytes": {
             "type": "string",
@@ -415,8 +484,15 @@
                 "429496729600",
                 "536870912000"
             ],
-            "defaultValue": "2147483648"
+            "defaultValue": "2147483648",
+            "metadata": {
+                "description": "TODO"
+              }
         },
+
+        // Any optional tags to add to the target Resource. 
+        // Note that the tags are merged with the 'commonTags' before they
+        // are applied to the target Resource.
         "sqlServerDatabaseTags": {
             "type": "object",
             "defaultValue": {},
@@ -424,30 +500,52 @@
                 "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             }
         },
+
+
         // -------------------------------------------------------
-        // DOCUMENDB PARAMETERS
+        // Parameters: DATAFACTORY / FACTORY
+
+        "dataFactoryFactoryResourceName": {
+            "type": "string",
+            "defaultValue": "",
+            "maxLength": 32,
+            "metadata": {
+                "description": "TODO"
+            }
+        },
+
+        "dataFactoryFactoryResourceLocation": {
+            "type": "string",
+            "defaultValue": "southeastasia",
+            "allowedValues": [
+              //Not available: "australiaeast",
+              //Not available: "australiasoutheast",
+              "southeastasia"
+            ],
+            "metadata": {
+                "description": "The location for the SQL service. This is parameterised because SQL servers cannot be deployed in all regions for subscription types."
+            }
+        },
+
+
         // -------------------------------------------------------
+        // Parameters: DOCUMENDB
 
         // If blank, uses the default resourceNameTemplate parameter.
         // This becomes the subdomain for the 'documents.azure.com' dns namespace.
+        "documentDbDatabaseAccountProvision": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "DocumentDb currently has a minimum of 400 units per month...which is roughly 40 NZD...Per Environment...so if you don't need it, save some money."
+            }
+        },
         "documentDbDatabaseAccountResourceName": {
             "type": "string",
             "defaultValue": "",
             "maxLength": 32,
             "metadata": {
                 "description": "The DocumentDb database account name. Needs to be globally unique, lowercase, between 3 and 32 characters long (after token search/replacement)."
-            }
-        },
-        "documentDbDatabaseAccountResourceLocation": {
-            "type": "string",
-            "defaultValue": "[resourceGroup().location]",
-            "allowedValues": [
-              "australiaeast",
-              "australiasoutheast",
-              "southeastasia"
-            ],
-            "metadata": {
-              "description": "The location within which to develop the resource."
             }
         },
         "documentDbDatabaseAccountResourceSku": {
@@ -524,6 +622,10 @@
                 "description": "Only choice is Standard"
             }
         },
+
+        // Any optional tags to add to the target Resource. 
+        // Note that the tags are merged with the 'commonTags' before they
+        // are applied to the target Resource.
         "documentDbDatabaseAccountTags": {
             "type": "object",
             "defaultValue": {},
@@ -532,32 +634,19 @@
             }
         },
         // -------------------------------------------------------
-        // WEB SERVER FARM PARAMETERS
-        // -------------------------------------------------------
+        // Parameters: WEB SERVER FARM PARAMETERS
         "webServerFarmResourceName": {
             "type": "string",
-            "defaultValue": "",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. If it can be set. If left blank, defined automatically according to naming convention."
             }
         },
-        "webServerFarmResourceLocation": {
-            "type": "string",
-            "defaultValue": "[resourceGroup().location]",
-            "allowedValues": [
-              "australiaeast",
-              "australiasoutheast",
-              "southeastasia"
-            ],
-            "metadata": {
-              "description": "The location within which to develop the resource."
-            }
-        },
+
+        // App Service server pricing tier and capacity. 
+        // Check details at //azure.microsoft.com/en-us/pricing/details/app-service/
+
         "webServerFarmResourceSku": {
-            "metadata": {
-                "description": "App Service server pricing tier and capacity. Check details at https://azure.microsoft.com/en-us/pricing/details/app-service/"
-            },
             "type": "string",
             "defaultValue": "S1",
             "allowedValues": [
@@ -566,14 +655,24 @@
                 "B1",
                 "S1",
                 "S2"
-            ]
+            ],
+            "metadata": {
+                "description": "App Service server pricing tier and capacity. Check details at https://azure.microsoft.com/en-us/pricing/details/app-service/"
+            }
         },
         "webServerFarmNumberOfWorkers": {
             "type": "int",
             "minValue": 1,
             "maxValue": 3,
-            "defaultValue": 1
+            "defaultValue": 1,
+            "metadata": {
+                "description": "TODO"
+              }
         },
+
+        // Any optional tags to add to the target Resource. 
+        // Note that the tags are merged with the 'commonTags' before they
+        // are applied to the target Resource.
         "webServerFarmTags": {
             "type": "object",
             "defaultValue": {},
@@ -582,8 +681,7 @@
             }
         },
         // -------------------------------------------------------
-        // WEB CERTIFICATE PARAMETERS
-        // -------------------------------------------------------
+        // Parameters: WEB CERTIFICATE PARAMETERS
         "webCertificateResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -591,18 +689,12 @@
                 "description": "Optional. If it can be set. If left blank, defined automatically according to naming convention."
             }
         },
-        "webCertificateResourceLocation": {
-            "type": "string",
-            "defaultValue": "[resourceGroup().location]",
-            "allowedValues": [
-              "australiaeast",
-              "australiasoutheast",
-              "southeastasia"
-            ],
-            "metadata": {
-                "description": "Optional. If it can be set. If left blank, defined automatically."
-            }
-        },
+
+        //
+        // Not needed, as must be same as parent Resource Location:
+        // "webCertificateResourceLocation": 
+        // 
+
         "webCertificateBase64": {
             "type": "string",
             "metadata": {
@@ -615,6 +707,10 @@
                 "description": "Optional: Password for the appService Web Site SSL Pfx Certificate. Only required if `sslCertificateBase64` is provided."
             }
         },
+
+        // Any optional tags to add to the target Resource. 
+        // Note that the tags are merged with the 'commonTags' before they
+        // are applied to the target Resource.
         "webCertificateTags": {
             "type": "object",
             "defaultValue": {},
@@ -623,8 +719,8 @@
             }
         },
         // -------------------------------------------------------
-        // WEB SITE HOSTBINDING PARAMETERS
-        // -------------------------------------------------------
+        // Parameters: WEB SITE HOSTBINDING
+
         "webSiteHostBindingResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -632,30 +728,29 @@
                 "description": "Optional. If it can be set. If left blank, defined automatically according to naming convention."
             }
         },
-        "webSiteHostBindingResourceLocation": {
-            "type": "string",
-            "defaultValue": "[resourceGroup().location]",
-            "allowedValues": [
-              "australiaeast",
-              "australiasoutheast",
-              "southeastasia"
-            ],
-            "metadata": {
-                "description": "The location for the Certificate, if it can be set."
-            }
-        },
+
+
+        //
+        // Not needed, as must be same as parent Resource Location:
+        // "webSiteHostBindingResourceLocation": 
+        // 
+
         "webSiteHostBindingHostName": {
             "type": "string",
             "metadata": {
-                "description": "."
+                "description": "TODO"
             }
         },
         "webSiteHostBindingCertificateThumbprint": {
             "type": "string",
             "metadata": {
-                "description": "."
+                "description": "TODO"
             }
         },
+
+        // Any optional tags to add to the target Resource. 
+        // Note that the tags are merged with the 'commonTags' before they
+        // are applied to the target Resource.
         "webSiteHostBindingTags": {
             "type": "object",
             "defaultValue": {},
@@ -664,8 +759,7 @@
             }
         },
         // -------------------------------------------------------
-        // WEB SITE PARAMETERS
-        // -------------------------------------------------------
+        // Parameters: WEB SITE
         "webSiteResourceName": {
             "type": "string",
             "defaultValue": "",
@@ -673,28 +767,16 @@
                 "description": "Optional: Defined automatically according to naming convention but can be overriden here"
             }
         },
-        "webSiteResourceLocation": {
-            "type": "string",
-            "defaultValue": "[resourceGroup().location]",
-            "allowedValues": [
-              "australiaeast",
-              "australiasoutheast",
-              "southeastasia"
-            ],
-            "metadata": {
-              "description": "The location within which to develop the resource."
-            }
-        },
-        "webSiteResourceSku": {
-            "metadata": {
-                "description": ""
-            },
-            "type": "string",
-            "defaultValue": "X",
-            "allowedValues": [
-                "X"
-            ]
-        },
+
+
+        //
+        // Not needed, as must be same as parent Resource Location:
+        // "webSiteResourceLocation": 
+        // 
+
+        // Not needed:
+        // "webSiteResourceSku": {
+
         "webSiteAlwaysOn": {
             "type": "bool",
             "defaultValue": true,
@@ -732,10 +814,12 @@
         },
         "webSiteRemoteDebuggingVersion": {
             "type": "string",
-            "defaultValue": "VS2012",
+            "defaultValue": "VS2017",
             "allowedValues": [
                 "VS2012",
-                "VS2013"
+                "VS2013",
+                "VS2015",
+                "VS2017"
             ],
             "metadata": {
                 "description": "TODO."
@@ -755,15 +839,111 @@
                 "description": "TODO."
             }
         },
-        "webSiteConfigAppSettings": {
-            "type": "object",
-            "defaultValue": {
-                "ExampleKey": "exampleValue"
-            },
+
+
+        "webSiteTimeZoneName": {
+            "type": "string",
+            "defaultValue": "New Zealand Standard Time",
+            "allowedValues": [
+                // Why: https://blogs.msdn.microsoft.com/tomholl/2015/04/06/changing-the-server-time-zone-on-azure-web-apps/
+                // Src: http://www.louischarlesgagnon.com/post/azure-app-service-set-timezone-for-your-web-application
+                "Morocco Standard Time", // (GMT) Casablanca
+                "GMT Standard Time", // (GMT) Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London
+                "Greenwich Standard Time", // (GMT) Monrovia, Reykjavik
+                "W. Europe Standard Time", // (GMT+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna
+                "Central Europe Standard Time", // (GMT+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague
+                "Romance Standard Time", // (GMT+01:00) Brussels, Copenhagen, Madrid, Paris
+                "Central European Standard Time", // (GMT+01:00) Sarajevo, Skopje, Warsaw, Zagreb
+                "W. Central Africa Standard Time", // (GMT+01:00) West Central Africa
+                "Jordan Standard Time", // (GMT+02:00) Amman
+                "GTB Standard Time", // (GMT+02:00) Athens, Bucharest, Istanbul
+                "Middle East Standard Time", // (GMT+02:00) Beirut
+                "Egypt Standard Time", // (GMT+02:00) Cairo
+                "South Africa Standard Time", // (GMT+02:00) Harare, Pretoria
+                "FLE Standard Time", // (GMT+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius
+                "Israel Standard Time", // (GMT+02:00) Jerusalem
+                "E. Europe Standard Time", // (GMT+02:00) Minsk
+                "Namibia Standard Time", // (GMT+02:00) Windhoek
+                "Arabic Standard Time", // (GMT+03:00) Baghdad
+                "Arab Standard Time", // (GMT+03:00) Kuwait, Riyadh
+                "Russian Standard Time", // (GMT+03:00) Moscow, St. Petersburg, Volgograd
+                "E. Africa Standard Time", // (GMT+03:00) Nairobi
+                "Georgian Standard Time", // (GMT+03:00) Tbilisi
+                "Iran Standard Time", // (GMT+03:30) Tehran
+                "Arabian Standard Time", // (GMT+04:00) Abu Dhabi, Muscat
+                "Azerbaijan Standard Time", // (GMT+04:00) Baku
+                "Mauritius Standard Time", // (GMT+04:00) Port Louis
+                "Caucasus Standard Time", // (GMT+04:00) Yerevan
+                "Afghanistan Standard Time", // (GMT+04:30) Kabul
+                "Ekaterinburg Standard Time", // (GMT+05:00) Ekaterinburg
+                "Pakistan Standard Time", // (GMT+05:00) Islamabad, Karachi
+                "West Asia Standard Time", // (GMT+05:00) Tashkent
+                "India Standard Time", // (GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi
+                "Sri Lanka Standard Time", // (GMT+05:30) Sri Jayawardenepura
+                "Nepal Standard Time", // (GMT+05:45) Kathmandu
+                "N. Central Asia Standard Time", // (GMT+06:00) Almaty, Novosibirsk
+                "Central Asia Standard Time", // (GMT+06:00) Astana, Dhaka
+                "Myanmar Standard Time", // (GMT+06:30) Yangon (Rangoon)
+                "SE Asia Standard Time", // (GMT+07:00) Bangkok, Hanoi, Jakarta
+                "North Asia Standard Time", // (GMT+07:00) Krasnoyarsk
+                "China Standard Time", // (GMT+08:00) Beijing, Chongqing, Hong Kong, Urumqi
+                "North Asia East Standard Time", // (GMT+08:00) Irkutsk, Ulaan Bataar
+                "Singapore Standard Time", // (GMT+08:00) Kuala Lumpur, Singapore
+                "W. Australia Standard Time", // (GMT+08:00) Perth
+                "Taipei Standard Time", // (GMT+08:00) Taipei
+                "Tokyo Standard Time", // (GMT+09:00) Osaka, Sapporo, Tokyo
+                "Korea Standard Time", // (GMT+09:00) Seoul
+                "Yakutsk Standard Time", // (GMT+09:00) Yakutsk
+                "Cen. Australia Standard Time", // (GMT+09:30) Adelaide
+                "AUS Central Standard Time", // (GMT+09:30) Darwin
+                "E. Australia Standard Time", // (GMT+10:00) Brisbane
+                "AUS Eastern Standard Time", // (GMT+10:00) Canberra, Melbourne, Sydney
+                "West Pacific Standard Time", // (GMT+10:00) Guam, Port Moresby
+                "Tasmania Standard Time", // (GMT+10:00) Hobart
+                "Vladivostok Standard Time", // (GMT+10:00) Vladivostok
+                "Central Pacific Standard Time", // (GMT+11:00) Magadan, Solomon Is., New Caledonia
+                "New Zealand Standard Time", // (GMT+12:00) Auckland, Wellington
+                "Fiji Standard Time", // (GMT+12:00) Fiji, Kamchatka, Marshall Is.
+                "Tonga Standard Time", // (GMT+13:00) Nuku'alofa
+                "Azores Standard Time", // (GMT-01:00) Azores
+                "Cape Verde Standard Time", // (GMT-01:00) Cape Verde Is.
+                "Mid-Atlantic Standard Time", // (GMT-02:00) Mid-Atlantic
+                "E. South America Standard Time", // (GMT-03:00) Brasilia
+                "Argentina Standard Time", // (GMT-03:00) Buenos Aires
+                "SA Eastern Standard Time", // (GMT-03:00) Georgetown
+                "Greenland Standard Time", // (GMT-03:00) Greenland
+                "Montevideo Standard Time", // (GMT-03:00) Montevideo
+                "Newfoundland Standard Time", // (GMT-03:30) Newfoundland
+                "Atlantic Standard Time", // (GMT-04:00) Atlantic Time (Canada)
+                "SA Western Standard Time", // (GMT-04:00) La Paz
+                "Central Brazilian Standard Time", // (GMT-04:00) Manaus
+                "Pacific SA Standard Time", // (GMT-04:00) Santiago
+                "Venezuela Standard Time", // (GMT-04:30) Caracas
+                "SA Pacific Standard Time", // (GMT-05:00) Bogota, Lima, Quito, Rio Branco
+                "Eastern Standard Time", // (GMT-05:00) Eastern Time (US & Canada)
+                "US Eastern Standard Time", // (GMT-05:00) Indiana (East)
+                "Central America Standard Time", // (GMT-06:00) Central America
+                "Central Standard Time", // (GMT-06:00) Central Time (US & Canada)
+                "Central Standard Time (Mexico)", // (GMT-06:00) Guadalajara, Mexico City,Monterrey
+                "Canada Central Standard Time", // (GMT-06:00) Saskatchewan
+                "US Mountain Standard Time", // (GMT-07:00) Arizona
+                "Mountain Standard Time (Mexico)", // (GMT-07:00) Chihuahua, La Paz, Mazatlan
+                "Mountain Standard Time", // (GMT-07:00) Mountain Time (US & Canada)
+                "Pacific Standard Time", // (GMT-08:00) Pacific Time (US & Canada)
+                "Pacific Standard Time (Mexico)", // (GMT-08:00) Tijuana, Baja California
+                "Alaskan Standard Time", // (GMT-09:00) Alaska
+                "Hawaiian Standard Time", // (GMT-10:00) Hawaii
+                "Samoa Standard Time", // (GMT-11:00) Midway Island, Samoa
+                "Dateline Standard Time" // (GMT-12:00) International Date Line West
+            ],
             "metadata": {
-                "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target site as AppSettings."
+                "descritpion": "Common timezone name to use"
             }
         },
+
+        // Any optional tags to add to the target Resource. 
+        // Note that the tags are merged with the 'commonTags' before they
+        // are applied to the target Resource.
         "webSiteTags": {
             "type": "object",
             "defaultValue": {},
@@ -772,8 +952,81 @@
             }
         },
         // -------------------------------------------------------
-        // MISC
+        // Parameters: Web Site Config App Settings
+        //
+        // Not needed, as Name is predetermined by parent Resource:
+        // "webSiteConfigAppSettingsResourceName": 
+        // 
+        //
+        // Not needed, as must be same as parent Resource:
+        // "webSiteConfigAppSettingsResourceLocation": 
+        // 
+
+        "webSiteConfigAppSettings": {
+            "type": "object",
+            "defaultValue": {
+                "ExampleKey": "exampleValue",
+                // Why: https://blogs.msdn.microsoft.com/tomholl/2015/04/06/changing-the-server-time-zone-on-azure-web-apps/
+                // Src: http://www.louischarlesgagnon.com/post/azure-app-service-set-timezone-for-your-web-application
+                // Your app *should* be using DateTime.Utc datetime... but 
+                // most developers these days are not engineers, and don't know that, and use
+                // datetime.Now. Which will be the country the app is being served from. 
+                // To fake/offset where the server appears to be, use this patch appsetting:
+                "WEBSITE_TIME_ZONE":"New Zealand Standard Time"
+            },
+            "metadata": {
+                "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target site as AppSettings."
+            }
+        },
+
+        // Any optional tags to add to the target Resource. 
+        // Note that the tags are merged with the 'commonTags' before they
+        // are applied to the target Resource.
+        "webSiteConfigAppSettingsTags": {
+            "type": "object",
+            "defaultValue": {},
+            "metadata": {
+                "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+            }
+        },
         // -------------------------------------------------------
+        // Parameters: Web Site Config Connection String
+
+        //
+        // Not needed, as Name is predetermined by parent Resource:
+        // "webSiteConfigConnectionStringsResourceName": 
+        // 
+        //
+        // Not needed, as must be same as parent Resource:
+        // "webSiteConfigConnectionStringsResourceLocation": 
+        // 
+
+        "webSiteConfigConnectionStrings": {
+            "type": "array",
+            "defaultValue": [
+                {
+                "name":"ABC",
+                "connectionString":"...voila...",
+                "type": 2 // 0= MySql, 1="Sql Server", 2=SQL Database
+                }
+            ],
+            "metadata": {
+                "description": "An Array of Complex Object items (each containing 'name', 'connectionString' and 'type' keys/values), that are added to the site's ConnectionStrings. Type should be 2 in most cases."
+            }
+        },
+
+        // Any optional tags to add to the target Resource. 
+        // Note that the tags are merged with the 'commonTags' before they
+        // are applied to the target Resource.
+        "webSiteConfigConnectionStringsTags": {
+            "type": "object",
+            "defaultValue": {},
+            "metadata": {
+                "description": "A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
+            }
+        },
+        // -------------------------------------------------------
+        // Parameters: Misc
         "_invalidValidSqlServerResourceLocation": {
             "type": "array",
             "defaultValue": [
@@ -783,916 +1036,1172 @@
                 "australiasoutheast"
             ]
         }
-    },
+    },//~parameters
+
+
+
+    // -------------------------------------------------------
+    // -------------------------------------------------------
+    // Background:
+    // * Consider Variables are 'staging', between raw, unverified inputs (ie, parameters) 
+    //   and where they are used (ie resources, and ultimately outputs).
+    // * Use 'complex' variables to keep sets of variables grouped together. 
+    //   In other words, instead of having 10 top level variables ('fooResourceName, 
+    //   fooResourceLocation, fooResourceSku'), having one 'foo' object with 3 subproperties
+    //   is more organised, and therefore more maintainable (less chances of making
+    //   spelling mistakes/ debugging, which is especially hard in ARMs).
+    // * When using the variables function, you can only refer to the top level
+    //    object -- and put the dots outside the quoates and brackets. ie:
+    //   * xyz = "[variablees('foo').resourceLocation]" <- valid
+    //   * xyz = "[variablees('foo.resourceLocation')]" <- won't be understood by parser.
+    // * Sticking to a naming convention for complex properties that matches the convention
+    //   chosen for properties has many advantages. For one, means you can cut paste both the
+    //   the parameters and variables between templates with little to no mistakes due to something
+    //   being mis-spelt. For another, as the files get really long, you don't have to scroll up 
+    //   and down so much trying to look up how you named the parameter and variables -- they just
+    //   match...and you can concentrate on the global task at hand rather than get lost in minutia...
+    // * StorageAccount Blob Urls are case-sensitive. And since that's where most people store their
+    //   arm templates, it's convention to keep filenames lowercase.
+    // -------------------------------------------------------
+    // -------------------------------------------------------
     "variables": {
-        "metadata": {
-            "comments00": "So...Templates are a set of sequential parameters, variables, resources, output sections for a reason.",
-            "conventions": {
-                "useVariables": "Using the Variables to shape the incoming Parameters, using Functions.",
-                "complexVariables": "Variables are grouped as complex objects. ",
-                "complexVariablesChildProperties": "Note that when later referencing child properties of complex variables, the dot is *outside* the top var name: `variables('top').childProperty`",
-                "lowerCaseUrls": "Blob storage urls are case-sensitive: so convention is to keep arm template and parameter filenames lower case."
-            }
-        },
-        "tmp": {
-            "tmpResourceLocation1": "[if (not (empty (parameters('resourceLocation'))), parameters('resourceLocation'), resourceGroup().location)]",
-            "tmpSqlResourceLocation1": "[if (not (empty (parameters('sqlServerResourceLocation'))), parameters('sqlServerResourceLocation'), if (not (empty (parameters('resourceLocation'))), parameters('resourceLocation'), resourceGroup().location))]",
-            "resourceNameTemplate": "[replace(replace(replace(parameters('resourceNameTemplate'),'{RESOURCE_TYPE}','{RT}'),'_','-'),'.','-')]"
-        },
-        "tmp2": {
-            "sqlServerResourceName": "[toLower(replace( variables('tmp').resourceNameTemplate, '{RT}', 'sqlserver'))]",
-            "sqlServerResourceLocation": "[if (not(contains(parameters('_invalidValidSqlServerResourceLocation'), variables('tmp').tmpSqlResourceLocation1)), variables('tmp').tmpSqlResourceLocation1, parameters('altResourceLocation'))]"
-        },
-        "resource": {
-             // "A collection of variables for use within this template (and any linked child templates)."
-            "resourceNamePrefix": "[toLower('azuredeploy.base.core')]",
-            "uniqueResourceId": "[uniqueString(resourceGroup().id)]",
+
+        // Define where we can build resources (australiaeast, australiasouteast) in an accreditable manner:
+        // "A collection of variables for use within this template (and any linked child templates)."
+        "resources": {
             "resourceMode": "[parameters('resourceMode')]",
-            "resourceLocation": "[if (not (empty (parameters('resourceLocation'))), parameters('resourceLocation'), resourceGroup().location)]",
-            "armTemplateRootUrl": "[parameters('armTemplateRootUrl')]",
-            "armTemplateParameterRootUrl": "[parameters('armTemplateParameterRootUrl')]",
-            "resourceNameTemplate": "[variables('tmp').resourceNameTemplate]",
+            "resourceNamePrefix": "[toLower('azuredeploy.base.core')]",
+            "resourceNameTemplate": "[replace(replace(replace(parameters('resourceNameTemplate'),'{RESOURCE_TYPE}','{RT}'),'_','-'),'.','-')]",
             "parametersSuffix": ".parameters"
         },
+        "locations":{
+            // Nearshore, closest:
+            "resourceLocation": "[if (not (empty (parameters('resourceLocation'))), parameters('resourceLocation'), resourceGroup().location)]",
+            // When a resource cannot be developed in the primary data center, fall back to secondary Nearshore:
+            "altResourceLocation": "[if (not (empty (parameters('altResourceLocation'))), parameters('altResourceLocation'), if (not (empty (parameters('resourceLocation'))), parameters('resourceLocation'), resourceGroup().location))]"
+        },
+        "tmp": {
+            "dataFactoryFactory":{
+                "resourceLocation": "[if (not (empty (parameters('dataFactoryFactoryResourceLocation'))), parameters('dataFactoryFactoryResourceLocation'), variables('locations').altResourceLocation)]"
+            },
+            "sqlServer" : {
+              "resourceName": "[toLower(replace( variables('resources').resourceNameTemplate, '{RT}', 'sqlserver'))]",
+              "resourceLocation": "[if (not (empty (parameters('sqlServerResourceLocation'))), parameters('sqlServerResourceLocation'), variables('locations').altResourceLocation)]"
+            },
+            "webServerFarm":{
+                "resourceLocation": "[variables('locations').resourceLocation]"
+            }
+        },
+        "tokens": {
+            "sqlserver": "sqlserver",
+            "sqldatabase" : "db",
+            "storageaccount": "storageaccount",
+            "datafactory": "datafactory-df",
+            "serverfarm": "server-farm",
+            "site": "site"
+        },
+        "urlRoots": {
+            "armTemplateRootUrl": "[parameters('armTemplateRootUrl')]",
+            "armTemplateParameterRootUrl": "[parameters('armTemplateParameterRootUrl')]"
+        },
+        "urls": {
+            // There's a common logic as to how this parent template determines the Url to the  child templates or parameters file.
+            // This is where the 'template' url is developed, which subsequent fil
+            "armUrlTemplate": "[concat( variables('urlRoots').armTemplateRootUrl, '{FOLDER}', variables('resources').resourceNamePrefix,'{SUFFIX}', '.json' , parameters('armTemplateRootSas'))]",
+            "armParametersUrlTemplate": "[concat( variables('urlRoots').armTemplateParameterRootUrl, '{FOLDER}', variables('resources').resourceNamePrefix,'{SUFFIX}', variables('resources').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]"
+            // Example of usage:
+            // "armUrl": "[replace( replace( variables('urls').armUrlTemplate, '{FOLDER}', '/keyvault/'),'{SUFFIX}','.keyvault.vault')]",
+            // "armParametersUrl": "[replace( replace( variables('urls').armParametersUrlTemplate, '{FOLDER}', '/keyvault/'),'{SUFFIX}','.keyvault.vault')]",
+        },
+        
+        
+        // Right...with the common stuff out of the way....
+        // can concentrate on building resource specific 
+        // variable packages that can be later referenced
+        // from within Resource definitions:
+
         "keyVault": {
+        // Make a complex set of nested objects -- mirroring the singular name of the resource type -- to keep common staging variables together:
             "vault": {
-                "id": "[concat( variables('resource').resourceNamePrefix,'.keyVault.vault' )]",
-                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/keyvault/', variables('resource').resourceNamePrefix,'.keyvault.vault', '.json' , parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/keyvault/', variables('resource').resourceNamePrefix,'.keyvault.vault', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[replace(if (not( empty (parameters('keyVaultVaultResourceName'))), parameters('keyVaultVaultResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'keyvault')]",
-                "resourceLocation": "[coalesce(parameters('keyVaultVaultResourceLocation'))]",
+                "id": "[concat( variables('resources').resourceNamePrefix,'.keyVault.vault' )]",
+                "armUrl": "[replace( replace( variables('urls').armUrlTemplate, '{FOLDER}', '/keyvault/'),'{SUFFIX}','.keyvault.vault')]",
+                //"armUrl": "[concat( variables('resources').armTemplateRootUrl, '/keyvault/', variables('resources').resourceNamePrefix,'.keyvault.vault', '.json' , parameters('armTemplateRootSas'))]",
+                "armParametersUrl": "[replace( replace( variables('urls').armParametersUrlTemplate, '{FOLDER}', '/keyvault/'),'{SUFFIX}','.keyvault.vault')]",
+                //"armParametersUrl": "[concat( variables('resources').armTemplateParameterRootUrl, '/keyvault/', variables('resources').resourceNamePrefix,'.keyvault.vault', variables('resources').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+                //Use the custom provided name if any (really no need to), or fall back to the resourcenametemplate derived one:                
+                "resourceName": "[replace(if (not( empty (parameters('keyVaultVaultResourceName'))), parameters('keyVaultVaultResourceName'), variables('resources').resourceNameTemplate), '{RT}', 'keyvault')]",
+                "resourceLocation": "[variables('locations').resourceLocation]",
                 "resourceType": "Microsoft.KeyVault/vaults",
                 "resourceSku": "[parameters('keyVaultVaultResourceSku')]",
                 "enabledForDeployment": "[parameters('keyVaultVaultEnabledForDeployment')]",
                 "enabledForTemplateDeployment": "[parameters('keyVaultVaultEnabledForTemplateDeployment')]",
                 "enabledForDiskEncryption": "[parameters('keyVaultVaultEnabledForDiskEncryption')]",
                 "enableSoftDelete": "[parameters('keyVaultVaultEnableSoftDelete')]",
-                "tags": "[parameters('keyVaultVaultTags')]"
+                // Merge the common tags, with the specific, if any:
+                "tags": "[union( parameters('commonTags'), parameters('keyVaultVaultTags'))]"
             }
-        },
-        "storageAccount": {
-            "deployment": {
-                "comment": "A collection of variables for passing to the storageAccount ARM Template for system diagnostics Backup storage.",
-                "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.deployment')]",
-                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/storageaccount/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/storageaccount/', variables('resource').resourceNamePrefix,'.storageAccount.deployment', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[replace( if (not (empty (parameters('storageAccountDiagnosticsResourceName'))), parameters('storageAccountDiagnosticsResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'sa-deploy')]",
-                "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
-                "resourceSku": "[parameters('storageAccountResourceSku')]",
-                "kind": "[parameters('storageAccountKind')]",
-                "tags": "[parameters('storageAccountTags')]"
-            },
-            "diagnostics": {
-                "comment": "A collection of variables for passing to the storageAccount ARM Template for system diagnostics Backup storage.",
-                "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.diagnostics')]",
-                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/storageaccount/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/storageaccount/', variables('resource').resourceNamePrefix,'.storageAccount.diagnostics', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[replace( if (not (empty (parameters('storageAccountDiagnosticsResourceName'))), parameters('storageAccountDiagnosticsResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'sa-diag')]",
-                "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
-                "resourceSku": "[parameters('storageAccountResourceSku')]",
-                "kind": "[parameters('storageAccountKind')]",
-                "tags": "[parameters('storageAccountTags')]"
-            },
-            "backups": {
-                "comment": "A collection of variables for passing to the storageAccount ARM Template for Backup storage.",
-                "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.backups')]",
-                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/storageaccount/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/storageaccount/', variables('resource').resourceNamePrefix,'.storageAccount.backups', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[replace( if (not (empty (parameters('storageAccountBackupResourceName'))), parameters('storageAccountBackupResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'sa-backup')]",
-                "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
-                "resourceSku": "[parameters('storageAccountResourceSku')]",
-                "kind": "[parameters('storageAccountKind')]",
-                "tags": "[parameters('storageAccountTags')]"
-            },
-            "media": {
-                "comment": "A collection of variables for passing to the storageAccount ARM Template for Media storage.",
-                "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.media')]",
-                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/storageaccount/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/storageaccount/', variables('resource').resourceNamePrefix,'.storageAccount.media', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[replace( if (not (empty (parameters('storageAccountMediaResourceName'))), parameters('storageAccountMediaResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'sa-media')]",
-                "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
-                "resourceSku": "[parameters('storageAccountResourceSku')]",
-                "kind": "[parameters('storageAccountKind')]",
-                "tags": "[parameters('storageAccountTags')]"
-            },
-            "media2": {
-                "comment": "A collection of variables for passing to the storageAccount ARM Template for Media storage.",
-                "id": "[concat( variables('resource').resourceNamePrefix,'.storageAccount.media2')]",
-                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/storageaccount/', variables('resource').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/storageaccount/', variables('resource').resourceNamePrefix,'.storageAccount.media2', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[replace( if (not (empty (parameters('storageAccountMedia2ResourceName'))), parameters('storageAccountMedia2ResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'sa-media-2')]",
-                "resourceLocation": "[if (not (empty (parameters('storageAccountResourceLocation'))), parameters('storageAccountResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
-                "resourceSku": "[parameters('storageAccountResourceSku')]",
-                "kind": "[parameters('storageAccountKind')]",
-                "tags": "[parameters('storageAccountTags')]"
-            }
-        },
-        "sql": {
-            "server": {
-                "comment": "A collection of variables for passing to the SqlServer ARM Template -- via the proxy of the sqlServerDatabase ARM that depends on it.",
-                "id": "[concat( variables('resource').resourceNamePrefix,'.sql.server')]",
-                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/sql/', variables('resource').resourceNamePrefix,'.sql.server', '.json', parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/sql/', variables('resource').resourceNamePrefix,'.sql.server', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[variables('tmp2').sqlServerResourceName]",
-                "resourceLocation": "[variables('tmp2').sqlServerResourceLocation]",
-                "administrator": {
-                    "login": "[parameters('sqlServerAdministratorLogin')]",
-                    "loginPassword": "[parameters('sqlServerAdministratorLoginPassword')]"
-                },
-                "tags": "[parameters('sqlServerTags')]",
-                "firewallRule": {
-                    "openToAzure": {
-                        "comment": "A collection of variables for passing to the SqlServerFirewallRule ARM Template.",
-                        "id": "[concat( variables('resource').resourceNamePrefix,'.sql.server','.firewallRule.openToAzure')]",
-                        "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/sql/', variables('resource').resourceNamePrefix,'.sql.server.firewallrule', '.json', parameters('armTemplateRootSas'))]",
-                        "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/sql/', variables('resource').resourceNamePrefix,'.sql.server.firewallrule.opentoazure', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
-                        // the names of child nested resources are prefixed with the name used by the parent object.
-                        "resourceName": "[concat(variables('tmp2').sqlServerResourceName, '/rules-opentoazure', if (not (empty (parameters('sqlServerDatabaseResourceName'))), concat('-', parameters('sqlServerDatabaseResourceName')),''))]",
-                        "resourceLocation": "[variables('tmp2').sqlServerResourceLocation]",
-                        "startIpAddress": "[parameters('sqlServerFirewallRuleStartIpAddress')]",
-                        "endIpAddress": "[parameters('sqlServerFirewallRuleEndIpAddress')]",
-                        "tags": "[parameters('sqlServerFirewallRuleTags')]"
-                    }
-                },
-                "database": {
-                    "comment": "A collection of variables for passing to the SqlServerDatabase ARM Template.",
-                    "id": "[concat( variables('resource').resourceNamePrefix,'.sql.server.database')]",
-                    "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/sql/', variables('resource').resourceNamePrefix,'.sql.server.database', '.json', parameters('armTemplateRootSas'))]",
-                    "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/sql/', variables('resource').resourceNamePrefix,'.sql.server.database', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
-                    // the names of child nested resources are prefixed with the name used by the parent object.
-                    "parentResourceName": "[variables('tmp2').sqlServerResourceName]",
-                    "resourceName": "[replace( if (not (empty (parameters('sqlServerDatabaseResourceName'))), parameters('sqlServerDatabaseResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'db')]",
-                    "resourceLocation": "[variables('tmp2').sqlServerResourceLocation]",
-                    "resourceSku": "[parameters('sqlServerDatabaseResourceSku')]",
-                    "collation": "[parameters('sqlServerDatabaseCollation')]",
-                    "edition": "[parameters('sqlServerDatabaseEdition')]",
-                    "maxSizeBytes": "[parameters('sqlServerDatabaseMaxSizeBytes')]",
-                    "zoneRedundant": "[parameters('sqlServerDatabaseZoneRedundant')]",
-                    "tags": "[parameters('sqlServerDatabaseTags')]"
-                }
-            },
-            "auditingPolicies": {
-                "comment": "A collection of variables for passing to the SqlServerAuditingPolicies ARM Template.",
-                "id": "[concat( variables('resource').resourceNamePrefix,'.sqlServer.auditingPolicies')]",
-                "resourceName": "[replace( if (not (empty (parameters('sqlServerAuditingPoliciesResourceName'))), parameters('sqlServerAuditingPoliciesResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'sqlserver-auditing-policies')]",
-                "resourceLocation": "[variables('tmp2').sqlServerResourceLocation]",
-                "tags": "[parameters('sqlServerAuditingPoliciesTags')]"
-            }
-        },
-        "documentDb": {
-            "databaseAccount": {
-                "id": "[concat( variables('resource').resourceNamePrefix,'.documentDb.databaseAccount' )]",
-                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/documentdb/', variables('resource').resourceNamePrefix,'.documentdb.databaseaccount', '.json' , parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/documentdb/', variables('resource').resourceNamePrefix,'.documentdb.databaseaccount', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[take(replace( if (not (empty (parameters('documentDbDatabaseAccountResourceName'))), parameters('documentDbDatabaseAccountResourceName'), variables('resource').resourceNameTemplate ), '{RT}', 'docdb-dbaccnt'), 24)]",
-                "resourceType": "Microsoft.DocumentDB/databaseAccounts",
-                "resourceLocation": "[parameters('documentDbDatabaseAccountResourceLocation')]",
-                "kind": "[parameters('documentDbDatabaseAccountKind')]",
-                "offerType": "[parameters('documentDbDatabaseAccountOfferType')]",
-                "consistencyPolicy": {
-                    "level": "[parameters('documentDbDatabaseAccountConsistencyPolicyLevel')]",
-                    "maxStalenessPrefix": "[parameters('documentDbDatabaseAccountConsistencyMaxStalenessPrefix')]",
-                    "maxIntervalInSeconds": "[parameters('documentDbDatabaseAccountConsistencyMaxIntervalInSeconds')]"
-                },
-                "tags": "[parameters('documentDbDatabaseAccountTags')]"
-            }
-        },
-        "web": {
-            "serverFarm": {
-                "comment": "A collection of variables for passing to the webServer  ARM Template.",
-                "id": "[concat( variables('resource').resourceNamePrefix,'.web.appServicePlan' )]",
-                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/web/', variables('resource').resourceNamePrefix,'.web.serverfarm', '.json' , parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/web/', variables('resource').resourceNamePrefix,'.web.serverfarm', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[toLower(replace( if (not (empty (parameters('webServerFarmResourceName'))), parameters('webServerFarmResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'web-server-farm'))]",
-                "resourceLocation": "[if (not (empty (parameters('webServerFarmResourceLocation'))), parameters('webServerFarmResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
-                "resourceSku": "[parameters('webServerFarmResourceSku')]",
-                "numberOfWorkers": "[parameters('webServerFarmNumberOfWorkers')]",
-                "tags": "[parameters('webServerFarmTags')]"
-            },
-            "site": {
-                "id": "[concat( variables('resource').resourceNamePrefix,'.web.site' )]",
-                "armUrl": "[concat( variables('resource').armTemplateRootUrl, '/web/', variables('resource').resourceNamePrefix,'.web.site', '.json' , parameters('armTemplateRootSas'))]",
-                "armParametersUrl": "[concat( variables('resource').armTemplateParameterRootUrl, '/web/', variables('resource').resourceNamePrefix,'.web.site', variables('resource').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
-                "resourceName": "[toLower(replace( if (not (empty (parameters('webSiteResourceName'))), parameters('webSiteResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'web-site'))]",
-                "resourceLocation": "[if (not (empty (parameters('webSiteResourceLocation'))), parameters('webSiteResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
-                "resourceSku": "[parameters('webSiteResourceSku')]",
-                "serverFarmResourceId": "TODO",
-                "mode": "MODE:TODO",
-                "alwaysOn": "[parameters('webSiteAlwaysOn')]",
-                "detailedErrorLoggingEnabled": "[parameters('webSiteDetailedErrorLoggingEnabled')]",
-                "logsDirectorySizeLimit": "[parameters('webSiteLogsDirectorySizeLimit')]",
-                "httpLoggingEnabled": "[parameters('webSiteHttpLoggingEnabled')]",
-                "remoteDebuggingEnabled": "[parameters('webSiteRemoteDebuggingEnabled')]",
-                "remoteDebuggingVersion": "[parameters('webSiteRemoteDebuggingVersion')]",
-                "requestTracingEnabled": "[parameters('webSiteRequestTracingEnabled')]",
-                "webSocketsEnabled": "[parameters('webSiteWebSocketsEnabled')]",
-                "config": {
-                    "appSettings": "[parameters('webSiteConfigAppSettings')]"
-                },
-                "tags": "[parameters('webSiteTags')]",
-                "hostBinding": {
-                    "comments": "",
-                    "resourceType": "Microsoft.Web/sites/hostNameBindings",
-                    "resourceName": "[concat(replace( if (not (empty (parameters('webSiteHostBindingResourceName'))), parameters('webSiteHostBindingResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'web-site'),'/rule')]",
-                    "resourceLocation": "[if (not (empty (parameters('webSiteHostBindingResourceLocation'))), parameters('webSiteHostBindingResourceLocation'), coalesce(variables('resource').resourceLocation, resourceGroup().location) )]",
-                    "hostName": "[parameters('webSiteHostBindingHostName')]",
-                    "thumbprint": "[parameters('webSiteHostBindingCertificateThumbprint')]",
-                    "tags": "[parameters('webSiteHostBindingTags')]"
-                }
-            },
-            "certificate": {
-                "resourceType": "Microsoft.Web/certificates",
-                "resourceName": "[replace( if (not (empty (parameters('webCertificateResourceName'))), parameters('webCertificateResourceName'), variables('resource').resourceNameTemplate), '{RT}', 'web-certificate')]",
-                "resourceLocation": "[coalesce(parameters('webCertificateResourceLocation'), variables('resource').resourceLocation, resourceGroup().location)]",
-                "pfxBlob": "[coalesce(parameters('webCertificateBase64'),'ERROR:NO PFX BLOB PROVIDED')]",
-                "password": "[coalesce(parameters('webCertificatePassword'),'ERROR:NO PFX PASSWORD PROVIDED')]",
-                "tags": "[parameters('webCertificateTags')]"
-            }
-        }
-    },
+        }//~keyvault
+
+    //     // Make a complex set of nested objects -- mirroring the singular name of the resource type -- to keep common staging variables together:
+    //     "storageAccount": {
+    //         "deployment": {
+    //             "comment": "A collection of variables for passing to the storageAccount ARM Template for system diagnostics Backup storage.",
+    //             "id": "[concat( variables('resources').resourceNamePrefix,'.storageAccount.deployment')]",
+    //             "armUrl": "[replace( replace( variables('urls').armUrlTemplate, '{FOLDER}', '/storageaccount/'),'{SUFFIX}','.storageAccount')]",
+    //             //"armUrl": "[concat( variables('resources').armTemplateRootUrl, '/storageaccount/', variables('resources').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
+    //             "armParametersUrl": "[replace( replace( variables('urls').armParametersUrlTemplate, '{FOLDER}', '/storageaccount/'),'{SUFFIX}','.storageAccount.deployment')]",
+    //             //"armParametersUrl": "[concat( variables('resources').armTemplateParameterRootUrl, '/storageaccount/', variables('resources').resourceNamePrefix,'.storageAccount.deployment', variables('resources').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+    //             //Use the custom provided name if any (really no need to), or fall back to the resourcenametemplate derived one:                
+    //             "resourceName": "[replace( if (not (empty (parameters('storageAccountDiagnosticsResourceName'))), parameters('storageAccountDiagnosticsResourceName'), variables('resources').resourceNameTemplate), '{RT}', 'sa-deploy')]",
+    //             "resourceLocation": "[variables('locations').resourceLocation]",
+    //             "resourceSku": "[parameters('storageAccountResourceSku')]",
+    //             "kind": "[parameters('storageAccountKind')]",
+    //             // Merge the common tags, with the specific, if any:
+    //             "tags": "[union( parameters('commonTags'), parameters('storageAccountTags'))]"
+    //         },
+    //         // Make a complex set of nested objects -- mirroring the singular name of the resource type -- to keep common staging variables together:
+    //         "diagnostics": {
+    //             "comment": "A collection of variables for passing to the storageAccount ARM Template for system diagnostics Backup storage.",
+    //             "id": "[concat( variables('resources').resourceNamePrefix,'.storageAccount.diagnostics')]",
+    //             "armUrl": "[replace( replace( variables('urls').armUrlTemplate, '{FOLDER}', '/storageaccount/'),'{SUFFIX}','.storageAccount')]",
+    //             //"armUrl": "[concat( variables('resources').armTemplateRootUrl, '/storageaccount/', variables('resources').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
+    //             "armParametersUrl": "[replace( replace( variables('urls').armParametersUrlTemplate, '{FOLDER}', '/storageaccount/'),'{SUFFIX}','.storageAccount.diagnostics')]",
+    //             //"armParametersUrl": "[concat( variables('resources').armTemplateParameterRootUrl, '/storageaccount/', variables('resources').resourceNamePrefix,'.storageAccount.diagnostics', variables('resources').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+    //             //Use the custom provided name if any (really no need to), or fall back to the resourcenametemplate derived one:                
+    //             "resourceName": "[replace( if (not (empty (parameters('storageAccountDiagnosticsResourceName'))), parameters('storageAccountDiagnosticsResourceName'), variables('resources').resourceNameTemplate), '{RT}', 'sa-diag')]",
+    //             "resourceLocation": "[variables('locations').resourceLocation]",
+    //             "resourceSku": "[parameters('storageAccountResourceSku')]",
+    //             "kind": "[parameters('storageAccountKind')]",
+    //             // Merge the common tags, with the specific, if any:
+    //             "tags": "[union( parameters('commonTags'), parameters('storageAccountTags'))]"
+    //         },
+    //         // Make a complex set of nested objects -- mirroring the singular name of the resource type -- to keep common staging variables together:
+    //         "backups": {
+    //             "comment": "A collection of variables for passing to the storageAccount ARM Template for Backup storage.",
+    //             "id": "[concat( variables('resources').resourceNamePrefix,'.storageAccount.backups')]",
+    //             "armUrl": "[replace( replace( variables('urls').armUrlTemplate, '{FOLDER}', '/storageaccount/'),'{SUFFIX}','.storageAccount')]",
+    //             //"armUrl": "[concat( variables('resources').armTemplateRootUrl, '/storageaccount/', variables('resources').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
+    //             "armParametersUrl": "[replace( replace( variables('urls').armParametersUrlTemplate, '{FOLDER}', '/storageaccount/'),'{SUFFIX}','.storageAccount.backups')]",
+    //             //"armParametersUrl": "[concat( variables('resources').armTemplateParameterRootUrl, '/storageaccount/', variables('resources').resourceNamePrefix,'.storageAccount.backups', variables('resources').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+    //             //Use the custom provided name if any (really no need to), or fall back to the resourcenametemplate derived one:                
+    //             "resourceName": "[replace( if (not (empty (parameters('storageAccountBackupResourceName'))), parameters('storageAccountBackupResourceName'), variables('resources').resourceNameTemplate), '{RT}', 'sa-backup')]",
+    //             "resourceLocation": "[variables('locations').resourceLocation]",
+    //             "resourceSku": "[parameters('storageAccountResourceSku')]",
+    //             "kind": "[parameters('storageAccountKind')]",
+    //             // Merge the common tags, with the specific, if any:
+    //             "tags": "[union( parameters('commonTags'), parameters('storageAccountTags'))]"
+    //             },
+    //         // Make a complex set of nested objects -- mirroring the singular name of the resource type -- to keep common staging variables together:
+    //         "media": {
+    //             "comment": "A collection of variables for passing to the storageAccount ARM Template for Media storage.",
+    //             "id": "[concat( variables('resources').resourceNamePrefix,'.storageAccount.media')]",
+    //             "armUrl": "[replace( replace( variables('urls').armUrlTemplate, '{FOLDER}', '/storageaccount/'),'{SUFFIX}','.storageAccount')]",
+    //             //"armUrl": "[concat( variables('resources').armTemplateRootUrl, '/storageaccount/', variables('resources').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
+    //             "armParametersUrl": "[replace( replace( variables('urls').armParametersUrlTemplate, '{FOLDER}', '/storageaccount/'),'{SUFFIX}','.storageAccount.media')]",
+    //             //"armParametersUrl": "[concat( variables('resources').armTemplateParameterRootUrl, '/storageaccount/', variables('resources').resourceNamePrefix,'.storageAccount.media', variables('resources').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+    //             //Use the custom provided name if any (really no need to), or fall back to the resourcenametemplate derived one:                
+    //             "resourceName": "[replace( if (not (empty (parameters('storageAccountMediaResourceName'))), parameters('storageAccountMediaResourceName'), variables('resources').resourceNameTemplate), '{RT}', 'sa-media')]",
+    //             "resourceLocation": "[variables('locations').resourceLocation]",
+    //             "resourceSku": "[parameters('storageAccountResourceSku')]",
+    //             "kind": "[parameters('storageAccountKind')]",
+    //             // Merge the common tags, with the specific, if any:
+    //             "tags": "[union( parameters('commonTags'), parameters('storageAccountTags'))]"
+    //             },
+    //         // Make a complex set of nested objects -- mirroring the singular name of the resource type -- to keep common staging variables together:
+    //         "media2": {
+    //             "comment": "A collection of variables for passing to the storageAccount ARM Template for Media storage.",
+    //             "id": "[concat( variables('resources').resourceNamePrefix,'.storageAccount.media2')]",
+    //             "armUrl": "[replace( replace( variables('urls').armUrlTemplate, '{FOLDER}', '/storageaccount/'),'{SUFFIX}','.storageAccount')]",
+    //             //"armUrl": "[concat( variables('resources').armTemplateRootUrl, '/storageaccount/', variables('resources').resourceNamePrefix,'.storageAccount', '.json', parameters('armTemplateRootSas'))]",
+    //             "armParametersUrl": "[replace( replace( variables('urls').armParametersUrlTemplate, '{FOLDER}', '/storageaccount/'),'{SUFFIX}','.storageAccount.media2')]",
+    //             //"armParametersUrl": "[concat( variables('resources').armTemplateParameterRootUrl, '/storageaccount/', variables('resources').resourceNamePrefix,'.storageAccount.media2', variables('resources').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+    //             //Use the custom provided name if any (really no need to), or fall back to the resourcenametemplate derived one:                
+    //             "resourceName": "[replace( if (not (empty (parameters('storageAccountMedia2ResourceName'))), parameters('storageAccountMedia2ResourceName'), variables('resources').resourceNameTemplate), '{RT}', 'sa-media-2')]",
+    //             "resourceLocation": "[variables('locations').resourceLocation]",
+    //             "resourceSku": "[parameters('storageAccountResourceSku')]",
+    //             "kind": "[parameters('storageAccountKind')]",
+    //             // Merge the common tags, with the specific, if any:
+    //             "tags": "[union( parameters('commonTags'), parameters('storageAccountTags'))]"
+    //             }
+    //        }
+    //     },
+    //     "sql": {
+    //         // Make a complex set of nested objects -- mirroring the singular name of the resource type -- to keep common staging variables together:
+    //         "server": {
+    //             "comment": "A collection of variables for passing to the SqlServer ARM Template -- via the proxy of the sqlServerDatabase ARM that depends on it.",
+    //             "id": "[concat( variables('resources').resourceNamePrefix,'.sql.server')]",
+    //             "armUrl": "[replace( replace( variables('urls').armUrlTemplate, '{FOLDER}', '/sql/'),'{SUFFIX}','.sql.server')]",
+    //             //"armUrl": "[concat( variables('resources').armTemplateRootUrl, '/sql/', variables('resources').resourceNamePrefix,'.sql.server', '.json', parameters('armTemplateRootSas'))]",
+    //             "armParametersUrl": "[concat( variables('resources').armTemplateParameterRootUrl, '/sql/', variables('resources').resourceNamePrefix,'.sql.server', variables('resources').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+    //             // Note that the source is coming from a temp, where the work of deciding whether to fall back altResourceLocation 
+    //             // has already been done (same for location). The use of a tmp is a workaround to the limitation that ARM variables
+    //             // can't self reference (cicular references occur)... which is going to be needed by child resources, that need 
+    //             // to refer to this property (if it could have been done, would have skipped the temp, and referenced this 
+    //             // variable directly from database, etc. and other children.
+    //             "resourceName": "[variables('tmp').sqlServer.resourceName]",
+    //             //Use the custom provided name if any (really no need to), or fall back to the resourcenametemplate derived one:                
+    //             "resourceLocation": "[variables('tmp').sqlServer.resourceLocation]",
+    //             "administrator": {
+    //                 "login": "[parameters('sqlServerAdministratorLogin')]",
+    //                 "loginPassword": "[parameters('sqlServerAdministratorLoginPassword')]"
+    //             },
+    //             // Merge the common tags, with the specific, if any:
+    //             "tags": "[union( parameters('commonTags'), parameters('sqlServerTags'))]",
+    //             //---------- ---------- ---------- ---------- ----------
+    //             // Make a complex set of nested objects -- mirroring the singular name of the resource type -- to keep common staging variables together:
+    //             "firewallRule": {
+    //                 "openToAzure": {
+    //                     "comment": "A collection of variables for passing to the SqlServerFirewallRule ARM Template.",
+    //                     "id": "[concat( variables('resources').resourceNamePrefix,'.sql.server','.firewallRule.openToAzure')]",
+    //                     "armUrl": "[replace( replace( variables('urls').armUrlTemplate, '{FOLDER}', '/sql/'),'{SUFFIX}','.sql.server.firewallrule')]",
+    //                     //"armUrl": "[concat( variables('resources').armTemplateRootUrl, '/sql/', variables('resources').resourceNamePrefix,'.sql.server.firewallrule', '.json', parameters('armTemplateRootSas'))]",
+    //                     "armParametersUrl": "[concat( variables('resources').armTemplateParameterRootUrl, '/sql/', variables('resources').resourceNamePrefix,'.sql.server.firewallrule.opentoazure', variables('resources').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+    //                     // note that in the case of nested templates, we don't provide a custom name:
+    //                     // the names of child nested resources are prefixed with the name used by the parent object.
+    //                     "resourceName": "[concat(variables('tmp').sqlServer.resourceName, '/rules-opentoazure', if (not (empty (parameters('sqlServerDatabaseResourceName'))), concat('-', parameters('sqlServerDatabaseResourceName')),''))]",
+    //                     "resourceLocation": "[variables('tmp').sqlServer.resourceLocation]",
+    //                     "startIpAddress": "[parameters('sqlServerFirewallRuleStartIpAddress')]",
+    //                     "endIpAddress": "[parameters('sqlServerFirewallRuleEndIpAddress')]",
+    //                 // Merge the common tags, with the specific, if any:
+    //                 "tags": "[union( parameters('commonTags'), parameters('sqlServerFirewallRuleTags'))]"
+    //                 }
+    //             //---------- ---------- ---------- ---------- ----------
+    //             },//~sql.server.firewallrule
+    //             // Make a complex set of nested objects -- mirroring the singular name of the resource type -- to keep common staging variables together:
+    //             "database": {
+    //                 "comment": "A collection of variables for passing to the SqlServerDatabase ARM Template.",
+    //                 "id": "[concat( variables('resources').resourceNamePrefix,'.sql.server.database')]",
+    //                 "armUrl": "[replace( replace( variables('urls').armUrlTemplate, '{FOLDER}', '/sql/'),'{SUFFIX}','.sql.server.database')]",
+    //                 //"armUrl": "[concat( variables('resources').armTemplateRootUrl, '/sql/', variables('resources').resourceNamePrefix,'.sql.server.database', '.json', parameters('armTemplateRootSas'))]",
+    //                 "armParametersUrl": "[concat( variables('resources').armTemplateParameterRootUrl, '/sql/', variables('resources').resourceNamePrefix,'.sql.server.database', variables('resources').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+    //                 // the names of child nested resources are prefixed with the name used by the parent object.
+    //                 "parentResourceName": "[variables('tmp').sqlServer.resourceName]",
+    //                 //Use the custom provided name if any (really no need to), or fall back to the resourcenametemplate derived one:                
+    //                 "resourceName": "[replace( if (not (empty (parameters('sqlServerDatabaseResourceName'))), parameters('sqlServerDatabaseResourceName'), variables('resources').resourceNameTemplate), '{RT}', 'db')]",
+    //                 "resourceLocation": "[variables('tmp').sqlServer.resourceLocation]",
+    //                 "resourceSku": "[parameters('sqlServerDatabaseResourceSku')]",
+    //                 "collation": "[parameters('sqlServerDatabaseCollation')]",
+    //                 "edition": "[parameters('sqlServerDatabaseEdition')]",
+    //                 "maxSizeBytes": "[parameters('sqlServerDatabaseMaxSizeBytes')]",
+    //                 "zoneRedundant": "[parameters('sqlServerDatabaseZoneRedundant')]",
+    //             // Merge the common tags, with the specific, if any:
+    //             "tags": "[union( parameters('commonTags'), parameters('sqlServerDatabaseTags'))]"
+    //             },//~sq.server.database
+    //         // Make a complex set of nested objects -- mirroring the singular name of the resource type -- to keep common staging variables together:
+    //         "auditingPolicies": {
+    //             "comment": "A collection of variables for passing to the SqlServerAuditingPolicies ARM Template.",
+    //             "id": "[concat( variables('resources').resourceNamePrefix,'.sqlServer.auditingPolicies')]",
+    //             //Use the custom provided name if any (really no need to), or fall back to the resourcenametemplate derived one:                
+    //             "resourceName": "[replace( if (not (empty (parameters('sqlServerAuditingPoliciesResourceName'))), parameters('sqlServerAuditingPoliciesResourceName'), variables('resources').resourceNameTemplate), '{RT}', 'sqlserver-auditing-policies')]",
+    //             "resourceLocation": "[variables('tmp').sqlServer.resourceLocation]",
+    //             // Merge the common tags, with the specific, if any:
+    //             "tags": "[union( parameters('commonTags'), parameters('sqlServerAuditingPoliciesTags'))]"
+    //         }//~sql.server.auditingPolicies
+    //     },//sql.server
+    //     "documentDb": {
+    //     // Make a complex set of nested objects -- mirroring the singular name of the resource type -- to keep common staging variables together:
+    //     "databaseAccount": {
+    //             "id": "[concat( variables('resources').resourceNamePrefix,'.documentDb.databaseAccount' )]",
+    //             "armUrl": "[replace( replace( variables('urls').armUrlTemplate, '{FOLDER}', '/documentdb/'),'{SUFFIX}','.documentdb.databaseaccount')]",
+    //             //"armUrl": "[concat( variables('resources').armTemplateRootUrl, '/documentdb/', variables('resources').resourceNamePrefix,'.documentdb.databaseaccount', '.json' , parameters('armTemplateRootSas'))]",
+    //             "armParametersUrl": "[concat( variables('resources').armTemplateParameterRootUrl, '/documentdb/', variables('resources').resourceNamePrefix,'.documentdb.databaseaccount', variables('resources').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+    //             "resourceName": "[take(replace( if (not (empty (parameters('documentDbDatabaseAccountResourceName'))), parameters('documentDbDatabaseAccountResourceName'), variables('resources').resourceNameTemplate ), '{RT}', 'docdb-dbaccnt'), 24)]",
+    //             "resourceType": "Microsoft.DocumentDB/databaseAccounts",
+    //             "resourceLocation": "[variables('locations').resourceLocation]",
+    //             "provision": "[parameters('documentDbDatabaseAccountProvision')]",
+    //             "kind": "[parameters('documentDbDatabaseAccountKind')]",
+    //             "offerType": "[parameters('documentDbDatabaseAccountOfferType')]",
+    //             "consistencyPolicy": {
+    //                 "level": "[parameters('documentDbDatabaseAccountConsistencyPolicyLevel')]",
+    //                 "maxStalenessPrefix": "[parameters('documentDbDatabaseAccountConsistencyMaxStalenessPrefix')]",
+    //                 "maxIntervalInSeconds": "[parameters('documentDbDatabaseAccountConsistencyMaxIntervalInSeconds')]"
+    //             },
+    //             // Merge the common tags, with the specific, if any:
+    //             "tags": "[union( parameters('commonTags'), parameters('documentDbDatabaseAccountTags'))]"
+    //         }//~documentDb.databaseAccount
+    //     },//~documentDb
+    //     "dataFactory": {
+    //         "factory" : {
+    //         "id": "[concat( variables('resources').resourceNamePrefix,'.dataFactory.factory')]",
+    //         "armUrl": "[replace( replace( variables('urls').armUrlTemplate, '{FOLDER}', '/datafactory/'),'{SUFFIX}','.datafactory.factory')]",
+    //         //"armUrl": "[concat( variables('resources').armTemplateRootUrl, '/datafactory/', variables('resources').resourceNamePrefix,'.datafactory.factory', '.json' , parameters('armTemplateRootSas'))]",
+    //         "armParametersUrl": "[concat( variables('resources').armTemplateParameterRootUrl, '/datafactory/', variables('resources').resourceNamePrefix,'.datafactory.factory', variables('resources').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+    //         "resourceName": "[take(replace(replace( if (not (empty (parameters('dataFactoryFactoryResourceName'))), parameters('dataFactoryFactoryResourceName'), variables('resources').resourceNameTemplate ), '{RT}', 'datafactory-factory'),'-',''), 24)]",
+    //         "resourceType": "Microsoft.DataFactory/factories",
+    //         // Match the location of the database (closest, as well as actually is the alt nearshore option)
+    //         // Use TMP in Parent Resource to get around circular references from Child Resources: 
+    //         "resourceLocation": "[variables('tmp').dataFactoryFactory.resourceLocation]",
+    //         // Merge the common tags, with the specific, if any:
+    //         "tags": "[union( parameters('commonTags'), parameters('dataFactoryFactoryTags'))]"
+    //         }//~dataFactory.factory
+    //     },//~dataFactory
+    //     "web": {
+    //     // Make a complex set of nested objects -- mirroring the singular name of the resource type -- to keep common staging variables together:
+    //     "serverFarm": {
+    //             "comment": "A collection of variables for passing to the webServer  ARM Template.",
+    //             "id": "[concat( variables('resources').resourceNamePrefix,'.web.appServicePlan' )]",
+    //             "armUrl": "[replace( replace( variables('urls').armUrlTemplate, '{FOLDER}', '/web/'),'{SUFFIX}','.web.serverfarm')]",
+    //             //"armUrl": "[concat( variables('resources').armTemplateRootUrl, '/web/', variables('resources').resourceNamePrefix,'.web.serverfarm', '.json' , parameters('armTemplateRootSas'))]",
+    //             "armParametersUrl": "[concat( variables('resources').armTemplateParameterRootUrl, '/web/', variables('resources').resourceNamePrefix,'.web.serverfarm', variables('resources').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+    //             "resourceName": "[toLower(replace( if (not (empty (parameters('webServerFarmResourceName'))), parameters('webServerFarmResourceName'), variables('resources').resourceNameTemplate), '{RT}', 'web-server-farm'))]",
+    //             "resourceLocation": "[variables('locations').resourceLocation]",
+    //             "resourceSku": "[parameters('webServerFarmResourceSku')]",
+    //             "numberOfWorkers": "[parameters('webServerFarmNumberOfWorkers')]",
+    //             // Merge the common tags, with the specific, if any:
+    //             "tags": "[union( parameters('commonTags'), parameters('webServerFarmTags'))]"
+    //         },
+    //     // Make a complex set of nested objects -- mirroring the singular name of the resource type -- to keep common staging variables together:
+    //     "site": {
+    //             "id": "[concat( variables('resources').resourceNamePrefix,'.web.site' )]",
+    //             "armUrl": "[replace( replace( variables('urls').armUrlTemplate, '{FOLDER}', '/web/'),'{SUFFIX}','.web.site')]",
+    //             //"armUrl": "[concat( variables('resources').armTemplateRootUrl, '/web/', variables('resources').resourceNamePrefix,'.web.site', '.json' , parameters('armTemplateRootSas'))]",
+    //             "armParametersUrl": "[concat( variables('resources').armTemplateParameterRootUrl, '/web/', variables('resources').resourceNamePrefix,'.web.site', variables('resources').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+    //             "resourceName": "[toLower(take(replace(replace( if (not (empty (parameters('webSiteResourceName'))), parameters('webSiteResourceName'), variables('resources').resourceNameTemplate), '{RT}', 'web-site'),'-',''),24))]",
+    //             //"resourceSku": "[parameters('webSiteResourceSku')]",
+    //             "mode": "MODE:TODO",
+    //             "alwaysOn": "[parameters('webSiteAlwaysOn')]",
+    //             "detailedErrorLoggingEnabled": "[parameters('webSiteDetailedErrorLoggingEnabled')]",
+    //             "logsDirectorySizeLimit": "[parameters('webSiteLogsDirectorySizeLimit')]",
+    //             "httpLoggingEnabled": "[parameters('webSiteHttpLoggingEnabled')]",
+    //             "remoteDebuggingEnabled": "[parameters('webSiteRemoteDebuggingEnabled')]",
+    //             "remoteDebuggingVersion": "[parameters('webSiteRemoteDebuggingVersion')]",
+    //             "requestTracingEnabled": "[parameters('webSiteRequestTracingEnabled')]",
+    //             "webSocketsEnabled": "[parameters('webSiteWebSocketsEnabled')]",
+    //             "config": {
+    //     // Make a complex set of nested objects -- mirroring the singular name of the resource type -- to keep common staging variables together:
+    //     "appSettings": {
+    //                     "id": "[concat( variables('resources').resourceNamePrefix,'.web.site.config.appSettings' )]",
+    //                     "armUrl": "[replace( replace( variables('urls').armUrlTemplate, '{FOLDER}', '/web/'),'{SUFFIX}','.web.site.appsettings')]",
+    //                     //"armUrl": "[concat( variables('resources').armTemplateRootUrl, '/web/', variables('resources').resourceNamePrefix,'.web.site.appsettings', '.json' , parameters('armTemplateRootSas'))]",
+    //                     "armParametersUrl": "[concat( variables('resources').armTemplateParameterRootUrl, '/web/', variables('resources').resourceNamePrefix,'.web.site.appsettings', variables('resources').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+    //                     "resourceName": "appsettings",
+    //                     "appSettings": "[parameters('webSiteConfigAppSettings')]",
+    //                     "tags": "[parameters('webSiteConfigAppSettingsTags')]"
+    //                 },
+    //     // Make a complex set of nested objects -- mirroring the singular name of the resource type -- to keep common staging variables together:
+    //     "connectionStrings": {
+    //                     "id": "[concat( variables('resources').resourceNamePrefix,'.web.site.config.connectionstrings' )]",
+    //                     "armUrl": "[replace( replace( variables('urls').armUrlTemplate, '{FOLDER}', '/web/'),'{SUFFIX}','.web.site.connectionstrings')]",
+    //                     //"armUrl": "[concat( variables('resources').armTemplateRootUrl, '/web/', variables('resources').resourceNamePrefix,'.web.site.connectionstrings', '.json' , parameters('armTemplateRootSas'))]",
+    //                     "armParametersUrl": "[concat( variables('resources').armTemplateParameterRootUrl, '/web/', variables('resources').resourceNamePrefix,'.web.site.connectionstrings', variables('resources').parametersSuffix, '.json', parameters('armTemplateParameterRootSas'))]",
+    //                     "resourceName": "connectionstrings",
+    //                     "connectionStrings": "[parameters('webSiteConfigConnectionStrings')]",
+    //                     "tags": "[parameters('webSiteConfigConnectionStringsTags')]"
+    //                 }
+
+    //             },//~site.config
+    //             // Merge the common tags, with the specific, if any:
+    //             "tags": "[union( parameters('commonTags'), parameters('webSiteTags'))]",
+    //     // Make a complex set of nested objects -- mirroring the singular name of the resource type -- to keep common staging variables together:
+    //     "hostBinding": {
+    //                 "comments": "",
+    //                 "resourceType": "Microsoft.Web/sites/hostNameBindings",
+    //                 "resourceName": "[concat(replace( if (not (empty (parameters('webSiteHostBindingResourceName'))), parameters('webSiteHostBindingResourceName'), variables('resources').resourceNameTemplate), '{RT}', 'web-site'),'/rule')]",
+    //                 "resourceLocation": "[variables('locations').resourceLocation]",
+    //                 "hostName": "[parameters('webSiteHostBindingHostName')]",
+    //                 "thumbprint": "[parameters('webSiteHostBindingCertificateThumbprint')]",
+    //                 // Merge the common tags, with the specific, if any:
+    //                 "tags": "[parameters('webSiteHostBindingTags')]"
+    //             }
+    //         },//~site
+    //     // Make a complex set of nested objects -- mirroring the singular name of the resource type -- to keep common staging variables together:
+    //     "certificate": {
+    //             "resourceType": "Microsoft.Web/certificates",
+    //             "resourceName": "[replace( if (not (empty (parameters('webCertificateResourceName'))), parameters('webCertificateResourceName'), variables('resources').resourceNameTemplate), '{RT}', 'web-certificate')]",
+    //             "resourceLocation": "[variables('locations').resourceLocation]",
+    //             "pfxBlob": "[coalesce(parameters('webCertificateBase64'),'ERROR:NO PFX BLOB PROVIDED')]",
+    //             "password": "[coalesce(parameters('webCertificatePassword'),'ERROR:NO PFX PASSWORD PROVIDED')]",
+    //             // Merge the common tags, with the specific, if any:
+    //             "tags": "[union( parameters('commonTags'), parameters('webCertificateTags'))]"
+    //         }
+    //     }//~web
+    },//~variables
+
+
+
+
+
     // ----------------------------------------------------------------------
     // ----------------------------------------------------------------------
     // Resources
     // ----------------------------------------------------------------------
     // ----------------------------------------------------------------------
     "resources": [
-        {
-            "comments": "Ensures a Resource Group scoped key vault. WARNING. There can be advantages to keeping KeyVaults outside of a Resource Group",
-            "name": "[variables('keyVault').vault.id]",
-            "apiVersion": "2017-05-10",
-            "type": "Microsoft.Resources/deployments",
-            "properties": {
-                "mode": "[variables('resource').resourceMode]",
-                "templateLink": {
-                    "uri": "[variables('keyVault').vault.armUrl]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "keyVaultVaultResourceName": {
-                        "value": "[variables('keyVault').vault.resourceName]"
-                    },
-                    "keyVaultVaultResourceLocation": {
-                        "value": "[variables('keyVault').vault.resourceLocation]"
-                    },
-                    "keyVaultVaultResourceSku": {
-                        "value": "[variables('keyVault').vault.resourceSku]"
-                    },
-                    "keyVaultVaultEnabledForDeployment": {
-                        "value": "[variables('keyVault').vault.enabledForDeployment]"
-                    },
-                    "keyVaultVaultEnabledForDiskEncryption": {
-                        "value": "[variables('keyVault').vault.enabledForDiskEncryption]"
-                    },
-                    "keyVaultVaultEnableSoftDelete": {
-                        "value": "[variables('keyVault').vault.enableSoftDelete]"
-                    },
-                    "keyVaultVaultTags": {
-                        "value": "[variables('keyVault').vault.tags]"
-                    }
-                }
-            }
-        },
-        {
-            "comments": "Ensures a Resource Group scoped unique backup Storage Account (for Db)",
-            "name": "[variables('storageAccount').deployment.id]",
-            "apiVersion": "2017-05-10",
-            "type": "Microsoft.Resources/deployments",
-            "properties": {
-                "mode": "[variables('resource').resourceMode]",
-                "templateLink": {
-                    "uri": "[variables('storageAccount').deployment.armUrl]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "storageAccountResourceName": {
-                        "value": "[variables('storageAccount').deployment.resourceName]"
-                    },
-                    "storageAccountResourceLocation": {
-                        "value": "[variables('storageAccount').deployment.resourceLocation]"
-                    },
-                    "storageAccountResourceSku": {
-                        "value": "[variables('storageAccount').deployment.resourceSku]"
-                    },
-                    "storageAccountKind": {
-                        "value": "[variables('storageAccount').deployment.kind]"
-                    },
-                    "storageAccountTags": {
-                        "value": "[variables('storageAccount').deployment.tags]"
-                    }
-                }
-            }
-        },
-        {
-            "comments": "Ensures a Resource Group scoped unique backup Storage Account (for Db)",
-            "name": "[variables('storageAccount').diagnostics.id]",
-            "apiVersion": "2017-05-10",
-            "type": "Microsoft.Resources/deployments",
-            "properties": {
-                "mode": "[variables('resource').resourceMode]",
-                "templateLink": {
-                    "uri": "[variables('storageAccount').diagnostics.armUrl]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "storageAccountResourceName": {
-                        "value": "[variables('storageAccount').diagnostics.resourceName]"
-                    },
-                    "storageAccountResourceLocation": {
-                        "value": "[variables('storageAccount').diagnostics.resourceLocation]"
-                    },
-                    "storageAccountTags": {
-                        "value": "[variables('storageAccount').diagnostics.tags]"
-                    }
-                }
-            }
-        },
-        {
-            "comments": "Ensures a Resource Group scoped unique Database Backups Storage Account",
-            "name": "[variables('storageAccount').backups.id]",
-            "apiVersion": "2017-05-10",
-            "type": "Microsoft.Resources/deployments",
-            "properties": {
-                "mode": "[variables('resource').resourceMode]",
-                "templateLink": {
-                    "uri": "[variables('storageAccount').backups.armUrl]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "storageAccountResourceName": {
-                        "value": "[variables('storageAccount').backups.resourceName]"
-                    },
-                    "storageAccountResourceLocation": {
-                        "value": "[variables('storageAccount').backups.resourceLocation]"
-                    },
-                    "storageAccountTags": {
-                        "value": "[variables('storageAccount').backups.tags]"
-                    }
-                }
-            }
-        },
-        {
-            "comments": "Ensures a Resource Group scoped unique Media Storage Account",
-            "name": "[variables('storageAccount').media.id]",
-            "apiVersion": "2017-05-10",
-            "type": "Microsoft.Resources/deployments",
-            "properties": {
-                "mode": "[variables('resource').resourceMode]",
-                "templateLink": {
-                    "uri": "[variables('storageAccount').media.armUrl]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "storageAccountResourceName": {
-                        "value": "[variables('storageAccount').media.resourceName]"
-                    },
-                    "storageAccountResourceLocation": {
-                        "value": "[variables('storageAccount').media.resourceLocation]"
-                    },
-                    "storageAccountTags": {
-                        "value": "[variables('storageAccount').media.tags]"
-                    }
-                }
-            }
-        },
-        {
-            "comments": "Ensures a Resource Group scoped unique Media (2) Storage Account",
-            "name": "[variables('storageAccount').media2.id]",
-            "apiVersion": "2017-05-10",
-            "type": "Microsoft.Resources/deployments",
-            "properties": {
-                "mode": "[variables('resource').resourceMode]",
-                "templateLink": {
-                    "uri": "[variables('storageAccount').media2.armUrl]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "storageAccountResourceName": {
-                        "value": "[variables('storageAccount').media2.resourceName]"
-                    },
-                    "storageAccountResourceLocation": {
-                        "value": "[variables('storageAccount').media2.resourceLocation]"
-                    },
-                    "storageAccountTags": {
-                        "value": "[variables('storageAccount').media2.tags]"
-                    }
-                }
-            }
-        },
-        {
-            "comments": "Ensure a Resource Group scoped SqlServer. Is a dependency for the subsequent deployment of the FirewallRule, and the SqlServerDatabase.",
-            "type": "Microsoft.Resources/deployments",
-            "name": "[variables('sql').server.id]",
-            "apiVersion": "2017-05-10",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[variables('sql').server.armUrl]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "sqlServerResourceName": {
-                        "value": "[variables('sql').server.resourceName]"
-                    },
-                    "sqlServerResourceLocation": {
-                        "value": "[variables('sql').server.resourceLocation]"
-                    },
-                    "sqlServerAdministratorLogin": {
-                        "value": "[variables('sql').server.administrator.login]"
-                    },
-                    "sqlServerAdministratorLoginPassword": {
-                        "value": "[variables('sql').server.administrator.loginPassword]"
-                    },
-                    "sqlServerTags": {
-                        "value": "[variables('sql').server.tags]"
-                    }
-                }
-            }
-        },
-        /*
+        // {
+        //     "comments": "Ensures a Resource Group scoped key vault. WARNING. There can be advantages to keeping KeyVaults outside of a Resource Group",
+        //     "name": "[variables('keyVault').vault.id]",
+        //     "apiVersion": "2017-05-10",
+        //     "type": "Microsoft.Resources/deployments",
+        //     "properties": {
+        //         "mode": "[variables('resources').resourceMode]",
+        //         "templateLink": {
+        //             "uri": "[variables('keyVault').vault.armUrl]",
+        //             "contentVersion": "1.0.0.0"
+        //         },
+        //         "parameters": {
+        //             "keyVaultVaultResourceName": {
+        //                 "value": "[variables('keyVault').vault.resourceName]"
+        //             },
+        //             "keyVaultVaultResourceLocation": {
+        //                 "value": "[variables('keyVault').vault.resourceLocation]"
+        //             },
+        //             "keyVaultVaultResourceSku": {
+        //                 "value": "[variables('keyVault').vault.resourceSku]"
+        //             },
+        //             "keyVaultVaultEnabledForDeployment": {
+        //                 "value": "[variables('keyVault').vault.enabledForDeployment]"
+        //             },
+        //             "keyVaultVaultEnabledForDiskEncryption": {
+        //                 "value": "[variables('keyVault').vault.enabledForDiskEncryption]"
+        //             },
+        //             "keyVaultVaultEnableSoftDelete": {
+        //                 "value": "[variables('keyVault').vault.enableSoftDelete]"
+        //             },
+        //             "keyVaultVaultTags": {
+        //                 "value": "[variables('keyVault').vault.tags]"
+        //             }
+        //         }
+        //     }
+        // },
+    //     {
+    //         "comments": "Ensures a Resource Group scoped unique backup Storage Account (for Db)",
+    //         "name": "[variables('storageAccount').deployment.id]",
+    //         "apiVersion": "2017-05-10",
+    //         "type": "Microsoft.Resources/deployments",
+    //         "properties": {
+    //             "mode": "[variables('resources').resourceMode]",
+    //             "templateLink": {
+    //                 "uri": "[variables('storageAccount').deployment.armUrl]",
+    //                 "contentVersion": "1.0.0.0"
+    //             },
+    //             "parameters": {
+    //                 "storageAccountResourceName": {
+    //                     "value": "[variables('storageAccount').deployment.resourceName]"
+    //                 },
+    //                 "storageAccountResourceLocation": {
+    //                     "value": "[variables('storageAccount').deployment.resourceLocation]"
+    //                 },
+    //                 "storageAccountResourceSku": {
+    //                     "value": "[variables('storageAccount').deployment.resourceSku]"
+    //                 },
+    //                 "storageAccountKind": {
+    //                     "value": "[variables('storageAccount').deployment.kind]"
+    //                 },
+    //                 "storageAccountTags": {
+    //                     "value": "[variables('storageAccount').deployment.tags]"
+    //                 }
+    //             }
+    //         }
+    //     },
+    //     {
+    //         "comments": "Ensures a Resource Group scoped unique backup Storage Account (for Db)",
+    //         "name": "[variables('storageAccount').diagnostics.id]",
+    //         "apiVersion": "2017-05-10",
+    //         "type": "Microsoft.Resources/deployments",
+    //         "properties": {
+    //             "mode": "[variables('resources').resourceMode]",
+    //             "templateLink": {
+    //                 "uri": "[variables('storageAccount').diagnostics.armUrl]",
+    //                 "contentVersion": "1.0.0.0"
+    //             },
+    //             "parameters": {
+    //                 "storageAccountResourceName": {
+    //                     "value": "[variables('storageAccount').diagnostics.resourceName]"
+    //                 },
+    //                 "storageAccountResourceLocation": {
+    //                     "value": "[variables('storageAccount').diagnostics.resourceLocation]"
+    //                 },
+    //                 "storageAccountTags": {
+    //                     "value": "[variables('storageAccount').diagnostics.tags]"
+    //                 }
+    //             }
+    //         }
+    //     },
+    //     {
+    //         "comments": "Ensures a Resource Group scoped unique Database Backups Storage Account",
+    //         "name": "[variables('storageAccount').backups.id]",
+    //         "apiVersion": "2017-05-10",
+    //         "type": "Microsoft.Resources/deployments",
+    //         "properties": {
+    //             "mode": "[variables('resources').resourceMode]",
+    //             "templateLink": {
+    //                 "uri": "[variables('storageAccount').backups.armUrl]",
+    //                 "contentVersion": "1.0.0.0"
+    //             },
+    //             "parameters": {
+    //                 "storageAccountResourceName": {
+    //                     "value": "[variables('storageAccount').backups.resourceName]"
+    //                 },
+    //                 "storageAccountResourceLocation": {
+    //                     "value": "[variables('storageAccount').backups.resourceLocation]"
+    //                 },
+    //                 "storageAccountTags": {
+    //                     "value": "[variables('storageAccount').backups.tags]"
+    //                 }
+    //             }
+    //         }
+    //     },
+    //     {
+    //         "comments": "Ensures a Resource Group scoped unique Media Storage Account",
+    //         "name": "[variables('storageAccount').media.id]",
+    //         "apiVersion": "2017-05-10",
+    //         "type": "Microsoft.Resources/deployments",
+    //         "properties": {
+    //             "mode": "[variables('resources').resourceMode]",
+    //             "templateLink": {
+    //                 "uri": "[variables('storageAccount').media.armUrl]",
+    //                 "contentVersion": "1.0.0.0"
+    //             },
+    //             "parameters": {
+    //                 "storageAccountResourceName": {
+    //                     "value": "[variables('storageAccount').media.resourceName]"
+    //                 },
+    //                 "storageAccountResourceLocation": {
+    //                     "value": "[variables('storageAccount').media.resourceLocation]"
+    //                 },
+    //                 "storageAccountTags": {
+    //                     "value": "[variables('storageAccount').media.tags]"
+    //                 }
+    //             }
+    //         }
+    //     },
+    //     {
+    //         "comments": "Ensures a Resource Group scoped unique Media (2) Storage Account",
+    //         "name": "[variables('storageAccount').media2.id]",
+    //         "apiVersion": "2017-05-10",
+    //         "type": "Microsoft.Resources/deployments",
+    //         "properties": {
+    //             "mode": "[variables('resources').resourceMode]",
+    //             "templateLink": {
+    //                 "uri": "[variables('storageAccount').media2.armUrl]",
+    //                 "contentVersion": "1.0.0.0"
+    //             },
+    //             "parameters": {
+    //                 "storageAccountResourceName": {
+    //                     "value": "[variables('storageAccount').media2.resourceName]"
+    //                 },
+    //                 "storageAccountResourceLocation": {
+    //                     "value": "[variables('storageAccount').media2.resourceLocation]"
+    //                 },
+    //                 "storageAccountTags": {
+    //                     "value": "[variables('storageAccount').media2.tags]"
+    //                 }
+    //             }
+    //         }
+    //     },
+    //     {
+    //         "comments": "Ensure a Resource Group scoped SqlServer. Is a dependency for the subsequent deployment of the FirewallRule, and the SqlServerDatabase.",
+    //         "type": "Microsoft.Resources/deployments",
+    //         "name": "[variables('sql').server.id]",
+    //         "apiVersion": "2017-05-10",
+    //         "properties": {
+    //             "mode": "Incremental",
+    //             "templateLink": {
+    //                 "uri": "[variables('sql').server.armUrl]",
+    //                 "contentVersion": "1.0.0.0"
+    //             },
+    //             "parameters": {
+    //                 "sqlServerResourceName": {
+    //                     "value": "[variables('sql').server.resourceName]"
+    //                 },
+    //                 "sqlServerResourceLocation": {
+    //                     "value": "[variables('sql').server.resourceLocation]"
+    //                 },
+    //                 "sqlServerAdministratorLogin": {
+    //                     "value": "[variables('sql').server.administrator.login]"
+    //                 },
+    //                 "sqlServerAdministratorLoginPassword": {
+    //                     "value": "[variables('sql').server.administrator.loginPassword]"
+    //                 },
+    //                 "sqlServerTags": {
+    //                     "value": "[variables('sql').server.tags]"
+    //                 }
+    //             }
+    //         }
+    //     },
 
-        {
-            "dependsOn": [
-                "[variables('sql').server.id]"
-            ],
-            "comments": "Ensures a Resource Group scoped Database Firewall Rule. Depends on `SqlServer` database being ensured as deployed first.",
-            "name": "[variables('sql').server.firewallRule.openToAzure.id]",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2017-05-10",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[variables('sql').server.firewallRule.openToAzure.armUrl]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "sqlServerFirewallRuleResourceName": {
-                        "value": "[variables('sql').server.firewallRule.openToAzure.resourceName]"
-                    },
-                    "sqlServerFirewallRuleResourceLocation": {
-                        "value": "[variables('sql').server.firewallRule.openToAzure.resourceLocation]"
-                    },
-                    "sqlServerFirewallRuleParentResourceId": {
-                        "value": "[reference(variables('sql').server.id).outputs.resourceId.value]"
-                    },
-                    "sqlServerFirewallRuleStartIpAddress": {
-                        "value": "[variables('sql').server.firewallRule.openToAzure.startIpAddress]"
-                    },
-                    "sqlServerFirewallRuleEndIpAddress": {
-                        "value": "[variables('sql').server.firewallRule.openToAzure.endIpAddress]"
-                    },
-                    "sqlServerFirewallRuleTags": {
-                        "value": "[variables('sql').server.firewallRule.openToAzure.tags]"
-                    }
-                }
-            }
-        },
-*/
-        // -------------------------------------------------------
-        // SQL SERVER
-        // -------------------------------------------------------
-        {
-            "dependsOn": [
-                "[variables('sql').server.id]"
-                //"[variables('sql').server.firewallRule.openToAzure.id]"
-            ],
-            "comments": "Ensures a (blank) primary Database is deployed. Note: This should not be necessary (as an app should use DbAsCode/CodeFirst to create it on first run)...but it allows for the setting of collation, and other properties.",
-            "name": "[variables('sql').server.database.id]",
-            "apiVersion": "2017-05-10",
-            "type": "Microsoft.Resources/deployments",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[variables('sql').server.database.armUrl]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "sqlServerDatabaseParentResourceName": {
-                        "value": "[variables('sql').server.database.parentResourceName]"
-                    },
-                    "sqlServerDatabaseResourceName": {
-                        "value": "[variables('sql').server.database.resourceName]"
-                    },
-                    "sqlServerDatabaseResourceLocation": {
-                        "value": "[variables('sql').server.database.resourceLocation]"
-                    },
-                    "sqlServerDatabaseResourceSku": {
-                        "value": "[variables('sql').server.database.resourceSku]"
-                    },
-                    "sqlServerDatabaseCollation": {
-                        "value": "[variables('sql').server.database.collation]"
-                    },
-                    "sqlServerDatabaseEdition": {
-                        "value": "[variables('sql').server.database.edition]"
-                    },
-                    "sqlServerDatabaseZoneRedundant": {
-                        "value": "[variables('sql').server.database.zoneRedundant]"
-                    },
-                    "sqlServerDatabaseMaxSizeBytes": {
-                        "value": "[variables('sql').server.database.maxSizeBytes]"
-                    },
-                    "sqlServerDatabaseTags": {
-                        "value": "[variables('sql').server.database.tags]"
-                    }
-                }
-            }
-        },
+    //     // {
+    //     //     "dependsOn": [
+    //     //         "[variables('sql').server.id]"
+    //     //     ],
+    //     //     "comments": "Ensures a Resource Group scoped Database Firewall Rule. Depends on `SqlServer` database being ensured as deployed first.",
+    //     //     "name": "[variables('sql').server.firewallRule.openToAzure.id]",
+    //     //     "type": "Microsoft.Resources/deployments",
+    //     //     "apiVersion": "2017-05-10",
+    //     //     "properties": {
+    //     //         "mode": "Incremental",
+    //     //         "templateLink": {
+    //     //             "uri": "[variables('sql').server.firewallRule.openToAzure.armUrl]",
+    //     //             "contentVersion": "1.0.0.0"
+    //     //         },
+    //     //         "parameters": {
+    //     //             "sqlServerFirewallRuleResourceName": {
+    //     //                 "value": "[variables('sql').server.firewallRule.openToAzure.resourceName]"
+    //     //             },
+    //     //             "sqlServerFirewallRuleResourceLocation": {
+    //     //                 "value": "[variables('sql').server.firewallRule.openToAzure.resourceLocation]"
+    //     //             },
+    //     //             "sqlServerFirewallRuleParentResourceId": {
+    //     //                 "value": "[reference(variables('sql').server.id).outputs.resourceId.value]"
+    //     //             },
+    //     //             "sqlServerFirewallRuleStartIpAddress": {
+    //     //                 "value": "[variables('sql').server.firewallRule.openToAzure.startIpAddress]"
+    //     //             },
+    //     //             "sqlServerFirewallRuleEndIpAddress": {
+    //     //                 "value": "[variables('sql').server.firewallRule.openToAzure.endIpAddress]"
+    //     //             },
+    //     //             "sqlServerFirewallRuleTags": {
+    //     //                 "value": "[variables('sql').server.firewallRule.openToAzure.tags]"
+    //     //             }
+    //     //         }
+    //     //     }
+    //     // },
 
-        // -------------------------------------------------------
-        // MONGO/COSMO DB
-        // -------------------------------------------------------
-        {
-            "comments": "Ensures a Resource Group scoped unique App Service Plan",
-            "name": "[variables('documentDb').databaseAccount.id]",
-            "apiVersion": "2017-05-10",
-            "type": "Microsoft.Resources/deployments",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[variables('documentDb').databaseAccount.armUrl]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "documentDbDatabaseAccountResourceName": {
-                        "value": "[variables('documentDb').databaseAccount.resourceName]"
-                    },
-                    "documentDbDatabaseAccountResourceLocation": {
-                        "value": "[variables('documentDb').databaseAccount.resourceLocation]"
-                    },
-                    "documentDbDatabaseAccountKind": {
-                        "value": "[variables('documentDb').databaseAccount.kind]"
-                    },
-                    "documentDbDatabaseAccountOfferType": {
-                        "value": "[variables('documentDb').databaseAccount.offerType]"
-                    },
-                    "documentDbDatabaseAccountConsistencyPolicyLevel": {
-                        "value": "[variables('documentDb').databaseAccount.consistencyPolicy.level]"
-                    },
-                    "documentDbDatabaseAccountConsistencyMaxStalenessPrefix": {
-                        "value": "[variables('documentDb').databaseAccount.consistencyPolicy.maxStalenessPrefix]"
-                    },
-                    "documentDbDatabaseAccountConsistencyMaxIntervalInSeconds": {
-                        "value": "[variables('documentDb').databaseAccount.consistencyPolicy.maxIntervalInSeconds]"
-                    },
-                    "documentDbDatabaseAccountTags": {
-                        "value": "[variables('documentDb').databaseAccount.tags]"
-                    }
-                }
-            }
-        },
+    //     // -------------------------------------------------------
+    //     // SQL SERVER
+    //     // -------------------------------------------------------
+    //     {
+    //         "dependsOn": [
+    //             "[variables('sql').server.id]"
+    //             //"[variables('sql').server.firewallRule.openToAzure.id]"
+    //         ],
+    //         "comments": "Ensures a (blank) primary Database is deployed. Note: This should not be necessary (as an app should use DbAsCode/CodeFirst to create it on first run)...but it allows for the setting of collation, and other properties.",
+    //         "name": "[variables('sql').server.database.id]",
+    //         "apiVersion": "2017-05-10",
+    //         "type": "Microsoft.Resources/deployments",
+    //         "properties": {
+    //             "mode": "Incremental",
+    //             "templateLink": {
+    //                 "uri": "[variables('sql').server.database.armUrl]",
+    //                 "contentVersion": "1.0.0.0"
+    //             },
+    //             "parameters": {
+    //                 "sqlServerDatabaseParentResourceName": {
+    //                     "value": "[variables('sql').server.database.parentResourceName]"
+    //                 },
+    //                 "sqlServerDatabaseResourceName": {
+    //                     "value": "[variables('sql').server.database.resourceName]"
+    //                 },
+    //                 "sqlServerDatabaseResourceLocation": {
+    //                     "value": "[variables('sql').server.database.resourceLocation]"
+    //                 },
+    //                 "sqlServerDatabaseResourceSku": {
+    //                     "value": "[variables('sql').server.database.resourceSku]"
+    //                 },
+    //                 "sqlServerDatabaseCollation": {
+    //                     "value": "[variables('sql').server.database.collation]"
+    //                 },
+    //                 "sqlServerDatabaseEdition": {
+    //                     "value": "[variables('sql').server.database.edition]"
+    //                 },
+    //                 "sqlServerDatabaseZoneRedundant": {
+    //                     "value": "[variables('sql').server.database.zoneRedundant]"
+    //                 },
+    //                 "sqlServerDatabaseMaxSizeBytes": {
+    //                     "value": "[variables('sql').server.database.maxSizeBytes]"
+    //                 },
+    //                 "sqlServerDatabaseTags": {
+    //                     "value": "[variables('sql').server.database.tags]"
+    //                 }
+    //             }
+    //         }
+    //     },
 
-        
-        // -------------------------------------------------------
-        // WEB SERVER FARM
-        // -------------------------------------------------------
-        {
-            "comments": "Ensures a Resource Group scoped unique App Service Plan",
-            "name": "[variables('web').serverFarm.id]",
-            "apiVersion": "2017-05-10",
-            "type": "Microsoft.Resources/deployments",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[variables('web').serverFarm.armUrl]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "webServerFarmResourceName": {
-                        "value": "[variables('web').serverFarm.resourceName]"
-                    },
-                    "webServerFarmResourceLocation": {
-                        "value": "[variables('web').serverFarm.resourceLocation]"
-                    },
-                    "webServerFarmResourceSku": {
-                        "value": "[variables('web').serverFarm.resourceSku]"
-                    },
-                    "webServerFarmNumberOfWorkers": {
-                        "value": "[variables('web').serverFarm.numberOfWorkers]"
-                    },
-                    "webServerFarmTags": {
-                        "value": "[variables('web').serverFarm.tags]"
-                    }
-                }
-            }
-        },
-
-        /*
-
-        // -------------------------------------------------------
-        // WEB SERVER SITE
-        // -------------------------------------------------------
-
-        {
-            "dependsOn": [
-                "[variables('web').serverFarm.id]"
-            ],
-            "comments": "Ensures a Resource Group scoped web site is deployed",
-            "name": "[variables('web').site.id]",
-            "apiVersion": "2017-05-10",
-            "type": "Microsoft.Resources/deployments",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[variables('web').site.armUrl]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "webSiteParentResourceName": {
-                        "value": "[variables('sql').server.database.parentResourceName]"
-                    },
-                    "webSiteResourceName": {
-                        "value": "[variables('web').site.resourceName]"
-                    },
-                    "webSiteResourceLocation": {
-                        "value": "[variables('web').site.resourceLocation]"
-                    },
-                    "webSiteResourceSku": {
-                        "value": "[variables('web').site.resourceSku]"
-                    },
-                    "webSiteParentResourceId": {
-                        "value": "[reference(variables('web').serverFarm.id).outputs.resourceId.value]"
-                    },
-                    "webSiteAlwaysOn": {
-                        "value": "[variables('web').site.alwaysOn]"
-                    },
-                    "webSiteDetailedErrorLoggingEnabled": {
-                        "value": "[variables('web').site.detailedErrorLoggingEnabled]"
-                    },
-                    "webSiteLogsDirectorySizeLimit": {
-                        "value": "[variables('web').site.logsDirectorySizeLimit]"
-                    },
-                    "webSiteRemoteDebuggingEnabled": {
-                        "value": "[variables('web').site.remoteDebuggingEnabled]"
-                    },
-                    "webSiteRemoteDebuggingVersion": {
-                        "value": "[variables('web').site.remoteDebuggingVersion]"
-                    },
-                    "webSiteRequestTracingEnabled": {
-                        "value": "[variables('web').site.requestTracingEnabled]"
-                    },
-                    "webSiteWebSocketsEnabled": {
-                        "value": "[variables('web').site.webSocketsEnabled]"
-                    },
-                    "webSiteConfigAppSettings": {
-                        "value": "[variables('web').site.config.appSettings]"
-                    }
-                }
-            }
-        }
-
-*/
-    ],
-    // -------------------------------------------------------
-    // OUTPUTS
-    // -------------------------------------------------------
-    "outputs": {
-        // --------------------------------------------------
-        // Common:
-        "uniqueResourceId": {
-            "type": "string",
-            "value": "[variables('resource').uniqueResourceId]",
-            "metadata": {
-                "description": "The ResourceGroup scoped unique 13 character Id."
-            }
-        },
-        "resourceNameTemplate": {
-            "type": "string",
-            "value": "[variables('resource').resourceNameTemplate]"
-        },
-        "keyVaultResourceId": {
-            "type": "string",
-            "value": "[reference(variables('keyVault').vault.id).outputs.resourceId.value]"
-        },
-        "keyVaultResourceName": {
-            "type": "string",
-            "value": "[reference(variables('keyVault').vault.id).outputs.resourceName.value]"
-        },
-        "keyVaultResourceNameUrl": {
-            "type": "string",
-            "value": "[reference(variables('keyVault').vault.id).outputs.resourceNameUrl.value]"
-        },
-        "keyVaultSubscriptionId": {
-            "type": "string",
-            "value": "[reference(variables('keyVault').vault.id).outputs.subscriptionId.value]"
-        },
-        // --------------------------------------------------
-        // Output from StorageAccount used for Deployment:
-        "storageAccountDeploymentResourceId": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').deployment.id).outputs.resourceId.value]"
-        },
-        "storageAccountDeploymentResourceName": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').deployment.id).outputs.resourceName.value]"
-        },
-        "storageAccountDeploymentResourceNameUrl": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').deployment.id).outputs.resourceNameUrl.value]"
-        },
-        "storageAccountDeploymentResourceLocation": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').deployment.id).outputs.resourceLocation.value]"
-        },
-        "storageAccountDeploymentResourceSku": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').deployment.id).outputs.resourceSku.value]"
-        },
-        "storageAccountDeploymentKind": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').deployment.id).outputs.resourceSku.value]"
-        },
-        // --------------------------------------------------
-        // Output from StorageAccount used for Diagnostics:
-        "storageAccountDeploymentDiagnosticsResourceId": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').diagnostics.id).outputs.resourceId.value]"
-        },
-        "storageAccountDiagnosticsResourceName": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').diagnostics.id).outputs.resourceName.value]"
-        },
-        "storageAccountDiagnosticsResourceNameUrl": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').diagnostics.id).outputs.resourceNameUrl.value]"
-        },
-        "storageAccountDiagnosticsResourceLocation": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').diagnostics.id).outputs.resourceLocation.value]"
-        },
-        "storageAccountDiagnosticsResourceSku": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').diagnostics.id).outputs.resourceSku.value]"
-        },
-        "storageAccountDiagnosticsKind": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').diagnostics.id).outputs.resourceSku.value]"
-        },
-        // --------------------------------------------------
-        // Output from StorageAccount used for Backups:
-        "storageAccountBackupsResourceId": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').backups.id).outputs.resourceId.value]"
-        },
-        "storageAccountBackupsResourceName": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').backups.id).outputs.resourceName.value]"
-        },
-        "storageAccountBackupsResourceNameUrl": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').backups.id).outputs.resourceNameUrl.value]"
-        },
-        "storageAccountBackupsResourceLocation": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').backups.id).outputs.resourceLocation.value]"
-        },
-        "storageAccountBackupsResourceSku": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').backups.id).outputs.resourceSku.value]"
-        },
-        "storageAccountBackupsKind": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').backups.id).outputs.resourceSku.value]"
-        },
-        // --------------------------------------------------
-        // Output from StorageAccount used for Media:
-        "storageAccountMediaResourceId": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').media.id).outputs.resourceId.value]"
-        },
-        "storageAccountMediaResourceName": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').media.id).outputs.resourceName.value]"
-        },
-        "storageAccountMediaResourceNameUrl": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').media.id).outputs.resourceNameUrl.value]"
-        },
-        "storageAccountMediaResourceLocation": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').media.id).outputs.resourceLocation.value]"
-        },
-        "storageAccountMediaResourceSku": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').media.id).outputs.resourceSku.value]"
-        },
-        "storageAccountMediaKind": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').media.id).outputs.resourceSku.value]"
-        },
-        // --------------------------------------------------
-        // Output from StorageAccount used for Proxied Media:
-        "storageAccountMedia2ResourceId": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').media2.id).outputs.resourceId.value]"
-        },
-        "storageAccountMedia2ResourceName": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').media2.id).outputs.resourceName.value]"
-        },
-        "storageAccountMedia2ResourceNameUrl": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').media2.id).outputs.resourceNameUrl.value]"
-        },
-        "storageAccountMedia2ResourceLocation": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').media2.id).outputs.resourceLocation.value]"
-        },
-        "storageAccountMedia2ResourceSku": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').media2.id).outputs.resourceSku.value]"
-        },
-        "storageAccountMedia2Kind": {
-            "type": "string",
-            "value": "[reference(variables('storageAccount').media2.id).outputs.resourceSku.value]"
-        },
-        // --------------------------------------------------
-        // Output from StorageAccount used for Sql Server:
-        "sqlServerResourceId": {
-            "type": "string",
-            "value": "[reference(variables('sql').server.id).outputs.resourceId.value]"
-        },
-        "sqlServerResourceName": {
-            "type": "string",
-            "value": "[reference(variables('sql').server.id).outputs.resourceName.value]"
-        },
-        "sqlServerResourceLocation": {
-            "type": "string",
-            "value": "[reference(variables('sql').server.id).outputs.resourceLocation.value]"
-        },
-        "sqlServerAdministratorLogin": {
-            "type": "string",
-            "value": "[reference(variables('sql').server.id).outputs.administratorLogin.value]"
-        },
-        "sqlServerAdministratorPassword": {
-            "type": "string",
-            "value": "[reference(variables('sql').server.id).outputs.administratorPassword.value]"
-        },
-        // --------------------------------------------------
-        // Output from StorageAccount used for Sql Server Database:
-        "sqlServerDatabaseResourceId": {
-            "type": "string",
-            "value": "[reference(variables('sql').server.database.id).outputs.resourceId.value]"
-        },
-        "sqlServerDatabaseResourceName": {
-            "type": "string",
-            "value": "[reference(variables('sql').server.database.id).outputs.resourceName.value]"
-        },
-        "sqlServerDatabaseResourceLocation": {
-            "type": "string",
-            "value": "[reference(variables('sql').server.database.id).outputs.resourceLocation.value]"
-        },
-        "sqlServerDatabaseResourceSku": {
-            "type": "string",
-            "value": "[reference(variables('sql').server.database.id).outputs.resourceSku.value]"
-        },
-        "sqlServermaxSizeBytes": {
-            "type": "string",
-            "value": "[reference(variables('sql').server.database.id).outputs.maxSizeBytes.value]"
-        },
-        "sqlServerDatabaseEdition": {
-            "type": "string",
-            "value": "[reference(variables('sql').server.database.id).outputs.edition.value]"
-        },
-        "sqlServerDatabaseMaxSizeBytes": {
-            "type": "string",
-            "value": "[reference(variables('sql').server.database.id).outputs.maxSizeBytes.value]"
-        },
-        /*
-        // Never understood why I could not get this to work:
-
-        "sqlServerDatabaseZoneRedundant": {
-            "type": "string",
-            "value": "[reference(variables('sql').server.database.id).outputs.zoneRedundant.value]"
-        }
-        */
+    //     // -------------------------------------------------------
+    //     // MONGO/COSMO DB
+    //     // -------------------------------------------------------
+    //     {
 
 
-        /*
-        // --------------------------------------------------
-        // Output from DocumentDb
-        "documentDbDatabaseAccountResourceId": {
-            "type": "string",
-            "value": "[reference(variables('documentDb').databaseAccount.id).outputs.resourceId.value]"
-        },
-        "documentDbDatabaseAccountResourceName": {
-            "type": "string",
-            "value": "[reference(variables('documentDb').databaseAccount.id).outputs.resourceName.value]"
-        },
-        "documentDbDatabaseAccountResourceLocation": {
-            "type": "string",
-            "value": "[reference(variables('documentDb').databaseAccount.id).outputs.resourceLocation.value]"
-        },
-        "documentDbDatabaseAccountKind": {
-            "type": "string",
-            "value": "[reference(variables('documentDb').databaseAccount.id).outputs.kind.value]"
-        },
-        "documentDbDatabaseAccountExperience": {
-            "type": "string",
-            "value": "[reference(variables('documentDb').databaseAccount.id).outputs.experience.value]"
-        },
-        "documentDbDatabaseAccountOfferType": {
-            "type": "string",
-            "value": "[reference(variables('documentDb').databaseAccount.id).outputs.offerType.value]"
-        }
-        */
-    }
+    //         // Note: because a) DocumentDb has a minimum cost of around $40, 
+    //         // and b) it takes a long time to provision (...like an hour...or more...)
+    //         // this template will only be called if the following is true.
+    //         // Correction:
+    //         // Because this parent template is referencing this template's outputs
+    //         // the condition has to be within the nested child template, and not the parent template
+    //         // (or you get error messages saying an apiVersion was not defined, or 
+    //         // something to that effect)
+    //         // "condition": "[parameters('documentDbDatabaseAccountProvision')]",
+
+    //         "comments": "Ensures a Resource Group scoped unique App Service Plan",
+    //         "name": "[variables('documentDb').databaseAccount.id]",
+    //         "apiVersion": "2017-05-10",
+    //         "type": "Microsoft.Resources/deployments",
+    //         "properties": {
+    //             "mode": "Incremental",
+    //             "templateLink": {
+    //                 "uri": "[variables('documentDb').databaseAccount.armUrl]",
+    //                 "contentVersion": "1.0.0.0"
+    //             },
+    //             "parameters": {
+    //                 "documentDbDatabaseAccountProvision": {
+    //                     "value": "[variables('documentDb').databaseAccount.provision]"
+    //                 },
+    //                 "documentDbDatabaseAccountResourceName": {
+    //                     "value": "[variables('documentDb').databaseAccount.resourceName]"
+    //                 },
+    //                 "documentDbDatabaseAccountResourceLocation": {
+    //                     "value": "[variables('documentDb').databaseAccount.resourceLocation]"
+    //                 },
+    //                 "documentDbDatabaseAccountKind": {
+    //                     "value": "[variables('documentDb').databaseAccount.kind]"
+    //                 },
+    //                 "documentDbDatabaseAccountOfferType": {
+    //                     "value": "[variables('documentDb').databaseAccount.offerType]"
+    //                 },
+    //                 "documentDbDatabaseAccountConsistencyPolicyLevel": {
+    //                     "value": "[variables('documentDb').databaseAccount.consistencyPolicy.level]"
+    //                 },
+    //                 "documentDbDatabaseAccountConsistencyMaxStalenessPrefix": {
+    //                     "value": "[variables('documentDb').databaseAccount.consistencyPolicy.maxStalenessPrefix]"
+    //                 },
+    //                 "documentDbDatabaseAccountConsistencyMaxIntervalInSeconds": {
+    //                     "value": "[variables('documentDb').databaseAccount.consistencyPolicy.maxIntervalInSeconds]"
+    //                 },
+    //                 "documentDbDatabaseAccountTags": {
+    //                     "value": "[variables('documentDb').databaseAccount.tags]"
+    //                 }
+    //             }
+    //         }
+    //     },
+
+    //     // -------------------------------------------------------
+    //     // DATAFACTORY DATAFACTORY 
+    //     // -------------------------------------------------------
+    //     {
+    //         "name": "[variables('dataFactory').factory.id]",
+    //         "apiVersion": "2017-05-10",
+    //         "type": "Microsoft.Resources/deployments",
+    //         "properties": {
+    //             "mode": "Incremental",
+    //             "templateLink": {
+    //                 "uri": "[variables('dataFactory').factory.armUrl]",
+    //                 "contentVersion": "1.0.0.0"
+    //             },
+    //             "parameters": {
+    //                 "dataFactoryFactoryResourceName": {
+    //                     "value": "[variables('dataFactory').factory.resourceName]"
+    //                 },
+    //                 "dataFactoryFactoryResourceLocation": {
+    //                     "value": "[variables('dataFactory').factory.resourceLocation]"
+    //                 }
+    //             }
+    //         }
+    //     },
+       
+    //     // -------------------------------------------------------
+    //     // WEB SERVER FARM
+    //     // -------------------------------------------------------
+    //     {
+    //         "comments": "Ensures a Resource Group scoped unique App Service Plan",
+    //         "name": "[variables('web').serverFarm.id]",
+    //         "apiVersion": "2017-05-10",
+    //         "type": "Microsoft.Resources/deployments",
+    //         "properties": {
+    //             "mode": "Incremental",
+    //             "templateLink": {
+    //                 "uri": "[variables('web').serverFarm.armUrl]",
+    //                 "contentVersion": "1.0.0.0"
+    //             },
+    //             "parameters": {
+    //                 "webServerFarmResourceName": {
+    //                     "value": "[variables('web').serverFarm.resourceName]"
+    //                 },
+    //                 "webServerFarmResourceLocation": {
+    //                     "value": "[variables('web').serverFarm.resourceLocation]"
+    //                 },
+    //                 "webServerFarmResourceSku": {
+    //                     "value": "[variables('web').serverFarm.resourceSku]"
+    //                 },
+    //                 "webServerFarmNumberOfWorkers": {
+    //                     "value": "[variables('web').serverFarm.numberOfWorkers]"
+    //                 },
+    //                 "webServerFarmTags": {
+    //                     "value": "[variables('web').serverFarm.tags]"
+    //                 }
+    //             }
+    //         }
+    //     },
+
+
+    //     // -------------------------------------------------------
+    //     // WEB SITE
+    //     // -------------------------------------------------------
+    //     {
+    //         "dependsOn": [
+    //             "[variables('web').serverFarm.id]"
+    //         ],
+    //         "comments": "Ensures a Resource Group scoped web site is deployed",
+    //         "name": "[variables('web').site.id]",
+    //         "apiVersion": "2017-05-10",
+    //         "type": "Microsoft.Resources/deployments",
+    //         "properties": {
+    //             "mode": "Incremental",
+    //             "templateLink": {
+    //                 "uri": "[variables('web').site.armUrl]",
+    //                 "contentVersion": "1.0.0.0"
+    //             },
+    //             "parameters": {
+    //                 "webSiteResourceName": {
+    //                     "value": "[variables('web').site.resourceName]"
+    //                 },
+    //                 "webSiteResourceLocation": {
+    //                     "value": "[variables('tmp').serverFarm.resourceLocation]"
+    //                 },
+    //                 // "webSiteResourceSku": {
+    //                 //     "value": "[variables('web').site.resourceSku]"
+    //                 // },
+    //                 "webSiteWebServerFarmResourceId": {
+    //                     // Notice how we are using Reference here, and not a variable
+    //                     // as variables are parsed too early to access 'outputs'
+    //                     "value": "[reference(variables('web').serverFarm.id).outputs.resourceId.value]"
+    //                 },
+    //                 "webSiteAlwaysOn": {
+    //                     "value": "[variables('web').site.alwaysOn]"
+    //                 },
+    //                 "webSiteDetailedErrorLoggingEnabled": {
+    //                     "value": "[variables('web').site.detailedErrorLoggingEnabled]"
+    //                 },
+    //                 "webSiteLogsDirectorySizeLimit": {
+    //                     "value": "[variables('web').site.logsDirectorySizeLimit]"
+    //                 },
+    //                 "webSiteRemoteDebuggingEnabled": {
+    //                     "value": "[variables('web').site.remoteDebuggingEnabled]"
+    //                 },
+    //                 "webSiteRemoteDebuggingVersion": {
+    //                     "value": "[variables('web').site.remoteDebuggingVersion]"
+    //                 },
+    //                 "webSiteRequestTracingEnabled": {
+    //                     "value": "[variables('web').site.requestTracingEnabled]"
+    //                 },
+    //                 "webSiteWebSocketsEnabled": {
+    //                     "value": "[variables('web').site.webSocketsEnabled]"
+    //                 },
+    //                 // handle appSettings separately, using external template:
+    //                 // "webSiteConfigAppSettings": {
+    //                 //    "value": "[variables('web').site.config.appSettings]"
+    //                 //},
+    //                 "webSiteTags": {
+    //                     "value": "[variables('web').site.tags]"
+    //                 }
+    //             }
+    //         }
+    //     },
+    //     // -------------------------------------------------------
+    //     // WEB SITE / CONFIG / APP SETTINGS
+    //     // -------------------------------------------------------
+    //     {
+    //         "dependsOn": [
+    //             "[variables('web').site.id]"
+    //         ],
+    //         "comments": "Ensures the website has appSettings",
+    //         "name": "[variables('web').site.config.appSettings.id]",
+    //         "apiVersion": "2017-05-10",
+    //         "type": "Microsoft.Resources/deployments",
+    //         "properties": {
+    //             "mode": "[variables('resources').resourceMode]",
+    //             "templateLink": {
+    //                 "uri": "[variables('web').site.config.appSettings.armUrl]",
+    //                 "contentVersion": "1.0.0.0"
+    //             },
+    //             "parameters": { 
+    //                 "webSiteConfigAppSettingsParentResourceName": {
+    //                     // Note that we are pointing at the id of a parent object here:
+    //                     "value": "[variables('web').site.resourceName]"
+    //                 },
+    //                 "webSiteConfigAppSettingsResourceLocation":{
+    //                     // Note: reusing the parent web.site's location as they have to be the same:
+    //                     "value": "[variables('tmp').serverFarm.resourceLocation]"
+    //                 },
+    //                 "webSiteConfigAppSettings": {
+    //                     "value": "[variables('web').site.config.appSettings.appSettings]"
+    //                 },
+    //                 "webSiteConfigAppSettingsTags": {
+    //                     "value": "[variables('web').site.config.appSettings.tags]"
+    //                 }
+    //             }
+    //         }
+    //     },
+
+
+    //     // -------------------------------------------------------
+    //     // WEB SITE / CONFIG / CONNECTIONSTRINGS
+    //     // -------------------------------------------------------
+    //     {
+    //         "dependsOn": [
+    //             "[variables('web').site.id]"
+    //         ],
+    //         "comments": "Ensures the website has connectionStrings",
+    //         "name": "[variables('web').site.config.connectionStrings.id]",
+    //         "apiVersion": "2017-05-10",
+    //         "type": "Microsoft.Resources/deployments",
+    //         "properties": {
+    //             "mode": "[variables('resources').resourceMode]",
+    //             "templateLink": {
+    //                 "uri": "[variables('web').site.config.connectionStrings.armUrl]",
+    //                 "contentVersion": "1.0.0.0"
+    //             },
+    //             "parameters": { 
+    //                     // Note that we are pointing at the id of a parent object here:
+    //                 "webSiteConfigConnectionStringsParentResourceName": {
+    //                     "value": "[variables('web').site.resourceName]"
+    //                 },
+    //                 "webSiteConfigConnectionStringsResourceLocation":{
+    //                     // Note: reusing the parent web.site's location as they have to be the same:
+    //                     "value": "[variables('tmp').serverFarm.resourceLocation]"
+    //                 },
+    //                 "webSiteConfigConnectionStrings": {
+    //                     "value": "[variables('web').site.config.connectionStrings.connectionStrings]"
+    //                 },
+    //                 "webSiteConfigConnectionStringsTags": {
+    //                     "value": "[variables('web').site.config.connectionStrings.tags]"
+    //                 }
+    //             }
+    //         }
+    //     }
+
+
+
+
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // // -------------------------------------------------------
+    // // OUTPUTS
+    // // -------------------------------------------------------
+    // "outputs": {
+    //     // --------------------------------------------------
+    //     // Common:
+    //     "uniqueResourceId": {
+    //         "type": "string",
+    //         "value": "[uniqueString(resourceGroup().id)]",
+    //         "metadata": {
+    //             "description": "The ResourceGroup scoped unique 13 character Id."
+    //         }
+    //     },
+    //     "resourceNameTemplate": {
+    //         "type": "string",
+    //         "value": "[variables('resources').resourceNameTemplate]"
+    //     },
+    //     // --------------------------------------------------
+    //     // Output from KeyVault used for Deployment:
+    //     "keyVaultResourceId": {
+    //         "type": "string",
+    //         "value": "[reference(variables('keyVault').vault.id).outputs.resourceId.value]"
+    //     },
+    //     "keyVaultSummary": {
+    //         "type": "object",
+    //         // There is an upper limit as to how many output parameters can be developed. 
+    //         // So to not hit the limit, combine them into an 'object':
+    //         "value": {
+    //             "resourceName": "[reference(variables('keyVault').vault.id).outputs.resourceName.value]",
+    //             "resourceNameUrl": "[reference(variables('keyVault').vault.id).outputs.resourceNameUrl.value]",
+    //             "keyVaultSubscriptionId": "[reference(variables('keyVault').vault.id).outputs.subscriptionId.value]"
+    //         }
+    //     },
+    //     // --------------------------------------------------
+    //     // Output from StorageAccount used for Deployment:
+    //     "storageAccountDeploymentResourceId": {
+    //         "type": "string",
+    //         "value": "[reference(variables('storageAccount').deployment.id).outputs.resourceId.value]"
+    //     },
+    //     "storageAccountDeploymentSummary": {
+    //         "type": "object",
+    //         // There is an upper limit as to how many output parameters can be developed. 
+    //         // So to not hit the limit, combine them into an 'object':
+    //         "value": {
+    //             "resourceName":"[reference(variables('storageAccount').deployment.id).outputs.resourceName.value]",
+    //             "resourceNameUrl": "[reference(variables('storageAccount').deployment.id).outputs.resourceNameUrl.value]",
+    //             "resourceLocation": "[reference(variables('storageAccount').deployment.id).outputs.resourceLocation.value]",
+    //             "resourceSku": "[reference(variables('storageAccount').deployment.id).outputs.resourceSku.value]",
+    //             "kind": "[reference(variables('storageAccount').deployment.id).outputs.resourceSku.value]"
+    //         }
+    //     },
+    //     // --------------------------------------------------
+    //     // Output from StorageAccount used for Diagnostics:
+    //     "storageAccountDiagnosticsResourceId": {
+    //         "type": "string",
+    //         "value": "[reference(variables('storageAccount').diagnostics.id).outputs.resourceId.value]"
+    //     },
+    //     "storageAccountDiagnosticsSummary": {
+    //         "type": "object",
+    //         // There is an upper limit as to how many output parameters can be developed. 
+    //         // So to not hit the limit, combine them into an 'object':
+    //         "value": {
+    //             "resourceName":"[reference(variables('storageAccount').diagnostics.id).outputs.resourceName.value]",
+    //             "resourceNameUrl": "[reference(variables('storageAccount').diagnostics.id).outputs.resourceNameUrl.value]",
+    //             "resourceLocation": "[reference(variables('storageAccount').diagnostics.id).outputs.resourceLocation.value]",
+    //             "resourceSku": "[reference(variables('storageAccount').diagnostics.id).outputs.resourceSku.value]",
+    //             "kind": "[reference(variables('storageAccount').diagnostics.id).outputs.resourceSku.value]"
+    //         }
+    //     },
+    //     // --------------------------------------------------
+    //     // Output from StorageAccount used for Backups:
+    //     "storageAccountBackupsResourceId": {
+    //         "type": "string",
+    //         "value": "[reference(variables('storageAccount').backups.id).outputs.resourceId.value]"
+    //     },
+    //     "storageAccountBackupsSummary": {
+    //         "type": "object",
+    //         // There is an upper limit as to how many output parameters can be developed. 
+    //         // So to not hit the limit, combine them into an 'object':
+    //         "value": {
+    //             "resourceName":"[reference(variables('storageAccount').backups.id).outputs.resourceName.value]",
+    //             "resourceNameUrl": "[reference(variables('storageAccount').backups.id).outputs.resourceNameUrl.value]",
+    //             "resourceLocation": "[reference(variables('storageAccount').backups.id).outputs.resourceLocation.value]",
+    //             "resourceSku": "[reference(variables('storageAccount').backups.id).outputs.resourceSku.value]",
+    //             "kind": "[reference(variables('storageAccount').backups.id).outputs.resourceSku.value]"
+    //         }
+    //     },
+    //     // --------------------------------------------------
+    //     // Output from StorageAccount used for Media:
+    //     "storageAccountMediaResourceId": {
+    //         "type": "string",
+    //         "value": "[reference(variables('storageAccount').media.id).outputs.resourceId.value]"
+    //     },
+    //     "storageAccountMediaSummary": {
+    //         "type": "object",
+    //         // There is an upper limit as to how many output parameters can be developed. 
+    //         // So to not hit the limit, combine them into an 'object':
+    //         "value": {
+    //             "resourceName":"[reference(variables('storageAccount').media.id).outputs.resourceName.value]",
+    //             "resourceNameUrl": "[reference(variables('storageAccount').media.id).outputs.resourceNameUrl.value]",
+    //             "resourceLocation": "[reference(variables('storageAccount').media.id).outputs.resourceLocation.value]",
+    //             "resourceSku": "[reference(variables('storageAccount').media.id).outputs.resourceSku.value]",
+    //             "kind": "[reference(variables('storageAccount').media.id).outputs.resourceSku.value]"
+    //         }
+    //     },
+    //     // --------------------------------------------------
+    //     // Output from StorageAccount used for Proxied Media:
+    //     "storageAccountMedia2ResourceId": {
+    //         "type": "string",
+    //         "value": "[reference(variables('storageAccount').media2.id).outputs.resourceId.value]"
+    //     },
+    //     "storageAccountMedia2Summary": {
+    //         "type": "object",
+    //         // There is an upper limit as to how many output parameters can be developed. 
+    //         // So to not hit the limit, combine them into an 'object':
+    //         "value": {
+    //             "resourceName":"[reference(variables('storageAccount').media2.id).outputs.resourceName.value]",
+    //             "resourceNameUrl": "[reference(variables('storageAccount').media2.id).outputs.resourceNameUrl.value]",
+    //             "resourceLocation": "[reference(variables('storageAccount').media2.id).outputs.resourceLocation.value]",
+    //             "resourceSku": "[reference(variables('storageAccount').media2.id).outputs.resourceSku.value]",
+    //             "kind": "[reference(variables('storageAccount').media2.id).outputs.resourceSku.value]"
+    //         }
+    //     },
+    //     // --------------------------------------------------
+    //     // Output from StorageAccount used for Sql Server:
+    //     "sqlServerResourceId": {
+    //         "type": "string",
+    //         "value": "[reference(variables('sql').server.id).outputs.resourceId.value]"
+    //     },
+    //     "sqlServerSummary": {
+    //         "type": "object",
+    //         // There is an upper limit as to how many output parameters can be developed. 
+    //         // So to not hit the limit, combine them into an 'object':
+    //         "value": {
+    //             "resourceLocation":"[reference(variables('sql').server.id).outputs.resourceLocation.value]"
+    //         }
+    //     },
+    //     "sqlServerAdministratorLoginInfo": {
+    //         "type": "string",
+    //         "value": "[concat('name: ', reference(variables('sql').server.id).outputs.administratorLogin.value, ' pwd:', reference(variables('sql').server.id).outputs.administratorPassword.value)]"
+    //     },
+    //     // --------------------------------------------------
+    //     // Output from StorageAccount used for Sql Server Database:
+    //     "sqlServerDatabaseResourceId": {
+    //         "type": "string",
+    //         "value": "[reference(variables('sql').server.database.id).outputs.resourceId.value]"
+    //     },
+    //     "sqlServerDatabaseSummary": {
+    //         "type": "object",
+    //         // There is an upper limit as to how many output parameters can be developed. 
+    //         // So to not hit the limit, combine them into an 'object':
+    //         "value": {
+    //             "resourceLocation": "[reference(variables('sql').server.database.id).outputs.resourceLocation.value]",
+    //             "resourceSku": "[reference(variables('sql').server.database.id).outputs.resourceSku.value]",
+    //             "maxSizeBytes": "[reference(variables('sql').server.database.id).outputs.maxSizeBytes.value]",
+    //             "databaseEdition": "[reference(variables('sql').server.database.id).outputs.edition.value]",
+    //             "zoneRedundant": "[reference(variables('sql').server.database.id).outputs.zoneRedundant.value]"
+    //         }
+    //     },
+
+    //     // --------------------------------------------------
+    //     // Output from DocumentDb
+    //     "documentDbDatabaseAccountResourceId": {
+    //         "type": "string",
+    //         "value": "[if (parameters('documentDbDatabaseAccountProvision'), reference(variables('documentDb').databaseAccount.id).outputs.resourceId.value, 'N/A')]"
+    //     },
+    //     "documentDbDatabaseAccountSummary": {
+    //         "type": "object",
+    //         // There is an upper limit as to how many output parameters can be developed. 
+    //         // So to not hit the limit, combine them into an 'object':
+    //         "value": {
+    //             "resourceLocation": "[if (parameters('documentDbDatabaseAccountProvision'), reference(variables('documentDb').databaseAccount.id).outputs.resourceLocation.value, 'N/A')]",
+    //             "kind":             "[if (parameters('documentDbDatabaseAccountProvision'), reference(variables('documentDb').databaseAccount.id).outputs.kind.value, 'N/A')]",
+    //             "experience": "[if (parameters('documentDbDatabaseAccountProvision'), reference(variables('documentDb').databaseAccount.id).outputs.experience.value, 'N/A')]",
+    //             "offerType": "[if (parameters('documentDbDatabaseAccountProvision'), reference(variables('documentDb').databaseAccount.id).outputs.offerType.value, 'N/A')]"
+    //         }
+    //     },
+    //     // --------------------------------------------------
+    //     // Output from Web Server Farm:
+    //     "webServerFarmResourceId": {
+    //         "type": "string",
+    //         "value": "[reference(variables('web').serverFarm.id).outputs.resourceId.value]"
+    //       },
+    //       "webServerFarmSummary": {
+    //         "type": "object",
+    //         // There is an upper limit as to how many output parameters can be developed. 
+    //         // So to not hit the limit, combine them into an 'object':
+    //         "value": {
+    //             "resourceLocation": "[reference(variables('web').serverFarm.id).outputs.resourceLocation.value]",
+    //             "resourceSku": "[reference(variables('web').serverFarm.id).outputs.resourceSku.value]",
+    //             "numberOfWorkers": "[reference(variables('web').serverFarm.id).outputs.numberOfWorkers.value]"
+    //         }
+    //     },
+    //     // --------------------------------------------------
+    //     // Output from Web Site:
+    //     "webSiteResourceId": {
+    //         "type": "string",
+    //         "value": "[reference(variables('web').site.id).outputs.resourceId.value]"
+    //       },
+    //     "webSiteSummary": {
+    //         "type": "object",
+    //         // There is an upper limit as to how many output parameters can be developed. 
+    //         // So to not hit the limit, combine them into an 'object':
+    //         "value": {
+    //             "resourceLocation":"[reference(variables('web').site.id).outputs.resourceLocation.value]",
+    //             "webSiteAlwaysOn": "[reference(variables('web').site.id).outputs.alwaysOn.value]"
+    //         }
+    //     },
+    //      // --------------------------------------------------
+    //     // Output from Web Server Config AppSettings:
+    //     "webSiteConfigAppSettingsResourceId": {
+    //         "type": "string",
+    //         "value": "[reference(variables('web').site.config.appSettings.id).outputs.resourceId.value]"
+    //       }
+    //      // --------------------------------------------------
+    //     // Output from Web Server Config ConnectionStrings:
+    //     // TODO
+
+    // }
 }

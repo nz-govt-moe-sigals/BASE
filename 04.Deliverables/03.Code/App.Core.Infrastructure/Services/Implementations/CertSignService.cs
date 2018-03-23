@@ -5,6 +5,11 @@
     using System.Security.Cryptography.X509Certificates;
     using System.Text;
 
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="ICertSignService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
     public class CertSignService : AppCoreServiceBase, ICertSignService
     {
         public CertSignService()
@@ -81,7 +86,9 @@
                 var pk = cert.PrivateKey;
                 cryptoServiceProvider = pk as RSACryptoServiceProvider;
             }
+#pragma warning disable CS0168 // Variable is declared but never used
             catch (Exception e)
+#pragma warning restore CS0168 // Variable is declared but never used
             {
                 throw;
             }

@@ -9,6 +9,8 @@
         public virtual string Key { get; set; }
         public virtual string Value { get; set; }
         public virtual Guid OwnerFK { get; set; }
-        public virtual RecordPersistenceState RecordState { get; set; }
+        //public virtual RecordPersistenceState RecordState { get; set; }
+
+
     }
 }

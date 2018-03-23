@@ -44,9 +44,19 @@ namespace App.Core.Application
         /// </para>
         /// </summary>
         /// <param name="appBuilder">The application builder.</param>
-        public void Configure(IAppBuilder appBuilder) { 
+        public void Configure(IAppBuilder appBuilder) {
 
-            //Enable Analytics (or not...can slow down startup):
+            // Design Constraints:
+            // * Startup Sequence can configure, but not access remote services:
+            //   It's essential that the startup sequence does not hit the database 
+            //   or any other integration service than it absolutely must. 
+            //   Reasons include but are not limited to:
+            //   * Slower startup(not all pages need all integration services)
+            //   * You want at least some pages(eg: installation walkthroughs, 
+            //     health check landing pages, etc.) to be accessible without 
+            //     hitting services that might crash pages.
+                
+                //Enable Analytics (or not...can slow down startup):
             EnabledAnalytics.Configure(appBuilder);
 
             // SETUP STEP: Ensure we're using ASP.MVC v5 or later:
@@ -63,12 +73,35 @@ namespace App.Core.Application
             // After routing is sorted out:
             appBuilder.UseRequestTenantMiddleware();
 
-            //This triggers requests to a remote server:
+            // Up to this point we've not invoked external Services
+            // during the startup process. Keep it that way!!!
+
+            // TODO: Stop invoking this at startup!
+            ExternalServiceInvocation(appBuilder);
+
+        }
+
+
+        // TODO: Stop invoking this at startup!
+        void ExternalServiceInvocation(IAppBuilder appBuilder)
+        {
+            // This is the type of shit that should *not* be invoked 
+            // during startup, and wait till a page that needs it
+            // invokes it.
+            // Faster startup, and no yellow screen that can't be easily diagnosed.
+
+            // This kind of stuff feels useful when developing, but always comes 
+            // back to bite you.
+
+            //TODO: This triggers requests to a remote server during bootstrap...
+            // contrary to design principles, and should be
+            // moved to later
             AuthConfig.Configure(appBuilder);
 
             //Invoke Service Initialization:
             this._initializerConfig.Configure(appBuilder);
         }
+
 
         private void InitializeMvc(IAppBuilder appBuilder)
         {
@@ -89,6 +122,7 @@ namespace App.Core.Application
             // GlobalConfiguraiton.Configure(...) either. 
 
             var httpConfiguration = HttpConfigurationLocator.Current;
+        
             //GlobalConfiguration.Configure(httpConfiguration =>
             //{ 
             StaticFileHandlingConfig.Configure(httpConfiguration);

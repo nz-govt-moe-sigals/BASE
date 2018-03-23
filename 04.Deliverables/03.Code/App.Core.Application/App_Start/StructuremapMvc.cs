@@ -30,11 +30,22 @@ namespace App.Core.Application.App_Start {
 	using App.Core.Application.DependencyResolution;
 
     using StructureMap;
-    
-	public static class StructuremapMvc {
+
+    /// <summary>
+    /// A <see cref="Startup"/> invoked class (ie, before DI has been set up) to configure 
+    /// StructureMap so that DI can be used as soon as possible 
+    /// in the system's lifespan, starting with 
+    /// <see cref="StartupExtended"/>.
+    /// </summary>
+    public static class StructuremapMvc {
 
         public static StructureMapDependencyScope StructureMapDependencyScope { get; set; }
-		
+
+        /// <summary>
+        /// <para>
+        /// Invoked from <see cref="StartupExtended.Configure"/>.
+        /// </para>
+        /// </summary>
         public static void Start()
         {
             StructureMapDependencyScope = StructureMapDependencyScopeFactory.ConfigureContainer();

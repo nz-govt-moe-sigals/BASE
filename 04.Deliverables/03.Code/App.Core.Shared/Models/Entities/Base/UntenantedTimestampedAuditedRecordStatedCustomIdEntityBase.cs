@@ -5,7 +5,7 @@ namespace App.Core.Shared.Models.Entities
     public abstract class UntenantedTimestampedAuditedRecordStatedCustomIdEntityBase<TId> : IHasId<TId>, IHasTimestamp,
         IHasInRecordAuditability, IHasRecordState
     {
-        public TId Id { get; set; }
+        public virtual TId Id { get; set; }
 
         protected UntenantedTimestampedAuditedRecordStatedCustomIdEntityBase()
         {

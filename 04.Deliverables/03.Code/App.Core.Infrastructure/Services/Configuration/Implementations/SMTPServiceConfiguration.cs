@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace App.Core.Infrastructure.Services.Configuration.Implementations
 {
-    public class SMTPServiceConfiguration
+    /// <summary>
+    /// Configuration object to be injected into the 
+    /// implementation of <see cref="ISMTPService"/>
+    /// </summary>
+    public class SMTPServiceConfiguration : IServiceConfigurationObject
     {
+        // TODO: 
     }
 }

@@ -9,6 +9,11 @@ namespace App.Core.Infrastructure.Services.Implementations
     using Microsoft.WindowsAzure.Storage; // Namespace for CloudStorageAccount
     using Microsoft.WindowsAzure.Storage.Blob; // Namespace for Blob storage types
 
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="IAzureStorageService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
     public class AzureStorageService : IAzureStorageService
     {
         private readonly AzureStorageManangementServiceConfiguration _azureStorageConfiguration;
@@ -17,6 +22,7 @@ namespace App.Core.Infrastructure.Services.Implementations
         private AzureStorageAccountConfiguration _azureStorageAccountConfiguration;
         private CloudBlobClient _blobClient;
         private CloudBlobContainer _cloudBlobContainer;
+
 
         public AzureStorageService(AzureStorageManangementServiceConfiguration  azureStorageConfiguration
             //, IAzureStorageManagementService azureStorageManagementService

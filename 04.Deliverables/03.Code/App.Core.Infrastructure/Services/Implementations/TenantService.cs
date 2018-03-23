@@ -6,6 +6,12 @@
     using App.Core.Infrastructure.Db.Context;
     using App.Core.Shared.Models.Entities;
 
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="ITenantService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Services.ITenantService" />
     public class TenantService : ITenantService
     {
         private static readonly string _cacheKey = "ResourceTenantKey";

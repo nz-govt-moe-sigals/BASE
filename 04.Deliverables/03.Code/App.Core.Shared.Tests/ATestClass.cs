@@ -14,11 +14,11 @@
 
         private Stack<int> _classWideState;
 
-        public void Dispose()
-        {
-            // Use the Disposer as the equivalent to FixtureTeardown
-            //_classWideState.Dispose();
-        }
+        //public void Dispose()
+        //{
+        //    // Use the Disposer as the equivalent to FixtureTeardown
+        //    //_classWideState.Dispose();
+        //}
 
         [Fact]
         public void ATest()

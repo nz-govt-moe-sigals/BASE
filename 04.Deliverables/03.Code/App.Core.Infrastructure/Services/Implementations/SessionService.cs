@@ -8,6 +8,12 @@ namespace App.Core.Infrastructure.Services.Implementations
 {
     using App.Core.Shared.Models.Entities;
 
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="ISessionService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Services.ISessionService" />
     public class SessionService : ISessionService
     {
         private readonly IRepositoryService _repositoryService;

@@ -3,7 +3,8 @@
     using Owin;
 
     /// <summary>
-    ///     Set up any DbContext to handle code migrations.
+    /// An <see cref="StartupExtended"/> invoked class to configure
+    /// DbContexts to handle code migrations.
     /// </summary>
     public static class DbContextConfig
     {

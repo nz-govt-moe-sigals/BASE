@@ -18,27 +18,32 @@ namespace App.Core.Infrastructure.Services.Implementations
         using Microsoft.WindowsAzure.Storage.Auth;
         using Microsoft.WindowsAzure.Storage.Queue;
 
-        /// <summary>
-        /// Application's that use Azure KeyVault are hosted in Azure. 
-        /// Within Azure Application Registration, when registered, they get an Id. 
-        /// Which is automaticall mapped to a Service Principal Name (SPN)
-        /// (New-AzureRmADServicePrincipal -ApplicationId <Guid> is invoked behind the scene)
-        /// (and for now think of it as a Psuedo User that this not visible in AAD Users).
-        /// Then within KeyVault, access is granted to the SPN. 
-        /// When you sign in, you're using the AppClientId and AppSecret over a secure line.
-        /// That's how Azure recognizes the app (as an SPN, not a proper User or Service Account).
-        /// And hence why the App is given acces to the KeyVault to retrieve secrets and keys.
-        /// <para>
-        /// Depends on:
-        ///  Nuget:
-        ///    * Microsoft.Azure.KeyVault
-        ///    * Microsoft.IdentityModel.Clients.ActiveDirectory
-        ///      * NOTE: Which relieas on ADAL, as oposed to the newer MSAL...
-        ///  * Powershell:
-        ///    * No longer needed: New-AzureRmADServicePrincipal -ApplicationId <Guid>
-        /// </para>
-        /// </summary>
-        public class AzureKeyVaultService : IAzureKeyVaultService
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="IAzureKeyVaultService" />
+    ///     Infrastructure Service Contract.
+    /// <para>
+    /// Application's that use Azure KeyVault are hosted in Azure. 
+    /// Within Azure Application Registration, when registered, they get an Id. 
+    /// Which is automaticall mapped to a Service Principal Name (SPN)
+    /// (New-AzureRmADServicePrincipal -ApplicationId <Guid> is invoked behind the scene)
+    /// (and for now think of it as a Psuedo User that this not visible in AAD Users).
+    /// Then within KeyVault, access is granted to the SPN. 
+    /// When you sign in, you're using the AppClientId and AppSecret over a secure line.
+    /// That's how Azure recognizes the app (as an SPN, not a proper User or Service Account).
+    /// And hence why the App is given acces to the KeyVault to retrieve secrets and keys.
+    /// </para>
+    /// <para>
+    /// Depends on:
+    ///  Nuget:
+    ///    * Microsoft.Azure.KeyVault
+    ///    * Microsoft.IdentityModel.Clients.ActiveDirectory
+    ///      * NOTE: Which relieas on ADAL, as oposed to the newer MSAL...
+    ///  * Powershell:
+    ///    * No longer needed: New-AzureRmADServicePrincipal -ApplicationId <Guid>
+    /// </para>
+    /// </summary>
+    public class AzureKeyVaultService : IAzureKeyVaultService
         {
             public  AzureKeyVaultServiceConfiguration Configuration
         {

@@ -9,6 +9,12 @@
     using App.Core.Infrastructure.Constants.Db;
     using App.Core.Shared.Models;
 
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="IRepositoryService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Services.IRepositoryService" />
     public class RepositoryService : IRepositoryService
     {
 

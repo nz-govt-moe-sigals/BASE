@@ -2,6 +2,12 @@
 {
     using AutoMapper;
 
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="IObjectMappingService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Services.IObjectMappingService" />
     public class ObjectMappingService : IObjectMappingService
     {
         public TTarget Map<TSource, TTarget>(TSource source) where TSource : class where TTarget : new()

@@ -1,11 +1,12 @@
 ﻿namespace App.Core.Infrastructure.Services.Implementations
 {
     using App.Core.Infrastructure.Services.Configuration;
+    using App.Core.Infrastructure.Services.Configuration.Implementations;
 
     /// <summary>
     ///     Implementation of the
     ///     <see cref="IDictionaryBasedMimeTypeService" />
-    ///     contract
+    ///     Infrastructure Service Contract
     /// </summary>
     /// <internal>
     ///     See: http://stackoverflow.com/questions/1029740/get-mime-type-from-filename-extension
@@ -17,7 +18,7 @@
         /// </summary>
         /// <param name="dictionaryBasedMimeTypeServiceConfiguration">The dictionary based MIME type service configuration.</param>
         public DictionaryBasedMimeTypeService(
-            IDictionaryBasedMimeTypeServiceConfiguration dictionaryBasedMimeTypeServiceConfiguration)
+            DictionaryBasedMimeTypeServiceConfiguration dictionaryBasedMimeTypeServiceConfiguration)
         {
             this.Configuration = dictionaryBasedMimeTypeServiceConfiguration;
         }
@@ -30,7 +31,7 @@
         ///         during Bootstrapping, and no later.
         ///     </para>
         /// </summary>
-        public IDictionaryBasedMimeTypeServiceConfiguration Configuration { get; }
+        public DictionaryBasedMimeTypeServiceConfiguration Configuration { get; }
 
 
         /// <summary>

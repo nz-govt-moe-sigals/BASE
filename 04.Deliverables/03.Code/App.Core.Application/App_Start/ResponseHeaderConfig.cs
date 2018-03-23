@@ -5,8 +5,13 @@
     using App.Core.Shared.Models.Messages;
     using Owin;
 
+    /// <summary>
+    /// An <see cref="StartupExtended"/> invoked class to configure 
+    /// the specified application builder.
+    /// </summary>
     public class ResponseHeaderConfig
     {
+
         /// <summary>
         /// Configures the specified application builder.
         /// <para>

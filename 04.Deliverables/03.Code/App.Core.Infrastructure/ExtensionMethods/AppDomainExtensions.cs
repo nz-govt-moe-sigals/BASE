@@ -54,10 +54,14 @@ namespace App
                 {
                     var loadedAssembly = Assembly.LoadFile(fileName);
                 }
+#pragma warning disable CS0168 // Variable is declared but never used
                 catch (FileLoadException loadEx)
+#pragma warning restore CS0168 // Variable is declared but never used
                 {
                 } // The Assembly has already been loaded.
+#pragma warning disable 168
                 catch (BadImageFormatException imgEx)
+#pragma warning restore 168
                 {
                 } // If a BadImageFormatException exception is thrown, the file is not an assembly.
             } // foreach dll

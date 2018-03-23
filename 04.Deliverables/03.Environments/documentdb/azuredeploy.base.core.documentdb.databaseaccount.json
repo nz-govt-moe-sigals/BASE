@@ -2,6 +2,16 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+
+        "documentDbDatabaseAccountProvision": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "DocumentDb currently has a minimum of 400 units per month...which is roughly 40 NZD...Per Environment...so if you don't need it, save some money."
+            }
+        },
+       
+
         "documentDbDatabaseAccountResourceName": {
             "type": "string",
             "minLength": 3,
@@ -120,6 +130,11 @@
     },
     "resources": [
         {
+            // Because the parent template is referencing this template's outputs
+            // the condition has to be within this file, and not the parent template
+            // (or you get error messages saying an apiVersion was not defined, or 
+            // something to that effect)
+            "condition":"[parameters('documentDbDatabaseAccountProvision')]",
             "apiVersion": "2015-04-08",
             "type": "Microsoft.DocumentDB/databaseAccounts",
             // Name must be lowercase, more than 3, less than 50 characters.

@@ -3,6 +3,12 @@
     using System.Globalization;
     using System.Threading;
 
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="ILocalisationService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Services.ILocalisationService" />
     public class LocalisationService : ILocalisationService
     {
         public bool ThreadCultureSet { get; private set; }

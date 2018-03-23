@@ -4,12 +4,15 @@
     using System.ComponentModel;
     using System.Configuration;
     using App.Core.Infrastructure.Factories;
+    using App.Core.Infrastructure.Services.Caches.Implementations;
     using Microsoft.Azure;
 
 
     /// <summary>
-    /// Implementation of a Service Contract to
-    /// manage Host specific, immutable Settings
+    ///     Implementation of the
+    ///     <see cref="IHostSettingsService" />
+    ///     Infrastructure Service Contract
+    /// to manage Host specific, immutable Settings
     /// (commonly this wraps web.config, etc. settings
     /// that were injected at deployment time by the 
     /// Build Engine).
@@ -25,16 +28,21 @@
     /// <seealso cref="App.Core.Infrastructure.Services.IHostSettingsService" />
     public class HostSettingsService : IHostSettingsService
     {
-
-        private readonly ExtendedConfigurationFactory _configurationFactory;
+        /// <summary>
+        /// The configuration object factory. 
+        /// Externalizes from the HostSettingsService the process of 
+        /// converting appsettings into an object of properties.
+        /// Leaves this class nice and small. 
+        /// </summary>
+        private readonly ConfigurationObjectFactory _configurationObjectFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HostSettingsService"/> class.
         /// </summary>
-        /// <param name="configurationFactory">The configuration factory.</param>
-        public HostSettingsService(ExtendedConfigurationFactory configurationFactory)
+        /// <param name="configurationObjectFactory">The configuration factory.</param>
+        public HostSettingsService(ConfigurationObjectFactory configurationObjectFactory)
         {
-            this._configurationFactory = configurationFactory;
+            this._configurationObjectFactory = configurationObjectFactory;
         }
 
         /// <summary>
@@ -66,15 +74,15 @@
             // and stored in cache.
             var key = typeof(T).FullName + ":" + prefix;
 
-            if (ConfigurationObjectCache.ObjectCache.ContainsKey(key))
+            if (HostSettingsServiceConfigurationObjectCache.ObjectCache.ContainsKey(key))
             {
-                return (T)ConfigurationObjectCache.ObjectCache[key];
+                return (T)HostSettingsServiceConfigurationObjectCache.ObjectCache[key];
             }
 
             // If not, use the ConfigFactory helper,
             // create the new obj, cache, and return:
-            var result = this._configurationFactory.Create<T>(prefix);
-            ConfigurationObjectCache.ObjectCache[key] = result;
+            var result = this._configurationObjectFactory.Create<T>(prefix);
+            HostSettingsServiceConfigurationObjectCache.ObjectCache[key] = result;
 
             return result;
         }

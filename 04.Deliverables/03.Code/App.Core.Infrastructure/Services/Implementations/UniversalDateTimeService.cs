@@ -3,8 +3,10 @@ namespace App.Core.Infrastructure.Services.Implementations
     using System;
 
     /// <summary>
-    /// Implementation of a
-    /// Contract for an infrastructure service to
+    ///     Implementation of the
+    ///     <see cref="IUniversalDateTimeService" />
+    ///     Infrastructure Service Contract
+    /// for an infrastructure service to
     /// return UTC based DateTimeOffset (not just UTC DateTime, 
     /// and certainly not Local DateTime!)
     /// to all services that need to coordinate datetime in a

@@ -2,8 +2,15 @@
 
 namespace App.Core.Infrastructure.Services.Implementations
 {
+    using App.Core.Infrastructure.Services.Configuration.Implementations;
     using App.Core.Shared.Models.Configuration;
 
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="IApplicationInformationService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Services.IApplicationInformationService" />
     public class ApplicationInformationService : IApplicationInformationService
     {
         private readonly ApplicationInformationServiceConfiguration _applicationInformationServiceConfiguration;

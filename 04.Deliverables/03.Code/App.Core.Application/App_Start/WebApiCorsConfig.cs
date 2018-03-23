@@ -5,10 +5,15 @@
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Messages;
 
+    /// <summary>
+    /// An <see cref="StartupExtended"/> invoked class to configure 
+    /// Cors for WebApi (which is required when Mashing from UI).
+    /// </summary>
     public class WebApiCorsConfig
     {
         /// <summary>
-        /// Configures the specified HTTP configuration.
+        /// An <see cref="StartupExtended"/> invoked class to configure 
+        /// the specified HTTP configuration.
         /// <para>
         /// Invoked from <see cref="StartupExtended.Configure"/>.
         /// </para>

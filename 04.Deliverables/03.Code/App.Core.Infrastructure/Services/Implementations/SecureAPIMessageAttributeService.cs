@@ -5,6 +5,12 @@
     using System.Reflection;
     using App.Core.Shared.Attributes;
 
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="ISecureAPIMessageAttributeService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Services.ISecureAPIMessageAttributeService" />
     public class SecureAPIMessageAttributeService : ISecureAPIMessageAttributeService
     {
         private readonly IConversionService _conversionService;

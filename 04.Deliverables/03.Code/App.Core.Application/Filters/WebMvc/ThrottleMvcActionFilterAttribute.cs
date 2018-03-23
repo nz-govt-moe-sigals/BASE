@@ -72,7 +72,7 @@
                 controllerName, "/",
                 actionName);
 
-            var allowExecute = false;
+            //var allowExecute = false;
 
             if (HttpRuntime.Cache[key] == null)
             {

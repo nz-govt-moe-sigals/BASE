@@ -21,6 +21,8 @@ using App.Core.Application.DependencyResolution;
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(App.Core.Application.App_Start.StructuremapWebApi), "Start")]
 
 namespace App.Core.Application.App_Start {
+
+
     public static class StructuremapWebApi {
         public static void Start() {
 			var container = StructuremapMvc.StructureMapDependencyScope.Container;

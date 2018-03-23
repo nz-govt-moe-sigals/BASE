@@ -10,7 +10,11 @@ namespace App.Core.Infrastructure.Services.Configuration.Implementations
     using Microsoft.WindowsAzure.Storage;
     using Microsoft.WindowsAzure.Storage.Blob;
 
-    public class AzureStorageManangementServiceConfiguration
+    /// <summary>
+    /// Configuration object to be injected into the 
+    /// implementation of <see cref="IAzureStorageManagementService"/>
+    /// </summary>
+    public class AzureStorageManangementServiceConfiguration : IServiceConfigurationObject
     {
         public readonly AzureStorageAccountConfiguration AzureStorageAccountConfiguration;
         //CloudBlobClient 

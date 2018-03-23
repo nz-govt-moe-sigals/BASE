@@ -5,6 +5,10 @@
     using System.Web.Routing;
     using App.Core.Infrastructure.Services;
 
+    /// <summary>
+    /// An <see cref="StartupExtended"/> invoked class to configure 
+    /// the registration of web MVC routes.
+    ///  </summary>
     public class WebMvcRouteConfig
     {
 
@@ -14,7 +18,8 @@
         /// <para>
         /// Invoked from <see cref="WebMvcConfig.Configure"/>.
         /// </para>
-        ///  </summary>
+        /// </summary>
+        /// <param name="routes">The routes.</param>
         public static void RegisterWebMvcRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");

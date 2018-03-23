@@ -8,9 +8,10 @@ namespace App.Core.Infrastructure.Services.Implementations
 {
 
     /// <summary>
-    /// Implementation of a
-    /// Contract for an Infrastructure Service to 
-    /// Query whether the current Thread's Principal
+    ///     Implementation of the
+    ///     <see cref="IAuthorisationService" />
+    ///     Infrastructure Service Contract
+    /// to Query whether the current Thread's Principal
     /// is Authorised to perform specific Operations.
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.IAuthorisationService" />

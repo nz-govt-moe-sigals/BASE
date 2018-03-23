@@ -7,6 +7,12 @@
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages;
 
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="IMediaMetadataService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Services.IMediaMetadataService" />
     public class MediaMetadataService : IMediaMetadataService
     {
         //private readonly IHostSettingsService _hostSettingsService;

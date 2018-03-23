@@ -10,6 +10,10 @@
     using App.Core.Infrastructure.Services;
     using Owin;
 
+    /// <summary>
+    /// An <see cref="StartupExtended"/> invoked class to configure
+    /// the specified application builder.
+    /// </summary>
     public class AuthConfig
     {
         /// <summary>

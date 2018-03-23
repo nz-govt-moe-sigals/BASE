@@ -4,6 +4,12 @@ namespace App.Core.Infrastructure.Services.Implementations
 {
     using App.Core.Shared.Models.Entities;
 
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="ISystemRoleRecordManagmentService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Services.ISystemRoleRecordManagmentService" />
     public class SystemRoleRecordManagmentService : ISystemRoleRecordManagmentService
     {
         private readonly IRepositoryService _repositoryService;
