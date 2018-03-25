@@ -368,12 +368,13 @@
         // "A CNAME record pointing from foobarsite.com to foobar.azurewebsites.net was not found. 
         // Alternative record awverify.foobarsite.com to awverify.foobar.azurewebsites.net was not found either."
         //"value": "foobarsite.com"
+        
         "webSiteHostNameBindingHostName": {
             "type": "string",
             "metadata": {
                 "description": "Optional. The public DNS name of the website. Default is ''. Will require a WebServerFarm SKU of S1 of higher to be set."
             }
-        },
+        }
     },
     "variables": {
         // -------------------------------------------------------
@@ -564,7 +565,7 @@
                     // -------------------------------------------------------
                 } //~parameters
             } //~properties
-        }, //~assemblies linked template
+        } //~assemblies linked template
     ],
     // -------------------------------------------------------
     // OUTPUTS
