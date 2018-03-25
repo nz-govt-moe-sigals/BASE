@@ -368,7 +368,6 @@
         // "A CNAME record pointing from foobarsite.com to foobar.azurewebsites.net was not found. 
         // Alternative record awverify.foobarsite.com to awverify.foobar.azurewebsites.net was not found either."
         //"value": "foobarsite.com"
-        
         "webSiteHostNameBindingHostName": {
             "type": "string",
             "metadata": {

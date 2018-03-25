@@ -103,17 +103,13 @@
     "sqlServerDeveloperStatingSecretsAreNotRecordedInCode": {
       "value": "sigals",
     },
-
-
-// B1 (Basic Small) or higher is needed for HostBinding and SSL.
-// B1 is about 95$/month, and S1 is about 135/month.
-// And S1 gets backups every day. 
-// At 1$/day more, it's worth the it, for a corporation.
-
+    // B1 (Basic Small) or higher is needed for HostBinding and SSL.
+    // B1 is about 95$/month, and S1 is about 135/month.
+    // And S1 gets backups every day. 
+    // At 1$/day more, it's worth the it, for a corporation.
     "webServerFarmResourceSku": {
       "value": "S1",
     },
-
     // An infrastructure support specialist will have 
     // purchased a cert
     // and placed it in a key vault outside of the projects 
@@ -164,15 +160,11 @@
     "webCertificateDeveloperStatingSecretsAreNotRecordedInCode": {
       "value": "SSigal"
     },
-
-
     // "Optional. The name for the WebSite. 
     // Default is 'resourceNameTemplate'-based, automatically generated resource name, using 'web-site' for the {RT} token.
     // "webSiteResourceName" : {
     //   "value": "somethingcustom!!!"
     // },
-
-
     // Optional. A Complex Object (ie, JSON) containing a series 
     // of stringKey/stringValues that are added to the target site as AppSettings.
     // An example would be:
