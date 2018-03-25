@@ -1,0 +1,234 @@
+// ---------- ---------- ---------- 
+// About:
+// TODO
+// Tip:
+// * ARM Templates *can* have Comments in them, bu VS Code requires configuration to stop warnings: 
+//   See: https://stackoverflow.com/a/47834826/9314395
+// * Develop based on conventions:
+//   * https://github.com/Azure/azure-quickstart-templates/blob/master/1-CONTRIBUTION-GUIDE/best-practices.md
+//   * Based on expensive experience: only use fully qualified, full-type, resource-specific, naming for 
+//     variables (eg: webSiteResourceName, rather than abbreviaations such as siteResourceName, 
+//     siteName, etc.) so that variables are consistent here, as well as well as parent templates. 
+//     If they are the same across templates they can be cut pasted. Whereas it's *really*
+//     hard to track down bugs when everything is called by an abbreviation, such as 'resourceName'.
+// ---------- ---------- ---------- 
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    // The http based base url from which to download referenced Assembly ARM Templates. 
+    // In most cases will be an Url to a Storage Account Container Url to which 
+    // newly downloaded Source Files (just the ARM Templates) are copied to
+    "linkedAssembliesArmTemplateRootUrl": {
+      "value": "https://baseinfrastructureshared.blob.core.windows.net/public/base/core/v-.-/arm-templates/assemblies/"
+    },
+    // Optional. The Single Access Signature (SAS) required to append to linked Assembly ARM Template 
+    // Uris in order to get them out of a secured Storage Account Container.
+    "linkedAssembliesArmTemplateRootSas": {
+      "value": ""
+    },
+    // The http based base url from which to download referenced linked Resource ARM Templates. 
+    // In most cases will be an Url to a Storage Account Container Url to which 
+    // newly downloaded Source Files (just the ARM Templates) are copied to
+    "linkedResourcesArmTemplateRootUrl": {
+      "value": "https://baseinfrastructureshared.blob.core.windows.net/public/base/core/v-.-/arm-templates/resources/"
+    },
+    // Optional. The Single Access Signature (SAS) required to append to linked Resource ARM Template 
+    // Uris in order to get them out of a secured Storage Account Container.
+    "linkedResourcesArmTemplateRootSas": {
+      "value": ""
+    },
+    // $secureLogin = "NOTADMIN"| ConvertTo-SecureString  -AsPlainText -Force
+    // $securePassword = "N0t@P@ssword" | ConvertTo-SecureString  -AsPlainText -Force
+    // "resourceGroupName" : {
+    //   "value": "EDU-MOE-BASE-TestDev-01"
+    // },
+    "resourceNameTemplate": {
+      "value": "ORG-APP-BRANCH-ENV-{RT}"
+    },
+    // Provide the Sql Server Administrator's Name, which an 
+    // infrastructure support specialist will have 
+    // set the provided the password in a key vault 
+    // outside of the projects resource group (and probably 
+    // in a different subscription) so use the reference approach
+    //  to get it out, and place it here.
+    // Required when creating a new Database Server. 
+    // Note that security is not perfect: a developer can develop
+    // arm templates whose output records the values it extracts
+    // from a keyvault.
+    // "reference": {
+    //   "keyVault": {
+    //     "id": "/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/MX-BASE-INFRASTRUCTURE/providers/Microsoft.KeyVault/vaults/shared-kv"
+    //   },
+    //   "secretName": "moe-ministryof-tech-sql-server-admin-login-name"
+    // }
+    "sqlServerAdministratorLogin": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/MX-BASE-INFRASTRUCTURE/providers/Microsoft.KeyVault/vaults/shared-kv"
+        },
+        "secretName": "moe-ministryof-tech-sql-server-admin-login-name"
+      }
+    },
+    // Provide the Sql Server Administrator's Password, which an 
+    // infrastructure support specialist will have 
+    // set the provided the password in a key vault 
+    // outside of the projects resource group (and probably 
+    // in a different subscription) so use the reference approach
+    //  to get it out, and place it here.
+    // Required when creating a new Database Server. 
+    // Note that security is not perfect: a developer can develop
+    // arm templates whose output records the values it extracts
+    // from a keyvault.
+    // "reference": {
+    //   "keyVault": {
+    //     "id": "/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/MX-BASE-INFRASTRUCTURE/providers/Microsoft.KeyVault/vaults/shared-kv"
+    //   },
+    //   "secretName": "moe-ministryof-tech-sql-server-admin-login-pwd"
+    // }
+    "sqlServerAdministratorLoginPassword": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/MX-BASE-INFRASTRUCTURE/providers/Microsoft.KeyVault/vaults/shared-kv"
+        },
+        "secretName": "moe-ministryof-tech-sql-server-admin-login-pwd"
+      }
+    },
+    // The Name of the ARM developer (ie *you*!) who is certifying they 
+    // understand the security risks of recording passwords in a parameter file, 
+    // or any other code, and are not doing it here (and the code base's commit history
+    //  will back them up). 
+    // Instead, the value will be retrieved from an eternal keyvault to which the 
+    // build service has been granted access. 
+    "sqlServerDeveloperStatingSecretsAreNotRecordedInCode": {
+      "value": "sigals",
+    },
+
+
+// B1 (Basic Small) or higher is needed for HostBinding and SSL.
+// B1 is about 95$/month, and S1 is about 135/month.
+// And S1 gets backups every day. 
+// At 1$/day more, it's worth the it, for a corporation.
+
+    "webServerFarmResourceSku": {
+      "value": "S1",
+    },
+
+    // An infrastructure support specialist will have 
+    // purchased a cert
+    // and placed it in a key vault outside of the projects 
+    // resource group (and probably in a different subscription) 
+    // so use the reference approach to get it out, and place it
+    // here.
+    // Note that security is not perfect: a developer can develop
+    // arm templates whose output records the values it extracts
+    // from a keyvault.
+    // Hence why we always recommend to not use secrets and 
+    // rely on AAD RBAC'ed access, based on Service Principals and 
+    // MSI token.
+    "webCertificatePfxBase64": {
+      "value": "",
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/MX-BASE-INFRASTRUCTURE/providers/Microsoft.KeyVault/vaults/shared-kv"
+        },
+        "secretName": "moe-ministryof-tech-cert-pfx-base64"
+      }
+    },
+    // An infrastructure support specialist will have 
+    // set the Certficate Pfx's password in a key vault 
+    // outside of the projects resource group (and probably 
+    // in a different subscription) so use the reference approach
+    //  to get it out, and place it here.
+    // Note that security is not perfect: a developer can develop
+    // arm templates whose output records the values it extracts
+    // from a keyvault.
+    // Hence why we always recommend to not use secrets and 
+    // rely on AAD RBAC'ed access, based on Service Principals and 
+    // MSI token.
+    "webCertificatePfxPassword": {
+      "value": "",
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/MX-BASE-INFRASTRUCTURE/providers/Microsoft.KeyVault/vaults/shared-kv"
+        },
+        "secretName": "moe-ministryof-tech-sql-server-admin-login-pwd"
+      }
+    },
+    // The Name of the ARM developer (ie *you*!) who is certifying they 
+    // understand the security risks of recording passwords in a parameter file, 
+    // or any other code, and are not doing it here (and the code base's commit history
+    //  will back them up). 
+    // Instead, the value will be retrieved from an eternal keyvault to which the 
+    // build service has been granted access. 
+    "webCertificateDeveloperStatingSecretsAreNotRecordedInCode": {
+      "value": "SSigal"
+    },
+
+
+    // "Optional. The name for the WebSite. 
+    // Default is 'resourceNameTemplate'-based, automatically generated resource name, using 'web-site' for the {RT} token.
+    // "webSiteResourceName" : {
+    //   "value": "somethingcustom!!!"
+    // },
+
+
+    // Optional. A Complex Object (ie, JSON) containing a series 
+    // of stringKey/stringValues that are added to the target site as AppSettings.
+    // An example would be:
+    //     "defaultValue": {
+    //         "ExampleKey": "exampleValue"
+    //     },
+    "webSiteConfigAppSettings": {
+      "type": "object",
+      "value": {
+        "AppYayFooUno": "AppYayBarUnoApp"
+      },
+      "metadata": {
+        "description": "Optional. A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target site as AppSettings."
+      }
+    },
+    // The Name of the ARM developer (ie *you*!) who is certifying they 
+    // understand the security risks of recording passwords in a parameter file, 
+    // or any other code, and are not doing it here (and the code base's commit history
+    //  will back them up). 
+    "webSiteConfigAppSettingsDeveloperStatingSecretsAreNotRecordedInCode": {
+      "value": "sigals"
+    },
+    // "A Complex Object (not an array) of a set of {'name' { 'value' and 'type'}}, that are added to the site's ConnectionStrings. Type should be 2 in most cases."
+    // Type is case sensitive string, and can be MySql, SQLServer, SQLAzure, Custom, NotificationHub, ServiceBus, EventHub, ApiHub, DocDb, RedisCache, PostgreSQL. SQL 
+    // If things stop working, ensure:
+    // it's an object of complex object of name:key/values.
+    // If things stop working, tips to find the reason include:
+    // ensure you are passing an object {} and not an array
+    // ensure the name is the key to a sub object of two params, and not an array of objects containing 3 objects
+    // ensure the type is string, and case sensitive (and not a number)
+    "webSiteConfigConnectionStrings": {
+      "value": {
+        "ExampleConnStringAppA": {
+          "value": "Server=mySuperServerAddress;Database=myDataBase;Trusted_Connection=True;",
+          "type": "SQLAzure"
+        },
+        "ExampleConnStringAppB": {
+          "value": "Server=mySuperServerAddress;Database=myDataBase;Trusted_Connection=True;",
+          "type": "SQLAzure"
+        }
+      },
+    },
+    // The Name of the ARM developer (ie *you*!) who is certifying they 
+    // understand the security risks of recording passwords in a parameter file, 
+    // or any other code, and are not doing it here (and the code base's commit history
+    //  will back them up). 
+    "webSiteConfigConnectionStringsDeveloperStatingSecretsAreNotRecordedInCode": {
+      "value": "sigals"
+    },
+    "webSiteHostNameBindingHostName": {
+      // You have to own the name and make a record of it
+      // or you will be get a deployment error or :
+      // "A CNAME record pointing from foobarsite.com to foobar.azurewebsites.net was not found. 
+      // Alternative record awverify.foobarsite.com to awverify.foobar.azurewebsites.net was not found either."
+      //"value": "foobarsite.com"
+      "value": ""
+    }
+  }
+}
