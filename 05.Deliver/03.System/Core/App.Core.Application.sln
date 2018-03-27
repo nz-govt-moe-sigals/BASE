@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Core.Application", "App.Core.Application\App.Core.Application.csproj", "{F05524D0-7306-48CD-A11A-4965EE64EC43}"
 EndProject
@@ -22,7 +22,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "README", "README", "{8A4F3C88-EDBB-46C4-A52B-B11A603A1F1A}"
 	ProjectSection(SolutionItems) = preProject
 		readme.md = readme.md
-		readme_save.md = readme_save.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Core.Infrastructure.IDA", "App.Core.Infrastructure.OIDC\App.Core.Infrastructure.IDA.csproj", "{1F881B79-5EE4-42AA-8143-E2BF3BFDF4D9}"
