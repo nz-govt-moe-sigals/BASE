@@ -437,12 +437,13 @@
     <Content Include="Assets\images\system_description\ddd_overview.png" />
     <Content Include="Assets\images\system_description\iso-25010.png" />
     <Content Include="Assets\test.txt" />
+    <Content Include="check.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="DependencyResolution\README.txt" />
-    <Content Include="Filters\README.txt" />
+    <None Include="Filters\README.md" />
     <Content Include="HttpErrors\HTTP000.html" />
     <Content Include="HttpErrors\HTTP0.html" />
     <Content Include="HttpErrors\HTTP400.html" />

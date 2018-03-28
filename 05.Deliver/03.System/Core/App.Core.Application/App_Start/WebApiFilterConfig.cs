@@ -10,6 +10,12 @@
     /// <summary>
     /// An <see cref="StartupExtended"/> invoked class to configure 
     /// WebApi Filters.
+    /// <para>
+    /// Note that by default ASP.NET does not manage static files --  until (RAMMFAR)
+    /// `configuration/system.webServer/modules @runAllManagedModulesForAllRequests = "false"`
+    /// is set in the config file(`true` is the default in this app, but this hamper debugging
+    /// of the first install.)
+    /// </para>
     /// </summary>
     public class WebApiFilterConfig
     {

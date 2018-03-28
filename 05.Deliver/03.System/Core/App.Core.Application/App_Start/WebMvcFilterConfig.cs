@@ -21,6 +21,12 @@
     ///         Not sure what it does if not found.
     ///     </para>
     /// </para>
+    /// <para>
+    /// Note that by default ASP.NET does not manage static files --  until (RAMMFAR)
+    /// `configuration/system.webServer/modules @runAllManagedModulesForAllRequests = "false"`
+    /// is set in the config file(`true` is the default in this app, but this hamper debugging
+    /// of the first install.)
+    /// </para>
     /// </summary>
     public class WebMvcFilterConfig
     {
@@ -33,6 +39,12 @@
         /// Initializes a new instance of the <see cref="WebMvcFilterConfig"/> class.
         /// <para>
         /// Invoked from <see cref="WebMvcConfig.Configure"/>.
+        /// </para>
+        /// <para>
+        /// Note that by default ASP.NET does not manage static files --  until (RAMMFAR)
+        /// `configuration/system.webServer/modules @runAllManagedModulesForAllRequests = "false"`
+        /// is set in the config file(`true` is the default in this app, but this hamper debugging
+        /// of the first install.)
         /// </para>
         /// </summary>
         /// <param name="sessionOperationLogService">The session operation log service.</param>

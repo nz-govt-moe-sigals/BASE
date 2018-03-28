@@ -24,3 +24,10 @@ and things get simpler.
     health check landing pages, etc.) to be accessible without 
     hitting services that might crash pages.
 
+# Routing of Static Resources #
+
+By default ASP.NET does not manage static files -- until (RAMMFAR) 
+`configuration/system.webServer/modules@runAllManagedModulesForAllRequests="false"`
+is set in the config file (`true` is the default in this app, but this hamper debugging 
+of the first install.)
+

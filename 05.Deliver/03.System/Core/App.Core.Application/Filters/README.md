@@ -1,4 +1,5 @@
-﻿Filters can be used to intercept calls.
+﻿# About #
+Filters can be used to intercept calls.
 
 
 Filters are one of those annoying reminders of the fact that MVC was developed
