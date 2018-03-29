@@ -9,7 +9,7 @@
       "value": "https://baseinfrastructureshared.blob.core.windows.net/public/base/core/v-.-/arm-templates/resources/"
     },
     "resourceNameTemplate": {
-      "value": "MOE-BASE-0000-BT-{RT}"
+      "value": "NZ-MOE-BASE-0000-BT-{RT}"
     },
     "cacheRedisProvision": {
       "value": false
@@ -70,7 +70,7 @@
       "value": "sigals"
     },
     "webSiteHostNameBindingHostName": {
-      "value": ""
+      "value": "baseplatform.space"
     }
   }
 }
