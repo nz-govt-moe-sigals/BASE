@@ -14,19 +14,25 @@
 
         static AppCoreDbContext()
         {
+            // This static constructor is only called once.
+            // So that Migrations can work, when outside of
+            // runtime, ensure the following:
             PowershellServiceLocatorConfig.Initialize();
+
             //AppCoreDatabaseInitializerConfigurer.Configure();
         }
 
 
         // Constructor invokes base with Key used to find the ConnectionString in web.config
-        public AppCoreDbContext() : base("AppCoreDbContext")
+        public AppCoreDbContext() : this("AppCoreDbContext")
         {
         }
 
-        public AppCoreDbContext(string connectionStringOrName) : base(connectionStringOrName)
+        public AppCoreDbContext(string connectionStringOrName) : base( OpenDbConnectionBuilder.CreateAsync(connectionStringOrName).Result, true)
         {
         }
+
+
 
         public DbSet<Tenant> Tenants { get; set; }
         public DbSet<Session> Sessions { get; set; }

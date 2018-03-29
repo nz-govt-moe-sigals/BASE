@@ -443,6 +443,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="DependencyResolution\README.txt" />
+    <Content Include="_readme.nuget.txt" />
     <None Include="Filters\README.md" />
     <Content Include="HttpErrors\HTTP000.html" />
     <Content Include="HttpErrors\HTTP0.html" />

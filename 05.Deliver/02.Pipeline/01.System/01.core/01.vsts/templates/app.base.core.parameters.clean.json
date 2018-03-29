@@ -1,0 +1,76 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "linkedAssembliesArmTemplateRootUrl": {
+      "value": "https://baseinfrastructureshared.blob.core.windows.net/public/base/core/v-.-/arm-templates/assemblies/"
+    },
+    "linkedResourcesArmTemplateRootUrl": {
+      "value": "https://baseinfrastructureshared.blob.core.windows.net/public/base/core/v-.-/arm-templates/resources/"
+    },
+    "resourceNameTemplate": {
+      "value": "MOE-BASE-0000-BT-{RT}"
+    },
+    "cacheRedisProvision": {
+      "value": false
+    },
+    "sqlServerAdministratorLogin": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/MX-BASE-INFRASTRUCTURE/providers/Microsoft.KeyVault/vaults/shared-kv"
+        },
+        "secretName": "moe-baseplatform-space-sql-server-admin-login-name"
+      }
+    },
+    "sqlServerAdministratorLoginPassword": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/MX-BASE-INFRASTRUCTURE/providers/Microsoft.KeyVault/vaults/shared-kv"
+        },
+        "secretName": "moe-baseplatform-space-sql-server-admin-login-pwd"
+      }
+    },
+    "sqlServerDeveloperStatingSecretsAreNotRecordedInCode": {
+      "value": "sigals"
+    },
+    "webServerFarmResourceSku": {
+      "value": "S1"
+    },
+    "webCertificatePfxBase64": {
+      "value": "",
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/MX-BASE-INFRASTRUCTURE/providers/Microsoft.KeyVault/vaults/shared-kv"
+        },
+        "secretName": "moe-baseplatform-space-cert-pfx-base64"
+      }
+    },
+    "webCertificatePfxPassword": {
+      "value": "",
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/MX-BASE-INFRASTRUCTURE/providers/Microsoft.KeyVault/vaults/shared-kv"
+        },
+        "secretName": "moe-baseplatform-space-sql-server-admin-login-pwd"
+      }
+    },
+    "webCertificateDeveloperStatingSecretsAreNotRecordedInCode": {
+      "value": "ssigal"
+    },
+    "webSiteConfigAppSettings": {
+      "value": {
+        "AKey": "AValue"
+      }
+    },
+    "webSiteConfigAppSettingsDeveloperStatingSecretsAreNotRecordedInCode": {
+      "value": "sigals"
+    },
+    "webSiteConfigConnectionStrings": {},
+    "webSiteConfigConnectionStringsDeveloperStatingSecretsAreNotRecordedInCode": {
+      "value": "sigals"
+    },
+    "webSiteHostNameBindingHostName": {
+      "value": ""
+    }
+  }
+}

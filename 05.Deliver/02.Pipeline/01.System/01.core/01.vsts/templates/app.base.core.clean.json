@@ -1,25 +1,94 @@
 {
+                                                                                            
+                                                                             
+                                                                                            
+             
+                                                                                                       
+                                                                                                   
+                                                                                          
+      
+                  
+                                                                                        
+                                                                                                       
+                                                                                
+                                                                            
+                                                                                                
+                                                         
+                                                                          
+                                                                                                         
+                                                                                      
+                                                                                                 
+                                                                                               
+                                                                                                
+                                                              
+                                                                 
+     
+                          
+                                                        
+                     
+                                                  
+               
+                                                                         
+                                                                                                     
+                              
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
+             
+                                                                         
+                                                                       
+                                                                                                             
+                                                                 
+                                                                                                 
+                                                                                        
+                                              
+                                                                                                             
+                                                                                                     
+                                                
+                                                                                                        
+                                                                                       
+                                                              
+                                                    
+                                                                                                    
+                                                                                                                   
+                                                                                  
+                                                                                                          
+                                                                                            
+                                                                                                 
+                                                                                     
+                                                                         
+                                                    
+     
+           
+                                                                                                              
     "parameters": {
+                                                                                            
+                                                                                   
+                                                                              
         "linkedAssembliesArmTemplateRootUrl": {
-            "type": "string",
             "metadata": {
                 "description": "Required. The http based base url from which to download referenced linked Assembly ARM Templates. In most cases will be an Url to a Storage Account Container Url to which newly downloaded Source Files (just the ARM Templates) are copied to."
             },
+            "type": "string"
         },
+                                                                                                  
+                                                                               
         "linkedAssembliesArmTemplateRootSas": {
             "metadata": {
                 "description": "Optional. The Single Access Signature (SAS) required to append to linked Assembly ARM Template Uris in order to get them out of a secured Storage Account Container."
             },
-            "type": "string",
+            "type": "string"
         },
+                                                                                                   
+                                                                                   
+                                                                              
         "linkedResourcesArmTemplateRootUrl": {
             "metadata": {
                 "description": "Required. The http based base url from which to download referenced linked Resource ARM Templates. In most cases will be an Url to a Storage Account Container Url to which newly downloaded Source Files (just the ARM Templates) are copied to."
             },
-            "type": "string",
+            "type": "string"
         },
+                                                                                                         
+                                                                               
         "linkedResourcesArmTemplateRootSas": {
             "metadata": {
                 "description": "Optional. The Single Access Signature (SAS) required to append to linked Resource ARM Template Uris in order to get them out of a secured Storage Account Container."
@@ -28,53 +97,127 @@
             "defaultValue": ""
         },
         "resourceAltLocation": {
-            "type": "string",
             "defaultValue": "southeastasia",
             "allowedValues": [
                 "southeastasia"
             ],
             "metadata": {
                 "description": "Optional. The alt resource location, used for Databases, and any other resources that can't be location in the primary resourceLocation."
-            }
+            },
+            "type": "string"
         },
+                                                                                          
+                                             
+                                                                                          
+                      
+                                                       
+                        
+                                             
+                                                                                            
+                         
+                                     
+                                          
+                                     
+                                                                                                   
+                                                                                       
+                                                                    
+                                                                                        
+                                                                                
+                                                                                               
+                                                                                     
+                                                                                         
+                    
+                                                                                                      
+                                                              
+                                                           
+                                                    
+                                                    
         "resourceNameTemplate": {
             "metadata": {
                 "description": "Required. The default name template to use when developing the names of newly created Resources (eg: 'MYORG-MYAPP-{ENVID}-{BRANCHID}-{RESOURCETYPE}')'."
             },
-            "type": "string",
             "minLength": 6,
-            "maxLength": 32
+            "maxLength": 32,
+            "type": "string"
         },
+                                                
         "commonResourceTags": {
-            "type": "object",
             "defaultValue": {},
             "metadata": {
                 "description": "Optional. An Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
-            }
+            },
+            "type": "object"
         },
+        "cacheRedisProvision": {
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. Cache has a minimum cost of about 20$ per month. But, more importantly, it takes ages to provision."
+            },
+            "type": "bool"
+        },
+                                                                
+                                                      
+                                             
+                                                               
+                                                                    
+                                            
+                                                        
+                                                                    
+                                                                   
+                          
+                        
+                         
+                                                                                                                                           
+              
+                                     
+           
         "sqlServerAdministratorLogin": {
-            "type": "string",
             "minLength": 6,
             "metadata": {
                 "description": "Required. Provide the Sql Server Administrator's name, which an infrastructure support specialist will have defined and set within a key vault outside of the projects resource group (and probably in a different subscription) so use the reference approach to get it out, and place it here. Required when creating a new Database Server. Note that security is not perfect: a developer can develop arm templates whose output records the values it extracts from a keyvault. Provide the Sql Server Administrator's Login. Required when creating a new Database Server. This is unfortunate as it requires risk-mitigation processes around deployment to correctly secure the secret and not leave it in the hands of stakeholders that don't absolutely need to know it. Developers don't."
-            }
+            },
+            "type": "string"
         },
+                                                                    
+                                                      
+                                                       
+                                                               
+                                                                    
+                                            
+                                                        
+                                                                    
+                                                                   
+                          
+                        
+                         
+                                                                                                                                           
+              
+                                     
+           
         "sqlServerAdministratorLoginPassword": {
-            "type": "securestring",
             "metadata": {
                 "description": "Required. Provide the Sql Server Administrator's Password, which an infrastructure support specialist will have defined and set within a key vault outside of the projects resource group (and probably in a different subscription) so use the reference approach to get it out, and place it here.  Required when creating a new Database Server.  Note that security is not perfect: a developer can develop arm templates whose output records the values it extracts from a keyvault."
-            }
+            },
+            "type": "securestring"
         },
+                                                                           
+                                                                                    
+                                                                                          
+                               
+                                                                                     
+                                                 
         "sqlServerDeveloperStatingSecretsAreNotRecordedInCode": {
-            "type": "string",
             "minLength": 4,
             "metadata": {
                 "description": "Required. The Name of the ARM developer (ie *you*!) who is certifying they understand the security risks of recording passwords in a parameter file, or any other code and are not doing it here (and the code base's commit history will back them up). Instead, the value will be retrieved from an eternal keyvault to which the build service has been granted access. "
-            }
+            },
+            "type": "string"
         },
+                                                                       
+                                                           
+                                         
+                                                               
         "webServerFarmResourceSku": {
-            "type": "string",
-            "defaultValue": "F1",
             "allowedValues": [
                 "F1",
                 "D1",
@@ -82,96 +225,197 @@
                 "S1",
                 "S2"
             ],
+            "defaultValue": "F1",
             "metadata": {
                 "description": "Optional. App Service server pricing tier and capacity. Check details at https://azure.microsoft.com/en-us/pricing/details/app-service/ Default is F1 to keep prices down until you know you need Site Binding. Or AlwaysOn. Or other features that need a mininum of S1."
-            }
+            },
+            "type": "string"
         },
+                                                                  
+                                            
+          
+                                                                                                         
+                                                
+                                              
+                                          
+                            
+                             
+                                                                                                                                      
+                  
+                                       
+                       
+              
         "webCertificatePfxBase64": {
-            "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional.   Base64 encoded PFX certificate for appService Web Site SSL. Required to match the information within appServiceWebSiteHostName."
-            }
+            },
+            "type": "string"
         },
+                                                                                                         
+                                                
+                                              
+                                          
+                            
+                             
+                                                                                                                                      
+                  
+                                         
+                       
+              
         "webCertificatePfxPassword": {
-            "type": "securestring",
             "metadata": {
                 "description": "Optional.   Password for the appService Web Site SSL Pfx Certificate. Only required if `sslCertificateBase64` is provided."
-            }
+            },
+            "type": "securestring"
         },
+                                                                           
+                                                                                    
+                                                                                            
+                               
+                                                                                     
+                                                 
         "webCertificateDeveloperStatingSecretsAreNotRecordedInCode": {
-            "type": "string",
             "minLength": 4,
             "metadata": {
                 "description": "The Name of the ARM developer (ie *you*!) who is certifying they understand the security risks of recording passwords in a parameter file, or any other code and are not doing it here (and the code base's commit history will back them up). Instead, the value will be retrieved from an eternal keyvault to which the build service has been granted access. "
-            }
+            },
+            "type": "string"
         },
+                                             
+                         
+                                                                                                                                                      
+                                                    
         "webSiteResourceName": {
-            "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. The name for the Resource. Default it ''. If not provided, falls back to an 'resourceNameTemplate'-based, automatically generated resource name, using 'web-site' for the {RT} token. See also 'webSiteHostNameBindingHostName'."
-            }
+            },
+            "type": "string"
         },
+                                                                              
         "webSiteAlwaysOn": {
-            "type": "bool",
             "defaultValue": false,
             "metadata": {
                 "description": "Optional. The default is false as true requires a minimal SKU of S1."
-            }
+            },
+            "type": "bool"
         },
+                                                                    
+                                                                                     
+                              
+                               
+                                              
+                
         "webSiteConfigAppSettings": {
-            "type": "object",
             "defaultValue": {},
             "metadata": {
                 "description": "Optional. A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target site as AppSettings."
-            }
+            },
+            "type": "object"
         },
+                                                                           
+                                                                                    
+                                                                                          
+                               
         "webSiteConfigAppSettingsDeveloperStatingSecretsAreNotRecordedInCode": {
-            "type": "string",
             "minLength": 4,
             "metadata": {
                 "description": "The Name of the ARM developer (ie *you*!) who is certifying they understand the security risks of recording passwords in a parameter file, or any other code and are not doing it here (and the code base's commit history will back them up)."
-            }
+            },
+            "type": "string"
         },
+                                                                                                                                                                                 
+                                                                                                                                                                          
+                                         
+                                                              
+                                                                  
+                                                              
+                                                                                                                    
+                                                                          
+                              
+                           
+                                     
+                                                                                                 
+                                    
+                
+                                     
+                                                                                                 
+                                    
+                
+                                                
+                                                                                                                                   
+                                    
+               
+            
         "webSiteConfigConnectionStrings": {
-            "type": "object",
             "defaultValue": {},
             "metadata": {
                 "description": "Optional. A Complex Object (not an array) of a set of {'name' { 'value' and 'type'}}, that are added to the site's ConnectionStrings. Type is Case Senstive. And probably should be SQLAzure in most cases."
-            }
+            },
+            "type": "object"
         },
+                                                                           
+                                                                                    
+                                                                                          
+                               
+                                                                            
         "webSiteConfigConnectionStringsDeveloperStatingSecretsAreNotRecordedInCode": {
-            "type": "string",
             "minLength": 4,
             "metadata": {
                 "description": "The Name of the ARM developer (ie *you*!) who is certifying they understand the security risks of recording passwords in a parameter file, or any other code and are not doing it here (and the code base's commit history will back them up). Instead, use the Azure equivalent to IntegratedSecurity (ie, MSI)."
-            }
+            },
+            "type": "string"
         },
+                                                                       
+                                                                     
+                                                                              
+                                                          
+                                                    
+                                                                                                  
+                                                                                                                
+                                  
         "webSiteHostNameBindingHostName": {
-            "type": "string",
             "metadata": {
                 "description": "Optional. The public DNS name of the website. Default is ''. Will require a WebServerFarm SKU of S1 of higher to be set."
-            }
+            },
+            "type": "string"
         }
     },
     "variables": {
+                                                                 
+                              
+                                                                 
         "resources": {
             "resourceNamePrefix": "[toLower('azure.arm.base.')]",
             "resourceNameTemplate": "[parameters('resourceNameTemplate')]",
             "commonResourceTags": "[parameters('commonResourceTags')]"
         },
+                                                                 
+                              
+                                                                 
         "locations": {
+                                 
             "resourceLocation": "[resourceGroup().location]",
+                                                                                                               
             "resourceAltLocation": "[parameters('resourceAltLocation')]"
         },
+                                                                 
+                             
+                                                                 
         "assembly": {
             "resourceId": "[concat(variables('resources').resourceNamePrefix, 'assembly.01')]",
             "linkedResourcesArmTemplateRootUrl": "[parameters('linkedResourcesArmTemplateRootUrl')]",
             "linkedResourcesArmTemplateRootSas": "[parameters('linkedResourcesArmTemplateRootSas')]",
-            "linkedAssembly01": "[concat( parameters('linkedAssembliesArmTemplateRootUrl'), '01/azure.arm.base.assembly.json', parameters('linkedAssembliesArmTemplateRootSas'))]",
+            "linkedAssembly01": "[concat( parameters('linkedAssembliesArmTemplateRootUrl'), '01/azure.arm.base.assembly.json', parameters('linkedAssembliesArmTemplateRootSas'))]"
         },
+                                                                 
+                        
+                                                                 
         "sql": {
+                                                                     
+                                     
+                                                                     
             "server": {
                 "administrator": {
                     "login": "[parameters('sqlServerAdministratorLogin')]",
@@ -180,35 +424,61 @@
                 }
             }
         },
+                                                                 
+                         
+                                                                 
         "web": {
+                                                                     
+                                          
+                                                                     
+                                                                                                                                                    
             "serverFarm": {
-                "resourceSku": "[parameters('webServerFarmResourceSku')]",
+                "resourceSku": "[parameters('webServerFarmResourceSku')]"
             },
+                                                                     
+                                                 
+                                                                     
+                                                                                                                                                    
             "certificate": {
+                                                    
                 "pfxBase64": "[parameters('webCertificatePfxBase64')]",
                 "pfxPassword": "[parameters('webCertificatePfxPassword')]",
                 "developerStatingSecretsAreNotRecordedInCode": "[parameters('webCertificateDeveloperStatingSecretsAreNotRecordedInCode')]"
             },
+                                                                     
+                                   
+                                                                     
+                                                                                                                                                    
             "site": {
                 "resourceName": "[parameters('webSiteResourceName')]",
                 "alwaysOn": "[parameters('webSiteAlwaysOn')]",
                 "config": {
+                                                                                                                                                            
                     "appSettings": {
                         "appSettings": "[parameters('webSiteConfigAppSettings')]",
                         "developerStatingSecretsAreNotRecordedInCode": "parameters('webSiteConfigAppSettingsDeveloperStatingSecretsAreNotRecordedInCode')]"
                     },
+                                                                                                                                                            
                     "connectionStrings": {
                         "connectionStrings": "[parameters('webSiteConfigConnectionStrings')]",
                         "developerStatingSecretsAreNotRecordedInCode": "parameters('webSiteConfigConnectionStringsDeveloperStatingSecretsAreNotRecordedInCode')]"
                     }
-                }, 
+                },              
                 "hostNameBinding": {
                     "hostName": "[parameters('webSiteHostNameBindingHostName')]"
-                },
-            } 
-        } 
-    }, 
+                }
+            }       
+        }      
+    },            
+                                                                            
+                                                                            
+               
+                                                                            
+                                                                            
     "resources": [
+                                                                 
+                                                        
+                                                                 
         {
             "name": "[variables('assembly').resourceId]",
             "apiVersion": "2017-05-10",
@@ -220,6 +490,14 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
+                                                                         
+                                                             
+                                                                      
+                                                                          
+                                                                        
+                                                                                
+                                  
+                                                                             
                     "linkedResourcesArmTemplateRootUrl": {
                         "value": "[variables('assembly').linkedResourcesArmTemplateRootUrl]"
                     },
@@ -235,6 +513,8 @@
                     "commonResourceTags": {
                         "value": "[variables('resources').commonResourceTags]"
                     },
+                                                                             
+                                                         
                     "sqlServerAdministratorLogin": {
                         "value": "[variables('sql').server.administrator.login]"
                     },
@@ -244,9 +524,13 @@
                     "sqlServerDeveloperStatingSecretsAreNotRecordedInCode": {
                         "value": "[variables('sql').server.administrator.developerStatingSecretsAreNotRecordedInCode]"
                     },
+                                                                             
+                                                             
                     "webServerFarmResourceSku": {
                         "value": "[variables('web').serverFarm.resourceSku]"
                     },
+                                                                             
+                                                              
                     "webCertificatePfxBase64": {
                         "value": "[variables('web').certificate.pfxBase64]"
                     },
@@ -256,31 +540,41 @@
                     "webCertificateDeveloperStatingSecretsAreNotRecordedInCode": {
                         "value": "[variables('web').certificate.developerStatingSecretsAreNotRecordedInCode]"
                     },
+                                                                             
+                                                       
                     "webSiteResourceName": {
                         "value": "[variables('web').site.resourceName]"
                     },
                     "webSiteAlwaysOn": {
                         "value": "[variables('web').site.alwaysOn]"
                     },
+                                                                             
+                                                                          
                     "webSiteConfigAppSettings": {
                         "value": "[variables('web').site.config.appSettings.appSettings]"
                     },
                     "webSiteConfigAppSettingsDeveloperStatingSecretsAreNotRecordedInCode": {
                         "value": "[variables('web').site.config.appSettings.developerStatingSecretsAreNotRecordedInCode]"
                     },
+                                                                             
+                                                                                
                     "webSiteConfigConnectionStrings": {
                         "value": "[variables('web').site.config.connectionStrings.connectionStrings]"
                     },
                     "webSiteConfigConnectionStringsDeveloperStatingSecretsAreNotRecordedInCode": {
                         "value": "[variables('web').site.config.connectionStrings.developerStatingSecretsAreNotRecordedInCode]"
                     },
+                                                                             
                     "webSiteHostNameBindingHostName": {
                         "value": "[variables('web').site.hostNameBinding.hostName]"
                     }
-                } 
-            } 
-        } 
+                                                                             
+                }             
+            }             
+        }                             
     ],
-    "outputs": {} 
-    
+                                                             
+             
+                                                             
+    "outputs": {}         
 }
