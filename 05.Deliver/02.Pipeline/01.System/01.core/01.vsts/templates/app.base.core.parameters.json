@@ -3,13 +3,16 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "linkedAssembliesArmTemplateRootUrl": {
-      "value": "https://baseinfrastructureshared.blob.core.windows.net/public/base/core/v-.-/arm-templates/assemblies/"
+      "value": "https://baseinfrastructureshared.blob.core.windows.net/public/base/infrastructure/releases/v-.-/arm-templates/assemblies/"
     },
     "linkedResourcesArmTemplateRootUrl": {
-      "value": "https://baseinfrastructureshared.blob.core.windows.net/public/base/core/v-.-/arm-templates/resources/"
+      "value": "https://baseinfrastructureshared.blob.core.windows.net/public/base/infrastructure/releases/v-.-/arm-templates/resources/"
     },
     "resourceNameTemplate": {
-      "value": "NZ-MOE-BASE-0000-BT-{RT}"
+      "value": "NZ-MOE-BASE-0000-{RT}"
+    },
+    "securityApproach": {
+      "value": "msi"
     },
     "cacheRedisProvision": {
       "value": false
@@ -55,21 +58,35 @@
       }
     },
     "webCertificateDeveloperStatingSecretsAreNotRecordedInCode": {
-      "value": "ssigal"
+      "value": "SSigal"
     },
     "webSiteConfigAppSettings": {
       "value": {
-        "AKey": "AValue"
+        "AppYayFooUno": "AppYayBarUnoApp"
       }
     },
     "webSiteConfigAppSettingsDeveloperStatingSecretsAreNotRecordedInCode": {
       "value": "sigals"
     },
-    "webSiteConfigConnectionStrings": {},
+    "webSiteConfigConnectionStrings": {
+      "value": {
+        "ExampleConnStringAppA": {
+          "value": "Server=mySuperServerAddress;Database=myDataBase;Trusted_Connection=True;",
+          "type": "SQLAzure"
+        },
+        "ExampleConnStringAppB": {
+          "value": "Server=mySuperServerAddress;Database=myDataBase;Trusted_Connection=True;",
+          "type": "SQLAzure"
+        }
+      }
+    },
     "webSiteConfigConnectionStringsDeveloperStatingSecretsAreNotRecordedInCode": {
       "value": "sigals"
     },
     "webSiteHostNameBindingHostName": {
+      "value": "www.baseplatform.space"
+    },
+    "webSiteHostNameBindingHostAlt": {
       "value": "baseplatform.space"
     }
   }
