@@ -73,10 +73,6 @@
         "ExampleConnStringAppA": {
           "value": "Server=mySuperServerAddress;Database=myDataBase;Trusted_Connection=True;",
           "type": "SQLAzure"
-        },
-        "ExampleConnStringAppB": {
-          "value": "Server=mySuperServerAddress;Database=myDataBase;Trusted_Connection=True;",
-          "type": "SQLAzure"
         }
       }
     },
