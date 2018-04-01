@@ -3,10 +3,10 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "linkedAssembliesArmTemplateRootUrl": {
-      "value": "https://baseinfrastructureshared.blob.core.windows.net/public/base/infrastructure/releases/v-.-/commented/arm-templates/assemblies/"
+      "value": "https://baseinfrastructureshared.blob.core.windows.net/public/base/infrastructure/releases/v-.-/arm-templates/commented/assemblies/"
     },
     "linkedResourcesArmTemplateRootUrl": {
-      "value": "https://baseinfrastructureshared.blob.core.windows.net/public/base/infrastructure/releases/v-.-/commented/arm-templates/resources/"
+      "value": "https://baseinfrastructureshared.blob.core.windows.net/public/base/infrastructure/releases/v-.-/arm-templates/commented/resources/"
     },
     "resourceNameTemplate": {
       "value": "NZ-MOE-BASE-0000-{RT}"
