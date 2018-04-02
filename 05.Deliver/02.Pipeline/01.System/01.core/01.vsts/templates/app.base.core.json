@@ -197,7 +197,7 @@
             "armResourceId": "[concat(variables('resources').resourceNamePrefix, 'assembly.01')]",
             "linkedResourcesArmTemplateRootUrl": "[parameters('linkedResourcesArmTemplateRootUrl')]",
             "linkedResourcesArmTemplateRootSas": "[parameters('linkedResourcesArmTemplateRootSas')]",
-            "linkedAssembly01": "[concat( parameters('linkedAssembliesArmTemplateRootUrl'), '01/azure.arm.base.assembly.json', parameters('linkedAssembliesArmTemplateRootSas'))]"
+            "linkedAssembly01TemplateUrl": "[concat( parameters('linkedAssembliesArmTemplateRootUrl'), '01/azure.arm.base.assembly.json', parameters('linkedAssembliesArmTemplateRootSas'))]"
         },
         "sql": {
             "server": {
@@ -245,7 +245,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[variables('assembly').linkedAssembly01]",
+                    "uri": "[variables('assembly').linkedAssembly01TemplateUrl]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
