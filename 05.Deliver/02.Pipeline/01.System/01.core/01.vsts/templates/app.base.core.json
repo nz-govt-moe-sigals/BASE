@@ -319,7 +319,7 @@
     "outputs": {
         "webSiteResourceName": {
             "type": "string",
-            "value": "[reference(variables('web').site.armTemplateId).outputs.webSiteResourceName.value]"
+            "value": "[reference(variables('assembly').armTemplateId).outputs.webSiteResourceName.value]"
         },
         "webSitePrincipalId": {
             "type": "string",
