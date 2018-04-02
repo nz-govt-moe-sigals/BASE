@@ -50,6 +50,7 @@
     <Compile Include="Contracts\IHasTransientLifecycle.cs" />
     <Compile Include="ExtensionMethods\GuidExtensions.cs" />
     <Compile Include="ExtensionMethods\IntExtensions.cs" />
+    <Compile Include="ExtensionMethods\StringExtensions.cs" />
     <Compile Include="Factories\GuidFactory.cs" />
     <Compile Include="Models\Configuration\AnalyticsConfiguration.cs" />
     <Compile Include="Models\Configuration\ApplicationCreatorInformation.cs" />
