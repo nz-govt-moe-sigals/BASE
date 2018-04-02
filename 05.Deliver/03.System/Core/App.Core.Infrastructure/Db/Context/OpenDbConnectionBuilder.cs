@@ -52,9 +52,14 @@ namespace App.Core.Infrastructure.Db.Context
             // To get around:
             // "Cannot set the AccessToken property if 'UserID', 'UID', 'Password', or 'PWD' has been specified in connection string."
             var terms = new[] {"UserID","Password","PWD=","UID=" };
-            if (terms.Any(term => dbConnection.ConnectionString.Contains(term, StringComparison.InvariantCultureIgnoreCase)))
+            string connectionString = dbConnection.ConnectionString;
+
+            foreach (var term in terms)
             {
-                return;
+                if (connectionString.Contains(term, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return;
+                }
             }
 
             string accessToken = await AppCoreDbContextMSITokenFactory.GetAzureSqlResourceTokenAsync();
