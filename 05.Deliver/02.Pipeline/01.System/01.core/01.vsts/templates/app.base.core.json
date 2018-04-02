@@ -194,7 +194,7 @@
             "resourceAltLocation": "[parameters('resourceAltLocation')]"
         },
         "assembly": {
-            "resourceId": "[concat(variables('resources').resourceNamePrefix, 'assembly.01')]",
+            "armResourceId": "[concat(variables('resources').resourceNamePrefix, 'assembly.01')]",
             "linkedResourcesArmTemplateRootUrl": "[parameters('linkedResourcesArmTemplateRootUrl')]",
             "linkedResourcesArmTemplateRootSas": "[parameters('linkedResourcesArmTemplateRootSas')]",
             "linkedAssembly01": "[concat( parameters('linkedAssembliesArmTemplateRootUrl'), '01/azure.arm.base.assembly.json', parameters('linkedAssembliesArmTemplateRootSas'))]"
@@ -239,7 +239,7 @@
     }, 
     "resources": [
         {
-            "name": "[variables('assembly').resourceId]",
+            "name": "[variables('assembly').armResourceId]",
             "apiVersion": "2017-05-10",
             "type": "Microsoft.Resources/deployments",
             "properties": {
