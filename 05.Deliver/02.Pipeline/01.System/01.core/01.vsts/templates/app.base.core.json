@@ -316,5 +316,31 @@
             } 
         } 
     ],
-    "outputs": {} 
+    "outputs": {
+        "webSiteResourceName": {
+            "type": "string",
+            "value": "[reference(variables('web').site.armTemplateId).outputs.webSiteResourceName.value]"
+        },
+        "webSitePrincipalId": {
+            "type": "string",
+            "value": "[reference(variables('assembly').armTemplateId).outputs.webSitePrincipalId.value]"
+        },
+        "webSiteDefaultConnectionString": {
+            "type": "string",
+            "value": "[reference(variables('assembly').armTemplateId).outputs.webSiteDefaultConnectionString.value]"
+        },
+        "webSiteKeyVaultResourceName": {
+            "type": "string",
+            "value": "[reference(variables('assembly').armTemplateId).outputs.webSiteKeyVaultResourceName.value]"
+        },
+        "sqlServerResourceName": {
+            "type": "string",
+            "value": "[reference(variables('assembly').armTemplateId).outputs.sqlServerResourceName.value]"
+        },
+        "sqlServerDatabaseResourceName": {
+            "type": "string",
+            "value": "[reference(variables('assembly').armTemplateId).outputs.sqlServerDatabaseResourceName.value]"
+        }
+
+    } 
 }
