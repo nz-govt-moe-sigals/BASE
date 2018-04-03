@@ -52,7 +52,7 @@
         {
         }
 
-        public AppCoreDbContext(string connectionStringOrName) : base( OpenDbConnectionBuilder.CreateAsync(connectionStringOrName).Result, true)
+        public AppCoreDbContext(string connectionStringOrName) : base(App.AppDependencyLocator.Current.GetInstance<OpenDbConnectionBuilder>().CreateAsync(connectionStringOrName).Result, true)
         {
         }
 

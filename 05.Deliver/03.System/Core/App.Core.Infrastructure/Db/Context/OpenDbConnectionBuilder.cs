@@ -55,14 +55,14 @@ namespace App.Core.Infrastructure.Db.Context
             string msiEndpoint = Environment.GetEnvironmentVariable("MSI_ENDPOINT");
             if (string.IsNullOrEmpty(msiEndpoint))
             {
-                _diagnosticsTracingService.Trace(TraceLevel.Info, "OpenDbConnectionBuilder.CreateAsync: Missing MSI_ENDPOINT");
+                _diagnosticsTracingService.Trace(TraceLevel.Info, "OpenDbConnectionBuilder.AttachAccessTokenToDbConnection: Missing MSI_ENDPOINT");
                 return;
             }
 
             var msiSecret = Environment.GetEnvironmentVariable("MSI_SECRET");
             if (string.IsNullOrEmpty(msiSecret))
             {
-                _diagnosticsTracingService.Trace(TraceLevel.Info, "OpenDbConnectionBuilder.CreateAsync: Missing MSI_SECRET");
+                _diagnosticsTracingService.Trace(TraceLevel.Info, "OpenDbConnectionBuilder.AttachAccessTokenToDbConnection: Missing MSI_SECRET");
                 return;
             }
 
@@ -78,14 +78,15 @@ namespace App.Core.Infrastructure.Db.Context
                 {
                     if (connectionString.Contains(term, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        _diagnosticsTracingService.Trace(TraceLevel.Info, "OpenDbConnectionBuilder.CreateAsync: Contains UserName or Password");
+                        _diagnosticsTracingService.Trace(TraceLevel.Info, "OpenDbConnectionBuilder.AttachAccessTokenToDbConnection: Contains UserName or Password");
                         return;
                     }
                 }
 
+            _diagnosticsTracingService.Trace(TraceLevel.Info, "OpenDbConnectionBuilder.AttachAccessTokenToDbConnection: Attempting to retrieve Token.");
             string accessToken = await AppCoreDbContextMSITokenFactory.GetAzureSqlResourceTokenAsync();
 
-            _diagnosticsTracingService.Trace(TraceLevel.Info, "OpenDbConnectionBuilder.CreateAsync: AccessToken: {0}",accessToken);
+            _diagnosticsTracingService.Trace(TraceLevel.Info, "OpenDbConnectionBuilder.AttachAccessTokenToDbConnection: AccessToken: {0}", accessToken);
 
             sqlConnection.AccessToken = accessToken;
         }
