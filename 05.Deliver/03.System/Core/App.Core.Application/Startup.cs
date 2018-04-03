@@ -1,6 +1,8 @@
 ﻿namespace App.Core.Application
 {
     using App.Core.Application.App_Start;
+    using App.Core.Infrastructure.Services;
+    using App.Core.Shared.Models.Messages;
     using Owin;
 
     public class Startup
@@ -14,14 +16,24 @@
         // IMPORTANT: Also, requires  Microsoft.Owin.Host.SystemWeb.dll or else won't be invoked.
         public void Configuration(IAppBuilder appBuilder)
         {
-            //Sometimes Required: LoadAllAssembliesConfig.Configure(appBuilder);
+            using (var elapsedTime = new ElapsedTime())
+            {
+                //Sometimes Required: LoadAllAssembliesConfig.Configure(appBuilder);
 
-            // SETUP STEP: Initialize Common ServiceLocator, early (after ensuring it will find all assemblies):
-            ServiceLocatorConfig.Configure(appBuilder);
+                // SETUP STEP: Initialize Common ServiceLocator, early (after ensuring it will find all assemblies):
+                ServiceLocatorConfig.Configure(appBuilder);
 
-            // Now that we have Service Location,
-            // Use Service Locator to build injection right from the start:
-            AppDependencyLocator.Current.GetInstance<StartupExtended>().Configure(appBuilder);
+                // Now that we have Service Location,
+                // Use Service Locator to build injection right from the start:
+                AppDependencyLocator.Current.GetInstance<StartupExtended>().Configure(appBuilder);
+
+                AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
+                    .Register(
+                        ConfigurationStepType.General,
+                        ConfigurationStepStatus.White,
+                        "Startup",
+                        $"Startup sequence complete. Took {elapsedTime.ElapsedText}");
+            }
 
         }
     }

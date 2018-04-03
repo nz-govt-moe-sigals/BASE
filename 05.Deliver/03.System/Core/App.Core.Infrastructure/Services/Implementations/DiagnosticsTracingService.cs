@@ -10,36 +10,36 @@
     /// <seealso cref="App.Core.Infrastructure.Services.IDiagnosticsTracingService" />
     public class DiagnosticsTracingService : AppCoreServiceBase, IDiagnosticsTracingService
     {
-        private readonly Queue<TraceEntry> _cache = new Queue<TraceEntry>();
-        private readonly TraceLevel _flushLevel;
+        private static readonly Queue<TraceEntry> _cache = new Queue<TraceEntry>();
+        private static TraceLevel _flushLevel;
 
         public DiagnosticsTracingService()
         {
             // Needs to be wired up to Application Settings to be dynamic in order to not need a restart
             // when errors start happening.
-            this._flushLevel = TraceLevel.Error;
+            _flushLevel = TraceLevel.Verbose;
         }
 
         public void Trace(TraceLevel traceLevel, string message, params object[] arguments)
         {
-            this._cache.Enqueue(new TraceEntry {TracelLevel = traceLevel, Message = message, Args = arguments});
-            if (this._cache.Count > 100)
+            _cache.Enqueue(new TraceEntry {TracelLevel = traceLevel, Message = message, Args = arguments});
+            if (_cache.Count > 100)
             {
                 lock (this)
                 {
-                    while (this._cache.Count > 100)
+                    while (_cache.Count > 100)
                     {
-                        this._cache.Dequeue();
+                        _cache.Dequeue();
                     }
                 }
             }
-            if (traceLevel <= this._flushLevel)
+            if (traceLevel <= _flushLevel)
             {
                 lock (this)
                 {
-                    while (this._cache.Count > 0)
+                    while (_cache.Count > 0)
                     {
-                        var x = this._cache.Dequeue();
+                        var x = _cache.Dequeue();
                         DirectTrace(x.TracelLevel, x.Message, x.Args);
                     }
                 }
