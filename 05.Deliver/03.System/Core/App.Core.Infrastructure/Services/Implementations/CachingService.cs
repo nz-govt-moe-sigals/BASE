@@ -8,7 +8,7 @@
     ///     <see cref="ICachingService" />
     ///     Infrastructure Service Contract
     /// </summary>
-    public class CachingService : ICachingService
+    public class CachingService : AppCoreServiceBase, ICachingService
     {
         private readonly IUniversalDateTimeService _dateTimeService;
 

@@ -13,7 +13,7 @@
     ///     Infrastructure Service Contract
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.IMediaMetadataService" />
-    public class MediaMetadataService : IMediaMetadataService
+    public class MediaMetadataService : AppCoreServiceBase, IMediaMetadataService
     {
         //private readonly IHostSettingsService _hostSettingsService;
         private readonly MediaMetadataServiceConfiguration _metadataServiceConfiguration;

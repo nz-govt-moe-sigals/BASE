@@ -5,6 +5,7 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
     using System.Linq;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Configuration;
+    using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages.APIs.V0100;
 
     /// <summary>
@@ -21,17 +22,23 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
         private readonly IObjectMappingService _objectMappingService;
 
 
-        public ApplicationDescriptionController(IPrincipalService principalService,
+        public ApplicationDescriptionController(
+            IDiagnosticsTracingService diagnosticsTracingService,
+            IPrincipalService principalService,
             IApplicationInformationService applicationInformationService,
             IObjectMappingService objectMappingService
-        ) : base(principalService)
+        ) : base(diagnosticsTracingService, principalService)
         {
             this._applicationInformationService = applicationInformationService;
             this._objectMappingService = objectMappingService;
+
+            this._diagnosticsTracingService.Trace(TraceLevel.Debug, "ApplicationDescriptionController created.");
         }
 
         public IQueryable<ApplicationDescriptionDto> Get()
         {
+            this._diagnosticsTracingService.Trace(TraceLevel.Debug, "ApplicationDescriptionController.Get");
+
             var result = new[]
             {
                 this._objectMappingService.Map<ApplicationDescription, ApplicationDescriptionDto>(this
@@ -45,6 +52,7 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
         //Really doesn't matter what guid we provide (always returns the only one)
         public ApplicationDescriptionDto Get(Guid key)
         {
+            this._diagnosticsTracingService.Trace(TraceLevel.Debug, $"ApplicationDescriptionController.Get: {key}");
 
             var result =
                 this._objectMappingService.Map<ApplicationDescription, ApplicationDescriptionDto>(this

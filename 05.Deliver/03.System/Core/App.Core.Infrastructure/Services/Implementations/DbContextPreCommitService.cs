@@ -5,6 +5,7 @@
 
     using System.Data.Entity;
     using App.Core.Infrastructure.Db.Interception;
+    using App.Core.Infrastructure.Services.Implementations;
 
     /// <summary>
     ///     Implementation of the
@@ -21,7 +22,7 @@
     /// </para>
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.IDbContextPreCommitService" />
-    public class DbContextPreCommitService : IDbContextPreCommitService
+    public class DbContextPreCommitService : AppCoreServiceBase, IDbContextPreCommitService
     {
         /// <summary>
         /// Pass all entities belonging to the specified DbContext

@@ -1,4 +1,4 @@
-﻿namespace App.Core.Application.App_Start
+﻿namespace App.Core.Application.Extended
 {
     using Owin;
 

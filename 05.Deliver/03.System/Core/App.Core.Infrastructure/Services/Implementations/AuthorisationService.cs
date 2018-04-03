@@ -15,7 +15,7 @@ namespace App.Core.Infrastructure.Services.Implementations
     /// is Authorised to perform specific Operations.
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.IAuthorisationService" />
-    public class AuthorisationService : IAuthorisationService
+    public class AuthorisationService : AppCoreServiceBase, IAuthorisationService
     {
         private readonly IPrincipalService _principalService;
 

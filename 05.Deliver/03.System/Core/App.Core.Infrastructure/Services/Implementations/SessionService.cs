@@ -14,7 +14,7 @@ namespace App.Core.Infrastructure.Services.Implementations
     ///     Infrastructure Service Contract
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.ISessionService" />
-    public class SessionService : ISessionService
+    public class SessionService : AppCoreServiceBase, ISessionService
     {
         private readonly IRepositoryService _repositoryService;
 

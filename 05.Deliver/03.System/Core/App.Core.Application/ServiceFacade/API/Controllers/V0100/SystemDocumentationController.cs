@@ -15,7 +15,7 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
     /// </summary>
     public class SystemDocumentationController : ODataControllerBase
     {
-        public SystemDocumentationController(IPrincipalService principalService) : base(principalService)
+        public SystemDocumentationController(IDiagnosticsTracingService diagnosticsTracingService, IPrincipalService principalService) : base(diagnosticsTracingService, principalService)
         {
             throw new ToDoException("SystemDocumentationController");
         }

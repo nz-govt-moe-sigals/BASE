@@ -43,8 +43,8 @@ namespace App.Core.Infrastructure.Services.Implementations
     ///    * No longer needed: New-AzureRmADServicePrincipal -ApplicationId <Guid>
     /// </para>
     /// </summary>
-    public class AzureKeyVaultService : IAzureKeyVaultService
-        {
+    public class AzureKeyVaultService : AppCoreServiceBase, IAzureKeyVaultService
+    {
             public  AzureKeyVaultServiceConfiguration Configuration
         {
                 get

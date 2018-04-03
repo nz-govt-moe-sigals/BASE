@@ -13,7 +13,6 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
     public class NotificationUpdateController : ODataControllerBase
     {
         private readonly IUniversalDateTimeService _dateTimeService;
-        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         private readonly IRepositoryService _repositoryService;
         private readonly IObjectMappingService _objectMappingService;
         private readonly ISecureAPIMessageAttributeService _secureApiMessageAttribute;
@@ -24,10 +23,9 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
             IPrincipalService principalService,
             IRepositoryService repositoryService,
             IObjectMappingService objectMappingService,
-            ISecureAPIMessageAttributeService secureApiMessageAttribute) : base(principalService)
+            ISecureAPIMessageAttributeService secureApiMessageAttribute) : base(diagnosticsTracingService, principalService)
         {
             this._dateTimeService = dateTimeService;
-            this._diagnosticsTracingService = diagnosticsTracingService;
             this._repositoryService = repositoryService;
             this._objectMappingService = objectMappingService;
             this._secureApiMessageAttribute = secureApiMessageAttribute;

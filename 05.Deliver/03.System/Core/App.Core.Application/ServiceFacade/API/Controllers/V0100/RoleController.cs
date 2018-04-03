@@ -32,7 +32,7 @@
         public IQueryable<RoleDto> Get()
         {
             return InternalGet();
-                    }
+        }
 
         //[ODataRoute("({key})")]
         public RoleDto Get(Guid key)

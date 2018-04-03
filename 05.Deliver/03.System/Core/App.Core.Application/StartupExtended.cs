@@ -3,6 +3,7 @@ namespace App.Core.Application
     using System.Web.Mvc;
     using App.Core.Application.App_Start;
     using App.Core.Application.DependencyResolution;
+    using App.Core.Application.Extended;
     using App.Core.Application.Initialization;
     using App.Core.Infrastructure.Services;
     using Owin;

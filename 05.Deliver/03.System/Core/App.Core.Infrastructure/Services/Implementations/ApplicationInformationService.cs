@@ -11,7 +11,7 @@ namespace App.Core.Infrastructure.Services.Implementations
     ///     Infrastructure Service Contract
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.IApplicationInformationService" />
-    public class ApplicationInformationService : IApplicationInformationService
+    public class ApplicationInformationService : AppCoreServiceBase, IApplicationInformationService
     {
         private readonly ApplicationInformationServiceConfiguration _applicationInformationServiceConfiguration;
 

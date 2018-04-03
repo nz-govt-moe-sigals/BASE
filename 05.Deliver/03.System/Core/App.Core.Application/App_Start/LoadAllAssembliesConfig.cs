@@ -1,6 +1,7 @@
 ﻿namespace App.Core.Application
 {
     using System;
+    using System.Diagnostics;
     using Owin;
 
     /// <summary>
@@ -22,7 +23,16 @@
         /// <param name="appBuilder">The application builder.</param>
         public static void Configure(IAppBuilder appBuilder)
         {
-            AppDomain.CurrentDomain.LoadAllBinDirectoryAssemblies();
+            using (var elapsedTime = new ElapsedTime())
+            {
+                AppDomain.CurrentDomain.LoadAllBinDirectoryAssemblies();
+
+                // Can't write it out to IConfigurationStepService
+                // as IoC is not yet up and running.
+                Trace.TraceInformation($"All Assemblies in Bin Directory loaded. Time: {elapsedTime.ElapsedText}.");
+
+            }
+
         }
     }
 }

@@ -5,9 +5,17 @@
     using System.Threading.Tasks;
     using System.Web;
     using App.Core.Infrastructure.IDA.Models;
+    using App.Core.Infrastructure.Services;
 
     public class OIDCAPIClientService : IOIDCAPIClientService
     {
+        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
+
+        public OIDCAPIClientService(IDiagnosticsTracingService diagnosticsTracingService)
+        {
+            this._diagnosticsTracingService = diagnosticsTracingService;
+        }
+
         public Task<HttpResponseMessage> MakeRequestAsync(
             IOIDCConfidentialClientConfiguration oidcConfidentialClientConfiguration,
             string authorityUriOverride,
@@ -16,7 +24,7 @@
             HttpMethod verb,
             Uri apiUri)
         {
-            var oidcRequestHelper = new OidcRequestHelper();
+            var oidcRequestHelper = new OidcRequestHelper(this._diagnosticsTracingService);
 
             return oidcRequestHelper.MakeRequestAsync(
                 oidcConfidentialClientConfiguration,
@@ -34,7 +42,7 @@
             string[] fqScopes,
             HttpRequestMessage httpRequestMessage)
         {
-            var oidcRequestHelper = new OidcRequestHelper();
+            var oidcRequestHelper = new OidcRequestHelper(this._diagnosticsTracingService);
 
             return oidcRequestHelper.MakeRequestAsync(
                 oidcConfidentialClientConfiguration,

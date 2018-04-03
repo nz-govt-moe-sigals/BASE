@@ -10,7 +10,7 @@ namespace App.Core.Infrastructure.Services.Implementations
     ///     Infrastructure Service Contract
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.ISMTPService" />
-    public class SMTPService : ISMTPService
+    public class SMTPService : AppCoreServiceBase, ISMTPService
     {
         private readonly SMTPServiceConfiguration _smtpServiceConfiguration;
 

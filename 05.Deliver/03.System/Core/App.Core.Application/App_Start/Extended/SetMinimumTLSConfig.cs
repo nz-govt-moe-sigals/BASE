@@ -1,7 +1,6 @@
-﻿namespace App.Core.Application.App_Start
+﻿namespace App.Core.Application.Extended
 {
     using System;
-    using System.Configuration;
     using System.Net;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Messages;
@@ -50,12 +49,13 @@
             // if disable TLS 1.0 is your requirement, please try to use 
             // azure cloud service web role to host your application."
 
+
             AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
                 .Register(
                     ConfigurationStepType.Security,
                     ConfigurationStepStatus.Orange,
                     "TLS",
-                    "Limiting to > TLS 1.0 for incoming is dependent on host environment..");
+                    "Limiting to > TLS 1.0 for incoming is dependent on host environment. Azure's mininum is 1.1. Default for new App Services is 1.2.");
 
         }
 
@@ -64,24 +64,36 @@
             //To ensure *OUTBOUND* connections are over TLS1.2:
 
             //Must be the very first thing the application does because ServicePointManager will initialize only once. 
-            SecurityProtocolType setting;
-            var tmp = this._hostSettingsService.GetObject<string>("App:Core:TLS:SecurityProtocol");
-
-            if (!Enum.TryParse(tmp, out setting))
+            using (var elapsedTime = new ElapsedTime())
             {
-                return;
+
+                SecurityProtocolType setting;
+
+                string key = "App:Core:TLS:SecurityProtocol";
+
+                var tmp = this._hostSettingsService.GetObject<string>(key);
+
+                if (!Enum.TryParse(tmp, out setting))
+                {
+                    AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
+                        .Register(
+                            ConfigurationStepType.Security,
+                            ConfigurationStepStatus.Orange,
+                            "TLS",
+                            $"Unable to parse {key} for outbound traffic. Took {elapsedTime.ElapsedText}");
+                    return;
+                }
+                //setting will be one of "Ssl3", "Tls", "Tls11", "Tls12"
+                //Starting with .NET4.7 the default value is set to a new value "Default"
+                ServicePointManager.SecurityProtocol = setting;
+
+                AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
+                    .Register(
+                        ConfigurationStepType.Security,
+                        ConfigurationStepStatus.Green,
+                        "TLS",
+                        $"TLS11 and lower is disallowed for outgoing. Took {elapsedTime.ElapsedText}");
             }
-            //setting will be one of "Ssl3", "Tls", "Tls11", "Tls12"
-            //Starting with .NET4.7 the default value is set to a new value "Default"
-            ServicePointManager.SecurityProtocol = setting;
-
-            AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
-                .Register(
-                    ConfigurationStepType.Security,
-                    ConfigurationStepStatus.Green,
-                    "TLS",
-                    "TLS11 and lower is disallowed for outgoing.");
-
         }
     }
 }

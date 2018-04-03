@@ -318,28 +318,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\InitializerConfig.cs" />
+    <Compile Include="App_Start\Extended\InitializerConfig.cs" />
     <Compile Include="DependencyResolution\AppModule1Registry.cs" />
     <Compile Include="Initialization\DependencyResolution\AppCoreRegistry.cs" />
     <Compile Include="Initialization\OData\IAppOdataModelBuilder.cs" />
     <Compile Include="Initialization\OData\IAppOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\AppCoreOdataModelBuilder.cs" />
     <Compile Include="Initialization\OData\Implementations\AppOdataModelBuilder.cs" />
-    <Compile Include="App_Start\AuthConfig.cs" />
-    <Compile Include="App_Start\AutoMapperConfig.cs" />
-    <Compile Include="App_Start\DbContextConfig.cs" />
-    <Compile Include="App_Start\EnabledAnalytics.cs" />
+    <Compile Include="App_Start\Extended\AuthConfig.cs" />
+    <Compile Include="App_Start\Extended\AutoMapperConfig.cs" />
+    <Compile Include="App_Start\Extended\DbContextConfig.cs" />
+    <Compile Include="App_Start\Extended\EnabledAnalytics.cs" />
     <Compile Include="App_Start\LoadAllAssembliesConfig.cs" />
-    <Compile Include="App_Start\WebMvcConfig.cs" />
-    <Compile Include="App_Start\ResponseHeaderConfig.cs" />
+    <Compile Include="App_Start\Extended\WebMvcConfig.cs" />
+    <Compile Include="App_Start\Extended\ResponseHeaderConfig.cs" />
     <Compile Include="App_Start\ServiceLocatorConfig.cs" />
-    <Compile Include="App_Start\SetMinimumTLSConfig.cs" />
-    <Compile Include="App_Start\StaticFileHandlingConfig.cs" />
-    <Compile Include="App_Start\WebApiCorsConfig.cs" />
-    <Compile Include="App_Start\WebApiFilterConfig.cs" />
-    <Compile Include="App_Start\WebApiJsonSerializerConfig.cs" />
-    <Compile Include="App_Start\WebApiODataConfig.cs" />
-    <Compile Include="App_Start\WebApiRouteConfig.cs" />
+    <Compile Include="App_Start\Extended\SetMinimumTLSConfig.cs" />
+    <Compile Include="App_Start\Extended\StaticFileHandlingConfig.cs" />
+    <Compile Include="App_Start\Extended\WebApiCorsConfig.cs" />
+    <Compile Include="App_Start\Extended\WebApiFilterConfig.cs" />
+    <Compile Include="App_Start\Extended\WebApiJsonSerializerConfig.cs" />
+    <Compile Include="App_Start\Extended\WebApiODataConfig.cs" />
+    <Compile Include="App_Start\Extended\WebApiRouteConfig.cs" />
     <Compile Include="Constants\Api\ApiControllerNames.cs" />
     <Compile Include="FilterConfig.cs" />
     <Compile Include="Initialization\OData\IAppCoreOdataModelBuilder.cs" />
@@ -418,10 +418,10 @@
     <Compile Include="ServiceFacade\API\Controllers\V0100\Values2Controller.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\ValuesController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\Values1Controller.cs" />
-    <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\WebMvcFilterConfig.cs" />
-    <Compile Include="App_Start\WebMvcRouteConfig.cs" />
-    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="App_Start\Extended\BundleConfig.cs" />
+    <Compile Include="App_Start\Extended\WebMvcFilterConfig.cs" />
+    <Compile Include="App_Start\Extended\WebMvcRouteConfig.cs" />
+    <Compile Include="App_Start\Extended\WebApiConfig.cs" />
     <Compile Include="Presentation\Controllers\AboutController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -475,7 +475,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Connected Services\Application Insights\ConnectedService.json" />
     <Content Include="robots.txt" />
-    <Content Include="ServiceFacade\API\README.txt" />
+    <None Include="ServiceFacade\API\README.md" />
     <Content Include="Uploads\REAADME.txt" />
     <Content Include="Views\OIDC\Claims.cshtml" />
     <Content Include="packages.saved" />

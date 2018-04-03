@@ -1,4 +1,4 @@
-﻿namespace App.Core.Application.App_Start
+﻿namespace App.Core.Application.Extended
 {
     using System.Web.Http;
     using App.Core.Infrastructure.Services;
@@ -21,16 +21,20 @@
         /// <param name="httpConfiguration">The HTTP configuration.</param>
         public static void Configure(HttpConfiguration httpConfiguration)
         {
-            // JSON chokes on most EF models:
-            httpConfiguration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling =
-                ReferenceLoopHandling.Ignore;
+            using (var elapsedTime = new ElapsedTime())
+            {
 
-            AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
-                .Register(
-                    ConfigurationStepType.Security,
-                    ConfigurationStepStatus.White,
-                    "JSON Serializer",
-                    "ReferenceLoopHandling set to Ignore.");
+                // JSON chokes on most EF models:
+                httpConfiguration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling =
+                    ReferenceLoopHandling.Ignore;
+
+                AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
+                    .Register(
+                        ConfigurationStepType.Security,
+                        ConfigurationStepStatus.White,
+                        "JSON Serializer",
+                        $"ReferenceLoopHandling set to Ignore. Took {elapsedTime.ElapsedText}");
+            }
 
         }
     }

@@ -2,6 +2,8 @@
 {
     using System.Data.Entity;
     using System.Threading.Tasks;
+    using App.Core.Infrastructure.Constants.Db;
+    using App.Core.Infrastructure.Db.Context;
     using App.Core.Infrastructure.Db.Schema;
     using App.Core.Infrastructure.Initialization;
     using App.Core.Infrastructure.Initialization.DependencyResolution;
@@ -9,25 +11,45 @@
     using App.Module1.Infrastructure.Db.Schema;
     using App.Module1.Shared.Models.Entities;
 
-    public class AppModule1DbContext : DbContext
+
+    /// <summary>
+    /// The Module specific DbContext (notice is has it's own Schema).
+    /// <para>
+    /// Inherits from the common <see cref="AppDbContextBase"/> 
+    /// where <see cref="AppDbContextBase.SaveChanges"/>
+    /// and <see cref="AppDbContextBase.SaveChangesAsync"/>
+    /// intercept the save operation, to clean up new/updated objects
+    /// </para>
+    /// <para>
+    /// Also (and very importantly) the base class' static Constructor 
+    /// ensures its migration capabilities work from the commandline.
+    /// </para>
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Db.Context.AppDbContextBase" />
+    public class AppModule1DbContext : AppDbContextBase
     {
+        // IMPORTANT: Notice that each Module DbContext
+        // gets its own Schema, keeping it nice and separate
+        // from other Modules, and Core:
         public const string SchemaKey = "Module1";
 
-        static AppModule1DbContext()
-        {
-            PowershellServiceLocatorConfig.Initialize();
-            //Database.SetInitializer(new AppModule1DatabaseInitializer());
-            //AppModule1DatabaseInitializerConfigurer.Configure();
-        }
+        // Already being called from base class:
+        //static AppModule1DbContext()
+        //{
+        //    PowershellServiceLocatorConfig.Initialize();
+        //    //Database.SetInitializer(new AppModule1DatabaseInitializer());
+        //    //AppModule1DatabaseInitializerConfigurer.Configure();
+        //}
 
         // Constructor invokes base with Key used to find the ConnectionString in web.config
         // Note use of same db, but different schema
-        public AppModule1DbContext() : base("AppCoreDbContext")
+        public AppModule1DbContext() : base(AppCoreDbConnectionStringNames.App)
         {
         }
 
         public AppModule1DbContext(string connectionStringOrName) : base(connectionStringOrName)
         {
+    
         }
 
         public DbSet<Example> Examples { get; set; }
@@ -46,25 +68,6 @@
                 .Initialize(modelBuilder);
         }
 
-        // Intercept all saves in order to clean up loose ends
-        public override int SaveChanges()
-        {
-            var dbContextPreCommitService =
-                AppDependencyLocator.Current.GetInstance<IDbContextPreCommitService>();
-
-            dbContextPreCommitService.PreProcess(this);
-
-            return base.SaveChanges();
-        }
-
-        public override Task<int> SaveChangesAsync()
-        {
-            var dbContextPreCommitService =
-                AppDependencyLocator.Current.GetInstance<IDbContextPreCommitService>();
-
-            dbContextPreCommitService.PreProcess(this);
-
-            return base.SaveChangesAsync();
-        }
+        // Intercept all saves in order to clean up loose ends in the base Class' SaveChanges/SaveChangesAsync
     }
 }

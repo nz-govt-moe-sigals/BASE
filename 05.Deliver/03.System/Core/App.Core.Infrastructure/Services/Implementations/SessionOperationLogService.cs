@@ -11,7 +11,7 @@
     ///     Infrastructure Service Contract
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.ISessionOperationLogService" />
-    public class SessionOperationLogService : ISessionOperationLogService
+    public class SessionOperationLogService : AppCoreServiceBase, ISessionOperationLogService
     {
         private readonly IContextService _contextService;
         private readonly IRepositoryService _repositoryService;

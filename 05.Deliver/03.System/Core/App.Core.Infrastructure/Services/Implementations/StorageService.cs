@@ -13,7 +13,7 @@ namespace App.Core.Infrastructure.Services.Implementations
     ///     Infrastructure Service Contract
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.IStorageService" />
-    public class StorageService : IStorageService
+    public class StorageService : AppCoreServiceBase, IStorageService
     {
         private readonly ITransientLocalFileStorageService _transientLocalFileStorageService;
 

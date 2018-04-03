@@ -20,7 +20,7 @@ namespace App.Core.Infrastructure.Services.Implementations
     /// </para>
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.IConfigurationStepService" />
-    public class ConfigurationStepService : IConfigurationStepService
+    public class ConfigurationStepService : AppCoreServiceBase, IConfigurationStepService
     {
         private readonly IUniversalDateTimeService _universalDateTimeService;
 

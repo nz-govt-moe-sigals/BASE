@@ -11,7 +11,7 @@
     /// <internal>
     ///     See: http://stackoverflow.com/questions/1029740/get-mime-type-from-filename-extension
     /// </internal>
-    public class DictionaryBasedMimeTypeService : IDictionaryBasedMimeTypeService
+    public class DictionaryBasedMimeTypeService : AppCoreServiceBase, IDictionaryBasedMimeTypeService
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="DictionaryBasedMimeTypeService" /> class.

@@ -1,9 +1,8 @@
-﻿namespace App.Core.Application
+﻿namespace App.Core.Application.Extended
 {
     using System;
     using System.Web.Mvc;
     using App.Core.Application.ErrorHandler;
-    using App.Core.Application.Filters.WebApi;
     using App.Core.Application.Filters.WebMvc;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Messages;
@@ -91,35 +90,46 @@
 
         private void RegisterActionFilters(GlobalFilterCollection filters)
         {
-// IMPORTANT: Notice the Order of Execution numbers added:
-            filters.Add(new MyRequireHttpsWebMvcFilterAttribute(), 1);
+            // IMPORTANT: Notice the Order of Execution numbers added:
+            using (var elapsedTime = new ElapsedTime())
+            {
+                filters.Add(new MyRequireHttpsWebMvcFilterAttribute(), 1);
 
-            this._configurationStepService
-                .Register(
-                    ConfigurationStepType.Security,
-                    ConfigurationStepStatus.Green,
-                    "HTTPS Required (WebMVC)",
-                    "Filter installed to redirect HTTP requests to HTTPS.");
+                this._configurationStepService
+                    .Register(
+                        ConfigurationStepType.Security,
+                        ConfigurationStepStatus.Green,
+                        "HTTPS Required (WebMVC)",
+                        $"Filter installed to redirect HTTP requests to HTTPS. Took {elapsedTime.ElapsedText}");
+            }
 
-            filters.Add(new SessionOperationWebMvcActionFilterAttribute(this._sessionOperationLogService,_principalService), 2);
+            using (var elapsedTime = new ElapsedTime())
+            {
+                filters.Add(
+                    new SessionOperationWebMvcActionFilterAttribute(this._sessionOperationLogService,
+                        this._principalService), 2);
 
-            this._configurationStepService
-                .Register(
-                    ConfigurationStepType.Security,
-                    ConfigurationStepStatus.Green,
-                    "Operation Auditing",
-                    "Filter installed to Audit all operations (in a general manner).");
+                this._configurationStepService
+                    .Register(
+                        ConfigurationStepType.Security,
+                        ConfigurationStepStatus.Green,
+                        "Operation Auditing",
+                        $"Filter installed to Audit all operations (in a general manner). Took {elapsedTime.ElapsedText}");
+            }
 
 
-            // NOTICE THE HIGH NUMBER:
-            filters.Add(_dbContexCommenttWebMvcActionFilterAttribute, Int32.MaxValue);
+            using (var elapsedTime = new ElapsedTime())
+            {
+                // NOTICE THE HIGH NUMBER:
+                filters.Add(this._dbContexCommenttWebMvcActionFilterAttribute, Int32.MaxValue);
 
-            this._configurationStepService
-                .Register(
-                    ConfigurationStepType.General,
-                    ConfigurationStepStatus.White,
-                    "DbContext Commit at end of commands.",
-                    "WebApi Filter installed to automatically commit all pending changes.");
+                this._configurationStepService
+                    .Register(
+                        ConfigurationStepType.General,
+                        ConfigurationStepStatus.White,
+                        "DbContext Commit at end of commands.",
+                        $"WebApi Filter installed to automatically commit all pending changes. Took {elapsedTime}");
+            }
 
             //NO: More securely done within Global.asax.cs: filters.Add(new ThrottleMvcActionFilterAttribute());
         }

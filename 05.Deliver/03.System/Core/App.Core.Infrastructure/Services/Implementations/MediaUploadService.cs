@@ -11,7 +11,7 @@
     ///     Infrastructure Service Contract
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.IMediaUploadService" />
-    public class MediaUploadService : IMediaUploadService
+    public class MediaUploadService : AppCoreServiceBase, IMediaUploadService
     {
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         private readonly IMediaMalwareDetectionService _mediaMalwareVerificationService;

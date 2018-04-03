@@ -26,7 +26,7 @@
     /// </para>
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.IHostSettingsService" />
-    public class HostSettingsService : IHostSettingsService
+    public class HostSettingsService : AppCoreServiceBase, IHostSettingsService
     {
         /// <summary>
         /// The configuration object factory. 

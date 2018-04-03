@@ -11,7 +11,7 @@ namespace App.Core.Infrastructure.Services.Implementations
     ///     Infrastructure Service Contract
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.IPrincipalManagmentService" />
-    public class PrincipalManagmentService : IPrincipalManagmentService
+    public class PrincipalManagmentService : AppCoreServiceBase, IPrincipalManagmentService
     {
         private readonly IRepositoryService _repositoryService;
 

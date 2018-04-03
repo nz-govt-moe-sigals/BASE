@@ -8,7 +8,7 @@
     ///     Infrastructure Service Contract
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.IOperationContextService" />
-    public class OperationContextService : IOperationContextService
+    public class OperationContextService : AppCoreServiceBase, IOperationContextService
     {
         private readonly IConversionService _conversionService;
 

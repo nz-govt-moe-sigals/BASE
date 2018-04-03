@@ -121,7 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\Context\AppContextKeys.cs" />
-    <Compile Include="Constants\Db\Db.cs" />
+    <Compile Include="Constants\Db\AppCoreDbContextNames.cs" />
     <Compile Include="Constants\Db\TextFieldSizes.cs" />
     <Compile Include="Constants\Exceptions\ExceptionMessages.cs" />
     <Compile Include="Constants\IDA\ClaimTitles.cs" />
@@ -133,6 +133,7 @@
     <Compile Include="Db\Context\AppCoreDbContextFactory.cs" />
     <Compile Include="Db\Context\AppCoreDatabaseInitializer.cs" />
     <Compile Include="Db\Context\AppCoreDbContextMSITokenFactory.cs" />
+    <Compile Include="Db\Context\AppDbContextBase.cs" />
     <Compile Include="Db\Context\OpenDbConnectionBuilder.cs" />
     <Compile Include="Db\Interception\Implementations\HasInRecordAuditabilityDbContextPreCommitStrategy.cs" />
     <Compile Include="Db\Interception\Implementations\Base\UnitOfWorkPreCommitProcessingStrategyBase.cs" />

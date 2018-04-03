@@ -16,7 +16,7 @@ namespace App.Core.Infrastructure.Services.Implementations
     ///     Infrastructure Service Contract
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.IOIDCNotificationHandlerService" />
-    public class OIDCNotificationHandlerService : IOIDCNotificationHandlerService
+    public class OIDCNotificationHandlerService : AppCoreServiceBase, IOIDCNotificationHandlerService
     {
         private readonly IRepositoryService _repositoryService;
         private readonly IPrincipalService _principalService;

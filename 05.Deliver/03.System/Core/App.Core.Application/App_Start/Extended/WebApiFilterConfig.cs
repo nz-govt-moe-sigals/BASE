@@ -1,10 +1,9 @@
-﻿namespace App.Core.Application.App_Start
+﻿namespace App.Core.Application.Extended
 {
     using System.Web.Http;
     using System.Web.Http.Filters;
     using App.Core.Application.Filters.WebApi;
     using App.Core.Infrastructure.Services;
-    using App.Core.Infrastructure.Services.Implementations;
     using App.Core.Shared.Models.Messages;
 
     /// <summary>
@@ -77,37 +76,40 @@
 
         void RegisterActionFilters(HttpFilterCollection filters)
         {
-            // A difference between MVC and WebAPI Filters is that you cannot specify order
-            // But inspecting the framework's code it *appears* to be run in the order they 
-            // are added.
+            using (var elapsedTime = new ElapsedTime())
+            {
 
-            filters.Add(
-                new SessionOperationWebApiActionFilterAttribute(
-                    _principalService,
-                    _sessionOperationLogService
+                // A difference between MVC and WebAPI Filters is that you cannot specify order
+                // But inspecting the framework's code it *appears* to be run in the order they 
+                // are added.
+
+                filters.Add(
+                    new SessionOperationWebApiActionFilterAttribute(
+                        this._principalService,
+                        this._sessionOperationLogService
                     ));
 
 
-            // Apply a custom Filter to intercept WebAPI requests and return errors (no redirection).
-            filters.Add(new RequireHttpsWebApiFilterAttribute());
-            AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
-                .Register(
-                    ConfigurationStepType.Security,
-                    ConfigurationStepStatus.Green,
-                    "HTTPS Required (WebAPI)",
-                    "WebAPI Filter installed to redirect HTTP requests to HTTPS.");
+                // Apply a custom Filter to intercept WebAPI requests and return errors (no redirection).
+                filters.Add(new RequireHttpsWebApiFilterAttribute());
+                AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
+                    .Register(
+                        ConfigurationStepType.Security,
+                        ConfigurationStepStatus.Green,
+                        "HTTPS Required (WebAPI)",
+                        "WebAPI Filter installed to redirect HTTP requests to HTTPS.");
 
 
-            // LAST!!!!
-            filters.Add(new DbContextCommitWebApiActionFilterAttribute(this._sessionOperationLogService));
+                // LAST!!!!
+                filters.Add(new DbContextCommitWebApiActionFilterAttribute(this._sessionOperationLogService));
 
-            AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
-                .Register(
-                    ConfigurationStepType.General,
-                    ConfigurationStepStatus.White,
-                    "DbContext Commit at end of commands.",
-                    "WebApi Filter installed to automatically commit all pending changes.");
-
+                AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
+                    .Register(
+                        ConfigurationStepType.General,
+                        ConfigurationStepStatus.White,
+                        "DbContext Commit at end of commands.",
+                        $"WebApi Filter installed to automatically commit all pending changes. Took {elapsedTime.ElapsedText}");
+            }
         }
 
         private static void RegisterResponseFilters(HttpFilterCollection filters)

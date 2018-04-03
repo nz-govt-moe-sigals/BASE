@@ -15,7 +15,7 @@
     ///     Infrastructure Service Contract
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.IRepositoryService" />
-    public class RepositoryService : IRepositoryService
+    public class RepositoryService : AppCoreServiceBase, IRepositoryService
     {
 
         public RepositoryService()

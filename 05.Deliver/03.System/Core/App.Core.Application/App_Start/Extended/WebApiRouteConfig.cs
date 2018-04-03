@@ -1,4 +1,4 @@
-﻿namespace App.Core.Application
+﻿namespace App.Core.Application.Extended
 {
     using System.Collections.Generic;
     using System.Net.Http;

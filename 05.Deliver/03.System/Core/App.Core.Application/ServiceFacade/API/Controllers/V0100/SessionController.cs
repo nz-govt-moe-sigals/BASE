@@ -27,6 +27,7 @@
                   secureApiMessageAttribute
                   )
         {
+            this._diagnosticsTracingService.Trace(TraceLevel.Debug, "SessionController created.");
         }
 
         // GET api/values 

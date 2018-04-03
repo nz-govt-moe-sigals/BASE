@@ -9,10 +9,18 @@ namespace App.Core.Infrastructure.IDA.Services
     using System.Web;
     using App.Core.Application.Oidc;
     using App.Core.Infrastructure.IDA.Models;
+    using App.Core.Infrastructure.Services;
+    using App.Core.Shared.Models.Entities;
     using Microsoft.Identity.Client;
 
     public class OidcRequestHelper
     {
+        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
+
+        public OidcRequestHelper(IDiagnosticsTracingService diagnosticsTracingService)
+        {
+            this._diagnosticsTracingService = diagnosticsTracingService;
+        }
         public async Task<HttpResponseMessage> MakeRequestAsync(
             IOIDCConfidentialClientConfiguration oidcConfidentialClientConfiguration,
             string authorityUriOverride, HttpContextBase httpContextBase, string[] fqScopes, HttpMethod verb,
@@ -105,6 +113,8 @@ namespace App.Core.Infrastructure.IDA.Services
                     false
                 );
                 var elapsed = elapsedTime.ElapsedText;
+
+                this._diagnosticsTracingService.Trace(TraceLevel.Debug, $"OidcRequestHelper.AcquireTokenSilently took {elapsed}.");
                 return result.AccessToken;
             }
 

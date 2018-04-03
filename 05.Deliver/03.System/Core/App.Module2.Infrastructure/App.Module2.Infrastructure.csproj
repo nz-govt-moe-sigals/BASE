@@ -122,6 +122,8 @@
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolTerritorialAuthority_SchoolTerritorialAuthorityDto.cs" />
     <Compile Include="Initialization\Search\ExampleSearchProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IHasAppModule2Service.cs" />
+    <Compile Include="Services\Implementations\Base\AppModule2ServiceBase.cs" />
     <Compile Include="Services\Implementations\NameParsingService.cs" />
     <Compile Include="Services\Implementations\SchoolCsvImporterService.cs" />
     <Compile Include="Services\INameParsingService.cs" />

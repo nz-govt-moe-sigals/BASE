@@ -20,7 +20,7 @@
         private readonly IObjectMappingService _objectMappingService;
 
         public SearchController(IDiagnosticsTracingService diagnosticsTracingService,
-            IPrincipalService principalService, IObjectMappingService objectMappingService) : base(principalService)
+            IPrincipalService principalService, IObjectMappingService objectMappingService) : base(diagnosticsTracingService, principalService)
         {
             this._objectMappingService = objectMappingService;
         }

@@ -27,7 +27,7 @@
             IPrincipalService principalService,
             IRepositoryService repositoryService,
             IObjectMappingService objectMappingService,
-            ISecureAPIMessageAttributeService secureApiMessageAttribute):base(principalService)
+            ISecureAPIMessageAttributeService secureApiMessageAttribute):base(diagnosticsTracingService, principalService)
         {
             this._repositoryService = repositoryService;
             this._secureApiMessageAttribute = secureApiMessageAttribute;

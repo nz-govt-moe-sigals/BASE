@@ -18,7 +18,7 @@ namespace App.Core.Infrastructure.Services.Implementations
     ///   * WindowsAzure.Storage" version="8.6.0" 
     ///    * Microsoft.WindowsAzure.ConfigurationManager" version="3.2.3" 
     /// </summary>
-    public class AzureStorageManagementService : IAzureStorageManagementService
+    public class AzureStorageManagementService : AppCoreServiceBase, IAzureStorageManagementService
     {
 
         public AzureStorageManangementServiceConfiguration Configuration

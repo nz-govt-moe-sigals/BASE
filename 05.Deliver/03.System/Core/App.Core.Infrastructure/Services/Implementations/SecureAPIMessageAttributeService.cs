@@ -11,7 +11,7 @@
     ///     Infrastructure Service Contract
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.ISecureAPIMessageAttributeService" />
-    public class SecureAPIMessageAttributeService : ISecureAPIMessageAttributeService
+    public class SecureAPIMessageAttributeService : AppCoreServiceBase, ISecureAPIMessageAttributeService
     {
         private readonly IConversionService _conversionService;
         private readonly IPrincipalService _principalService;

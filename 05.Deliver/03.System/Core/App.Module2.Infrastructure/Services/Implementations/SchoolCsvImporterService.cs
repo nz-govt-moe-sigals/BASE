@@ -10,7 +10,7 @@
     using App.Module2.Shared.Models.Messages.Imports;
     using CsvHelper;
 
-    public class SchoolCsvImporterService : ISchoolCsvImporterService
+    public class SchoolCsvImporterService : AppModule2ServiceBase, ISchoolCsvImporterService
     {
         private readonly IHostSettingsService _hostSettingsService;
 

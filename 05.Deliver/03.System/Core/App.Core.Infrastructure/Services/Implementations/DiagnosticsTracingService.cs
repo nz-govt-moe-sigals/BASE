@@ -8,7 +8,7 @@
     ///     Infrastructure Service Contract
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.IDiagnosticsTracingService" />
-    public class DiagnosticsTracingService : IDiagnosticsTracingService
+    public class DiagnosticsTracingService : AppCoreServiceBase, IDiagnosticsTracingService
     {
         private readonly Queue<TraceEntry> _cache = new Queue<TraceEntry>();
         private readonly TraceLevel _flushLevel;
@@ -54,22 +54,25 @@
             {
                 case TraceLevel.Critical:
                     System.Diagnostics.Trace.TraceError(message);
+                    System.Diagnostics.Trace.WriteLine($"CRITICAL: {message}");
                     break;
                 case TraceLevel.Error:
                     System.Diagnostics.Trace.TraceError(message);
+                    System.Diagnostics.Trace.WriteLine($"ERROR...: {message}");
                     break;
                 case TraceLevel.Warn:
-                    System.Diagnostics.Trace.TraceWarning(message);
+                    //System.Diagnostics.Trace.TraceWarning(message);
+                    System.Diagnostics.Trace.WriteLine($"WARN....: {message}");
                     break;
                 case TraceLevel.Info:
-                    System.Diagnostics.Trace.TraceInformation(message);
+                    System.Diagnostics.Trace.WriteLine($"INFO....: {message}");
+                    //System.Diagnostics.Trace.TraceInformation(message);
                     break;
                 case TraceLevel.Debug:
-                    System.Diagnostics.Trace.TraceInformation(message);
+                    System.Diagnostics.Trace.WriteLine($"DEBUG...: {message}");
                     break;
             }
 
-            System.Diagnostics.Trace.WriteLine(message);
         }
 
         private class TraceEntry

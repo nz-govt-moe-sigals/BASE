@@ -1,13 +1,16 @@
-using System.Web.Http;
+using App.Core.Application.Extended;
 using WebActivatorEx;
-using App.Core.Application;
-using Swashbuckle.Application;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
-namespace App.Core.Application
+namespace App.Core.Application.Extended
 {
+    using App.Core.Application;
+    using App.Core.Infrastructure.Services;
+    using App.Core.Shared.Models.Messages;
+    using Swashbuckle.Application;
+
     /// <summary>
-    /// An <see cref="StartupExtended"/> invoked class to configure
+    /// A pipeline invoked class (class is decorated with <see cref="PreApplicationStartMethodAttribute"/> )to configure
     /// Swagger to generate documentation of registered REST APIs.
     /// </summary>
     public class SwaggerConfig
@@ -21,24 +24,26 @@ namespace App.Core.Application
         /// </summary>
         public static void Register()
         {
-            var path = "docs/api/{apiVersion}/";
+            using (var elapsedTime = new ElapsedTime())
+            {
+                var path = "docs/api/{apiVersion}/";
 
 
-            var thisAssembly = typeof(SwaggerConfig).Assembly;
+                var thisAssembly = typeof(SwaggerConfig).Assembly;
 
-            //AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
-            //    .Register(
-            //        ConfigurationStepType.Security,
-            //        ConfigurationStepStatus.White,
-            //        "Swagger",
-            //        "Swagger documentation enabled at " + path);
+                //AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
+                //    .Register(
+                //        ConfigurationStepType.Security,
+                //        ConfigurationStepStatus.White,
+                //        "Swagger",
+                //        "Swagger documentation enabled at " + path);
 
 
 
-            //GlobalConfiguration.Configuration
-            App.Core.Application.Initialization.HttpConfigurationLocator.Current
-                .EnableSwagger(path, c =>
-                {
+                //GlobalConfiguration.Configuration
+                App.Core.Application.Initialization.HttpConfigurationLocator.Current
+                    .EnableSwagger(path, c =>
+                    {
                         // By default, the service root url is inferred from the request used to access the docs.
                         // However, there may be situations (e.g. proxy and load-balanced environments) where this does not
                         // resolve correctly. You can workaround this by providing your own code to determine the root URL.
@@ -49,7 +54,10 @@ namespace App.Core.Application
                         // the docs is taken as the default. If your API supports multiple schemes and you want to be explicit
                         // about them, you can use the "Schemes" option as shown below.
                         //
-                       c.Schemes(new[] { /*"http",*/ "https" });
+                        c.Schemes(new[]
+                        {
+                            /*"http",*/ "https"
+                        });
 
                         // Use "SingleApiVersion" to describe a single version API. Swagger 2.0 includes an "Info" object to
                         // hold additional metadata for an API. Version and title are required but you can also provide
@@ -94,7 +102,7 @@ namespace App.Core.Application
                         //c.BasicAuth("basic")
                         //    .Description("Basic HTTP Authentication");
                         //
-						// NOTE: You must also configure 'EnableApiKeySupport' below in the SwaggerUI section
+                        // NOTE: You must also configure 'EnableApiKeySupport' below in the SwaggerUI section
                         //c.ApiKey("apiKey")
                         //    .Description("API Key Authentication")
                         //    .Name("apiKey")
@@ -210,7 +218,7 @@ namespace App.Core.Application
                         //
                         //c.CustomProvider((defaultProvider) => new CachingSwaggerProvider(defaultProvider));
                     })
-                .EnableSwaggerUi(c =>
+                    .EnableSwaggerUi(c =>
                     {
                         // Use the "DocumentTitle" option to change the Document title.
                         // Very helpful when you have multiple Swagger pages open, to tell them apart.
@@ -283,6 +291,16 @@ namespace App.Core.Application
                         //
                         //c.EnableApiKeySupport("apiKey", "header");
                     });
+
+
+
+                // Cannot record this fact as the event is too early (IoC has not yet been setup)
+                //AppDependencyLocator.Current.GetInstance<IConfigurationStepService>().Register(
+                //        ConfigurationStepType.General,
+                //        ConfigurationStepStatus.White,
+                //        "OpenAPI.",
+                //        $"Swagger/OpenAPI initialized for '{path}'. Took {elapsedTime}");
+            }
 
 
         }

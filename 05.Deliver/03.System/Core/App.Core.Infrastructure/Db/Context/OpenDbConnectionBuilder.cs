@@ -10,16 +10,31 @@ namespace App.Core.Infrastructure.Db.Context
     using System.Data.Common;
     using System.Data.SqlClient;
     using System.Threading.Tasks;
+    using App.Core.Infrastructure.Services;
+    using App.Core.Shared.Models.Entities;
 
-    public static class OpenDbConnectionBuilder
+    public class OpenDbConnectionBuilder
     {
-        public static async Task<DbConnection> CreateAsync(string connectionStringName)
+        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
+
+
+        public OpenDbConnectionBuilder(IDiagnosticsTracingService diagnosticsTracingService)
         {
+            this._diagnosticsTracingService = diagnosticsTracingService;
+        }
+
+    public async Task<DbConnection> CreateAsync(string connectionStringName)
+        {
+
             var connectionStringSettings = ConfigurationManager.ConnectionStrings[connectionStringName];
+
+            _diagnosticsTracingService.Trace(TraceLevel.Info, "OpenDbConnectionBuilder.CreateAsync: {0}", connectionStringName);
+            _diagnosticsTracingService.Trace(TraceLevel.Info,"OpenDbConnectionBuilder.CreateAsync: {0}",connectionStringSettings);
 
             var dbConnection = DbProviderFactories
                 .GetFactory(connectionStringSettings.ProviderName)
                 .CreateConnection();
+
             dbConnection.ConnectionString = connectionStringSettings.ConnectionString;
      
 
@@ -30,7 +45,7 @@ namespace App.Core.Infrastructure.Db.Context
 
             return dbConnection;
         }
-        static async Task AttachAccessTokenToDbConnection(IDbConnection dbConnection)
+        async Task AttachAccessTokenToDbConnection(IDbConnection dbConnection)
         {
             SqlConnection sqlConnection = dbConnection as SqlConnection;
             if (sqlConnection == null)
@@ -40,12 +55,14 @@ namespace App.Core.Infrastructure.Db.Context
             string msiEndpoint = Environment.GetEnvironmentVariable("MSI_ENDPOINT");
             if (string.IsNullOrEmpty(msiEndpoint))
             {
+                _diagnosticsTracingService.Trace(TraceLevel.Info, "OpenDbConnectionBuilder.CreateAsync: Missing MSI_ENDPOINT");
                 return;
             }
 
             var msiSecret = Environment.GetEnvironmentVariable("MSI_SECRET");
             if (string.IsNullOrEmpty(msiSecret))
             {
+                _diagnosticsTracingService.Trace(TraceLevel.Info, "OpenDbConnectionBuilder.CreateAsync: Missing MSI_SECRET");
                 return;
             }
 
@@ -53,16 +70,23 @@ namespace App.Core.Infrastructure.Db.Context
             // "Cannot set the AccessToken property if 'UserID', 'UID', 'Password', or 'PWD' has been specified in connection string."
             var terms = new[] {"UserID","Password","PWD=","UID=" };
             string connectionString = dbConnection.ConnectionString;
-
-            foreach (var term in terms)
+            if (string.IsNullOrEmpty(connectionString))
             {
-                if (connectionString.Contains(term, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    return;
-                }
+                return;
             }
+                foreach (var term in terms)
+                {
+                    if (connectionString.Contains(term, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        _diagnosticsTracingService.Trace(TraceLevel.Info, "OpenDbConnectionBuilder.CreateAsync: Contains UserName or Password");
+                        return;
+                    }
+                }
 
             string accessToken = await AppCoreDbContextMSITokenFactory.GetAzureSqlResourceTokenAsync();
+
+            _diagnosticsTracingService.Trace(TraceLevel.Info, "OpenDbConnectionBuilder.CreateAsync: AccessToken: {0}",accessToken);
+
             sqlConnection.AccessToken = accessToken;
         }
     }

@@ -3,6 +3,7 @@
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
+    using App.Core.Application.Extended;
     using App.Core.Infrastructure.Services;
 
     /// <summary>
@@ -97,6 +98,10 @@
                 new { }
             );
         }
+    }
+
+    class WebMvcRouteConfigImpl : WebMvcRouteConfig
+    {
     }
 
 

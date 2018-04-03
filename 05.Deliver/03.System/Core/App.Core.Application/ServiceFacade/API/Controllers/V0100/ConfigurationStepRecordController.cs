@@ -9,6 +9,7 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages.APIs.V0100;
+    using AutoMapper.QueryableExtensions;
 
     /// <summary>
     /// OData Queryable REST Controller for
@@ -20,24 +21,18 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
     /// <seealso cref="App.Core.Application.ServiceFacade.API.Controllers.ODataControllerBase" />
     public class ConfigurationStepRecordController : ODataControllerBase
     {
-        private readonly IUniversalDateTimeService _dateTimeService;
-        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
-        private readonly IRepositoryService _repositoryService;
-        private readonly IObjectMappingService _objectMappingService;
+        private readonly IConfigurationStepService _configurationStepService;
         private readonly ISecureAPIMessageAttributeService _secureApiMessageAttribute;
 
         public ConfigurationStepRecordController(
             IUniversalDateTimeService dateTimeService,
             IDiagnosticsTracingService diagnosticsTracingService,
             IPrincipalService principalService,
-            IRepositoryService repositoryService,
+            IConfigurationStepService configurationStepService,
             IObjectMappingService objectMappingService,
-            ISecureAPIMessageAttributeService secureApiMessageAttribute) : base(principalService)
+            ISecureAPIMessageAttributeService secureApiMessageAttribute) : base(diagnosticsTracingService, principalService)
         {
-            this._dateTimeService = dateTimeService;
-            this._diagnosticsTracingService = diagnosticsTracingService;
-            this._repositoryService = repositoryService;
-            this._objectMappingService = objectMappingService;
+            this._configurationStepService = configurationStepService;
             this._secureApiMessageAttribute = secureApiMessageAttribute;
         }
 
@@ -45,9 +40,7 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
         public IQueryable<ConfigurationStepRecordDto> Get()
         {
 
-            return this._repositoryService
-                .GetQueryableSet<ConfigurationStepRecordDto>(
-                    App.Core.Infrastructure.Constants.Db.AppCoreDbContextNames.Core);
+            return this._configurationStepService.Get().ProjectTo<ConfigurationStepRecordDto>();
         }
     }
 }

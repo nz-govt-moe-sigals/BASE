@@ -80,7 +80,7 @@ namespace App.Module2.Application.ServiceFacade.API.Controllers.V0100
             _cache.Add(body);
         }
 
-        public BodyDtoTest2Controller(IPrincipalService principalService) : base(principalService)
+        public BodyDtoTest2Controller(IDiagnosticsTracingService diagnosticsTracingService, IPrincipalService principalService) : base(diagnosticsTracingService, principalService)
         {
 
         }

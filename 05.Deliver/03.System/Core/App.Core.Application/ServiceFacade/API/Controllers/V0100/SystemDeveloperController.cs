@@ -7,7 +7,7 @@
     /// </summary>
     public class SystemDeveloperController : ODataControllerBase
     {
-        public SystemDeveloperController(IPrincipalService principalService) : base(principalService)
+        public SystemDeveloperController(IDiagnosticsTracingService diagnosticsTracingService, IPrincipalService principalService) : base(diagnosticsTracingService, principalService)
         {
             throw new ToDoException("SystemDeveloperController");
         }

@@ -10,7 +10,7 @@ namespace App.Core.Infrastructure.Services.Implementations
     ///     Infrastructure Service Contract
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.ISystemRoleRecordManagmentService" />
-    public class SystemRoleRecordManagmentService : ISystemRoleRecordManagmentService
+    public class SystemRoleRecordManagmentService : AppCoreServiceBase, ISystemRoleRecordManagmentService
     {
         private readonly IRepositoryService _repositoryService;
 

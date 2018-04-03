@@ -6,6 +6,8 @@ namespace App.Core.Application.App_Start
     using System.Web.OData.Extensions;
     using App.Core.Application.Initialization.OData;
     using App.Core.Infrastructure.Initialization.OData;
+    using App.Core.Infrastructure.Services;
+    using App.Core.Shared.Models.Entities;
     using App.Module2.Application.Initialization.OData;
 
     /// <summary>
@@ -14,6 +16,13 @@ namespace App.Core.Application.App_Start
     /// </summary>
     public class AppCoreOdataModelBuilder : IAppCoreOdataModelBuilder
     {
+        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
+
+        public AppCoreOdataModelBuilder(IDiagnosticsTracingService diagnosticsTracingService)
+        {
+            this._diagnosticsTracingService = diagnosticsTracingService;
+        }
+
 
         public void Initialize(object untypedHttpConfiguration)
         {
@@ -57,7 +66,13 @@ namespace App.Core.Application.App_Start
                 .Where(x => x is IAppCoreOdataModelBuilderConfiguration);
 
             var count = items.Count();
-            items.ForEach(x => x.Define(builder));
+            int counter = 0;
+            items.ForEach(x =>
+            {
+                counter++;
+                this._diagnosticsTracingService.Trace(TraceLevel.Debug, $"{counter}: Registering OData model: {x.GetType().FullName}");
+                x.Define(builder);
+            });
 
             return count;
         }

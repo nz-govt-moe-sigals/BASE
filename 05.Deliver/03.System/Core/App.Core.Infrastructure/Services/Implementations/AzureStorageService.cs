@@ -14,7 +14,7 @@ namespace App.Core.Infrastructure.Services.Implementations
     ///     <see cref="IAzureStorageService" />
     ///     Infrastructure Service Contract
     /// </summary>
-    public class AzureStorageService : IAzureStorageService
+    public class AzureStorageService : AppCoreServiceBase, IAzureStorageService
     {
         private readonly AzureStorageManangementServiceConfiguration _azureStorageConfiguration;
         //private readonly IAzureStorageManagementService _azureStorageManagementService;

@@ -14,7 +14,7 @@
     /// one -- the DbContext client). 
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.IUnitOfWorkService" />
-    public class UnitOfWorkService : IUnitOfWorkService
+    public class UnitOfWorkService : AppCoreServiceBase, IUnitOfWorkService
     {
         /// <summary>
         /// Commits a single specific named repository, or all of pending changes.

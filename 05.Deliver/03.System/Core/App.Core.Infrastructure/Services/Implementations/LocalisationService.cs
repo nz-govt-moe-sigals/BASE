@@ -9,7 +9,7 @@
     ///     Infrastructure Service Contract
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.ILocalisationService" />
-    public class LocalisationService : ILocalisationService
+    public class LocalisationService : AppCoreServiceBase, ILocalisationService
     {
         public bool ThreadCultureSet { get; private set; }
 

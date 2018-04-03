@@ -1,6 +1,7 @@
 ﻿namespace App.Core.Application
 {
     using System.Web.Optimization;
+    using App.Core.Application.Extended;
 
     public class BundleConfig
     {

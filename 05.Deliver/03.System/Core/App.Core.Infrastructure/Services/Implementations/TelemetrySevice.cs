@@ -14,7 +14,7 @@ namespace App.Core.Infrastructure.Services.Implementations
     ///     Infrastructure Service Contract
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.ITelemetryService" />
-    public class TelemetrySevice : ITelemetryService
+    public class TelemetrySevice : AppCoreServiceBase, ITelemetryService
     {
         public void TrackEvent(string message)
         {

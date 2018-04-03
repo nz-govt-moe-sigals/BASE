@@ -8,7 +8,7 @@ namespace App.Core.Infrastructure.Services.Implementations
     ///     Infrastructure Service Contract
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.IContextService" />
-    public class ContextService : IContextService
+    public class ContextService : AppCoreServiceBase, IContextService
     {
     public void Set(string key, object value)
         {

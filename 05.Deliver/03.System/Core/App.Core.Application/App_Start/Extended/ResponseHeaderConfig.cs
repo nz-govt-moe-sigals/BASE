@@ -1,4 +1,4 @@
-﻿namespace App.Core.Application
+﻿namespace App.Core.Application.Extended
 {
     using System.Web.Mvc;
     using App.Core.Infrastructure.Services;
@@ -21,16 +21,19 @@
         /// <param name="appBuilder">The application builder.</param>
         public static void Configure(IAppBuilder appBuilder)
         {
-            // SETUP STEP: Remove the X-AspNetMvc-Version Header disclosing too much:
-            MvcHandler.DisableMvcResponseHeader = true;
+            using (var elapsedTime = new ElapsedTime())
+            {
 
-            AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
-                .Register(
-                    ConfigurationStepType.Security,
-                    ConfigurationStepStatus.Green,
-                    "Verbose Headers",
-                    "X-AspNetMvc-Version removed.");
+                // SETUP STEP: Remove the X-AspNetMvc-Version Header disclosing too much:
+                MvcHandler.DisableMvcResponseHeader = true;
 
+                AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
+                    .Register(
+                        ConfigurationStepType.Security,
+                        ConfigurationStepStatus.Green,
+                        "Verbose Headers",
+                        $"X-AspNetMvc-Version removed. Took {elapsedTime.ElapsedText}");
+            }
 
         }
     }

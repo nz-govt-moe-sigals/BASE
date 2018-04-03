@@ -15,7 +15,7 @@ namespace App.Core.Infrastructure.Services.Implementations
     ///     Infrastructure Service Contract
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.ITransientLocalFileStorageService" />
-    public class TransientLocalFileStorageService : ITransientLocalFileStorageService
+    public class TransientLocalFileStorageService : AppCoreServiceBase, ITransientLocalFileStorageService
     {
         public TransientLocalFileStorageService()
         {

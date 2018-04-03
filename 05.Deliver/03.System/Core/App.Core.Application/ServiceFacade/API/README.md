@@ -1,4 +1,5 @@
-﻿These API Controllers only 
+﻿# About #
+These API Controllers only 
 expose mapped DTO projections 
 of CodeFirst Entities.
 
@@ -22,3 +23,8 @@ The mapping turns out to be one place
 to strip out Sensitive data -- or detokenize data too --
 based on the Role of the session token the clients submitted.
 
+## Notes ##
+
+* Paths to these OData API Controllers are defined in 
+
+## Resource ##

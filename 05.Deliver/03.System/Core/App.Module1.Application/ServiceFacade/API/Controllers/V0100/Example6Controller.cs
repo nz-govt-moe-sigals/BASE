@@ -34,7 +34,6 @@
     public class Example6Controller : ODataControllerBase
     {
         private readonly ExampleApiConfiguration _apiConfiguration;
-        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         private readonly IExampleApplicationService _exampleApplicationService;
         private readonly IHostSettingsService _hostSettingsService;
         private readonly IObjectMappingService _objectMappingService;
@@ -42,11 +41,11 @@
 
         public Example6Controller(IDiagnosticsTracingService diagnosticsTracingService,
             IPrincipalService principalsService,
-            IHostSettingsService hostSettingsService, IObjectMappingService objectMappingService,
+            IHostSettingsService hostSettingsService, 
+            IObjectMappingService objectMappingService,
             IExampleApplicationService exampleApplicationService,
-            ISecureAPIMessageAttributeService secureApiMessageAttributeService) : base(principalsService)
+            ISecureAPIMessageAttributeService secureApiMessageAttributeService) : base(diagnosticsTracingService, principalsService)
         {
-            this._diagnosticsTracingService = diagnosticsTracingService;
             this._hostSettingsService = hostSettingsService;
             this._objectMappingService = objectMappingService;
             this._exampleApplicationService = exampleApplicationService;

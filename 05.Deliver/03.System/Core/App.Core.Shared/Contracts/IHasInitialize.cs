@@ -1,12 +1,18 @@
 ﻿namespace App.Core.Shared.Contracts
 {
-    // Contract for methods that have an Initialize() method.
+
+    /// <summary>
+    /// Contract for methods that have an Initialize() method.    
+    /// </summary>
     public interface IHasInitialize
     {
         void Initialize();
     }
 
 
+    /// <summary>
+    /// Contract for methods that have an Initialize() method.    
+    /// </summary>
     public interface IHasInitialize<in T>
     {
         void Initialize(T argument);

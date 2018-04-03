@@ -6,7 +6,7 @@
     /////     <see cref="IApplicationSettingsService" />
     /////     Infrastructure Service Contract
     ///// </summary>
-    //public class ApplicationSettingsService : IApplicationSettingsService
+    //public class ApplicationSettingsService : AppCoreServiceBase, IApplicationSettingsService
     //{
     //}
 }

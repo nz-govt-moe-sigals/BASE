@@ -11,7 +11,7 @@
     ///     Infrastructure Service Contract
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.ISecureDataTokenService" />
-    public class SecureDataTokenService : ISecureDataTokenService
+    public class SecureDataTokenService : AppCoreServiceBase, ISecureDataTokenService
     {
         private readonly IRepositoryService _repositoryService;
 

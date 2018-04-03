@@ -1,0 +1,64 @@
+namespace App.Core.Infrastructure.Db.Context
+{
+    using System.Data.Common;
+    using System.Data.Entity;
+    using System.Threading.Tasks;
+    using App.Core.Infrastructure.Constants.Db;
+    using App.Core.Infrastructure.Initialization.DependencyResolution;
+    using App.Core.Infrastructure.Services;
+
+    public abstract class AppDbContextBase : DbContext
+    {
+        static AppDbContextBase()
+        {
+            // This static constructor is only called once.
+            // So that Migrations can work, when outside of
+            // runtime, ensure the following:
+            PowershellServiceLocatorConfig.Initialize();
+
+            //AppCoreDatabaseInitializerConfigurer.Configure();
+
+            //            //Database.SetInitializer(new AppModule2DatabaseInitializer());
+            //AppModule2DatabaseInitializerConfigurer.Configure();
+
+        }
+
+        // Constructor invokes base with Key used to find the ConnectionString in web.config
+        protected AppDbContextBase() : this(AppCoreDbConnectionStringNames.App)
+        {
+        }
+
+        protected AppDbContextBase(string connectionStringOrName) : base(App.AppDependencyLocator.Current.GetInstance<OpenDbConnectionBuilder>().CreateAsync(connectionStringOrName).Result, true)
+        {
+        }
+
+        protected AppDbContextBase(DbConnection dbConnection, bool contextOwnsConnection) : base(dbConnection, true)
+        {
+        }
+
+
+
+
+        // Intercept all saves in order to clean up loose ends
+        public override int SaveChanges()
+        {
+            var dbContextPreCommitService =
+                AppDependencyLocator.Current.GetInstance<IDbContextPreCommitService>();
+
+            dbContextPreCommitService.PreProcess(this);
+
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync()
+        {
+            var dbContextPreCommitService =
+                AppDependencyLocator.Current.GetInstance<IDbContextPreCommitService>();
+
+            dbContextPreCommitService.PreProcess(this);
+
+            return base.SaveChangesAsync();
+        }
+
+    }
+}

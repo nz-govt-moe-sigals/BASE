@@ -1,4 +1,4 @@
-namespace App.Module2.Infrastructure.Services
+namespace App.Module2.Infrastructure.Services.Implementations
 {
     using System;
     using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace App.Module2.Infrastructure.Services
             get; set;
         }
     }
-    public class StudentRawImportService : IStudentRawImportService
+    public class StudentRawImportService : AppModule2ServiceBase, IStudentRawImportService
     {
         private readonly IRepositoryService _repositoryService;
         private readonly ISchoolCsvImporterService _schoolCsvImporterService;
@@ -121,16 +121,16 @@ namespace App.Module2.Infrastructure.Services
         private int BuildReferenceData(SchoolDescriptionRaw[] schoolDescriptionRaw)
         {
             int score = 0;
-            score+= BuildReferenceData_EducationEstablishmentAuthority<SchoolAuthority>(schoolDescriptionRaw.Select(x => x.Authority).Distinct().ToArray(), _schoolAuthority);
-            score += BuildReferenceData_EducationEstablishmentAuthority<SchoolDecile>(schoolDescriptionRaw.Select(x => x.Decile).Distinct().ToArray(), _schoolDecile);
-            score+= BuildReferenceData_EducationEstablishmentAuthority<SchoolDefinition>(schoolDescriptionRaw.Select(x => x.Definition).Distinct().ToArray(), _schoolDefinition);
-            score+= BuildReferenceData_EducationEstablishmentAuthority<SchoolEducationRegion>(schoolDescriptionRaw.Select(x => x.EducationRegion).Distinct().ToArray(), _schoolEducationRegion);
-            score+= BuildReferenceData_EducationEstablishmentAuthority<SchoolGender>(schoolDescriptionRaw.Select(x => x.GenderofStudents).Distinct().ToArray(), _schoolGender);
-            score+= BuildReferenceData_EducationEstablishmentAuthority<SchoolGeneralElectorate>(schoolDescriptionRaw.Select(x => x.GeneralElectorate).Distinct().ToArray(), _schoolGeneralElectorate);
-            score+= BuildReferenceData_EducationEstablishmentAuthority<SchoolMaoriElectorate>(schoolDescriptionRaw.Select(x => x.MaoriElectorate).Distinct().ToArray(), _schoolMaoriElectorate);
-            score+= BuildReferenceData_EducationEstablishmentAuthority<SchoolMinistryOfEducationLocalOffice>(schoolDescriptionRaw.Select(x => x.MinistryofEducationLocalOffice).Distinct().ToArray(), _schoolMinistryOfEducationLocalOffice);
-            score+= BuildReferenceData_EducationEstablishmentAuthority<SchoolRegionalCouncil>(schoolDescriptionRaw.Select(x => x.RegionalCouncil).Distinct().ToArray(), _schoolRegionalCouncil);
-            score += BuildReferenceData_EducationEstablishmentAuthority<SchoolTerritorialAuthorityWithAucklandLocalBoard>(schoolDescriptionRaw.Select(x => x.TerritorialAuthoritywithAucklandLocalBoard).Distinct().ToArray(), _schoolTerritorialAuthorityWithAucklandLocalBoard);
+            score+= BuildReferenceData_EducationEstablishmentAuthority<SchoolAuthority>(schoolDescriptionRaw.Select(x => x.Authority).Distinct().ToArray(), this._schoolAuthority);
+            score += BuildReferenceData_EducationEstablishmentAuthority<SchoolDecile>(schoolDescriptionRaw.Select(x => x.Decile).Distinct().ToArray(), this._schoolDecile);
+            score+= BuildReferenceData_EducationEstablishmentAuthority<SchoolDefinition>(schoolDescriptionRaw.Select(x => x.Definition).Distinct().ToArray(), this._schoolDefinition);
+            score+= BuildReferenceData_EducationEstablishmentAuthority<SchoolEducationRegion>(schoolDescriptionRaw.Select(x => x.EducationRegion).Distinct().ToArray(), this._schoolEducationRegion);
+            score+= BuildReferenceData_EducationEstablishmentAuthority<SchoolGender>(schoolDescriptionRaw.Select(x => x.GenderofStudents).Distinct().ToArray(), this._schoolGender);
+            score+= BuildReferenceData_EducationEstablishmentAuthority<SchoolGeneralElectorate>(schoolDescriptionRaw.Select(x => x.GeneralElectorate).Distinct().ToArray(), this._schoolGeneralElectorate);
+            score+= BuildReferenceData_EducationEstablishmentAuthority<SchoolMaoriElectorate>(schoolDescriptionRaw.Select(x => x.MaoriElectorate).Distinct().ToArray(), this._schoolMaoriElectorate);
+            score+= BuildReferenceData_EducationEstablishmentAuthority<SchoolMinistryOfEducationLocalOffice>(schoolDescriptionRaw.Select(x => x.MinistryofEducationLocalOffice).Distinct().ToArray(), this._schoolMinistryOfEducationLocalOffice);
+            score+= BuildReferenceData_EducationEstablishmentAuthority<SchoolRegionalCouncil>(schoolDescriptionRaw.Select(x => x.RegionalCouncil).Distinct().ToArray(), this._schoolRegionalCouncil);
+            score += BuildReferenceData_EducationEstablishmentAuthority<SchoolTerritorialAuthorityWithAucklandLocalBoard>(schoolDescriptionRaw.Select(x => x.TerritorialAuthoritywithAucklandLocalBoard).Distinct().ToArray(), this._schoolTerritorialAuthorityWithAucklandLocalBoard);
             //score += BuildReferenceData_EducationEstablishmentAuthority<SchoolType>(schoolDescriptionRaw.Select(x => x.Type).Distinct().ToArray(), _schoolAuthority);
             return score;
         }
@@ -285,7 +285,7 @@ namespace App.Module2.Infrastructure.Services
 
         private Body BuildEducationEstablishmentPrincipal(SchoolDescriptionRaw schoolDescriptionRaw, Guid principalGuid)
         {
-            var parsedNames = _nameParsingService.Parse(schoolDescriptionRaw.Principal, singleNameIsLastName: true);
+            var parsedNames = this._nameParsingService.Parse(schoolDescriptionRaw.Principal, singleNameIsLastName: true);
 
             var principal = new Body
             {
@@ -333,17 +333,17 @@ namespace App.Module2.Infrastructure.Services
 
         private void PrepareKnownReferenceDataLists()
         {
-            _schoolAuthority = this._repositoryService.GetQueryableSet<SchoolAuthority>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
-            _schoolDecile = this._repositoryService.GetQueryableSet<SchoolDecile>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
-            _schoolDefinition = this._repositoryService.GetQueryableSet<SchoolDefinition>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
-            _schoolEducationRegion = this._repositoryService.GetQueryableSet<SchoolEducationRegion>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
-            _schoolGender = this._repositoryService.GetQueryableSet<SchoolGender>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
-            _schoolGeneralElectorate = this._repositoryService.GetQueryableSet<SchoolGeneralElectorate>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
-            _schoolMaoriElectorate = this._repositoryService.GetQueryableSet<SchoolMaoriElectorate>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
-            _schoolMinistryOfEducationLocalOffice = this._repositoryService.GetQueryableSet<SchoolMinistryOfEducationLocalOffice>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
-            _schoolRegionalCouncil = this._repositoryService.GetQueryableSet<SchoolRegionalCouncil>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
-            _schoolTerritorialAuthorityWithAucklandLocalBoard = this._repositoryService.GetQueryableSet<SchoolTerritorialAuthorityWithAucklandLocalBoard>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
-            _schoolTypes = this._repositoryService.GetQueryableSet<SchoolType>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
+            this._schoolAuthority = this._repositoryService.GetQueryableSet<SchoolAuthority>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
+            this._schoolDecile = this._repositoryService.GetQueryableSet<SchoolDecile>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
+            this._schoolDefinition = this._repositoryService.GetQueryableSet<SchoolDefinition>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
+            this._schoolEducationRegion = this._repositoryService.GetQueryableSet<SchoolEducationRegion>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
+            this._schoolGender = this._repositoryService.GetQueryableSet<SchoolGender>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
+            this._schoolGeneralElectorate = this._repositoryService.GetQueryableSet<SchoolGeneralElectorate>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
+            this._schoolMaoriElectorate = this._repositoryService.GetQueryableSet<SchoolMaoriElectorate>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
+            this._schoolMinistryOfEducationLocalOffice = this._repositoryService.GetQueryableSet<SchoolMinistryOfEducationLocalOffice>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
+            this._schoolRegionalCouncil = this._repositoryService.GetQueryableSet<SchoolRegionalCouncil>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
+            this._schoolTerritorialAuthorityWithAucklandLocalBoard = this._repositoryService.GetQueryableSet<SchoolTerritorialAuthorityWithAucklandLocalBoard>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
+            this._schoolTypes = this._repositoryService.GetQueryableSet<SchoolType>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
         }
 
 

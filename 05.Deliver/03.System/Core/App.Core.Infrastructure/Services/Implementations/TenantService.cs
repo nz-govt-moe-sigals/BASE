@@ -12,7 +12,7 @@
     ///     Infrastructure Service Contract
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.ITenantService" />
-    public class TenantService : ITenantService
+    public class TenantService : AppCoreServiceBase, ITenantService
     {
         private static readonly string _cacheKey = "ResourceTenantKey";
         private readonly IOperationContextService _contextService;

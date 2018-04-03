@@ -18,13 +18,11 @@ namespace App.Core.Application.ServiceFacade.API.Controllers
     {
         protected readonly IObjectMappingService _objectMappingService;
         protected readonly ISecureAPIMessageAttributeService _secureApiMessageAttribute;
-        protected readonly IDiagnosticsTracingService _diagnosticsTracingService;
         protected readonly IRepositoryService _repositoryService;
 
         protected ODataControllerStandardDataBase(IDiagnosticsTracingService diagnosticsTracingService, IPrincipalService principalService,
-            IRepositoryService repositoryService, IObjectMappingService objectMappingService, ISecureAPIMessageAttributeService secureApiMessageAttribute) : base(principalService)
+            IRepositoryService repositoryService, IObjectMappingService objectMappingService, ISecureAPIMessageAttributeService secureApiMessageAttribute) : base(diagnosticsTracingService, principalService)
         {
-            this._diagnosticsTracingService = diagnosticsTracingService;
             this._repositoryService = repositoryService;
             this._objectMappingService = objectMappingService;
             this._secureApiMessageAttribute = secureApiMessageAttribute;

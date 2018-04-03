@@ -15,7 +15,7 @@ namespace App.Core.Infrastructure.Services.Implementations
     /// and other pieces in another).
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.IUniversalDateTimeService" />
-    public class UniversalDateTimeService : IUniversalDateTimeService
+    public class UniversalDateTimeService : AppCoreServiceBase, IUniversalDateTimeService
     {
         /// <summary>
         /// Return the DateTime, in UTC.
