@@ -10,6 +10,18 @@ namespace App
 
     public static class AppDomainExtensions
     {
+        /// <summary>
+        /// Gets all derived instantiable types, instantiates them 
+        /// (using <see cref="Activator"/> - *not* <see cref="App.AppDependencyLocator"/>!)
+        /// then runs the new instance through the provided action.
+        /// <para>
+        /// Invoked at least when scanning for StructureMap scanners
+        /// in all assemblies.
+        /// </para>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="appDomain">The application domain.</param>
+        /// <param name="func">The function.</param>
         public static void InvokeImplementing<T>(this AppDomain appDomain, Action<T> func)
         {
             foreach (var foundType in appDomain.GetInstantiableTypesImplementing(typeof(T)))
@@ -20,7 +32,35 @@ namespace App
             }
         }
 
-        public static IEnumerable<Type> GetInstantiableTypesImplementing(this AppDomain appDomain, Type type)
+
+        /// <summary>
+        /// Gets all derived instantiable types, within the domain.
+        /// <para>
+        /// An example use case would be to find all API Controllers
+        /// in order to associate them with a specific version.
+        /// </para>
+        /// </summary>
+        /// <param name="appDomain">The application domain.</param>
+        /// <param name="type">The type.</param>
+        /// <returns>the found types.</returns>
+        public static IEnumerable<Type> GetInstantiableTypesImplementing<T>(this AppDomain appDomain)
+        {
+            return appDomain.GetInstantiableTypesImplementing(typeof(T));
+        }
+
+        
+
+            /// <summary>
+            /// Gets all derived instantiable types, within the domain.
+            /// <para>
+            /// An example use case would be to find all API Controllers
+            /// in order to associate them with a specific version.
+            /// </para>
+            /// </summary>
+            /// <param name="appDomain">The application domain.</param>
+            /// <param name="type">The type.</param>
+            /// <returns>the found types.</returns>
+            public static IEnumerable<Type> GetInstantiableTypesImplementing(this AppDomain appDomain, Type type)
         {
             var results = new List<Type>();
             var tmp = appDomain.GetAssemblies();

@@ -1,14 +1,20 @@
 ﻿namespace App.Core.Application.Extended
 {
+    using App.Core.Infrastructure.Services;
     using Owin;
 
     /// <summary>
     /// An <see cref="StartupExtended"/> invoked class to configure
     /// DbContexts to handle code migrations.
     /// </summary>
-    public static class DbContextConfig
+    public class DbContextConfig
     {
+        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
 
+        public DbContextConfig(IDiagnosticsTracingService diagnosticsTracingService)
+        {
+            this._diagnosticsTracingService = diagnosticsTracingService;
+        }
         /// <summary>
         /// Configures the specified application builder.
         /// <para>
@@ -16,7 +22,7 @@
         /// </para>
         /// </summary>
         /// <param name="appBuilder">The application builder.</param>
-        public static void Configure(IAppBuilder appBuilder)
+        public  void Configure(IAppBuilder appBuilder)
         {
             // Used to set initializer.
             // Cam be hard coded, as follows, or done solely via web.config as per bottom of

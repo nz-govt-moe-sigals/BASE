@@ -48,28 +48,50 @@
 
         private void DirectTrace(TraceLevel traceLevel, string message, params object[] arguments)
         {
+            const string lineEnding = "\r\n";
+
             message = string.Format(message, arguments);
 
             switch (traceLevel)
             {
+                // The trouble with TraceError/TraceWarning is that they don't just add one line, 
+                // they add multiple lines,
+                // a Header, then the Line, then Footer.
+                // The header has a format of "{source} {type}: {id} :"
+                // The footer adds one or more indented lines:
+                //   "ProcessId={processId}"
+                //   "LogicalOperationStack={....}
+                //   ""ThreadId=" + eventCache.ThreadId);
+                //   "DateTime="
+                //   "Timestamp="
+                //   "Callstack="
+                // In other words, it will be slower than just writing one line using WriteLine.
+
+                // That said, WriteLine will be prefixed with "Verbose"
+                // So you can use plain old Write, terminated with "\r\n"
                 case TraceLevel.Critical:
-                    System.Diagnostics.Trace.TraceError(message);
-                    System.Diagnostics.Trace.WriteLine($"CRITICAL: {message}");
+                    // System.Diagnostics.Trace.TraceError(message);
+                    //System.Diagnostics.Trace.WriteLine($"CRITICAL: {message}");
+                    System.Diagnostics.Trace.Write($"CRITICAL: {message}{lineEnding}");
                     break;
                 case TraceLevel.Error:
-                    System.Diagnostics.Trace.TraceError(message);
-                    System.Diagnostics.Trace.WriteLine($"ERROR...: {message}");
+                    // System.Diagnostics.Trace.TraceError(message);
+                    //System.Diagnostics.Trace.WriteLine($"ERROR...: {message}");
+                    System.Diagnostics.Trace.Write($"ERROR...: {message}{lineEnding}");
                     break;
                 case TraceLevel.Warn:
                     //System.Diagnostics.Trace.TraceWarning(message);
-                    System.Diagnostics.Trace.WriteLine($"WARN....: {message}");
+                    //System.Diagnostics.Trace.WriteLine($"WARN....: {message}");
+                    System.Diagnostics.Trace.Write($"WARN....: {message}{lineEnding}");
                     break;
                 case TraceLevel.Info:
-                    System.Diagnostics.Trace.WriteLine($"INFO....: {message}");
                     //System.Diagnostics.Trace.TraceInformation(message);
+                    // System.Diagnostics.Trace.WriteLine($"INFO....: {message}");
+                    System.Diagnostics.Trace.Write($"INFO....: {message}{lineEnding}");
                     break;
                 case TraceLevel.Debug:
-                    System.Diagnostics.Trace.WriteLine($"DEBUG...: {message}");
+                    // System.Diagnostics.Trace.WriteLine($"DEBUG...: {message}");
+                    System.Diagnostics.Trace.Write($"DEBUG: {message}{lineEnding}");
                     break;
             }
 

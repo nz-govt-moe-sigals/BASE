@@ -9,7 +9,12 @@
 
     public class EnabledAnalytics
     {
+        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
 
+        public EnabledAnalytics(IDiagnosticsTracingService diagnosticsTracingService)
+        {
+            this._diagnosticsTracingService = diagnosticsTracingService;
+        }
         /// <summary>
         /// <para>
         /// Invoked from <see cref="StartupConfigure.Configure"/>
@@ -19,7 +24,7 @@
         /// </para>
         /// </summary>
         /// <param name="appBuilder"></param>
-        public static void Configure(IAppBuilder appBuilder)
+        public void Configure(IAppBuilder appBuilder)
         {
             using (var elapsedTime = new ElapsedTime())
             {

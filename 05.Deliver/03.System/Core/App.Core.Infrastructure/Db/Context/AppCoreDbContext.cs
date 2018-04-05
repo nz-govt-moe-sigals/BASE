@@ -47,7 +47,7 @@
         //}
 
 
-        // Constructor invokes base with Key used to find the ConnectionString in web.config
+        // Constructor invokes base with Key ('AppCoreDbContext') used to find the ConnectionString in web.config
         public AppCoreDbContext() : base(AppCoreDbConnectionStringNames.App)
         {
         }

@@ -32,7 +32,7 @@ namespace App.Core.Infrastructure.Db.Context
         {
         }
 
-        protected AppDbContextBase(DbConnection dbConnection, bool contextOwnsConnection) : base(dbConnection, true)
+        protected AppDbContextBase(DbConnection dbConnection, bool contextOwnsConnection) : base(dbConnection, contextOwnsConnection)
         {
         }
 

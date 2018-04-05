@@ -13,6 +13,13 @@
     /// </summary>
     public class AutoMapperConfig
     {
+        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
+
+        public AutoMapperConfig(IDiagnosticsTracingService diagnosticsTracingService)
+        {
+            this._diagnosticsTracingService = diagnosticsTracingService;
+        }
+
         /// <summary>
         /// Configures the specified application builder.
         /// <para>
@@ -20,7 +27,7 @@
         /// </para>
         /// </summary>
         /// <param name="appBuilder">The application builder.</param>
-        public static void Configure(IAppBuilder appBuilder)
+        public void Configure(IAppBuilder appBuilder)
         {
             // DbContext Initializer (ie Automigrations onstartup) 
             // can be hard coded, as follows, or done solely via web.config as per bottom of

@@ -48,7 +48,7 @@
             // Register WebMvc Filters *before* defining WebMvc Routes.
             this._webMvcFilterConfig.RegisterWebMvcGlobalFilters(GlobalFilters.Filters);
 
-            WebMvcRouteConfig.RegisterWebMvcRoutes(RouteTable.Routes);
+            App.AppDependencyLocator.Current.GetInstance<WebMvcRouteConfig>().RegisterWebMvcRoutes(RouteTable.Routes);
             // Etc.
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }

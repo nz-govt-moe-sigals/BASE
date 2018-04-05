@@ -229,6 +229,7 @@
     <Compile Include="Initialization\Db\IHasAppCoreDbContextModelBuilderInitializer.cs" />
     <Compile Include="Initialization\IHasAppCoreInitializer.cs" />
     <Compile Include="Initialization\Integration\Scanii\ScaniiIntegrationInitializer.cs" />
+    <Compile Include="Initialization\Interception\Class1.cs" />
     <Compile Include="Initialization\ObjectMaps\IHasAutomapperInitializer.cs" />
     <Compile Include="Initialization\Db\IHasAppCoreDbContextSeedInitializer.cs" />
     <Compile Include="Initialization\Authentication\IHasOidcScopeInitializer.cs" />

@@ -18,7 +18,12 @@
     ///  </summary>
     public class WebMvcRouteConfig
     {
+        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
 
+        public WebMvcRouteConfig(IDiagnosticsTracingService diagnosticsTracingService)
+        {
+            this._diagnosticsTracingService = diagnosticsTracingService;
+        }
 
         /// <summary>
         /// Registers the web MVC routes.
@@ -33,7 +38,7 @@
         /// </para>
         /// </summary>
         /// <param name="routes">The routes.</param>
-        public static void RegisterWebMvcRoutes(RouteCollection routes)
+        public void RegisterWebMvcRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
@@ -100,9 +105,7 @@
         }
     }
 
-    class WebMvcRouteConfigImpl : WebMvcRouteConfig
-    {
-    }
+
 
 
     public class TenantRouteConstraint : IRouteConstraint

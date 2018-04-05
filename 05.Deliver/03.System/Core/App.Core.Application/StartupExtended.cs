@@ -56,16 +56,16 @@ namespace App.Core.Application
             //   * You want at least some pages(eg: installation walkthroughs, 
             //     health check landing pages, etc.) to be accessible without 
             //     hitting services that might crash pages.
-                
-                //Enable Analytics (or not...can slow down startup):
-            EnabledAnalytics.Configure(appBuilder);
+
+            //Enable Analytics (or not...can slow down startup):
+            App.AppDependencyLocator.Current.GetInstance < EnabledAnalytics>().Configure(appBuilder);
 
             // SETUP STEP: Ensure we're using ASP.MVC v5 or later:
             var version = typeof(Controller).Assembly.GetName().Version.ToString();
             //DbContextConfig.Configure(appBuilder);
-            ResponseHeaderConfig.Configure(appBuilder);
-            AutoMapperConfig.Configure(appBuilder);
-            DbContextConfig.Configure(appBuilder);
+            App.AppDependencyLocator.Current.GetInstance< ResponseHeaderConfig>().Configure(appBuilder);
+            App.AppDependencyLocator.Current.GetInstance<AutoMapperConfig>().Configure(appBuilder);
+            App.AppDependencyLocator.Current.GetInstance < DbContextConfig>().Configure(appBuilder);
 
             // Appears correct order is to register WebMVC, then WebAPI.
             InitializeMvc(appBuilder);

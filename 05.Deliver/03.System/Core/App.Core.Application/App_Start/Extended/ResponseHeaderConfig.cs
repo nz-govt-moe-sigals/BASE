@@ -11,7 +11,12 @@
     /// </summary>
     public class ResponseHeaderConfig
     {
+        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
 
+        public ResponseHeaderConfig(IDiagnosticsTracingService diagnosticsTracingService)
+        {
+            this._diagnosticsTracingService = diagnosticsTracingService;
+        }
         /// <summary>
         /// Configures the specified application builder.
         /// <para>
@@ -19,7 +24,7 @@
         /// </para>
         /// </summary>
         /// <param name="appBuilder">The application builder.</param>
-        public static void Configure(IAppBuilder appBuilder)
+        public void Configure(IAppBuilder appBuilder)
         {
             using (var elapsedTime = new ElapsedTime())
             {
