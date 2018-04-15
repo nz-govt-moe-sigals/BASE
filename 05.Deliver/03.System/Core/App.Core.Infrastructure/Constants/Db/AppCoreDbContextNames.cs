@@ -10,6 +10,6 @@
     public static class AppCoreDbContextNames
     {
         // For now, only one db per Module, but could be more at some point:
-        public const string Core = "Core";
+        public const string Core = Constants.Module.Names.ModuleKey;
     }
 }

@@ -19,6 +19,7 @@ namespace App.Core.Application.Presentation.Controllers
     /// <summary>
     /// Controller for the Views that explain how to use this framework.
     /// </summary>
+    [AllowAnonymous]
     public partial class UsageController : Controller
     {
         private readonly IMediaUploadService _mediaUploadService;

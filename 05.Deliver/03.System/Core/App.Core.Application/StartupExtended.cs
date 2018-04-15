@@ -6,6 +6,7 @@ namespace App.Core.Application
     using App.Core.Application.Extended;
     using App.Core.Application.Initialization;
     using App.Core.Infrastructure.Services;
+    using App.Core.Infrastructure.Startup.Spikes;
     using Owin;
 
     /// <summary>
@@ -47,6 +48,9 @@ namespace App.Core.Application
         /// <param name="appBuilder">The application builder.</param>
         public void Configure(IAppBuilder appBuilder) {
 
+
+            var token = new msiTokenRetrievalFromDev().DoAsync().Result;
+
             // Design Constraints:
             // * Startup Sequence can configure, but not access remote services:
             //   It's essential that the startup sequence does not hit the database 
@@ -67,9 +71,17 @@ namespace App.Core.Application
             App.AppDependencyLocator.Current.GetInstance<AutoMapperConfig>().Configure(appBuilder);
             App.AppDependencyLocator.Current.GetInstance < DbContextConfig>().Configure(appBuilder);
 
+            SwaggerConfig.Register();
+
+
             // Appears correct order is to register WebMVC, then WebAPI.
             InitializeMvc(appBuilder);
             InitializeWebApi(appBuilder, this._sessionOperationLogService);
+            // After WebApi is sorted out:
+            // Note that *usually* swagger is invoked because the SwaggerClass is decorated 
+            // with [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
+            // But that calls it too early. and Swagger's list of APIs ends up empty
+            // See: https://stackoverflow.com/questions/31840165/swashbuckle-5-cant-find-my-apicontrollers
 
             // After routing is sorted out:
             appBuilder.UseRequestTenantMiddleware();
@@ -112,18 +124,15 @@ namespace App.Core.Application
         private void InitializeWebApi(IAppBuilder appBuilder,
             ISessionOperationLogService sessionOperationLogService)
         {
-            // Ensure WebAPI is activated (via Microsoft.AspNet.WebApi.Owin package):
-            // Not needed (also, gone in MVC 6): appBuilder.UseWebApi(httpConfiguration);
-            // See: https://stackoverflow.com/a/43852361
-            // Which is good, because GlobalConfiguration.Configuration seems to stops 
-            // working after adding '.UseWebApi'. 
+
+
+
             // According to /*?*/ a common error when using OWIN in MVC is trying using
             // GlobalConfiguration.Configuration. You don't. You use a brand new one.
             // And since you're not using GlobalConfiguration.Configuration, you don't use
             // GlobalConfiguraiton.Configure(...) either. 
-
+            // Get alternate singleton:
             var httpConfiguration = HttpConfigurationLocator.Current;
-        
             //GlobalConfiguration.Configure(httpConfiguration =>
             //{ 
             StaticFileHandlingConfig.Configure(httpConfiguration);
@@ -141,10 +150,14 @@ namespace App.Core.Application
             // Note that the original GlobalConfiguration.Configure(..)
             // method invokes EnsureInitialized when done, which happens 
             // to not care if it invoked multiple times:
-            httpConfiguration.EnsureInitialized();
+            // httpConfiguration.EnsureInitialized();
             //});
 
-
+            // Ensure WebAPI is activated (via Microsoft.AspNet.WebApi.Owin package):
+            // Not needed (also, gone in MVC 6): appBuilder.UseWebApi(httpConfiguration);
+            // See: https://stackoverflow.com/a/43852361
+            // Which is good, because GlobalConfiguration.Configuration seems to stops 
+            // working after adding '.UseWebApi'. 
             appBuilder.UseWebApi(httpConfiguration);
 
             

@@ -27,7 +27,8 @@ namespace App.Core.Application.App_Start {
         public static void Start() {
 			var container = StructuremapMvc.StructureMapDependencyScope.Container;
             GlobalConfiguration.Configuration.DependencyResolver = new StructureMapWebApiDependencyResolver(container);
-            GlobalConfiguration.Configuration.EnsureInitialized();
+            // Do not call yet:
+            //GlobalConfiguration.Configuration.EnsureInitialized();
         }
     }
 }

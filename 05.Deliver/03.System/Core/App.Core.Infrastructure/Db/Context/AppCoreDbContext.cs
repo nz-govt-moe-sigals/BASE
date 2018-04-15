@@ -25,7 +25,7 @@
     /// <seealso cref="App.Core.Infrastructure.Db.Context.AppDbContextBase" />
     public class AppCoreDbContext : AppDbContextBase
     {
-        public const string SchemaKey = "Core";
+        public const string SchemaKey = Constants.Module.Names.ModuleKey;
 
         public DbSet<Tenant> Tenants { get; set; }
         public DbSet<Session> Sessions { get; set; }

@@ -2,7 +2,9 @@
 {
     using System.Diagnostics;
     using App.Core.Infrastructure.Factories;
+    using App.Core.Infrastructure.Services;
     using Microsoft.Practices.ServiceLocation;
+    using TraceLevel = App.Core.Shared.Models.Entities.TraceLevel;
 
     // Initiliazes Microsoft's Common ServiceLocator.
     // Invoked during App Startup phase, after StructureMapMvc, 
@@ -27,9 +29,21 @@
             var locator = new StructureMapServiceLocator(container);
             ServiceLocator.SetLocatorProvider(() => locator);
 
+            string whatDidIScan = container.WhatDidIScan();
+
+            // Write to debug so it shows on Console while developing:
             Debug.WriteLine("ServiceLocator Configuration Summary");
             Debug.WriteLine("====================================");
-            Debug.WriteLine(container.WhatDidIScan());
+            Debug.WriteLine(whatDidIScan);
+
+
+            // But I think (todo) the above is to another channel.
+            // So write it to the trace so that it ends in diagnostics logs:
+            var diagnosticsTracingService = App.AppDependencyLocator.Current.GetInstance<IDiagnosticsTracingService>();
+            diagnosticsTracingService.Trace(TraceLevel.Verbose, "ServiceLocator Configuration Summary");
+            diagnosticsTracingService.Trace(TraceLevel.Verbose, "====================================");
+            diagnosticsTracingService.Trace(TraceLevel.Verbose, whatDidIScan);
+
         }
     }
 }

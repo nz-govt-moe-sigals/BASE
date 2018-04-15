@@ -45,9 +45,12 @@ namespace App.Core.Application.App_Start
             // Important: Can only be same routePrefix (eg:'api') as 
             // WebAPIs if it is registered *before* WebAPI routes...
             httpConfiguration.MapODataServiceRoute(
-                "AppCoreODataApiPaths",
-                "odata/core",
-                builder.GetEdmModel());
+                routeName: Infrastructure.Constants.Module.Names.ModuleKey + "Paths",
+                routePrefix: "odata/" + Infrastructure.Constants.Module.Names.ModuleKey.ToLower(),
+                model: builder.GetEdmModel());
+
+
+
         }
 
         private int RegisterByReflectionTheODataModelDefinitions(ODataModelBuilder builder)

@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5136CC88-5043-46E7-946A-92337F74C450}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>App.Module3.Shared</RootNamespace>
+    <AssemblyName>App.Module3.Shared</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Configuration\ExampleApiConfiguration.cs" />
+    <Compile Include="Models\Entities\Example.cs" />
+    <Compile Include="Models\Entities\ReferenceData\AreaUnit.cs" />
+    <Compile Include="Models\Entities\ReferenceData\AuthorityType.cs" />
+    <Compile Include="Models\Entities\ReferenceData\CommunityBoard.cs" />
+    <Compile Include="Models\Entities\ReferenceData\GeneralElectorate.cs" />
+    <Compile Include="Models\Entities\ReferenceData\MaoriElectorate.cs" />
+    <Compile Include="Models\Entities\ReferenceData\OrganisationStatus.cs" />
+    <Compile Include="Models\Entities\ReferenceData\OrganisationType.cs" />
+    <Compile Include="Models\Entities\ReferenceData\Region.cs" />
+    <Compile Include="Models\Entities\ReferenceData\RegionalCouncil.cs" />
+    <Compile Include="Models\Entities\ReferenceData\RelationshipType.cs" />
+    <Compile Include="Models\Entities\ReferenceData\SchoolClassification.cs" />
+    <Compile Include="Models\Entities\ReferenceData\SchoolingGender.cs" />
+    <Compile Include="Models\Entities\ReferenceData\SchoolYearLevel.cs" />
+    <Compile Include="Models\Entities\ReferenceData\SpecialSchooling.cs" />
+    <Compile Include="Models\Entities\ReferenceData\TeacherEducation.cs" />
+    <Compile Include="Models\Entities\ReferenceData\TerritorialAuthority.cs" />
+    <Compile Include="Models\Entities\ReferenceData\UrbanArea.cs" />
+    <Compile Include="Models\Entities\ReferenceData\Ward.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ExampleDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ExampleReferenceTypeDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\AreaUnitDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\AuthorityTypeDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\CommunityBoardDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\GeneralElectorateDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\MaoriElectorateDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\OrganisationStatusDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\OrganisationTypeDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\RegionDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\RegionalCouncilDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\RelationshipTypeDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\SchoolClassificationDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\SchoolingGenderDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\SchoolYearLevelDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\SpecialSchoolingDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\TeacherEducationDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\TerritorialAuthorityDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\UrbanAreaDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\WardDto.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\App.Core.Shared\App.Core.Shared.csproj">
+      <Project>{74aa77d2-5a81-490b-a160-c058b375524a}</Project>
+      <Name>App.Core.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Contracts\" />
+    <Folder Include="Models\Entities\Base\" />
+    <Folder Include="Models\Enums\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

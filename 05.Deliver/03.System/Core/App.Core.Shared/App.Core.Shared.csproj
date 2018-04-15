@@ -64,11 +64,16 @@
     <Compile Include="Models\Configuration\ScaniiConfiguration.cs" />
     <Compile Include="Models\Contracts\IHasAuditability.cs" />
     <Compile Include="Models\Contracts\IHasDescription.cs" />
+    <Compile Include="Models\Contracts\IHasKeyedMutableReferenceData.cs" />
+    <Compile Include="Models\Contracts\IHasKeyedMutableValuedReferenceData.cs" />
     <Compile Include="Models\Contracts\IHasKeyValue.cs" />
+    <Compile Include="Models\Contracts\IHasMutableReferenceData.cs" />
+    <Compile Include="Models\Contracts\IHasMutableValuedReferenceData.cs" />
     <Compile Include="Models\Contracts\IHasName.cs" />
     <Compile Include="Models\Contracts\IHasResourceKey.cs" />
     <Compile Include="Models\Contracts\IHasTag.cs" />
     <Compile Include="Models\Contracts\IHasText.cs" />
+    <Compile Include="Models\Entities\Base\KeyedTenantedGuidIdReferenceDataBase.cs" />
     <Compile Include="Models\Entities\Base\ReferenceDataBase.cs" />
     <Compile Include="Models\Entities\Base\TenantedGuidIdReferenceDataBase.cs" />
     <Compile Include="Models\Entities\Base\TenantedCustomIdReferenceDataBase.cs" />
@@ -119,7 +124,7 @@
     <Compile Include="Models\Entities\PrincipalSetting.cs" />
     <Compile Include="Models\Messages\APIs\V0100\NotificationUpdateDto.cs" />
     <Compile Include="Models\Configuration\ApplicationDescription.cs" />
-    <Compile Include="Models\Messages\BaseClasses\ReferenceDtoBase.cs" />
+    <Compile Include="Models\Messages\BaseClasses\TenantedReferenceDtoBase.cs" />
     <Compile Include="Models\Messages\ConfigurationTestStepSummary.cs" />
     <Compile Include="Models\Messages\Enums\ConfigurationStepStatus.cs" />
     <Compile Include="Models\Messages\Enums\ConfigurationStepType.cs" />

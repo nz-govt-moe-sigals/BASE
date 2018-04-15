@@ -9,9 +9,9 @@ namespace App.Core.Shared.Models.Messages.BaseClasses
     using App.Core.Shared.Factories;
     using App.Core.Shared.Models.Entities;
 
-    public abstract class ReferenceDtoBase  /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ : IHasGuidId, IHasTenantFK, IHasRecordState
+    public abstract class TenantedReferenceDtoBase  /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ : IHasGuidId, IHasTenantFK, IHasRecordState
     {
-        protected ReferenceDtoBase()
+        protected TenantedReferenceDtoBase()
         {
             this.Id = GuidFactory.NewGuid();
         }

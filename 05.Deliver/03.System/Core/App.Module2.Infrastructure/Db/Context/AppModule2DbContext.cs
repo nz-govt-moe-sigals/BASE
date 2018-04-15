@@ -33,7 +33,7 @@ namespace App.Module2.Infrastructure.Db.Context
         // IMPORTANT: Notice that each Module DbContext
         // gets its own Schema, keeping it nice and separate
         // from other Modules, and Core:
-        public const string SchemaKey = "Module2";
+        public const string SchemaKey = Constants.Module.Names.ModuleKey;
 
 
         

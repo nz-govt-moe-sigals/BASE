@@ -31,7 +31,7 @@
         // IMPORTANT: Notice that each Module DbContext
         // gets its own Schema, keeping it nice and separate
         // from other Modules, and Core:
-        public const string SchemaKey = "Module1";
+        public const string SchemaKey = Constants.Module.Names.ModuleKey;
 
         // Already being called from base class:
         //static AppModule1DbContext()

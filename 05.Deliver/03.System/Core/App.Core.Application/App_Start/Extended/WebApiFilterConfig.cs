@@ -15,6 +15,13 @@
     /// is set in the config file(`true` is the default in this app, but this hamper debugging
     /// of the first install.)
     /// </para>
+    /// <para>
+    /// Security of WebApis is also enforced here, by default, by applying a custom Filter
+    /// (the <see cref="WebApiAppAuthorizeAttribute"/> filter) to all Methods within all 
+    /// WebAPI controllers. 
+    /// We could have done it by AOP Interception, but that would have been a bit overkill, 
+    /// when the WebAPI Framework already has a solution.
+    /// </para>
     /// </summary>
     public class WebApiFilterConfig
     {
@@ -32,8 +39,8 @@
         /// <param name="principalService">The principal service.</param>
         /// <param name="configurationStepService">The configuration step service.</param>
         public WebApiFilterConfig(
-            ISessionOperationLogService sessionOperationLogService, 
-            IPrincipalService principalService, 
+            ISessionOperationLogService sessionOperationLogService,
+            IPrincipalService principalService,
             IConfigurationStepService configurationStepService)
         {
             this._sessionOperationLogService = sessionOperationLogService;
@@ -98,6 +105,17 @@
                         ConfigurationStepStatus.Green,
                         "HTTPS Required (WebAPI)",
                         "WebAPI Filter installed to redirect HTTP requests to HTTPS.");
+
+
+                filters.Add(new WebApiAppAuthorizeAttribute());
+
+                AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
+                    .Register(
+                        ConfigurationStepType.Security,
+                        ConfigurationStepStatus.Green,
+                        "WebAPI Filter: Authorization",
+                        "WebAPI Filter installed to ensure Authorization is enforced by default.");
+
 
 
                 // LAST!!!!

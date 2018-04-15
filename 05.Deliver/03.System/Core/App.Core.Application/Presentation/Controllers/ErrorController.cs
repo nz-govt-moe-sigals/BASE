@@ -2,6 +2,7 @@
 {
     using System.Web.Mvc;
 
+    [AllowAnonymous]
     public class ErrorController : Controller
     {
         // GET: Error

@@ -1,6 +1,7 @@
 ﻿namespace App.Core.Infrastructure.Services.Implementations
 {
     using System.Collections.Generic;
+    using System.Threading;
     using App.Core.Shared.Models.Entities;
     /// <summary>
     ///     Implementation of the
@@ -52,6 +53,8 @@
 
             message = string.Format(message, arguments);
 
+            var threadId = Thread.CurrentThread.Name?? Thread.CurrentThread.ManagedThreadId.ToString();
+
             switch (traceLevel)
             {
                 // The trouble with TraceError/TraceWarning is that they don't just add one line, 
@@ -70,28 +73,28 @@
                 // That said, WriteLine will be prefixed with "Verbose"
                 // So you can use plain old Write, terminated with "\r\n"
                 case TraceLevel.Critical:
-                    // System.Diagnostics.Trace.TraceError(message);
+                     //System.Diagnostics.Trace.TraceError(message);
                     //System.Diagnostics.Trace.WriteLine($"CRITICAL: {message}");
-                    System.Diagnostics.Trace.Write($"CRITICAL: {message}{lineEnding}");
+                    System.Diagnostics.Trace.Write($"CRITICAL: {threadId}: {message}{lineEnding}");
                     break;
                 case TraceLevel.Error:
                     // System.Diagnostics.Trace.TraceError(message);
                     //System.Diagnostics.Trace.WriteLine($"ERROR...: {message}");
-                    System.Diagnostics.Trace.Write($"ERROR...: {message}{lineEnding}");
+                    System.Diagnostics.Trace.Write($"ERROR...: {threadId}: {message}{lineEnding}");
                     break;
                 case TraceLevel.Warn:
                     //System.Diagnostics.Trace.TraceWarning(message);
                     //System.Diagnostics.Trace.WriteLine($"WARN....: {message}");
-                    System.Diagnostics.Trace.Write($"WARN....: {message}{lineEnding}");
+                    System.Diagnostics.Trace.Write($"WARN....: {threadId}: {message}{lineEnding}");
                     break;
                 case TraceLevel.Info:
                     //System.Diagnostics.Trace.TraceInformation(message);
                     // System.Diagnostics.Trace.WriteLine($"INFO....: {message}");
-                    System.Diagnostics.Trace.Write($"INFO....: {message}{lineEnding}");
+                    System.Diagnostics.Trace.Write($"INFO....: {threadId}: {message}{lineEnding}");
                     break;
                 case TraceLevel.Debug:
                     // System.Diagnostics.Trace.WriteLine($"DEBUG...: {message}");
-                    System.Diagnostics.Trace.Write($"DEBUG: {message}{lineEnding}");
+                    System.Diagnostics.Trace.Write($"DEBUG: {threadId}: {message}{lineEnding}");
                     break;
             }
 

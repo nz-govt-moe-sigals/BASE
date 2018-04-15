@@ -1,13 +1,15 @@
 using App.Core.Application.Extended;
 using WebActivatorEx;
 
-[assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
+//[assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 namespace App.Core.Application.Extended
 {
     using App.Core.Application;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Messages;
     using Swashbuckle.Application;
+    using System.Net.Http;
+    using System;
 
     /// <summary>
     /// A pipeline invoked class (class is decorated with <see cref="PreApplicationStartMethodAttribute"/> )to configure
@@ -15,7 +17,7 @@ namespace App.Core.Application.Extended
     /// </summary>
     public class SwaggerConfig
     {
-
+        private static bool initialized;
         /// <summary>
         /// Registers this instance.
         /// <para>
@@ -40,15 +42,24 @@ namespace App.Core.Application.Extended
 
 
 
-                //GlobalConfiguration.Configuration
-                App.Core.Application.Initialization.HttpConfigurationLocator.Current
+              //So insted of using: System.Web.Http.GlobalConfiguration.Configuration
+              // we use our personally created:
+              App.Core.Application.Initialization.HttpConfigurationLocator.Current
                     .EnableSwagger(path, c =>
                     {
+
                         // By default, the service root url is inferred from the request used to access the docs.
                         // However, there may be situations (e.g. proxy and load-balanced environments) where this does not
                         // resolve correctly. You can workaround this by providing your own code to determine the root URL.
                         //
                         //c.RootUrl(req => GetRootUrlFromAppConfig());
+                        // As per: https://github.com/domaindrivendev/Swashbuckle
+                        // When you host Web API 2 on top of OWIN/SystemWeb, Swashbuckle cannot correctly resolve VirtualPathRoot by default.
+                        // You must either explicitly set VirtualPathRoot in your HttpConfiguration at startup, or perform customization like this to fix automatic discovery:
+                        c.RootUrl(req =>
+                            req.RequestUri.GetLeftPart(UriPartial.Authority) +
+                            req.GetRequestContext().VirtualPathRoot.TrimEnd('/'));
+
 
                         // If schemes are not explicitly provided in a Swagger 2.0 document, then the scheme used to access
                         // the docs is taken as the default. If your API supports multiple schemes and you want to be explicit
@@ -223,7 +234,7 @@ namespace App.Core.Application.Extended
                         // Use the "DocumentTitle" option to change the Document title.
                         // Very helpful when you have multiple Swagger pages open, to tell them apart.
                         //
-                        //c.DocumentTitle("My Swagger UI");
+                        c.DocumentTitle("My Swagger UI");
 
                         // Use the "InjectStylesheet" option to enrich the UI with one or more additional CSS stylesheets.
                         // The file must be included in your project as an "Embedded Resource", and then the resource's
@@ -302,6 +313,7 @@ namespace App.Core.Application.Extended
                 //        $"Swagger/OpenAPI initialized for '{path}'. Took {elapsedTime}");
             }
 
+            initialized = true;
 
         }
     }

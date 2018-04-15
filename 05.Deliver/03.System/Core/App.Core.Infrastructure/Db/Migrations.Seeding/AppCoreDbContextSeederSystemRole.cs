@@ -48,7 +48,7 @@
                 {
                     Id = 1.ToGuid(),
                     Enabled = false,
-                    ModuleKey="Core",
+                    ModuleKey=Constants.Module.Names.ModuleKey,
                     Key =  Constants.Roles.RoleKeys.SystemUser,
                     DataClassificationFK = NZDataClassification.InConfidence,
                 },
@@ -56,7 +56,7 @@
                 {
                     Id = 2.ToGuid(),
                     Enabled = false,
-                    ModuleKey="Core",
+                    ModuleKey=Constants.Module.Names.ModuleKey,
                     Key =  Constants.Roles.RoleKeys.SystemAdmin,
                     DataClassificationFK = NZDataClassification.InConfidence,
                 },
@@ -65,7 +65,7 @@
                 {
                     Id = 3.ToGuid(),
                     Enabled = false,
-                    ModuleKey="Core",
+                    ModuleKey=Constants.Module.Names.ModuleKey,
                     Key =  Constants.Roles.RoleKeys.TenantMember,
                     DataClassificationFK = NZDataClassification.InConfidence
                 },
@@ -73,7 +73,7 @@
                 {
                     Id = 4.ToGuid(),
                     Enabled = false,
-                    ModuleKey="Core",
+                    ModuleKey=Constants.Module.Names.ModuleKey,
                     Key =  Constants.Roles.RoleKeys.TenantAdmin,
                     DataClassificationFK = NZDataClassification.InConfidence,
                 }

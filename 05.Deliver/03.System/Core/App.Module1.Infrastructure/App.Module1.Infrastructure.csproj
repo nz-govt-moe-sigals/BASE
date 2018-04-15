@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Constants\AppSettingKeys\AppModule1ApiScopes.cs" />
     <Compile Include="Constants\Db\AppModule1DbContextNames.cs" />
+    <Compile Include="Constants\Module\Names.cs" />
     <Compile Include="Db\Context\AppModule1DatabaseInitializer.cs" />
     <Compile Include="Db\Context\AppModule1DbContextFactory.cs" />
     <Compile Include="Db\Context\AppModule1DatabaseInitializerConfigurer.cs" />

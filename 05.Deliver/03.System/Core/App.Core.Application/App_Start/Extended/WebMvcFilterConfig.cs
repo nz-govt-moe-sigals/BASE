@@ -86,6 +86,17 @@
 
         private void RegisterAuthenticationFilters(GlobalFilterCollection filters)
         {
+            using (var elapsedTime = new ElapsedTime())
+            {
+            filters.Add(new WebMvcAppAuthorizeAttribute());
+                this._configurationStepService
+                    .Register(
+                        ConfigurationStepType.Security,
+                        ConfigurationStepStatus.Green,
+                        "WebMVC Filter: Authorisation",
+                        $"Global Filter installed to RBAC Authenticated Users. Took {elapsedTime.ElapsedText}");
+            }
+
         }
 
         private void RegisterActionFilters(GlobalFilterCollection filters)
@@ -100,7 +111,7 @@
                         ConfigurationStepType.Security,
                         ConfigurationStepStatus.Green,
                         "HTTPS Required (WebMVC)",
-                        $"Filter installed to redirect HTTP requests to HTTPS. Took {elapsedTime.ElapsedText}");
+                        $"Global Filter installed to redirect HTTP requests to HTTPS. Took {elapsedTime.ElapsedText}");
             }
 
             using (var elapsedTime = new ElapsedTime())
@@ -114,7 +125,7 @@
                         ConfigurationStepType.Security,
                         ConfigurationStepStatus.Green,
                         "Operation Auditing",
-                        $"Filter installed to Audit all operations (in a general manner). Took {elapsedTime.ElapsedText}");
+                        $"Global Filter installed to Audit all operations (in a general manner). Took {elapsedTime.ElapsedText}");
             }
 
 
@@ -128,7 +139,7 @@
                         ConfigurationStepType.General,
                         ConfigurationStepStatus.White,
                         "DbContext Commit at end of commands.",
-                        $"WebApi Filter installed to automatically commit all pending changes. Took {elapsedTime}");
+                        $"Global Filter installed to automatically commit all pending changes. Took {elapsedTime}");
             }
 
             //NO: More securely done within Global.asax.cs: filters.Add(new ThrottleMvcActionFilterAttribute());

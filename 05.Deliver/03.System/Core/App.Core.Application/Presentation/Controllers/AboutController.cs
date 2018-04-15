@@ -4,6 +4,7 @@
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
 
+    [AllowAnonymous]
     public class AboutController : Controller
     {
         public AboutController(IDiagnosticsTracingService diagnosticsTracingService)

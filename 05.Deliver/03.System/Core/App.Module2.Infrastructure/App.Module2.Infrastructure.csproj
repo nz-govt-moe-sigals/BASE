@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Constants\Db\AppModule2DbContextNames.cs" />
     <Compile Include="Constants\Db\OrganisationPropertyKeys.cs" />
+    <Compile Include="Constants\Module\Names.cs" />
     <Compile Include="Db\Context\AppModule2DatabaseInitializer.cs" />
     <Compile Include="Db\Context\AppModule2DatabaseInitializerConfigurer.cs" />
     <Compile Include="Db\Context\AppModule2DbContext.cs" />

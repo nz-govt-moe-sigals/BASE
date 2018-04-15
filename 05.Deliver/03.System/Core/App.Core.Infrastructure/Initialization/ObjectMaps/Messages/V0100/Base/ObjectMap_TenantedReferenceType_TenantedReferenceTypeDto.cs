@@ -13,7 +13,7 @@ namespace App.Core.Infrastructure.Initialization.ObjectMaps.Messages.V0100.Base
     public abstract class ObjectMap_TenantedReferenceType_TenantedReferenceTypeDto<T,TDto> 
         : IHasAutomapperInitializer
         where T : TenantedGuidIdReferenceDataBase
-        where TDto: ReferenceDtoBase
+        where TDto: TenantedReferenceDtoBase
     {
 
         public void Initialize(IMapperConfigurationExpression config)

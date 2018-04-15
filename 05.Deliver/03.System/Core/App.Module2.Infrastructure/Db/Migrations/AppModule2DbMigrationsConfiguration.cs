@@ -12,7 +12,7 @@ namespace App.Module2.Infrastructure.Db.Migrations
         {
             this.AutomaticMigrationsEnabled = false;
             //Where to save Migrations (keep schemas distinct in their own folder):
-            this.MigrationsDirectory = @"Db\Migrations\Module2";
+            this.MigrationsDirectory = @"Db\Migrations\"+ Constants.Module.Names.ModuleKey;
         }
 
         protected override void Seed(AppModule2DbContext context)
