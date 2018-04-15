@@ -10,6 +10,7 @@ namespace App.Core.Application.Extended
     using Swashbuckle.Application;
     using System.Net.Http;
     using System;
+    using Swashbuckle.OData;
 
     /// <summary>
     /// A pipeline invoked class (class is decorated with <see cref="PreApplicationStartMethodAttribute"/> )to configure
@@ -228,6 +229,20 @@ namespace App.Core.Application.Extended
                         // alternative implementation for ISwaggerProvider with the CustomProvider option.
                         //
                         //c.CustomProvider((defaultProvider) => new CachingSwaggerProvider(defaultProvider));
+                        //https://github.com/rbeauchamp/Swashbuckle.OData
+
+                        c.CustomProvider(defaultProvider => new ODataSwaggerProvider(defaultProvider, c, Initialization.HttpConfigurationLocator.Current).Configure(odataConfig =>
+                        {
+                            // Set this flag to include navigation properties in your entity swagger models
+                            //
+                            odataConfig.IncludeNavigationProperties();
+
+                            // Enable Cache for swagger doc requests
+                            odataConfig.EnableSwaggerRequestCaching();
+
+                            //Set custom AssembliesResolver
+                            //odataConfig.SetAssembliesResolver(new Utils.CustomAssembliesResolver());
+                        }));
                     })
                     .EnableSwaggerUi(c =>
                     {
