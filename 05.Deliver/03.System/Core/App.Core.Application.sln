@@ -28,6 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "README", "README", "{8A4F3C
 		Readme\readme.security.md = Readme\readme.security.md
 		Readme\readme.setup.azure.md = Readme\readme.setup.azure.md
 		Readme\readme.setup.md = Readme\readme.setup.md
+		Readme\readme.setup.msi.md = Readme\readme.setup.msi.md
 		Readme\readme.setup.oidc.md = Readme\readme.setup.oidc.md
 		Readme\readme.versioning.md = Readme\readme.versioning.md
 	EndProjectSection
