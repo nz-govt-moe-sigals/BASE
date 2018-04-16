@@ -126,6 +126,11 @@
     <Compile Include="Models\Configuration\ApplicationDescription.cs" />
     <Compile Include="Models\Messages\BaseClasses\TenantedReferenceDtoBase.cs" />
     <Compile Include="Models\Messages\ConfigurationTestStepSummary.cs" />
+    <Compile Include="Models\Messages\EDK\AreaUnits.cs" />
+    <Compile Include="Models\Messages\EDK\AuthorityType.cs" />
+    <Compile Include="Models\Messages\EDK\CommunityBoard.cs" />
+    <Compile Include="Models\Messages\EDK\GeneralElectorate.cs" />
+    <Compile Include="Models\Messages\EDK\MaoriElectorate.cs" />
     <Compile Include="Models\Messages\Enums\ConfigurationStepStatus.cs" />
     <Compile Include="Models\Messages\Enums\ConfigurationStepType.cs" />
     <Compile Include="Models\Messages\ConfigurationStepRecord.cs" />

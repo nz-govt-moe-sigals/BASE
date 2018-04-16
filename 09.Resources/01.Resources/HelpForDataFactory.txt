@@ -1,0 +1,106 @@
+[
+    {
+        "TABLE_NAME": "Schools_Directory_API_Ref_Area_Units",
+        "WaterMark_Column": "ModifiedDate"
+    },
+    {
+        "TABLE_NAME": "Schools_Directory_API_Ref_Authority_Type",
+        "WaterMark_Column": "ModifiedDate"
+    },
+	{
+        "TABLE_NAME": "Schools_Directory_API_Ref_Community_Board",
+        "WaterMark_Column": "ModifiedDate"
+    },
+	{
+        "TABLE_NAME": "Schools_Directory_API_Ref_General_Electorate",
+        "WaterMark_Column": "ModifiedDate"
+    },
+	{
+        "TABLE_NAME": "Schools_Directory_API_Ref_Maori_Electorate",
+        "WaterMark_Column": "ModifiedDate"
+    },
+	{
+        "TABLE_NAME": "Schools_Directory_API_Ref_Organisation_Status",
+        "WaterMark_Column": "ModifiedDate"
+    },
+	{
+        "TABLE_NAME": "Schools_Directory_API_Ref_Organisation_Type",
+        "WaterMark_Column": "ModifiedDate"
+    },
+	{
+        "TABLE_NAME": "Schools_Directory_API_Ref_Region",
+        "WaterMark_Column": "ModifiedDate"
+    },
+	{
+        "TABLE_NAME": "Schools_Directory_API_Ref_RegionalCouncil",
+        "WaterMark_Column": "ModifiedDate"
+    },
+	{
+        "TABLE_NAME": "Schools_Directory_API_Ref_Relationship_Type",
+        "WaterMark_Column": "ModifiedDate"
+    },
+	{
+        "TABLE_NAME": "Schools_Directory_API_Ref_SchoolClassification",
+        "WaterMark_Column": "ModifiedDate"
+    },
+	{
+        "TABLE_NAME": "Schools_Directory_API_Ref_SchoolYearLevel",
+        "WaterMark_Column": "ModifiedDate"
+    },
+	{
+        "TABLE_NAME": "Schools_Directory_API_Ref_Schooling_Gender",
+        "WaterMark_Column": "ModifiedDate"
+    },
+	{
+        "TABLE_NAME": "Schools_Directory_API_Ref_SpecialSchooling",
+        "WaterMark_Column": "ModifiedDate"
+    },
+	{
+        "TABLE_NAME": "Schools_Directory_API_Ref_Teacher_Education",
+        "WaterMark_Column": "ModifiedDate"
+    },
+	{
+        "TABLE_NAME": "Schools_Directory_API_Ref_TerritorialAuthority",
+        "WaterMark_Column": "ModifiedDate"
+    },
+	{
+        "TABLE_NAME": "Schools_Directory_API_Ref_UrbanArea",
+        "WaterMark_Column": "ModifiedDate"
+    },
+	{
+        "TABLE_NAME": "Schools_Directory_API_Ref_Ward",
+        "WaterMark_Column": "ModifiedDate"
+    },
+	{
+        "TABLE_NAME": "Schools_Directory_API_School_Enrol",
+        "WaterMark_Column": "ModifiedDate"
+    },
+	{
+        "TABLE_NAME": "Schools_Directory_API_School_Level_Gender",
+        "WaterMark_Column": "ModifiedDate"
+    },
+	{
+        "TABLE_NAME": "Schools_Directory_API_School_Profiles",
+        "WaterMark_Column": "ModifiedDate"
+    },
+	{
+        "TABLE_NAME": "Schools_Directory_API_School_WGS",
+        "WaterMark_Column": "ModifiedDate"
+    },
+	{
+        "TABLE_NAME": "Schools_Directory_API_Summary",
+        "WaterMark_Column": "ModifiedDate"
+    }
+]
+
+select t.*, '@{item().TABLE_NAME}' as table_name from @{item().TABLE_NAME} t
+where  t.@{item().WaterMark_Column} > '@{activity('LookupOldWaterMarkActivity').output.firstRow.WatermarkValue}' and t.@{item().WaterMark_Column} <= '@{activity('LookupNewWaterMarkActivity').output.firstRow.NewWatermarkvalue}' 
+
+select DATEADD(s, 1, WatermarkValue) as WatermarkValue,
+'@{item().TABLE_NAME}' as TableName
+ from watermarktable where TableName  =  '@{item().TABLE_NAME}'
+UNION ALL
+select  CONVERT(DATETIME,'2016-01-01') as WatermarkValue,'@{item().TABLE_NAME}' as TableName,
+
+select MAX(@{item().WaterMark_Column}) as NewWatermarkvalue from @{item().TABLE_NAME}
+select DATEADD(ms, -DATEPART(ms, MAX(@{item().WaterMark_Column})), MAX(@{item().WaterMark_Column})) as NewWatermarkvalue from @{item().TABLE_NAME}
