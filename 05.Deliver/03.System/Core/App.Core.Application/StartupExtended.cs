@@ -71,18 +71,19 @@ namespace App.Core.Application
             App.AppDependencyLocator.Current.GetInstance<AutoMapperConfig>().Configure(appBuilder);
             App.AppDependencyLocator.Current.GetInstance < DbContextConfig>().Configure(appBuilder);
 
-            SwaggerConfig.Register();
+
 
 
             // Appears correct order is to register WebMVC, then WebAPI.
-            InitializeMvc(appBuilder);
             InitializeWebApi(appBuilder, this._sessionOperationLogService);
+            InitializeMvc(appBuilder);
+
             // After WebApi is sorted out:
             // Note that *usually* swagger is invoked because the SwaggerClass is decorated 
             // with [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
             // But that calls it too early. and Swagger's list of APIs ends up empty
             // See: https://stackoverflow.com/questions/31840165/swashbuckle-5-cant-find-my-apicontrollers
-
+            SwaggerConfig.Register();
             // After routing is sorted out:
             appBuilder.UseRequestTenantMiddleware();
 
@@ -91,6 +92,7 @@ namespace App.Core.Application
 
             // TODO: Stop invoking this at startup!
             ExternalServiceInvocation(appBuilder);
+          
 
         }
 

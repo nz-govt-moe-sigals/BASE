@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Web.Http;
     using System.Web.OData;
     using App.Core.Infrastructure.Constants.Db;
     using App.Core.Infrastructure.Services;
@@ -17,6 +18,7 @@
     /// for User Agents to cache as reference data.
     /// </summary>
     //[ODataRoutePrefix("body")]
+    [AllowAnonymous]
     public class DataClassificationController : ODataControllerBase // ODataControllerStandardDataBase<DataClassification,DataClassificationDto>
     {
         private readonly IRepositoryService _repositoryService;

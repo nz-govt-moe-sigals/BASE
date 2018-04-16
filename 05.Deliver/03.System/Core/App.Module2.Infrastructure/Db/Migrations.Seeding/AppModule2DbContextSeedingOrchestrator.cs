@@ -73,7 +73,7 @@
                 var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 if (Debugger.IsAttached == false)
                 {
-                    Debugger.Launch();
+                    //Debugger.Launch();
                 }
             }
         }
