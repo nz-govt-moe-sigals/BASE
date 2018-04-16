@@ -41,9 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\AliasAttribute.cs" />
+    <Compile Include="Attributes\ConfigurationSettingSource.cs" />
     <Compile Include="Attributes\DataClassificationAttribute.cs" />
     <Compile Include="Attributes\NamedAttribute.cs" />
     <Compile Include="Attributes\RoleSecuredDtoModelAttributeAttribute.cs" />
+    <Compile Include="Constants\ConfigurationKeys.cs" />
     <Compile Include="Contracts\IHasInitialize.cs" />
     <Compile Include="Contracts\IHasLifecycle.cs" />
     <Compile Include="Contracts\IHasSingletonLifecycle.cs" />
@@ -52,16 +54,23 @@
     <Compile Include="ExtensionMethods\IntExtensions.cs" />
     <Compile Include="ExtensionMethods\StringExtensions.cs" />
     <Compile Include="Factories\GuidFactory.cs" />
-    <Compile Include="Models\Configuration\AnalyticsConfiguration.cs" />
-    <Compile Include="Models\Configuration\ApplicationCreatorInformation.cs" />
-    <Compile Include="Models\Configuration\ApplicationDistributorInformation.cs" />
-    <Compile Include="Models\Configuration\AzureKeyVaultConfiguration.cs" />
-    <Compile Include="Models\Configuration\AzureStorageAccountConfiguration.cs" />
-    <Compile Include="Models\Configuration\AadApplicationClientCrededential.cs" />
-    <Compile Include="Models\Configuration\CodeFirstMigrationConfiguration.cs" />
-    <Compile Include="Models\Configuration\DemoConfiguration.cs" />
-    <Compile Include="Models\Configuration\MediaManagement.cs" />
-    <Compile Include="Models\Configuration\ScaniiConfiguration.cs" />
+    <Compile Include="Models\ConfigurationSettings\AzureCommonConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\AzureDocumentDbConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\AzureStorageAccountMedia2ConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\AzureStorageAccountMedia1ConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\IHostSettingsBasedConfigurationObject.cs" />
+    <Compile Include="Models\ConfigurationSettings\IStorageAccountConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\ScaniiHostConfiguration.cs" />
+    <Compile Include="Models\ConfigurationSettings\ApplicationInsightsConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\ApplicationCreatorInformationConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\ApplicationDistributorInformationConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\AzureKeyVaultConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\AzureStorageAccountDiagnosticsConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\AadApplicationRegistrationInformationConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\CodeFirstMigrationConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\DemoConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\MediaManagementConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\IKeyVaultBasedConfigurationObject.cs" />
     <Compile Include="Models\Contracts\IHasAuditability.cs" />
     <Compile Include="Models\Contracts\IHasDescription.cs" />
     <Compile Include="Models\Contracts\IHasKeyedMutableReferenceData.cs" />
@@ -123,7 +132,7 @@
     <Compile Include="Models\Entities\DataToken.cs" />
     <Compile Include="Models\Entities\PrincipalSetting.cs" />
     <Compile Include="Models\Messages\APIs\V0100\NotificationUpdateDto.cs" />
-    <Compile Include="Models\Configuration\ApplicationDescription.cs" />
+    <Compile Include="Models\ConfigurationSettings\ApplicationDescriptionConfigurationSettings.cs" />
     <Compile Include="Models\Messages\BaseClasses\TenantedReferenceDtoBase.cs" />
     <Compile Include="Models\Messages\ConfigurationTestStepSummary.cs" />
     <Compile Include="Models\Messages\Enums\ConfigurationStepStatus.cs" />
@@ -171,7 +180,7 @@
     <Folder Include="Models\Messages\APIs\V0100\Enums\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Models\Configuration\REAMDE.md" />
+    <None Include="Models\ConfigurationSettings\REAMDE.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

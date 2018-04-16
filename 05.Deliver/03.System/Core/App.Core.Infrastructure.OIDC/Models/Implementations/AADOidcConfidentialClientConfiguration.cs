@@ -21,7 +21,7 @@
         /// <value>
         ///     The type of the authority URI.
         /// </value>
-        [Alias("App:Core:ida:AuthorityUriType")]
+        [Alias("App-Core-Integration-ida-AuthorityUriType")]
         public string AuthorityUriType
         {
             get => this._authorityUriType ?? this.AuthorityTenantName;
@@ -38,13 +38,13 @@
         /// <summary>
         ///     The unique B2C Tenant Name.
         ///     <para>eg: xyz.onmicrosoft.com</para>
-        ///     <para>Default Host Setting key is 'App:Core:ida:Tenant'</para>
+        ///     <para>Default Host Setting key is 'App-Core-Integration-ida-Tenant'</para>
         /// </summary>
-        [Alias("App:Core:ida:AuthorityTenantName")]
+        [Alias("App-Core-Integration-ida-AuthorityTenantName")]
         public string AuthorityTenantName { get; set; }
 
 
-        [Alias("App:Core:ida:AuthorityUri")]
+        [Alias("App-Core-Integration-ida-AuthorityUri")]
         public override string AuthorityUri
         {
             get => base.AuthorityUri

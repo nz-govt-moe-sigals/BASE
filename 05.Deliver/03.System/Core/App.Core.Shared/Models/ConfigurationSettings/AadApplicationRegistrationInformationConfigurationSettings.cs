@@ -1,4 +1,4 @@
-﻿namespace App.Core.Shared.Models.Configuration
+﻿namespace App.Core.Shared.Models.ConfigurationSettings
 {
     using App.Core.Shared.Attributes;
 
@@ -16,7 +16,7 @@
     ///   * That's the Client Id
     /// </para>
     /// </summary>
-    public class AadApplicationRegistrationInformation
+    public class AadApplicationRegistrationInformationConfigurationSettings: IKeyVaultBasedConfigurationObject
     {
         /// <summary>
         /// Note that this is the ApplicationId that
@@ -30,7 +30,8 @@
         /// to assign rights to the KeyStore.
         /// </para>
         /// </summary>
-        [Alias("App:Core:IDA:AAD:ClientId")]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
+        [Alias( Constants.ConfigurationKeys.AppCoreIDAAADClientId)]
         public string ClientId { get; set; }
 
         /// <summary>
@@ -39,7 +40,8 @@
         /// registered the application as a client, 
         /// and have obtained an ApplicationId.
         /// </summary>
-        [Alias("App:Core:IDA:AAD:ClientSecret")]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIDAAADClientSecret)]
         public string ClientSecret { get; set; }
     }
 }

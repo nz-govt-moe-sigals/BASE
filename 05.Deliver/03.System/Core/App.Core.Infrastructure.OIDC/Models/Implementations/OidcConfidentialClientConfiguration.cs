@@ -21,40 +21,40 @@
         ///         (e.g. https://login.microsoftonline.com/{configType}/v2.0/.well-known/openid-configuration)
         ///     </para>
         ///     <para>
-        ///         App:Core:ida: AadInstance
+        ///         App-Core-Integration-ida- AadInstance
         ///         eg: https://login.microsoftonline.com/{0}{1}{2}
         ///     </para>
         /// </summary>
-        //[Alias("App:Core:ida:AadInstance")]
-        [Alias("App:Core:ida:AuthorityUri")]
+        //[Alias("App-Core-Integration-ida-AadInstance")]
+        [Alias("App-Core-Integration-ida-AuthorityUri")]
         public virtual string AuthorityUri { get; set; }
 
         /// <summary>
         ///     The Client application's unique Id.
         ///     <para>eg: 00000000-0000-.....</para>
-        ///     <para>Default Host Setting key is 'App:Core:ida:ClientId'</para>
+        ///     <para>Default Host Setting key is 'App-Core-Integration-ida-ClientId'</para>
         /// </summary>
-        [Alias("App:Core:ida:ClientId")]
+        [Alias("App-Core-Integration-ida-ClientId")]
         public string ClientId { get; set; }
 
 
         /// <summary>
         ///     The Client application's unique Id.
         ///     <para>eg: SECRET</para>
-        ///     <para>Default Host Setting key is 'App:Core:ida:ClientSecret'</para>
+        ///     <para>Default Host Setting key is 'App-Core-Integration-ida-ClientSecret'</para>
         /// </summary>
-        [Alias("App:Core:ida:ClientSecret")]
+        [Alias("App-Core-Integration-ida-ClientSecret")]
         public string ClientSecret { get; set; }
 
         /// <summary>
         ///     The Client application's callback to which the access token is delivered.
-        ///     <para>Default Host Setting key is 'App:Core:ida:RedirectUri'</para>
+        ///     <para>Default Host Setting key is 'App-Core-Integration-ida-RedirectUri'</para>
         ///     <para>eg: https://localhost:44311/ </para>
         /// </summary>
-        [Alias("App:Core:ida:RedirectUri")]
+        [Alias("App-Core-Integration-ida-RedirectUri")]
         public string ClientRedirectUri { get; set; }
 
-        [Alias("App:Core:ida:ClientPostLogoutUri")]
+        [Alias("App-Core-Integration-ida-ClientPostLogoutUri")]
         public string ClientPostLogoutUri
         {
             get => this._clientPostLogoutUri ?? this.ClientRedirectUri;

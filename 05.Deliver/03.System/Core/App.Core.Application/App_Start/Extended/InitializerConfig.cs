@@ -6,7 +6,6 @@ using System.Web;
 namespace App.Core.Application.App_Start
 {
     using App.Core.Infrastructure.Initialization.Integration;
-    using App.Core.Infrastructure.Initialization.Integration.Azure;
     using Owin;
 
     public class InitializerConfig

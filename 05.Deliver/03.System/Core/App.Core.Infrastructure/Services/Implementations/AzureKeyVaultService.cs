@@ -1,22 +1,36 @@
 ﻿
 namespace App.Core.Infrastructure.Services.Implementations
 {
-        using System.Configuration;
-        using System.Linq;
-        using System.Threading.Tasks;
-        using App;
-        using App.Core.Infrastructure.Integration.Azure.KeyVault;
-        using App.Core.Infrastructure.Services.Configuration;
-        using App.Core.Infrastructure.Services.Configuration.Implementations;
-        using App.Core.Shared.Models.Configuration;
-        using Microsoft.Azure.KeyVault;
-        using Microsoft.Azure.KeyVault.Models;
-        using Microsoft.Azure.KeyVault.WebKey;
-        using Microsoft.IdentityModel.Clients.ActiveDirectory;
-        using Microsoft.Rest.Azure;
-        using Microsoft.WindowsAzure.Storage;
-        using Microsoft.WindowsAzure.Storage.Auth;
-        using Microsoft.WindowsAzure.Storage.Queue;
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Configuration;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using App;
+    using App.Core.Infrastructure.Factories;
+    using App.Core.Infrastructure.Integration.Azure.KeyVault;
+    using App.Core.Infrastructure.Services.Caches.Implementations;
+    using App.Core.Infrastructure.Services.Configuration;
+    using App.Core.Infrastructure.Services.Configuration.Implementations;
+    using App.Core.Shared.Models.Configuration;
+    using App.Core.Shared.Models.Entities;
+    using Microsoft.Azure.KeyVault;
+    using Microsoft.Azure.KeyVault.Models;
+    using Microsoft.Azure.KeyVault.WebKey;
+    using Microsoft.Azure.Services.AppAuthentication;
+    using Microsoft.IdentityModel.Clients.ActiveDirectory;
+    using Microsoft.Rest.Azure;
+    using Microsoft.WindowsAzure.Storage;
+    using Microsoft.WindowsAzure.Storage.Auth;
+    using Microsoft.WindowsAzure.Storage.Queue;
+
+
+
+  
+
+
+
 
     /// <summary>
     ///     Implementation of the
@@ -45,125 +59,279 @@ namespace App.Core.Infrastructure.Services.Implementations
     /// </summary>
     public class AzureKeyVaultService : AppCoreServiceBase, IAzureKeyVaultService
     {
-            public  AzureKeyVaultServiceConfiguration Configuration
+        // The max number is surprisingly low:
+        private int _maxKeysRetrieved = 25;
+
+        private string _keyVaultUrl;
+
+
+        public AzureKeyVaultServiceConfiguration Configuration
         {
-                get
-                {
-                    return _azureKeyVaultServiceConfiguration;
-                }
-            }
-            private readonly AzureKeyVaultServiceConfiguration _azureKeyVaultServiceConfiguration;
-
-
-            public AzureKeyVaultService(AzureKeyVaultServiceConfiguration azureKeyVaultServiceConfiguration)
+            get
             {
-                this._azureKeyVaultServiceConfiguration = azureKeyVaultServiceConfiguration;
-
-            //Build the client early for use later by operations
-                
-     
+                return this._configuration;
             }
+        }
+        private readonly AzureKeyVaultServiceConfiguration _configuration;
+        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
+        private readonly IHostSettingsService _hostSettingsService;
 
-            private KeyVaultClient KeyVaultClient
-            {
-                get
-                {
-                    return this._keyVaultClient ?? (this._keyVaultClient = new KeyVaultClientFactory().Build(
-                               new ClientCredential(
-                                   this._azureKeyVaultServiceConfiguration.AADClientInfo.ClientId,
-                                   this._azureKeyVaultServiceConfiguration.AADClientInfo.ClientSecret)));
-                }
-            }
-            KeyVaultClient _keyVaultClient;
+        private KeyVaultConfigurationObjectFactory _configurationObjectFactory;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AzureKeyVaultService"/> class.
+        /// </summary>
+        /// <param name="azureKeyVaultServiceConfiguration">The azure key vault service configuration.</param>
+        /// <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
+        /// <param name="hostSettingsService">The host settings service.</param>
+        public AzureKeyVaultService(AzureKeyVaultServiceConfiguration azureKeyVaultServiceConfiguration,
+            IDiagnosticsTracingService diagnosticsTracingService,
+            IHostSettingsService hostSettingsService)
+        {
+            this._configuration = azureKeyVaultServiceConfiguration;
+            this._diagnosticsTracingService = diagnosticsTracingService;
+            this._hostSettingsService = hostSettingsService;
+
+            _keyVaultUrl = $"https://{this._configuration.ResourceName}.vault.azure.net";
+
+            // One of the very few objects not created by Dependency Injection.
+            // Lazy...but I can't think of how else to solve it right now:
+            _configurationObjectFactory = new KeyVaultConfigurationObjectFactory(diagnosticsTracingService, this);
+        }
 
 
         /// <summary>
+        /// Gets the key vault client.
         /// <para>
-        /// Applications that use a key vault must authenticate by using a token from Azure Active Directory. 
-        ///  The application must first register the application in their Azure Active Directory,
-        ///  get the ApplicationId and AuthenticationKey (the shared secret).
-        /// clientID and clientSecret are obtained by registering
-        /// the application in Azure AD
+        /// Note that this is just an authenticated client. 
+        /// It is not associated to a specific keyvault
+        /// (you need to provide that when you request a key).
         /// </para>
         /// </summary>
-        /// <param name="aaDClientInfo"></param>
-        /// <param name="vaultUrl"></param>
-        /// <param name="secretKey"></param>
+        private KeyVaultClient KeyVaultClient
+        {
+            get
+            {
+                if (this._keyVaultClient != null)
+                {
+                    return this._keyVaultClient;
+                }
+
+                //Are we running in MSI or not?
+
+                //string msiEndpoint = Environment.GetEnvironmentVariable("MSI_ENDPOINT");
+                //string msiSecret = Environment.GetEnvironmentVariable("MSI_SECRET");
+                //if ((!string.IsNullOrEmpty(msiEndpoint))&& (!string.IsNullOrEmpty(msiSecret)))
+                //{
+
+                var azureServiceTokenProvider = new AzureServiceTokenProvider();
+                //string accessToken = azureServiceTokenProvider.GetAccessTokenAsync("https://management.azure.com/").Result;
+                //OR
+                this._keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
+                return this._keyVaultClient;
+                //}
+
+                ////Not running in MSI, so return based on ClientId or Secret:
+                //this._keyVaultClient = new KeyVaultClientFactory().Build(
+                //           new ClientCredential(
+                //               this._azureKeyVaultServiceConfiguration.AADClientInfo.ClientId,
+                //               this._azureKeyVaultServiceConfiguration.AADClientInfo.ClientSecret));
+
+                //return this._keyVaultClient;
+            }
+        }
+        KeyVaultClient _keyVaultClient;
+
+        /// <summary>
+        /// Applications that use a key vault must authenticate by using a token from Azure Active Directory.
+        /// The application must first register the application in their Azure Active Directory,
+        /// get the ApplicationId and AuthenticationKey (the shared secret).
+        /// clientID and clientSecret are obtained by registering
+        /// the application in Azure AD
+        /// </summary>
+        /// <param name="secretKey">The secret key.</param>
+        /// <param name="keyVaultUrl">The key vault URL.</param>
         /// <returns></returns>
         public async Task<JsonWebKey> RetrieveKeyAsync(string secretKey, string keyVaultUrl = null)
-            {
+        {
+            secretKey = CleanKeyName(secretKey);
+
             if (string.IsNullOrWhiteSpace(keyVaultUrl))
             {
-                keyVaultUrl = this._azureKeyVaultServiceConfiguration.KeyVaultUrl;
+                keyVaultUrl = this._keyVaultUrl;
             }
-                KeyBundle keyBundle = await this.KeyVaultClient.GetKeyAsync(keyVaultUrl, secretKey);
+            KeyBundle keyBundle = await this.KeyVaultClient.GetKeyAsync(keyVaultUrl, secretKey);
 
-                return keyBundle.Key;
-            }
+            return keyBundle.Key;
+        }
 
-            public async Task<string> RetrieveSecretAsync(string secretKey, string keyVaultUrl = null)
+        /// <summary>
+        /// Retrieves the secret.
+        /// </summary>
+        /// <param name="secretKey">The secret key.</param>
+        /// <param name="keyVaultUrl">The key vault URL.</param>
+        /// <returns></returns>
+        public async Task<string> RetrieveSecretAsync(string secretKey, string keyVaultUrl = null)
+        {
+            secretKey = CleanKeyName(secretKey);
+
+            if (string.IsNullOrWhiteSpace(keyVaultUrl))
             {
-                if (string.IsNullOrWhiteSpace(keyVaultUrl))
-                {
-                    keyVaultUrl = this._azureKeyVaultServiceConfiguration.KeyVaultUrl;
-                }
-
+                keyVaultUrl = _keyVaultUrl;
+            }
+            try
+            {
                 var secret = await this.KeyVaultClient.GetSecretAsync(keyVaultUrl, secretKey);
-
                 return secret.Value;
             }
-
-
-            public async Task<SecretBundle> SetSecretAsync(string secretKey, string secret, string keyVaultUrl=null)
+            catch
             {
-                if (string.IsNullOrWhiteSpace(keyVaultUrl))
-                {
-                    keyVaultUrl = this._azureKeyVaultServiceConfiguration.KeyVaultUrl;
-                }
-                var secrectBundle = await this.KeyVaultClient.SetSecretAsync(keyVaultUrl, secretKey, secret);
-
-                return secrectBundle;
+                _diagnosticsTracingService.Trace(TraceLevel.Warn, $"KeyVault Secret '{secretKey}' not found.");
+                throw;
             }
-
-
-            public async Task<string[]> ListSecretKeysAsync(bool returnFQIdentifier, string keyVaultUrl = null)
-            {
-                if (string.IsNullOrWhiteSpace(keyVaultUrl))
-                {
-                    keyVaultUrl = this._azureKeyVaultServiceConfiguration.KeyVaultUrl;
-                }
-                //More than this and you get an error:
-                const int maxAzureAllows = 25;
-                IPage<SecretItem> secrets = await this.KeyVaultClient.GetSecretsAsync(keyVaultUrl, maxAzureAllows);
-
-                //return this.KeyVaultClient.GetSecretsAsync(keyVaultUrl, 500).GetAwaiter().GetResult().Select(x=>x.Id).ToArray();
-
-
-                string[] results = returnFQIdentifier
-                    ? secrets.Select(x => x.Identifier.Name).ToArray()
-                    : secrets.Select(x => x.Id).ToArray();
-
-                return results;
-
-            }
-
-            //public void Do()
-            //{
-
-            //    //Get the storage key as a secret in KeyVault
-            //    var storageKey = await GetStorageKey();
-            //    string storageAccountName = ConfigurationManager.AppSettings["storageAccountName"];
-            //    var creds = new StorageCredentials(storageAccountName, storageKey);
-            //    var storageAccount = new CloudStorageAccount(creds, true);
-            //    var queueClient = storageAccount.CreateCloudQueueClient();
-            //    var queue = queueClient.GetQueueReference("samplequeue");
-            //    await queue.CreateIfNotExistsAsync();
-            //    await queue.AddMessageAsync(new CloudQueueMessage("Hello keyvault"));
-
-            //}
 
         }
+
+
+        /// <summary>
+        /// Sets the secret.
+        /// </summary>
+        /// <param name="secretKey">The secret key.</param>
+        /// <param name="secret">The secret.</param>
+        /// <param name="keyVaultUrl">The key vault URL.</param>
+        /// <returns></returns>
+        public async Task<SecretBundle> SetSecretAsync(string secretKey, string secret, string keyVaultUrl = null)
+        {
+            secretKey = CleanKeyName(secretKey);
+
+            if (string.IsNullOrWhiteSpace(keyVaultUrl))
+            {
+                keyVaultUrl = _keyVaultUrl;
+            }
+            var secrectBundle = await this.KeyVaultClient.SetSecretAsync(keyVaultUrl, secretKey, secret);
+
+            return secrectBundle;
+        }
+
+        public async Task<IDictionary<string, string>> GetSecretsAsync(bool returnFQIdentifier = false, int pageSize = 0, string keyVaultUrl = null)
+        {
+            if (string.IsNullOrWhiteSpace(keyVaultUrl))
+            {
+                keyVaultUrl = _keyVaultUrl;
+            }
+            //More than this and you get an error:
+            if (pageSize == 0)
+            {
+                pageSize = this._maxKeysRetrieved;
+            }
+
+            IPage<SecretItem> secrets = await this.KeyVaultClient.GetSecretsAsync(keyVaultUrl, pageSize);
+            //return this.KeyVaultClient.GetSecretsAsync(keyVaultUrl, 500).GetAwaiter().GetResult().Select(x=>x.Id).ToArray();
+
+            //    KeyValuePair<string> 
+            //var x = new Tuple<string, string>("a","b;");
+
+            var results = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+
+
+            foreach (SecretItem x in secrets)
+            {
+                string key = returnFQIdentifier ? x.Identifier.Name : x.Id;
+                string value = await RetrieveSecretAsync(x.Identifier.Name);
+                results[key] = value;
+            }
+
+            return results;
+
+        }
+
+
+        public async Task<string[]> ListSecretKeysAsync(bool returnFQIdentifier = false, int pageSize = 0, string keyVaultUrl = null)
+        {
+            if (string.IsNullOrWhiteSpace(keyVaultUrl))
+            {
+                keyVaultUrl = _keyVaultUrl;
+            }
+            //More than this and you get an error:
+            if (pageSize == 0)
+            {
+                pageSize = this._maxKeysRetrieved;
+            }
+
+            IPage<SecretItem> secrets = await this.KeyVaultClient.GetSecretsAsync(keyVaultUrl, pageSize);
+
+            string[] results = returnFQIdentifier
+                ? secrets.Select(x => x.Identifier.Name).ToArray()
+                : secrets.Select(x => x.Id).ToArray();
+
+            return results;
+
+        }
+
+
+
+
+        public T GetObject<T>(string prefix = null, string keyVaultUrl = null) where T : class
+        {
+            if (string.IsNullOrWhiteSpace(keyVaultUrl))
+            {
+                keyVaultUrl = _keyVaultUrl;
+            }
+
+
+            // Build a unique Key to see if the object has already been created
+            // and stored in cache.
+            var key = typeof(T).FullName + ":" + prefix;
+
+
+            // Call the KeyVault specific cache:
+            if (KeyVaultServiceConfigurationObjectCache.ObjectCache.ContainsKey(key))
+            {
+                return (T)KeyVaultServiceConfigurationObjectCache.ObjectCache[key];
+            }
+
+            // If not, instead of making one here, 
+            // start with an object that has been processed by the HostSettings.
+            var result = _hostSettingsService.GetObject<T>(prefix);
+
+            // And override any values with KeyValues
+            this._configurationObjectFactory.Provision<T>(result, prefix);
+
+            // Then cache it:
+            HostSettingsServiceConfigurationObjectCache.ObjectCache[key] = result;
+
+            return result;
+
+        }
+
+        //public void Do()
+        //{
+
+        //    //Get the storage key as a secret in KeyVault
+        //    var storageKey = await GetStorageKey();
+        //    string storageAccountName = ConfigurationManager.AppSettings["storageAccountName"];
+        //    var creds = new StorageCredentials(storageAccountName, storageKey);
+        //    var storageAccount = new CloudStorageAccount(creds, true);
+        //    var queueClient = storageAccount.CreateCloudQueueClient();
+        //    var queue = queueClient.GetQueueReference("samplequeue");
+        //    await queue.CreateIfNotExistsAsync();
+        //    await queue.AddMessageAsync(new CloudQueueMessage("Hello keyvault"));
+
+        //}
+
+
+
+        public string CleanKeyName(string key)
+        {
+
+            foreach (string k in this._configuration.KeyIllegalCharacters)
+            {
+                key = key.Replace(k, this._configuration.KeyStandardNameComponentDivider);
+            }
+            return key;
+        }
+
     }
+}
 
 

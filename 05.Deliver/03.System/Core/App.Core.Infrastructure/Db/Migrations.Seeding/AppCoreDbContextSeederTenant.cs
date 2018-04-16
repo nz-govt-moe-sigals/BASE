@@ -6,6 +6,8 @@
     using App.Core.Infrastructure.Initialization.Db;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Configuration;
+    using App.Core.Shared.Models.Configuration.AppHost;
+    using App.Core.Shared.Models.ConfigurationSettings;
     using App.Core.Shared.Models.Entities;
 
     // Seeder invoked by reflection (see: DbContextSeedingOrchestrator)
@@ -24,8 +26,8 @@
 
         public void Seed(AppCoreDbContext context)
         {
-            CodeFirstMigrationConfiguration debuggerConfiguration =
-                this._hostSettingsService.GetObject<CodeFirstMigrationConfiguration>();
+            CodeFirstMigrationConfigurationSettings debuggerConfiguration =
+                this._hostSettingsService.GetObject<CodeFirstMigrationConfigurationSettings>();
 
             SeedImmutableEntries(context);
 

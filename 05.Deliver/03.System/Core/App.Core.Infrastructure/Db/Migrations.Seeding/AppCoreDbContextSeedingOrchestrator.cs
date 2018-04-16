@@ -7,6 +7,8 @@
     using App.Core.Infrastructure.Initialization.Db;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Configuration;
+    using App.Core.Shared.Models.Configuration.AppHost;
+    using App.Core.Shared.Models.ConfigurationSettings;
 
     // Invoked from within AppCoreDbMigrationsConfiguration.Seed method, 
     public class AppCoreDbContextSeedingOrchestrator
@@ -86,7 +88,7 @@
 
         private void AttachDebuggerWhenRunningUnderPowershell()
         {
-            var debuggerConfiguration = this._hostSettingsService.GetObject<CodeFirstMigrationConfiguration>();
+            var debuggerConfiguration = this._hostSettingsService.GetObject<CodeFirstMigrationConfigurationSettings>();
             if (debuggerConfiguration.CodeFirstAttachDebugger)
             {
                 // You'll *REALLY* like this piece of code if you are having trouble

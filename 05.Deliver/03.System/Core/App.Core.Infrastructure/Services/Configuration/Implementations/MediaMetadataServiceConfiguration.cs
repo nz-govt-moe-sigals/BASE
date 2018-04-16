@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 namespace App.Core.Infrastructure.Services.Configuration.Implementations
 {
     using App.Core.Shared.Models.Configuration;
+    using App.Core.Shared.Models.Configuration.AppHost;
+    using App.Core.Shared.Models.ConfigurationSettings;
 
     /// <summary>
     /// Configuration object to be injected into the 
@@ -14,13 +16,14 @@ namespace App.Core.Infrastructure.Services.Configuration.Implementations
     /// </summary>
     public class MediaMetadataServiceConfiguration : IServiceConfigurationObject
     {
-        public readonly MediaManagementConfiguration MediaManagementConfiguration;
+        public readonly MediaManagementConfigurationSettings MediaManagementConfiguration;
 
-        public MediaMetadataServiceConfiguration(IHostSettingsService hostSettingsService)
+        public MediaMetadataServiceConfiguration(IAzureKeyVaultService azureKeyVaultService)
         {
-            MediaManagementConfiguration = hostSettingsService.GetObject<MediaManagementConfiguration>();
+            //From AppSettings:
+            MediaManagementConfiguration = azureKeyVaultService.GetObject<MediaManagementConfigurationSettings>();
 
-
+            // At this point, there's nothing needed from KeyVault.
         }
     }
 }

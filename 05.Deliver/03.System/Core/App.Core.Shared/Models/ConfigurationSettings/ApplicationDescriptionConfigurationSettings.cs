@@ -1,25 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace App.Core.Shared.Models.Configuration
+﻿namespace App.Core.Shared.Models.ConfigurationSettings
 {
+    using System;
     using App.Core.Shared.Attributes;
 
     /// <summary>
     /// An immutable host configuration object 
     /// describing the Application (ie, shows up on the header).
     /// </summary>
-    public class ApplicationDescription : IHasName, IHasDescription
+    public class ApplicationDescriptionConfigurationSettings : IHostSettingsBasedConfigurationObject, IHasName, IHasDescription
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationDescription"/> class.
+        /// Initializes a new instance of the <see cref="ApplicationDescriptionConfigurationSettings"/> class.
         /// </summary>
-        public ApplicationDescription()
+        public ApplicationDescriptionConfigurationSettings()
         {
-            Id = new Guid();
+            this.Id = new Guid();
         }
 
         // OData always needs an Id. It can be another field, but too much bother
@@ -35,7 +30,8 @@ namespace App.Core.Shared.Models.Configuration
         /// <value>
         /// The name.
         /// </value>
-        [Alias("App:Core:Application:Name")]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        [Alias (Constants.ConfigurationKeys.AppCoreApplicationName)]
         public string Name { get;set; }
 
         /// <summary>
@@ -44,7 +40,8 @@ namespace App.Core.Shared.Models.Configuration
         /// <value>
         /// The description.
         /// </value>
-        [Alias("App:Core:Application:Description")]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        [Alias(Constants.ConfigurationKeys.AppCoreApplicationDescription)]
         public string Description { get;set; }
     }
 }

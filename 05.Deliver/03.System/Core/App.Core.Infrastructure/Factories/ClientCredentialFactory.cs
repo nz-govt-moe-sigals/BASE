@@ -2,6 +2,7 @@
 {
     using App.Core.Infrastructure.Integration.Azure.KeyVault;
     using App.Core.Shared.Models.Configuration;
+    using App.Core.Shared.Models.ConfigurationSettings;
     using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
     /// <summary>
@@ -23,7 +24,7 @@
         /// </summary>
         /// <param name="aaDClientInfo"></param>
         /// <returns></returns>
-        public ClientCredential Build(AadApplicationRegistrationInformation aaDClientInfo)
+        public ClientCredential Build(AadApplicationRegistrationInformationConfigurationSettings aaDClientInfo)
         {
             //NOTE THAT CLIENT CREDENTIAL comes froms an a library that 
             // is using the older ADAL approach, and will probably get updated to MSAL,

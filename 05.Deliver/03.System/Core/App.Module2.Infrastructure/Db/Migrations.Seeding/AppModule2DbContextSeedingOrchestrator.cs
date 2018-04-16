@@ -4,6 +4,8 @@
     using System.Diagnostics;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Configuration;
+    using App.Core.Shared.Models.Configuration.AppHost;
+    using App.Core.Shared.Models.ConfigurationSettings;
     using App.Module2.Infrastructure.Db.Context;
     using App.Module2.Infrastructure.Initialization;
     using App.Module2.Infrastructure.Initialization.Db;
@@ -62,7 +64,7 @@
 
         private void AttachDebuggerWhenRunningUnderPowershell()
         {
-            var debuggerConfiguration = this._hostSettingsService.GetObject<CodeFirstMigrationConfiguration>();
+            var debuggerConfiguration = this._hostSettingsService.GetObject<CodeFirstMigrationConfigurationSettings>();
 
             if (debuggerConfiguration.CodeFirstAttachDebugger)
             {

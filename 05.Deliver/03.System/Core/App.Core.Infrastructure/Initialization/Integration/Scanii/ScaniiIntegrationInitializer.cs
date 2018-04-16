@@ -46,15 +46,6 @@ namespace App.Core.Infrastructure.Initialization.Integration.Scanii
                 }
 
             }
-            if (this._mediaMalwareDetectionService.Configuration.PingAtStartup)
-            {
-                if (!this._mediaMalwareDetectionService.Ping())
-                {
-                    throw new ConfigurationException(
-                        $"{ExceptionMessages.SystemConfigurationError}: Scanii not correctly configured (Ping failed).");
-
-                }
-            }
         }
     }
 }

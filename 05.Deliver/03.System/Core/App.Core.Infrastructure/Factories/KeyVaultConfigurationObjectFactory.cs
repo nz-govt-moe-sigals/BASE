@@ -1,21 +1,27 @@
 ﻿namespace App.Core.Infrastructure.Factories
 {
     using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Configuration;
     using System.Linq;
     using System.Reflection;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Attributes;
+    using App.Core.Shared.Models.Entities;
     using Microsoft.Azure;
 
 
 
     /// <summary>
     /// A Factory to create a Configuration object 
-    /// and provision it from Host Settings (ie AppSettings)
+    /// and provision it from Key Vault Secrets
     /// with keys that match the names of the properties
     /// or <see cref="AliasAttribute"/> they have been decorated with.
+    /// <para>
+    /// Used by the implementation of <see cref="IAzureKeyVaultService"/>.
+    /// </para>
     /// <para>
     /// It's much more maintainable and practical
     /// to work with configuration objects
@@ -36,17 +42,22 @@
     /// This might be overkill...(and it doesn't work for now).
     /// On 
     /// </summary>
-    public class ConfigurationObjectFactory
+    public class KeyVaultConfigurationObjectFactory
     {
-        private readonly bool _useAppSettingsOnly;
+        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
+        private readonly IAzureKeyVaultService _keyVaultService;
 
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConfigurationObjectFactory"/> class.
+        /// Initializes a new instance of the <see cref="KeyVaultConfigurationObjectFactory" /> class.
         /// </summary>
-        public ConfigurationObjectFactory()
+        /// <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
+        /// <param name="keyVaultService">The key vault service.</param>
+        public KeyVaultConfigurationObjectFactory(IDiagnosticsTracingService diagnosticsTracingService, IAzureKeyVaultService keyVaultService)
         {
-            this._useAppSettingsOnly = true;
+            this._diagnosticsTracingService = diagnosticsTracingService;
+            this._keyVaultService = keyVaultService;
+
         }
 
 
@@ -78,14 +89,35 @@
         /// <returns></returns>
         public virtual T Provision<T>(T target, string prefix = null) where T : class
         {
+            var validSources = new[]
+                {ConfigurationSettingSource.SourceType.All, ConfigurationSettingSource.SourceType.KeyVault};
+
+            
             // Iterate over the public properties of the target object
             // using the property's name, o
             foreach (var propertyInfo in typeof(T).GetProperties(BindingFlags.Instance | BindingFlags.Public |
                                                                  BindingFlags.IgnoreCase))
             {
+
+
+                var hostKey = propertyInfo.Name;
+
+                
+                // Determine if we should look for this value here:
+                var sourceAttribute = propertyInfo.GetCustomAttribute<ConfigurationSettingSource>();
+                if (sourceAttribute != null)
+                {
+                    if (!validSources.Any(x => x == sourceAttribute.Source))
+                    {
+                        continue;
+                    }
+                }
+
+
+
+
                 // Use aliases first, as they can be richer, if there are any:
                 var aliasAttribute = propertyInfo.GetCustomAttribute<AliasAttribute>();
-                var hostKey = propertyInfo.Name;
 
                 if (aliasAttribute != null)
                 {
@@ -106,10 +138,15 @@
                 {
 
                     var tmp = prefix + hostKey;
-                    if (DoesKeyExist(tmp))
+                    try
                     {
+                        // OffLoad the getting of the Key
                         s = GetAppSetting(tmp);
                         set = true;
+                    }
+                    catch
+                    {
+                        // key does not exist.
                     }
                 }
                 // If not set/not found, work with just the key
@@ -117,26 +154,34 @@
                 if (!set)
                 {
                     var tmp = hostKey;
-                    if (DoesKeyExist(tmp))
+                    try
                     {
+                        // OffLoad the getting of the Key
                         s = GetAppSetting(tmp);
+                        set = true;
+                    }
+                    catch
+                    {
+                        //key does not exist.
                     }
                 }
 
-                // Set the typed value from th string
-                // to the target property:
-                if (s == null)
+                if (set)
                 {
-                    continue;
+                    // Set the typed value from th string
+                    // to the target property:
+                    if (s == null)
+                    {
+                        continue;
+                    }
+                    var typeConverter = TypeDescriptor.GetConverter(propertyInfo.PropertyType);
+
+                    var typedValue =
+                        typeConverter
+                            .ConvertFromString(
+                                s);
+                    propertyInfo.SetValue(target, typedValue);
                 }
-                var typeConverter = TypeDescriptor.GetConverter(propertyInfo.PropertyType);
-
-                var typedValue =
-                    typeConverter
-                        .ConvertFromString(
-                            s);
-                propertyInfo.SetValue(target, typedValue);
-
             }//~ iterate to the next property
 
             return target;
@@ -162,35 +207,6 @@
         //    return (T)Convert.ChangeType(s, typeof(T));
         //}
 
-        /// <summary>
-        /// Helper method to verify if the requested property
-        /// exists within the Host Device's AppSettings.
-        /// </summary>
-        /// <param name="key">The key.</param>
-        /// <returns></returns>
-        protected virtual bool DoesKeyExist(string key)
-        {
-            if (this._useAppSettingsOnly)
-            {
-                return (ConfigurationManager.AppSettings.AllKeys.Contains(key,
-                    StringComparer.InvariantCultureIgnoreCase));
-            }
-
-            bool result;
-            try
-            {
-                CloudConfigurationManager.GetSetting(key, false, true);
-                result = true;
-            }
-            catch
-            {
-                //Ok. So the Azure Wrapper is not smart enough to handle old-school 
-                // appSettings@File attribute...so try again before giving up:
-                result = ConfigurationManager.AppSettings.AllKeys.Contains(key,
-                    StringComparer.InvariantCultureIgnoreCase);
-            }
-            return result;
-        }
 
 
         /// <summary>
@@ -201,22 +217,10 @@
         /// <returns></returns>
         protected string GetAppSetting(string key)
         {
-            if (this._useAppSettingsOnly)
-            {
-                return ConfigurationManager.AppSettings[key];
-            }
+            // No longer needed -- done within KeyVaultService:
+            //var key = this._keyVaultService.CleanKeyName(key);
 
-            string result;
-            try
-            {
-                result = CloudConfigurationManager.GetSetting(key, false, true);
-            }
-            catch
-            {
-                //Ok. So the Azure Wrapper is not smart enough to handle old-school 
-                // appSettings@File attribute...so try again before giving up:
-                result = ConfigurationManager.AppSettings[key];
-            }
+            var result = this._keyVaultService.RetrieveSecretAsync(key).Result;
             return result;
         }
 

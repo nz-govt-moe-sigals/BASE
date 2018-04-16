@@ -3,6 +3,8 @@
     using System.Data.Entity.Migrations;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Configuration;
+    using App.Core.Shared.Models.Configuration.AppHost;
+    using App.Core.Shared.Models.ConfigurationSettings;
     using App.Module1.Infrastructure.Db.Context;
     using App.Module1.Infrastructure.Initialization;
     using App.Module1.Infrastructure.Initialization.Db;
@@ -21,8 +23,8 @@
 
         public void Seed(AppModule1DbContext context)
         {
-            CodeFirstMigrationConfiguration debuggerConfiguration =
-                this._hostSettingsService.GetObject<CodeFirstMigrationConfiguration>();
+            CodeFirstMigrationConfigurationSettings debuggerConfiguration =
+                this._hostSettingsService.GetObject<CodeFirstMigrationConfigurationSettings>();
 
             SeedImmutableEntries(context);
 

@@ -11,6 +11,8 @@ using AutoMapper;
 namespace App.Core.Infrastructure.Initialization.ObjectMaps.Messages.V0100
 {
     using App.Core.Shared.Models.Configuration;
+    using App.Core.Shared.Models.Configuration.AppHost;
+    using App.Core.Shared.Models.ConfigurationSettings;
     using App.Core.Shared.Models.Messages;
     using App.Core.Shared.Models.Messages.APIs.V0100;
     using AutoMapper;
@@ -19,7 +21,7 @@ namespace App.Core.Infrastructure.Initialization.ObjectMaps.Messages.V0100
     {
         public void Initialize(IMapperConfigurationExpression config)
         {
-            config.CreateMap<ApplicationDescription, ApplicationDescriptionDto>()
+            config.CreateMap<ApplicationDescriptionConfigurationSettings, ApplicationDescriptionDto>()
                 .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
                 .ForMember(t => t.Name, opt => opt.MapFrom(s => s.Name))
 

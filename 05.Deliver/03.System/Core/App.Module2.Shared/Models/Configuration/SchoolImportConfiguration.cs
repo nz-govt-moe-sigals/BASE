@@ -4,7 +4,7 @@
 
     public class SchoolImportConfiguration
     {
-        [Alias("App:Module2:SchoolImportSourcePath")]
+        [Alias("App-Module2-SchoolImportSourcePath")]
         public string CsvSourcePath { get; set; }
     }
 }

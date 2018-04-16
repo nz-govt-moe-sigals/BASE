@@ -5,6 +5,8 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
     using System.Linq;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Configuration;
+    using App.Core.Shared.Models.Configuration.AppHost;
+    using App.Core.Shared.Models.ConfigurationSettings;
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages.APIs.V0100;
 
@@ -41,7 +43,7 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
 
             var result = new[]
             {
-                this._objectMappingService.Map<ApplicationDescription, ApplicationDescriptionDto>(this
+                this._objectMappingService.Map<ApplicationDescriptionConfigurationSettings, ApplicationDescriptionDto>(this
                     ._applicationInformationService.GetApplicationInformation())
             };
 
@@ -55,7 +57,7 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
             this._diagnosticsTracingService.Trace(TraceLevel.Debug, $"ApplicationDescriptionController.Get: {key}");
 
             var result =
-                this._objectMappingService.Map<ApplicationDescription, ApplicationDescriptionDto>(this
+                this._objectMappingService.Map<ApplicationDescriptionConfigurationSettings, ApplicationDescriptionDto>(this
                     ._applicationInformationService.GetApplicationInformation());
             return result;
         }

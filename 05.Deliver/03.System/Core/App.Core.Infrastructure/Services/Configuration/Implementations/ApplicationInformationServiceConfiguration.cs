@@ -1,6 +1,8 @@
 ﻿namespace App.Core.Infrastructure.Services.Configuration.Implementations
 {
     using App.Core.Shared.Models.Configuration;
+    using App.Core.Shared.Models.Configuration.AppHost;
+    using App.Core.Shared.Models.ConfigurationSettings;
 
     /// <summary>
     /// Configuration object to be injected into the 
@@ -9,17 +11,17 @@
     public class ApplicationInformationServiceConfiguration : IServiceConfigurationObject
     {
 
-        public ApplicationDescription ApplicationInformation;
+        public ApplicationDescriptionConfigurationSettings ApplicationInformation;
 
-        public ApplicationCreatorInformation ApplicationCreatorInformation;
+        public ApplicationCreatorInformationConfigurationSettings ApplicationCreatorInformation;
 
-        public ApplicationDistributorInformation ApplicationDistributorInformation;
+        public ApplicationDistributorInformationConfigurationSettings ApplicationDistributorInformation;
 
-        public ApplicationInformationServiceConfiguration(IHostSettingsService hostSettingsService)
+        public ApplicationInformationServiceConfiguration(IAzureKeyVaultService keyVaultService)
         {
-            this.ApplicationInformation = hostSettingsService.GetObject<ApplicationDescription>();
-            this.ApplicationCreatorInformation = hostSettingsService.GetObject<ApplicationCreatorInformation>();
-            this.ApplicationDistributorInformation = hostSettingsService.GetObject<ApplicationDistributorInformation>();
+            this.ApplicationInformation = keyVaultService.GetObject<ApplicationDescriptionConfigurationSettings>();
+            this.ApplicationCreatorInformation = keyVaultService.GetObject<ApplicationCreatorInformationConfigurationSettings>();
+            this.ApplicationDistributorInformation = keyVaultService.GetObject<ApplicationDistributorInformationConfigurationSettings>();
         }
     }
 }

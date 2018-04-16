@@ -45,7 +45,7 @@
         ///     The B2C SignUp Policy Name
         ///     <para>eg: 'B2C_1_B2C_Default_SignUp_Policy'</para>
         ///     <para>Note: recommended to be same Policy Name as SignIn </para>
-        ///     <para>Default Host Seting key is 'App:Core:ida:SignUpSignInPolicyId'</para>
+        ///     <para>Default Host Seting key is 'App-Core-Integration-ida-SignUpSignInPolicyId'</para>
         /// </summary>
         [Obsolete]
         string TenantSignUpPolicyId { get; set; }
@@ -54,7 +54,7 @@
         ///     The B2C SignIn Policy Name
         ///     <para>eg: 'B2C_1_B2C_Default_SignIn_Policy'</para>
         ///     <para>Note: recommended to be same Policy Name is SignUp </para>
-        ///     <para>Default Host Seting key is 'App:Core:ida:SignInPolicyId'</para>
+        ///     <para>Default Host Seting key is 'App-Core-Integration-ida-SignInPolicyId'</para>
         /// </summary>
         [Obsolete]
         string TenantSignInPolicyId { get; set; }
@@ -70,7 +70,7 @@
         /// <summary>
         ///     The B2C User Profile Policy Name
         ///     <para>eg: 'B2C_1_B2C_Default_UserProfile_Policy'</para>
-        ///     <para>Default Host Seting key is 'App:Core:ida:UserProfilePolicyId'</para>
+        ///     <para>Default Host Seting key is 'App-Core-Integration-ida-UserProfilePolicyId'</para>
         /// </summary>
         string TenantUserProfilePolicyId { get; set; }
 
@@ -78,7 +78,7 @@
         /// <summary>
         ///     The B2C Edit Profile Policy Name
         ///     <para>eg: 'B2C_1_B2C_Default_EditProfile_Policy'</para>
-        ///     <para>Default Host Seting key is 'App:Core:ida:EditProfilePolicyId'</para>
+        ///     <para>Default Host Seting key is 'App-Core-Integration-ida-EditProfilePolicyId'</para>
         /// </summary>
         string TenantEditProfilePolicyId { get; set; }
 
@@ -86,7 +86,7 @@
         /// <summary>
         ///     The B2C SignUp/SignIn Policy Name
         ///     <para>eg: 'B2C_1_B2C_Default_ResetPassword_Policy'</para>
-        ///     <para>Default Host Seting key is 'App:Core:ida:ResetPasswordPolicyId'</para>
+        ///     <para>Default Host Seting key is 'App-Core-Integration-ida-ResetPasswordPolicyId'</para>
         /// </summary>
         string TenantResetPasswordPolicyId { get; set; }
     }

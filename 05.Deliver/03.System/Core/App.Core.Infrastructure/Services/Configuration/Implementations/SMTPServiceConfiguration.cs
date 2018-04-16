@@ -13,5 +13,10 @@ namespace App.Core.Infrastructure.Services.Configuration.Implementations
     public class SMTPServiceConfiguration : IServiceConfigurationObject
     {
         // TODO: 
+
+        public SMTPServiceConfiguration(IHostSettingsService hostSettingsService, IAzureKeyVaultService keyVaultService)
+        {
+
+        }
     }
 }

@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 namespace App.Core.Shared.Models.Messages.APIs.V0100
 {
     using App.Core.Shared.Models.Configuration;
+    using App.Core.Shared.Models.Configuration.AppHost;
+    using App.Core.Shared.Models.ConfigurationSettings;
 
     /// <summary>
-    /// DTO Message for <see cref="ApplicationDescription"/>
+    /// DTO Message for <see cref="ApplicationDescriptionConfigurationSettings"/>
     /// summarizing the Application's Name, Description, Creator, Distributor.
     /// For use by any User Agent to render on their Header View.
     /// </summary>

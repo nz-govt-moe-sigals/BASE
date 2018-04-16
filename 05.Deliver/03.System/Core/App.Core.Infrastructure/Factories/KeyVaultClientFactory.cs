@@ -8,6 +8,7 @@ namespace App.Core.Infrastructure.Integration.Azure.KeyVault
     using System.Threading.Tasks;
     using App.Core.Infrastructure.Factories;
     using App.Core.Shared.Models.Configuration;
+    using App.Core.Shared.Models.ConfigurationSettings;
     using Microsoft.Azure.KeyVault;
     using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
@@ -35,7 +36,7 @@ namespace App.Core.Infrastructure.Integration.Azure.KeyVault
         /// </summary>
         /// <param name="aadClientInfo"></param>
         /// <returns></returns>
-        public KeyVaultClient Build(AadApplicationRegistrationInformation aadClientInfo)
+        public KeyVaultClient Build(AadApplicationRegistrationInformationConfigurationSettings aadClientInfo)
         {
 
             var clientCredential = new ClientCredentialFactory().Build(aadClientInfo);

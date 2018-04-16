@@ -1,4 +1,4 @@
-namespace App.Core.Shared.Models.Configuration
+namespace App.Core.Shared.Models.ConfigurationSettings
 {
     using System;
     using App.Core.Shared.Attributes;
@@ -14,15 +14,15 @@ namespace App.Core.Shared.Models.Configuration
     /// </summary>
     /// <seealso cref="App.Core.Shared.Models.IHasName" />
     /// <seealso cref="App.Core.Shared.Models.IHasDescription" />
-    public class ApplicationCreatorInformation : IHasName, IHasDescription
+    public class ApplicationCreatorInformationConfigurationSettings : IHostSettingsBasedConfigurationObject,  IHasName, IHasDescription
     {
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationCreatorInformation"/> class.
+        /// Initializes a new instance of the <see cref="ApplicationCreatorInformationConfigurationSettings"/> class.
         /// </summary>
-        public ApplicationCreatorInformation()
+        public ApplicationCreatorInformationConfigurationSettings()
         {
-            Id = new Guid();
+            this.Id = new Guid();
         }
 
         // OData always needs an Id. It can be another field, but too much bother
@@ -32,24 +32,29 @@ namespace App.Core.Shared.Models.Configuration
             get; set;
         }
 
-        [Alias("App:Core:Application:Creator:Name")]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        [Alias(Constants.ConfigurationKeys.AppCoreApplicationCreatorName)]
         public string Name
         {
             get; set;
         }
-        [Alias("App:Core:Application:Creator:Description")]
+
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        [Alias(Constants.ConfigurationKeys.AppCoreApplicationCreatorDescription)]
         public string Description
         {
             get; set;
         }
 
-        [Alias("App:Core:Application:Creator:SiteUrl")]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        [Alias(Constants.ConfigurationKeys.AppCoreApplicationCreatorSiteUrl)]
         public string SiteUrl
         {
             get; set;
         }
 
-        [Alias("App:Core:Application:Creator:ContactUrl")]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        [Alias(Constants.ConfigurationKeys.AppCoreApplicationCreatorContactUrl)]
         public string ContactUrl
         {
             get; set;

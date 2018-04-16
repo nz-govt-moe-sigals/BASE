@@ -34,13 +34,13 @@
         /// converting appsettings into an object of properties.
         /// Leaves this class nice and small. 
         /// </summary>
-        private readonly ConfigurationObjectFactory _configurationObjectFactory;
+        private readonly AppSettingsConfigurationObjectFactory _configurationObjectFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HostSettingsService"/> class.
         /// </summary>
         /// <param name="configurationObjectFactory">The configuration factory.</param>
-        public HostSettingsService(ConfigurationObjectFactory configurationObjectFactory)
+        public HostSettingsService(AppSettingsConfigurationObjectFactory configurationObjectFactory)
         {
             this._configurationObjectFactory = configurationObjectFactory;
         }

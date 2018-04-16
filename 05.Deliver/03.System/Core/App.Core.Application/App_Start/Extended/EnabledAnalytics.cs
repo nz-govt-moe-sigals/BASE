@@ -3,6 +3,7 @@
     using System.Configuration;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Configuration;
+    using App.Core.Shared.Models.ConfigurationSettings;
     using App.Core.Shared.Models.Messages;
     using Microsoft.ApplicationInsights.Extensibility;
     using Owin;
@@ -10,10 +11,12 @@
     public class EnabledAnalytics
     {
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
+        private readonly IAzureKeyVaultService _keyVaultService;
 
-        public EnabledAnalytics(IDiagnosticsTracingService diagnosticsTracingService)
+        public EnabledAnalytics(IDiagnosticsTracingService diagnosticsTracingService, IAzureKeyVaultService keyVaultService)
         {
             this._diagnosticsTracingService = diagnosticsTracingService;
+            this._keyVaultService = keyVaultService;
         }
         /// <summary>
         /// <para>
@@ -29,17 +32,22 @@
             using (var elapsedTime = new ElapsedTime())
             {
 
-                var analyticsConfiguration =
-                    AppDependencyLocator.Current.GetInstance<IHostSettingsService>()
-                        .GetObject<ApplicationInsightsConfiguration>();
+                var analyticsConfiguration = this._keyVaultService
+                    .GetObject<ApplicationInsightsConfigurationSettings>();
 
-                if (string.IsNullOrWhiteSpace(analyticsConfiguration.Key))
+
+                TelemetryConfiguration.Active.DisableTelemetry = !analyticsConfiguration.Enabled;
+
+                if (analyticsConfiguration.Enabled)
                 {
-                    throw new ConfigurationErrorsException(
-                        "Missing app setting 'App:Core:Integration:Azure:ApplicationInsights:InstrumentationKey' used for Application Insights.");
+                    if (string.IsNullOrWhiteSpace(analyticsConfiguration.Key))
+                    {
+                        throw new ConfigurationErrorsException(
+                            $"Missing app setting '{App.Core.Shared.Constants.ConfigurationKeys.AppCoreIntegrationAzureApplicationInsightsInstrumentationKey}' used for Application Insights.");
+                    }
+                    TelemetryConfiguration.Active.InstrumentationKey = analyticsConfiguration.Key;
                 }
-                TelemetryConfiguration.Active.InstrumentationKey = analyticsConfiguration.Key;
-                TelemetryConfiguration.Active.DisableTelemetry = analyticsConfiguration.DisableTelemetry;
+
 
                 AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
                     .Register(

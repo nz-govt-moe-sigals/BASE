@@ -69,7 +69,7 @@
 
                 SecurityProtocolType setting;
 
-                string key = "App:Core:TLS:SecurityProtocol";
+                string key = "App-Core-TLS-SecurityProtocol";
 
                 var tmp = this._hostSettingsService.GetObject<string>(key);
 
