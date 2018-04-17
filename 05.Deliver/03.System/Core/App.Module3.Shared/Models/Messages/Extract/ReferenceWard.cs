@@ -11,5 +11,6 @@ namespace App.Module3.Shared.Models.Messages.Extract
     /// </summary>
     public class ReferenceWard : BaseReference
     {
+
     }
 }

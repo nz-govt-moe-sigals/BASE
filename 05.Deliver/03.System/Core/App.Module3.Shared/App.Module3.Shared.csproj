@@ -80,6 +80,31 @@
     <Compile Include="Models\Messages\APIs\V0100\ReferenceData\TerritorialAuthorityDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\ReferenceData\UrbanAreaDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\ReferenceData\WardDto.cs" />
+    <Compile Include="Models\Messages\Extract\BaseMessage.cs" />
+    <Compile Include="Models\Messages\Extract\BaseReference.cs" />
+    <Compile Include="Models\Messages\Extract\ReferenceAreaUnits.cs" />
+    <Compile Include="Models\Messages\Extract\ReferenceAuthorityType.cs" />
+    <Compile Include="Models\Messages\Extract\ReferenceCommunityBoard.cs" />
+    <Compile Include="Models\Messages\Extract\ReferenceGeneralElectorate.cs" />
+    <Compile Include="Models\Messages\Extract\ReferenceMaoriElectorate.cs" />
+    <Compile Include="Models\Messages\Extract\ReferenceOrganisationStatus.cs" />
+    <Compile Include="Models\Messages\Extract\ReferenceOrganisationType.cs" />
+    <Compile Include="Models\Messages\Extract\ReferenceRegion.cs" />
+    <Compile Include="Models\Messages\Extract\ReferenceRegionalCouncil.cs" />
+    <Compile Include="Models\Messages\Extract\ReferenceRelationshipType.cs" />
+    <Compile Include="Models\Messages\Extract\ReferenceSchoolClassification.cs" />
+    <Compile Include="Models\Messages\Extract\ReferenceSchoolingGender.cs" />
+    <Compile Include="Models\Messages\Extract\ReferenceSchoolYearLevel.cs" />
+    <Compile Include="Models\Messages\Extract\ReferenceSpecialSchooling.cs" />
+    <Compile Include="Models\Messages\Extract\ReferenceTeacherEducation.cs" />
+    <Compile Include="Models\Messages\Extract\ReferenceTerritorialAuthority.cs" />
+    <Compile Include="Models\Messages\Extract\ReferenceUrbanArea.cs" />
+    <Compile Include="Models\Messages\Extract\ReferenceWard.cs" />
+    <Compile Include="Models\Messages\Extract\SchoolEnrol.cs" />
+    <Compile Include="Models\Messages\Extract\SchoolLevelGender.cs" />
+    <Compile Include="Models\Messages\Extract\SchoolProfiles.cs" />
+    <Compile Include="Models\Messages\Extract\SchoolWGS.cs" />
+    <Compile Include="Models\Messages\Extract\Summary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +117,7 @@
     <Folder Include="Models\Contracts\" />
     <Folder Include="Models\Entities\Base\" />
     <Folder Include="Models\Enums\" />
+    <Folder Include="Models\Messages\lder1\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

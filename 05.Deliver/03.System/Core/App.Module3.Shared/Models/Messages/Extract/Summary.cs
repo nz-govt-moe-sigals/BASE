@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Core.Shared.Models.Messages.EDK
+namespace App.Module3.Shared.Models.Messages.Extract
 {
     /// <summary>
     /// Table Name : Schools_Directory_API_Summary
