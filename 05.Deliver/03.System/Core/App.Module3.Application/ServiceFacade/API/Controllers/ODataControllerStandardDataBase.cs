@@ -9,6 +9,7 @@ namespace App.Module3.Application.ServiceFacade.API.Controllers
     using App.Module3.Infrastructure.Constants.Db;
     using AutoMapper.QueryableExtensions;
 
+
     public abstract class ODataControllerStandardDataBase<TEntity, TDto> : ODataControllerBase
         where TEntity : class, IHasGuidId, IHasRecordState, new()
         where TDto : class, IHasGuidId, new()

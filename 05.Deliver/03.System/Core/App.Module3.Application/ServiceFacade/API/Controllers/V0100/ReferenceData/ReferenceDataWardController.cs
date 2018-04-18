@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Web.Http;
     using System.Web.OData;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
@@ -14,7 +15,7 @@
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class WardController : ODataControllerStandardDataBase<Ward, WardDto>
+    public class WardController : ODataControllerResourceDataBase<Ward, WardDto>
     {
         public WardController(
             IDiagnosticsTracingService diagnosticsTracingService, 
@@ -31,14 +32,22 @@
         //[ApplyDataContractResolver]
         //[ApplyProxyDataContractResolverAttribute]
         //[ODataRoute()]
+        [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
         public IQueryable<WardDto> Get()
         {
             return InternalGet();
         }
 
+        /// <summary>
+        /// Gets the resource with the specified Id.
+        /// <para>
+        /// Note OData's convention that parameter must be 'key' (not 'id' or other).
+        /// </para>
+        /// </summary>
         //[ODataRoute("({key})")]
-        public WardDto Get(Guid key)
+        [AllowAnonymous]
+        public WardDto Get(string key)
         {
             return InternalGet(key);
         }

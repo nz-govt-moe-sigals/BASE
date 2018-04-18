@@ -73,6 +73,7 @@
     <Compile Include="Models\ConfigurationSettings\IKeyVaultBasedConfigurationObject.cs" />
     <Compile Include="Models\Contracts\IHasAuditability.cs" />
     <Compile Include="Models\Contracts\IHasDescription.cs" />
+    <Compile Include="Models\Contracts\IHasDisplayStyleHint.cs" />
     <Compile Include="Models\Contracts\IHasKeyedMutableReferenceData.cs" />
     <Compile Include="Models\Contracts\IHasKeyedMutableValuedReferenceData.cs" />
     <Compile Include="Models\Contracts\IHasKeyValue.cs" />
@@ -82,7 +83,7 @@
     <Compile Include="Models\Contracts\IHasResourceKey.cs" />
     <Compile Include="Models\Contracts\IHasTag.cs" />
     <Compile Include="Models\Contracts\IHasText.cs" />
-    <Compile Include="Models\Entities\Base\KeyedTenantedGuidIdReferenceDataBase.cs" />
+    <Compile Include="Models\Entities\Base\TenantedKeyedGuidIdReferenceDataBase.cs" />
     <Compile Include="Models\Entities\Base\ReferenceDataBase.cs" />
     <Compile Include="Models\Entities\Base\TenantedGuidIdReferenceDataBase.cs" />
     <Compile Include="Models\Entities\Base\TenantedCustomIdReferenceDataBase.cs" />

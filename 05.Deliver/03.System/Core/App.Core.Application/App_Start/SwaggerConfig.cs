@@ -18,7 +18,6 @@ namespace App.Core.Application.Extended
     /// </summary>
     public class SwaggerConfig
     {
-        private static bool initialized;
         /// <summary>
         /// Registers this instance.
         /// <para>
@@ -328,7 +327,6 @@ namespace App.Core.Application.Extended
                 //        $"Swagger/OpenAPI initialized for '{path}'. Took {elapsedTime}");
             }
 
-            initialized = true;
 
         }
     }

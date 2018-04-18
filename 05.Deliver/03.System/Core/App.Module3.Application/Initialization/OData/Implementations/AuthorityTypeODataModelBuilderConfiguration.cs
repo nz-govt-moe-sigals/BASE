@@ -3,7 +3,7 @@ namespace App.Module3.Application.Initialization.OData.Implementations
     using App.Module3.Application.Constants.Api;
     using App.Module3.Shared.Models.Messages.V0100;
 
-    public class AuthorityTypeODataModelBuilderConfiguration  : AppModule3ODataModelBuilderConfigurationBase<AuthorityTypeDto>
+    public class AuthorityTypeODataModelBuilderConfiguration  : AppModule3ODataModelBuilderReferenceDataConfigurationBase<AuthorityTypeDto>
     {
         public AuthorityTypeODataModelBuilderConfiguration() : base(ApiControllerNames.AuthorityType)
         {

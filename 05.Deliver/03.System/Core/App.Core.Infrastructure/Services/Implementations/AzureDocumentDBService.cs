@@ -75,7 +75,9 @@ namespace App.Core.Infrastructure.Services.Implementations
         /// Gets the database ids.
         /// </summary>
         /// <returns></returns>
+#pragma warning disable 1998
         public async Task<string[]> GetDatabaseIds()
+#pragma warning restore 1998
         {
             return this._documentClient.CreateDatabaseQuery().Select(x => x.Id).ToArray();
         }
@@ -134,7 +136,6 @@ namespace App.Core.Infrastructure.Services.Implementations
         /// <returns>an array of document ids.</returns>
         public string[] GetDocumentCollectionIds(string databaseId)
         {
-            Database database = null;
 
             var databaseUri = UriFactory.CreateDatabaseUri(databaseId);
             var results = this._documentClient.CreateDocumentCollectionQuery(databaseUri).Select(x => x.Id).ToArray();
@@ -323,7 +324,9 @@ namespace App.Core.Infrastructure.Services.Implementations
         /// <param name="collectionLinkUri">The collection link URI.</param>
         /// <param name="predicate">The predicate.</param>
         /// <returns></returns>
+#pragma warning disable 1998
         public async Task<TDocument> GetDocumentAsync<TDocument>(Uri collectionLinkUri, Func<TDocument, bool> predicate)
+#pragma warning restore 1998
         {
             var documentQuery = CreateDocumentQuery<TDocument>(collectionLinkUri, new SqlQuerySpec());
             TDocument result = documentQuery.FirstOrDefault(predicate);

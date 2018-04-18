@@ -4,9 +4,10 @@
     {
         // An error state.
         Undefined = 0,
-        Person = 1,
-
+        //Unknown = 1,
+        //UnDisclosed = 2,
+        Person = 3,
         // Enterprise, Company, Group
-        Organisation = 2
+        Organisation = 4
     }
 }

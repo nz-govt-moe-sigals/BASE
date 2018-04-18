@@ -1,0 +1,74 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace App.Module3.Shared.Models.Messages.APIs.V0100
+{
+    using App.Core.Shared.Models;
+    using App.Module3.Shared.Models.Enums;
+
+
+
+    public class EducationProviderLocationDto : IHasGuidId
+    {
+
+        /// <summary>
+        /// Gets or sets the identifier of this record.
+        /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
+        public Guid Id
+        {
+            get; set;
+        }
+
+
+        /// <summary>
+        /// Gets or sets the EducationProfile record's Identifier <see cref="EducationProviderDto.Id"/> as FK.
+        /// </summary>
+        public string EducationProviderFK
+        {
+            get; set;
+        }
+
+
+        /// <summary>
+        /// Gets or sets the type.
+        /// </summary>
+        /// <value>
+        /// The type.
+        /// </value>
+        public virtual LocationType Type
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// Gets or sets the latitude (the 0 to 90 North or South).
+        /// </summary>
+        public virtual decimal Latitude
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// Gets or sets the longitude (the 0 to +/-180).
+        /// </summary>
+        public virtual decimal Longitude
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// Gets or sets the altitude.
+        /// </summary>
+        public virtual decimal? Altitude
+        {
+            get; set;
+        }
+
+    }
+}

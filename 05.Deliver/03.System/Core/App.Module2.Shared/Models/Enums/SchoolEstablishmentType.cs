@@ -2,9 +2,12 @@ namespace App.Module2.Shared.Models.Entities
 {
     public enum SchoolEstablishmentType
     {
+        // An error state.
         Undefined = 0,
-        School = 1,
-        Group = 2,
-        COL = 4
+        Unknown = 1,
+        //Undisclosed =2,
+        School = 3,
+        Group = 4,
+        COL = 5
     }
 }

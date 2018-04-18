@@ -13,12 +13,12 @@ namespace App.Module3.Application.Initialization.OData.Implementations
     /// </para>
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class AppModule3ODataModelBuilderConfigurationBase<T> : IAppModule3OdataModelBuilderConfiguration
-        where T: class, IHasGuidId, new()
+    public abstract class AppModule3ODataModelBuilderReferenceDataConfigurationBase<T> : IAppModule3OdataModelBuilderConfiguration
+        where T: class, IHasId<string>,  new()
     {
         private readonly string _controllerName;
 
-        protected AppModule3ODataModelBuilderConfigurationBase(string controllerName)
+        protected AppModule3ODataModelBuilderReferenceDataConfigurationBase(string controllerName)
         {
             this._controllerName = controllerName;
         }

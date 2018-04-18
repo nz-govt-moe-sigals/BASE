@@ -41,29 +41,41 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Configuration\ExampleApiConfiguration.cs" />
-    <Compile Include="Models\Entities\Example.cs" />
+    <Compile Include="Models\Contracts\IHasFIRSTKey.cs" />
+    <Compile Include="Models\Contracts\IHasSIFKey.cs" />
+    <Compile Include="Models\Entities\Base\TenantedFIRSTSIFKeyedGuidIdReferenceDataBase.cs" />
+    <Compile Include="Models\Entities\ReferenceData\CoL.cs" />
+    <Compile Include="Models\Entities\ReferenceData\IHasSIFIdAsKey.cs" />
+    <Compile Include="Models\Entities\ReferenceData\LocalOffice.cs" />
+    <Compile Include="Models\Entities\EducationProviderLevelGender.cs" />
+    <Compile Include="Models\Entities\EducationProviderProfile.cs" />
     <Compile Include="Models\Entities\ReferenceData\AreaUnit.cs" />
     <Compile Include="Models\Entities\ReferenceData\AuthorityType.cs" />
     <Compile Include="Models\Entities\ReferenceData\CommunityBoard.cs" />
     <Compile Include="Models\Entities\ReferenceData\GeneralElectorate.cs" />
     <Compile Include="Models\Entities\ReferenceData\MaoriElectorate.cs" />
-    <Compile Include="Models\Entities\ReferenceData\OrganisationStatus.cs" />
-    <Compile Include="Models\Entities\ReferenceData\OrganisationType.cs" />
+    <Compile Include="Models\Entities\ReferenceData\EducationProviderStatus.cs" />
+    <Compile Include="Models\Entities\ReferenceData\EducationProviderType.cs" />
     <Compile Include="Models\Entities\ReferenceData\Region.cs" />
     <Compile Include="Models\Entities\ReferenceData\RegionalCouncil.cs" />
     <Compile Include="Models\Entities\ReferenceData\RelationshipType.cs" />
-    <Compile Include="Models\Entities\ReferenceData\SchoolClassification.cs" />
-    <Compile Include="Models\Entities\ReferenceData\SchoolingGender.cs" />
-    <Compile Include="Models\Entities\ReferenceData\SchoolYearLevel.cs" />
+    <Compile Include="Models\Entities\ReferenceData\EducationProviderClassification.cs" />
+    <Compile Include="Models\Entities\ReferenceData\EducationProviderGender.cs" />
+    <Compile Include="Models\Entities\ReferenceData\EducationProviderYearLevel.cs" />
     <Compile Include="Models\Entities\ReferenceData\SpecialSchooling.cs" />
     <Compile Include="Models\Entities\ReferenceData\TeacherEducation.cs" />
     <Compile Include="Models\Entities\ReferenceData\TerritorialAuthority.cs" />
     <Compile Include="Models\Entities\ReferenceData\UrbanArea.cs" />
     <Compile Include="Models\Entities\ReferenceData\Ward.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\ExampleDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\ExampleReferenceTypeDto.cs" />
+    <Compile Include="Models\Entities\EducationProviderEnrolmentCount.cs" />
+    <Compile Include="Models\Entities\EducationProviderLocation.cs" />
+    <Compile Include="Models\Enums\LocationType.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\EducationProviderLevelGenderDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\EducationProviderLocationDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\EducationProviderProfile.cs" />
     <Compile Include="Models\Messages\APIs\V0100\ReferenceData\AreaUnitDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\ReferenceData\AuthorityTypeDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\Base\TenantedSIFReferenceDtoBase.cs" />
     <Compile Include="Models\Messages\APIs\V0100\ReferenceData\CommunityBoardDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\ReferenceData\GeneralElectorateDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\ReferenceData\MaoriElectorateDto.cs" />
@@ -72,9 +84,9 @@
     <Compile Include="Models\Messages\APIs\V0100\ReferenceData\RegionDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\ReferenceData\RegionalCouncilDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\ReferenceData\RelationshipTypeDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\SchoolClassificationDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\SchoolingGenderDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\SchoolYearLevelDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\EducationProviderClassificationDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\EducationProviderGenderDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ReferenceData\EducationProviderYearLevelDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\ReferenceData\SpecialSchoolingDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\ReferenceData\TeacherEducationDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\ReferenceData\TerritorialAuthorityDto.cs" />
@@ -88,10 +100,6 @@
       <Name>App.Core.Shared</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\Contracts\" />
-    <Folder Include="Models\Entities\Base\" />
-    <Folder Include="Models\Enums\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

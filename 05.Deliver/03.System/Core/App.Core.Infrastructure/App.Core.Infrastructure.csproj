@@ -193,6 +193,8 @@
     <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalCategory.cs" />
     <Compile Include="Db\Schema\AppModuleModelBuilderCommonConfiguration.cs" />
     <Compile Include="Db\Schema\Conventions\IdConvention.cs" />
+    <Compile Include="Db\Schema\Conventions\NonTenantFKEtcConvention.cs" />
+    <Compile Include="Db\Schema\Conventions\TenantedKeyedReferenceDataConvention.cs" />
     <Compile Include="Db\Schema\Conventions\TenantedReferenceDataConvention.cs" />
     <Compile Include="Db\Schema\Conventions\TenantFKEtcConvention.cs" />
     <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefinePrincipal.cs" />

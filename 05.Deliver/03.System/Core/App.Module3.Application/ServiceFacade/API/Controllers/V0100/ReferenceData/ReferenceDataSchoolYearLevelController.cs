@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Web.Http;
     using System.Web.OData;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
@@ -14,7 +15,7 @@
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class SchoolYearLevelController : ODataControllerStandardDataBase<SchoolYearLevel, SchoolYearLevelDto>
+    public class SchoolYearLevelController : ODataControllerResourceDataBase<EducationProviderYearLevel, EducationProviderYearLevelDto>
     {
         public SchoolYearLevelController(
             IDiagnosticsTracingService diagnosticsTracingService, 
@@ -31,26 +32,34 @@
         //[ApplyDataContractResolver]
         //[ApplyProxyDataContractResolverAttribute]
         //[ODataRoute()]
+        [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<SchoolYearLevelDto> Get()
+        public IQueryable<EducationProviderYearLevelDto> Get()
         {
             return InternalGet();
         }
 
+        /// <summary>
+        /// Gets the resource with the specified Id.
+        /// <para>
+        /// Note OData's convention that parameter must be 'key' (not 'id' or other).
+        /// </para>
+        /// </summary>
+        [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public SchoolYearLevelDto Get(Guid key)
+        public EducationProviderYearLevelDto Get(string key)
         {
             return InternalGet(key);
         }
 
         //// POST api/values 
-        public void Post(SchoolYearLevelDto value)
+        public void Post(EducationProviderYearLevelDto value)
         {
             InternalPost(value);
         }
 
         //// PUT api/values/5 
-        public void Put(SchoolYearLevelDto value)
+        public void Put(EducationProviderYearLevelDto value)
         {
             InternalPut(value);
         }

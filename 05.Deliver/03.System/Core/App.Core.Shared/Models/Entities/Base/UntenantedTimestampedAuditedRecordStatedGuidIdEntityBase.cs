@@ -3,6 +3,21 @@
     using System;
     using App.Core.Shared.Factories;
 
+    /// <summary>
+    /// <para>
+    /// Implements
+    /// <see cref="IHasGuidId"/>,
+    /// <see cref="IHasId{T}"/>,
+    /// <see cref="IHasTimestamp"/>
+    /// <see cref="IHasInRecordAuditability"/>
+    /// <see cref="IHasRecordState"/>
+    /// </para>    
+    /// </summary>
+    /// <seealso cref="Guid" />
+    /// <seealso cref="App.Core.Shared.Models.IHasGuidId" />
+    /// <seealso cref="App.Core.Shared.Models.IHasTimestamp" />
+    /// <seealso cref="App.Core.Shared.Models.IHasInRecordAuditability" />
+    /// <seealso cref="App.Core.Shared.Models.IHasRecordState" />
     public abstract class UntenantedTimestampedAuditedRecordStatedGuidIdEntityBase : UntenantedTimestampedAuditedRecordStatedCustomIdEntityBase<Guid>,IHasId<Guid> ,IHasGuidId, IHasTimestamp,
         IHasInRecordAuditability, IHasRecordState
     {

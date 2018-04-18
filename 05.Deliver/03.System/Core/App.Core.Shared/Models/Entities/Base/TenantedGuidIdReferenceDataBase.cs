@@ -12,6 +12,19 @@ namespace App.Core.Shared.Models.Entities.Base
     /// Being mutable by end users, it has a Guid id and is specific to a single Tenant.
     /// </para>
     /// <para>
+    /// Implements
+    /// <see cref="IHasEnabled"/>
+    /// <see cref="IHasText"/>
+    /// <see cref="IHasDisplayOrderHint"/>
+    /// <see cref="IHasDisplayStyleHint"/>
+    /// <see cref="IHasTenantFK"/>
+    /// <see cref="IHasGuidId"/>,
+    /// <see cref="IHasId{T}"/>,
+    /// <see cref="IHasTimestamp"/>
+    /// <see cref="IHasInRecordAuditability"/>
+    /// <see cref="IHasRecordState"/>
+    /// </para>    
+    /// <para>
     /// Refer to <see cref="UntenantedGuidIdReferenceDataBase"/> for Reference data that is shared across Tenants.</para>
     /// </summary>
     /// <seealso cref="App.Core.Shared.Models.Entities.TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase" />

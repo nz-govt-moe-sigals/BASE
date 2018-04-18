@@ -174,7 +174,7 @@
     <Compile Include="Initialization\OData\Implementations\RegionalCouncilODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\RegionODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\RelationshipTypeODataModelBuilderConfiguration.cs" />
-    <Compile Include="Initialization\OData\Implementations\SchoolClassificationODataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\EducationProviderClassificationODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\SchoolingGenderODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\SchoolYearLevelODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\SpecialSchoolingODataModelBuilderConfiguration.cs" />
@@ -182,18 +182,11 @@
     <Compile Include="Initialization\OData\Implementations\TerritorialAuthorityODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\UrbanAreaODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\WardODataModelBuilderConfiguration.cs" />
-    <Compile Include="Presentation\Controllers\ExamplesController.cs" />
-    <Compile Include="Presentation\Controllers\Module3Controller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceFacade\API\Controllers\ApiControllerBase.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\ODataControllerResourceDataBase.cs" />
     <Compile Include="ServiceFacade\API\Controllers\ODataControllerStandardDataBase.cs" />
     <Compile Include="ServiceFacade\API\Controllers\ODataControllerBase.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\Example1Controller.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\Example2Controller.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\Example3Controller.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\Example4Controller.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\Example5Controller.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\Example6Controller.cs" />
     <Compile Include="ServiceFacade\API\Controllers\Services\IApplicationService.cs" />
     <Compile Include="ServiceFacade\API\Controllers\Services\Implementations\ApplicationService.cs" />
     <Compile Include="ServiceFacade\API\Controllers\Services\IExampleApplicationService.cs" />
@@ -211,7 +204,7 @@
     <Compile Include="ServiceFacade\API\Controllers\V0100\ReferenceData\ReferenceDataRegionalCouncilController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\ReferenceData\ReferenceDataRelationshipTypeController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\ReferenceData\ReferenceDataSchoolClassificationController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\ReferenceData\ReferenceDataSchoolingGenderController.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\V0100\ReferenceData\EducationProviderGenderController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\ReferenceData\ReferenceDataSchoolYearLevelController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\ReferenceData\ReferenceDataSpecialSchoolingController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\ReferenceData\ReferenceDataTeacherEducationController.cs" />
@@ -220,7 +213,8 @@
     <Compile Include="ServiceFacade\API\Controllers\V0100\ReferenceData\ReferenceDataWardController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Presentation/Views/**/*.cshtml" />
+    <!-- <EmbeddedResource Include="Presentation\Views\Module3\About.cshtml" /> -->
+    <Folder Include="ExtensionMethods\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\App.Core.Infrastructure.OIDC\App.Core.Infrastructure.IDA.csproj">
@@ -252,9 +246,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="_packages.config" />
-    <None Include="Presentation\Views\Module3\About.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\images\faces\face01.png" />
@@ -280,8 +271,6 @@
     <None Include="Initialization\DependencyResolution\README.md" />
     <Content Include="ServiceFacade\API\Controllers\V0100\README.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ExtensionMethods\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -9,16 +9,41 @@ namespace App.Core.Shared.Models.Messages.BaseClasses
     using App.Core.Shared.Factories;
     using App.Core.Shared.Models.Entities;
 
-    public abstract class TenantedReferenceDtoBase  /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ : IHasGuidId, IHasTenantFK, IHasRecordState
+    public abstract class TenantedRecordStateGuidIdReferenceDtoBase  /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ : TenantedRecordStateGuidIdDtoBase
     {
-        protected TenantedReferenceDtoBase()
+        protected TenantedRecordStateGuidIdReferenceDtoBase(): base()
+        {
+            //this.Id = GuidFactory.NewGuid();
+        }
+
+        public virtual string Text { get; set; }
+    }
+
+
+    public abstract class TenantedRecordStateGuidIdDtoBase : /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ TenantedRecordStatedDtoBase, IHasGuidId
+    {
+        protected TenantedRecordStateGuidIdDtoBase()
         {
             this.Id = GuidFactory.NewGuid();
         }
 
-        public virtual string Text { get; set; }
-        public virtual Guid Id { get; set; }
-        public virtual RecordPersistenceState RecordState { get; set; }
-        public virtual Guid TenantFK { get; set; }
+        public virtual Guid Id
+        {
+            get; set;
+        }
     }
+
+    public abstract class TenantedRecordStatedDtoBase : /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ IHasTenantFK, IHasRecordState
+    {
+        public virtual RecordPersistenceState RecordState
+        {
+            get; set;
+        }
+
+        public virtual Guid TenantFK
+        {
+            get; set;
+        }
+    }
+
 }

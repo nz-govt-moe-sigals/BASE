@@ -2,9 +2,10 @@
 {
     using App.Core.Shared.Models;
     using App.Core.Shared.Models.Messages.BaseClasses;
+    using App.Module3.Shared.Models.Messages.APIs.V0100;
 
 
-    public class WardDto : TenantedReferenceDtoBase
+    public class WardDto : TenantedSIFReferenceDtoBase
     {
     }
 

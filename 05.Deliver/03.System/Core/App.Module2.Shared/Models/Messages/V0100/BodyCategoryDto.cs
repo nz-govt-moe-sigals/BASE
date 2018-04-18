@@ -6,7 +6,7 @@
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages.BaseClasses;
 
-    public class BodyCategoryDto  /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ : TenantedReferenceDtoBase,  IHasGuidId, IHasTenantFK, IHasRecordState
+    public class BodyCategoryDto  /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ : TenantedRecordStateGuidIdReferenceDtoBase,  IHasGuidId, IHasTenantFK, IHasRecordState
     {
     }
 

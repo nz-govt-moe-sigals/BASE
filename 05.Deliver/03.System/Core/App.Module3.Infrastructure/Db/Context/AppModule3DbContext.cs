@@ -52,7 +52,9 @@
     
         }
 
-        public DbSet<Example> Examples { get; set; }
+        //public DbSet<Example> Examples { get; set; }
+
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

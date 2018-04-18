@@ -2,6 +2,20 @@ namespace App.Core.Shared.Models.Entities
 {
     using System;
 
+    /// <summary>
+    /// <para>
+    /// Implements
+    /// <see cref="IHasId{T}"/>,
+    /// <see cref="IHasTimestamp"/>
+    /// <see cref="IHasInRecordAuditability"/>
+    /// <see cref="IHasRecordState"/>
+    /// </para>
+    /// </summary>
+    /// <typeparam name="TId">The type of the identifier.</typeparam>
+    /// <seealso cref="App.Core.Shared.Models.IHasId{TId}" />
+    /// <seealso cref="App.Core.Shared.Models.IHasTimestamp" />
+    /// <seealso cref="App.Core.Shared.Models.IHasInRecordAuditability" />
+    /// <seealso cref="App.Core.Shared.Models.IHasRecordState" />
     public abstract class UntenantedTimestampedAuditedRecordStatedCustomIdEntityBase<TId> : IHasId<TId>, IHasTimestamp,
         IHasInRecordAuditability, IHasRecordState
     {

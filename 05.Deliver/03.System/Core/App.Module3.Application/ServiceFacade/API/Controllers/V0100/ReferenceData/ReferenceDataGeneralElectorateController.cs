@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Web.Http;
     using System.Web.OData;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
@@ -14,7 +15,7 @@
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class GeneralElectorateController : ODataControllerStandardDataBase<GeneralElectorate, GeneralElectorateDto>
+    public class GeneralElectorateController : ODataControllerResourceDataBase<GeneralElectorate, GeneralElectorateDto>
     {
         public GeneralElectorateController(
             IDiagnosticsTracingService diagnosticsTracingService, 
@@ -31,14 +32,22 @@
         //[ApplyDataContractResolver]
         //[ApplyProxyDataContractResolverAttribute]
         //[ODataRoute()]
+        [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
         public IQueryable<GeneralElectorateDto> Get()
         {
             return InternalGet();
         }
 
+        /// <summary>
+        /// Gets the resource with the specified Id.
+        /// <para>
+        /// Note OData's convention that parameter must be 'key' (not 'id' or other).
+        /// </para>
+        /// </summary>
+        [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public GeneralElectorateDto Get(Guid key)
+        public GeneralElectorateDto Get(string key)
         {
             return InternalGet(key);
         }

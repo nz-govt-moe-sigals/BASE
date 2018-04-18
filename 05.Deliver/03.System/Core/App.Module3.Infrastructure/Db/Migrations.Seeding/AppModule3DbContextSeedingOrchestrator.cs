@@ -53,7 +53,8 @@
         private void SeedByHand(AppModule3DbContext dbContext)
         {
             AttachDebuggerWhenRunningUnderPowershell();
-            AppDependencyLocator.Current.GetInstance<AppModule3DbContextSeederExample>().Seed(dbContext);
+               // Start Seeding:
+            //AppDependencyLocator.Current.GetInstance<AppModule3DbContextSeederExample>().Seed(dbContext);
         }
 
         private void AttachDebuggerWhenRunningUnderPowershell()
