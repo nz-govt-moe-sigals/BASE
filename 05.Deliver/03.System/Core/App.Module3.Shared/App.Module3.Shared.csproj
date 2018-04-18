@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Models\Configuration\ExampleApiConfiguration.cs" />
     <Compile Include="Models\Entities\Example.cs" />
+    <Compile Include="Models\Entities\ExtractWatermark.cs" />
     <Compile Include="Models\Entities\ReferenceData\AreaUnit.cs" />
     <Compile Include="Models\Entities\ReferenceData\AuthorityType.cs" />
     <Compile Include="Models\Entities\ReferenceData\CommunityBoard.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Models\Messages\APIs\V0100\ReferenceData\WardDto.cs" />
     <Compile Include="Models\Messages\Extract\BaseMessage.cs" />
     <Compile Include="Models\Messages\Extract\BaseReference.cs" />
+    <Compile Include="Models\Messages\Extract\ExtractConstants.cs" />
     <Compile Include="Models\Messages\Extract\ReferenceAreaUnits.cs" />
     <Compile Include="Models\Messages\Extract\ReferenceAuthorityType.cs" />
     <Compile Include="Models\Messages\Extract\ReferenceCommunityBoard.cs" />

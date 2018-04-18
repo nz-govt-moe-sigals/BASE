@@ -11,6 +11,8 @@
     <AssemblyName>App.Module3.Infrastructure</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,8 +41,14 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Azure.Documents.Client, Version=1.21.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.DocumentDB.1.21.1\lib\net45\Microsoft.Azure.Documents.Client.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap, Version=4.5.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -71,13 +79,45 @@
     <Compile Include="Db\Migrations\Module3\201804142348097_Initialize.Designer.cs">
       <DependentUpon>201804142348097_Initialize.cs</DependentUpon>
     </Compile>
+    <Compile Include="Db\Migrations\Module3\201804172222034_ExtractWatermark.cs" />
+    <Compile Include="Db\Migrations\Module3\201804172222034_ExtractWatermark.Designer.cs">
+      <DependentUpon>201804172222034_ExtractWatermark.cs</DependentUpon>
+    </Compile>
     <Compile Include="Db\Migrations\Module3\Configuration.cs" />
+    <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineExtractWatermark.cs" />
     <Compile Include="Db\Schema\AppModule3DbModelBuilderOrchestrator.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineExample.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\BaseMessageContractResolver.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\BaseReferenceContractResolver.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverFactory.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverSchoolEnrol.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverSchoolLevelGender.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverSchoolProfiles.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverReferenceCommunityBoard.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverReferenceGeneralElectorate.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverReferenceMaoriElectorate.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverReferenceOrganisationStatus.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverReferenceOrganisationType.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverReferenceRegion.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverReferenceRegionalCouncil.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverReferenceRelationshipType.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverReferenceSchoolClassification.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverReferenceSchoolingGender.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverReferenceSchoolYearLevel.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverReferenceAuthorityType.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverReferenceSpecialSchooling.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverReferenceTeacherEducation.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverReferenceTerritorialAuthority.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverReferenceUrbanArea.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverReferenceWard.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverSchoolWGS.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverSummary.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\CustomContractResolver.cs" />
     <Compile Include="Initialization\DependencyResolution\AppModule3Registry.cs" />
     <Compile Include="Initialization\Db\IHasAppModule3DbContextSeedInitializer.cs" />
     <Compile Include="Initialization\Db\IHasAppModule3DbContextModelBuilderInitializer.cs" />
     <Compile Include="Initialization\Authorisation\HasOidcScopeInitializer.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverReferenceAreaUnits.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolAreaUnit_SchoolAreaUnitDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolAuthority_SchoolAuthorityDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolCommunityBoard_SchoolCommunityBoardDto.cs" />
@@ -100,8 +140,14 @@
     <Compile Include="Initialization\OData\IAppModule3OdataModelBuilderBase.cs" />
     <Compile Include="Initialization\Search\ExampleSearchProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IExtractAzureDocumentDbService.cs" />
     <Compile Include="Services\IHasAppModule3Service.cs" />
     <Compile Include="Services\Implementations\Base\AppModule3ServiceBase.cs" />
+    <Compile Include="Services\Implementations\Configuration\ExtractDocumentDbServiceConfiguration.cs" />
+    <Compile Include="Services\Implementations\ExtractAzureDocumentDbService.cs" />
+    <Compile Include="Services\Implementations\Extract\BaseExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\ExtractImplementationFactory.cs" />
+    <Compile Include="Services\IBaseExtractService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\App.Core.Infrastructure\App.Core.Infrastructure.csproj">
@@ -135,6 +181,16 @@
     <EmbeddedResource Include="Db\Migrations\Module3\201804142348097_Initialize.resx">
       <DependentUpon>201804142348097_Initialize.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Db\Migrations\Module3\201804172222034_ExtractWatermark.resx">
+      <DependentUpon>201804172222034_ExtractWatermark.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.Azure.DocumentDB.1.21.1\build\Microsoft.Azure.DocumentDB.targets" Condition="Exists('..\packages\Microsoft.Azure.DocumentDB.1.21.1\build\Microsoft.Azure.DocumentDB.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Azure.DocumentDB.1.21.1\build\Microsoft.Azure.DocumentDB.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Azure.DocumentDB.1.21.1\build\Microsoft.Azure.DocumentDB.targets'))" />
+  </Target>
 </Project>

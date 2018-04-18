@@ -15,6 +15,7 @@ namespace App.Core.Infrastructure.Services.Implementations
     using Microsoft.Azure.Documents;
     using Microsoft.Azure.Documents.Client;
     using Microsoft.Azure.Documents.Linq;
+    using Newtonsoft.Json;
 
     public class AzureDocumentDBService : IAzureDocumentDBService
     {
@@ -51,11 +52,17 @@ namespace App.Core.Infrastructure.Services.Implementations
             return new DocumentClient(endpointUrl, authorizationKey);
         }
 
+        private DocumentClient CreateClient(Uri endpointUrl, string authorizationKey, JsonSerializerSettings jsonSerializerSettings)
+        {
+            return new DocumentClient(endpointUrl, authorizationKey, jsonSerializerSettings);
+        }
+
 
         private IQueryable<TDocument> CreateDocumentQuery<TDocument>(Uri collectionLinkUri, SqlQuerySpec sqlQuerySpec)
         {
             return this._documentClient.CreateDocumentQuery<TDocument>(collectionLinkUri, sqlQuerySpec);
         }
+
 
 
         private static string GetDocumentIdByReflection<TDocument>(TDocument document)
@@ -329,6 +336,23 @@ namespace App.Core.Infrastructure.Services.Implementations
             TDocument result = documentQuery.FirstOrDefault(predicate);
             return result;
         }
+
+
+        /// <summary>
+        /// Retrive a single object 
+        /// CURRENTLY THIS IS UNTESTED
+        /// </summary>
+        /// <typeparam name="TDocument">The type of the document.</typeparam>
+        /// <param name="collectionLinkUri">The collection link URI.</param>
+        /// <param name="settings">The Newtonsoft settings to translate the document </param>
+        /// <returns></returns>
+        public async Task<TDocument> GetDocumentAsync<TDocument>(Uri collectionLinkUri, JsonSerializerSettings settings)
+        {
+            var response = await this._documentClient.ReadDocumentAsync(collectionLinkUri);
+            return JsonConvert.DeserializeObject<TDocument>(response.Resource.ToString(), settings);
+        }
+
+
 
         /// <summary>
         /// Persists the updated document/object.

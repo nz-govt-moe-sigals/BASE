@@ -54,6 +54,8 @@
 
         public DbSet<Example> Examples { get; set; }
 
+        public DbSet<ExtractWatermark> ExtractWatermarks { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             // Ensures all tables that belong to this Module have a prefix other than 'dbo'.

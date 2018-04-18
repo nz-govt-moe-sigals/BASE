@@ -45,6 +45,7 @@
         private void DefineByHand(DbModelBuilder modelBuilder)
         {
             this._appModule3DbContextModelBuilderDefineExample.Define(modelBuilder);
+            AppModule3DbContextModelBuilderDefineExtractWatermark.DefineTable(modelBuilder);
         }
     }
 }
