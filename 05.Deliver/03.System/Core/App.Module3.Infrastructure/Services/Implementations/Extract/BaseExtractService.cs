@@ -67,16 +67,16 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         /// </summary>
         /// <param name="watermark">Get data after this point</param>
         /// <returns></returns>
-        public virtual List<T> GetDataToUpdate(DateTime watermark)
+        public virtual IList<T> GetDataToUpdate(DateTime watermark)
         {
             // connnect to document DB and retrieve data
             // timestamp should be Greater thjan the watermark gotten from  the DB
             var queryable = _documentDBService.GetDocuments<T>(GetJsonSerializerSettings(), _sourceTableName);
 
-            return queryable.ToList();// Want to invoke at the moment, might just leave it to the end
+            return queryable;// Want to invoke at the moment, might just leave it to the end
         }
 
-        public virtual void UpdateLocalData(List<T> list)
+        public virtual void UpdateLocalData(IList<T> list)
         {
             // Some Sky Magic Code
         }
@@ -84,6 +84,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         public virtual void UpdateWaterMark(DateTime watermark)
         {
             //need to extract this out into a method so i can test 
+            
             var record = _dbContext.ExtractWatermarks.SingleOrDefault(x => x.SourceTableName == SourceTableName);
             if(record == null)
             {
@@ -95,7 +96,11 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
             }
             else
             {
-                record.Watermark = watermark;
+                if(watermark > record.Watermark)
+                {
+                    record.Watermark = watermark;
+                }
+                
             }
         }
 

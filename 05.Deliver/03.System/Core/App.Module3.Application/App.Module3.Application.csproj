@@ -162,7 +162,6 @@
     <Compile Include="Initialization\OData\IAppModule3OdataModelBuilder.cs" />
     <Compile Include="Initialization\OData\Implementations\AppModule3OdataModelBuilder.cs" />
     <Compile Include="Initialization\OData\Implementations\BaseClasses\AppModule3ODataModelBuilderConfigurationBase.cs" />
-    <Compile Include="Initialization\OData\Implementations\ExampleOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\IAppModule3OdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\AreaUnitODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\AuthorityTypeODataModelBuilderConfiguration.cs" />
@@ -189,12 +188,7 @@
     <Compile Include="ServiceFacade\API\Controllers\ODataControllerStandardDataBase.cs" />
     <Compile Include="ServiceFacade\API\Controllers\ODataControllerBase.cs" />
     <Compile Include="ServiceFacade\API\Controllers\Services\Implementations\ExtractContractResolverService.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\Example1Controller.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\Example2Controller.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\Example3Controller.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\Example4Controller.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\Example5Controller.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\Example6Controller.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\V0100\ExtractController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\Services\IApplicationService.cs" />
     <Compile Include="ServiceFacade\API\Controllers\Services\Implementations\ApplicationService.cs" />
     <Compile Include="ServiceFacade\API\Controllers\Services\IExampleApplicationService.cs" />

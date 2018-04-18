@@ -56,29 +56,29 @@ namespace App.Module3.Infrastructure.Services.Implementations
             return new DocumentClient(this._configuration.EndpointUrl, this._configuration.AuthorizationKey, jsonSerializerSettings);
         }
 
-        public IQueryable<TDocument> GetDocuments<TDocument>(JsonSerializerSettings settings, string dbName)
+        public IList<TDocument> GetDocuments<TDocument>(JsonSerializerSettings settings, string dbName)
             where TDocument : BaseMessage
         {
             return GetDocuments<TDocument>(this._configuration.DatabaseName, this._configuration.CollectionName, settings, dbName);
         }
 
 
-        public IQueryable<TDocument> GetDocuments<TDocument>(string databaseId, string collectionId, JsonSerializerSettings settings, string dbName)
+        public IList<TDocument> GetDocuments<TDocument>(string databaseId, string collectionId, JsonSerializerSettings settings, string dbName)
             where TDocument : BaseMessage
         {
             var documentCollectionUri = UriFactory.CreateDocumentCollectionUri(databaseId, collectionId);
             return GetDocuments<TDocument>(documentCollectionUri, settings, dbName);
         }
 
-        public IQueryable<TDocument> GetDocuments<TDocument>(Uri collectionLinkUri, JsonSerializerSettings settings, string dbName)
+        public IList<TDocument> GetDocuments<TDocument>(Uri collectionLinkUri, JsonSerializerSettings settings, string dbName)
             where TDocument: BaseMessage
         {
-            FeedOptions queryOptions = new FeedOptions { MaxItemCount = -1 };
+            FeedOptions queryOptions = new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery=true  };
             var list = new List<TDocument>();
             using (var documentClient = CreateClient(settings))
             {
                 return documentClient.CreateDocumentQuery<TDocument>(collectionLinkUri, queryOptions)
-                    .Where(x => x.TableName == dbName);
+                    .Where(x => x.TableName == dbName).ToList();
             }
                 
         }

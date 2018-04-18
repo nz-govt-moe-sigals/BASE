@@ -10,7 +10,7 @@ namespace App.Module3.Infrastructure.Services
 {
     public interface IExtractAzureDocumentDbService
     {
-        IQueryable<TDocument> GetDocuments<TDocument>(JsonSerializerSettings settings, string dbName)
+        IList<TDocument> GetDocuments<TDocument>(JsonSerializerSettings settings, string dbName)
             where TDocument : BaseMessage;
     }
 }

@@ -49,7 +49,7 @@ namespace App.Core.Application
         public void Configure(IAppBuilder appBuilder) {
 
 
-            var token = new msiTokenRetrievalFromDev().DoAsync().Result;
+            //var token = new msiTokenRetrievalFromDev().DoAsync().Result;
 
             // Design Constraints:
             // * Startup Sequence can configure, but not access remote services:
@@ -77,7 +77,7 @@ namespace App.Core.Application
             // Appears correct order is to register WebMVC, then WebAPI.
             InitializeWebApi(appBuilder, this._sessionOperationLogService);
             InitializeMvc(appBuilder);
-
+            
             // After WebApi is sorted out:
             // Note that *usually* swagger is invoked because the SwaggerClass is decorated 
             // with [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]

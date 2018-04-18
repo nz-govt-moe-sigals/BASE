@@ -61,7 +61,7 @@ namespace App.Module3.Shared.Models.Messages.Extract
         }
 
         // constants of the extract table names 
-        public const string _tableNameReferenceAreaUnits = "Schools_Directory_API_Ref_Area_Unit";
+        public const string _tableNameReferenceAreaUnits = "Schools_Directory_API_Ref_Area_Units";
         public const string _tableNameReferenceAuthorityType = "Schools_Directory_API_Ref_Authority_Type";
         public const string _tableNameReferenceCommunityBoards = "Schools_Directory_API_Ref_Community_Board";
         public const string _tableNameReferenceGeneralElectorate = "Schools_Directory_API_Ref_General_Electorate";

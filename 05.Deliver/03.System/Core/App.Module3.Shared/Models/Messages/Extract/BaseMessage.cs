@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,7 @@ namespace App.Module3.Shared.Models.Messages.Extract
         //[JsonProperty("SourceDataLastModified")]
         public DateTime SourceDataLastModified { get; set; }
 
-        //[JsonProperty("table_name")]
+        [JsonProperty("Table_Name")]
         public string TableName { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace App.Core.Infrastructure.Startup.Spikes
         {
 
             var azureServiceTokenProvider = new AzureServiceTokenProvider();
+            //Ensure you have access to azure and to azure keyvault
             string accessToken = await azureServiceTokenProvider.GetAccessTokenAsync("https://management.azure.com/").ConfigureAwait(false);
             return accessToken;
         }
