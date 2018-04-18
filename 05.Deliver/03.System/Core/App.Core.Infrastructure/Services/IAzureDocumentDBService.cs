@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -182,6 +183,17 @@ namespace App.Core.Infrastructure.Services
         /// <param name="predicate">The predicate.</param>
         /// <returns></returns>
         Task<TDocument> GetDocumentAsync<TDocument>(Uri collectionLinkUri, Func<TDocument, bool> predicate);
+
+
+        /// <summary>
+        /// Retrive a single object 
+        /// CURRENTLY THIS IS UNTESTED
+        /// </summary>
+        /// <typeparam name="TDocument">The type of the document.</typeparam>
+        /// <param name="collectionLinkUri">The collection link URI.</param>
+        /// <param name="settings">The Newtonsoft settings to translate the document </param>
+        /// <returns></returns>
+        Task<TDocument> GetDocumentAsync<TDocument>(Uri collectionLinkUri, JsonSerializerSettings settings);
 
 
 

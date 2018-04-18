@@ -141,6 +141,8 @@
             _appModule3DbContextModelBuilderDefineSchoolProfile.Define(modelBuilder);
 
 
+            this._appModule3DbContextModelBuilderDefineExample.Define(modelBuilder);
+            AppModule3DbContextModelBuilderDefineExtractWatermark.DefineTable(modelBuilder);
         }
     }
 }
