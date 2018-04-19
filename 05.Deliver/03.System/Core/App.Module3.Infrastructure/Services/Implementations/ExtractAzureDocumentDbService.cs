@@ -1,4 +1,5 @@
 ﻿using App.Core.Infrastructure.Services;
+using App.Core.Infrastructure.Services.Implementations.Base;
 using App.Module3.Infrastructure.Services.Implementations.Configuration;
 using App.Module3.Shared.Models.Messages.Extract;
 using Microsoft.Azure.Documents.Client;
@@ -11,10 +12,9 @@ using System.Threading.Tasks;
 
 namespace App.Module3.Infrastructure.Services.Implementations
 {
-    public class ExtractAzureDocumentDbService : IExtractAzureDocumentDbService
+    public class ExtractAzureDocumentDbService  :AzureDocumentDbBaseService,  IExtractAzureDocumentDbService
     {
         private ExtractDocumentDbServiceConfiguration _configuration;
-        private IDiagnosticsTracingService _diagnosticsTracingService;
 
         public ExtractDocumentDbServiceConfiguration Configuration
         {
@@ -25,15 +25,17 @@ namespace App.Module3.Infrastructure.Services.Implementations
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DocumentDBService"/> class.
+        /// Initializes a new instance of the <see cref="ExtractAzureDocumentDbService"/> class.
         /// </summary>
         /// <param name="configuration">The configuration.</param>
         /// <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
         public ExtractAzureDocumentDbService(ExtractDocumentDbServiceConfiguration configuration,
             IDiagnosticsTracingService diagnosticsTracingService)
+            :base(new Uri("https://nzmoebase.documents.azure.com:443/"), 
+                 "wEDBI7B1MPHtNK4y2Myi1h5falYVviMuVBQHgI9hUzT4HnLxsRCJzUC4BPvXW2XEzPJHFztRzhpRK6lBI3NG6A==", 
+                 diagnosticsTracingService)
         {
             this._configuration = configuration;
-            _diagnosticsTracingService = diagnosticsTracingService;
 
             //sooo hardcoded
             this._configuration = new ExtractDocumentDbServiceConfiguration()
@@ -46,41 +48,11 @@ namespace App.Module3.Infrastructure.Services.Implementations
 
         }
 
-        private DocumentClient CreateClient()
-        {
-            return new DocumentClient(this._configuration.EndpointUrl, this._configuration.AuthorizationKey);
-        }
-
-        private DocumentClient CreateClient(JsonSerializerSettings jsonSerializerSettings)
-        {
-            return new DocumentClient(this._configuration.EndpointUrl, this._configuration.AuthorizationKey, jsonSerializerSettings);
-        }
-
-        public IList<TDocument> GetDocuments<TDocument>(JsonSerializerSettings settings, string dbName)
+        public IQueryable<TDocument> GetDocuments<TDocument>(string tableName, DateTime watermarkDate)
             where TDocument : BaseMessage
         {
-            return GetDocuments<TDocument>(this._configuration.DatabaseName, this._configuration.CollectionName, settings, dbName);
-        }
-
-
-        public IList<TDocument> GetDocuments<TDocument>(string databaseId, string collectionId, JsonSerializerSettings settings, string dbName)
-            where TDocument : BaseMessage
-        {
-            var documentCollectionUri = UriFactory.CreateDocumentCollectionUri(databaseId, collectionId);
-            return GetDocuments<TDocument>(documentCollectionUri, settings, dbName);
-        }
-
-        public IList<TDocument> GetDocuments<TDocument>(Uri collectionLinkUri, JsonSerializerSettings settings, string dbName)
-            where TDocument: BaseMessage
-        {
-            FeedOptions queryOptions = new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery=true  };
-            var list = new List<TDocument>();
-            using (var documentClient = CreateClient(settings))
-            {
-                return documentClient.CreateDocumentQuery<TDocument>(collectionLinkUri, queryOptions)
-                    .Where(x => x.TableName == dbName).ToList();
-            }
-                
+            return base.GetDocuments<TDocument>(Configuration.DatabaseName, Configuration.CollectionName)
+                .Where(x => x.TableName == tableName && x.ModifiedDate > watermarkDate);
         }
 
     }

@@ -9,16 +9,16 @@ namespace App.Module3.Shared.Models.Messages.Extract
 {
     public abstract class BaseMessage 
     {
-        //[JsonProperty("id")]
+        [JsonProperty("id")]
         public Guid Id { get; set; }
 
-        //[JsonProperty("ModifiedBy")]
+        [JsonProperty("ModifiedBy")]
         public string ModifiedBy { get; set; }
 
-        //[JsonProperty("ModifiedDate")]
+        [JsonProperty("ModifiedDate")]
         public DateTime ModifiedDate { get; set; }
 
-        //[JsonProperty("SourceDataLastModified")]
+        [JsonProperty("SourceDataLastModified")]
         public DateTime SourceDataLastModified { get; set; }
 
         [JsonProperty("Table_Name")]

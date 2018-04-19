@@ -12,17 +12,17 @@ namespace App.Core.Infrastructure.Services.Implementations
     using System.Collections.ObjectModel;
     using System.Reflection;
     using App.Core.Infrastructure.Services.Configuration.Implementations;
+    using App.Core.Infrastructure.Services.Implementations.Base;
     using Microsoft.Azure.Documents;
     using Microsoft.Azure.Documents.Client;
     using Microsoft.Azure.Documents.Linq;
     using Newtonsoft.Json;
 
-    public class AzureDocumentDBService : IAzureDocumentDBService
+    public class AzureDocumentDBService : AzureDocumentDbBaseService, IAzureDocumentDBService
     {
 
         private DocumentDbServiceConfiguration _configuration;
-        private DocumentClient _documentClient;
-        private IDiagnosticsTracingService _diagnosticsTracingService;
+
 
         public DocumentDbServiceConfiguration Configuration
         {
@@ -39,12 +39,11 @@ namespace App.Core.Infrastructure.Services.Implementations
         /// <param name="configuration">The configuration.</param>
         /// <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
         public AzureDocumentDBService(DocumentDbServiceConfiguration configuration,
-            IDiagnosticsTracingService diagnosticsTracingService)
+            IDiagnosticsTracingService diagnosticsTracingService) 
+            :base(configuration.EndpointUrl, configuration.AuthorizationKey, diagnosticsTracingService)
         {
             this._configuration = configuration;
-            _diagnosticsTracingService = diagnosticsTracingService;
 
-            this._documentClient = CreateClient(this._configuration.EndpointUrl, this._configuration.AuthorizationKey);
         }
 
         private DocumentClient CreateClient(Uri endpointUrl, string authorizationKey)
@@ -340,20 +339,6 @@ namespace App.Core.Infrastructure.Services.Implementations
             return result;
         }
 
-
-        /// <summary>
-        /// Retrive a single object 
-        /// CURRENTLY THIS IS UNTESTED
-        /// </summary>
-        /// <typeparam name="TDocument">The type of the document.</typeparam>
-        /// <param name="collectionLinkUri">The collection link URI.</param>
-        /// <param name="settings">The Newtonsoft settings to translate the document </param>
-        /// <returns></returns>
-        public async Task<TDocument> GetDocumentAsync<TDocument>(Uri collectionLinkUri, JsonSerializerSettings settings)
-        {
-            var response = await this._documentClient.ReadDocumentAsync(collectionLinkUri);
-            return JsonConvert.DeserializeObject<TDocument>(response.Resource.ToString(), settings);
-        }
 
 
 

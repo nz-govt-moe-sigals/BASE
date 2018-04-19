@@ -1,5 +1,6 @@
 ﻿namespace App.Module3.Application.ServiceFacade.API.Controllers.V0100
 {
+    using App.Core.Infrastructure.Services;
     using App.Module3.Infrastructure.Db.Context;
     using App.Module3.Infrastructure.Services;
     using App.Module3.Infrastructure.Services.Implementations.Extract;
@@ -18,20 +19,17 @@
     [AllowAnonymous]
     public class ExtractController : ApiController
     {
-        private AppModule3DbContext _dbContext;
-        private IExtractAzureDocumentDbService _documentDBService;
-        public ExtractController(
-            AppModule3DbContext dbContext, 
-            IExtractAzureDocumentDbService documentDBService)
+        private IExtractServiceController _extractServiceController;
+
+        public ExtractController(IExtractServiceController extractServiceController)
         {
-            _dbContext = dbContext;
-            _documentDBService = documentDBService;
+            _extractServiceController = extractServiceController;
         }
 
-        public void Get()
+        public string Get()
         {
-            IBaseExtractService baseExtractService = new BaseExtractService<ReferenceAreaUnits>(_dbContext, _documentDBService);
-            baseExtractService.Process();
+            _extractServiceController.ProcessAllTables();
+            return "success";
         }
 
     }

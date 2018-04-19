@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +9,13 @@ namespace App.Module3.Shared.Models.Messages.Extract
 {
     public abstract class BaseReference : BaseMessage
     {
-        //[JsonProperty("Code")]
+        [JsonProperty("Code")]
         public string Code { get; set; }
 
-        //[JsonProperty("Description")]
+        [JsonProperty("Description")]
         public string Description { get; set; }
 
-        //[JsonProperty("Comments")]
+        [JsonProperty("Comments")]
         public string Comments { get; set; }
     }
 }
