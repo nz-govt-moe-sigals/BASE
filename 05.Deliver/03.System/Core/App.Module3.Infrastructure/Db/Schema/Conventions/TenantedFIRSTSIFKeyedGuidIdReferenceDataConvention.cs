@@ -4,6 +4,7 @@ namespace App.Core.Infrastructure.Db.Schema.Conventions
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure.Annotations;
+    using App.Core.Infrastructure.Constants.Db;
     using App.Core.Shared.Models.Entities.Base;
     using App.Module3.Shared.Models.Entities;
 
@@ -45,6 +46,7 @@ namespace App.Core.Infrastructure.Db.Schema.Conventions
                 modelBuilder.Entity<T>()
                     .Property(x => x.FIRSTKey)
                     .HasColumnOrder(o++)
+                    .HasMaxLength(TextFieldSizes.X10)
                     .HasColumnAnnotation("Index",
                         new IndexAnnotation(new IndexAttribute($"IX_{typeName}_FIRSTKey")
                         {

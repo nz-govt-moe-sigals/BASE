@@ -9,10 +9,14 @@
 
         public Guid EducationProviderFK { get; set; }
 
+
         public virtual LocationType Type
         {
             get; set;
         }
+
+
+
         //public virtual Guid OwnerFK { get; set; }        
         /// <summary>
         /// Gets or sets the latitude (the 0 to 90 North or South).

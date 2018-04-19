@@ -2,6 +2,12 @@
 {
     public static class TextFieldSizes
     {
+        /// <summary>
+        /// Long enough to store an unsigned int of 4,294,967,295
+        /// </summary>
+        public const int X10 = 10;
+
+
         private const int basic = 64;
 
         /// <summary>

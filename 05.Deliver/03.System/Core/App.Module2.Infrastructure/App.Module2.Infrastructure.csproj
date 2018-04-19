@@ -79,6 +79,10 @@
     <Compile Include="Db\Migrations\Module2\201712070940119_SchoolRefs.Designer.cs">
       <DependentUpon>201712070940119_SchoolRefs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Db\Migrations\Module2\201804190000598_Entities.AddedAltitude.cs" />
+    <Compile Include="Db\Migrations\Module2\201804190000598_Entities.AddedAltitude.Designer.cs">
+      <DependentUpon>201804190000598_Entities.AddedAltitude.cs</DependentUpon>
+    </Compile>
     <Compile Include="Db\Schema\AppModule1DbModelBuilderOrchestrator.cs" />
     <Compile Include="Db\Schema\AppModule2DbContextModelBuilderDefineBody.cs" />
     <Compile Include="Db\Schema\AppModule2DbContextModelBuilderDefineBodyAlias.cs" />
@@ -166,6 +170,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Db\Migrations\Module2\201712070940119_SchoolRefs.resx">
       <DependentUpon>201712070940119_SchoolRefs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Db\Migrations\Module2\201804190000598_Entities.AddedAltitude.resx">
+      <DependentUpon>201804190000598_Entities.AddedAltitude.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

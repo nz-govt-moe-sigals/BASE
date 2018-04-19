@@ -72,7 +72,6 @@
     <Compile Include="Db\Context\AppModule3DbContextFactory.cs" />
     <Compile Include="Db\Context\AppModule3DatabaseInitializerConfigurer.cs" />
     <Compile Include="Db\Context\AppModule3DbContext.cs" />
-    <Compile Include="Db\Migrations.Seeding\AppModule3DbContextSeederExample.cs" />
     <Compile Include="Db\Migrations.Seeding\AppModule3DbContextSeedingOrchestrator.cs" />
     <Compile Include="Db\Migrations\AppModule3DbMigrationsConfiguration.cs" />
     <Compile Include="Db\Migrations\Module3\201804142348097_Initialize.cs" />
@@ -83,7 +82,12 @@
     <Compile Include="Db\Migrations\Module3\201804172222034_ExtractWatermark.Designer.cs">
       <DependentUpon>201804172222034_ExtractWatermark.cs</DependentUpon>
     </Compile>
+    <Compile Include="Db\Migrations\Module3\201804182356296_Entities.EducationProviders.cs" />
+    <Compile Include="Db\Migrations\Module3\201804182356296_Entities.EducationProviders.Designer.cs">
+      <DependentUpon>201804182356296_Entities.EducationProviders.cs</DependentUpon>
+    </Compile>
     <Compile Include="Db\Migrations\Module3\Configuration.cs" />
+    <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineExtractWatermark.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineRelationshipType.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineRegionalCouncil.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineRegion.cs" />
@@ -107,10 +111,11 @@
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineAuthorityType.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineAreaUnit.cs" />
     <Compile Include="Db\Schema\AppModule3DbModelBuilderOrchestrator.cs" />
-    <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineExample.cs" />
+    <Compile Include="Db\Schema\Conventions\TenantedFIRSTSIFKeyedGuidIdReferenceDataConvention.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\Extract\BaseMessageContractResolver.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\Extract\BaseReferenceContractResolver.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverFactory.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverReferenceAreaUnits.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverSchoolEnrol.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverSchoolLevelGender.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\Extract\ContractResolverSchoolProfiles.cs" />
@@ -206,6 +211,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Db\Migrations\Module3\201804172222034_ExtractWatermark.resx">
       <DependentUpon>201804172222034_ExtractWatermark.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Db\Migrations\Module3\201804182356296_Entities.EducationProviders.resx">
+      <DependentUpon>201804182356296_Entities.EducationProviders.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

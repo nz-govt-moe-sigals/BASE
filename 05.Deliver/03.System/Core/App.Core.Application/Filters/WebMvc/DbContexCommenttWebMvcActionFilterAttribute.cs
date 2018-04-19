@@ -52,11 +52,11 @@
         {
             var sessionOperationLog = this._sessionOperationLogService.Current;
 
-
             sessionOperationLog.EndDateTimeUtc = DateTimeOffset.UtcNow;
             sessionOperationLog.Duration =
                 sessionOperationLog.EndDateTimeUtc.Subtract(sessionOperationLog.BeginDateTimeUtc);
             sessionOperationLog.ResponseCode = filterContext.HttpContext.Response.StatusCode.ToString();
+
         }
     }
 }

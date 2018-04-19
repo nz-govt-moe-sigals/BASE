@@ -1,5 +1,6 @@
 namespace App.Core.Infrastructure.Db.Schema.Conventions
 {
+    using System;
     using System.Data.Entity;
     using App.Core.Shared.Models.Entities.Base;
 
@@ -21,7 +22,7 @@ namespace App.Core.Infrastructure.Db.Schema.Conventions
     /// <seealso cref="App.Core.Infrastructure.Db.Schema.Conventions.TenantFKEtcConvention" />
     public class TenantedKeyedReferenceDataConvention : TenantedReferenceDataConvention
     {
-        public new void Define<T>(DbModelBuilder modelBuilder, ref int order)
+        public new void Define<T>(DbModelBuilder modelBuilder, ref int order, Func<int, int> injectedPropertyDefs = null)
             where T : TenantedKeyedGuidIdReferenceDataBase
         {
             // Call underlying method first:

@@ -14,7 +14,7 @@ namespace App.Module3.Shared.Models.Entities
         /// <summary>
         /// Gets or sets the parent <see cref="EducationProviderProfile"/>'s Id.
         /// </summary>
-        public int SchoolProfileFK
+        public Guid EducationProviderFK
         {
             get; set;
         }

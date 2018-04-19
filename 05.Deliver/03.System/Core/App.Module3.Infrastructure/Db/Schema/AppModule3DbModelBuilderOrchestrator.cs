@@ -30,6 +30,7 @@
         private readonly AppModule3DbContextModelBuilderDefineSchoolLevelGender _appModule3DbContextModelBuilderDefineSchoolLevelGender;
         private readonly AppModule3DbContextModelBuilderDefineEducationProviderProfile _appModule3DbContextModelBuilderDefineSchoolProfile;
         private readonly AppModule3DbContextModelBuilderDefineEducationProvideLocation _appModule3DbContextModelBuilderDefineSchoolWgs;
+        private readonly AppModule3DbContextModelBuilderDefineExtractWatermark _appModule3DbContextModelBuilderDefineExtractWatermark;
 
         public AppModule3DbModelBuilderOrchestrator(
             //Reference data:
@@ -55,7 +56,8 @@
                 AppModule3DbContextModelBuilderDefineSchoolEnrol appModule3DbContextModelBuilderDefineSchoolEnrol,
                 AppModule3DbContextModelBuilderDefineSchoolLevelGender appModule3DbContextModelBuilderDefineSchoolLevelGender,
                 AppModule3DbContextModelBuilderDefineEducationProviderProfile appModule3DbContextModelBuilderDefineSchoolProfile,
-                AppModule3DbContextModelBuilderDefineEducationProvideLocation appModule3DbContextModelBuilderDefineSchoolWgs
+                AppModule3DbContextModelBuilderDefineEducationProvideLocation appModule3DbContextModelBuilderDefineSchoolWgs,
+            AppModule3DbContextModelBuilderDefineExtractWatermark  appModule3DbContextModelBuilderDefineExtractWatermark 
             )
         {
             // Reference:
@@ -82,6 +84,8 @@
             this._appModule3DbContextModelBuilderDefineSchoolLevelGender = appModule3DbContextModelBuilderDefineSchoolLevelGender;
             this._appModule3DbContextModelBuilderDefineSchoolProfile = appModule3DbContextModelBuilderDefineSchoolProfile;
             this._appModule3DbContextModelBuilderDefineSchoolWgs = appModule3DbContextModelBuilderDefineSchoolWgs;
+            // Peter:
+            this._appModule3DbContextModelBuilderDefineExtractWatermark = appModule3DbContextModelBuilderDefineExtractWatermark;
         }
 
 
@@ -140,9 +144,8 @@
             _appModule3DbContextModelBuilderDefineSchoolLevelGender.Define(modelBuilder);
             _appModule3DbContextModelBuilderDefineSchoolProfile.Define(modelBuilder);
 
-
-            this._appModule3DbContextModelBuilderDefineExample.Define(modelBuilder);
-            AppModule3DbContextModelBuilderDefineExtractWatermark.DefineTable(modelBuilder);
+            //Peter:
+            _appModule3DbContextModelBuilderDefineExtractWatermark.DefineTable(modelBuilder);
         }
     }
 }

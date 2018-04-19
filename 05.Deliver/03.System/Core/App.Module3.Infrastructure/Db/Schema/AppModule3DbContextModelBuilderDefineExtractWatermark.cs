@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 
 namespace App.Module3.Infrastructure.Db.Schema
 {
+    
+
     public class AppModule3DbContextModelBuilderDefineExtractWatermark : IHasAppModule3DbContextModelBuilderInitializer
     {
         public void Define(DbModelBuilder modelBuilder)
@@ -19,7 +21,7 @@ namespace App.Module3.Infrastructure.Db.Schema
             DefineTable(modelBuilder);
         }
 
-        public static void DefineTable(DbModelBuilder modelBuilder)
+        public void DefineTable(DbModelBuilder modelBuilder)
         {
             var order = 1;
 

@@ -10,6 +10,7 @@ namespace App.Module3.Shared.Models.Entities
     using App.Core.Shared.Models;
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Entities.Base;
+    using App.Module3.Shared.Models.Messages.Extract;
 
     public class EducationProviderProfile : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase, IHasName
     {
@@ -202,14 +203,22 @@ namespace App.Module3.Shared.Models.Entities
             get; set;
         }
 
-        public Guid WGSFK
+        // ---------------------
+
+
+        public virtual ICollection<EducationProviderLocation> Locations
         {
-            get; set;
+            get
+            {
+                return _locations ?? (_locations = new Collection<EducationProviderLocation>());
+            }
+            //set => _levelGender = value;
         }
-        public EducationProviderLocation WGS
-        {
-            get; set;
-        }
+        private ICollection<EducationProviderLocation> _locations;
+
+
+
+
 
         // ---------------------
 

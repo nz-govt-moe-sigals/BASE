@@ -21,7 +21,7 @@ namespace App.Module3.DbContextModelBuilder
 
             // A school profile can have n SchoolLevelGender records.
             modelBuilder.Entity<EducationProviderLevelGender>()
-                .Property(x => x.SchoolProfileFK)
+                .Property(x => x.EducationProviderFK)
                 .HasColumnOrder(order++)
                 .IsRequired();
 
