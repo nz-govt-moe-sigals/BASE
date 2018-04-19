@@ -9,8 +9,6 @@ namespace App.Module3.Shared.Models.Messages.APIs.V0100
     using App.Core.Shared.Models;
     using App.Module3.Shared.Models.Enums;
 
-
-
     public class EducationProviderLocationDto : IHasGuidId
     {
 

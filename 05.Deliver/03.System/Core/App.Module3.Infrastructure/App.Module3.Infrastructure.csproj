@@ -143,6 +143,7 @@
     <Compile Include="Initialization\Db\IHasAppModule3DbContextSeedInitializer.cs" />
     <Compile Include="Initialization\Db\IHasAppModule3DbContextModelBuilderInitializer.cs" />
     <Compile Include="Initialization\Authorisation\HasOidcScopeInitializer.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_EducationProviderEnrolmentCount_EducationProviderEnrolmentCountDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_EducationProviderLocation_EducationProviderLocationDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\Base\ObjectMap_TenantedReferenceType_TenantedReferenceTypeDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ReferenceData\ObjectMap_SchoolAreaUnit_SchoolAreaUnitDto.cs" />

@@ -49,7 +49,7 @@ namespace App.Core.Application
         public void Configure(IAppBuilder appBuilder) {
 
 
-            //var token = new msiTokenRetrievalFromDev().DoAsync().Result;
+            // var token = new msiTokenRetrievalFromDev().DoAsync().Result;
 
             // Design Constraints:
             // * Startup Sequence can configure, but not access remote services:
@@ -61,7 +61,9 @@ namespace App.Core.Application
             //     health check landing pages, etc.) to be accessible without 
             //     hitting services that might crash pages.
 
-            //Enable Analytics (or not...can slow down startup):
+            // Enable Analytics (or not...can slow down startup):
+            // And note that this will be the first call to Azure (for KeyStore service):
+            // Can easily take 5 to 13 seconds.
             App.AppDependencyLocator.Current.GetInstance < EnabledAnalytics>().Configure(appBuilder);
 
             // SETUP STEP: Ensure we're using ASP.MVC v5 or later:

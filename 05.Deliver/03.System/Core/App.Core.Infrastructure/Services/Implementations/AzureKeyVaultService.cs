@@ -76,8 +76,19 @@ namespace App.Core.Infrastructure.Services.Implementations
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         private readonly IHostSettingsService _hostSettingsService;
 
-        private KeyVaultConfigurationObjectFactory _configurationObjectFactory;
+        // One of the very few objects not created by Dependency Injection.
+        // Lazy...but I can't think of how else to solve it right now:
+        private KeyVaultConfigurationObjectFactory ConfigurationObjectFactory
 
+        {
+            get
+            {
+                return this._configurationObjectFactory ?? (this._configurationObjectFactory =
+                           new KeyVaultConfigurationObjectFactory(this._diagnosticsTracingService, this));
+            }
+        }
+
+        private KeyVaultConfigurationObjectFactory _configurationObjectFactory;
         /// <summary>
         /// Initializes a new instance of the <see cref="AzureKeyVaultService"/> class.
         /// </summary>
@@ -92,11 +103,9 @@ namespace App.Core.Infrastructure.Services.Implementations
             this._diagnosticsTracingService = diagnosticsTracingService;
             this._hostSettingsService = hostSettingsService;
 
+            // Not sure if the Url should be in the config object. Probably should...
             _keyVaultUrl = $"https://{this._configuration.ResourceName}.vault.azure.net";
 
-            // One of the very few objects not created by Dependency Injection.
-            // Lazy...but I can't think of how else to solve it right now:
-            _configurationObjectFactory = new KeyVaultConfigurationObjectFactory(diagnosticsTracingService, this);
         }
 
 
@@ -117,27 +126,39 @@ namespace App.Core.Infrastructure.Services.Implementations
                     return this._keyVaultClient;
                 }
 
-                //Are we running in MSI or not?
+                using (var elapsedTime = new ElapsedTime())
+                {
 
-                //string msiEndpoint = Environment.GetEnvironmentVariable("MSI_ENDPOINT");
-                //string msiSecret = Environment.GetEnvironmentVariable("MSI_SECRET");
-                //if ((!string.IsNullOrEmpty(msiEndpoint))&& (!string.IsNullOrEmpty(msiSecret)))
-                //{
+                    //Are we running in MSI or not?
 
-                var azureServiceTokenProvider = new AzureServiceTokenProvider();
-                //string accessToken = azureServiceTokenProvider.GetAccessTokenAsync("https://management.azure.com/").Result;
-                //OR
-                this._keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
-                return this._keyVaultClient;
-                //}
+                    //string msiEndpoint = Environment.GetEnvironmentVariable("MSI_ENDPOINT");
+                    //string msiSecret = Environment.GetEnvironmentVariable("MSI_SECRET");
+                    //if ((!string.IsNullOrEmpty(msiEndpoint))&& (!string.IsNullOrEmpty(msiSecret)))
+                    //{
 
-                ////Not running in MSI, so return based on ClientId or Secret:
-                //this._keyVaultClient = new KeyVaultClientFactory().Build(
-                //           new ClientCredential(
-                //               this._azureKeyVaultServiceConfiguration.AADClientInfo.ClientId,
-                //               this._azureKeyVaultServiceConfiguration.AADClientInfo.ClientSecret));
+                    var azureServiceTokenProvider = new AzureServiceTokenProvider();
+                    //string accessToken = azureServiceTokenProvider.GetAccessTokenAsync("https://management.azure.com/").Result;
+                    //OR
+                    this._keyVaultClient =
+                        new KeyVaultClient(
+                            new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
+                    //}
 
-                //return this._keyVaultClient;
+                    ////Not running in MSI, so return based on ClientId or Secret:
+                    //this._keyVaultClient = new KeyVaultClientFactory().Build(
+                    //           new ClientCredential(
+                    //               this._azureKeyVaultServiceConfiguration.AADClientInfo.ClientId,
+                    //               this._azureKeyVaultServiceConfiguration.AADClientInfo.ClientSecret));
+
+                    //return this._keyVaultClient;
+
+                    string msg =
+                        $"Took {elapsedTime.ElapsedText} to get an MSI token to build a KeyVaultClient.";
+
+                    this._diagnosticsTracingService.Trace(TraceLevel.Verbose, msg);
+
+                    return this._keyVaultClient;
+                }
             }
         }
         KeyVaultClient _keyVaultClient;
@@ -181,7 +202,7 @@ namespace App.Core.Infrastructure.Services.Implementations
             }
             try
             {
-                var secret = await this.KeyVaultClient.GetSecretAsync(keyVaultUrl, secretKey);
+                var secret = Task.Run(()=>this.KeyVaultClient.GetSecretAsync(keyVaultUrl, secretKey)).Result;
                 return secret.Value;
             }
             catch
@@ -273,34 +294,42 @@ namespace App.Core.Infrastructure.Services.Implementations
 
         public T GetObject<T>(string prefix = null, string keyVaultUrl = null) where T : class
         {
-            if (string.IsNullOrWhiteSpace(keyVaultUrl))
+
+                if (string.IsNullOrWhiteSpace(keyVaultUrl))
+                {
+                    keyVaultUrl = _keyVaultUrl;
+                }
+
+
+                // Build a unique Key to see if the object has already been created
+                // and stored in cache.
+                var key = typeof(T).FullName + ":" + prefix;
+
+
+                // Call the KeyVault specific cache:
+                if (KeyVaultServiceConfigurationObjectCache.ObjectCache.ContainsKey(key))
+                {
+                    return (T) KeyVaultServiceConfigurationObjectCache.ObjectCache[key];
+                }
+
+            using (var elapsedTime = new ElapsedTime())
             {
-                keyVaultUrl = _keyVaultUrl;
+                // If not, instead of making one here, 
+                // start with an object that has been processed by the HostSettings.
+                var result = _hostSettingsService.GetObject<T>(prefix);
+
+                // And override any values with KeyValues
+                ConfigurationObjectFactory.Provision<T>(result, prefix);
+
+                // Then cache it:
+                HostSettingsServiceConfigurationObjectCache.ObjectCache[key] = result;
+
+                string msg =
+                    $"Took {elapsedTime.ElapsedText} to build and provision the {result.GetType()} configuration object (using KeyVault/AppHost settings).";
+
+                this._diagnosticsTracingService.Trace(TraceLevel.Verbose, msg);
+                return result;
             }
-
-
-            // Build a unique Key to see if the object has already been created
-            // and stored in cache.
-            var key = typeof(T).FullName + ":" + prefix;
-
-
-            // Call the KeyVault specific cache:
-            if (KeyVaultServiceConfigurationObjectCache.ObjectCache.ContainsKey(key))
-            {
-                return (T)KeyVaultServiceConfigurationObjectCache.ObjectCache[key];
-            }
-
-            // If not, instead of making one here, 
-            // start with an object that has been processed by the HostSettings.
-            var result = _hostSettingsService.GetObject<T>(prefix);
-
-            // And override any values with KeyValues
-            this._configurationObjectFactory.Provision<T>(result, prefix);
-
-            // Then cache it:
-            HostSettingsServiceConfigurationObjectCache.ObjectCache[key] = result;
-
-            return result;
 
         }
 

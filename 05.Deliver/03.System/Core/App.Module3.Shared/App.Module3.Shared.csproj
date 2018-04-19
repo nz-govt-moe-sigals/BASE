@@ -74,6 +74,7 @@
     <Compile Include="Models\Entities\EducationProviderEnrolmentCount.cs" />
     <Compile Include="Models\Entities\EducationProviderLocation.cs" />
     <Compile Include="Models\Enums\LocationType.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\EducationProviderEnrolmentCountDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\EducationProviderLevelGenderDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\EducationProviderLocationDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\EducationProviderProfile.cs" />

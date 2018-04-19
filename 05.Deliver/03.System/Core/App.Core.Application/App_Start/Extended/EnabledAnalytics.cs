@@ -32,6 +32,7 @@
             using (var elapsedTime = new ElapsedTime())
             {
 
+                // This will be a first integration call...
                 var analyticsConfiguration = this._keyVaultService
                     .GetObject<ApplicationInsightsConfigurationSettings>();
 

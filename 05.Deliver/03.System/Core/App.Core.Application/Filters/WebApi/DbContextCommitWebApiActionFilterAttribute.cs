@@ -52,6 +52,8 @@
         private void PreprocessModelsBeforeSaving(DbContext dbContext)
         {
             // Complete models (eg: fill in CurrentUser, CreateDateTimeUtc, fields, etc.)
+            // CHANGED:
+            // See DbContext, where we are overridding SaveEvent so same purpose.
         }
 
         private void HackSessionLog(HttpActionExecutedContext actionExecutedContext)

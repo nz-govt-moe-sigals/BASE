@@ -10,6 +10,17 @@ namespace App.Core.Infrastructure.Initialization.ObjectMaps.Messages.V0100.Base
     using App.Module3.Shared.Models.Messages.APIs.V0100;
     using AutoMapper;
 
+    /// <summary>
+    /// A Base class for 
+    /// an outward (Entity -> DTO) map.
+    /// <para>
+    /// Note that the ObjectMap implements <see cref="IHasAutomapperInitializer"/>
+    /// in order to be auto discoverable/registerable at startup.
+    /// </para>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TDto">The type of the dto.</typeparam>
+    /// <seealso cref="App.Core.Infrastructure.Initialization.ObjectMaps.IHasAutomapperInitializer" />
     public abstract class ObjectMap_TenantedFIRSTSIFKeyedGuidIdReferenceDataBase_TenantedSIFReferenceTypeDto<T,TDto> 
         : IHasAutomapperInitializer
         where T : TenantedFIRSTSIFKeyedGuidIdReferenceDataBase

@@ -7,6 +7,7 @@
     using System.Configuration;
     using System.Linq;
     using System.Reflection;
+    using System.Threading.Tasks;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Attributes;
     using App.Core.Shared.Models.Entities;
@@ -89,6 +90,7 @@
         /// <returns></returns>
         public virtual T Provision<T>(T target, string prefix = null) where T : class
         {
+
             var validSources = new[]
                 {ConfigurationSettingSource.SourceType.All, ConfigurationSettingSource.SourceType.KeyVault};
 
@@ -100,13 +102,27 @@
             {
 
 
+
                 var hostKey = propertyInfo.Name;
 
                 
                 // Determine if we should look for this value here:
                 var sourceAttribute = propertyInfo.GetCustomAttribute<ConfigurationSettingSource>();
+
                 if (sourceAttribute != null)
                 {
+                    //if (sourceAttribute.Source == ConfigurationSettingSource.SourceType.AppSetting)
+                    //{
+                    //    continue;
+                    //}
+                    //if (sourceAttribute.Source == ConfigurationSettingSource.SourceType.KeyVault)
+                    //{
+                    //    object o = propertyInfo.GetValue(target, null);
+                    //    if (!o.IsDefault())
+                    //    {
+                    //        //Already set, move on to next property.
+                    //    }
+                    //}
                     if (!validSources.Any(x => x == sourceAttribute.Source))
                     {
                         continue;
@@ -220,7 +236,8 @@
             // No longer needed -- done within KeyVaultService:
             //var key = this._keyVaultService.CleanKeyName(key);
 
-            var result = this._keyVaultService.RetrieveSecretAsync(key).Result;
+
+            var result =  this._keyVaultService.RetrieveSecretAsync(key).Result;
             return result;
         }
 

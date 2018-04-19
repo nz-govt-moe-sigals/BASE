@@ -24,24 +24,14 @@ namespace App.Module3.Shared.Models.Entities
         {
             get; set;
         }
-        public virtual ICollection<EducationProviderGender> Gender
-        {
-            get { return this._genders ?? (this._genders = new Collection<EducationProviderGender>()); }
-            //set => this._genders = value;
-        }
-        private ICollection<EducationProviderGender> _genders;
+        public virtual EducationProviderGender Gender { get; set; }
 
 
         public Guid YearFK
         {
             get; set;
         }
-        public virtual ICollection<EducationProviderYearLevel> Year
-        {
-            get { return this._schoolYear ?? (this._schoolYear = new Collection<EducationProviderYearLevel>()); }
-            //set => this._schoolYear = value;
-        }
-        private ICollection<EducationProviderYearLevel> _schoolYear;
+        public virtual EducationProviderYearLevel Year { get; set; }
 
     }
 }

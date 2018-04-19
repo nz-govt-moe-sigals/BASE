@@ -22,10 +22,10 @@
 
         private static readonly string[] _emptyArray = new string[0];
 
-        private IPrincipalService PrincipalService
-        {
-            get { return App.AppDependencyLocator.Current.GetInstance<IPrincipalService>(); }
-        }
+        //private IPrincipalService PrincipalService
+        //{
+        //    get { return App.AppDependencyLocator.Current.GetInstance<IPrincipalService>(); }
+        //}
 
 
         public new string Roles

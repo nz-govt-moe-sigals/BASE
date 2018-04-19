@@ -4,7 +4,16 @@ namespace App.Core.Infrastructure.Initialization.ObjectMaps.Messages.V0100
     using App.Module3.Shared.Models.Messages.APIs.V0100;
     using AutoMapper;
 
-    public abstract class ObjectMap_EducationProviderLocation_EducationProviderLocationDto
+    /// <summary>
+    /// An outward (Entity -> DTO) map.
+    /// <para>
+    /// Note that the ObjectMap implements <see cref="IHasAutomapperInitializer"/>
+    /// in order to be auto discoverable/registerable at startup.
+    /// </para>
+    /// </summary>
+    /// <seealso cref="App.Core.Infrastructure.Initialization.ObjectMaps.IHasAutomapperInitializer" />
+    public class ObjectMap_EducationProviderLocation_EducationProviderLocationDto
+        : IHasAutomapperInitializer
     {
         public void Initialize(IMapperConfigurationExpression config)
         {

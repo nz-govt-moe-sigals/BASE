@@ -49,6 +49,7 @@ namespace App.Module3.Application.Initialization.OData.Implementations
                 .GetAllInstances<IOdataModelBuilderConfigurationBase>()
                 .Where(x => x is IAppModule3OdataModelBuilderConfiguration).ToArray();
 
+
             var count = items.Count();
             items.ForEach(x => x.Define(builder));
 
