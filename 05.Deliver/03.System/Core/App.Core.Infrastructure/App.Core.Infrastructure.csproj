@@ -290,6 +290,7 @@
     <Compile Include="Services\IAzureStorageAccountMedia2Service.cs" />
     <Compile Include="Services\IAzureStorageServiceBase.cs" />
     <Compile Include="Services\Configuration\Implementations\ApplicationInformationServiceConfiguration.cs" />
+    <Compile Include="Services\IHasAzureDocumentDbBaseService.cs" />
     <Compile Include="Services\Implementations\AzureDocumentDBService.cs" />
     <Compile Include="Services\Implementations\AzureKeyVaultService.cs" />
     <Compile Include="Services\Implementations\AzureStorageAccountDiagnosticsService.cs" />
@@ -299,6 +300,7 @@
     <Compile Include="Services\Implementations\AzureStorageService.cs" />
     <Compile Include="Services\Caches\Implementations\HostSettingsServiceConfigurationObjectCache.cs" />
     <Compile Include="Services\Implementations\AuthenticationMsiTokenService.cs" />
+    <Compile Include="Services\Implementations\Base\AzureDocumentDbBaseService.cs" />
     <Compile Include="Services\Implementations\ContextService.cs" />
     <Compile Include="Services\IAuthenticationService.cs" />
     <Compile Include="Services\IAuthorisationService.cs" />

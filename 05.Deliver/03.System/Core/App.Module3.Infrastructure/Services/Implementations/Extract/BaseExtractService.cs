@@ -1,6 +1,6 @@
 ﻿using App.Core.Infrastructure.Services;
 using App.Module3.Infrastructure.Db.Context;
-using App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.Extract;
+using App.Module3.Shared.Models.Entities;
 using App.Module3.Shared.Models.Messages.Extract;
 using Newtonsoft.Json;
 using System;
@@ -13,14 +13,15 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
     public class BaseExtractService<T> : IBaseExtractService
         where T: BaseMessage
     {
-        protected readonly AppModule3DbContext _dbContext;
-        private readonly string _sourceTableName;
-        private JsonSerializerSettings _jsonSerializerSettings;
+        protected readonly IRepositoryService _repositoryService;
+        protected readonly IUnitOfWorkService _unitOfWorkService;
+        protected readonly string _sourceTableName;
         protected readonly IExtractAzureDocumentDbService _documentDBService;
+        protected string _dbKey = Constants.Db.AppModule3DbContextNames.Module3;
 
-        public BaseExtractService(AppModule3DbContext dbContext, IExtractAzureDocumentDbService documentDBService)
+        public BaseExtractService(IRepositoryService reposorityService, IUnitOfWorkService unitOfWorkService,  IExtractAzureDocumentDbService documentDBService)
         {
-            _dbContext = dbContext;
+            _repositoryService = reposorityService;
             _documentDBService = documentDBService;
             _sourceTableName = ExtractConstants.LookupTableNameList(typeof(T));
         }
@@ -30,10 +31,12 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
 
         public void Process()
         {
-            var watermarkTime = GetWatermark();
-            var datatoUpdate = GetDataToUpdate(watermarkTime);
+            var existingWaterMark = GetWatermark();
+            var datatoUpdate = GetDataToUpdate(existingWaterMark);
+            var updatedWaterMark = GetMaxTime(datatoUpdate);
             UpdateLocalData(datatoUpdate);
-            UpdateWaterMark(watermarkTime);
+            UpdateWaterMark(existingWaterMark, updatedWaterMark);
+            //_unitOfWorkService.Commit(_dbKey);
             //Ideally call some sort of Save here!
         }
 
@@ -42,24 +45,14 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         public virtual DateTime GetWatermark()
         {
             //need to extract this out into a method so i can test 
-            var record =  _dbContext.ExtractWatermarks.SingleOrDefault(x => x.SourceTableName == SourceTableName);
-            if(record != null)
+            
+            var record =  _repositoryService.GetSingle<ExtractWatermark>(_dbKey, x => x.SourceTableName == SourceTableName);
+
+            if (record != null)
             {
                 return record.Watermark;
             }
             return new DateTime(2001, 01, 01);
-        }
-
-        protected JsonSerializerSettings GetJsonSerializerSettings()
-        {
-            if(_jsonSerializerSettings == null)
-            {
-                _jsonSerializerSettings = new JsonSerializerSettings()
-                {
-                    ContractResolver = ContractResolverFactory.GetContractResolver<T>()
-                };
-            }
-            return _jsonSerializerSettings;
         }
 
         /// <summary>
@@ -71,37 +64,39 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         {
             // connnect to document DB and retrieve data
             // timestamp should be Greater thjan the watermark gotten from  the DB
-            var queryable = _documentDBService.GetDocuments<T>(GetJsonSerializerSettings(), _sourceTableName);
+            var queryable = _documentDBService.GetDocuments<T>(_sourceTableName, watermark);
 
-            return queryable;// Want to invoke at the moment, might just leave it to the end
+            return queryable.ToList();// Want to invoke at the moment, might just leave it to the end
+        }
+
+        public virtual DateTime? GetMaxTime(IList<T> list)
+        {
+            if (list == null || list.Count == 0) return null;
+            return list.Max(x => x.ModifiedDate);
         }
 
         public virtual void UpdateLocalData(IList<T> list)
         {
+            if (list == null || list.Count == 0) return;
             // Some Sky Magic Code
         }
 
-        public virtual void UpdateWaterMark(DateTime watermark)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="updatedWaterMark">should be the value that we are to update to</param>
+        public virtual void UpdateWaterMark(DateTime extistingWatermark, DateTime? updatedWaterMark)
         {
             //need to extract this out into a method so i can test 
-            
-            var record = _dbContext.ExtractWatermarks.SingleOrDefault(x => x.SourceTableName == SourceTableName);
-            if(record == null)
+            if (!updatedWaterMark.HasValue) return;
+            if (extistingWatermark > updatedWaterMark.Value) return;
+            var entity = new Shared.Models.Entities.ExtractWatermark()
             {
-                _dbContext.ExtractWatermarks.Add(new Shared.Models.Entities.ExtractWatermark()
-                {
-                    Watermark = watermark,
-                    SourceTableName = SourceTableName
-                });
-            }
-            else
-            {
-                if(watermark > record.Watermark)
-                {
-                    record.Watermark = watermark;
-                }
-                
-            }
+                Watermark = updatedWaterMark.Value,
+                SourceTableName = SourceTableName
+            };
+            _repositoryService.AddOrUpdate<ExtractWatermark>(_dbKey, x => x.SourceTableName, entity);
         }
 
 

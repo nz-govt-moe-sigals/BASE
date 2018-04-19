@@ -122,7 +122,6 @@
     <Folder Include="Models\Contracts\" />
     <Folder Include="Models\Entities\Base\" />
     <Folder Include="Models\Enums\" />
-    <Folder Include="Models\Messages\lder1\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

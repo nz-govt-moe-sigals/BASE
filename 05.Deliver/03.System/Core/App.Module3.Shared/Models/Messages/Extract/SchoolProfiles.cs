@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,151 +12,151 @@ namespace App.Module3.Shared.Models.Messages.Extract
     /// </summary>
     public class SchoolProfiles : BaseMessage
     {
-        //[JsonProperty("Profiles_Id")]
+        [JsonProperty("Profiles_Id")]
         public int ProfilesId { get; set; }
 
-        //[JsonProperty("School_Id")]
+        [JsonProperty("School_Id")]
         public int SchoolsId { get; set; }
 
-        //[JsonProperty("Org_Name")]
+        [JsonProperty("Org_Name")]
         public string OrgName { get; set; }
 
-        //[JsonProperty("Org_Type")]
+        [JsonProperty("Org_Type")]
         public string OrgType { get; set; }
 
-        //[JsonProperty("Org_Status")]
+        [JsonProperty("Org_Status")]
         public string OrgStatus { get; set; }
 
-        //[JsonProperty("Opening_Date")]
+        [JsonProperty("Opening_Date")]
         public DateTime? OpeningDate { get; set; }
 
-        //[JsonProperty("Closed_Date")]
+        [JsonProperty("Closed_Date")]
         public DateTime? ClosedDate { get; set; }
 
-        //[JsonProperty("Email")]
+        [JsonProperty("Email")]
         public string Email { get; set; }
 
-        //[JsonProperty("Telephone")]
+        [JsonProperty("Telephone")]
         public string Telephone { get; set; }
 
-        //[JsonProperty("Fax")]
+        [JsonProperty("Fax")]
         public string Fax { get; set; }
 
-        //[JsonProperty("Cohort_Entry_Current")]
+        [JsonProperty("Cohort_Entry_Current")]
         public string CohortEntryCurrent { get; set; }
 
-        //[JsonProperty("Cohort_Entry_Future")]
+        [JsonProperty("Cohort_Entry_Future")]
         public string CohortEntryFuture { get; set; }
 
-        //[JsonProperty("Cohort_Entry_Future_From")]
+        [JsonProperty("Cohort_Entry_Future_From")]
         public string CohortEntryFutureFrom { get; set; }
 
-        //[JsonProperty("Contact1_Name")]
+        [JsonProperty("Contact1_Name")]
         public string Contact1Name { get; set; }
 
-        //[JsonProperty("Contact1_Role")]
+        [JsonProperty("Contact1_Role")]
         public string Contact1Role{ get; set; }
 
-        //[JsonProperty("Contact2_Name")]
+        [JsonProperty("Contact2_Name")]
         public string Contact2Name { get; set; }
 
-        //[JsonProperty("Contact2_Role")]
+        [JsonProperty("Contact2_Role")]
         public string Contact2Role { get; set; }
 
-        //[JsonProperty("Add1_Line1")]
+        [JsonProperty("Add1_Line1")]
         public string Add1Line1 { get; set; }
 
-        //[JsonProperty("Add1_Line2")]
+        [JsonProperty("Add1_Line2")]
         public string Add1Line2 { get; set; }
 
-        //[JsonProperty("Add1_Line3")]
+        [JsonProperty("Add1_Line3")]
         public string Add1Line3 { get; set; }
 
-        //[JsonProperty("Add1_Suburb")]
+        [JsonProperty("Add1_Suburb")]
         public string Add1Suburb { get; set; }
 
-        //[JsonProperty("Add1_City")]
+        [JsonProperty("Add1_City")]
         public string Add1City { get; set; }
 
-        //[JsonProperty("Add1_Postal_Code")]
+        [JsonProperty("Add1_Postal_Code")]
         public string Add1PostalCode { get; set; }
 
-        //[JsonProperty("Add2_Line1")]
+        [JsonProperty("Add2_Line1")]
         public string Add2Line1 { get; set; }
 
-        //[JsonProperty("Add2_Line2")]
+        [JsonProperty("Add2_Line2")]
         public string Add2Line2 { get; set; }
 
-        //[JsonProperty("Add2_Line3")]
+        [JsonProperty("Add2_Line3")]
         public string Add2Line3 { get; set; }
 
-        //[JsonProperty("Add2_Suburb")]
+        [JsonProperty("Add2_Suburb")]
         public string Add2Suburb { get; set; }
 
-        //[JsonProperty("Add2_City")]
+        [JsonProperty("Add2_City")]
         public string Add2City { get; set; }
 
-        //[JsonProperty("Add2_Postal_Code")]
+        [JsonProperty("Add2_Postal_Code")]
         public string Add2PostalCode { get; set; }
 
-        //[JsonProperty("URL")]
+        [JsonProperty("URL")]
         public string Url { get; set; }
 
-        //[JsonProperty("Authority_Code")]
+        [JsonProperty("Authority_Code")]
         public string AuthorityCode { get; set; }
 
-        //[JsonProperty("CoEdStatus_Code")]
+        [JsonProperty("CoEdStatus_Code")]
         public string CoEdStatusCode { get; set; }
 
-        //[JsonProperty("Col_Id")]
+        [JsonProperty("Col_Id")]
         public string ColId { get; set; }
 
-        //[JsonProperty("Col_Name")]
+        [JsonProperty("Col_Name")]
         public string ColName { get; set; }
 
-        //[JsonProperty("Decile")]
-        public int Decile { get; set; }
+        [JsonProperty("Decile")]
+        public int? Decile { get; set; }
 
-        //[JsonProperty("Education_Region_Code")]
+        [JsonProperty("Education_Region_Code")]
         public string EducationRegionCode { get; set; }
 
-        //[JsonProperty("Local_Office_Id")]
+        [JsonProperty("Local_Office_Id")]
         public string LocalOfficeId { get; set; }
 
-        //[JsonProperty("Local_Office_Name")]
+        [JsonProperty("Local_Office_Name")]
         public string LocalOfficeName { get; set; }
 
-        //[JsonProperty("School_Classification_Code")]
+        [JsonProperty("School_Classification_Code")]
         public string SchoolClassificationCode { get; set; }
 
-        //[JsonProperty("Special_Schooling_Code")]
+        [JsonProperty("Special_Schooling_Code")]
         public string SpecialSchoolingCode { get; set; }
 
-        //[JsonProperty("Teacher_Education_Code")]
+        [JsonProperty("Teacher_Education_Code")]
         public string TeacherEducationCode { get; set; }
 
-        //[JsonProperty("Area_Unit_Code")]
+        [JsonProperty("Area_Unit_Code")]
         public string AreaUnitCode { get; set; }
 
-        //[JsonProperty("Community_Board_Code")]
+        [JsonProperty("Community_Board_Code")]
         public string CommunityBoardCode { get; set; }
 
-        //[JsonProperty("General_Electorate_Code")]
+        [JsonProperty("General_Electorate_Code")]
         public string GeneralElectorateCode { get; set; }
 
-        //[JsonProperty("Maori_Electorate_Code")]
+        [JsonProperty("Maori_Electorate_Code")]
         public string MaoriElectorateCode { get; set; }
 
-        //[JsonProperty("Regional_Council_Code")]
+        [JsonProperty("Regional_Council_Code")]
         public string RegionalCouncilCode { get; set; }
 
-        //[JsonProperty("Territorial_Authority_Code")]
+        [JsonProperty("Territorial_Authority_Code")]
         public string TerritorialAuthorityCode { get; set; }
 
-        //[JsonProperty("Urban_Area_Code")]
+        [JsonProperty("Urban_Area_Code")]
         public string UrbanAreaCode { get; set; }
 
-        //[JsonProperty("Ward_Code")]
+        [JsonProperty("Ward_Code")]
         public string WardCode { get; set; }
     }
 

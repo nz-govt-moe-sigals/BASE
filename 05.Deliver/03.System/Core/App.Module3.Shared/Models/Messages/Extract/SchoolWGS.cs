@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,16 +12,16 @@ namespace App.Module3.Shared.Models.Messages.Extract
     /// </summary>
     public class SchoolWGS : BaseMessage
     {
-        //[JsonProperty("WGS_Id")]
+        [JsonProperty("WGS_Id")]
         public int WgsId { get; set; }
 
-        //[JsonProperty("Institution_Number")]
+        [JsonProperty("Institution_Number")]
         public int InstitutionNumber { get; set; }
 
-        //[JsonProperty("WGS_X")]
-        public float WgsX { get; set; }
+        [JsonProperty("WGS_X")]
+        public float? WgsX { get; set; }
 
-        //[JsonProperty("WGS_Y")]
-        public float WgsY { get; set; }
+        [JsonProperty("WGS_Y")]
+        public float? WgsY { get; set; }
     }
 }
