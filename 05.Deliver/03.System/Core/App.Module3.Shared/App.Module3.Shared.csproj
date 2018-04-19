@@ -96,8 +96,8 @@
     <Compile Include="Models\Messages\APIs\V0100\ReferenceData\TerritorialAuthorityDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\ReferenceData\UrbanAreaDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\ReferenceData\WardDto.cs" />
-    <Compile Include="Models\Messages\Extract\BaseMessage.cs" />
-    <Compile Include="Models\Messages\Extract\BaseReference.cs" />
+    <Compile Include="Models\Messages\Extract\Base\BaseMessage.cs" />
+    <Compile Include="Models\Messages\Extract\Base\BaseReference.cs" />
     <Compile Include="Models\Messages\Extract\ExtractConstants.cs" />
     <Compile Include="Models\Messages\Extract\ReferenceAreaUnits.cs" />
     <Compile Include="Models\Messages\Extract\ReferenceAuthorityType.cs" />
