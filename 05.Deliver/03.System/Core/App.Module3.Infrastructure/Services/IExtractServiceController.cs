@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Module3.Infrastructure.Services.Implementations.Extract
+namespace App.Module3.Infrastructure.Services
 {
-    public class ExtractImplementationFactory
+    public interface IExtractServiceController
     {
-        
-
+        void ProcessAllTables();
     }
 }

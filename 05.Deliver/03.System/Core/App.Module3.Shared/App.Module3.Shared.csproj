@@ -131,7 +131,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\Messages\lder1\" />
+    <Folder Include="Models\Contracts\" />
+    <Folder Include="Models\Entities\Base\" />
+    <Folder Include="Models\Enums\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

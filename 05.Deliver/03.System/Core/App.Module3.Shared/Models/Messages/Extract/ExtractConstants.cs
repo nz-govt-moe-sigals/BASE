@@ -8,56 +8,109 @@ namespace App.Module3.Shared.Models.Messages.Extract
 {
     public static class ExtractConstants
     {
-        private static readonly Dictionary<string, Type> _orderedList;
+        private static readonly Dictionary<string, Type> _lookupDic;
+        private static readonly List<string> _destinationtableNames;
+        private static readonly List<string> _referenceTableNames;
 
         static ExtractConstants()
         {
             // Do all the reference data first as it is important to know which one is first
-            _orderedList = new Dictionary<string, Type>();
-            _orderedList.Add(_tableNameReferenceAreaUnits, typeof(ReferenceAreaUnits));
-             _orderedList.Add(_tableNameReferenceAuthorityType, typeof(ReferenceAuthorityType));
-            _orderedList.Add(_tableNameReferenceCommunityBoards, typeof(ReferenceCommunityBoard));
-            _orderedList.Add(_tableNameReferenceGeneralElectorate, typeof(ReferenceGeneralElectorate));
-            _orderedList.Add(_tableNameReferenceMaoriElectorate, typeof(ReferenceMaoriElectorate));
-            _orderedList.Add(_tableNameReferenceOrganisationStatus, typeof(ReferenceOrganisationStatus));
-            _orderedList.Add(_tableNameReferenceOrganisationType, typeof(ReferenceOrganisationType));
-            _orderedList.Add(_tableNameReferenceRegion, typeof(ReferenceRegion));
-            _orderedList.Add(_tableNameReferenceRegionalCouncil, typeof(ReferenceRegionalCouncil));
-            _orderedList.Add(_tableNameReferenceRelationshipType, typeof(ReferenceRelationshipType));
-            _orderedList.Add(_tableNameReferenceSchoolClassification, typeof(ReferenceSchoolClassification));
-            _orderedList.Add(_tableNameReferenceSchoolingGender, typeof(ReferenceSchoolingGender));
-            _orderedList.Add(_tableNameReferenceSchoolYearLevel, typeof(ReferenceSchoolYearLevel));
-            _orderedList.Add(_tableNameReferenceSpecialSchooling, typeof(ReferenceSpecialSchooling));
-            _orderedList.Add(_tableNameReferenceTeacherEducation, typeof(ReferenceTeacherEducation));
-            _orderedList.Add(_tableNameReferenceTerritorialAuthority, typeof(ReferenceTerritorialAuthority));
-            _orderedList.Add(_tableNameReferenceUrbanArea, typeof(ReferenceUrbanArea));
-            _orderedList.Add(_tableNameReferenceWard, typeof(ReferenceWard));
-            _orderedList.Add(_tableNameSchoolEnrol, typeof(SchoolEnrol));
-            _orderedList.Add(_tableNameSchoolLevelGender, typeof(SchoolLevelGender));
-            _orderedList.Add(_tableNameSchoolProfiles, typeof(SchoolProfiles));
-            _orderedList.Add(_tableNameSchoolWGS, typeof(SchoolWGS));
-            _orderedList.Add(_tableNameSummary, typeof(Summary));
+            _lookupDic = new Dictionary<string, Type>();
+            _destinationtableNames = new List<string>();
+            _referenceTableNames = new List<string>();
+            InitDictionary();
+            InitReferenceTables();
+            InitDestinationTables();
 
 
+        }
+
+        private static void InitDestinationTables()
+        {
+            _destinationtableNames.Add(_tableNameSchoolProfiles);
+            _destinationtableNames.Add(_tableNameSchoolWGS);
+            _destinationtableNames.Add(_tableNameSchoolEnrol);
+            _destinationtableNames.Add(_tableNameSchoolLevelGender);
+        }
+
+        private static void InitReferenceTables()
+        {
+            _referenceTableNames.Add(_tableNameReferenceAreaUnits);
+            _referenceTableNames.Add(_tableNameReferenceAuthorityType);
+            _referenceTableNames.Add(_tableNameReferenceCommunityBoards);
+            _referenceTableNames.Add(_tableNameReferenceGeneralElectorate);
+            _referenceTableNames.Add(_tableNameReferenceMaoriElectorate);
+            _referenceTableNames.Add(_tableNameReferenceOrganisationStatus);
+            _referenceTableNames.Add(_tableNameReferenceOrganisationType);
+            _referenceTableNames.Add(_tableNameReferenceRegion);
+            _referenceTableNames.Add(_tableNameReferenceRegionalCouncil);
+            _referenceTableNames.Add(_tableNameReferenceRelationshipType);
+            _referenceTableNames.Add(_tableNameReferenceSchoolClassification);
+            _referenceTableNames.Add(_tableNameReferenceSchoolingGender);
+            _referenceTableNames.Add(_tableNameReferenceSchoolYearLevel);
+            _referenceTableNames.Add(_tableNameReferenceSpecialSchooling);
+            _referenceTableNames.Add(_tableNameReferenceTeacherEducation);
+            _referenceTableNames.Add(_tableNameReferenceTerritorialAuthority);
+            _referenceTableNames.Add(_tableNameReferenceUrbanArea);
+            _referenceTableNames.Add(_tableNameReferenceWard);
+        }
+
+        private static void InitDictionary()
+        {
+            
+            _lookupDic.Add(_tableNameReferenceAreaUnits, typeof(ReferenceAreaUnits));
+            _lookupDic.Add(_tableNameReferenceAuthorityType, typeof(ReferenceAuthorityType));
+            _lookupDic.Add(_tableNameReferenceCommunityBoards, typeof(ReferenceCommunityBoard));
+            _lookupDic.Add(_tableNameReferenceGeneralElectorate, typeof(ReferenceGeneralElectorate));
+            _lookupDic.Add(_tableNameReferenceMaoriElectorate, typeof(ReferenceMaoriElectorate));
+            _lookupDic.Add(_tableNameReferenceOrganisationStatus, typeof(ReferenceOrganisationStatus));
+            _lookupDic.Add(_tableNameReferenceOrganisationType, typeof(ReferenceOrganisationType));
+            _lookupDic.Add(_tableNameReferenceRegion, typeof(ReferenceRegion));
+            _lookupDic.Add(_tableNameReferenceRegionalCouncil, typeof(ReferenceRegionalCouncil));
+            _lookupDic.Add(_tableNameReferenceRelationshipType, typeof(ReferenceRelationshipType));
+            _lookupDic.Add(_tableNameReferenceSchoolClassification, typeof(ReferenceSchoolClassification));
+            _lookupDic.Add(_tableNameReferenceSchoolingGender, typeof(ReferenceSchoolingGender));
+            _lookupDic.Add(_tableNameReferenceSchoolYearLevel, typeof(ReferenceSchoolYearLevel));
+            _lookupDic.Add(_tableNameReferenceSpecialSchooling, typeof(ReferenceSpecialSchooling));
+            _lookupDic.Add(_tableNameReferenceTeacherEducation, typeof(ReferenceTeacherEducation));
+            _lookupDic.Add(_tableNameReferenceTerritorialAuthority, typeof(ReferenceTerritorialAuthority));
+            _lookupDic.Add(_tableNameReferenceUrbanArea, typeof(ReferenceUrbanArea));
+            _lookupDic.Add(_tableNameReferenceWard, typeof(ReferenceWard));
+            _lookupDic.Add(_tableNameSchoolProfiles, typeof(SchoolProfiles));
+            _lookupDic.Add(_tableNameSchoolWGS, typeof(SchoolWGS));
+            _lookupDic.Add(_tableNameSchoolEnrol, typeof(SchoolEnrol));
+            _lookupDic.Add(_tableNameSchoolLevelGender, typeof(SchoolLevelGender));
+
+
+            //_orderedList.Add(_tableNameSummary, typeof(Summary));
         }
 
         /// <summary>
         /// Get the list of How the tables are supposed to be executed. 
         /// </summary>
         /// <returns></returns>
-        public static List<string> GetOrderedTableNameList()
+        public static List<string> GetReferenceTableList()
         {
-            return _orderedList.Keys.ToList();
+            return _referenceTableNames;
+        }
+
+        /// <summary>
+        /// Get the list of How the tables are supposed to be executed. 
+        /// </summary>
+        /// <returns></returns>
+        public static List<string> GetDestinationTableList()
+        {
+            return _destinationtableNames;
         }
 
         public static Type LookupTableNameList(string tableName)
         {
-            return _orderedList[tableName];
+            return _lookupDic[tableName];
         }
 
         public static string LookupTableNameList(Type tableType)
         {
-            return _orderedList.Where(x => x.Value == tableType).Select(x => x.Key).First();
+            return _lookupDic.Where(x => x.Value == tableType).Select(x => x.Key).First();
         }
 
         // constants of the extract table names 
