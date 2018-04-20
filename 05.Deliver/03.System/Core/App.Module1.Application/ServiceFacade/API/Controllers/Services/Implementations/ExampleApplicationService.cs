@@ -1,8 +1,8 @@
-﻿namespace App.Module2.Application.Services.Implementations
+﻿namespace App.Module1.Application.Services.Implementations
 {
     using System.Data.Entity;
     using App.Core.Infrastructure.Services;
-    using App.Module2.Shared.Models.Entities;
+    using App.Module1.Shared.Models.Entities;
 
     public class ExampleApplicationService : IExampleApplicationService
     {

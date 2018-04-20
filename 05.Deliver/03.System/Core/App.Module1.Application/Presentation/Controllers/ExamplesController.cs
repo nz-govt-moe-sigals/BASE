@@ -2,7 +2,7 @@
 
 //TODO: Get rid of direct reference to App.Module1.Shared
 
-namespace App.Module2.Application.Presentation.Controllers
+namespace App.Module1.Application.Presentation.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -14,8 +14,8 @@ namespace App.Module2.Application.Presentation.Controllers
     using App.Core.Infrastructure.IDA.Services;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Messages;
-    using App.Module2.Shared.Configuration.Models;
-    using App.Module2.Shared.Models.Entities;
+    using App.Module1.Shared.Configuration.Models;
+    using App.Module1.Shared.Models.Entities;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
 

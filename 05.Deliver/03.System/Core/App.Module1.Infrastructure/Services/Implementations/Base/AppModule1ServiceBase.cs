@@ -1,4 +1,4 @@
-﻿namespace App.Module2.Infrastructure.Services.Implementations
+﻿namespace App.Module1.Infrastructure.Services.Implementations
 {
     /// <summary>
     /// Abstract base classs for all Core Infrastructure Services.

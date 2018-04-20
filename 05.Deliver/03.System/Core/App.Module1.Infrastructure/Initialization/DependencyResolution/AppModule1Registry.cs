@@ -1,10 +1,10 @@
-﻿namespace App.Module2.Infrastructure.Initialization.DependencyResolution
+﻿namespace App.Module1.Infrastructure.Initialization.DependencyResolution
 {
     using App.Core.Infrastructure.Db.Interception;
-    using App.Module2.Infrastructure.Constants.Db;
-    using App.Module2.Infrastructure.Db.Context;
-    using App.Module2.Infrastructure.Initialization.Db;
-    using App.Module2.Infrastructure.Initialization.OData;
+    using App.Module1.Infrastructure.Constants.Db;
+    using App.Module1.Infrastructure.Db.Context;
+    using App.Module1.Infrastructure.Initialization.Db;
+    using App.Module1.Infrastructure.Initialization.OData;
     using StructureMap;
     using StructureMap.Graph;
 

@@ -1,4 +1,4 @@
-﻿namespace App.Module2.Infrastructure.Db.Context
+﻿namespace App.Module1.Infrastructure.Db.Context
 {
     using System.Data.Entity;
 

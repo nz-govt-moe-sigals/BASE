@@ -1,4 +1,4 @@
-namespace App.Module2.Infrastructure.IDA.Constants.HostSettingsKeys
+namespace App.Module1.Infrastructure.IDA.Constants.HostSettingsKeys
 {
     public static class AppModule1ApiScopes
     {

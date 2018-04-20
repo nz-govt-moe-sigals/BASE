@@ -1,9 +1,9 @@
-﻿namespace App.Module2.Infrastructure.Initialization.ObjectMaps.Messages.V0100
+﻿namespace App.Module1.Infrastructure.Initialization.ObjectMaps.Messages.V0100
 {
     using App.Core.Infrastructure.Initialization;
     using App.Core.Infrastructure.Initialization.ObjectMaps;
     using App.Core.Shared.Models.Messages.API.V0100;
-    using App.Module2.Shared.Models.Entities;
+    using App.Module1.Shared.Models.Entities;
     using AutoMapper;
 
     public class ObjectMap_ExampleDto_Example : IHasAutomapperInitializer

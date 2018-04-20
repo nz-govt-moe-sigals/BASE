@@ -1,4 +1,4 @@
-﻿namespace App.Module2.Application.ServiceFacade.API.Controllers.V0100
+﻿namespace App.Module1.Application.ServiceFacade.API.Controllers.V0100
 {
     using System;
     using System.Linq;
@@ -8,9 +8,9 @@
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages.API.V0100;
-    using App.Module2.Application.Services;
-    using App.Module2.Shared.Configuration.Models;
-    using App.Module2.Shared.Models.Entities;
+    using App.Module1.Application.Services;
+    using App.Module1.Shared.Configuration.Models;
+    using App.Module1.Shared.Models.Entities;
     using AutoMapper.QueryableExtensions;
 
     /// <summary>
