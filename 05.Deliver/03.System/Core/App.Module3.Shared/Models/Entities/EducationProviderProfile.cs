@@ -12,7 +12,7 @@ namespace App.Module3.Shared.Models.Entities
     using App.Core.Shared.Models.Entities.Base;
     using App.Module3.Shared.Models.Messages.Extract;
 
-    public class EducationProviderProfile : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase, IHasName
+    public class EducationProviderProfile : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase, IHasName, IHasSourceReferenceId
     {
 
 
@@ -57,7 +57,7 @@ namespace App.Module3.Shared.Models.Entities
         }
 
 
-        public int Decile
+        public int? Decile
         {
             get; set;
         }
@@ -238,7 +238,6 @@ namespace App.Module3.Shared.Models.Entities
         public virtual ICollection<EducationProviderEnrolmentCount> RollCounts
         {
             get { return this._rollCount ?? (this._rollCount = new Collection<EducationProviderEnrolmentCount>()); }
-            set => this._rollCount = value;
         }
         private ICollection<EducationProviderEnrolmentCount> _rollCount;
 
@@ -381,6 +380,9 @@ namespace App.Module3.Shared.Models.Entities
         }
         // ---------------------
 
-
+        /// <summary>
+        /// The Reference(record) Id that was received from the source 
+        /// </summary>
+        public int SourceReferenceId { get; set; }
     }
 }

@@ -48,6 +48,7 @@
     <Compile Include="Models\Contracts\IHasSIFKey.cs" />
     <Compile Include="Models\Entities\Base\TenantedFIRSTSIFKeyedGuidIdReferenceDataBase.cs" />
     <Compile Include="Models\Entities\ExtractWatermark.cs" />
+    <Compile Include="Models\Entities\IHasSourceReferenceId.cs" />
     <Compile Include="Models\Entities\ReferenceData\CoL.cs" />
     <Compile Include="Models\Entities\ReferenceData\IHasFIRSTKeyAsId.cs" />
     <Compile Include="Models\Entities\ReferenceData\IHasSIFIdAsKey.cs" />
