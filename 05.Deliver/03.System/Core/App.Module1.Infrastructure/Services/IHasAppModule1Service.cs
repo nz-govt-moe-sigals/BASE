@@ -1,4 +1,4 @@
-﻿namespace App.Module1.Infrastructure.Services
+﻿namespace App.Module2.Infrastructure.Services
 {
     using App.Core.Shared.Contracts;
     using App.Core.Shared.Services;

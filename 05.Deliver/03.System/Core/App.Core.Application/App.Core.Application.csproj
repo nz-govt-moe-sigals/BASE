@@ -498,7 +498,7 @@
     <Content Include="Views\OIDC\Claims.cshtml" />
     <Content Include="packages.saved" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="App_Start\_readme.md" />
+    <Content Include="App_Start\_README.md" />
     <None Include="Properties\PublishProfiles\App.Core.Application.Release.pubxml" />
     <None Include="Properties\PublishProfiles\B2CSCT01ExampleWebAPI - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Dev01ExampleWebAPIEducationGovtNz-Hot - FTP.pubxml" />

@@ -1,9 +1,9 @@
-namespace App.Module1.Infrastructure.Db.Migrations
+namespace App.Module2.Infrastructure.Db.Migrations
 {
     using System.Data.Entity.Migrations;
     using App.Core.Infrastructure.Services;
-    using App.Module1.Infrastructure.Db.Context;
-    using App.Module1.Infrastructure.Db.Migrations.Seeding;
+    using App.Module2.Infrastructure.Db.Context;
+    using App.Module2.Infrastructure.Db.Migrations.Seeding;
 
     // Referenced by AppModule1DatabaseInitializer
     public sealed class AppModule1DbMigrationsConfiguration : DbMigrationsConfiguration<AppModule1DbContext>

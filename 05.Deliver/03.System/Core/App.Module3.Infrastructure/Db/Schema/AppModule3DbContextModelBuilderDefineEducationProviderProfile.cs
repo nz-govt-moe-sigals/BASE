@@ -1,4 +1,4 @@
-namespace App.Module3.DbContextModelBuilder
+namespace App.Module3.Infrastructure.Db.Schema
 {
     using System.Data.Entity;
     using App.Core.Infrastructure.Constants.Db;

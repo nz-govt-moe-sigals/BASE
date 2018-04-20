@@ -12,7 +12,7 @@ namespace App.Core.Infrastructure.Services.Configuration.Implementations
     using Microsoft.WindowsAzure.Storage.Blob;
 
 
-    public abstract class AzureStorageAccountServiceConfigurationBase : IServiceConfigurationObject
+    public abstract class AzureStorageAccountServiceConfigurationBase : ICoreServiceConfigurationObject
     {
         private readonly IAzureKeyVaultService _keyVaultService;
 

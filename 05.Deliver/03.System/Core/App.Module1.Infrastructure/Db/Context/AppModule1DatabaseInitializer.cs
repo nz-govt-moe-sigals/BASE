@@ -1,7 +1,7 @@
-﻿namespace App.Module1.Infrastructure.Db.Context
+﻿namespace App.Module2.Infrastructure.Db.Context
 {
     using System.Data.Entity;
-    using App.Module1.Infrastructure.Db.Migrations;
+    using App.Module2.Infrastructure.Db.Migrations;
 
     public class AppModule1DatabaseInitializer : MigrateDatabaseToLatestVersion<AppModule1DbContext,
         AppModule1DbMigrationsConfiguration>

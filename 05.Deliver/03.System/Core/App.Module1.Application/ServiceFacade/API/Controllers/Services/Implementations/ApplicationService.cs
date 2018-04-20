@@ -1,4 +1,4 @@
-﻿namespace App.Module1.Application.Services.Implementations
+﻿namespace App.Module2.Application.Services.Implementations
 {
     public class ApplicationService : IApplicationService
     {

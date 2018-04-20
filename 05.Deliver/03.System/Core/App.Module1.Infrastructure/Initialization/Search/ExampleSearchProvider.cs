@@ -9,8 +9,8 @@ namespace App.Core.Infrastructure.Initialization.Search.Implementations
     using App.Core.Shared.Attributes;
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages;
-    using App.Module1.Infrastructure.Constants.Db;
-    using App.Module1.Shared.Models.Entities;
+    using App.Module2.Infrastructure.Constants.Db;
+    using App.Module2.Shared.Models.Entities;
 
     [Key("Example")]
     public class ExampleSearchProvider : SearchProviderBase<Example>

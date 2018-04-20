@@ -2,16 +2,21 @@
 {
     using System;
     using System.Collections.Generic;
+    using App.Core.Shared.Contracts;
 
     /// <summary>
-    ///     Implementation of
-    ///     <see cref="IDictionaryBasedMimeTypeServiceConfiguration" />
+    /// <para>
+    /// Inherits from <see cref="ICoreServiceConfigurationObject"/>
+    /// whic inherits from <see cref="IHasSingletonLifecycle"/>
+    /// to hint at startup that the Configuration object should be 
+    /// IoC registered for the duration of the application (not the thread).
+    /// as some configuration hits remote services (eg: Azure KeyVault)
+    /// which would be rather slow.
+    /// </para>
     /// </summary>
-    public class DictionaryBasedMimeTypeServiceConfiguration : IServiceConfigurationObject
+    /// <seealso cref="App.Core.Infrastructure.Services.Configuration.ICoreServiceConfigurationObject" />
+    public class DictionaryBasedMimeTypeServiceConfiguration : ICoreServiceConfigurationObject
     {
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="DictionaryBasedMimeTypeServiceConfiguration" /> class.
-        /// </summary>
         public DictionaryBasedMimeTypeServiceConfiguration()
         {
             this.Cache =

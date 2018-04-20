@@ -3,13 +3,22 @@
     using System.Web.Http;
     using System.Web.OData.Extensions;
     using App.Core.Application.App_Start;
+    using App.Core.Infrastructure.Services;
 
     /// <summary>
     /// An <see cref="StartupExtended"/> invoked class to configure 
     /// WebApi.
     /// </summary>
-    public static class WebApiConfig
+    public class WebApiConfig
     {
+        private readonly WebApiRouteConfig _webApiRouteConfig;
+        private readonly ITenantService _tenantService;
+
+        public WebApiConfig(WebApiRouteConfig webApiRouteConfig, ITenantService tenantService)
+        {
+            this._webApiRouteConfig = webApiRouteConfig;
+            this._tenantService = tenantService;
+        }
         /// <summary>
         /// Configures the specified HTTP configuration.
         /// <para>
@@ -17,7 +26,7 @@
         /// </para>
         /// </summary>
         /// <param name="httpConfiguration">The HTTP configuration.</param>
-        public static void Configure(HttpConfiguration httpConfiguration)
+        public void Configure(HttpConfiguration httpConfiguration)
         {
             // VERSIONING:
             // https://github.com/Microsoft/aspnet-api-versioning/wiki/API-Versioning-with-OData
@@ -47,7 +56,7 @@
             // OData route registration must be before WebAPI routing:
             WebApiODataConfig.Configure(httpConfiguration);
 
-            WebApiRouteConfig.Configure(httpConfiguration);
+            _webApiRouteConfig.Configure(httpConfiguration);
         }
     }
 }

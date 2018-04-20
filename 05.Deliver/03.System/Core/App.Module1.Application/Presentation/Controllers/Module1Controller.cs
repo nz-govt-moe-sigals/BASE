@@ -1,7 +1,7 @@
-﻿namespace App.Module1.Application.Presentation.Controllers
+﻿namespace App.Module2.Application.Presentation.Controllers
 {
     using System.Web.Mvc;
-    using App.Module1.Application.Services;
+    using App.Module2.Application.Services;
 
     public class Module1Controller : Controller
     {

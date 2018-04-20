@@ -1,4 +1,4 @@
-﻿namespace App.Module1.Infrastructure.Initialization.Db
+﻿namespace App.Module2.Infrastructure.Initialization.Db
 {
     using System.Data.Entity;
     using App.Core.Infrastructure.Initialization;

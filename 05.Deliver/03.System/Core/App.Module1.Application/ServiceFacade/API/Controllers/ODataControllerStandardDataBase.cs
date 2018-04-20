@@ -1,4 +1,4 @@
-namespace App.Module1.Application.ServiceFacade.API.Controllers
+namespace App.Module2.Application.ServiceFacade.API.Controllers
 {
     using System;
     using System.Linq;
@@ -6,7 +6,7 @@ namespace App.Module1.Application.ServiceFacade.API.Controllers
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models;
     using App.Core.Shared.Models.Entities;
-    using App.Module1.Infrastructure.Constants.Db;
+    using App.Module2.Infrastructure.Constants.Db;
     using AutoMapper.QueryableExtensions;
 
     public abstract class ODataControllerStandardDataBase<TEntity, TDto> : ODataControllerBase

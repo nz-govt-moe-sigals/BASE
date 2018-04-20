@@ -1,4 +1,4 @@
-﻿namespace App.Module1.Application.ServiceFacade.API.Controllers
+﻿namespace App.Module2.Application.ServiceFacade.API.Controllers
 {
     using System.Net;
     using System.Net.Http;

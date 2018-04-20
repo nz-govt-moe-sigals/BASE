@@ -1,11 +1,11 @@
-namespace App.Module1.Application.Initialization.OData.Implementations
+namespace App.Module2.Application.Initialization.OData.Implementations
 {
     using System.Linq;
     using System.Web.Http;
     using System.Web.OData.Builder;
     using System.Web.OData.Extensions;
     using App.Core.Infrastructure.Initialization.OData;
-    using App.Module1.Infrastructure.Initialization.OData;
+    using App.Module2.Infrastructure.Initialization.OData;
 
     /// <summary>
     /// Implementation invoked at Statup, when building 

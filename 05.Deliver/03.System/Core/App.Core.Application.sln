@@ -22,6 +22,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "README", "README", "{8A4F3C88-EDBB-46C4-A52B-B11A603A1F1A}"
 	ProjectSection(SolutionItems) = preProject
 		Readme\readme.apis.md = Readme\readme.apis.md
+		Readme\readme.blank - Copy (6).md = Readme\readme.blank - Copy (6).md
 		Readme\readme.conventions.md = Readme\readme.conventions.md
 		readme.md = readme.md
 		Readme\readme.objectives.md = Readme\readme.objectives.md
@@ -68,6 +69,17 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module3.Domain", "App.Module3.Domain\App.Module3.Domain.csproj", "{D6BF0E86-323E-45A9-8EDD-C37A13FC580B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module3.Application", "App.Module3.Application\App.Module3.Application.csproj", "{6A3908F9-1883-480B-A358-450BB65DDB95}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blanks", "Blanks", "{EF96B243-C7AF-4471-88CE-3B1137076005}"
+	ProjectSection(SolutionItems) = preProject
+		Readme\readme.blank - Copy (2).md = Readme\readme.blank - Copy (2).md
+		Readme\readme.blank - Copy (3).md = Readme\readme.blank - Copy (3).md
+		Readme\readme.blank - Copy (4).md = Readme\readme.blank - Copy (4).md
+		Readme\readme.blank - Copy (5).md = Readme\readme.blank - Copy (5).md
+		Readme\readme.blank - Copy (6).md = Readme\readme.blank - Copy (6).md
+		Readme\readme.blank - Copy.md = Readme\readme.blank - Copy.md
+		Readme\readme.blank.md = Readme\readme.blank.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -190,6 +202,7 @@ Global
 		{1493FB3E-966F-45D4-BD23-1537DE7E2114} = {B3B8DBD3-32A9-4791-8D1C-3FAFBF62A872}
 		{D6BF0E86-323E-45A9-8EDD-C37A13FC580B} = {B3B8DBD3-32A9-4791-8D1C-3FAFBF62A872}
 		{6A3908F9-1883-480B-A358-450BB65DDB95} = {B3B8DBD3-32A9-4791-8D1C-3FAFBF62A872}
+		{EF96B243-C7AF-4471-88CE-3B1137076005} = {8A4F3C88-EDBB-46C4-A52B-B11A603A1F1A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2F529A1D-CBD2-4505-88EC-746854D7FB98}

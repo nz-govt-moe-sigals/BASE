@@ -10,17 +10,21 @@ using System.Linq;
 
 namespace App.Module3.Infrastructure.Services.Implementations.Extract
 {
+    using App.Module3.Infrastructure.Services.Configuration;
+
     public class BaseExtractService<T> : IBaseExtractService
         where T: BaseMessage
     {
+        private readonly BaseExtractServiceConfiguration _configuration;
         protected readonly IRepositoryService _repositoryService;
         protected readonly IUnitOfWorkService _unitOfWorkService;
         protected readonly string _sourceTableName;
         protected readonly IExtractAzureDocumentDbService _documentDBService;
         protected string _dbKey = Constants.Db.AppModule3DbContextNames.Module3;
 
-        public BaseExtractService(IRepositoryService reposorityService, IUnitOfWorkService unitOfWorkService,  IExtractAzureDocumentDbService documentDBService)
+        public BaseExtractService(BaseExtractServiceConfiguration configuration, IRepositoryService reposorityService, IUnitOfWorkService unitOfWorkService,  IExtractAzureDocumentDbService documentDBService)
         {
+            this._configuration = configuration;
             _repositoryService = reposorityService;
             _documentDBService = documentDBService;
             _sourceTableName = ExtractConstants.LookupTableNameList(typeof(T));

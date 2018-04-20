@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Module1.Infrastructure.Constants.Db
+namespace App.Module2.Infrastructure.Constants.Db
 {
     public static class AppModule1DbContextNames
     {

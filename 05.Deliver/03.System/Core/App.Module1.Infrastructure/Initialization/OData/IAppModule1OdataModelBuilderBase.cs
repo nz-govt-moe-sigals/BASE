@@ -1,4 +1,4 @@
-﻿namespace App.Module1.Infrastructure.Initialization.OData
+﻿namespace App.Module2.Infrastructure.Initialization.OData
 {
     using App.Core.Infrastructure.Initialization.OData;
 

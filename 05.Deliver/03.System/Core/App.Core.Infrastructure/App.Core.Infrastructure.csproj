@@ -275,6 +275,7 @@
     <Compile Include="Initialization\Verification\VerificationInitializer.cs" />
     <Compile Include="Interceptors\Class1.cs" />
     <Compile Include="Services\Caches\Implementations\KeyVaultServiceConfigurationObjectCache.cs" />
+    <Compile Include="Services\Configuration\ICoreServiceConfigurationObject.cs" />
     <Compile Include="Services\Configuration\Implementations\AzureStorageAccountDiagnosticsServiceConfiguration.cs" />
     <Compile Include="Services\Configuration\Implementations\AzureStorageAccountMedia1ServiceConfiguration.cs" />
     <Compile Include="Services\Configuration\Implementations\AzureStorageAccountMedia2ServiceConfiguration.cs" />

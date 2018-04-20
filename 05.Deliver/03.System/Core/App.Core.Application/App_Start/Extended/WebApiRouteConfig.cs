@@ -6,8 +6,12 @@
     using System.Web.Http.Routing;
     using App.Core.Infrastructure.Services;
 
-    public static class WebApiRouteConfig
+    public class WebApiRouteConfig
     {
+
+        public WebApiRouteConfig()
+        {
+        }
 
         /// <summary>
         /// Configures the specified HTTP configuration.
@@ -22,7 +26,7 @@
         /// </para>
         /// </summary>
         /// <param name="httpConfiguration">The HTTP configuration.</param>
-        public static void Configure(HttpConfiguration httpConfiguration)
+        public void Configure(HttpConfiguration httpConfiguration)
         {
             // Leave existing configuration (ensure after 'config.MapODataServiceRoute')
             httpConfiguration.Routes.MapHttpRoute(
@@ -63,12 +67,18 @@
 
     public class TenantWebApiRouteConstraint : IHttpRouteConstraint
     {
+        private readonly ITenantService _tenantService;
+
+        public TenantWebApiRouteConstraint(ITenantService tenantService)
+        {
+            this._tenantService = tenantService;
+        }
         public bool Match(HttpRequestMessage request, IHttpRoute route, string parameterName,
             IDictionary<string, object> values,
             HttpRouteDirection routeDirection)
         {
             var tenantName = values[parameterName].ToString().ToLowerInvariant();
-            var tenantService = AppDependencyLocator.Current.GetInstance<ITenantService>();
+            var tenantService = this._tenantService;//  AppDependencyLocator.Current.GetInstance<ITenantService>();
 
             //(ITenantService)GlobalConfiguration.Configuration.DependencyResolver.GetService(
             //    typeof(ITenantService));

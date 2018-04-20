@@ -87,6 +87,7 @@
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ExampleDto_Example.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_Example_ExampleDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Configuration\IModule1ServiceConfigurationObject.cs" />
     <Compile Include="Services\IHasAppModule1Service.cs" />
     <Compile Include="Services\Implementations\Base\AppModule1ServiceBase.cs" />
   </ItemGroup>
@@ -111,6 +112,7 @@
   <ItemGroup>
     <Folder Include="ExtensionMethods\" />
     <Folder Include="Factories\" />
+    <Folder Include="Services\Configuration\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Db\Migrations\MODULE1.README.txt" />

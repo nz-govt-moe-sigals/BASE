@@ -1,11 +1,11 @@
-﻿namespace App.Module1.Application.ServiceFacade.API.Controllers.V0100
+﻿namespace App.Module2.Application.ServiceFacade.API.Controllers.V0100
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
     using System.Web.Http;
-    using App.Module1.Shared.Models.Entities;
+    using App.Module2.Shared.Models.Entities;
 
     /// <summary>
     ///     Example1 is a straight WebAPI Controller, with DI, but no backing Db (it's just an in-mem list 'db').

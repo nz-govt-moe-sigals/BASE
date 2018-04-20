@@ -24,18 +24,21 @@ namespace App.Core.Application
         private readonly ISessionOperationLogService _sessionOperationLogService;
         private readonly WebApiFilterConfig _webApiFilterConfig;
         private readonly InitializerConfig _initializerConfig;
+        private readonly WebApiConfig _webApiConfig;
         private readonly WebMvcConfig _webMvcConfig;
 
         public StartupExtended(
             ISessionOperationLogService sessionOperationLogService,
             WebMvcConfig webMvcConfig,
             WebApiFilterConfig webApiFilterConfig,
-            InitializerConfig initializerConfig
+            InitializerConfig initializerConfig,
+            WebApiConfig webApiConfig
         )
         {
             this._sessionOperationLogService = sessionOperationLogService;
             this._webApiFilterConfig = webApiFilterConfig;
             this._initializerConfig = initializerConfig;
+            this._webApiConfig = webApiConfig;
             this._webMvcConfig = webMvcConfig;
         }
 
@@ -142,7 +145,7 @@ namespace App.Core.Application
             StaticFileHandlingConfig.Configure(httpConfiguration);
             WebApiCorsConfig.Configure(httpConfiguration);
             WebApiJsonSerializerConfig.Configure(httpConfiguration);
-            WebApiConfig.Configure(httpConfiguration);
+            _webApiConfig.Configure(httpConfiguration);
 
             this._webApiFilterConfig.RegisterGlobalFilters(httpConfiguration, sessionOperationLogService);
 

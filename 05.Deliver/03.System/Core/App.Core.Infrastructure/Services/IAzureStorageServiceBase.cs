@@ -10,7 +10,7 @@ namespace App.Core.Infrastructure.Services
     /// manage access to Azure Storage Accounts
     /// and the Storage Containers and Blobs within.
     /// </summary>
-    public interface IAzureStorageServiceBase
+    public interface IAzureStorageServiceBase : IHasAppCoreService
     {
 
         AzureStorageAccountServiceConfigurationBase Configuration

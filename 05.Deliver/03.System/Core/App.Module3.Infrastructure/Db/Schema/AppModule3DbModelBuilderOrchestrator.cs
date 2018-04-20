@@ -1,12 +1,13 @@
 ﻿namespace App.Module3.Infrastructure.Db.Schema
 {
     using System.Data.Entity;
-    using App.Module3.DbContextModelBuilder;
     using App.Module3.Infrastructure.Initialization;
     using App.Module3.Infrastructure.Initialization.Db;
 
     public class AppModule3DbModelBuilderOrchestrator
     {
+        // Azure DataFactory Import:
+        private readonly AppModule3DbContextModelBuilderDefineExtractWatermark _appModule3DbContextModelBuilderDefineExtractWatermark;
         // Reference data:
         private readonly AppModule3DbContextModelBuilderDefineAreaUnit _appModule3DbContextModelBuilderDefineAreaUnit;
         private readonly AppModule3DbContextModelBuilderDefineAuthorityType _appModule3DbContextModelBuilderDefineAuthorityType;
@@ -30,9 +31,10 @@
         private readonly AppModule3DbContextModelBuilderDefineSchoolLevelGender _appModule3DbContextModelBuilderDefineSchoolLevelGender;
         private readonly AppModule3DbContextModelBuilderDefineEducationProviderProfile _appModule3DbContextModelBuilderDefineSchoolProfile;
         private readonly AppModule3DbContextModelBuilderDefineEducationProvideLocation _appModule3DbContextModelBuilderDefineSchoolWgs;
-        private readonly AppModule3DbContextModelBuilderDefineExtractWatermark _appModule3DbContextModelBuilderDefineExtractWatermark;
+
 
         public AppModule3DbModelBuilderOrchestrator(
+            AppModule3DbContextModelBuilderDefineExtractWatermark appModule3DbContextModelBuilderDefineExtractWatermark,
             //Reference data:
             AppModule3DbContextModelBuilderDefineAreaUnit appModule3DbContextModelBuilderDefineAreaUnit,
             AppModule3DbContextModelBuilderDefineAuthorityType appModule3DbContextModelBuilderDefineAuthorityType,
@@ -53,11 +55,10 @@
             AppModule3DbContextModelBuilderDefineUrbanArea appModule3DbContextModelBuilderDefineUrbanArea,
             AppModule3DbContextModelBuilderDefineWard appModule3DbContextModelBuilderDefineWard,
             // objects:
-                AppModule3DbContextModelBuilderDefineSchoolEnrol appModule3DbContextModelBuilderDefineSchoolEnrol,
-                AppModule3DbContextModelBuilderDefineSchoolLevelGender appModule3DbContextModelBuilderDefineSchoolLevelGender,
-                AppModule3DbContextModelBuilderDefineEducationProviderProfile appModule3DbContextModelBuilderDefineSchoolProfile,
-                AppModule3DbContextModelBuilderDefineEducationProvideLocation appModule3DbContextModelBuilderDefineSchoolWgs,
-            AppModule3DbContextModelBuilderDefineExtractWatermark  appModule3DbContextModelBuilderDefineExtractWatermark 
+            AppModule3DbContextModelBuilderDefineSchoolEnrol appModule3DbContextModelBuilderDefineSchoolEnrol,
+            AppModule3DbContextModelBuilderDefineSchoolLevelGender appModule3DbContextModelBuilderDefineSchoolLevelGender,
+            AppModule3DbContextModelBuilderDefineEducationProviderProfile appModule3DbContextModelBuilderDefineSchoolProfile,
+            AppModule3DbContextModelBuilderDefineEducationProvideLocation appModule3DbContextModelBuilderDefineSchoolWgs
             )
         {
             // Reference:
@@ -119,6 +120,8 @@
 
         private void DefineByHand(DbModelBuilder modelBuilder)
         {
+            //Azure Data Factory Import:
+            _appModule3DbContextModelBuilderDefineExtractWatermark.DefineTable(modelBuilder);
             // Reference Data:
             _appModule3DbContextModelBuilderDefineAreaUnit.Define(modelBuilder);
             _appModule3DbContextModelBuilderDefineAuthorityType.Define(modelBuilder);
@@ -144,8 +147,6 @@
             _appModule3DbContextModelBuilderDefineSchoolLevelGender.Define(modelBuilder);
             _appModule3DbContextModelBuilderDefineSchoolProfile.Define(modelBuilder);
 
-            //Peter:
-            _appModule3DbContextModelBuilderDefineExtractWatermark.DefineTable(modelBuilder);
         }
     }
 }

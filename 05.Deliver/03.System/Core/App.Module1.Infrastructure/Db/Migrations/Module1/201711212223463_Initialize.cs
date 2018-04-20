@@ -1,4 +1,4 @@
-namespace App.Module1.Infrastructure.Db.Migrations
+namespace App.Module2.Infrastructure.Db.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

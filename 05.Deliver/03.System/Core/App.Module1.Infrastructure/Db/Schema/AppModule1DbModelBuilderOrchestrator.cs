@@ -1,8 +1,8 @@
-﻿namespace App.Module1.Infrastructure.Db.Schema
+﻿namespace App.Module2.Infrastructure.Db.Schema
 {
     using System.Data.Entity;
-    using App.Module1.Infrastructure.Initialization;
-    using App.Module1.Infrastructure.Initialization.Db;
+    using App.Module2.Infrastructure.Initialization;
+    using App.Module2.Infrastructure.Initialization.Db;
 
     public class AppModule1DbModelBuilderOrchestrator
     {

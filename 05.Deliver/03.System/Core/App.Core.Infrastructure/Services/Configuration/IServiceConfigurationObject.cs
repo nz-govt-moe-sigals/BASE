@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace App.Core.Infrastructure.Services.Configuration
 {
+    using App.Core.Shared.Contracts;
+
     /// <summary>
     /// Contract to be applied to all Service Configuration Objects
     /// <para>
-    /// </para>
     /// Dependency Injectors work primarily with objects(there are some esoteric exceptions, but generally
     /// most DIs can inject objects into objects into objects -- all based on the Parameter Types of each
     /// classes Constructor -- but get stumped when a constructor argument is a Value type (string, int, etc.)
@@ -26,8 +27,16 @@ namespace App.Core.Infrastructure.Services.Configuration
     /// and secondly, the ConfigurationObject in itself is injectable...so can be injected with other services
     /// (eg: IHostSettingsService) to configure the strings/ints on its own, like a big boy...
     /// </para>
+    /// <para>
+    /// Inherits from <see cref="IHasSingletonLifecycle"/>
+    /// to hint at startup that the Configuration object should be 
+    /// IoC registered for the duration of the application (not the thread).
+    /// as some configuration hits remote services (eg: Azure KeyVault)
+    /// which would be rather slow.
+    /// </para>
     /// </summary>
-    public interface IServiceConfigurationObject
+    /// <seealso cref="App.Core.Shared.Contracts.IHasSingletonLifecycle" />
+    public interface IServiceConfigurationObject: IHasSingletonLifecycle
     {
 
     }

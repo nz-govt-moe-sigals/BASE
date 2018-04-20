@@ -1,8 +1,8 @@
-﻿namespace App.Module1.Application.Initialization.OData
+﻿namespace App.Module2.Application.Initialization.OData
 {
     using System.Web.OData.Builder;
     using App.Core.Infrastructure.Initialization.OData;
-    using App.Module1.Infrastructure.Initialization.OData;
+    using App.Module2.Infrastructure.Initialization.OData;
 
     /// <summary>
     /// A Module specific implementation of

@@ -2,7 +2,7 @@
 //{
 //    using System.Collections.Generic;
 
-//    public interface IDictionaryBasedMimeTypeServiceConfiguration : IServiceConfigurationObject
+//    public interface IDictionaryBasedMimeTypeServiceConfiguration : ICoreServiceConfigurationObject
 //    {
 //        Dictionary<string, string> Cache { get; }
 //    }
