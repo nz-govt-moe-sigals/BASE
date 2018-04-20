@@ -16,13 +16,13 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         where T: BaseMessage
     {
         private readonly BaseExtractServiceConfiguration _configuration;
-        protected readonly IRepositoryService _repositoryService;
+        protected readonly IExtractRepositoryService _repositoryService;
         protected readonly IUnitOfWorkService _unitOfWorkService;
         protected readonly string _sourceTableName;
         protected readonly IExtractAzureDocumentDbService _documentDBService;
-        protected string _dbKey = Constants.Db.AppModule3DbContextNames.Module3;
+        
 
-        public BaseExtractService(BaseExtractServiceConfiguration configuration, IRepositoryService reposorityService, IUnitOfWorkService unitOfWorkService,  IExtractAzureDocumentDbService documentDBService)
+        public BaseExtractService(BaseExtractServiceConfiguration configuration, IExtractRepositoryService reposorityService, IUnitOfWorkService unitOfWorkService,  IExtractAzureDocumentDbService documentDBService)
         {
             this._configuration = configuration;
             _repositoryService = reposorityService;
@@ -38,7 +38,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
             var existingWaterMark = GetWatermark();
             var datatoUpdate = GetDataToUpdate(existingWaterMark);
             var updatedWaterMark = GetMaxTime(datatoUpdate);
-            UpdateLocalData(datatoUpdate);
+            UpdateLocalDataList(datatoUpdate);
             UpdateWaterMark(existingWaterMark, updatedWaterMark);
             //_unitOfWorkService.Commit(_dbKey);
             //Ideally call some sort of Save here!
@@ -49,9 +49,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         public virtual DateTime GetWatermark()
         {
             //need to extract this out into a method so i can test 
-            
-            var record =  _repositoryService.GetSingle<ExtractWatermark>(_dbKey, x => x.SourceTableName == SourceTableName);
-
+            var record = _repositoryService.GetWaterMarkTimestamp(SourceTableName);
             if (record != null)
             {
                 return record.Watermark;
@@ -75,47 +73,50 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
 
         public virtual DateTime? GetMaxTime(IList<T> list)
         {
-            if (list == null || list.Count == 0)
-            {
-                return null;
-            }
+            if (list == null || list.Count == 0){ return null;}
 
             return list.Max(x => x.ModifiedDate);
         }
 
-        public virtual void UpdateLocalData(IList<T> list)
+        /// <summary>
+        /// Protect the method  so it doesn't do anything dumb 
+        /// </summary>
+        /// <param name="list"></param>
+        protected virtual void UpdateLocalDataList(IList<T> list)
         {
-            if (list == null || list.Count == 0)
+            if (list == null || list.Count == 0) { return; }
+            foreach (var item in list)
             {
-                return;
+                UpdateLocalData(item);
             }
-            // Some Sky Magic Code
+            
+        }
+
+        /// <summary>
+        /// shouldn't need to write any guard clauses or if you do oveerride the UpdateLocalDataWithGuard method
+        /// </summary>
+        /// <param name="item">update each item</param>
+        public virtual void UpdateLocalData(T item)
+        {
         }
 
 
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="extistingWatermark">the existing watermark</param>
         /// <param name="updatedWaterMark">should be the value that we are to update to</param>
         public virtual void UpdateWaterMark(DateTime extistingWatermark, DateTime? updatedWaterMark)
         {
             //need to extract this out into a method so i can test 
-            if (!updatedWaterMark.HasValue)
-            {
-                return;
-            }
-
-            if (extistingWatermark > updatedWaterMark.Value)
-            {
-                return;
-            }
-
-            var entity = new Shared.Models.Entities.ExtractWatermark()
+            if (!updatedWaterMark.HasValue) { return; }
+            if (extistingWatermark > updatedWaterMark.Value) { return; }
+            var entity = new ExtractWatermark()
             {
                 Watermark = updatedWaterMark.Value,
                 SourceTableName = SourceTableName
             };
-            _repositoryService.AddOrUpdate<ExtractWatermark>(_dbKey, x => x.SourceTableName, entity);
+            _repositoryService.UpdateWaterMarkTimeStamp(entity);
         }
 
 

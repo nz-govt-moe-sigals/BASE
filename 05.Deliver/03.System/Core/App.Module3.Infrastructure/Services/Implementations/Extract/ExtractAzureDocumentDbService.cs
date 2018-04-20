@@ -1,27 +1,19 @@
-﻿using App.Core.Infrastructure.Services;
+﻿using System;
+using System.Linq;
+using App.Core.Infrastructure.Services;
 using App.Core.Infrastructure.Services.Implementations.Base;
 using App.Module3.Infrastructure.Services.Implementations.Configuration;
 using App.Module3.Shared.Models.Messages.Extract;
-using Microsoft.Azure.Documents.Client;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace App.Module3.Infrastructure.Services.Implementations
+namespace App.Module3.Infrastructure.Services.Implementations.Extract
 {
     public class ExtractAzureDocumentDbService  :AzureDocumentDbBaseService,  IExtractAzureDocumentDbService
     {
-        private ExtractDocumentDbServiceConfiguration _configuration;
+        private readonly ExtractDocumentDbServiceConfiguration _configuration;
 
-        public ExtractDocumentDbServiceConfiguration Configuration
+        public ExtractDocumentDbServiceConfiguration Configuration 
         {
-            get
-            {
-                return _configuration;
-            }
+            get => _configuration;
         }
 
         /// <summary>

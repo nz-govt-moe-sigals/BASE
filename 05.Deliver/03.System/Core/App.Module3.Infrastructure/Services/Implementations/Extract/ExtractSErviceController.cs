@@ -77,7 +77,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
             switch (name)
             {
                 case ExtractConstants._tableNameReferenceAreaUnits:
-                    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<ReferenceAreaUnit>>();
+                    service = App.AppDependencyLocator.Current.GetInstance<ReferenceAreaUnitExtractService>();
                     break;
                 case ExtractConstants._tableNameReferenceAuthorityType:
                     service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<ReferenceAuthorityType>>();
