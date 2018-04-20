@@ -26,8 +26,8 @@
         private readonly AppModule3DbContextModelBuilderDefineTerritorialAuthority _appModule3DbContextModelBuilderDefineTerritorialAuthority;
         private readonly AppModule3DbContextModelBuilderDefineUrbanArea _appModule3DbContextModelBuilderDefineUrbanArea;
         private readonly AppModule3DbContextModelBuilderDefineWard _appModule3DbContextModelBuilderDefineWard;
-        private readonly AppModule3DbContextModelBuilderDefineSchoolEnrol _appModule3DbContextModelBuilderDefineSchoolEnrol;
-        private readonly AppModule3DbContextModelBuilderDefineSchoolLevelGender _appModule3DbContextModelBuilderDefineSchoolLevelGender;
+        private readonly AppModule3DbContextModelBuilderDefineEducationProviderEnrolmentCount _appModule3DbContextModelBuilderDefineEducationProviderEnrolmentCount;
+        private readonly AppModule3DbContextModelBuilderDefineEducationProviderLevelGender _appModule3DbContextModelBuilderDefineEducationProviderLevelGender;
         private readonly AppModule3DbContextModelBuilderDefineEducationProviderProfile _appModule3DbContextModelBuilderDefineSchoolProfile;
         private readonly AppModule3DbContextModelBuilderDefineEducationProvideLocation _appModule3DbContextModelBuilderDefineSchoolWgs;
         private readonly AppModule3DbContextModelBuilderDefineExtractWatermark _appModule3DbContextModelBuilderDefineExtractWatermark;
@@ -53,8 +53,8 @@
             AppModule3DbContextModelBuilderDefineUrbanArea appModule3DbContextModelBuilderDefineUrbanArea,
             AppModule3DbContextModelBuilderDefineWard appModule3DbContextModelBuilderDefineWard,
             // objects:
-                AppModule3DbContextModelBuilderDefineSchoolEnrol appModule3DbContextModelBuilderDefineSchoolEnrol,
-                AppModule3DbContextModelBuilderDefineSchoolLevelGender appModule3DbContextModelBuilderDefineSchoolLevelGender,
+                AppModule3DbContextModelBuilderDefineEducationProviderEnrolmentCount appModule3DbContextModelBuilderDefineEducationProviderEnrolmentCount,
+                AppModule3DbContextModelBuilderDefineEducationProviderLevelGender appModule3DbContextModelBuilderDefineEducationProviderLevelGender,
                 AppModule3DbContextModelBuilderDefineEducationProviderProfile appModule3DbContextModelBuilderDefineSchoolProfile,
                 AppModule3DbContextModelBuilderDefineEducationProvideLocation appModule3DbContextModelBuilderDefineSchoolWgs,
             AppModule3DbContextModelBuilderDefineExtractWatermark  appModule3DbContextModelBuilderDefineExtractWatermark 
@@ -80,8 +80,8 @@
             this._appModule3DbContextModelBuilderDefineUrbanArea = appModule3DbContextModelBuilderDefineUrbanArea;
             this._appModule3DbContextModelBuilderDefineWard = appModule3DbContextModelBuilderDefineWard;
             //Data:
-            this._appModule3DbContextModelBuilderDefineSchoolEnrol = appModule3DbContextModelBuilderDefineSchoolEnrol;
-            this._appModule3DbContextModelBuilderDefineSchoolLevelGender = appModule3DbContextModelBuilderDefineSchoolLevelGender;
+            this._appModule3DbContextModelBuilderDefineEducationProviderEnrolmentCount = appModule3DbContextModelBuilderDefineEducationProviderEnrolmentCount;
+            this._appModule3DbContextModelBuilderDefineEducationProviderLevelGender = appModule3DbContextModelBuilderDefineEducationProviderLevelGender;
             this._appModule3DbContextModelBuilderDefineSchoolProfile = appModule3DbContextModelBuilderDefineSchoolProfile;
             this._appModule3DbContextModelBuilderDefineSchoolWgs = appModule3DbContextModelBuilderDefineSchoolWgs;
             // Peter:
@@ -140,8 +140,8 @@
             _appModule3DbContextModelBuilderDefineWard.Define(modelBuilder);
             // Data:
             _appModule3DbContextModelBuilderDefineSchoolWgs.Define(modelBuilder);
-            _appModule3DbContextModelBuilderDefineSchoolEnrol.Define(modelBuilder);
-            _appModule3DbContextModelBuilderDefineSchoolLevelGender.Define(modelBuilder);
+            _appModule3DbContextModelBuilderDefineEducationProviderEnrolmentCount.Define(modelBuilder);
+            _appModule3DbContextModelBuilderDefineEducationProviderLevelGender.Define(modelBuilder);
             _appModule3DbContextModelBuilderDefineSchoolProfile.Define(modelBuilder);
 
             //Peter:

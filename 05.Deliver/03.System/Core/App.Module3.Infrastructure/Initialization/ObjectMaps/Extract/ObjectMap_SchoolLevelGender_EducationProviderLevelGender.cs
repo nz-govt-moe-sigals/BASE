@@ -14,7 +14,15 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract
     {
         public void Initialize(IMapperConfigurationExpression config)
         {
-            config.CreateMap<SchoolLevelGender, EducationProviderLevelGender>();
+            config.CreateMap<SchoolLevelGender, EducationProviderLevelGender>()
+                
+                .ForMember(dest => dest.YearFK, opt => opt.Ignore()) //.ForMember(dest => dest.YearFK, opt => opt.MapFrom(s => s.YearValueId))                                     
+                .ForMember(dest => dest.GenderFK, opt => opt.Ignore()) //.ForMember(dest => dest.GenderFK, opt => opt.MapFrom(s => s.GenderValueId))                                                  
+                .ForMember(dest => dest.EducationProviderFK, opt => opt.Ignore()) //.ForMember(dest => dest.EducationProviderFK, opt => opt.MapFrom(s => s.SchoolId))
+                .ForMember(dest => dest.SourceReferenceId, opt => opt.MapFrom(s => s.LevelGenderId))
+
+                //
+                ;
         }
     }
 }

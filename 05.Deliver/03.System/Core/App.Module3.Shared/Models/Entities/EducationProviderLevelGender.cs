@@ -9,7 +9,7 @@ namespace App.Module3.Shared.Models.Entities
     using System.Collections.ObjectModel;
     using App.Core.Shared.Models.Entities;
 
-    public class EducationProviderLevelGender : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase
+    public class EducationProviderLevelGender : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase, IHasSourceReferenceId
     {
         /// <summary>
         /// Gets or sets the parent <see cref="EducationProviderProfile"/>'s Id.
@@ -42,6 +42,11 @@ namespace App.Module3.Shared.Models.Entities
             //set => this._schoolYear = value;
         }
         private ICollection<EducationProviderYearLevel> _schoolYear;
+
+        /// <summary>
+        /// The Reference(record) Id that was received from the source 
+        /// </summary>
+        public int SourceReferenceId { get; set; }
 
     }
 }

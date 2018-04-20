@@ -14,10 +14,13 @@ namespace App.Module3.DbContextModelBuilder
         {
             this._schemaDefinitionConvention = schemaDefinitionConvention;
         }
+
         public void Define(DbModelBuilder modelBuilder)
         {
             var order = 1;
             this._schemaDefinitionConvention.Define<EducationProviderGender>(modelBuilder, ref order);
+
+
         }
     }
 

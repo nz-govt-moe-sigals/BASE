@@ -86,14 +86,18 @@
     <Compile Include="Db\Migrations\Module3\201804182356296_Entities.EducationProviders.Designer.cs">
       <DependentUpon>201804182356296_Entities.EducationProviders.cs</DependentUpon>
     </Compile>
+    <Compile Include="Db\Migrations\Module3\201804200246107_Entities.SourceReferenceIds.cs" />
+    <Compile Include="Db\Migrations\Module3\201804200246107_Entities.SourceReferenceIds.Designer.cs">
+      <DependentUpon>201804200246107_Entities.SourceReferenceIds.cs</DependentUpon>
+    </Compile>
     <Compile Include="Db\Migrations\Module3\Configuration.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineExtractWatermark.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineRelationshipType.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineRegionalCouncil.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineRegion.cs" />
-    <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineSchoolEnrol.cs" />
+    <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineEducationProviderEnrolmentCount.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineEducationProviderGender.cs" />
-    <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineSchoolLevelGender.cs" />
+    <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineEducationProviderLevelGender.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineEducationProviderProfile.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineEducationProvideLocation.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineSchoolYearLevel.cs" />
@@ -116,6 +120,8 @@
     <Compile Include="Initialization\Db\IHasAppModule3DbContextSeedInitializer.cs" />
     <Compile Include="Initialization\Db\IHasAppModule3DbContextModelBuilderInitializer.cs" />
     <Compile Include="Initialization\Authorisation\HasOidcScopeInitializer.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_BaseMessage_TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_BaseReference_TenantedFIRSTSIFKeyedGuidIdReferenceDataBase.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceAreaUnit_AreaUnit.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceAuthorityType_AuthorityType.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceRegion_Region.cs" />
@@ -210,6 +216,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Db\Migrations\Module3\201804182356296_Entities.EducationProviders.resx">
       <DependentUpon>201804182356296_Entities.EducationProviders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Db\Migrations\Module3\201804200246107_Entities.SourceReferenceIds.resx">
+      <DependentUpon>201804200246107_Entities.SourceReferenceIds.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

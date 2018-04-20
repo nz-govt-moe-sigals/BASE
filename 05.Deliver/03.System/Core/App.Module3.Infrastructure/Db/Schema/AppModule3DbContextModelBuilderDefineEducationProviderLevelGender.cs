@@ -5,11 +5,11 @@ namespace App.Module3.DbContextModelBuilder
     using App.Module3.Infrastructure.Initialization.Db;
     using App.Module3.Shared.Models.Entities;
 
-    public class AppModule3DbContextModelBuilderDefineSchoolLevelGender : IHasAppModule3DbContextModelBuilderInitializer
+    public class AppModule3DbContextModelBuilderDefineEducationProviderLevelGender : IHasAppModule3DbContextModelBuilderInitializer
     {
         private readonly TenantFKEtcConvention _schemaDefinitionConvention;
 
-        public AppModule3DbContextModelBuilderDefineSchoolLevelGender(TenantFKEtcConvention schemaDefinitionConvention)
+        public AppModule3DbContextModelBuilderDefineEducationProviderLevelGender(TenantFKEtcConvention schemaDefinitionConvention)
         {
             this._schemaDefinitionConvention = schemaDefinitionConvention;
         }
@@ -35,6 +35,11 @@ namespace App.Module3.DbContextModelBuilder
                 .HasRequired(x => x.Gender)
                 .WithMany()
                 .HasForeignKey(x => x.GenderFK);
+
+            modelBuilder.Entity<EducationProviderLevelGender>()
+                .Property(x => x.SourceReferenceId)
+                .HasColumnOrder(order)
+                .IsRequired();
         }
     }
 }

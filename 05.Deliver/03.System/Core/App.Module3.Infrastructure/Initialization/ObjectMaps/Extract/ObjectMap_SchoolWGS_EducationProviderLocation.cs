@@ -14,7 +14,14 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract
     {
         public void Initialize(IMapperConfigurationExpression config)
         {
-            config.CreateMap<SchoolWGS, EducationProviderLocation>();
+            config.CreateMap<SchoolWGS, EducationProviderLocation>()
+                .ForMember(dest => dest.Altitude, opt => opt.Ignore())
+                .ForMember(dest => dest.Type, opt => opt.UseValue(Shared.Models.Enums.LocationType.WGS))
+                .ForMember(dest => dest.Latitude, opt => opt.MapFrom(s => s.WgsX))
+                .ForMember(dest => dest.Longitude, opt => opt.MapFrom(s => s.WgsY))
+                .ForMember(dest => dest.EducationProviderFK, opt => opt.Ignore()) // .ForMember(dest => dest.EducationProviderFK, opt => opt.MapFrom(s => s.InstitutionNumber))
+                .ForMember(dest => dest.SourceReferenceId, opt => opt.MapFrom(s => s.WgsId))
+                ;
         }
     }
 }
