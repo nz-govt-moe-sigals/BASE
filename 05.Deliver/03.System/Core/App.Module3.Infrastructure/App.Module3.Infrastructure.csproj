@@ -86,14 +86,18 @@
     <Compile Include="Db\Migrations\Module3\201804182356296_Entities.EducationProviders.Designer.cs">
       <DependentUpon>201804182356296_Entities.EducationProviders.cs</DependentUpon>
     </Compile>
+    <Compile Include="Db\Migrations\Module3\201804200246107_Entities.SourceReferenceIds.cs" />
+    <Compile Include="Db\Migrations\Module3\201804200246107_Entities.SourceReferenceIds.Designer.cs">
+      <DependentUpon>201804200246107_Entities.SourceReferenceIds.cs</DependentUpon>
+    </Compile>
     <Compile Include="Db\Migrations\Module3\Configuration.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineExtractWatermark.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineRelationshipType.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineRegionalCouncil.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineRegion.cs" />
-    <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineSchoolEnrol.cs" />
+    <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineEducationProviderEnrolmentCount.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineEducationProviderGender.cs" />
-    <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineSchoolLevelGender.cs" />
+    <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineEducationProviderLevelGender.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineEducationProviderProfile.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineEducationProvideLocation.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineSchoolYearLevel.cs" />
@@ -117,6 +121,30 @@
     <Compile Include="Initialization\Db\IHasAppModule3DbContextModelBuilderInitializer.cs" />
     <Compile Include="Initialization\Authorisation\HasOidcScopeInitializer.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_EducationProviderEnrolmentCount_EducationProviderEnrolmentCountDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_BaseMessage_TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_BaseReference_TenantedFIRSTSIFKeyedGuidIdReferenceDataBase.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceAreaUnit_AreaUnit.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceAuthorityType_AuthorityType.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceRegion_Region.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceRegionalCouncil_RegionalCouncil.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceRelationshipType_RelationshipType.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceSchoolClassification_EducationProviderClassification.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceSchoolingGender_EducationProviderGender.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceSchoolYearLevel_EducationProviderYearLevel.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceSpecialSchooling_SpecialSchooling.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceOrganisationType_EducationProviderType.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceOrganisationStatus_EducationProviderStatus.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceMaoriElectorate_MaoriElectorate.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceGeneralElectorate_GeneralElectorate.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceCommunityBoard_CommunityBoard.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_SchoolProfile_EducationProviderProfile.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_SchoolWGS_EducationProviderLocation.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceTeacherEducation_TeacherEducation.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_SchoolEnrol_EducationProviderEnrolmentCount.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_SchoolLevelGender_EducationProviderLevelGender.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceWard_Ward.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceUrbanArea_UrbanArea.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceTerritorialAuthority_TerritorialAuthority.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_EducationProviderLocation_EducationProviderLocationDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\Base\ObjectMap_TenantedReferenceType_TenantedReferenceTypeDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ReferenceData\ObjectMap_SchoolAreaUnit_SchoolAreaUnitDto.cs" />
@@ -191,6 +219,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Db\Migrations\Module3\201804182356296_Entities.EducationProviders.resx">
       <DependentUpon>201804182356296_Entities.EducationProviders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Db\Migrations\Module3\201804200246107_Entities.SourceReferenceIds.resx">
+      <DependentUpon>201804200246107_Entities.SourceReferenceIds.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

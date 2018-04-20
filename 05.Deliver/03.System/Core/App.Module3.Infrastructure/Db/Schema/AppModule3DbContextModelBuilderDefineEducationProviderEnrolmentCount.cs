@@ -5,11 +5,11 @@ namespace App.Module3.Infrastructure.Db.Schema
     using App.Module3.Infrastructure.Initialization.Db;
     using App.Module3.Shared.Models.Entities;
 
-    public class AppModule3DbContextModelBuilderDefineSchoolEnrol : IHasAppModule3DbContextModelBuilderInitializer
+    public class AppModule3DbContextModelBuilderDefineEducationProviderEnrolmentCount : IHasAppModule3DbContextModelBuilderInitializer
     {
         private readonly TenantFKEtcConvention _schemaDefinitionConvention;
 
-        public AppModule3DbContextModelBuilderDefineSchoolEnrol(TenantFKEtcConvention schemaDefinitionConvention)
+        public AppModule3DbContextModelBuilderDefineEducationProviderEnrolmentCount(TenantFKEtcConvention schemaDefinitionConvention)
         {
             this._schemaDefinitionConvention = schemaDefinitionConvention;
         }
@@ -65,6 +65,11 @@ namespace App.Module3.Infrastructure.Db.Schema
             modelBuilder.Entity<EducationProviderEnrolmentCount>()
                 .Property(x => x.Other)
                 .HasColumnOrder(order++)
+                .IsRequired();
+
+            modelBuilder.Entity<EducationProviderEnrolmentCount>()
+                .Property(x => x.SourceReferenceId)
+                .HasColumnOrder(order)
                 .IsRequired();
         }
 

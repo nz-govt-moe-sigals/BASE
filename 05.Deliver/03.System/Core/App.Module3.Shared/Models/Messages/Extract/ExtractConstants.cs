@@ -58,7 +58,7 @@ namespace App.Module3.Shared.Models.Messages.Extract
         private static void InitDictionary()
         {
             
-            _lookupDic.Add(_tableNameReferenceAreaUnits, typeof(ReferenceAreaUnits));
+            _lookupDic.Add(_tableNameReferenceAreaUnits, typeof(ReferenceAreaUnit));
             _lookupDic.Add(_tableNameReferenceAuthorityType, typeof(ReferenceAuthorityType));
             _lookupDic.Add(_tableNameReferenceCommunityBoards, typeof(ReferenceCommunityBoard));
             _lookupDic.Add(_tableNameReferenceGeneralElectorate, typeof(ReferenceGeneralElectorate));
@@ -76,7 +76,7 @@ namespace App.Module3.Shared.Models.Messages.Extract
             _lookupDic.Add(_tableNameReferenceTerritorialAuthority, typeof(ReferenceTerritorialAuthority));
             _lookupDic.Add(_tableNameReferenceUrbanArea, typeof(ReferenceUrbanArea));
             _lookupDic.Add(_tableNameReferenceWard, typeof(ReferenceWard));
-            _lookupDic.Add(_tableNameSchoolProfiles, typeof(SchoolProfiles));
+            _lookupDic.Add(_tableNameSchoolProfiles, typeof(SchoolProfile));
             _lookupDic.Add(_tableNameSchoolWGS, typeof(SchoolWGS));
             _lookupDic.Add(_tableNameSchoolEnrol, typeof(SchoolEnrol));
             _lookupDic.Add(_tableNameSchoolLevelGender, typeof(SchoolLevelGender));

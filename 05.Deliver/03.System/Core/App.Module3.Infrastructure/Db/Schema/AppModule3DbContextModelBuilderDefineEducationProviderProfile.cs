@@ -319,6 +319,10 @@ namespace App.Module3.Infrastructure.Db.Schema
                 .IsOptional();
 
 
+            modelBuilder.Entity<EducationProviderProfile>()
+                .Property(x => x.SourceReferenceId)
+                .HasColumnOrder(order)
+                .IsRequired();
 
 
 

@@ -59,7 +59,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
                     service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<SchoolLevelGender>>();
                     break;
                 case ExtractConstants._tableNameSchoolProfiles:
-                    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<SchoolProfiles>>();
+                    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<SchoolProfile>>();
                     break;
                 case ExtractConstants._tableNameSchoolWGS:
                     service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<SchoolWGS>>();
@@ -77,7 +77,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
             switch (name)
             {
                 case ExtractConstants._tableNameReferenceAreaUnits:
-                    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<ReferenceAreaUnits>>();
+                    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<ReferenceAreaUnit>>();
                     break;
                 case ExtractConstants._tableNameReferenceAuthorityType:
                     service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<ReferenceAuthorityType>>();

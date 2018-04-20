@@ -40,6 +40,11 @@ namespace App.Module3.Infrastructure.Db.Schema
                 .Property(x => x.Altitude)
                 .HasColumnOrder(order++)
                 .IsOptional();
+
+            modelBuilder.Entity<EducationProviderLocation>()
+                .Property(x => x.SourceReferenceId)
+                .HasColumnOrder(order)
+                .IsRequired();
         }
     }
 }

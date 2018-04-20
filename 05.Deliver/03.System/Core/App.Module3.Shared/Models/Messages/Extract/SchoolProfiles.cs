@@ -10,7 +10,7 @@ namespace App.Module3.Shared.Models.Messages.Extract
     /// <summary>
     /// Table Name : Schools_Directory_API_School_Profiles
     /// </summary>
-    public class SchoolProfiles : BaseMessage
+    public class SchoolProfile : BaseMessage
     {
         [JsonProperty("Profiles_Id")]
         public int ProfilesId { get; set; }

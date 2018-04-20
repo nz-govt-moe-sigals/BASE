@@ -21,6 +21,9 @@ namespace App.Module3.Shared.Models.Messages.Extract
         [JsonProperty("Effective_Date")]
         public DateTime? EffectiveDate { get; set; }
 
+        [JsonProperty("Total_Roll")]
+        public int TotalRoll { get; set; }
+
         [JsonProperty("International")]
         public int International { get; set; }
 
