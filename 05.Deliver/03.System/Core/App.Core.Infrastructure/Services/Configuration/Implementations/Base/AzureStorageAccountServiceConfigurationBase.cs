@@ -32,10 +32,8 @@ namespace App.Core.Infrastructure.Services.Configuration.Implementations
             {
                 settings.ResourceName = commonConfiguration.RootResourceName;
             }
-
-            ConnectionString = $"DefaultEndpointsProtocol=https;AccountName={settings.ResourceName};AccountKey={settings.Key}";
-
-
+            
+            ConnectionString = $"DefaultEndpointsProtocol=https;AccountName={settings.ResourceName}{settings.ResourceNameSuffix};AccountKey={settings.Key};EndpointSuffix=core.windows.net";
 
         }
 

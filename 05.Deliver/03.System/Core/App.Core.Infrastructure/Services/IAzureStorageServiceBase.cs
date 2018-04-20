@@ -29,5 +29,13 @@ namespace App.Core.Infrastructure.Services
         //CloudBlobContainer GetContainer(CloudBlobClient cloudBlobClient, string containerName, bool ensureExists = true,
         //    BlobContainerPublicAccessType BlobContainerPublicAccessTypeIfNew = BlobContainerPublicAccessType.Blob);
 
+
+        void UploadAText(string containerName, string remoteBlobName, string text, bool createContainerIfNotExists = true, BlobContainerPublicAccessType blobContainerPublicAccessType = BlobContainerPublicAccessType.Off);
+        void UploadAFile(string containerName, string localFilePath, bool createContainerIfNotExists = true, BlobContainerPublicAccessType blobContainerPublicAccessType = BlobContainerPublicAccessType.Off);
+
+
+        string DownloadAText(string containerName, string remoteBlobBame);
+
+
     }
 }

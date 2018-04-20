@@ -31,6 +31,31 @@ namespace App.Core.Shared.Models.ConfigurationSettings
             get; set;
         }
 
+
+        /// <summary>
+        /// Gets or sets (from AppSettings)
+        /// the ResourceName Suffix of this StorageAccount.
+        /// <para>
+        /// <para>
+        /// Default Value is 'di'.
+        /// </para>
+        /// <para>
+        /// The value is appended to <see cref="ResourceName"/>.
+        /// </para>
+        /// <para>
+        /// Can be overridden (or cleared) using 
+        /// <see cref="Shared.Constants.ConfigurationKeys.AppCoreIntegrationAzureStorageAccountDiagnosticsResourceNameSuffix"/>,
+        /// in AppSettings.
+        /// </para>
+        /// </para>
+        /// </summary>
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationAzureStorageAccountDiagnosticsResourceNameSuffix)]
+        public string ResourceNameSuffix
+        {
+            get; set;
+        }
+
         /// <summary>
         /// Gets or sets 
         /// (from the KeyVault) 
@@ -45,5 +70,16 @@ namespace App.Core.Shared.Models.ConfigurationSettings
         {
             get; set;
         }
+
+
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AzureStorageAccountMedia1ConfigurationSettings"/> class.
+        /// </summary>
+        public AzureStorageAccountDiagnosticsConfigurationSettings()
+        {
+            ResourceNameSuffix = "di";
+        }
+
     }
 }

@@ -10,17 +10,22 @@ namespace App.Core.Infrastructure.Initialization.Integration
 
     public class IntegrationSpikes : IHasAppCoreInitializer
     {
-        //private readonly AzureIntegrationInitializer _azureIntegrationInitializer;
+        private readonly IAzureStorageAccountMedia1Service _media1Service;
 
-        public IntegrationSpikes()
+        public IntegrationSpikes(IAzureStorageAccountMedia1Service media1Service)
         {
-            //this._azureIntegrationInitializer = azureIntegrationInitializer;
+            this._media1Service = media1Service;
         }
 
 
         public void Initialize()
         {
-           // this._azureIntegrationInitializer.Initialize();
+            var containerName = "pubTest";
+            var fileName = "foo.txt";
+
+            this._media1Service.UploadAText(containerName,fileName,"bar",true);
+
+            this._media1Service.DownloadAText(containerName, fileName);
         }
 
     }

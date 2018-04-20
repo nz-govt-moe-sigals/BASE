@@ -43,7 +43,8 @@ namespace App.Core.Infrastructure.Services.Implementations
 
         private void Initialize()
         {
-            CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(this.Configuration.ConnectionString);
+            string connString = this.Configuration.ConnectionString;
+            CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(connString);
             this.CloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
         }
 
@@ -53,8 +54,12 @@ namespace App.Core.Infrastructure.Services.Implementations
             result.EnsureContainer(BlobContainerPublicAccessTypeIfNew);
         }
 
-        private CloudBlobContainer GetContainer(string containerName)
+        private CloudBlobContainer GetContainer(string containerName, bool createIfNotExists, BlobContainerPublicAccessType blobContainerPublicAccessType = BlobContainerPublicAccessType.Off)
         {
+            // If you don't clean name first you will get a 400
+            // when creating the container.
+            containerName = CleanContainerName(containerName);
+
             CloudBlobContainer result = null;
 
             if (this._containersCache.TryGetValue(containerName, out result))
@@ -65,35 +70,62 @@ namespace App.Core.Infrastructure.Services.Implementations
             // Retrieve a reference to a container.
             result = this.CloudBlobClient.GetContainerReference(containerName);
 
+
+            if (createIfNotExists)
+            {
+                //Create a new container, if it does not exist
+                result.CreateIfNotExists(blobContainerPublicAccessType);
+            }
+
             //Cache:
             this._containersCache[containerName] = result;
 
             return result;
         }
 
+        private static string CleanContainerName(string containerName)
+        {
+            containerName = containerName.ToLower().Substring(0, 63);
+            return containerName;
+        }
 
 
-        public void UploadAFile(string containerName, string localFilePath)
+        public void UploadAFile(string containerName, string localFilePath, bool createContainerIfNotExists=true, BlobContainerPublicAccessType blobContainerPublicAccessType = BlobContainerPublicAccessType.Off)
         {
             string remoteFileName = Path.GetFileName(localFilePath);
 
-            var container = GetContainer(containerName);
+            var container = GetContainer(containerName,createContainerIfNotExists);
             CloudBlockBlob blob = container.GetBlockBlobReference(remoteFileName);
 
             blob.UploadFromFile(localFilePath);
         }
 
 
-        public void UploadAText(string containerName, string remoteBlobName, string text)
+        public void UploadAText(string containerName, string remoteBlobName, string text, bool createContainerIfNotExists = true, BlobContainerPublicAccessType blobContainerPublicAccessType = BlobContainerPublicAccessType.Off)
         {
 
-            var container = GetContainer(containerName);
+            var container = GetContainer(containerName,createContainerIfNotExists);
 
             CloudBlockBlob blob =
                 container.GetBlockBlobReference(remoteBlobName);
 
             blob.UploadText(text);
         }
+
+
+        public string DownloadAText(string containerName, string remoteBlobBame)
+        {
+            var container = GetContainer(containerName, false);
+
+            CloudBlockBlob blob =
+                container.GetBlockBlobReference(remoteBlobBame);
+
+            var result = blob.DownloadText();
+
+            return result;
+
+        }
+
 
     }
 }

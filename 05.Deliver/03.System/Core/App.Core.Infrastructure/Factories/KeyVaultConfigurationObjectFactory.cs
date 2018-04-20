@@ -88,8 +88,10 @@
         /// <param name="target">The target object .</param>
         /// <param name="prefix">The prefix.</param>
         /// <returns></returns>
-        public virtual T Provision<T>(T target, string prefix = null) where T : class
+        public virtual T Provision<T>(T target, string prefix = null, bool skipIfAlreadyHasValue=true) where T : class
         {
+            
+            var objectType = target.GetType();
 
             var validSources = new[]
                 {ConfigurationSettingSource.SourceType.All, ConfigurationSettingSource.SourceType.KeyVault};
@@ -109,27 +111,41 @@
                 // Determine if we should look for this value here:
                 var sourceAttribute = propertyInfo.GetCustomAttribute<ConfigurationSettingSource>();
 
-                if (sourceAttribute != null)
+                if (sourceAttribute == null)
                 {
-                    //if (sourceAttribute.Source == ConfigurationSettingSource.SourceType.AppSetting)
-                    //{
-                    //    continue;
-                    //}
-                    //if (sourceAttribute.Source == ConfigurationSettingSource.SourceType.KeyVault)
-                    //{
-                    //    object o = propertyInfo.GetValue(target, null);
-                    //    if (!o.IsDefault())
-                    //    {
-                    //        //Already set, move on to next property.
-                    //    }
-                    //}
-                    if (!validSources.Any(x => x == sourceAttribute.Source))
+                    var o = propertyInfo.GetValue(target, null);
+                    if ((!o.IsDefault()) && (skipIfAlreadyHasValue))
                     {
+                        //Already set, move on to next property.
+                        this._diagnosticsTracingService.Trace(TraceLevel.Verbose,
+                            $"Setting {objectType}.{propertyInfo.Name} is already set via AppHost. Skipping setting it by KeyVault.");
                         continue;
                     }
                 }
-
-
+                else
+                {
+                    switch (sourceAttribute.Source)
+                    {
+                        case ConfigurationSettingSource.SourceType.AppSetting:
+                            //For sure it was suppossed to not be set here:
+                            continue;
+                        case ConfigurationSettingSource.SourceType.All:
+                            var o = propertyInfo.GetValue(target, null);
+                            if ((!o.IsDefault()) && (skipIfAlreadyHasValue))
+                            {
+                                //Already set, move on to next property.
+                                this._diagnosticsTracingService.Trace(TraceLevel.Verbose,
+                                    $"Setting {objectType}.{propertyInfo.Name} is already set via AppHost. Skipping setting it by KeyVault.");
+                                continue;
+                            }
+                            break;
+                        case ConfigurationSettingSource.SourceType.KeyVault:
+                            //For sure it was suppossed to be obtained here:
+                            break;
+                        default:
+                            break;
+                    }
+                }
 
 
                 // Use aliases first, as they can be richer, if there are any:
@@ -206,6 +222,31 @@
 
 
 
+
+        /// <summary>
+        /// Helper method to gets the application setting (as a string, 
+        /// to be subseqently Typed).
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
+        protected string GetAppSetting(string key)
+        {
+            // No longer needed -- done within KeyVaultService:
+            //var key = this._keyVaultService.CleanKeyName(key);
+
+            try
+            {
+                var result = this._keyVaultService.RetrieveSecretAsync(key).Result;
+                return result;
+            }
+            catch
+            {
+                this._diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Did not find an KeyVault Secret with id '{key}'.");
+                throw;
+            }
+        }
+
+
         ///// <summary>
         ///// Converts the AppSetting (string) value to the 
         ///// target property type.
@@ -222,24 +263,6 @@
         //    }
         //    return (T)Convert.ChangeType(s, typeof(T));
         //}
-
-
-
-        /// <summary>
-        /// Helper method to gets the application setting (as a string, 
-        /// to be subseqently Typed).
-        /// </summary>
-        /// <param name="key">The key.</param>
-        /// <returns></returns>
-        protected string GetAppSetting(string key)
-        {
-            // No longer needed -- done within KeyVaultService:
-            //var key = this._keyVaultService.CleanKeyName(key);
-
-
-            var result =  this._keyVaultService.RetrieveSecretAsync(key).Result;
-            return result;
-        }
 
     }
 

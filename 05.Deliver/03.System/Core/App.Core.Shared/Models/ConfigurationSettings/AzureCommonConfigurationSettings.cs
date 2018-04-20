@@ -4,6 +4,7 @@
 
     public class AzureCommonConfigurationSettings: IHostSettingsBasedConfigurationObject
     {
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
         [Alias(Constants.ConfigurationKeys.AppCoreIntegrationAzureCommonResourceName)]
         public string RootResourceName
         {
