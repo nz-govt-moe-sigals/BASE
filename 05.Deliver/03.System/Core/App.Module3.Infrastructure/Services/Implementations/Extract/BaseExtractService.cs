@@ -75,13 +75,20 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
 
         public virtual DateTime? GetMaxTime(IList<T> list)
         {
-            if (list == null || list.Count == 0) return null;
+            if (list == null || list.Count == 0)
+            {
+                return null;
+            }
+
             return list.Max(x => x.ModifiedDate);
         }
 
         public virtual void UpdateLocalData(IList<T> list)
         {
-            if (list == null || list.Count == 0) return;
+            if (list == null || list.Count == 0)
+            {
+                return;
+            }
             // Some Sky Magic Code
         }
 
@@ -93,8 +100,16 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         public virtual void UpdateWaterMark(DateTime extistingWatermark, DateTime? updatedWaterMark)
         {
             //need to extract this out into a method so i can test 
-            if (!updatedWaterMark.HasValue) return;
-            if (extistingWatermark > updatedWaterMark.Value) return;
+            if (!updatedWaterMark.HasValue)
+            {
+                return;
+            }
+
+            if (extistingWatermark > updatedWaterMark.Value)
+            {
+                return;
+            }
+
             var entity = new Shared.Models.Entities.ExtractWatermark()
             {
                 Watermark = updatedWaterMark.Value,
