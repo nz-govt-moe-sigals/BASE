@@ -1,14 +1,14 @@
-﻿namespace App.Module2.Infrastructure.Db.Migrations.Seeding
+﻿namespace App.Module1.Infrastructure.Db.Migrations.Seeding
 {
     using System.Data.Entity.Migrations;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Configuration;
     using App.Core.Shared.Models.Configuration.AppHost;
     using App.Core.Shared.Models.ConfigurationSettings;
-    using App.Module2.Infrastructure.Db.Context;
-    using App.Module2.Infrastructure.Initialization;
-    using App.Module2.Infrastructure.Initialization.Db;
-    using App.Module2.Shared.Models.Entities;
+    using App.Module1.Infrastructure.Db.Context;
+    using App.Module1.Infrastructure.Initialization;
+    using App.Module1.Infrastructure.Initialization.Db;
+    using App.Module1.Shared.Models.Entities;
 
     // A single DbContext Entity model seeder, 
     // invoked via AppModule1ModelBuilderOrchestrator

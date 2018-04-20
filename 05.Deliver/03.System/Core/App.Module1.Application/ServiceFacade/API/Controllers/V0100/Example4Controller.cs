@@ -1,4 +1,4 @@
-﻿namespace App.Module2.Application.ServiceFacade.API.Controllers.V0100
+﻿namespace App.Module1.Application.ServiceFacade.API.Controllers.V0100
 {
     using System;
     using System.Collections.Generic;
@@ -6,9 +6,9 @@
     using System.Net;
     using System.Web.Http;
     using App.Core.Infrastructure.Services;
-    using App.Module2.Application.Services;
-    using App.Module2.Shared.Configuration.Models;
-    using App.Module2.Shared.Models.Entities;
+    using App.Module1.Application.Services;
+    using App.Module1.Shared.Configuration.Models;
+    using App.Module1.Shared.Models.Entities;
 
     /// <summary>
     ///     An example of a classic WebAPI, with DI in the constructor,

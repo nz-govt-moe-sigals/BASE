@@ -1,8 +1,8 @@
-﻿namespace App.Module2.Application.Initialization.OData.Implementations
+﻿namespace App.Module1.Application.Initialization.OData.Implementations
 {
     using System.Web.OData.Builder;
     using App.Core.Shared.Models.Messages.API.V0100;
-    using App.Module2.Application.Initialization.OData;
+    using App.Module1.Application.Initialization.OData;
 
     public class ExampleOdataModelBuilderConfiguration : IAppModule1OdataModelBuilderConfiguration
     {

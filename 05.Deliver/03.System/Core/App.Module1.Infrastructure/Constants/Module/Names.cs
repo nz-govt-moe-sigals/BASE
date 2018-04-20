@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Module2.Infrastructure.Constants.Module
+namespace App.Module1.Infrastructure.Constants.Module
 {
     public static class Names
     {

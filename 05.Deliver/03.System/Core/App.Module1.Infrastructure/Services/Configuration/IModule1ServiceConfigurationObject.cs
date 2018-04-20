@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Module2.Infrastructure.Services.Configuration
+namespace App.Module1.Infrastructure.Services.Configuration
 {
     using App.Core.Infrastructure.Services.Configuration;
 

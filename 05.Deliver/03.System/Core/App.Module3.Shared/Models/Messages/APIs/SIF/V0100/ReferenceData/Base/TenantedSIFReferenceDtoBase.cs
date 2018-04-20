@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace App.Module3.Shared.Models.Messages.APIs.V0100
+﻿namespace App.Module3.Shared.Models.Messages.APIs.SIF.V0100.Base
 {
+    using System;
     using App.Core.Shared.Models;
     using App.Core.Shared.Models.Entities;
     using App.Module3.Shared.Models.Entities;
 
-    public abstract class TenantedSIFReferenceDtoBase  /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ : IHasId<string>, IHasTenantFK, IHasRecordState,
-        IHasSIFIdAsStringId
+    public abstract class TenantedSIFReferenceDtoBase  /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ : IHasId<string>, IHasTenantFK, IHasSIFIdAsStringId
     {
         protected TenantedSIFReferenceDtoBase()
         {
@@ -22,16 +16,10 @@ namespace App.Module3.Shared.Models.Messages.APIs.V0100
         {
             get; set;
         }
-        public virtual RecordPersistenceState RecordState
-        {
-            get; set;
-        }
         public virtual Guid TenantFK
         {
             get; set;
         }
-
-
         public virtual string Text
         {
             get; set;

@@ -1,4 +1,4 @@
-﻿namespace App.Module2.Infrastructure.Db.Context
+﻿namespace App.Module1.Infrastructure.Db.Context
 {
     using System.Data.Entity;
     using System.Threading.Tasks;
@@ -8,8 +8,8 @@
     using App.Core.Infrastructure.Initialization;
     using App.Core.Infrastructure.Initialization.DependencyResolution;
     using App.Core.Infrastructure.Services;
-    using App.Module2.Infrastructure.Db.Schema;
-    using App.Module2.Shared.Models.Entities;
+    using App.Module1.Infrastructure.Db.Schema;
+    using App.Module1.Shared.Models.Entities;
 
 
     /// <summary>

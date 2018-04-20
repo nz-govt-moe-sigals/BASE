@@ -1,9 +1,9 @@
-namespace App.Module2.Application.Initialization.OData.Implementations
+namespace App.Module1.Application.Initialization.OData.Implementations
 {
     using System.Web.OData.Builder;
     using App.Core.Shared.Models;
-    using App.Module2.Application.Initialization.OData;
-    using App.Module2.Shared.Models.Entities;
+    using App.Module1.Application.Initialization.OData;
+    using App.Module1.Shared.Models.Entities;
 
     /// <summary>
     /// 

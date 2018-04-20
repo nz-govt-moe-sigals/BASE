@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace App.Module3.Shared.Models.Messages.APIs.V0100
+﻿namespace App.Module3.Shared.Models.Messages.APIs.SIF.V0100
 {
+    using System;
     using App.Core.Shared.Models;
     using App.Module3.Shared.Models.Enums;
 

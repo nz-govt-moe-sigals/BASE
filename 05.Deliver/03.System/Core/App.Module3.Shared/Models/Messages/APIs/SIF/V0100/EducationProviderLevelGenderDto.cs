@@ -1,58 +1,50 @@
-﻿//namespace App.Module3.Shared.Models.Messages.APIs.V0100
-//{
-//    using System;
-//    using System.Collections.Generic;
-//    using System.Collections.ObjectModel;
-//    using App.Module3.Shared.Models.Entities;
-//    using App.Module3.Shared.Models.Messages.V0100;
+﻿namespace App.Module3.Shared.Models.Messages.APIs.SIF.V0100
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using App.Module3.Shared.Models.Entities;
 
-//    public class EducationProviderLevelGenderDto 
-//    {
-//        //public Guid Id
-//        //{
-//        //    get;
-//        //    set;
-//        //}
-        
-
-//            /// <summary>
-//            /// Gets or sets the parent <see cref="EducationProviderProfile"/>'s Id.
-//            /// </summary>
-//            public string SchoolProfileCode
-//        {
-//            get; set;
-//        }
+    public class EducationProviderLevelGenderDto
+    {
+        //public Guid Id
+        //{
+        //    get;
+        //    set;
+        //}
 
 
-//        public string GenderCode
-//        {
-//            get; set;
-//        }
-//        public virtual ICollection<EducationProviderGenderDto> Gender
-//        {
-//            get
-//            {
-//                return this._genders ?? (this._genders = new Collection<EducationProviderGenderDto>());
-//            }
-//        }
-//        private ICollection<EducationProviderGenderDto> _genders;
+        /// <summary>
+        /// Gets or sets the parent <see cref="EducationProviderProfile"/>'s Id.
+        /// </summary>
+        public string EducationProviderFK
+        {
+            get; set;
+        }
 
 
-//        public int YearFK
-//        {
-//            get; set;
-//        }
-//        public virtual ICollection<EducationProviderYearLevelDto> Year
-//        {
-//            get
-//            {
-//                return this._schoolYear ?? (this._schoolYear = new Collection<EducationProviderYearLevelDto>());
-//            }
-//            //set => this._schoolYear = value;
-//        }
-//        private ICollection<EducationProviderYearLevelDto> _schoolYear;
+        public string GenderCode
+        {
+            get; set;
+        }
+        public virtual EducationProviderGenderDto Gender
+        {
+            get;
+            set;
+        }
+
+
+        public int LevelFK
+        {
+            get; set;
+        }
+        public virtual EducationProviderYearLevelDto Level
+        {
+            get;
+            set;
+        }
 
 
 
-//    }
-//}
+    }
+}

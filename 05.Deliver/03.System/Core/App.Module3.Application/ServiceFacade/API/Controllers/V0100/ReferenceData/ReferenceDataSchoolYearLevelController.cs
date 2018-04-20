@@ -8,7 +8,7 @@
     using App.Core.Shared.Models.Entities;
     using App.Module3.Application.ServiceFacade.API.Controllers;
     using App.Module3.Shared.Models.Entities;
-    using App.Module3.Shared.Models.Messages.V0100;
+    using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
 
