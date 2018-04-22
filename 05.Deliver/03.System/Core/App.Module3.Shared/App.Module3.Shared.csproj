@@ -52,6 +52,7 @@
     <Compile Include="Models\Entities\ReferenceData\CoL.cs" />
     <Compile Include="Models\Entities\ReferenceData\IHasFIRSTKeyAsId.cs" />
     <Compile Include="Models\Entities\ReferenceData\IHasSIFIdAsKey.cs" />
+    <Compile Include="Models\Entities\ReferenceData\IHasSIFNOTIdAsStringId.cs" />
     <Compile Include="Models\Entities\ReferenceData\LocalOffice.cs" />
     <Compile Include="Models\Entities\EducationProviderLevelGender.cs" />
     <Compile Include="Models\Entities\EducationProviderProfile.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Models\Messages\APIs\SIF\V0100\EducationProviderProfile.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\ReferenceData\AreaUnitDto.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\ReferenceData\AuthorityTypeDto.cs" />
+    <Compile Include="Models\Messages\APIs\SIF\V0100\ReferenceData\Base\TenantedSIFNOTReferenceDtoBase.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\ReferenceData\Base\TenantedSIFReferenceDtoBase.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\ReferenceData\CommunityBoardDto.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\ReferenceData\GeneralElectorateDto.cs" />

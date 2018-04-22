@@ -5,10 +5,7 @@ namespace App.Core.Infrastructure.Services
     using Microsoft.WindowsAzure.Storage;
     using Microsoft.WindowsAzure.Storage.Blob;
 
-
-
-        
-        /// <summary>
+    /// <summary>
         /// Contract for an Infrastructure Service to 
         /// manage access to Azure Storage Accounts
         /// and the Storage Containers and Blobs within.

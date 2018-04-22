@@ -13,12 +13,11 @@ namespace App.Core.Infrastructure.Integration.Azure.Storage
     using Microsoft.WindowsAzure.Storage;
     using Microsoft.WindowsAzure.Storage.Blob;
 
-
     // End developers care about Containers at best.
     // An App keeps most of its containers in one Service Account.
     // A Container Context
 
-    [Key(Constants.Storage.BlobStorageAccountNames.Default)]
+    [Key(Constants.Storage.StorageAccountNames.Default)]
     public class AppCoreAzureStorageDefaultBlobContext : IAzureStorageBlobContext
     {
         private readonly string ConnectionString;
@@ -26,10 +25,6 @@ namespace App.Core.Infrastructure.Integration.Azure.Storage
         private static object _lock = new Object();
         private static Dictionary<string, CloudBlobContainer> ContainersCache = new Dictionary<string, CloudBlobContainer>();
         private static bool ContainersInitialized;
-
-
-
-
 
         public CloudBlobClient Client
         {
@@ -80,8 +75,8 @@ namespace App.Core.Infrastructure.Integration.Azure.Storage
             lock (_lock)
             {
                 // Develop any known required Containers, with rights as needed:
-                EnsureContainer(GetContainer("public"), BlobContainerPublicAccessType.Blob);
-                EnsureContainer(GetContainer("private"), BlobContainerPublicAccessType.Off);
+                EnsureContainer(GetContainer(Constants.Storage.BlobStorageContainers.Public), BlobContainerPublicAccessType.Blob);
+                EnsureContainer(GetContainer(Constants.Storage.BlobStorageContainers.Private), BlobContainerPublicAccessType.Off);
 
                 ContainersInitialized = true;
             }

@@ -48,7 +48,7 @@ namespace App.Core.Infrastructure.Services.Implementations
             // If no name given, fall back to the default one:
             if (string.IsNullOrWhiteSpace(storageAccountContextKey))
             {
-                storageAccountContextKey = Constants.Storage.BlobStorageAccountNames.Default;
+                storageAccountContextKey = Constants.Storage.StorageAccountNames.Default;
             }
 
             var result = AppDependencyLocator.Current.GetInstance<IAzureStorageBlobContext>(storageAccountContextKey);
