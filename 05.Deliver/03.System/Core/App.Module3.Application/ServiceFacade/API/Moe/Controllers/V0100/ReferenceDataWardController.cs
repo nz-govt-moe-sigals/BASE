@@ -1,23 +1,19 @@
-﻿namespace App.Module3.Application.ServiceFacade.API.Controllers.V0100
-{
-    using System;
-    using System.Linq;
-    using System.Web.Http;
-    using System.Web.OData;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models.Entities;
-    using App.Module3.Application.ServiceFacade.API.Controllers;
-    using App.Module3.Shared.Models.Entities;
-    using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
-    using AutoMapper;
-    using AutoMapper.QueryableExtensions;
+﻿using System.Linq;
+using System.Web.Http;
+using System.Web.OData;
+using App.Core.Infrastructure.Services;
+using App.Module3.Application.ServiceFacade.API.Controllers;
+using App.Module3.Shared.Models.Entities;
+using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
 
+namespace App.Module3.Application.ServiceFacade.API.Moe.Controllers.V0100
+{
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class AuthorityTypeController : ODataControllerResourceDataBase<AuthorityType, AuthorityTypeDto>
+    public class WardControllerSif : ODataControllerMoeResourceDataBase<Ward, WardDto>
     {
-        public AuthorityTypeController(
+        public WardControllerSif(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -34,7 +30,7 @@
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<AuthorityTypeDto> Get()
+        public IQueryable<WardDto> Get()
         {
             return InternalGet();
         }
@@ -45,21 +41,21 @@
         /// Note OData's convention that parameter must be 'key' (not 'id' or other).
         /// </para>
         /// </summary>
-        [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public AuthorityTypeDto Get(string key)
+        [AllowAnonymous]
+        public WardDto Get(string key)
         {
             return InternalGet(key);
         }
 
         //// POST api/values 
-        public void Post(AuthorityTypeDto value)
+        public void Post(WardDto value)
         {
             InternalPost(value);
         }
 
         //// PUT api/values/5 
-        public void Put(AuthorityTypeDto value)
+        public void Put(WardDto value)
         {
             InternalPut(value);
         }

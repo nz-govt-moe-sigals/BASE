@@ -15,9 +15,9 @@
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class RelationshipTypeController : ODataControllerResourceDataBase<RelationshipType, RelationshipTypeDto>
+    public class EducationProviderGenderControllerSif : ODataControllerSifResourceDataBase<EducationProviderGender, EducationProviderGenderDto>
     {
-        public RelationshipTypeController(
+        public EducationProviderGenderControllerSif(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -34,7 +34,7 @@
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<RelationshipTypeDto> Get()
+        public IQueryable<EducationProviderGenderDto> Get()
         {
             return InternalGet();
         }
@@ -47,19 +47,20 @@
         /// </summary>
         [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public RelationshipTypeDto Get(string key)
+        public EducationProviderGenderDto Get(string key)
         {
             return InternalGet(key);
         }
 
         //// POST api/values 
-        public void Post(RelationshipTypeDto value)
+        public void Post(EducationProviderGenderDto value)
         {
             InternalPost(value);
         }
 
+        
         //// PUT api/values/5 
-        public void Put(RelationshipTypeDto value)
+        public void Put(EducationProviderGenderDto value)
         {
             InternalPut(value);
         }

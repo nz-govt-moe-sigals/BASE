@@ -1,23 +1,18 @@
-﻿namespace App.Module3.Application.ServiceFacade.API.Controllers.V0100
-{
-    using System;
-    using System.Linq;
-    using System.Web.Http;
-    using System.Web.OData;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models.Entities;
-    using App.Module3.Application.ServiceFacade.API.Controllers;
-    using App.Module3.Shared.Models.Entities;
-    using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
-    using AutoMapper;
-    using AutoMapper.QueryableExtensions;
+﻿using System.Linq;
+using System.Web.Http;
+using System.Web.OData;
+using App.Core.Infrastructure.Services;
+using App.Module3.Shared.Models.Entities;
+using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
 
+namespace App.Module3.Application.ServiceFacade.API.Moe.Controllers.V0100
+{
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class MaoriElectorateController : ODataControllerResourceDataBase<MaoriElectorate, MaoriElectorateDto>
+    public class AreaUnitControllerSif : ODataControllerMoeResourceDataBase<AreaUnit, AreaUnitDto>
     {
-        public MaoriElectorateController(
+        public AreaUnitControllerSif(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -34,7 +29,7 @@
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<MaoriElectorateDto> Get()
+        public IQueryable<AreaUnitDto> Get()
         {
             return InternalGet();
         }
@@ -47,19 +42,19 @@
         /// </summary>
         [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public MaoriElectorateDto Get(string key)
+        public AreaUnitDto Get(string key)
         {
             return InternalGet(key);
         }
 
         //// POST api/values 
-        public void Post(MaoriElectorateDto value)
+        public void Post(AreaUnitDto value)
         {
             InternalPost(value);
         }
 
         //// PUT api/values/5 
-        public void Put(MaoriElectorateDto value)
+        public void Put(AreaUnitDto value)
         {
             InternalPut(value);
         }

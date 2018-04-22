@@ -15,9 +15,9 @@
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class OrganisationTypeController : ODataControllerResourceDataBase<EducationProviderType, OrganisationTypeDto>
+    public class SchoolClassificationControllerSif : ODataControllerSifResourceDataBase<EducationProviderClassification, EducationProviderClassificationDto>
     {
-        public OrganisationTypeController(
+        public SchoolClassificationControllerSif(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -34,7 +34,7 @@
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<OrganisationTypeDto> Get()
+        public IQueryable<EducationProviderClassificationDto> Get()
         {
             return InternalGet();
         }
@@ -47,19 +47,19 @@
         /// </summary>
         [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public OrganisationTypeDto Get(string key)
+        public EducationProviderClassificationDto Get(string key)
         {
             return InternalGet(key);
         }
 
         //// POST api/values 
-        public void Post(OrganisationTypeDto value)
+        public void Post(EducationProviderClassificationDto value)
         {
             InternalPost(value);
         }
 
         //// PUT api/values/5 
-        public void Put(OrganisationTypeDto value)
+        public void Put(EducationProviderClassificationDto value)
         {
             InternalPut(value);
         }

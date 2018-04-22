@@ -15,9 +15,9 @@
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class UrbanAreaControllerController : ODataControllerResourceDataBase<UrbanArea, UrbanAreaDto>
+    public class SchoolYearLevelControllerSif : ODataControllerSifResourceDataBase<EducationProviderYearLevel, EducationProviderYearLevelDto>
     {
-        public UrbanAreaControllerController(
+        public SchoolYearLevelControllerSif(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -34,7 +34,7 @@
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<UrbanAreaDto> Get()
+        public IQueryable<EducationProviderYearLevelDto> Get()
         {
             return InternalGet();
         }
@@ -47,19 +47,19 @@
         /// </summary>
         [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public UrbanAreaDto Get(string key)
+        public EducationProviderYearLevelDto Get(string key)
         {
             return InternalGet(key);
         }
 
         //// POST api/values 
-        public void Post(UrbanAreaDto value)
+        public void Post(EducationProviderYearLevelDto value)
         {
             InternalPost(value);
         }
 
         //// PUT api/values/5 
-        public void Put(UrbanAreaDto value)
+        public void Put(EducationProviderYearLevelDto value)
         {
             InternalPut(value);
         }

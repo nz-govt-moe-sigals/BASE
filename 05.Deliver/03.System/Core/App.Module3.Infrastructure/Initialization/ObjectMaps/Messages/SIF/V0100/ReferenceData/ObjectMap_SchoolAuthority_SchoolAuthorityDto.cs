@@ -14,7 +14,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
     /// </summary>
     /// <seealso cref="AuthorityTypeDto" />
     public class ObjectMap_SchoolAuthorityType_SchoolAuthorityTypeDto
-        : ObjectMap_TenantedFIRSTSIFKeyedGuidIdReferenceDataBase_TenantedSIFReferenceTypeDto
+        : ObjectMap_TenantedFIRSTKeyedGuidIdReferenceDataBase_TenantedSIFReferenceTypeDto
             <AuthorityType, AuthorityTypeDto>
     {
     }

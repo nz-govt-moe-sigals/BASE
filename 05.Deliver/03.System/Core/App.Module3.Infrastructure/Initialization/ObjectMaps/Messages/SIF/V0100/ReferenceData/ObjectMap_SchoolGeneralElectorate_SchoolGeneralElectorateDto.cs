@@ -14,7 +14,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
     /// </summary>
     /// <seealso cref="GeneralElectorateDto" />
     public class ObjectMap_SchoolGeneralElectorate_SchoolGeneralElectorateDto
-        : ObjectMap_TenantedFIRSTSIFKeyedGuidIdReferenceDataBase_TenantedSIFReferenceTypeDto
+        : ObjectMap_TenantedFIRSTKeyedGuidIdReferenceDataBase_TenantedSIFReferenceTypeDto
             <GeneralElectorate, GeneralElectorateDto>
     {
     }

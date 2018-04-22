@@ -15,9 +15,9 @@
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class WardController : ODataControllerResourceDataBase<Ward, WardDto>
+    public class RegionControllerSif : ODataControllerSifResourceDataBase<Region, RegionDto>
     {
-        public WardController(
+        public RegionControllerSif(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -34,7 +34,7 @@
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<WardDto> Get()
+        public IQueryable<RegionDto> Get()
         {
             return InternalGet();
         }
@@ -45,21 +45,21 @@
         /// Note OData's convention that parameter must be 'key' (not 'id' or other).
         /// </para>
         /// </summary>
-        //[ODataRoute("({key})")]
         [AllowAnonymous]
-        public WardDto Get(string key)
+        //[ODataRoute("({key})")]
+        public RegionDto Get(string key)
         {
             return InternalGet(key);
         }
 
         //// POST api/values 
-        public void Post(WardDto value)
+        public void Post(RegionDto value)
         {
             InternalPost(value);
         }
 
         //// PUT api/values/5 
-        public void Put(WardDto value)
+        public void Put(RegionDto value)
         {
             InternalPut(value);
         }

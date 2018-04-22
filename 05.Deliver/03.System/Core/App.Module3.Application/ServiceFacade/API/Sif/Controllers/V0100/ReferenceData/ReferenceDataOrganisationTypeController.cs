@@ -15,9 +15,9 @@
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class GeneralElectorateController : ODataControllerResourceDataBase<GeneralElectorate, GeneralElectorateDto>
+    public class OrganisationTypeControllerSif : ODataControllerSifResourceDataBase<EducationProviderType, OrganisationTypeDto>
     {
-        public GeneralElectorateController(
+        public OrganisationTypeControllerSif(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -34,7 +34,7 @@
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<GeneralElectorateDto> Get()
+        public IQueryable<OrganisationTypeDto> Get()
         {
             return InternalGet();
         }
@@ -47,19 +47,19 @@
         /// </summary>
         [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public GeneralElectorateDto Get(string key)
+        public OrganisationTypeDto Get(string key)
         {
             return InternalGet(key);
         }
 
         //// POST api/values 
-        public void Post(GeneralElectorateDto value)
+        public void Post(OrganisationTypeDto value)
         {
             InternalPost(value);
         }
 
         //// PUT api/values/5 
-        public void Put(GeneralElectorateDto value)
+        public void Put(OrganisationTypeDto value)
         {
             InternalPut(value);
         }

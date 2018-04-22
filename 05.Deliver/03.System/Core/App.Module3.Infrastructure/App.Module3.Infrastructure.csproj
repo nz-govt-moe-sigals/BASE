@@ -90,6 +90,10 @@
     <Compile Include="Db\Migrations\Module3\201804200246107_Entities.SourceReferenceIds.Designer.cs">
       <DependentUpon>201804200246107_Entities.SourceReferenceIds.cs</DependentUpon>
     </Compile>
+    <Compile Include="Db\Migrations\Module3\201804222356000_Entities.SifChange.cs" />
+    <Compile Include="Db\Migrations\Module3\201804222356000_Entities.SifChange.Designer.cs">
+      <DependentUpon>201804222356000_Entities.SifChange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Db\Migrations\Module3\Configuration.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineExtractWatermark.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineRelationshipType.cs" />
@@ -121,8 +125,9 @@
     <Compile Include="Initialization\Db\IHasAppModule3DbContextSeedInitializer.cs" />
     <Compile Include="Initialization\Db\IHasAppModule3DbContextModelBuilderInitializer.cs" />
     <Compile Include="Initialization\Authorisation\HasOidcScopeInitializer.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_BaseMessage_TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_BaseReference_TenantedFIRSTSIFKeyedGuidIdReferenceDataBase.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\Base\ObjectMap_BaseMessage_TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\Base\ObjectMap_BaseReference_TenantedFIRSTKeyedGuidIdReferenceDataBase.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\Base\ObjectMap_BaseReference_TenantedFIRSTSIFKeyedGuidIdReferenceDataBase.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceAreaUnit_AreaUnit.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceAuthorityType_AuthorityType.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceRegion_Region.cs" />
@@ -145,6 +150,7 @@
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceWard_Ward.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceUrbanArea_UrbanArea.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceTerritorialAuthority_TerritorialAuthority.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\Base\ObjectMap_TenantedFIRSTKeyedGuidIdReferenceDataBase_TenantedSIFReferenceTypeDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ObjectMap_EducationProviderEnrolmentCount_EducationProviderEnrolmentCountDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ObjectMap_EducationProviderLocation_EducationProviderLocationDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\Base\ObjectMap_TenantedReferenceType_TenantedReferenceTypeDto.cs" />
@@ -228,6 +234,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Db\Migrations\Module3\201804200246107_Entities.SourceReferenceIds.resx">
       <DependentUpon>201804200246107_Entities.SourceReferenceIds.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Db\Migrations\Module3\201804222356000_Entities.SifChange.resx">
+      <DependentUpon>201804222356000_Entities.SifChange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

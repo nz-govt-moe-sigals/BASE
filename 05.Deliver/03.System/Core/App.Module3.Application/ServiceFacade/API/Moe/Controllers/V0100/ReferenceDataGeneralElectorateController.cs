@@ -1,23 +1,19 @@
-﻿namespace App.Module3.Application.ServiceFacade.API.Controllers.V0100
-{
-    using System;
-    using System.Linq;
-    using System.Web.Http;
-    using System.Web.OData;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models.Entities;
-    using App.Module3.Application.ServiceFacade.API.Controllers;
-    using App.Module3.Shared.Models.Entities;
-    using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
-    using AutoMapper;
-    using AutoMapper.QueryableExtensions;
+﻿using System.Linq;
+using System.Web.Http;
+using System.Web.OData;
+using App.Core.Infrastructure.Services;
+using App.Module3.Application.ServiceFacade.API.Controllers;
+using App.Module3.Shared.Models.Entities;
+using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
 
+namespace App.Module3.Application.ServiceFacade.API.Moe.Controllers.V0100
+{
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class SchoolYearLevelController : ODataControllerResourceDataBase<EducationProviderYearLevel, EducationProviderYearLevelDto>
+    public class GeneralElectorateControllerSif : ODataControllerMoeResourceDataBase<GeneralElectorate, GeneralElectorateDto>
     {
-        public SchoolYearLevelController(
+        public GeneralElectorateControllerSif(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -34,7 +30,7 @@
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<EducationProviderYearLevelDto> Get()
+        public IQueryable<GeneralElectorateDto> Get()
         {
             return InternalGet();
         }
@@ -47,19 +43,19 @@
         /// </summary>
         [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public EducationProviderYearLevelDto Get(string key)
+        public GeneralElectorateDto Get(string key)
         {
             return InternalGet(key);
         }
 
         //// POST api/values 
-        public void Post(EducationProviderYearLevelDto value)
+        public void Post(GeneralElectorateDto value)
         {
             InternalPost(value);
         }
 
         //// PUT api/values/5 
-        public void Put(EducationProviderYearLevelDto value)
+        public void Put(GeneralElectorateDto value)
         {
             InternalPut(value);
         }
