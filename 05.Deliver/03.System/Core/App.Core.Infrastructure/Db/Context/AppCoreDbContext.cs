@@ -7,6 +7,7 @@
     using App.Core.Infrastructure.Initialization;
     using App.Core.Infrastructure.Initialization.DependencyResolution;
     using App.Core.Infrastructure.Services;
+    using App.Core.Shared.Attributes;
     using App.Core.Shared.Models.Entities;
 
     /// <summary>
@@ -23,6 +24,8 @@
     /// </para>
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Db.Context.AppDbContextBase" />
+
+    [Alias(Constants.Db.AppCoreDbContextNames.Core)]
     public class AppCoreDbContext : AppDbContextBase
     {
         public const string SchemaKey = Constants.Module.Names.ModuleKey;

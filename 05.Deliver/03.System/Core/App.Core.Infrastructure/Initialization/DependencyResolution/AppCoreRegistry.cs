@@ -1,18 +1,23 @@
 namespace App.Core.Infrastructure.DependencyResolution
 {
     using System;
+    using System.Data.Entity;
     using App.Core.Infrastructure.Constants;
     using App.Core.Infrastructure.Constants.Db;
     using App.Core.Infrastructure.Db.Context;
     using App.Core.Infrastructure.Db.Interception;
+    using App.Core.Infrastructure.Factories;
     using App.Core.Infrastructure.Initialization;
     using App.Core.Infrastructure.Initialization.Authentication;
     using App.Core.Infrastructure.Initialization.Db;
     using App.Core.Infrastructure.Initialization.DependencyResolution;
     using App.Core.Infrastructure.Initialization.ObjectMaps;
     using App.Core.Infrastructure.Initialization.OData;
+    using App.Core.Infrastructure.Integration.Azure.Storage;
     using StructureMap;
+    using StructureMap.Configuration.DSL.Expressions;
     using StructureMap.Graph;
+    using StructureMap.Web.Pipeline;
 
     // The App Core Module's StructureMap Registry.
     // Invoked via StructuremapMvc which is invoked
@@ -33,11 +38,39 @@ namespace App.Core.Infrastructure.DependencyResolution
                     // as AppModule1Registry.
                     assemblyScanner.LookForRegistries();
 
-                    // Common across all Modules:
+                    //// Common across all Modules:
+                    //var types = new[]
+                    //{
+                    //    // Register all Automapper Instances, which ever assembly they are in :
+                    //    typeof(IHasAutomapperInitializer),
+
+                    //    typeof(IHasOidcScopeInitializer),
+                    //    typeof(IBlobStorageAccountContext),
+                    //    typeof(IFileStorageAccountContext),
+                    //    typeof(IQueueStorageAccountContext),
+                    //    //Scan for OData Model Builders in *all* modules.
+                    //    typeof(IOdataModelBuilderBase),
+                    //    //Scan for OData Model Builder Configuration fragments in *all* modules.
+                    //    typeof(IOdataModelBuilderConfigurationBase),
+                    //    // Add all Pre-Commit Processors (these kick in just as you
+                    //    // Commit a DbContext, and ensure specific fields are 
+                    //    // automatically filled in)
+                    //    typeof(IDbCommitPreCommitProcessingStrategy),
+
+
+                    //};
+                    //foreach (var type in types)
+                    //{
+                    //    assemblyScanner.AddAllTypesOf(type);
+                    //}
+
                     ScanForAllModulesAutoMapperInitializers(assemblyScanner);
                     ScanForAllModulesOIDCFullyQualifiesScopes(assemblyScanner);
+
                     ScanForAllModulesODataBuilderTypes(assemblyScanner);
                     ScanForAllModulesDbContextTypes(assemblyScanner);
+
+                    ScanAndRegisterNamedInstancesOfStorageAccountContexts(assemblyScanner);
 
                     // Specific to this Module:
                     ScanForThisModulesDbContextTypes(assemblyScanner);
@@ -63,6 +96,8 @@ namespace App.Core.Infrastructure.DependencyResolution
         {
             assemblyScanner.AddAllTypesOf<IHasOidcScopeInitializer>();
         }
+
+
         private void ScanForAllModulesDbContextTypes(IAssemblyScanner assemblyScanner)
         {
             // Add all Pre-Commit Processors (these kick in just as you
@@ -101,6 +136,25 @@ namespace App.Core.Infrastructure.DependencyResolution
             this.RegisterDbContextInHttpContext<AppCoreDbContext>(AppCoreDbContextNames.Core);
         }
 
+        private void ScanAndRegisterNamedInstancesOfStorageAccountContexts(IAssemblyScanner assemblyScanner)
+        {
+            var types = AppDomain.CurrentDomain.GetInstantiableTypesImplementing<IAzureStorageBlobContext>();
+            foreach (Type t in types)
+            {
+                string name = t.GetName(false);
+
+                if (name == null)
+                {
+                    throw new Exception("Coding error: StorageAccountContexts need to be Named, using a KeyAttribute.");
+                }
+
+                //Register it under IAzureStorageBlobContext context, but named:
+
+                new CreatePluginFamilyExpression<IAzureStorageBlobContext>(this,
+                        new HttpContextLifecycle())
+                    .Use(y => (IAzureStorageBlobContext) App.AppDependencyLocator.Current.GetInstance(t)).Named(name);
+            }
+        }
 
 
     }

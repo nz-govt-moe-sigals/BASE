@@ -11,6 +11,7 @@ namespace App.Module2.Infrastructure.Db.Context
     using App.Core.Infrastructure.Initialization;
     using App.Core.Infrastructure.Initialization.DependencyResolution;
     using App.Core.Infrastructure.Services;
+    using App.Core.Shared.Attributes;
     using App.Module2.Infrastructure.Db.Schema;
     using App.Module2.Shared.Models.Entities;
 
@@ -28,6 +29,7 @@ namespace App.Module2.Infrastructure.Db.Context
     /// </para>
     /// </summary>
     /// <seealso cref="System.Data.Entity.DbContext" />
+    [Alias(Constants.Db.AppModule2DbContextNames.Module2)]
     public class AppModule2DbContext : AppDbContextBase
     {
         // IMPORTANT: Notice that each Module DbContext

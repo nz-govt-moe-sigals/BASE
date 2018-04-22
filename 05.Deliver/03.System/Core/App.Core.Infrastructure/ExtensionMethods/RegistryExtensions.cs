@@ -12,6 +12,10 @@
         public static void RegisterDbContextInHttpContext<TDbContext>(this Registry registry, string key)
             where TDbContext : DbContext, new()
         {
+
+
+             
+
             if (!PowershellServiceLocatorConfig.Activated)
             {
                 //Register it under DbContext context, but named:
@@ -25,12 +29,13 @@
             else
             {
                 //Register it under DbContext context, but named:
+                // FIX: replaced HybridLifecycle with HttpContextLifecycle
                 new CreatePluginFamilyExpression<DbContext>(registry,
-                    new HybridLifecycle()).Use(y => DbContextFactory.Create<TDbContext>()).Named(key);
+                    new HttpContextLifecycle()).Use(y => DbContextFactory.Create<TDbContext>()).Named(key);
 
                 //Register it under specific TDbContext, without name:
                 new CreatePluginFamilyExpression<TDbContext>(registry,
-                    new HybridLifecycle()).Use(y => DbContextFactory.Create<TDbContext>());
+                    new HttpContextLifecycle()).Use(y => DbContextFactory.Create<TDbContext>());
 
             };
         }

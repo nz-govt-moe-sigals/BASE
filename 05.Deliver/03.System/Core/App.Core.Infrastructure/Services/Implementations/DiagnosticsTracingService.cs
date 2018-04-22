@@ -41,7 +41,10 @@
                     while (_cache.Count > 0)
                     {
                         var x = _cache.Dequeue();
-                        DirectTrace(x.TracelLevel, x.Message, x.Args);
+                        if (x != null)
+                        {
+                            DirectTrace(x.TracelLevel, x.Message, x.Args);
+                        }
                     }
                 }
             }

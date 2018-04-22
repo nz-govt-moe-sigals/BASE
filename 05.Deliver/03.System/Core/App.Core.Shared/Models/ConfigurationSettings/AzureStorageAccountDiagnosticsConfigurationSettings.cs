@@ -74,7 +74,7 @@ namespace App.Core.Shared.Models.ConfigurationSettings
 
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AzureStorageAccountMedia1ConfigurationSettings"/> class.
+        /// Initializes a new instance of the <see cref="AzureStorageAccountDefaultConfigurationSettings"/> class.
         /// </summary>
         public AzureStorageAccountDiagnosticsConfigurationSettings()
         {

@@ -8,6 +8,7 @@
     using App.Core.Infrastructure.Initialization;
     using App.Core.Infrastructure.Initialization.DependencyResolution;
     using App.Core.Infrastructure.Services;
+    using App.Core.Shared.Attributes;
     using App.Module3.Infrastructure.Db.Schema;
     using App.Module3.Shared.Models.Entities;
 
@@ -26,6 +27,7 @@
     /// </para>
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Db.Context.AppDbContextBase" />
+    [Alias(Constants.Db.AppModule3DbContextNames.Module3)]
     public class AppModule3DbContext : AppDbContextBase
     {
         // IMPORTANT: Notice that each Module DbContext

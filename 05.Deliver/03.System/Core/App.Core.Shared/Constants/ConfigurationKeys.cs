@@ -58,15 +58,10 @@ namespace App.Core.Shared.Constants
         public const string AppCoreIntegrationAzureStorageAccountDiagnosticsResourceNameSuffix = "App-Core-Integration-Azure-StorageAccount-Diagnostics-ResourceName-Suffix";
         public const string AppCoreIntegrationAzureStorageAccountDiagnosticsKey = "App-Core-Integration-Azure-StorageAccount-Diagnostics-Key";
         // -----
-        // Integration / Azure / Storage Account / Media1
-        public const string AppCoreIntegrationAzureStorageAccountMedia1ResourceName = "App-Core-Integration-Azure-StorageAccount-Media1-ResourceName";
-        public const string AppCoreIntegrationAzureStorageAccountMedia1ResourceNameSuffix = "App-Core-Integration-Azure-StorageAccount-Media1-ResourceName-Suffix";
-        public const string AppCoreIntegrationAzureStorageAccountMedia1Key = "App-Core-Integration-Azure-StorageAccount-Media1-Key";
-        // -----
-        // Integration / Azure / Storage Account / Media2
-        public const string AppCoreIntegrationAzureStorageAccountMedia2ResourceName = "App-Core-Integration-Azure-StorageAccount-Media2-ResourceName";
-        public const string AppCoreIntegrationAzureStorageAccountMedia2ResourceNameSuffix = "App-Core-Integration-Azure-StorageAccount-Media2-ResourceName-Suffix";
-        public const string AppCoreIntegrationAzureStorageAccountMedia2Key = "App-Core-Integration-Azure-StorageAccount-Media2-Key";
+        // Integration / Azure / Storage Account / Default
+        public const string AppCoreIntegrationAzureStorageAccountDefaultResourceName = "App-Core-Integration-Azure-StorageAccount-Default-ResourceName";
+        public const string AppCoreIntegrationAzureStorageAccountDefaultResourceNameSuffix = "App-Core-Integration-Azure-StorageAccount-Default-ResourceName-Suffix";
+        public const string AppCoreIntegrationAzureStorageAccountDefaultKey = "App-Core-Integration-Azure-StorageAccount-Default-Key";
         // -----
         // Integration / DocumentDb:
         public const string AppCoreIntegrationAzureDocumentDbResourceName = "App-Core-Integration-Azure-DocumentDb-ResourceName";

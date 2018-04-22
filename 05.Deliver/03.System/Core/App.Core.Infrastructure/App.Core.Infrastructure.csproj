@@ -139,6 +139,7 @@
     <Compile Include="Constants\Module\Names.cs" />
     <Compile Include="Constants\Roles\Class1.cs" />
     <Compile Include="Constants\Roles\RoleNames.cs" />
+    <Compile Include="Constants\Storage\public BlobStorageContextNames.cs" />
     <Compile Include="Constants\Todo\Todo.cs" />
     <Compile Include="Contracts\IHasAudited.cs" />
     <Compile Include="Db\Context\AppCoreDbContext.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="ExtensionMethods\CloudBlobContainerExtensions.cs" />
     <Compile Include="ExtensionMethods\CloudBlobExtensions.cs" />
     <Compile Include="ExtensionMethods\CloudStorageAccountExtensions.cs" />
+    <Compile Include="ExtensionMethods\PropertyInfo.cs" />
     <Compile Include="Factories\ClientCredentialFactory.cs" />
     <Compile Include="Factories\KeyVaultConfigurationObjectFactory.cs" />
     <Compile Include="Factories\DbContextFactory.cs" />
@@ -241,12 +243,12 @@
     <Compile Include="ExtensionMethods\RegistryExtensions.cs" />
     <Compile Include="ExtensionMethods\TypeExtensions.cs" />
     <Compile Include="Factories\AppSettingsConfigurationObjectFactory.cs" />
-    <Compile Include="Factories\ServiceLocator.cs" />
-    <Compile Include="Initialization\Db\IHasAppCoreDbContextModelBuilderInitializer.cs" />
+    <Compile Include="Factories\StructureMapServiceLocator.cs" />
+    <Compile Include="Initialization\Storage\Db\IHasAppCoreDbContextModelBuilderInitializer.cs" />
     <Compile Include="Initialization\IHasAppCoreInitializer.cs" />
     <Compile Include="Initialization\Integration\Scanii\ScaniiIntegrationInitializer.cs" />
     <Compile Include="Initialization\ObjectMaps\IHasAutomapperInitializer.cs" />
-    <Compile Include="Initialization\Db\IHasAppCoreDbContextSeedInitializer.cs" />
+    <Compile Include="Initialization\Storage\Db\IHasAppCoreDbContextSeedInitializer.cs" />
     <Compile Include="Initialization\Authentication\IHasOidcScopeInitializer.cs" />
     <Compile Include="Initialization\IInitializer.cs" />
     <Compile Include="Initialization\Implementations\HasOidcScopeInitializer.cs" />
@@ -273,34 +275,27 @@
     <Compile Include="Factories\KeyVaultClientFactory.cs" />
     <Compile Include="Initialization\Verification\ApplicationSettingsInitializer.cs" />
     <Compile Include="Initialization\Verification\VerificationInitializer.cs" />
+    <Compile Include="Integration\Azure\Storage\AppCoreAzureStorageBlobContext.cs" />
+    <Compile Include="Integration\Azure\Storage\IAzureStorageBlobContext.cs" />
     <Compile Include="Interceptors\Class1.cs" />
     <Compile Include="Services\Caches\Implementations\KeyVaultServiceConfigurationObjectCache.cs" />
     <Compile Include="Services\Configuration\ICoreServiceConfigurationObject.cs" />
-    <Compile Include="Services\Configuration\Implementations\AzureStorageAccountDiagnosticsServiceConfiguration.cs" />
-    <Compile Include="Services\Configuration\Implementations\AzureStorageAccountMedia1ServiceConfiguration.cs" />
-    <Compile Include="Services\Configuration\Implementations\AzureStorageAccountMedia2ServiceConfiguration.cs" />
     <Compile Include="Services\Configuration\Implementations\DocumentDbServiceConfiguration.cs" />
     <Compile Include="Services\Configuration\IServiceConfigurationObject.cs" />
     <Compile Include="Services\Configuration\Implementations\AzureKeyVaultServiceConfiguration.cs" />
-    <Compile Include="Services\Configuration\Implementations\Base\AzureStorageAccountServiceConfigurationBase.cs" />
+    <Compile Include="Services\Configuration\Implementations\AzureBlobStorageServiceConfiguration.cs" />
     <Compile Include="Services\Configuration\Implementations\MediaMetadataServiceConfiguration.cs" />
     <Compile Include="Services\Configuration\Implementations\SMTPServiceConfiguration.cs" />
+    <Compile Include="Services\Contexts\StorageAccountContext.cs" />
     <Compile Include="Services\IAuthenticationMsiTokenService.cs" />
-    <Compile Include="Services\IAzureStorageAccountDiagnosticsService.cs" />
     <Compile Include="Services\IAzureDocumentDBService.cs" />
     <Compile Include="Services\IAzureKeyVaultService.cs" />
-    <Compile Include="Services\IAzureStorageAccountMedia1Service.cs" />
-    <Compile Include="Services\IAzureStorageAccountMedia2Service.cs" />
-    <Compile Include="Services\IAzureStorageServiceBase.cs" />
+    <Compile Include="Services\IAzureBlobStorageService.cs" />
     <Compile Include="Services\Configuration\Implementations\ApplicationInformationServiceConfiguration.cs" />
     <Compile Include="Services\IHasAzureDocumentDbBaseService.cs" />
     <Compile Include="Services\Implementations\AzureDocumentDBService.cs" />
     <Compile Include="Services\Implementations\AzureKeyVaultService.cs" />
-    <Compile Include="Services\Implementations\AzureStorageAccountDiagnosticsService.cs" />
-    <Compile Include="Services\Implementations\AzureStorageAccountMedia1Service.cs" />
-    <Compile Include="Services\Implementations\AzureStorageAccountMedia2Service.cs" />
-    <Compile Include="Services\Implementations\AzureStorageAccountService.cs" />
-    <Compile Include="Services\Implementations\AzureStorageService.cs" />
+    <Compile Include="Services\Implementations\AzureBlobStorageService.cs" />
     <Compile Include="Services\Caches\Implementations\HostSettingsServiceConfigurationObjectCache.cs" />
     <Compile Include="Services\Implementations\AuthenticationMsiTokenService.cs" />
     <Compile Include="Services\Implementations\Base\AzureDocumentDbBaseService.cs" />
@@ -355,7 +350,6 @@
     <Compile Include="Services\Implementations\HostSettingsService.cs" />
     <Compile Include="Services\IDbContextPreCommitService.cs" />
     <Compile Include="Db\Interception\IDbCommitPreCommitProcessingStrategy.cs" />
-    <Compile Include="Services\IAzureStorageAccountService.cs" />
     <Compile Include="Services\IApplicationInformationService.cs" />
     <Compile Include="Services\Implementations\ApplicationInformationService.cs" />
     <Compile Include="Services\Implementations\OIDCNotificationHandlerService.cs" />
@@ -436,6 +430,8 @@
   <ItemGroup>
     <Folder Include="Initialization\Integration\Azure\AzureStorage\" />
     <Folder Include="Initialization\Interception\" />
+    <Folder Include="Initialization\Storage\AzureStorageAccount\" />
+    <Folder Include="Services\Configuration\Implementations\Base\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Db\Migrations\Core\201712040611471_Initialize.resx">

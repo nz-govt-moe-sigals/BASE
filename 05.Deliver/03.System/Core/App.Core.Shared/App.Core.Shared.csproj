@@ -56,8 +56,7 @@
     <Compile Include="Factories\GuidFactory.cs" />
     <Compile Include="Models\ConfigurationSettings\AzureCommonConfigurationSettings.cs" />
     <Compile Include="Models\ConfigurationSettings\AzureDocumentDbConfigurationSettings.cs" />
-    <Compile Include="Models\ConfigurationSettings\AzureStorageAccountMedia2ConfigurationSettings.cs" />
-    <Compile Include="Models\ConfigurationSettings\AzureStorageAccountMedia1ConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\AzureStorageAccountDefaultConfigurationSettings.cs" />
     <Compile Include="Models\ConfigurationSettings\IHostSettingsBasedConfigurationObject.cs" />
     <Compile Include="Models\ConfigurationSettings\IStorageAccountConfigurationSettings.cs" />
     <Compile Include="Models\ConfigurationSettings\ScaniiHostConfiguration.cs" />

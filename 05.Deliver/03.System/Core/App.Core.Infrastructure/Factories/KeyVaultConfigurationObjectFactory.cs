@@ -149,11 +149,11 @@
 
 
                 // Use aliases first, as they can be richer, if there are any:
-                var aliasAttribute = propertyInfo.GetCustomAttribute<AliasAttribute>();
+                var alias = propertyInfo.GetAlias();
 
-                if (aliasAttribute != null)
+                if (alias != null)
                 {
-                    hostKey = aliasAttribute.DisplayName;
+                    hostKey = alias;
                 }
 
                 // Falling back to the property's name

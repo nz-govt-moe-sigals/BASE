@@ -2,14 +2,15 @@
 namespace App.Core.Shared.Models.ConfigurationSettings
 {
     using App.Core.Shared.Attributes;
+    using App.Core.Shared.Constants;
 
     /// <summary>
     /// An immutable host configuration object 
     /// describing the configuration needed to 
     /// access the
-    /// Media1 Azure Storage Account Service.
+    /// Media Azure Storage Account Service.
     /// </summary>
-    public class AzureStorageAccountMedia1ConfigurationSettings: IKeyVaultBasedConfigurationObject, IStorageAccountConfigurationSettings
+    public class AzureStorageAccountDefaultConfigurationSettings: IKeyVaultBasedConfigurationObject, IStorageAccountConfigurationSettings
     {
         /// <summary>
         /// Gets or sets (from AppSettings)
@@ -17,7 +18,7 @@ namespace App.Core.Shared.Models.ConfigurationSettings
         /// <para>
         /// <para>
         /// If not provided in AppSettings, using
-        /// <see cref="Shared.Constants.ConfigurationKeys.AppCoreIntegrationAzureStorageAccountMedia2ResourceName"/>
+        /// <see cref="ConfigurationKeys.AppCoreIntegrationAzureStorageAccountDefaultResourceName"/>
         /// falls back to 
         /// <see cref="Shared.Constants.ConfigurationKeys.AppCoreIntegrationAzureCommonResourceName"/>
         /// plus 'di'.
@@ -25,7 +26,7 @@ namespace App.Core.Shared.Models.ConfigurationSettings
         /// </para>
         /// </summary>
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
-        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationAzureStorageAccountMedia1ResourceName)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationAzureStorageAccountDefaultResourceName)]
         public string ResourceName
         {
             get; set;
@@ -44,13 +45,13 @@ namespace App.Core.Shared.Models.ConfigurationSettings
         /// </para>
         /// <para>
         /// Can be overridden (or cleared) using 
-        /// <see cref="Shared.Constants.ConfigurationKeys.AppCoreIntegrationAzureStorageAccountMedia1ResourceNameSuffix"/>,
+        /// <see cref="ConfigurationKeys.AppCoreIntegrationAzureStorageAccountDefaultResourceNameSuffix"/>,
         /// in AppSettings.
         /// </para>
         /// </para>
         /// </summary>
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
-        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationAzureStorageAccountMedia1ResourceNameSuffix)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationAzureStorageAccountDefaultResourceNameSuffix)]
         public string ResourceNameSuffix
         {
             get; set;
@@ -66,18 +67,18 @@ namespace App.Core.Shared.Models.ConfigurationSettings
         /// The key.
         /// </value>
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
-        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationAzureStorageAccountMedia1Key)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationAzureStorageAccountDefaultKey)]
         public string Key
         {
             get; set;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AzureStorageAccountMedia1ConfigurationSettings"/> class.
+        /// Initializes a new instance of the <see cref="AzureStorageAccountDefaultConfigurationSettings"/> class.
         /// </summary>
-        public AzureStorageAccountMedia1ConfigurationSettings()
+        public AzureStorageAccountDefaultConfigurationSettings()
         {
-            ResourceNameSuffix = "m1";
+            ResourceNameSuffix = "";
         }
 
     }

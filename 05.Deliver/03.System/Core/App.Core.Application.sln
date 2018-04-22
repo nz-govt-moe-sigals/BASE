@@ -23,6 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "README", "README", "{8A4F3C
 	ProjectSection(SolutionItems) = preProject
 		Readme\readme.apis.md = Readme\readme.apis.md
 		Readme\readme.blank - Copy (6).md = Readme\readme.blank - Copy (6).md
+		Readme\readme.blank.storage.md = Readme\readme.blank.storage.md
 		Readme\readme.conventions.md = Readme\readme.conventions.md
 		readme.md = readme.md
 		Readme\readme.objectives.md = Readme\readme.objectives.md
@@ -72,7 +73,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module3.Application", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blanks", "Blanks", "{EF96B243-C7AF-4471-88CE-3B1137076005}"
 	ProjectSection(SolutionItems) = preProject
-		Readme\readme.blank - Copy (2).md = Readme\readme.blank - Copy (2).md
 		Readme\readme.blank - Copy (3).md = Readme\readme.blank - Copy (3).md
 		Readme\readme.blank - Copy (4).md = Readme\readme.blank - Copy (4).md
 		Readme\readme.blank - Copy (5).md = Readme\readme.blank - Copy (5).md
