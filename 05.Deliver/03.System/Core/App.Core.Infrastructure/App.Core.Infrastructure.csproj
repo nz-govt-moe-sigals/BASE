@@ -139,7 +139,8 @@
     <Compile Include="Constants\Module\Names.cs" />
     <Compile Include="Constants\Roles\Class1.cs" />
     <Compile Include="Constants\Roles\RoleNames.cs" />
-    <Compile Include="Constants\Storage\public BlobStorageContextNames.cs" />
+    <Compile Include="Constants\Storage\BlobStorageContainers.cs" />
+    <Compile Include="Constants\Storage\StorageAccountNames.cs" />
     <Compile Include="Constants\Todo\Todo.cs" />
     <Compile Include="Contracts\IHasAudited.cs" />
     <Compile Include="Db\Context\AppCoreDbContext.cs" />
@@ -275,8 +276,10 @@
     <Compile Include="Factories\KeyVaultClientFactory.cs" />
     <Compile Include="Initialization\Verification\ApplicationSettingsInitializer.cs" />
     <Compile Include="Initialization\Verification\VerificationInitializer.cs" />
-    <Compile Include="Integration\Azure\Storage\AppCoreAzureStorageBlobContext.cs" />
+    <Compile Include="Integration\Azure\Storage\AppCoreAzureStorageDefaultBlobContext.cs" />
+    <Compile Include="Integration\Azure\Storage\AppCoreAzureStorageDefaultQueueContext.cs" />
     <Compile Include="Integration\Azure\Storage\IAzureStorageBlobContext.cs" />
+    <Compile Include="Integration\Azure\Storage\IAzureStorageQueueContext.cs" />
     <Compile Include="Interceptors\Class1.cs" />
     <Compile Include="Services\Caches\Implementations\KeyVaultServiceConfigurationObjectCache.cs" />
     <Compile Include="Services\Configuration\ICoreServiceConfigurationObject.cs" />
@@ -292,12 +295,14 @@
     <Compile Include="Services\IAzureKeyVaultService.cs" />
     <Compile Include="Services\IAzureBlobStorageService.cs" />
     <Compile Include="Services\Configuration\Implementations\ApplicationInformationServiceConfiguration.cs" />
+    <Compile Include="Services\IAzureQueueStorageService.cs" />
     <Compile Include="Services\IHasAzureDocumentDbBaseService.cs" />
     <Compile Include="Services\Implementations\AzureDocumentDBService.cs" />
     <Compile Include="Services\Implementations\AzureKeyVaultService.cs" />
     <Compile Include="Services\Implementations\AzureBlobStorageService.cs" />
     <Compile Include="Services\Caches\Implementations\HostSettingsServiceConfigurationObjectCache.cs" />
     <Compile Include="Services\Implementations\AuthenticationMsiTokenService.cs" />
+    <Compile Include="Services\Implementations\AzureQueueStorageService.cs" />
     <Compile Include="Services\Implementations\Base\AzureDocumentDbBaseService.cs" />
     <Compile Include="Services\Implementations\ContextService.cs" />
     <Compile Include="Services\IAuthenticationService.cs" />
@@ -412,6 +417,7 @@
     <None Include="Services\Implementations\_readme.md" />
     <None Include="Services\_readme.md" />
     <None Include="_old\_readme.md" />
+    <None Include="_readme.nuget.md" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Db\Interception\README.txt" />
