@@ -1,3 +1,5 @@
+using App.Module3.Infrastructure.Db.Schema.Conventions;
+
 namespace App.Module3.Infrastructure.Db.Schema
 {
     using System.Data.Entity;
@@ -7,9 +9,9 @@ namespace App.Module3.Infrastructure.Db.Schema
 
     public class AppModule3DbContextModelBuilderDefineAreaUnit : IHasAppModule3DbContextModelBuilderInitializer
     {
-        private readonly TenantedFIRSTSIFKeyedGuidIdReferenceDataConvention _schemaDefinitionDataConvetion;
+        private readonly TenantedFIRSTKeyedGuidIdReferenceDataConvention _schemaDefinitionDataConvetion;
 
-        public AppModule3DbContextModelBuilderDefineAreaUnit(TenantedFIRSTSIFKeyedGuidIdReferenceDataConvention schemaDefinitionDataConvetion)
+        public AppModule3DbContextModelBuilderDefineAreaUnit(TenantedFIRSTKeyedGuidIdReferenceDataConvention schemaDefinitionDataConvetion)
         {
             this._schemaDefinitionDataConvetion = schemaDefinitionDataConvetion;
         }

@@ -1,3 +1,5 @@
+using App.Module3.Infrastructure.Db.Schema.Conventions;
+
 namespace App.Module3.Infrastructure.Db.Schema
 {
     using System.Data.Entity;
@@ -7,9 +9,9 @@ namespace App.Module3.Infrastructure.Db.Schema
 
     public class AppModule3DbContextModelBuilderDefineTerritorialAuthority : IHasAppModule3DbContextModelBuilderInitializer
     {
-        private readonly TenantedFIRSTSIFKeyedGuidIdReferenceDataConvention _schemaDefinitionConvention;
+        private readonly TenantedFIRSTKeyedGuidIdReferenceDataConvention _schemaDefinitionConvention;
 
-        public AppModule3DbContextModelBuilderDefineTerritorialAuthority(TenantedFIRSTSIFKeyedGuidIdReferenceDataConvention schemaDefinitionConvention)
+        public AppModule3DbContextModelBuilderDefineTerritorialAuthority(TenantedFIRSTKeyedGuidIdReferenceDataConvention schemaDefinitionConvention)
         {
             this._schemaDefinitionConvention = schemaDefinitionConvention;
         }

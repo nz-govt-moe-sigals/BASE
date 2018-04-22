@@ -1,23 +1,22 @@
-
-
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure.Annotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using App.Core.Infrastructure.Constants.Db;
+using App.Core.Infrastructure.Db.Schema.Conventions;
+using App.Module3.Shared.Models.Entities;
 
 namespace App.Module3.Infrastructure.Db.Schema.Conventions
 {
-    using System;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity;
-    using System.Data.Entity.Infrastructure.Annotations;
-    using App.Core.Infrastructure.Constants.Db;
-    using App.Core.Shared.Models.Entities.Base;
-    using App.Module3.Shared.Models.Entities;
-
-    public class TenantedFIRSTSIFKeyedGuidIdReferenceDataConvention : TenantedFIRSTKeyedGuidIdReferenceDataConvention
+    public class TenantedFIRSTKeyedGuidIdReferenceDataConvention : TenantedReferenceDataConvention
     {
-
-
         public new void Define<T>(DbModelBuilder modelBuilder, ref int order,
             Func<int, int> injectedPropertyDefs = null)
-            where T : TenantedFIRSTSIFKeyedGuidIdReferenceDataBase
+            where T : TenantedFIRSTKeyedGuidIdReferenceDataBase
         {
 
             string typeName = typeof(T).Name;
@@ -29,13 +28,14 @@ namespace App.Module3.Infrastructure.Db.Schema.Conventions
                 {
                     return o;
                 }
-                // Now inject into the position you want added.
-                // It will push over the existing ones... I think...
+
+
                 modelBuilder.Entity<T>()
-                    .Property(x => x.SIFKey)
+                    .Property(x => x.FIRSTKey)
                     .HasColumnOrder(o++)
+                    .HasMaxLength(TextFieldSizes.X10)
                     .HasColumnAnnotation("Index",
-                        new IndexAnnotation(new IndexAttribute($"IX_{typeName}_SIFKey")
+                        new IndexAnnotation(new IndexAttribute($"IX_{typeName}_FIRSTKey")
                         {
                             IsUnique = true
                         }))
@@ -46,12 +46,8 @@ namespace App.Module3.Infrastructure.Db.Schema.Conventions
                     o = injectedPropertyDefs.Invoke(o);
                 }
 
-
                 return o;
             });
-
-
         }
-
     }
 }
