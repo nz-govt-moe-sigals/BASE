@@ -5,11 +5,11 @@ using AutoMapper;
 
 namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract.Base
 {
-    public class ObjectMap_BaseReference_TenantedFIRSTSIFKeyedGuidIdReferenceDataBase : IHasAutomapperInitializer
+    public class ObjectMap_BaseReference_SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase : IHasAutomapperInitializer
     {
         public void Initialize(IMapperConfigurationExpression config)
         {
-            config.CreateMap<BaseReference, TenantedFIRSTSIFKeyedGuidIdReferenceDataBase>()
+            config.CreateMap<BaseReference, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase>()
                 .Include<ReferenceOrganisationStatus, EducationProviderStatus>()
                 .Include<ReferenceOrganisationType, EducationProviderType>()
                 .Include<ReferenceRegion, Region>()
@@ -43,6 +43,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract.Base
                 .ForMember(dest => dest.RecordState, opt => opt.Ignore())
                 .ForMember(dest => dest.TenantFK, opt => opt.Ignore())
                 .ForMember(dest => dest.Timestamp, opt => opt.Ignore())
+                .ForMember(dest => dest.SourceSystemName, opt => opt.Ignore())
                 .ForMember(dest => dest.SourceSystemKey, opt => opt.MapFrom(s => s.Code))
                 .ForMember(dest => dest.Text, opt => opt.MapFrom(s => s.Description))
 

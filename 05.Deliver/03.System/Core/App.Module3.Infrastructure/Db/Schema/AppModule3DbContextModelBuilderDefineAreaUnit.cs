@@ -9,9 +9,9 @@ namespace App.Module3.Infrastructure.Db.Schema
 
     public class AppModule3DbContextModelBuilderDefineAreaUnit : IHasAppModule3DbContextModelBuilderInitializer
     {
-        private readonly TenantedFIRSTSIFKeyedGuidIdReferenceDataConvention _schemaDefinitionDataConvetion;
+        private readonly TenantedSIFSourceSystemKeyedGuidIdReferenceDataConvention _schemaDefinitionDataConvetion;
 
-        public AppModule3DbContextModelBuilderDefineAreaUnit(TenantedFIRSTSIFKeyedGuidIdReferenceDataConvention schemaDefinitionDataConvetion)
+        public AppModule3DbContextModelBuilderDefineAreaUnit(TenantedSIFSourceSystemKeyedGuidIdReferenceDataConvention schemaDefinitionDataConvetion)
         {
             this._schemaDefinitionDataConvetion = schemaDefinitionDataConvetion;
         }

@@ -1,22 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure.Annotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using App.Core.Infrastructure.Constants.Db;
-using App.Core.Infrastructure.Db.Schema.Conventions;
-using App.Module3.Shared.Models.Entities;
+
+
 
 namespace App.Module3.Infrastructure.Db.Schema.Conventions
 {
-    public class TenantedFIRSTKeyedGuidIdReferenceDataConvention : TenantedReferenceDataConvention
+    using System;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity;
+    using System.Data.Entity.Infrastructure.Annotations;
+    using App.Core.Infrastructure.Constants.Db;
+    using App.Core.Shared.Models.Entities.Base;
+    using App.Module3.Shared.Models.Entities;
+
+    public class TenantedSIFSourceSystemKeyedGuidIdReferenceDataConvention : TenantedSourceSystemKeyedGuidIdReferenceDataConvention
     {
+
+
         public new void Define<T>(DbModelBuilder modelBuilder, ref int order,
             Func<int, int> injectedPropertyDefs = null)
-            where T : TenantedFIRSTKeyedGuidIdReferenceDataBase
+            where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase
         {
 
             string typeName = typeof(T).Name;
@@ -24,18 +25,18 @@ namespace App.Module3.Infrastructure.Db.Schema.Conventions
             // Call underlying method first:
             base.Define<T>(modelBuilder, ref order, o =>
             {
-                if (o != 11)
+                if (o != 12)
                 {
                     return o;
                 }
-
-
+                // Now inject into the position you want added.
+                // It will push over the existing ones... I think...
                 modelBuilder.Entity<T>()
-                    .Property(x => x.FIRSTKey)
+                    .Property(x => x.SIFKey)
                     .HasColumnOrder(o++)
                     .HasMaxLength(TextFieldSizes.X10)
                     .HasColumnAnnotation("Index",
-                        new IndexAnnotation(new IndexAttribute($"IX_{typeName}_FIRSTKey")
+                        new IndexAnnotation(new IndexAttribute($"IX_{typeName}_SIFKey")
                         {
                             IsUnique = true
                         }))
@@ -46,8 +47,12 @@ namespace App.Module3.Infrastructure.Db.Schema.Conventions
                     o = injectedPropertyDefs.Invoke(o);
                 }
 
+
                 return o;
             });
+
+
         }
+
     }
 }

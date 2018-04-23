@@ -5,7 +5,7 @@ namespace App.Module3.Shared.Models.Entities
     /// <summary>
     /// NZ : Organisation Type
     /// </summary>
-    public class EducationProviderType : TenantedSourceKeySIFKeyedGuidIdReferenceDataBase
+    public class EducationProviderType : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase
     {
     }
 }

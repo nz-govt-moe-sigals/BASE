@@ -5,7 +5,7 @@ namespace App.Module3.Shared.Models.Entities
     /// <summary>
     /// AU: Operational Status
     /// </summary>
-    public class EducationProviderStatus : TenantedSourceKeySIFKeyedGuidIdReferenceDataBase
+    public class EducationProviderStatus : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase
     {
     }
 }

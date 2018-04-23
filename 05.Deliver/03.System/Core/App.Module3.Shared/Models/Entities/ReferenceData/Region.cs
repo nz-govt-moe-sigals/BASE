@@ -5,7 +5,7 @@ namespace App.Module3.Shared.Models.Entities
     /// <summary>
     /// NZ: Region
     /// </summary>
-    public class Region : TenantedSourceKeySIFKeyedGuidIdReferenceDataBase
+    public class Region : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase
     {
     }
 }

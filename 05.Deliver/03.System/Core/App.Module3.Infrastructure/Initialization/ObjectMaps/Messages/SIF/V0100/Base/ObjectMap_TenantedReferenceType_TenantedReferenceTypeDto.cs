@@ -16,9 +16,9 @@
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TDto">The type of the dto.</typeparam>
     /// <seealso cref="App.Core.Infrastructure.Initialization.ObjectMaps.IHasAutomapperInitializer" />
-    public abstract class ObjectMap_TenantedFIRSTSIFKeyedGuidIdReferenceDataBase_TenantedSIFReferenceTypeDto<T,TDto> 
+    public abstract class ObjectMap_SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase_TenantedSIFReferenceTypeDto<T,TDto> 
         : IHasAutomapperInitializer
-        where T : TenantedSourceKeySIFKeyedGuidIdReferenceDataBase
+        where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase
         where TDto: TenantedSIFReferenceDtoBase
     {
 

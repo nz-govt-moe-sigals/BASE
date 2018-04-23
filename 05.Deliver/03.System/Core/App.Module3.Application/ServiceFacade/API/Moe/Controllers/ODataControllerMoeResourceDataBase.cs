@@ -16,7 +16,7 @@ using AutoMapper.QueryableExtensions;
 namespace App.Module3.Application.ServiceFacade.API.Moe.Controllers
 {
     public abstract  class ODataControllerMoeResourceDataBase<TEntity, TDto> : ODataControllerBase
-        where TEntity : class, IHasGuidId, IHasFIRSTKey, IHasRecordState, new()
+        where TEntity : class, IHasGuidId, IHasSourceSystemKey, IHasRecordState, new()
         where TDto : class, IHasSIFIdAsStringId, new()
     {
         private readonly IObjectMappingService _objectMappingService;
@@ -48,7 +48,7 @@ namespace App.Module3.Application.ServiceFacade.API.Moe.Controllers
         protected void InternalPost(TDto value)
         {
             //Update an existing record:
-            var entity = InternalGetDbSet().SingleOrDefault(x => x.FIRSTKey.ToString() == value.Id);
+            var entity = InternalGetDbSet().SingleOrDefault(x => x.SourceSystemKey.ToString() == value.Id);
             this._objectMappingService.Map(value, entity);
             // Nothing else to do (it's already being tracked)
             //so when committed later, will be saved.

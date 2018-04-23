@@ -82,7 +82,9 @@ namespace App.Core.Infrastructure.Services.Implementations
             {
                 blob.UploadText(text);
             }
+#pragma warning disable 168
             catch (Microsoft.WindowsAzure.Storage.StorageException e)
+#pragma warning restore 168
             {
                 this._diagnosticsTracingService.Trace(TraceLevel.Error, $"Container '{containerName}' does not exist to upload to.");
             }
@@ -119,7 +121,9 @@ namespace App.Core.Infrastructure.Services.Implementations
 
                 blob.UploadFromFile(localFilePath);
             }
+#pragma warning disable 168
             catch (Microsoft.WindowsAzure.Storage.StorageException e)
+#pragma warning restore 168
             {
                 this._diagnosticsTracingService.Trace(TraceLevel.Error,
                     $"Container '{containerName}' does not exist to upload to.");

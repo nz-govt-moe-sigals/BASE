@@ -18,22 +18,9 @@ namespace App.Module3.Shared.Models.Entities
     /// <seealso cref="App.Module3.Shared.Models.IHasSourceSystemKey" />
     /// <seealso cref="App.Module3.Shared.Models.IHasSIFKey" />
     // ReSharper disable once InconsistentNaming
-    public class TenantedSourceKeySIFKeyedGuidIdReferenceDataBase : TenantedGuidIdReferenceDataBase, IHasSourceSystemKey, IHasSIFKey
+    public class SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase : SourceSystemKeyedTenantedGuidIdReferenceDataBase, IHasSIFKey
     {
-        /// <summary>
-        /// Gets or sets the name of systme that provided
-        /// the <see cref="SourceSystemKey" /> (eg: FIRST).
-        /// </summary>
-        public string SourceSystemName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the source system (eg: MOE'S FIRST) defined key.
-        /// <para>
-        /// The type is string as not all source codes
-        /// are integers (eg: LocalOffice is a string).
-        /// </para>
-        /// </summary>
-        public string SourceSystemKey {get; set;}
+ 
 
         /// <summary>
         /// Gets or sets the PK used by SIF API Messages.

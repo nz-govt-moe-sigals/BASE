@@ -5,7 +5,7 @@ namespace App.Module3.Shared.Models.Entities
     /// <summary>
     /// NZ : School Definition
     /// </summary>
-    public class EducationProviderClassification : TenantedSourceKeySIFKeyedGuidIdReferenceDataBase
+    public class EducationProviderClassification : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase
     {
 
     }

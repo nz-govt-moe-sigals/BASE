@@ -23,7 +23,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
     /// <seealso cref="App.Core.Infrastructure.Initialization.ObjectMaps.IHasAutomapperInitializer" />
     public class ObjectMap_TenantedFIRSTKeyedGuidIdReferenceDataBase_TenantedSIFReferenceTypeDto<T, TDto>
         : IHasAutomapperInitializer
-        where T : TenantedFIRSTKeyedGuidIdReferenceDataBase
+        where T : SourceSystemKeyedTenantedGuidIdReferenceDataBase
         where TDto : TenantedSIFReferenceDtoBase
     {
 
@@ -32,8 +32,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
             config.CreateMap<T, TDto>()
                 // IMPORTANT: Note that we are mapping from SIF to Id.
                 // Hopefully Automapper's Project method can handle this magic...
-                .ForMember(t => t.Id, opt => opt.MapFrom(s => s.FIRSTKey))
-                .ForMember(t => t.TenantFK, opt => opt.MapFrom(s => s.TenantFK))
+                .ForMember(t => t.Id, opt => opt.MapFrom(s => s.SourceSystemKey))
                 .ForMember(t => t.Text, opt => opt.MapFrom(s => s.Text))
                 ;
         }

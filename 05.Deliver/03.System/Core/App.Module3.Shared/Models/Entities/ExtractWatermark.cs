@@ -1,9 +1,5 @@
 ﻿using App.Core.Shared.Models.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace App.Module3.Shared.Models.Entities
 {
@@ -15,7 +11,7 @@ namespace App.Module3.Shared.Models.Entities
         public string SourceTableName { get; set; }
 
         /// <summary>
-        /// The last updated time
+        /// The last (UTC) updated time
         /// </summary>
         public DateTime Watermark {get; set;}
     }

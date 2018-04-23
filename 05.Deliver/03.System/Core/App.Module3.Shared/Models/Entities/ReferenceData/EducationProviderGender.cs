@@ -6,7 +6,7 @@ namespace App.Module3.Shared.Models.Entities
     /// AU: School Co-Ed Status
     /// NZ: Schooling Gender
     /// </summary>
-    public class EducationProviderGender : TenantedSourceKeySIFKeyedGuidIdReferenceDataBase
+    public class EducationProviderGender : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase
     {
     }
 }

@@ -10,11 +10,11 @@ using AutoMapper;
 
 namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract.Base
 {
-    public class ObjectMap_BaseReference_TenantedFIRSTKeyedGuidIdReferenceDataBase : IHasAutomapperInitializer
+    public class ObjectMap_BaseReference_SourceSystemKeyedTenantedGuidIdReferenceDataBase : IHasAutomapperInitializer
     {
         public void Initialize(IMapperConfigurationExpression config)
         {
-            config.CreateMap<BaseReference, TenantedFIRSTKeyedGuidIdReferenceDataBase>()
+            config.CreateMap<BaseReference, SourceSystemKeyedTenantedGuidIdReferenceDataBase>()
                 .ForMember(dest => dest.CreatedByPrincipalId, opt => opt.Ignore())
                 .ForMember(dest => dest.CreatedOnUtc, opt => opt.Ignore())
                 .ForMember(dest => dest.DeletedByPrincipalId, opt => opt.Ignore())
@@ -28,7 +28,8 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract.Base
                 .ForMember(dest => dest.RecordState, opt => opt.Ignore())
                 .ForMember(dest => dest.TenantFK, opt => opt.Ignore())
                 .ForMember(dest => dest.Timestamp, opt => opt.Ignore())
-                .ForMember(dest => dest.FIRSTKey, opt => opt.MapFrom(s => s.Code))
+                .ForMember(dest => dest.SourceSystemName, opt => opt.Ignore())
+                .ForMember(dest => dest.SourceSystemKey, opt => opt.MapFrom(s => s.Code))
                 .ForMember(dest => dest.Text, opt => opt.MapFrom(s => s.Description))
                 ;
         }

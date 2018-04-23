@@ -5,7 +5,7 @@ namespace App.Module3.Shared.Models.Entities
     /// <summary>
     /// AU: Year Level Code
     /// </summary>
-    public class EducationProviderYearLevel : TenantedSourceKeySIFKeyedGuidIdReferenceDataBase
+    public class EducationProviderYearLevel : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase
     {
     }
 }

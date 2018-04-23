@@ -12,7 +12,6 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
     /// in order to be auto discoverable/registerable at startup.
     /// </para>
     /// </summary>
-    /// <seealso cref="App.Core.Infrastructure.Initialization.ObjectMaps.Messages.V0100.Base.ObjectMap_TenantedFIRSTSIFKeyedGuidIdReferenceDataBase_TenantedSIFReferenceTypeDto{App.Module3.Shared.Models.Entities.TeacherEducation, App.Module3.Shared.Models.Messages.V0100.TeacherEducationDto}" />
     public class ObjectMap_SchoolTeacherEducation_SchoolTeacherEducationDto
         : ObjectMap_TenantedFIRSTKeyedGuidIdReferenceDataBase_TenantedSIFReferenceTypeDto
             <TeacherEducation, TeacherEducationDto>
