@@ -3,7 +3,7 @@
     using System;
     using App.Core.Shared.Models.Entities;
 
-    public class EducationProviderEnrolmentCount : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase, IHasSourceReferenceId
+    public class EducationProviderEnrolmentCount : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase, IHasSourceSystemKey
     {
 
         /// <summary>
@@ -64,6 +64,8 @@
         /// <summary>
         /// The Reference(record) Id that was received from the source 
         /// </summary>
-        public int SourceReferenceId { get; set; }
+        public string SourceSystemKey { get; set; }
+
+        public string SourceSystemName { get; set; }
     }
 }

@@ -12,6 +12,7 @@ using App.Module3.Infrastructure.Constants.Db;
 using App.Module3.Shared.Models;
 using App.Module3.Shared.Models.Entities;
 using AutoMapper.QueryableExtensions;
+using IHasSourceSystemKey = App.Module3.Shared.Models.IHasSourceSystemKey;
 
 namespace App.Module3.Application.ServiceFacade.API.Moe.Controllers
 {

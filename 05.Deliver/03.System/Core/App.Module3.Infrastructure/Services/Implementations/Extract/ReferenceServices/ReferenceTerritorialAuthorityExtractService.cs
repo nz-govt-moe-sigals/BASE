@@ -23,14 +23,14 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.ReferenceS
         public override void UpdateLocalData(ReferenceTerritorialAuthority item)
         {
             var mappedEntity = Mapper.Map<ReferenceTerritorialAuthority, TerritorialAuthority>(item);
-            var areaUnitsLookup = _repositoryService.GetAreaUnits< TerritorialAuthority>(); // is CACHED DATA
+            var areaUnitsLookup = _repositoryService.GetSifCachedData< TerritorialAuthority>(); // is CACHED DATA
             if (areaUnitsLookup.TryGetValue(mappedEntity.SourceSystemKey, out var existingEntity))
             {
-                _repositoryService.UpdateAreaUnit(existingEntity, mappedEntity);
+                _repositoryService.UpdateSifData(existingEntity, mappedEntity);
             }
             else
             {
-                _repositoryService.AddAreaUnit(mappedEntity);
+                _repositoryService.AddSifData(mappedEntity);
             }
             //_repositoryService.UpdateOnCommit(_dbKey, );
             // Some Sky Magic Code

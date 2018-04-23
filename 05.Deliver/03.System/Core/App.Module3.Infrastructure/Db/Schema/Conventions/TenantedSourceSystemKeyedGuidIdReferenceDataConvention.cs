@@ -46,6 +46,17 @@ namespace App.Module3.Infrastructure.Db.Schema.Conventions
                     o = injectedPropertyDefs.Invoke(o);
                 }
 
+                modelBuilder.Entity<T>()
+                    .Property(x => x.SourceSystemName)
+                    .HasColumnOrder(o++)
+                    .HasMaxLength(TextFieldSizes.X256)
+                    .IsOptional();
+
+                if (injectedPropertyDefs != null)
+                {
+                    o = injectedPropertyDefs.Invoke(o);
+                }
+
                 return o;
             });
         }

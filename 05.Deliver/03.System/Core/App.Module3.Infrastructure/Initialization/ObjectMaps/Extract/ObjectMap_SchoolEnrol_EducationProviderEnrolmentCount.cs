@@ -25,7 +25,8 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract
                 .ForMember(dest => dest.Pasifika, opt => opt.MapFrom(s => s.Pasifika))
                 .ForMember(dest => dest.SchoolFK, opt => opt.Ignore()) //.ForMember(dest => dest.SchoolFK, opt => opt.MapFrom(s => s.SchoolId))
                 .ForMember(dest => dest.TotalRoll, opt => opt.MapFrom(s => s.TotalRoll))
-                .ForMember(dest => dest.SourceReferenceId, opt => opt.MapFrom(s => s.EnrolId))
+                .ForMember(dest => dest.SourceSystemKey, opt => opt.MapFrom(s => s.EnrolId))
+                .ForMember(dest => dest.SourceSystemName, opt => opt.Ignore())
                 ;
         }
     }

@@ -98,6 +98,10 @@
     <Compile Include="Db\Migrations\Module3\201804232143154_Entities.MisingRelationshipType.Designer.cs">
       <DependentUpon>201804232143154_Entities.MisingRelationshipType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Db\Migrations\Module3\201804232312227_Entities.UpdateSourceSystemKeyDefinitons.cs" />
+    <Compile Include="Db\Migrations\Module3\201804232312227_Entities.UpdateSourceSystemKeyDefinitons.Designer.cs">
+      <DependentUpon>201804232312227_Entities.UpdateSourceSystemKeyDefinitons.cs</DependentUpon>
+    </Compile>
     <Compile Include="Db\Migrations\Module3\Configuration.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineExtractWatermark.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineRelationshipType.cs" />
@@ -188,6 +192,10 @@
     <Compile Include="Services\Configuration\BaseExtractServiceConfiguration.cs" />
     <Compile Include="Services\Implementations\Configuration\ExtractCachedRepoObject.cs" />
     <Compile Include="Services\Implementations\Configuration\ExtractDocumentDbServiceConfiguration.cs" />
+    <Compile Include="Services\Implementations\Extract\DataServices\SchoolEnrolExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\DataServices\SchoolLevelGenderExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\DataServices\SchoolProfilesExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\DataServices\SchoolWGSExtractService.cs" />
     <Compile Include="Services\Implementations\Extract\ExtractAzureDocumentDbService.cs" />
     <Compile Include="Services\Implementations\Extract\BaseExtractService.cs" />
     <Compile Include="Services\Implementations\Extract\ExtractRepositoryService.cs" />
@@ -236,7 +244,6 @@
     <Folder Include="ExtensionMethods\" />
     <Folder Include="Factories\" />
     <Folder Include="Initialization\ObjectMaps\Messages\MOE\" />
-    <Folder Include="Services\Implementations\Extract\DataServices\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Db\Migrations\Module3.README.txt" />
@@ -262,6 +269,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Db\Migrations\Module3\201804232143154_Entities.MisingRelationshipType.resx">
       <DependentUpon>201804232143154_Entities.MisingRelationshipType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Db\Migrations\Module3\201804232312227_Entities.UpdateSourceSystemKeyDefinitons.resx">
+      <DependentUpon>201804232312227_Entities.UpdateSourceSystemKeyDefinitons.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

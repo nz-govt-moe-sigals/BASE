@@ -34,7 +34,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
             _repositoryService.AddOrUpdate<ExtractWatermark>(_dbKey, x => x.SourceTableName, watermark);
         }
 
-        public IDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase> GetAreaUnits<T>()
+        public IDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase> GetSifCachedData<T>()
             where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase
         {
             var cache = _repoObject.GetCachedLookUpData<T>();
@@ -48,14 +48,14 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         }
 
         //Hmmm probably should make this baseReference but ontodo list;
-        public void AddAreaUnit<T>(T newAreaUnit)
+        public void AddSifData<T>(T newAreaUnit)
             where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase
         {
-            GetAreaUnits<T>().Add(newAreaUnit.SourceSystemKey, newAreaUnit); 
+            GetSifCachedData<T>().Add(newAreaUnit.SourceSystemKey, newAreaUnit); 
             AddOnCommit(newAreaUnit);
         }
 
-        public void UpdateAreaUnit<T>(T exisitingAreaUnit, T newAreaUnit)
+        public void UpdateSifData<T>(T exisitingAreaUnit, T newAreaUnit)
             where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase
         {
             exisitingAreaUnit.Text = newAreaUnit.Text;

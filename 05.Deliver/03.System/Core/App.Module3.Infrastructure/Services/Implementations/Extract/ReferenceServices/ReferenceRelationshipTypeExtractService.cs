@@ -23,14 +23,14 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.ReferenceS
         public override void UpdateLocalData(ReferenceRelationshipType item)
         {
             var mappedEntity = Mapper.Map<ReferenceRelationshipType, RelationshipType>(item);
-            var areaUnitsLookup = _repositoryService.GetAreaUnits< RelationshipType>(); // is CACHED DATA
+            var areaUnitsLookup = _repositoryService.GetSifCachedData< RelationshipType>(); // is CACHED DATA
             if (areaUnitsLookup.TryGetValue(mappedEntity.SourceSystemKey, out var existingEntity))
             {
-                _repositoryService.UpdateAreaUnit(existingEntity, mappedEntity);
+                _repositoryService.UpdateSifData(existingEntity, mappedEntity);
             }
             else
             {
-                _repositoryService.AddAreaUnit(mappedEntity);
+                _repositoryService.AddSifData(mappedEntity);
             }
             //_repositoryService.UpdateOnCommit(_dbKey, );
             // Some Sky Magic Code

@@ -20,7 +20,8 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract
                 .ForMember(dest => dest.Latitude, opt => opt.MapFrom(s => s.WgsX))
                 .ForMember(dest => dest.Longitude, opt => opt.MapFrom(s => s.WgsY))
                 .ForMember(dest => dest.EducationProviderFK, opt => opt.Ignore()) // .ForMember(dest => dest.EducationProviderFK, opt => opt.MapFrom(s => s.InstitutionNumber))
-                .ForMember(dest => dest.SourceReferenceId, opt => opt.MapFrom(s => s.WgsId))
+                .ForMember(dest => dest.SourceSystemKey, opt => opt.MapFrom(s => s.WgsId))
+                .ForMember(dest => dest.SourceSystemName, opt => opt.Ignore())
                 ;
         }
     }
