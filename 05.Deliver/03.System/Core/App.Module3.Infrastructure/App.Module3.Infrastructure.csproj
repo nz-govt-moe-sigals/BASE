@@ -94,6 +94,10 @@
     <Compile Include="Db\Migrations\Module3\201804230227245_Entities.SourceAndSIFKeys.Designer.cs">
       <DependentUpon>201804230227245_Entities.SourceAndSIFKeys.cs</DependentUpon>
     </Compile>
+    <Compile Include="Db\Migrations\Module3\201804232143154_Entities.MisingRelationshipType.cs" />
+    <Compile Include="Db\Migrations\Module3\201804232143154_Entities.MisingRelationshipType.Designer.cs">
+      <DependentUpon>201804232143154_Entities.MisingRelationshipType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Db\Migrations\Module3\Configuration.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineExtractWatermark.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineRelationshipType.cs" />
@@ -189,8 +193,25 @@
     <Compile Include="Services\Implementations\Extract\ExtractRepositoryService.cs" />
     <Compile Include="Services\Implementations\Extract\ExtractServiceController.cs" />
     <Compile Include="Services\IBaseExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\ReferenceAreaUnitExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceAreaUnitExtractService.cs" />
     <Compile Include="Services\IExtractRepositoryService.cs" />
+    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceAuthorityTypeExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceCommunityBoardExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceGeneralElectorateExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceMaoriElectorateExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceOrganisationStatusExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceOrganisationTypeExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceRegionalCouncilExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceRegionExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceRelationshipTypeExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceSchoolClassificationExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceSchoolingGenderExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceSchoolYearLevelExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceSpecialSchoolingExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceTeacherEducationExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceTerritorialAuthorityExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceUrbanAreaExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceWardExtractService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\App.Core.Infrastructure\App.Core.Infrastructure.csproj">
@@ -215,6 +236,7 @@
     <Folder Include="ExtensionMethods\" />
     <Folder Include="Factories\" />
     <Folder Include="Initialization\ObjectMaps\Messages\MOE\" />
+    <Folder Include="Services\Implementations\Extract\DataServices\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Db\Migrations\Module3.README.txt" />
@@ -237,6 +259,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Db\Migrations\Module3\201804230227245_Entities.SourceAndSIFKeys.resx">
       <DependentUpon>201804230227245_Entities.SourceAndSIFKeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Db\Migrations\Module3\201804232143154_Entities.MisingRelationshipType.resx">
+      <DependentUpon>201804232143154_Entities.MisingRelationshipType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using App.Core.Infrastructure.Services;
+﻿using App.Core.Infrastructure.Services;
 using App.Module3.Infrastructure.Services.Configuration;
 using App.Module3.Shared.Models.Entities;
 using App.Module3.Shared.Models.Messages.Extract;
 using AutoMapper;
 
-namespace App.Module3.Infrastructure.Services.Implementations.Extract
+namespace App.Module3.Infrastructure.Services.Implementations.Extract.ReferenceServices
 {
     public class ReferenceAreaUnitExtractService : BaseExtractService<ReferenceAreaUnit>
     {
-        public ReferenceAreaUnitExtractService(BaseExtractServiceConfiguration configuration, IExtractRepositoryService reposorityService, 
-            IUnitOfWorkService unitOfWorkService, IExtractAzureDocumentDbService documentDbService)
-            :base(configuration, reposorityService, unitOfWorkService, documentDbService)
+        public ReferenceAreaUnitExtractService(BaseExtractServiceConfiguration configuration, IExtractRepositoryService reposorityService, IExtractAzureDocumentDbService documentDbService)
+            :base(configuration, reposorityService,  documentDbService)
         {
 
         }
@@ -20,7 +17,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         public override void UpdateLocalData(ReferenceAreaUnit item)
         {
             var mappedEntity = Mapper.Map<ReferenceAreaUnit, AreaUnit>(item);
-            var areaUnitsLookup = _repositoryService.GetAreaUnits(); // is CACHED DATA
+            var areaUnitsLookup = _repositoryService.GetAreaUnits<AreaUnit>(); // is CACHED DATA
             if (areaUnitsLookup.TryGetValue(mappedEntity.SourceSystemKey, out var existingEntity))
             {
                 _repositoryService.UpdateAreaUnit(existingEntity, mappedEntity);

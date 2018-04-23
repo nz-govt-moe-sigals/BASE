@@ -17,5 +17,12 @@
         /// <param name="contextName">An optional specific repository name.</param>
         /// <returns>The number of changed records (in most cases ignore).</returns>
         int Commit(string contextName = null);
+
+        /// <summary>
+        ///     Commits a single specific named repository, or all of pending changes. hopefully in a more speedy fashion for big changes
+        /// </summary>
+        /// <param name="contextName">An optional specific repository name.</param>
+        /// <returns>The number of changed records (in most cases ignore).</returns>
+        int CommitBatch(string contextName = null);
     }
 }

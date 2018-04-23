@@ -14,11 +14,13 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         private string _dbKey = Constants.Db.AppModule3DbContextNames.Module3;
         private readonly IRepositoryService _repositoryService;
         private readonly ExtractCachedRepoObject _repoObject;
+        private readonly IUnitOfWorkService _unitOfWorkService;
 
-        public ExtractRepositoryService(ExtractCachedRepoObject repoObject, IRepositoryService repositoryService)
+        public ExtractRepositoryService(ExtractCachedRepoObject repoObject, IRepositoryService repositoryService, IUnitOfWorkService unitOfWorkService)
         {
             _repositoryService = repositoryService;
             _repoObject = repoObject ?? new ExtractCachedRepoObject();
+            _unitOfWorkService = unitOfWorkService;
         }
 
 
@@ -32,27 +34,37 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
             _repositoryService.AddOrUpdate<ExtractWatermark>(_dbKey, x => x.SourceTableName, watermark);
         }
 
-        public IDictionary<string, AreaUnit> GetAreaUnits()
+        public IDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase> GetAreaUnits<T>()
+            where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase
         {
-            if (_repoObject.AreaUnitsLookup == null)
+            var cache = _repoObject.GetCachedLookUpData<T>();
+            if (cache == null)
             {
-                _repoObject.AreaUnitsLookup = _repositoryService.GetQueryableSet<AreaUnit>(_dbKey)
-                    .ToDictionary(x => x.SourceSystemKey, x => x);
+                cache = _repositoryService.GetQueryableSet<T>(_dbKey)
+                    .ToDictionary(x => x.SourceSystemKey, x => (SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase) x);
+                _repoObject.CacheLookUpData<T>(cache);
             }
-            return _repoObject.AreaUnitsLookup;
+            return cache;
         }
 
         //Hmmm probably should make this baseReference but ontodo list;
-        public void AddAreaUnit(AreaUnit newAreaUnit)
+        public void AddAreaUnit<T>(T newAreaUnit)
+            where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase
         {
-            GetAreaUnits().Add(newAreaUnit.SourceSystemKey, newAreaUnit); 
+            GetAreaUnits<T>().Add(newAreaUnit.SourceSystemKey, newAreaUnit); 
             AddOnCommit(newAreaUnit);
         }
 
-        public void UpdateAreaUnit(AreaUnit exisitingAreaUnit, AreaUnit newAreaUnit)
+        public void UpdateAreaUnit<T>(T exisitingAreaUnit, T newAreaUnit)
+            where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase
         {
             exisitingAreaUnit.Text = newAreaUnit.Text;
             UpdateOnCommit(exisitingAreaUnit);
+        }
+
+        public void CommitResults()
+        {
+            _unitOfWorkService.CommitBatch(_dbKey);
         }
 
 
