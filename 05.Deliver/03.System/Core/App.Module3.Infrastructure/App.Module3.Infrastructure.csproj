@@ -90,6 +90,10 @@
     <Compile Include="Db\Migrations\Module3\201804200246107_Entities.SourceReferenceIds.Designer.cs">
       <DependentUpon>201804200246107_Entities.SourceReferenceIds.cs</DependentUpon>
     </Compile>
+    <Compile Include="Db\Migrations\Module3\201804232120236_Entities.RelationshipTypeMissing.cs" />
+    <Compile Include="Db\Migrations\Module3\201804232120236_Entities.RelationshipTypeMissing.Designer.cs">
+      <DependentUpon>201804232120236_Entities.RelationshipTypeMissing.cs</DependentUpon>
+    </Compile>
     <Compile Include="Db\Migrations\Module3\Configuration.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineExtractWatermark.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineRelationshipType.cs" />
@@ -248,6 +252,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Db\Migrations\Module3\201804200246107_Entities.SourceReferenceIds.resx">
       <DependentUpon>201804200246107_Entities.SourceReferenceIds.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Db\Migrations\Module3\201804232120236_Entities.RelationshipTypeMissing.resx">
+      <DependentUpon>201804232120236_Entities.RelationshipTypeMissing.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

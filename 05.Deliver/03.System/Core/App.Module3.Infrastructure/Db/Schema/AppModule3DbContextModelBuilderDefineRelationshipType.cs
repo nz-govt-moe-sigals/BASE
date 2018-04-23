@@ -18,7 +18,7 @@ namespace App.Module3.Infrastructure.Db.Schema
         public void Define(DbModelBuilder modelBuilder)
         {
             var order = 1;
-            this._schemaDefinitionConvention.Define<EducationProviderGender>(modelBuilder, ref order);
+            this._schemaDefinitionConvention.Define<RelationshipType>(modelBuilder, ref order);
         }
     }
 
