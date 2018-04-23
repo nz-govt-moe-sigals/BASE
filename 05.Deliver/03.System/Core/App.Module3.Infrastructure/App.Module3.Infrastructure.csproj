@@ -90,10 +90,6 @@
     <Compile Include="Db\Migrations\Module3\201804200246107_Entities.SourceReferenceIds.Designer.cs">
       <DependentUpon>201804200246107_Entities.SourceReferenceIds.cs</DependentUpon>
     </Compile>
-    <Compile Include="Db\Migrations\Module3\201804222356000_Entities.SifChange.cs" />
-    <Compile Include="Db\Migrations\Module3\201804222356000_Entities.SifChange.Designer.cs">
-      <DependentUpon>201804222356000_Entities.SifChange.cs</DependentUpon>
-    </Compile>
     <Compile Include="Db\Migrations\Module3\Configuration.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineExtractWatermark.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineRelationshipType.cs" />
@@ -234,9 +230,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Db\Migrations\Module3\201804200246107_Entities.SourceReferenceIds.resx">
       <DependentUpon>201804200246107_Entities.SourceReferenceIds.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Db\Migrations\Module3\201804222356000_Entities.SifChange.resx">
-      <DependentUpon>201804222356000_Entities.SifChange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -6,14 +6,14 @@ using App.Module3.Application.ServiceFacade.API.Controllers;
 using App.Module3.Shared.Models.Entities;
 using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
 
-namespace App.Module3.Application.ServiceFacade.API.Moe.Controllers.V0100
+namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.ReferenceData
 {
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class MaoriElectorateControllerSif : ODataControllerMoeResourceDataBase<MaoriElectorate, MaoriElectorateDto>
+    public class AreaUnitControllerSif : ODataControllerSifResourceDataBase<AreaUnit, AreaUnitDto>
     {
-        public MaoriElectorateControllerSif(
+        public AreaUnitControllerSif(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -30,7 +30,7 @@ namespace App.Module3.Application.ServiceFacade.API.Moe.Controllers.V0100
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<MaoriElectorateDto> Get()
+        public IQueryable<AreaUnitDto> Get()
         {
             return InternalGet();
         }
@@ -43,19 +43,19 @@ namespace App.Module3.Application.ServiceFacade.API.Moe.Controllers.V0100
         /// </summary>
         [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public MaoriElectorateDto Get(string key)
+        public AreaUnitDto Get(string key)
         {
             return InternalGet(key);
         }
 
         //// POST api/values 
-        public void Post(MaoriElectorateDto value)
+        public void Post(AreaUnitDto value)
         {
             InternalPost(value);
         }
 
         //// PUT api/values/5 
-        public void Put(MaoriElectorateDto value)
+        public void Put(AreaUnitDto value)
         {
             InternalPut(value);
         }

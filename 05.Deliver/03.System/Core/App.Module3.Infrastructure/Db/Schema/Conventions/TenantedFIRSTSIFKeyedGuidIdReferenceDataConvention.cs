@@ -25,7 +25,7 @@ namespace App.Module3.Infrastructure.Db.Schema.Conventions
             // Call underlying method first:
             base.Define<T>(modelBuilder, ref order, o =>
             {
-                if (o != 11)
+                if (o != 12)
                 {
                     return o;
                 }

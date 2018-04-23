@@ -9,9 +9,9 @@ namespace App.Module3.Infrastructure.Db.Schema
 
     public class AppModule3DbContextModelBuilderDefineMaoriElectorate : IHasAppModule3DbContextModelBuilderInitializer
     {
-        private readonly TenantedFIRSTKeyedGuidIdReferenceDataConvention _schemaDefinitionConvention;
+        private readonly TenantedFIRSTSIFKeyedGuidIdReferenceDataConvention _schemaDefinitionConvention;
 
-        public AppModule3DbContextModelBuilderDefineMaoriElectorate(TenantedFIRSTKeyedGuidIdReferenceDataConvention schemaDefinitionConvention)
+        public AppModule3DbContextModelBuilderDefineMaoriElectorate(TenantedFIRSTSIFKeyedGuidIdReferenceDataConvention schemaDefinitionConvention)
         {
             this._schemaDefinitionConvention = schemaDefinitionConvention;
         }

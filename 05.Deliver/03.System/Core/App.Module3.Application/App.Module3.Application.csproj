@@ -195,28 +195,29 @@
     <Compile Include="ServiceFacade\API\Services\Implementations\ExampleApplicationService.cs" />
     <Compile Include="ServiceFacade\API\Services\Implementations\TaskService.cs" />
     <Compile Include="ServiceFacade\API\Services\ITaskService.cs" />
-    <Compile Include="ServiceFacade\API\Moe\Controllers\V0100\ReferenceDataAreaUnitController.cs" />
-    <Compile Include="ServiceFacade\API\Moe\Controllers\V0100\ReferenceDataAuthorityTypeController.cs" />
-    <Compile Include="ServiceFacade\API\Moe\Controllers\V0100\ReferenceDataCommunityBoardController.cs" />
-    <Compile Include="ServiceFacade\API\Moe\Controllers\V0100\ReferenceDataGeneralElectorateController.cs" />
-    <Compile Include="ServiceFacade\API\Moe\Controllers\V0100\ReferenceDataMaoriElectorateController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataAreaUnitController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataAuthorityTypeController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataCommunityBoardController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataGeneralElectorateController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataMaoriElectorateController.cs" />
     <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataOrganisationStatusController.cs" />
     <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataOrganisationTypeController.cs" />
     <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataRegionController.cs" />
-    <Compile Include="ServiceFacade\API\Moe\Controllers\V0100\ReferenceDataRegionalCouncilController.cs" />
-    <Compile Include="ServiceFacade\API\Moe\Controllers\V0100\ReferenceDataRelationshipTypeController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataRegionalCouncilController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataRelationshipTypeController.cs" />
     <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataSchoolClassificationController.cs" />
     <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\EducationProviderGenderControllerSif.cs" />
     <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataSchoolYearLevelController.cs" />
-    <Compile Include="ServiceFacade\API\Moe\Controllers\V0100\ReferenceDataSpecialSchoolingController.cs" />
-    <Compile Include="ServiceFacade\API\Moe\Controllers\V0100\ReferenceDataTeacherEducationController.cs" />
-    <Compile Include="ServiceFacade\API\Moe\Controllers\V0100\ReferenceDataTerritorialAuthorityController.cs" />
-    <Compile Include="ServiceFacade\API\Moe\Controllers\V0100\ReferenceDataUrbanAreaController.cs" />
-    <Compile Include="ServiceFacade\API\Moe\Controllers\V0100\ReferenceDataWardController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataSpecialSchoolingController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataTeacherEducationController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataTerritorialAuthorityController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataUrbanAreaController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataWardController.cs" />
   </ItemGroup>
   <ItemGroup>
     <!-- <EmbeddedResource Include="Presentation\Views\Module3\About.cshtml" /> -->
     <Folder Include="ExtensionMethods\" />
+    <Folder Include="ServiceFacade\API\Moe\Controllers\V0100\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\App.Core.Infrastructure.OIDC\App.Core.Infrastructure.IDA.csproj">

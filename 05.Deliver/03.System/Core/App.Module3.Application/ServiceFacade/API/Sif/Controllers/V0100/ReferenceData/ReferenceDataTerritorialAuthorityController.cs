@@ -6,14 +6,14 @@ using App.Module3.Application.ServiceFacade.API.Controllers;
 using App.Module3.Shared.Models.Entities;
 using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
 
-namespace App.Module3.Application.ServiceFacade.API.Moe.Controllers.V0100
+namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.ReferenceData
 {
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class CommunityBoardControllerSif : ODataControllerMoeResourceDataBase<CommunityBoard, CommunityBoardDto>
+    public class TerritorialAuthorityControllerSif : ODataControllerSifResourceDataBase<TerritorialAuthority, TerritorialAuthorityDto>
     {
-        public CommunityBoardControllerSif(
+        public TerritorialAuthorityControllerSif(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -22,13 +22,15 @@ namespace App.Module3.Application.ServiceFacade.API.Moe.Controllers.V0100
             (diagnosticsTracingService, principalService, repositoryService, objectMappingService, secureApiMessageAttribute)
         {
         }
+
+
         // GET api/values 
         //[ApplyDataContractResolver]
         //[ApplyProxyDataContractResolverAttribute]
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<CommunityBoardDto> Get()
+        public IQueryable<TerritorialAuthorityDto> Get()
         {
             return InternalGet();
         }
@@ -41,10 +43,21 @@ namespace App.Module3.Application.ServiceFacade.API.Moe.Controllers.V0100
         /// </summary>
         [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public CommunityBoardDto Get(string key)
+        public TerritorialAuthorityDto Get(string key)
         {
             return InternalGet(key);
         }
 
+        //// POST api/values 
+        public void Post(TerritorialAuthorityDto value)
+        {
+            InternalPost(value);
+        }
+
+        //// PUT api/values/5 
+        public void Put(TerritorialAuthorityDto value)
+        {
+            InternalPut(value);
+        }
     }
 }

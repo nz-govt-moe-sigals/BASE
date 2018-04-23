@@ -9,9 +9,9 @@ namespace App.Module3.Infrastructure.Db.Schema
 
     public class AppModule3DbContextModelBuilderDefineGeneralElectorate : IHasAppModule3DbContextModelBuilderInitializer
     {
-        private readonly TenantedFIRSTKeyedGuidIdReferenceDataConvention _schemaDefinitionConvention;
+        private readonly TenantedFIRSTSIFKeyedGuidIdReferenceDataConvention _schemaDefinitionConvention;
         
-        public AppModule3DbContextModelBuilderDefineGeneralElectorate(TenantedFIRSTKeyedGuidIdReferenceDataConvention schemaDefinitionConvention)
+        public AppModule3DbContextModelBuilderDefineGeneralElectorate(TenantedFIRSTSIFKeyedGuidIdReferenceDataConvention schemaDefinitionConvention)
         {
             this._schemaDefinitionConvention = schemaDefinitionConvention;
         }

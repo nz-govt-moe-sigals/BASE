@@ -6,15 +6,14 @@ using App.Module3.Application.ServiceFacade.API.Controllers;
 using App.Module3.Shared.Models.Entities;
 using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
 
-namespace App.Module3.Application.ServiceFacade.API.Moe.Controllers.V0100
+namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.ReferenceData
 {
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class TeacherEducationControllerSif : ODataControllerMoeResourceDataBase<TeacherEducation, TeacherEducationDto>
+    public class UrbanAreaControllerSifControllerSif : ODataControllerSifResourceDataBase<UrbanArea, UrbanAreaDto>
     {
-
-        public TeacherEducationControllerSif(
+        public UrbanAreaControllerSifControllerSif(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -31,7 +30,7 @@ namespace App.Module3.Application.ServiceFacade.API.Moe.Controllers.V0100
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<TeacherEducationDto> Get()
+        public IQueryable<UrbanAreaDto> Get()
         {
             return InternalGet();
         }
@@ -44,19 +43,19 @@ namespace App.Module3.Application.ServiceFacade.API.Moe.Controllers.V0100
         /// </summary>
         [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public TeacherEducationDto Get(string key)
+        public UrbanAreaDto Get(string key)
         {
             return InternalGet(key);
         }
 
         //// POST api/values 
-        public void Post(TeacherEducationDto value)
+        public void Post(UrbanAreaDto value)
         {
             InternalPost(value);
         }
 
         //// PUT api/values/5 
-        public void Put(TeacherEducationDto value)
+        public void Put(UrbanAreaDto value)
         {
             InternalPut(value);
         }
