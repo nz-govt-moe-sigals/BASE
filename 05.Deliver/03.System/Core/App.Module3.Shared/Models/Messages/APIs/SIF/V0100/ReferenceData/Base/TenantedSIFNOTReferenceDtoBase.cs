@@ -26,7 +26,6 @@
     public abstract class TenantedSIFNOTReferenceDtoBase :
         TenantedSIFReferenceDtoBase,
         IHasId<string>,
-        IHasTenantFK,
         IHasSIFNOTIdAsStringId
     {
 

@@ -2,7 +2,7 @@ namespace App.Module3.Shared.Models.Entities
 {
     using App.Core.Shared.Models.Entities.Base;
 
-    public class EducationProviderYearLevel : TenantedFIRSTSIFKeyedGuidIdReferenceDataBase
+    public class EducationProviderYearLevel : TenantedSourceKeySIFKeyedGuidIdReferenceDataBase
     {
     }
 }

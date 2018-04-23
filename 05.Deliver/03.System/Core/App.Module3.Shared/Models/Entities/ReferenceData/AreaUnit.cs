@@ -8,7 +8,7 @@ namespace App.Module3.Shared.Models.Entities
 {
     using App.Core.Shared.Models.Entities.Base;
 
-    public class AreaUnit : TenantedFIRSTSIFKeyedGuidIdReferenceDataBase
+    public class AreaUnit : TenantedSourceKeySIFKeyedGuidIdReferenceDataBase
     {
     }
 }

@@ -37,7 +37,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
             if (_repoObject.AreaUnitsLookup == null)
             {
                 _repoObject.AreaUnitsLookup = _repositoryService.GetQueryableSet<AreaUnit>(_dbKey)
-                    .ToDictionary(x => x.FIRSTKey, x => x);
+                    .ToDictionary(x => x.SourceSystemKey, x => x);
             }
             return _repoObject.AreaUnitsLookup;
         }
@@ -45,7 +45,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         //Hmmm probably should make this baseReference but ontodo list;
         public void AddAreaUnit(AreaUnit newAreaUnit)
         {
-            GetAreaUnits().Add(newAreaUnit.FIRSTKey, newAreaUnit); 
+            GetAreaUnits().Add(newAreaUnit.SourceSystemKey, newAreaUnit); 
             AddOnCommit(newAreaUnit);
         }
 

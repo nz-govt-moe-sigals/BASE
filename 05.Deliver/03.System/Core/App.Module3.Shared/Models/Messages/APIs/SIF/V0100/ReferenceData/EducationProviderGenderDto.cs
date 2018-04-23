@@ -2,7 +2,14 @@
 {
     using App.Module3.Shared.Models.Messages.APIs.SIF.V0100.Base;
 
-    public class EducationProviderGenderDto : TenantedSIFReferenceDtoBase
+    /// <summary>
+    /// A description of the gender of students that the school accepts for a certain year level or other instructional grouping.
+    /// <para>
+    /// Uses SIF Codes as public PK.
+    /// </para>
+    /// </summary>
+    /// <seealso cref="App.Module3.Shared.Models.Messages.APIs.SIF.V0100.Base.TenantedSIFReferenceDtoBase" />
+    public class EducationProviderGenderDto :/*ok*/ TenantedSIFReferenceDtoBase
     {
     }
 }

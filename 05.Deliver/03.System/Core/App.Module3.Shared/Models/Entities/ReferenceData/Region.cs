@@ -2,7 +2,7 @@ namespace App.Module3.Shared.Models.Entities
 {
     using App.Core.Shared.Models.Entities.Base;
 
-    public class Region : TenantedFIRSTSIFKeyedGuidIdReferenceDataBase
+    public class Region : TenantedSourceKeySIFKeyedGuidIdReferenceDataBase
     {
     }
 }

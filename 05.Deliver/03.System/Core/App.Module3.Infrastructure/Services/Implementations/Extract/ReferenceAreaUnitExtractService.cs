@@ -21,7 +21,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         {
             var mappedEntity = Mapper.Map<ReferenceAreaUnit, AreaUnit>(item);
             var areaUnitsLookup = _repositoryService.GetAreaUnits(); // is CACHED DATA
-            if (areaUnitsLookup.TryGetValue(mappedEntity.FIRSTKey, out var existingEntity))
+            if (areaUnitsLookup.TryGetValue(mappedEntity.SourceSystemKey, out var existingEntity))
             {
                 _repositoryService.UpdateAreaUnit(existingEntity, mappedEntity);
             }

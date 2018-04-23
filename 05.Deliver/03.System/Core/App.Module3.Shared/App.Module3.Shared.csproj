@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Configuration\ExampleApiConfiguration.cs" />
-    <Compile Include="Models\Contracts\IHasFIRSTKey.cs" />
+    <Compile Include="Models\Contracts\IHasSourceSystemKey.cs" />
     <Compile Include="Models\Contracts\IHasSIFKey.cs" />
     <Compile Include="Models\Entities\Base\TenantedFIRSTSIFKeyedGuidIdReferenceDataBase.cs" />
     <Compile Include="Models\Entities\ExtractWatermark.cs" />
@@ -83,7 +83,7 @@
     <Compile Include="Models\Messages\APIs\MOE\V0100\EducationProviderProfile.cs" />
     <Compile Include="Models\Messages\APIs\MOE\V0100\ReferenceData\AreaUnitDto.cs" />
     <Compile Include="Models\Messages\APIs\MOE\V0100\ReferenceData\AuthorityTypeDto.cs" />
-    <Compile Include="Models\Messages\APIs\MOE\V0100\ReferenceData\Base\TenantedSIFReferenceDtoBase.cs" />
+    <Compile Include="Models\Messages\APIs\MOE\V0100\ReferenceData\Base\TenantedMOEReferenceDtoBase.cs" />
     <Compile Include="Models\Messages\APIs\MOE\V0100\ReferenceData\CommunityBoardDto.cs" />
     <Compile Include="Models\Messages\APIs\MOE\V0100\ReferenceData\EducationProviderClassificationDto.cs" />
     <Compile Include="Models\Messages\APIs\MOE\V0100\ReferenceData\EducationProviderGenderDto.cs" />
@@ -159,6 +159,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="Models\Messages\APIs\SIF\readme.sif.md" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -14,7 +14,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract
     {
         public void Initialize(IMapperConfigurationExpression config)
         {
-            config.CreateMap<BaseReference, TenantedFIRSTSIFKeyedGuidIdReferenceDataBase>()
+            config.CreateMap<BaseReference, TenantedSourceKeySIFKeyedGuidIdReferenceDataBase>()
                 .Include<ReferenceAreaUnit, AreaUnit>()
                 .Include<ReferenceAuthorityType, AuthorityType>()
                 .Include<ReferenceCommunityBoard, CommunityBoard>()
@@ -47,7 +47,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract
                 .ForMember(dest => dest.SIFKey, opt => opt.Ignore())
                 .ForMember(dest => dest.TenantFK, opt => opt.Ignore())
                 .ForMember(dest => dest.Timestamp, opt => opt.Ignore())
-                .ForMember(dest => dest.FIRSTKey, opt => opt.MapFrom(s => s.Code))
+                .ForMember(dest => dest.SourceSystemKey, opt => opt.MapFrom(s => s.Code))
                 .ForMember(dest => dest.Text, opt => opt.MapFrom(s => s.Description))
                 ;
         }

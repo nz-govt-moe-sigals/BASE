@@ -14,7 +14,7 @@ namespace App.Core.Infrastructure.Db.Schema.Conventions
 
         public new void Define<T>(DbModelBuilder modelBuilder, ref int order,
             Func<int, int> injectedPropertyDefs = null)
-            where T : TenantedFIRSTSIFKeyedGuidIdReferenceDataBase
+            where T : TenantedSourceKeySIFKeyedGuidIdReferenceDataBase
         {
 
             string typeName = typeof(T).Name;
@@ -44,7 +44,7 @@ namespace App.Core.Infrastructure.Db.Schema.Conventions
                 }
 
                 modelBuilder.Entity<T>()
-                    .Property(x => x.FIRSTKey)
+                    .Property(x => x.SourceSystemKey)
                     .HasColumnOrder(o++)
                     .HasMaxLength(TextFieldSizes.X10)
                     .HasColumnAnnotation("Index",

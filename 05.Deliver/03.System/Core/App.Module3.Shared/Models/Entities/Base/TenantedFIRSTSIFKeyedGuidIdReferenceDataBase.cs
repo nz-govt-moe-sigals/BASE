@@ -4,10 +4,49 @@ namespace App.Module3.Shared.Models.Entities
 {
     using App.Core.Shared.Models.Entities.Base;
 
-    public class TenantedFIRSTSIFKeyedGuidIdReferenceDataBase : TenantedGuidIdReferenceDataBase, IHasFIRSTKey, IHasSIFKey
+    /// <summary>
+    /// Abstract base class 
+    /// for System ReferenceData entities.
+    /// <para>
+    /// Key aspects that are common to all ReferenceData
+    /// include 
+    /// * the Source Id is persisted as the <see cref="IHasSourceSystemKey.SourceSystemKey"/>
+    /// * the Source Id is used to find and fill in the <see cref="IHasSIFKey.SIFKey"/> value.
+    /// </para>
+    /// </summary>
+    /// <seealso cref="App.Core.Shared.Models.Entities.Base.TenantedGuidIdReferenceDataBase" />
+    /// <seealso cref="App.Module3.Shared.Models.IHasSourceSystemKey" />
+    /// <seealso cref="App.Module3.Shared.Models.IHasSIFKey" />
+    // ReSharper disable once InconsistentNaming
+    public class TenantedSourceKeySIFKeyedGuidIdReferenceDataBase : TenantedGuidIdReferenceDataBase, IHasSourceSystemKey, IHasSIFKey
     {
-        public string FIRSTKey {get; set;}
+        /// <summary>
+        /// Gets or sets the name of systme that provided
+        /// the <see cref="SourceSystemKey" /> (eg: FIRST).
+        /// </summary>
+        public string SourceSystemName { get; set; }
 
-        public int SIFKey { get; set; }
+        /// <summary>
+        /// Gets or sets the source system (eg: MOE'S FIRST) defined key.
+        /// <para>
+        /// The type is string as not all source codes
+        /// are integers (eg: LocalOffice is a string).
+        /// </para>
+        /// </summary>
+        public string SourceSystemKey {get; set;}
+
+        /// <summary>
+        /// Gets or sets the PK used by SIF API Messages.
+        /// <para>
+        /// The PK value is not always defined in the SIF.
+        /// It can fall back to MOE values, which in turn
+        /// are falling back to NZSTATS values.
+        /// </para><para>
+        /// The Type is String as the value
+        /// can be a character (eg: Gender),
+        /// a word, or an integer
+        /// </para>
+        /// </summary>
+        public string SIFKey { get; set; }
     }
 }
