@@ -1,4 +1,6 @@
-﻿namespace App.Core.Infrastructure.Services.Implementations
+﻿using App.Core.Infrastructure.Constants.Db;
+
+namespace App.Core.Infrastructure.Services.Implementations
 {
     using System.Data.Entity;
 
@@ -40,6 +42,38 @@
                 {
                     throw e;
                 }
+            }
+            return result;
+        }
+
+        public int CommitBatch(string contextName = null)
+        {
+            var result = 0;
+            if (string.IsNullOrWhiteSpace(contextName))
+            {
+                contextName = AppCoreDbContextNames.Core;
+            }
+
+            var dbContext = AppDependencyLocator.Current.GetInstance<DbContext>(contextName);
+            try
+            {
+                // Note that I've sort of forgetten how, 
+                // it's wired up, but this will trigger 
+                // calls to all instances of 
+                // IDbCommitPreCommitProcessingStrategy
+                // via IDbContextPreCommitService
+                dbContext.Configuration.AutoDetectChangesEnabled = false;
+                dbContext.Configuration.ValidateOnSaveEnabled = false;
+                result += dbContext.SaveChanges();
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                dbContext.Configuration.AutoDetectChangesEnabled = true;
+                dbContext.Configuration.ValidateOnSaveEnabled = true;
             }
             return result;
         }
