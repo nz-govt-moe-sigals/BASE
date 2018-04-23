@@ -46,6 +46,7 @@
     <Compile Include="Models\Configuration\ExampleApiConfiguration.cs" />
     <Compile Include="Models\Contracts\IHasSourceSystemKey.cs" />
     <Compile Include="Models\Contracts\IHasSIFKey.cs" />
+    <Compile Include="Models\Entities\Base\TenantedFIRSTKeyedGuidIdReferenceDataBase.cs" />
     <Compile Include="Models\Entities\Base\TenantedFIRSTSIFKeyedGuidIdReferenceDataBase.cs" />
     <Compile Include="Models\Entities\ExtractWatermark.cs" />
     <Compile Include="Models\Entities\IHasSourceReferenceId.cs" />
@@ -159,6 +160,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="Models\Entities\ReferenceData\README.md" />
     <None Include="Models\Messages\APIs\SIF\readme.sif.md" />
     <None Include="packages.config" />
   </ItemGroup>

@@ -14,7 +14,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
     /// </summary>
     /// <seealso cref="MaoriElectorateDto" />
     public class ObjectMap_SchoolMaoriElectorate_SchoolMaoriElectorateDto
-        : ObjectMap_TenantedFIRSTSIFKeyedGuidIdReferenceDataBase_TenantedSIFReferenceTypeDto
+        : ObjectMap_TenantedFIRSTKeyedGuidIdReferenceDataBase_TenantedSIFReferenceTypeDto
             <MaoriElectorate, MaoriElectorateDto>
     {
     }

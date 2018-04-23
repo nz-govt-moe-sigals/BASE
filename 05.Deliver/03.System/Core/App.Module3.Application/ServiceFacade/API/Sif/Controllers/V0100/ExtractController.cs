@@ -19,7 +19,7 @@
     [AllowAnonymous]
     public class ExtractController : ApiController
     {
-        private IExtractServiceController _extractServiceController;
+        private readonly IExtractServiceController _extractServiceController;
 
         public ExtractController(IExtractServiceController extractServiceController)
         {

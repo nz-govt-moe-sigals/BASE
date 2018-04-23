@@ -14,7 +14,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
     /// </summary>
     /// <seealso cref="AreaUnitDto" />
     public class ObjectMap_SchoolAreaUnit_SchoolAreaUnitDto
-        : ObjectMap_TenantedFIRSTSIFKeyedGuidIdReferenceDataBase_TenantedSIFReferenceTypeDto
+        : ObjectMap_TenantedFIRSTKeyedGuidIdReferenceDataBase_TenantedSIFReferenceTypeDto
             <AreaUnit, AreaUnitDto>
     {
     }

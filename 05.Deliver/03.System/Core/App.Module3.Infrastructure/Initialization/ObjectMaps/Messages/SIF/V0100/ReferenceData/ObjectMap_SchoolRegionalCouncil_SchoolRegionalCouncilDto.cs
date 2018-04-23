@@ -14,7 +14,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
     /// </summary>
     /// <seealso cref="RegionalCouncilDto" />
     public class ObjectMap_SchoolRegionalCouncil_SchoolRegionalCouncilDto
-        : ObjectMap_TenantedFIRSTSIFKeyedGuidIdReferenceDataBase_TenantedSIFReferenceTypeDto
+        : ObjectMap_TenantedFIRSTKeyedGuidIdReferenceDataBase_TenantedSIFReferenceTypeDto
             <RegionalCouncil, RegionalCouncilDto>
     {
     }

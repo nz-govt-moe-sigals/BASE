@@ -1,23 +1,19 @@
-﻿namespace App.Module3.Application.ServiceFacade.API.Controllers.V0100
-{
-    using System;
-    using System.Linq;
-    using System.Web.Http;
-    using System.Web.OData;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models.Entities;
-    using App.Module3.Application.ServiceFacade.API.Controllers;
-    using App.Module3.Shared.Models.Entities;
-    using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
-    using AutoMapper;
-    using AutoMapper.QueryableExtensions;
+﻿using System.Linq;
+using System.Web.Http;
+using System.Web.OData;
+using App.Core.Infrastructure.Services;
+using App.Module3.Application.ServiceFacade.API.Controllers;
+using App.Module3.Shared.Models.Entities;
+using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
 
+namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.ReferenceData
+{
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class AuthorityTypeController : ODataControllerResourceDataBase<AuthorityType, AuthorityTypeDto>
+    public class OrganisationStatusControllerSif : ODataControllerSifResourceDataBase<EducationProviderStatus, OrganisationStatusDto>
     {
-        public AuthorityTypeController(
+        public OrganisationStatusControllerSif(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -34,7 +30,7 @@
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<AuthorityTypeDto> Get()
+        public IQueryable<OrganisationStatusDto> Get()
         {
             return InternalGet();
         }
@@ -47,21 +43,10 @@
         /// </summary>
         [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public AuthorityTypeDto Get(string key)
+        public OrganisationStatusDto Get(string key)
         {
             return InternalGet(key);
         }
 
-        //// POST api/values 
-        public void Post(AuthorityTypeDto value)
-        {
-            InternalPost(value);
-        }
-
-        //// PUT api/values/5 
-        public void Put(AuthorityTypeDto value)
-        {
-            InternalPut(value);
-        }
     }
 }

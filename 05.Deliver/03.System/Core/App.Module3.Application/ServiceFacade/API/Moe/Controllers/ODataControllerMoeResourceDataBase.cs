@@ -1,25 +1,29 @@
-namespace App.Module3.Application.ServiceFacade.API.Controllers
-{
-    using System;
-    using System.Linq;
-    using System.Web.OData;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models;
-    using App.Core.Shared.Models.Entities;
-    using App.Module3.Infrastructure.Constants.Db;
-    using App.Module3.Shared.Models;
-    using App.Module3.Shared.Models.Entities;
-    using AutoMapper.QueryableExtensions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web.OData;
+using App.Core.Infrastructure.Services;
+using App.Core.Shared.Models;
+using App.Core.Shared.Models.Entities;
+using App.Module3.Application.ServiceFacade.API.Controllers;
+using App.Module3.Infrastructure.Constants.Db;
+using App.Module3.Shared.Models;
+using App.Module3.Shared.Models.Entities;
+using AutoMapper.QueryableExtensions;
 
-    public abstract class ODataControllerResourceDataBase<TEntity, TDto> : ODataControllerBase
-        where TEntity : class, IHasGuidId, IHasSIFKey, IHasRecordState, new()
+namespace App.Module3.Application.ServiceFacade.API.Moe.Controllers
+{
+    public abstract  class ODataControllerMoeResourceDataBase<TEntity, TDto> : ODataControllerBase
+        where TEntity : class, IHasGuidId, IHasFIRSTKey, IHasRecordState, new()
         where TDto : class, IHasSIFIdAsStringId, new()
     {
         private readonly IObjectMappingService _objectMappingService;
         private readonly ISecureAPIMessageAttributeService _secureApiMessageAttribute;
         private readonly IRepositoryService _repositoryService;
 
-        protected ODataControllerResourceDataBase(IDiagnosticsTracingService diagnosticsTracingService, IPrincipalService principalService,
+        protected ODataControllerMoeResourceDataBase(IDiagnosticsTracingService diagnosticsTracingService, IPrincipalService principalService,
             IRepositoryService repositoryService, IObjectMappingService objectMappingService, ISecureAPIMessageAttributeService secureApiMessageAttribute)
             : base(diagnosticsTracingService, principalService)
         {
@@ -40,15 +44,11 @@ namespace App.Module3.Application.ServiceFacade.API.Controllers
         }
 
 
-
-
-
-
         //// POST api/values 
         protected void InternalPost(TDto value)
         {
             //Update an existing record:
-            var entity = InternalGetDbSet().SingleOrDefault(x => x.SIFKey.ToString() == value.Id);
+            var entity = InternalGetDbSet().SingleOrDefault(x => x.FIRSTKey.ToString() == value.Id);
             this._objectMappingService.Map(value, entity);
             // Nothing else to do (it's already being tracked)
             //so when committed later, will be saved.
@@ -91,12 +91,12 @@ namespace App.Module3.Application.ServiceFacade.API.Controllers
             return results;
         }
 
-        protected TDto InternalGet(string sifKey)
+        protected TDto InternalGet(string firstkey)
         {
             var result =
                 InternalGetDbSetOfActivEntities()
                     .ProjectTo<TDto>()
-                    .SingleOrDefault(x => x.Id == sifKey);
+                    .SingleOrDefault(x => x.Id == firstkey);
 
             this._secureApiMessageAttribute.Process(result);
 
@@ -105,12 +105,12 @@ namespace App.Module3.Application.ServiceFacade.API.Controllers
 
 
 
- 
 
-        public void InternalDelete(string sifKey)
+
+        public void InternalDelete(string firstkey)
         {
             //We are doing a logical delete by changing state:
-            var entity = InternalGetDbSet().SingleOrDefault(x => x.Id.ToString() == sifKey);
+            var entity = InternalGetDbSet().SingleOrDefault(x => x.Id.ToString() == firstkey);
             if (entity?.RecordState == RecordPersistenceState.Active)
             {
                 entity.RecordState = RecordPersistenceState.ToDispose;
