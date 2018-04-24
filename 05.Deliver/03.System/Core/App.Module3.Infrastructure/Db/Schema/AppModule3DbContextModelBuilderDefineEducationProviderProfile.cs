@@ -1,6 +1,9 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace App.Module3.Infrastructure.Db.Schema
 {
     using System.Data.Entity;
+    using System.Data.Entity.Infrastructure.Annotations;
     using App.Core.Infrastructure.Constants.Db;
     using App.Core.Infrastructure.Db.Schema.Conventions;
     using App.Module3.Infrastructure.Initialization.Db;
@@ -320,9 +323,21 @@ namespace App.Module3.Infrastructure.Db.Schema
 
 
             modelBuilder.Entity<EducationProviderProfile>()
-                .Property(x => x.SourceReferenceId)
-                .HasColumnOrder(order)
+                .Property(x => x.SourceSystemKey)
+                .HasColumnOrder(order++)
+                .HasMaxLength(TextFieldSizes.X10)
+                .HasColumnAnnotation("Index",
+                    new IndexAnnotation(new IndexAttribute($"IX_EducationProviderProfile_SourceSystemKey")
+                    {
+                        IsUnique = true
+                    }))
                 .IsRequired();
+
+            modelBuilder.Entity<EducationProviderProfile>()
+                .Property(x => x.SourceSystemName)
+                .HasColumnOrder(order)
+                .HasMaxLength(TextFieldSizes.X256)
+                .IsOptional();
 
 
 

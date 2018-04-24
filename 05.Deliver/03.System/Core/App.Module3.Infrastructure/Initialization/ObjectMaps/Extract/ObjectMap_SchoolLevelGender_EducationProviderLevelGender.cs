@@ -21,8 +21,8 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract
                 .ForMember(dest => dest.GenderFK, opt => opt.Ignore()) //.ForMember(dest => dest.GenderFK, opt => opt.MapFrom(s => s.GenderValueId))    
                 .ForMember(dest => dest.Gender, opt => opt.Ignore()) //  
                 .ForMember(dest => dest.EducationProviderFK, opt => opt.Ignore()) //.ForMember(dest => dest.EducationProviderFK, opt => opt.MapFrom(s => s.SchoolId))
-                .ForMember(dest => dest.SourceReferenceId, opt => opt.MapFrom(s => s.LevelGenderId))
-
+                .ForMember(dest => dest.SourceSystemKey, opt => opt.MapFrom(s => s.LevelGenderId))
+                .ForMember(dest => dest.SourceSystemName, opt => opt.Ignore())
                 //
                 ;
         }

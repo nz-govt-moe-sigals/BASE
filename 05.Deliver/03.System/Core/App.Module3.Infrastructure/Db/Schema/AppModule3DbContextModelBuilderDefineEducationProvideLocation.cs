@@ -1,3 +1,7 @@
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Infrastructure.Annotations;
+using App.Core.Infrastructure.Constants.Db;
+
 namespace App.Module3.Infrastructure.Db.Schema
 {
     using System.Data.Entity;
@@ -42,9 +46,21 @@ namespace App.Module3.Infrastructure.Db.Schema
                 .IsOptional();
 
             modelBuilder.Entity<EducationProviderLocation>()
-                .Property(x => x.SourceReferenceId)
-                .HasColumnOrder(order)
+                .Property(x => x.SourceSystemKey)
+                .HasColumnOrder(order++)
+                .HasMaxLength(TextFieldSizes.X10)
+                .HasColumnAnnotation("Index",
+                    new IndexAnnotation(new IndexAttribute($"IX_EducationProviderLocation_SourceSystemKey")
+                    {
+                        IsUnique = true
+                    }))
                 .IsRequired();
+
+            modelBuilder.Entity<EducationProviderLocation>()
+                .Property(x => x.SourceSystemName)
+                .HasColumnOrder(order)
+                .HasMaxLength(TextFieldSizes.X256)
+                .IsOptional();
         }
     }
 }

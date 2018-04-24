@@ -4,7 +4,7 @@
     using App.Core.Shared.Models.Entities;
     using App.Module3.Shared.Models.Enums;
 
-    public class EducationProviderLocation : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase, IHasSourceReferenceId
+    public class EducationProviderLocation : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase, IHasSourceSystemKey
     {
 
         public Guid EducationProviderFK { get; set; }
@@ -46,6 +46,9 @@
         /// <summary>
         /// The Reference(record) Id that was received from the source 
         /// </summary>
-        public int SourceReferenceId { get; set; }
+        public string SourceSystemKey { get; set; }
+
+
+        public string SourceSystemName { get; set; }
     }
 }

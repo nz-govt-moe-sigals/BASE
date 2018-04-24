@@ -10,7 +10,7 @@ namespace App.Module3.Shared.Models.Entities
     /// <para>
     /// Key aspects that are common to all ReferenceData
     /// include 
-    /// * the Source Id is persisted as the <see cref="IHasSourceSystemKey.SourceSystemKey"/>
+    /// * the Source Id is persisted as the <see cref="Models.IHasSourceSystemKey.SourceSystemKey"/>
     /// * the Source Id is used to find and fill in the <see cref="IHasSIFKey.SIFKey"/> value.
     /// </para>
     /// </summary>

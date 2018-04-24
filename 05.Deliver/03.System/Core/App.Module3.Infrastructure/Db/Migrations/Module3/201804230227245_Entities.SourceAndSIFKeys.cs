@@ -119,7 +119,8 @@ namespace App.Module3.Infrastructure.Db.Migrations
             CreateIndex("Module3.EducationProviderGenders", "SourceSystemKey", unique: true, name: "IX_EducationProviderGender_FIRSTKey");
             CreateIndex("Module3.EducationProviderGenders", "SIFKey", unique: true, name: "IX_EducationProviderGender_SIFKey");
             CreateIndex("Module3.EducationProviderClassifications", "SourceSystemKey", unique: true, name: "IX_EducationProviderClassification_FIRSTKey");
-            CreateIndex("Module3.EducationProviderClassifications", "SIFKey", unique: true, name: "IX_EducationProviderClassification_SIFKey");
+            CreateIndex("Module3.EducationProviderClassifications", "SIFKey", unique: true, name: "IX_EducationProviderC" +
+                                                                                                  "lassification_SIFKey");
             CreateIndex("Module3.EducationProviderYearLevels", "SourceSystemKey", unique: true, name: "IX_EducationProviderYearLevel_FIRSTKey");
             CreateIndex("Module3.EducationProviderYearLevels", "SIFKey", unique: true, name: "IX_EducationProviderYearLevel_SIFKey");
             CreateIndex("Module3.SpecialSchoolings", "SourceSystemKey", unique: true, name: "IX_SpecialSchooling_FIRSTKey");

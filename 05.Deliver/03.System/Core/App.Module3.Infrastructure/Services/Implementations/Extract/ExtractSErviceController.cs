@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using App.Module3.Infrastructure.Services.Implementations.Extract.ReferenceServices;
 
 namespace App.Module3.Infrastructure.Services.Implementations.Extract
 {
@@ -12,13 +13,13 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
     {
         private IRepositoryService _dbContext;
         private IUnitOfWorkService _unitOfWork;
-        private IExtractAzureDocumentDbService _documentDBService;
+        private IExtractAzureDocumentDbService _documentDbService;
 
         public ExtractServiceController(IRepositoryService dbContext, IUnitOfWorkService unitOfWork,
-            IExtractAzureDocumentDbService documentDBService)
+            IExtractAzureDocumentDbService documentDbService)
         {
             _dbContext = dbContext;
-            _documentDBService = documentDBService;
+            _documentDbService = documentDbService;
             _unitOfWork = unitOfWork;
         }
 
@@ -42,12 +43,12 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         {
             foreach (var tablename in ExtractConstants.GetDestinationTableList())
             {
-                ProcessDestinationTable(tablename);
+                ProcessDataTable(tablename);
             }
         }
 
 
-        public void ProcessDestinationTable(string name)
+        public void ProcessDataTable(string name)
         {
             IBaseExtractService service = null;
             switch (name)
@@ -80,55 +81,55 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
                     service = App.AppDependencyLocator.Current.GetInstance<ReferenceAreaUnitExtractService>();
                     break;
                 case ExtractConstants._tableNameReferenceAuthorityType:
-                    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<ReferenceAuthorityType>>();
+                    service = App.AppDependencyLocator.Current.GetInstance<ReferenceAuthorityTypeExtractService>();
                     break;
                 case ExtractConstants._tableNameReferenceCommunityBoards:
-                    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<ReferenceCommunityBoard>>();
+                    service = App.AppDependencyLocator.Current.GetInstance<ReferenceCommunityBoardExtractService>();
                     break;
                 case ExtractConstants._tableNameReferenceGeneralElectorate:
-                    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<ReferenceGeneralElectorate>>();
+                    service = App.AppDependencyLocator.Current.GetInstance<ReferenceGeneralElectorateExtractService>();
                     break;
                 case ExtractConstants._tableNameReferenceMaoriElectorate:
-                    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<ReferenceMaoriElectorate>>();
+                    service = App.AppDependencyLocator.Current.GetInstance<ReferenceMaoriElectorateExtractService>();
                     break;
                 case ExtractConstants._tableNameReferenceOrganisationStatus:
-                    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<ReferenceOrganisationStatus>>();
+                    service = App.AppDependencyLocator.Current.GetInstance<ReferenceOrganisationStatusExtractService>();
                     break;
                 case ExtractConstants._tableNameReferenceOrganisationType:
-                    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<ReferenceOrganisationType>>();
+                    service = App.AppDependencyLocator.Current.GetInstance<ReferenceOrganisationTypeExtractService>();
                     break;
                 case ExtractConstants._tableNameReferenceRegion:
-                    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<ReferenceRegion>>();
+                    service = App.AppDependencyLocator.Current.GetInstance<ReferenceRegionExtractService>();
                     break;
                 case ExtractConstants._tableNameReferenceRegionalCouncil:
-                    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<ReferenceRegionalCouncil>>();
+                    service = App.AppDependencyLocator.Current.GetInstance<ReferenceRegionalCouncilExtractService>();
                     break;
                 case ExtractConstants._tableNameReferenceRelationshipType:
-                    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<ReferenceRelationshipType>>();
+                    service = App.AppDependencyLocator.Current.GetInstance<ReferenceRelationshipTypeExtractService>();
                     break;
                 case ExtractConstants._tableNameReferenceSchoolClassification:
-                    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<ReferenceSchoolClassification>>();
+                    service = App.AppDependencyLocator.Current.GetInstance<ReferenceSchoolClassificationExtractService>();
                     break;
                 case ExtractConstants._tableNameReferenceSchoolingGender:
-                    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<ReferenceSchoolingGender>>();
+                    service = App.AppDependencyLocator.Current.GetInstance<ReferenceSchoolingGenderExtractService>();
                     break;
                 case ExtractConstants._tableNameReferenceSchoolYearLevel:
-                    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<ReferenceSchoolYearLevel>>();
+                    service = App.AppDependencyLocator.Current.GetInstance<ReferenceSchoolYearLevelExtractService>();
                     break;
                 case ExtractConstants._tableNameReferenceSpecialSchooling:
-                    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<ReferenceSpecialSchooling>>();
+                    service = App.AppDependencyLocator.Current.GetInstance<ReferenceSpecialSchoolingExtractService>();
                     break;
                 case ExtractConstants._tableNameReferenceTeacherEducation:
-                    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<ReferenceTeacherEducation>>();
+                    service = App.AppDependencyLocator.Current.GetInstance<ReferenceTeacherEducationExtractService>();
                     break;
                 case ExtractConstants._tableNameReferenceTerritorialAuthority:
-                    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<ReferenceTerritorialAuthority>>();
+                    service = App.AppDependencyLocator.Current.GetInstance<ReferenceTerritorialAuthorityExtractService>();
                     break;
                 case ExtractConstants._tableNameReferenceUrbanArea:
-                    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<ReferenceUrbanArea>>();
+                    service = App.AppDependencyLocator.Current.GetInstance<ReferenceUrbanAreaExtractService>();
                     break;
                 case ExtractConstants._tableNameReferenceWard:
-                    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<ReferenceWard>>();
+                    service = App.AppDependencyLocator.Current.GetInstance<ReferenceWardExtractService>();
                     break;
             }
             service.Process();

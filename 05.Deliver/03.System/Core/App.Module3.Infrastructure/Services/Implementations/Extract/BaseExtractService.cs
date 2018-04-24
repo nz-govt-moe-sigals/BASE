@@ -17,16 +17,15 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
     {
         private readonly BaseExtractServiceConfiguration _configuration;
         protected readonly IExtractRepositoryService _repositoryService;
-        protected readonly IUnitOfWorkService _unitOfWorkService;
         protected readonly string _sourceTableName;
-        protected readonly IExtractAzureDocumentDbService _documentDBService;
+        protected readonly IExtractAzureDocumentDbService _documentDbService;
         
 
-        public BaseExtractService(BaseExtractServiceConfiguration configuration, IExtractRepositoryService reposorityService, IUnitOfWorkService unitOfWorkService,  IExtractAzureDocumentDbService documentDBService)
+        public BaseExtractService(BaseExtractServiceConfiguration configuration, IExtractRepositoryService reposorityService, IExtractAzureDocumentDbService documentDbService)
         {
             this._configuration = configuration;
             _repositoryService = reposorityService;
-            _documentDBService = documentDBService;
+            _documentDbService = documentDbService;
             _sourceTableName = ExtractConstants.LookupTableNameList(typeof(T));
         }
 
@@ -40,6 +39,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
             var updatedWaterMark = GetMaxTime(datatoUpdate);
             UpdateLocalDataList(datatoUpdate);
             UpdateWaterMark(existingWaterMark, updatedWaterMark);
+            _repositoryService.CommitResults();
             //_unitOfWorkService.Commit(_dbKey);
             //Ideally call some sort of Save here!
         }
@@ -66,7 +66,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         {
             // connnect to document DB and retrieve data
             // timestamp should be Greater thjan the watermark gotten from  the DB
-            var queryable = _documentDBService.GetDocuments<T>(_sourceTableName, watermark);
+            var queryable = _documentDbService.GetDocuments<T>(_sourceTableName, watermark);
 
             return queryable.ToList();// Want to invoke at the moment, might just leave it to the end
         }
@@ -85,7 +85,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         protected virtual void UpdateLocalDataList(IList<T> list)
         {
             if (list == null || list.Count == 0) { return; }
-            foreach (var item in list)
+            foreach (var item in list.OrderBy(x => x.ModifiedDate)) // Order by modified date so that if we get a duplicate record it should get to the latest version last
             {
                 UpdateLocalData(item);
             }

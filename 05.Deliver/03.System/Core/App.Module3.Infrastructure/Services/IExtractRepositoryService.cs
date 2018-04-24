@@ -13,11 +13,15 @@ namespace App.Module3.Infrastructure.Services
 
         void UpdateWaterMarkTimeStamp(ExtractWatermark watermark);
 
-        IDictionary<string, AreaUnit> GetAreaUnits();
+        IDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase> GetSifCachedData<T>()
+            where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase;
+ 
 
 
-        void AddAreaUnit(AreaUnit newAreaUnit);
+        void AddSifData<T>(T newAreaUnit) where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase;
 
-        void UpdateAreaUnit(AreaUnit exisitingAreaUnit, AreaUnit newAreaUnit);
+        void UpdateSifData<T>(T exisitingAreaUnit, T newAreaUnit) where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase;
+
+        void CommitResults();
     }
 }
