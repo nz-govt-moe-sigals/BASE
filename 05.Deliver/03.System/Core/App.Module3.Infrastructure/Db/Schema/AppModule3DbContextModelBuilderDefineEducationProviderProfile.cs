@@ -70,26 +70,26 @@ namespace App.Module3.Infrastructure.Db.Schema
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<EducationProviderProfile>()
-                .HasRequired(x => x.LocalOffice)
+                .HasOptional(x => x.LocalOffice)
                 .WithMany()
                 .HasForeignKey(x => x.LocalOfficeFK)
                 .WillCascadeOnDelete(false);
 
 
             modelBuilder.Entity<EducationProviderProfile>()
-                .HasRequired(x => x.EducationProviderType)
+                .HasOptional(x => x.EducationProviderType)
                 .WithMany()
                 .HasForeignKey(x => x.EducationProviderTypeFK)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<EducationProviderProfile>()
-                .HasRequired(x => x.SpecialSchooling)
+                .HasOptional(x => x.SpecialSchooling)
                 .WithMany()
                 .HasForeignKey(x => x.SpecialSchoolingFK)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<EducationProviderProfile>()
-                .HasRequired(x => x.TeacherEducation)
+                .HasOptional(x => x.TeacherEducation)
                 .WithMany()
                 .HasForeignKey(x => x.TeacherEducationFK)
                 .WillCascadeOnDelete(false);
@@ -155,7 +155,7 @@ namespace App.Module3.Infrastructure.Db.Schema
             modelBuilder.Entity<EducationProviderProfile>()
                 .HasMany(x => x.RollCounts)
                 .WithOptional()
-                .HasForeignKey(x => x.SchoolFK);
+                .HasForeignKey(x => x.EducationProviderFK);
 
             modelBuilder.Entity<EducationProviderProfile>()
                 .HasMany(x => x.Locations)

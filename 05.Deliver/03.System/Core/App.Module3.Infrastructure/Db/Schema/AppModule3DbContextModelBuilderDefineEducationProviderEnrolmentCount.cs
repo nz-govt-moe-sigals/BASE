@@ -27,7 +27,7 @@ namespace App.Module3.Infrastructure.Db.Schema
 
             // An Enrol Record is one of x child records of a school profile.
             modelBuilder.Entity<EducationProviderEnrolmentCount>()
-                .Property(x => x.SchoolFK)
+                .Property(x => x.EducationProviderFK)
                 .HasColumnOrder(order++)
                 .IsRequired();
             // ...taken on a specific date

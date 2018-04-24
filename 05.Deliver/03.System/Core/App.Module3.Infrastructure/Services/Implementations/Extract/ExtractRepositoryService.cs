@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using App.Core.Infrastructure.Services;
 using App.Module3.Infrastructure.Services.Implementations.Configuration;
 using App.Module3.Shared.Models.Entities;
+using AutoMapper;
 
 namespace App.Module3.Infrastructure.Services.Implementations.Extract
 {
@@ -65,6 +66,37 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         public void CommitResults()
         {
             _unitOfWorkService.CommitBatch(_dbKey);
+        }
+
+
+        public EducationProviderProfile GetEducationProviderProfile(string schoolId)
+        {
+            EducationProviderProfile profile;
+            if (!_repoObject.EducationProviderProfiles.TryGetValue(schoolId, out profile))
+            {
+                profile = _repositoryService.GetSingle<EducationProviderProfile>(_dbKey, x => x.SourceSystemKey == schoolId);
+                if (profile != null)
+                {
+                    _repoObject.EducationProviderProfiles.Add(profile.SourceSystemKey, profile);
+                }
+            }
+            return profile;
+        }
+
+
+        public void AddOrUpdateEducationProfile(EducationProviderProfile profile)
+        {
+            var profileToUpdate = GetEducationProviderProfile(profile.SourceSystemKey);
+            if (profileToUpdate != null)
+            {
+                Mapper.Map<EducationProviderProfile, EducationProviderProfile>(profile, profileToUpdate);
+                _repositoryService.UpdateOnCommit(_dbKey, profileToUpdate);
+            }
+            else
+            {
+                _repoObject.EducationProviderProfiles.Add(profile.SourceSystemKey, profile);
+                _repositoryService.AddOnCommit(_dbKey, profile);
+            }
         }
 
 

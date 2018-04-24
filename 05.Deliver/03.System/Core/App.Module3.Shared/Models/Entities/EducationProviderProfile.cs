@@ -47,7 +47,7 @@ namespace App.Module3.Shared.Models.Entities
             get; set;
         }
 
-        public Guid LocalOfficeFK
+        public Guid? LocalOfficeFK
         {
             get; set;
         }
@@ -132,7 +132,7 @@ namespace App.Module3.Shared.Models.Entities
             get; set;
         }
 
-        public Guid EducationProviderTypeFK
+        public Guid? EducationProviderTypeFK
         {
             get; set;
         }
@@ -151,7 +151,7 @@ namespace App.Module3.Shared.Models.Entities
         }
 
 
-        public Guid SpecialSchoolingFK
+        public Guid? SpecialSchoolingFK
         {
             get; set;
         }
@@ -163,7 +163,7 @@ namespace App.Module3.Shared.Models.Entities
 
 
 
-        public Guid TeacherEducationFK
+        public Guid? TeacherEducationFK
         {
             get; set;
         }

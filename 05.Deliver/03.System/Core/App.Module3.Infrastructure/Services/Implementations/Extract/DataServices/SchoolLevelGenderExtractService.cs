@@ -10,7 +10,7 @@ using AutoMapper;
 
 namespace App.Module3.Infrastructure.Services.Implementations.Extract.DataServices
 {
-    public class SchoolLevelGenderExtractService : BaseExtractService<ReferenceAreaUnit>
+    public class SchoolLevelGenderExtractService : BaseExtractService<SchoolLevelGender>
     {
         public SchoolLevelGenderExtractService(BaseExtractServiceConfiguration configuration, IExtractRepositoryService reposorityService, IExtractAzureDocumentDbService documentDbService)
             : base(configuration, reposorityService, documentDbService)
@@ -18,9 +18,9 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.DataServic
 
         }
 
-        public override void UpdateLocalData(ReferenceAreaUnit item)
+        public override void UpdateLocalData(SchoolLevelGender item)
         {
-            var mappedEntity = Mapper.Map<ReferenceAreaUnit, AreaUnit>(item);
+            var mappedEntity = Mapper.Map<SchoolLevelGender, AreaUnit>(item);
             var areaUnitsLookup = _repositoryService.GetSifCachedData<AreaUnit>(); // is CACHED DATA
             if (areaUnitsLookup.TryGetValue(mappedEntity.SourceSystemKey, out var existingEntity))
             {

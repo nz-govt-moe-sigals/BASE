@@ -102,6 +102,14 @@
     <Compile Include="Db\Migrations\Module3\201804232312227_Entities.UpdateSourceSystemKeyDefinitons.Designer.cs">
       <DependentUpon>201804232312227_Entities.UpdateSourceSystemKeyDefinitons.cs</DependentUpon>
     </Compile>
+    <Compile Include="Db\Migrations\Module3\201804240034045_Entities.NullableSchoolProfile.cs" />
+    <Compile Include="Db\Migrations\Module3\201804240034045_Entities.NullableSchoolProfile.Designer.cs">
+      <DependentUpon>201804240034045_Entities.NullableSchoolProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Db\Migrations\Module3\201804240158484_Entities.NullableSchoolProfile2.cs" />
+    <Compile Include="Db\Migrations\Module3\201804240158484_Entities.NullableSchoolProfile2.Designer.cs">
+      <DependentUpon>201804240158484_Entities.NullableSchoolProfile2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Db\Migrations\Module3\Configuration.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineExtractWatermark.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineRelationshipType.cs" />
@@ -158,6 +166,7 @@
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceWard_Ward.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceUrbanArea_UrbanArea.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceTerritorialAuthority_TerritorialAuthority.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectToMap_EducationProviderProfile_EducationProviderProfile.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\Base\ObjectMap_TenantedFIRSTKeyedGuidIdReferenceDataBase_TenantedSIFTypeDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ObjectMap_EducationProviderEnrolmentCount_EducationProviderEnrolmentCountDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ObjectMap_EducationProviderLocation_EducationProviderLocationDto.cs" />
@@ -272,6 +281,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Db\Migrations\Module3\201804232312227_Entities.UpdateSourceSystemKeyDefinitons.resx">
       <DependentUpon>201804232312227_Entities.UpdateSourceSystemKeyDefinitons.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Db\Migrations\Module3\201804240034045_Entities.NullableSchoolProfile.resx">
+      <DependentUpon>201804240034045_Entities.NullableSchoolProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Db\Migrations\Module3\201804240158484_Entities.NullableSchoolProfile2.resx">
+      <DependentUpon>201804240158484_Entities.NullableSchoolProfile2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

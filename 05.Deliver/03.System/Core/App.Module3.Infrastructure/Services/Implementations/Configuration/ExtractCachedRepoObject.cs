@@ -10,10 +10,13 @@ namespace App.Module3.Infrastructure.Services.Implementations.Configuration
     public class ExtractCachedRepoObject
     {
         private readonly IDictionary<Type, IDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase>> _lookDictionary;
+        
+
 
         public ExtractCachedRepoObject()
         {
             _lookDictionary = new Dictionary<Type, IDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase>>();
+            EducationProviderProfiles = new Dictionary<string, EducationProviderProfile>();
         }
 
         public IDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase> GetCachedLookUpData<T>()
@@ -29,6 +32,9 @@ namespace App.Module3.Infrastructure.Services.Implementations.Configuration
         {
             _lookDictionary.Add(typeof(T), dic);
         }
+
+
+        public IDictionary<string, EducationProviderProfile> EducationProviderProfiles { get; set; }
         /*
         public IDictionary<string, AreaUnit> AreaUnitsLookup { get; set; }
 

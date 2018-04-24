@@ -5,22 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using App.Module3.Infrastructure.Services.Implementations.Extract.DataServices;
 using App.Module3.Infrastructure.Services.Implementations.Extract.ReferenceServices;
 
 namespace App.Module3.Infrastructure.Services.Implementations.Extract
 {
     public class ExtractServiceController : IExtractServiceController
     {
-        private IRepositoryService _dbContext;
-        private IUnitOfWorkService _unitOfWork;
-        private IExtractAzureDocumentDbService _documentDbService;
+        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
 
-        public ExtractServiceController(IRepositoryService dbContext, IUnitOfWorkService unitOfWork,
-            IExtractAzureDocumentDbService documentDbService)
+        public ExtractServiceController(IDiagnosticsTracingService diagnosticsTracingService)
         {
-            _dbContext = dbContext;
-            _documentDbService = documentDbService;
-            _unitOfWork = unitOfWork;
+            _diagnosticsTracingService = diagnosticsTracingService;
         }
 
         public void ProcessAllTables()
@@ -60,14 +56,14 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
                     service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<SchoolLevelGender>>();
                     break;
                 case ExtractConstants._tableNameSchoolProfiles:
-                    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<SchoolProfile>>();
+                    service = App.AppDependencyLocator.Current.GetInstance<SchoolProfilesExtractService>();
                     break;
                 case ExtractConstants._tableNameSchoolWGS:
                     service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<SchoolWGS>>();
                     break;
-                case ExtractConstants._tableNameSummary:
-                    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<Summary>>();
-                    break;
+                //case ExtractConstants._tableNameSummary:
+                //    service = App.AppDependencyLocator.Current.GetInstance<BaseExtractService<Summary>>();
+                //    break;
             }
             service.Process();
         }

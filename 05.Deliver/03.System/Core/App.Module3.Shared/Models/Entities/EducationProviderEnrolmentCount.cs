@@ -12,7 +12,7 @@
         /// <value>
         /// The school fk.
         /// </value>
-        public Guid SchoolFK
+        public Guid EducationProviderFK
         {
             get; set;
         }

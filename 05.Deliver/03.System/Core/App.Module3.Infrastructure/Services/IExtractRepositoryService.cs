@@ -22,6 +22,8 @@ namespace App.Module3.Infrastructure.Services
 
         void UpdateSifData<T>(T exisitingAreaUnit, T newAreaUnit) where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase;
 
+        void AddOrUpdateEducationProfile(EducationProviderProfile profile);
+
         void CommitResults();
     }
 }
