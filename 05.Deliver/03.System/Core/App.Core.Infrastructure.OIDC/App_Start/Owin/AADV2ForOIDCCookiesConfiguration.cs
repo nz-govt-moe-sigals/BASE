@@ -16,6 +16,14 @@
 
     public class AADV2ForOIDCCookiesConfiguration
     {
+        private readonly IAzureKeyVaultService _keyVaultService;
+        private readonly IOIDCNotificationHandlerService _oidcNotificationHandlerService;
+
+        public AADV2ForOIDCCookiesConfiguration(IAzureKeyVaultService keyVaultService, IOIDCNotificationHandlerService oidcNotificationHandlerService)
+        {
+            this._keyVaultService = keyVaultService;
+            this._oidcNotificationHandlerService = oidcNotificationHandlerService;
+        }
         //private IOIDCNotificationHandlerService _oidcNotificationHandlerService;
 
         /// <summary>
@@ -23,13 +31,13 @@
         ///     Configure the OWIN MiddleWare
         /// </summary>
         /// <param name="appBuilder"></param>
-        /// <param name="hostSettingsService"></param>
+        /// <param name="keyVaultService"></param>
         /// <param name="oidcNotificationHandlerService"></param>
-        public void Configure(IAppBuilder appBuilder, IHostSettingsService hostSettingsService, IOIDCNotificationHandlerService oidcNotificationHandlerService)
+        public void Configure(IAppBuilder appBuilder)
         {
             //Get basic OIDC Config settings:
             IAADOidcConfidentialClientConfiguration aadOIDCConfidentialClientConfiguration =
-                hostSettingsService.GetObject<AADOidcConfidentialClientConfiguration>();
+                _keyVaultService.GetObject<AADOidcConfidentialClientConfiguration>();
 
             //Same for AAD as for OIDC:
             appBuilder.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);

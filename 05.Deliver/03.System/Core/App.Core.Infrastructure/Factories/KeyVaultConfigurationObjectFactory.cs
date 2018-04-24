@@ -94,7 +94,7 @@
             var objectType = target.GetType();
 
             var validSources = new[]
-                {ConfigurationSettingSource.SourceType.All, ConfigurationSettingSource.SourceType.KeyVault};
+                {ConfigurationSettingSource.SourceType.Any, ConfigurationSettingSource.SourceType.KeyVault};
 
             
             // Iterate over the public properties of the target object
@@ -129,7 +129,7 @@
                         case ConfigurationSettingSource.SourceType.AppSetting:
                             //For sure it was suppossed to not be set here:
                             continue;
-                        case ConfigurationSettingSource.SourceType.All:
+                        case ConfigurationSettingSource.SourceType.Any:
                             var o = propertyInfo.GetValue(target, null);
                             if ((!o.IsDefault()) && (skipIfAlreadyHasValue))
                             {

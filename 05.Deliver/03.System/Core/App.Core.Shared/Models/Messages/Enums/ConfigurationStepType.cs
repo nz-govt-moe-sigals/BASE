@@ -4,6 +4,7 @@
     {
         Undefined = 0,
         General = 1,
-        Security = 2
+        Security = 2,
+        Performance = 3
     }
 }

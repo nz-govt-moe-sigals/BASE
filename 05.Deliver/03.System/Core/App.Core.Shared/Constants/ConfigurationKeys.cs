@@ -34,8 +34,8 @@ namespace App.Core.Shared.Constants
         public const string AppCoreMediaHashType = "App-Core-Media-HashType";
         // -----
         // Azure AAD (if not moved on to using MSI, which is far safer):
-        public const string AppCoreIDAAADClientId = "App-Core-Integration-ida-AAD:ClientId";
-        public const string AppCoreIDAAADClientSecret = "App-Core-Integration-ida-AAD:ClientSecret";
+        public const string AppCoreIDAAADClientId = "App-Core-Integration-Oidc-AAD:ClientId";
+        public const string AppCoreIDAAADClientSecret = "App-Core-Integration-Oidc-AAD:ClientSecret";
 
         // -----
         // Integration / Azure:
@@ -49,7 +49,7 @@ namespace App.Core.Shared.Constants
             "App-Core-Integration-Azure-ApplicationInsights-Enabled";
         // -----
         // Integration / Azure / Key Vault
-        public const string AppCoreIntegrationAzureKeyVaultStoreResourceName = "App-Core-Integration-Azure-KeyVaultStores-ResourceName";
+        public const string AppCoreIntegrationAzureKeyVaultStoreResourceName = "App-Core-Integration-Azure-KeyVaultStores-Default-ResourceName";
         // -----
         // Integration / Azure / Storage Account / Common
         // -----
@@ -64,19 +64,19 @@ namespace App.Core.Shared.Constants
         public const string AppCoreIntegrationAzureStorageAccountDefaultKey = "App-Core-Integration-Azure-StorageAccount-Default-Key";
         // -----
         // Integration / DocumentDb:
-        public const string AppCoreIntegrationAzureDocumentDbResourceName = "App-Core-Integration-Azure-DocumentDb-ResourceName";
+        public const string AppCoreIntegrationAzureDocumentDbResourceName = "App-Core-Integration-Azure-DocumentDb-Default-ResourceName";
         //public const string AppCoreIntegrationAzureDocumentDbResourceEndpointUrl = "App-Core-Integration:Azure:DocumentDb:EndpointUrl";
         // The following should not be use if we are using MSI:
-        public const string AppCoreIntegrationAzureDocumentDbAuthorizationKey = "App-Core-Integration-Azure-DocumentDb-AuthorizationKey";
+        public const string AppCoreIntegrationAzureDocumentDbAuthorizationKey = "App-Core-Integration-Azure-DocumentDb-Default-Key";
         // -----
         // CodeFirst:
         public const string AppCoreCodeFirstAttachDebuggerToPSSeeding = "App-Core-Integration-Sql-CodeFirst-AttachDebuggerToPSSeeding";
         public const string AppCoreCodeFirstSeedIncludeDemoEntries = "App-Core-Integration-Sql-CodeFirst-SeedIncludeDemoEntries";
         // -----
         // Scanii:
-        public const string AppCoreIntegrationMalwareDetectionScaniiKey = "App-Core-Integration-MalwareDetection-Scanii-Key";
-        public const string AppCoreIntegrationMalwareDetectionScaniiSecret = "App-Core-Integration-MalwareDetection-Scanii-Secret";
-        public const string AppCoreIntegrationMalwareDetectionScaniiBaseUri = "App-Core-Integration-MalwareDetection-Scanii-BaseUri";
+        public const string AppCoreIntegrationMalwareDetectionScaniiKey = "App-Core-Integration-Scanii-MalwareDetection-Key";
+        public const string AppCoreIntegrationMalwareDetectionScaniiSecret = "App-Core-Integration-Scanii-MalwareDetection-Secret";
+        public const string AppCoreIntegrationMalwareDetectionScaniiBaseUri = "App-Core-Integration-Scanii-MalwareDetection-BaseUri";
 
     }
 }

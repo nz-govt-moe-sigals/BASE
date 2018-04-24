@@ -34,15 +34,15 @@
         private static string[] _fullyQualifiedScopesRequiredByTargetAPI;
 
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
-        private readonly IHostSettingsService _hostSettingsService;
+        private readonly IAzureKeyVaultService _keyHostSettingsService;
         private static IOIDCNotificationHandlerService _oidcNotificationHandlerService;
 
         public B2COAuthCookieBasedAuthenticationConfig(IDiagnosticsTracingService diagnosticsTracingService,
-            IHostSettingsService hostSettingsService,
+            IAzureKeyVaultService keyVaultService,
             IOIDCNotificationHandlerService oidcNotificationHandlerService)
         {
             this._diagnosticsTracingService = diagnosticsTracingService;
-            this._hostSettingsService = hostSettingsService;
+            this._keyHostSettingsService = keyVaultService;
 
             //NOTE: static!
             _oidcNotificationHandlerService = oidcNotificationHandlerService;
@@ -62,7 +62,7 @@
         {
             _fullyQualifiedScopesRequiredByTargetAPI = fullyQualifiedScopesRequiredByTargetAPI;
             // Retrieve settings from web.settings (actually, web.settings.appSettings.exclude):
-            _b2cOidcConfidentialClientConfiguration = this._hostSettingsService
+            _b2cOidcConfidentialClientConfiguration = this._keyHostSettingsService
                 .GetObject<B2COidcConfidentialClientConfiguration>("cookieAuth:");
 
 
