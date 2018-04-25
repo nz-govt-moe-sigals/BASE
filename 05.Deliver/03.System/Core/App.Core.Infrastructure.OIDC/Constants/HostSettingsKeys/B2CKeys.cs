@@ -53,7 +53,7 @@
         /// <summary>
         /// The URI of the IdP to which the security principal is redirected.
         /// </summary>
-        public const string AuthorityUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-AuthorityUri";
+        public const string AuthorityUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-Client-AuthorityUri";
 
         /// <summary>
         /// The OIDC client Identifier.
@@ -61,19 +61,19 @@
         /// but not persisted in web.config code that coudlrtha.
         /// 
         /// </summary>
-        public const string ClientId = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-ClientId";
+        public const string ClientId = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-Client-Id";
         //Ensure this settings is persisted in KeyVault, and not the AppHost,
         //even if they are put there during deployment
-        public const string ClientSecret = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-ClientSecret";
+        public const string ClientSecret = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-Client-Secret";
 
-        public const string ClientRedirectUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-RedirectUri";
+        public const string ClientRedirectUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-Client-RedirectUri";
         /// <summary>
         /// The client post logout redirect URI.
         /// If it's just '/' just it's ok to persist it in the code base. 
         /// But if it contains a domain identifier then inject it into the 
         /// AppSettings via the build pipeline. Using the KeyVault would be too heavy.
         /// </summary>
-        public const string ClientPostLogoutRedirectUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-PostLogoutRedirectUri";
+        public const string ClientPostLogoutRedirectUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-Client-PostLogoutRedirectUri";
 
     }
 }

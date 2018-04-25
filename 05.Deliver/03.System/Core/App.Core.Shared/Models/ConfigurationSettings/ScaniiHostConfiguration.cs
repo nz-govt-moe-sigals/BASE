@@ -10,7 +10,7 @@ namespace App.Core.Shared.Models.Configuration.AppHost
 
         // Make sure this kind of secrets are not gotten from AppSettings.
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
-        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationMalwareDetectionScaniiKey)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationMalwareDetectionScaniiClientId)]
         public string Key
         {
             get; set;
@@ -18,7 +18,7 @@ namespace App.Core.Shared.Models.Configuration.AppHost
 
         // Make sure this kind of secrets are not gotten from AppSettings.
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
-        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationMalwareDetectionScaniiSecret)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationMalwareDetectionScaniiClientSecret)]
         public string Secret
         {
             get; set;
