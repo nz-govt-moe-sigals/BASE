@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using App.Core.Infrastructure.Services;
 using App.Module3.Infrastructure.Services.Implementations.Configuration;
+using App.Module3.Shared.Models;
 using App.Module3.Shared.Models.Entities;
 using AutoMapper;
 
@@ -14,12 +15,12 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
     public class ExtractRepositoryService : IExtractRepositoryService
     {
         private string _dbKey = Constants.Db.AppModule3DbContextNames.Module3;
-        private readonly IRepositoryService _repositoryService;
+        private readonly IModule3RepositoryService _repositoryService;
         private readonly ExtractCachedRepoObject _repoObject;
         private readonly IUnitOfWorkService _unitOfWorkService;
         private bool? _educationProviderProfileHasData;
 
-        public ExtractRepositoryService(ExtractCachedRepoObject repoObject, IRepositoryService repositoryService, IUnitOfWorkService unitOfWorkService)
+        public ExtractRepositoryService(ExtractCachedRepoObject repoObject, IModule3RepositoryService repositoryService, IUnitOfWorkService unitOfWorkService)
         {
             _repositoryService = repositoryService;
             _repoObject = repoObject ?? new ExtractCachedRepoObject();
@@ -120,10 +121,15 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
             else
             {
                 _repoObject.EducationProviderProfiles.Add(profile.SourceSystemKey, profile);
-                _repositoryService.AddOnCommit(_dbKey, profile);
+               _repositoryService.AddOnCommit(_dbKey, profile);
             }
         }
 
+
+        public void AddOrUpdate<TModel>(TModel model) where TModel : class, IHasSourceSystemKey
+        {
+            _repositoryService.AddOrUpdate<TModel>(_dbKey, x => x.SourceSystemKey == model.SourceSystemKey, model);
+        }
 
         private void AddOnCommit<TModel>(TModel model) where TModel : class
         {

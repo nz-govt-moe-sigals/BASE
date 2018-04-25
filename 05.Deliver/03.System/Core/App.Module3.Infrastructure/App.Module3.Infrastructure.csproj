@@ -165,10 +165,12 @@
     <Compile Include="Services\IExtractAzureDocumentDbService.cs" />
     <Compile Include="Services\IExtractServiceController.cs" />
     <Compile Include="Services\IHasAppModule3Service.cs" />
+    <Compile Include="Services\IModule3RepositoryService.cs" />
     <Compile Include="Services\Implementations\Base\AppModule3ServiceBase.cs" />
     <Compile Include="Services\Configuration\BaseExtractServiceConfiguration.cs" />
     <Compile Include="Services\Implementations\Configuration\ExtractCachedRepoObject.cs" />
     <Compile Include="Services\Implementations\Configuration\ExtractDocumentDbServiceConfiguration.cs" />
+    <Compile Include="Services\Implementations\Extract\DataServices\BaseDataExtractServices.cs" />
     <Compile Include="Services\Implementations\Extract\DataServices\SchoolEnrolExtractService.cs" />
     <Compile Include="Services\Implementations\Extract\DataServices\SchoolLevelGenderExtractService.cs" />
     <Compile Include="Services\Implementations\Extract\DataServices\SchoolProfilesExtractService.cs" />
@@ -197,6 +199,7 @@
     <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceTerritorialAuthorityExtractService.cs" />
     <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceUrbanAreaExtractService.cs" />
     <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceWardExtractService.cs" />
+    <Compile Include="Services\Implementations\Module3RepositoryService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\App.Core.Infrastructure\App.Core.Infrastructure.csproj">

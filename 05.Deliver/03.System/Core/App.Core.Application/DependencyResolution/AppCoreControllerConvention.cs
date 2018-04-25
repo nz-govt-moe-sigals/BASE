@@ -1,3 +1,7 @@
+using System.Data.Entity;
+using App.Module3.Infrastructure.Db.Context;
+using StructureMap.Web;
+
 namespace App.Core.Application.DependencyResolution
 {
     using System;
@@ -48,6 +52,10 @@ namespace App.Core.Application.DependencyResolution
                 // Although when I tried use/fore, it also raised {"Specified type is not an interface\r\nParameter name: interfaceToProxy"}
                 // AttachBehaviour(registry, serviceType);
             }
+
+
+
+            
 
             //registry.For<IController>().InterceptWith(new DynamicProxyInterceptor<IController>(new IInterceptionBehavior[]{new AuthorisationInterceptor()}));
 

@@ -25,7 +25,12 @@
 
         public bool HasChanges(string contextKey)
         {
-            return GetDbContext(contextKey).ChangeTracker.HasChanges();
+            return HasChanges(GetDbContext(contextKey));
+        }
+
+        protected bool HasChanges(DbContext context)
+        {
+            return context.ChangeTracker.HasChanges();
         }
 
         public bool Any<TModel>(string contextKey, Expression<Func<TModel, bool>> filter = null) where TModel : class
@@ -159,7 +164,7 @@
             return timestampped != null && (timestampped.Timestamp == null ? true : false);
         }
 
-        private DbContext GetDbContext(string contextKey)
+        protected virtual DbContext GetDbContext(string contextKey)
         {
             if (string.IsNullOrWhiteSpace(contextKey))
             {
@@ -168,7 +173,7 @@
             return AppDependencyLocator.Current.GetInstance<DbContext>(contextKey);
         }
 
-        private DbSet<T> GetDbSet<T>(string contextKey) where T : class
+        protected DbSet<T> GetDbSet<T>(string contextKey) where T : class
         {
             return GetDbContext(contextKey).Set<T>();
         }

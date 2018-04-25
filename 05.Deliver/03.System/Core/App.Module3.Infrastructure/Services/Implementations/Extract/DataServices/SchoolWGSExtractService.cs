@@ -10,7 +10,7 @@ using AutoMapper;
 
 namespace App.Module3.Infrastructure.Services.Implementations.Extract.DataServices
 {
-    public class SchoolWGSExtractService : BaseExtractService<SchoolWGS>
+    public class SchoolWGSExtractService : BaseDataExtractServices<SchoolWGS>
     {
         public SchoolWGSExtractService(BaseExtractServiceConfiguration configuration, IExtractRepositoryService reposorityService, IExtractAzureDocumentDbService documentDbService)
             : base(configuration, reposorityService, documentDbService)
@@ -20,16 +20,10 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.DataServic
 
         public override void UpdateLocalData(SchoolWGS item)
         {
-            var mappedEntity = Mapper.Map<SchoolWGS, AreaUnit>(item);
-            var areaUnitsLookup = _repositoryService.GetSifCachedData<AreaUnit>(); // is CACHED DATA
-            if (areaUnitsLookup.TryGetValue(mappedEntity.SourceSystemKey, out var existingEntity))
-            {
-                _repositoryService.UpdateSifData(existingEntity, mappedEntity);
-            }
-            else
-            {
-                _repositoryService.AddSifData(mappedEntity);
-            }
+            var mappedEntity = Mapper.Map<SchoolWGS, EducationProviderLocation>(item);
+            var educationProviderProfile = _repositoryService.GetEducationProviderProfile(item.InstitutionNumber.ToString());
+            mappedEntity.EducationProviderFK = educationProviderProfile.Id;
+            _repositoryService.AddOrUpdate(mappedEntity);
             //_repositoryService.UpdateOnCommit(_dbKey, );
             // Some Sky Magic Code
         }

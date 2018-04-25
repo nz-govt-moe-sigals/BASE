@@ -10,7 +10,7 @@ using AutoMapper;
 
 namespace App.Module3.Infrastructure.Services.Implementations.Extract.DataServices
 {
-    public class SchoolProfilesExtractService : BaseExtractService<SchoolProfile>
+    public class SchoolProfilesExtractService : BaseDataExtractServices<SchoolProfile>
     {
         public SchoolProfilesExtractService(BaseExtractServiceConfiguration configuration, IExtractRepositoryService reposorityService, IExtractAzureDocumentDbService documentDbService)
             : base(configuration, reposorityService, documentDbService)
@@ -18,7 +18,19 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.DataServic
 
         }
 
-   
+
+        protected override void UpdateLocalDataList(IList<SchoolProfile> list)
+        {
+            Test(list);
+        }
+        
+        private async void Test(IList<SchoolProfile> list)
+        {
+            var count = 0;
+            UpdateLocalData(list.First());
+            
+            //await Task.WhenAll(list.Select((item) => Task.Run(() => UpdateLocalData(item))));
+        }
 
         public override void UpdateLocalData(SchoolProfile item)
         {
@@ -48,28 +60,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.DataServic
 
 
 
-        public Guid LookUp<T>(string code)
-            where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase
-        {
-            var value = NullableLookUp<T>(code);
-            if (value.HasValue)
-            {
-                return value.Value;
-            }
-            throw new ArgumentException($"code expected but not found for type : {typeof(T)}");
-        }
 
-        public Guid? NullableLookUp<T>(string code)
-            where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase
-        {
-            if (string.IsNullOrWhiteSpace(code)) { return null; }
-            var areaUnitsLookup = _repositoryService.GetSifCachedData<T>();
-            if (areaUnitsLookup.TryGetValue(code, out var existingEntity))
-            {
-                return existingEntity.Id;
-            }
-            throw new ArgumentException($"Has code : {code} not found for type : {typeof(T)}");
-        }
 
 
     }

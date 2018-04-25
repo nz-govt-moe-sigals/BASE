@@ -10,7 +10,7 @@ using AutoMapper;
 
 namespace App.Module3.Infrastructure.Services.Implementations.Extract.DataServices
 {
-    public class SchoolLevelGenderExtractService : BaseExtractService<SchoolLevelGender>
+    public class SchoolLevelGenderExtractService : BaseDataExtractServices<SchoolLevelGender>
     {
         public SchoolLevelGenderExtractService(BaseExtractServiceConfiguration configuration, IExtractRepositoryService reposorityService, IExtractAzureDocumentDbService documentDbService)
             : base(configuration, reposorityService, documentDbService)
@@ -20,16 +20,12 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.DataServic
 
         public override void UpdateLocalData(SchoolLevelGender item)
         {
-            var mappedEntity = Mapper.Map<SchoolLevelGender, AreaUnit>(item);
-            var areaUnitsLookup = _repositoryService.GetSifCachedData<AreaUnit>(); // is CACHED DATA
-            if (areaUnitsLookup.TryGetValue(mappedEntity.SourceSystemKey, out var existingEntity))
-            {
-                _repositoryService.UpdateSifData(existingEntity, mappedEntity);
-            }
-            else
-            {
-                _repositoryService.AddSifData(mappedEntity);
-            }
+            var mappedEntity = Mapper.Map<SchoolLevelGender, EducationProviderLevelGender>(item);
+            var educationProviderProfile = _repositoryService.GetEducationProviderProfile(item.SchoolId.ToString());
+            mappedEntity.EducationProviderFK = educationProviderProfile.Id;
+            mappedEntity.GenderFK = LookUp<EducationProviderGender>(item.GenderValueId);
+            mappedEntity.YearFK = LookUp<EducationProviderYearLevel>(item.YearValueId);
+            _repositoryService.AddOrUpdate(mappedEntity);
             //_repositoryService.UpdateOnCommit(_dbKey, );
             // Some Sky Magic Code
         }
