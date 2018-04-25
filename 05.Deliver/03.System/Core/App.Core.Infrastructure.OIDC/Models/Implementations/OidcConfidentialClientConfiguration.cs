@@ -28,11 +28,11 @@
         ///         (e.g. https://login.microsoftonline.com/{configType}/v2.0/.well-known/openid-configuration)
         ///     </para>
         ///     <para>
-        ///         App-Core-Integration-Oidc- AadInstance
+        ///         ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'System-Integration-') + 'Oidc- AadInstance
         ///         eg: https://login.microsoftonline.com/{0}{1}{2}
         ///     </para>
         /// </summary>
-        //[Alias("App-Core-Integration-Oidc-PolicyBased-AadInstance")]
+        //[Alias(ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-PolicyBased-AadInstance")]
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
         [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.OIDCClientKeys.AuthorityUri)]
         public virtual string AuthorityUri
@@ -51,7 +51,7 @@
         /// <summary>
         ///     The Client application's unique Id.
         ///     <para>eg: 00000000-0000-.....</para>
-        ///     <para>Default Host Setting key is 'App-Core-Integration-Oidc-ClientId'</para>
+        ///     <para>Default Host Setting key is ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'System-') + 'Oidc-ClientId'</para>
         /// </summary>
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
         [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.OIDCClientKeys.ClientId)]
@@ -66,7 +66,7 @@
         /// <summary>
         ///     The Client application's unique Id.
         ///     <para>eg: SECRET</para>
-        ///     <para>Default Host Setting key is 'App-Core-Integration-Oidc-ClientSecret'</para>
+        ///     <para>Default Host Setting key is ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'System-') + 'Oidc-ClientSecret'</para>
         /// </summary>
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
         [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.OIDCClientKeys.ClientSecret)]
@@ -77,7 +77,7 @@
 
         /// <summary>
         ///     The Client application's callback to which the access token is delivered.
-        ///     <para>Default Host Setting key is 'App-Core-Integration-Oidc-RedirectUri'</para>
+        ///     <para>Default Host Setting key is ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'System-') + 'Oidc-RedirectUri'</para>
         ///     <para>eg: https://localhost:44311/ </para>
         /// <para>
         /// Since the url contains the domain name, this is a setting that will have to be 

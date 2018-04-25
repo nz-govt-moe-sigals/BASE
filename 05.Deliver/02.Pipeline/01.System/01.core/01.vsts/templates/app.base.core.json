@@ -180,6 +180,114 @@
                 "description": "Optional. If 'webSiteHostNameBindingHostName' is used for 'www.mydomain.tld', you want to be able to also register 'mydomain.tld' as well."
             },
             "type": "string"
+        },
+        "oauthEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Hook up to an OAuth Authority (you will need to provide the OAuth AuthorityUri, ClientId ClientKey."
+            }
+        },
+        "oauthClientId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. If your system needs to authenticate users, it should be via OIDC. Which is an extension of OAuth. If authenticating systems, it should be via OAuth.  Both require that you have the ClientId and ClientSecret that were developed by the remote IdP when you registered your app with it."
+            }
+        },
+        "oauthClientSecret": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. If your system needs to authenticate users, it should be via OIDC. Which is an extension of OAuth. If authenticating systems, it should be via OAuth. Both require that you have the ClientId and ClientSecret that were developed by the remote IdP when you registered your app with it."
+            }
+        },
+        "oauthAuthorityUri": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. Where the system sends authentication requests off to."
+            }
+        },
+        "oauthClientRedirectUri": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. If your system needs to authenticate users, using OIDC, you have to redirect Users back from the remote IDP to this system's Homepage. This is the 'redirect_uri' value of an OAuth request. '/' won't work (that would be the IdP's home page). If not provided, will be automatically generated using 'https' and your host binding name you provided."
+            }
+        },
+        "oauthClientPostLogoutRedirectUri": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. If your system needs to authenticate users, using OIDC, after a user is signed off (destroying their security token), you want to redirect them to the home page or other. The default is '/'."
+            }
+        },
+        "oidcPoliciesSignUpSignInPolicyId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. The name of the B2C's Policy/Flow to use for SignUp/SignIn."
+            }
+        },
+        "oidcPoliciesUserProfilePolicyId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. The name of the B2C's Policy/Flow to use for retrieving the User Profile."
+            }
+        },
+        "oidcPoliciesEditProfilePolicyId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. The name of the B2C's Policy/Flow to use for editing the User Profile."
+            }
+        },
+        "oidcPoliciesResetPasswordPolicyId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. The name of the B2C's Policy/Flow to use for reseting the user's Password."
+            }
+        },
+        "keyVaultVaultSecretSecrets": {
+            "type": "array",
+            "defaultValue": [
+                {
+                    "name": "system-integration-scanii-malwaredetection-oauth-clientid",
+                    "type": "text/plain",
+                    "value": "todo:how to get this from vault?"
+                },
+                {
+                    "name": "system-integration-scanii-malwaredetection-oauth-clientsecret",
+                    "type": "text/plain",
+                    "value": "todo:how to get this from vault?"
+                },
+                {
+                    "name": "system-integration-oidc-authorityuri",
+                    "type": "text/plain",
+                    "value": "todo"
+                },
+                {
+                    "name": "system-integration-oidc-clientid",
+                    "type": "text/plain",
+                    "value": "todo:how to get this from vault?"
+                },
+                {
+                    "name": "system-integration-oidc-clientsecret",
+                    "type": "text/plain",
+                    "value": "todo:how to get this from vault?"
+                },
+                {
+                    "name": "system-integration-oidc-redirecturi",
+                    "type": "text/plain",
+                    "value": "todo"
+                }
+            ],
+            "metadata": {
+                "description": "Optional. An array of Complex of name, type, value. With no comments allowed within the array (due to bug in VSTS)."
+            }
         }
     },
     "variables": {
@@ -235,7 +343,29 @@
                     "hostNameAlt": "[parameters('webSiteHostNameBindingHostNameAlt')]"
                 }
             } 
-        } 
+        }, 
+        "oauth": {
+            "enabled": "[parameters('oauthEnabled')]",
+            "client": {
+                "authorityUri": "[parameters('oauthAuthorityUri')]",
+                "id": "[parameters('oauthClientId')]",
+                "secret": "[parameters('oauthClientSecret')]",
+                "redirectUri": "[parameters('oauthClientRedirectUri')]",
+                "postLogoutRedirectUri": "[parameters('oauthClientPostLogoutRedirectUri')]"
+            }
+        },
+        "oidc": {
+            "client": {
+            },
+            "server": {
+            },
+            "policies": {
+                "signUpSignInPolicyId": "[parameters('oidcPoliciesSignUpSignInPolicyId')]",
+                "userProfilePolicyId": "[parameters('oidcPoliciesUserProfilePolicyId')]",
+                "editProfilePolicyId": "[parameters('oidcPoliciesEditProfilePolicyId')]",
+                "resetPasswordPolicyId": "[parameters('oidcPoliciesResetPasswordPolicyId')]"
+            }
+        }
     }, 
     "resources": [
         {
@@ -311,6 +441,36 @@
                     },
                     "webSiteHostNameBindingHostNameAlt": {
                         "value": "[variables('web').site.hostNameBinding.hostNameAlt]"
+                    },
+                    "oauthEnabled": {
+                        "value": "[variables('oauth').enabled]"
+                    },
+                    "oauthAuthorityUri": {
+                        "value": "[variables('oauth').client.authorityId]"
+                    },
+                    "oauthClientId": {
+                        "value": "[variables('oauth').client.id]"
+                    },
+                    "oauthClientSecret": {
+                        "value": "[variables('oauth').client.secret]"
+                    },
+                    "oauthClientRedirectUri": {
+                        "value": "[variables('oidc').client.redirectUri]"
+                    },
+                    "oauthClientPostLogoutRedirectUri": {
+                        "value": "[variables('oidc').client.postLogoutRedirectUri]"
+                    },
+                    "oidcPoliciesSignUpSignInPolicyId": {
+                        "value": "[variables('oidc').policies.signUpSignInPolicyId]"
+                    },
+                    "oidcPoliciesUserProfilePolicyId": {
+                        "value": "[variables('oidc').policies.userProfilePolicyId]"
+                    },
+                    "oidcPoliciesEditProfilePolicyId": {
+                        "value": "[variables('oidc').policies.editProfilePolicyId]"
+                    },
+                    "oidcPoliciesResetPasswordPolicyId": {
+                        "value": "[variables('oidc').policies.resetPasswordPolicyId]"
                     }
                 } 
             } 
@@ -341,6 +501,5 @@
             "type": "string",
             "value": "[reference(variables('assembly').armTemplateId).outputs.sqlServerDatabaseResourceName.value]"
         }
-
     } 
 }

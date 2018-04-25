@@ -62,7 +62,7 @@
         ///     <para>eg: 'B2C_1_B2C_Default_SignUp_Policy'</para>
         ///     <para>eg: 'B2C_1_B2C_SU'</para>
         ///     <para>Note: recommended to be same Policy Name as SignIn </para>
-        ///     <para>Default Host Seting key is 'App-Core-Integration-Oidc-PolicyBased-SignUpSignInPolicyId'</para>
+        ///     <para>Default Host Seting key is ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'System-Integration-') + 'Oidc-PolicyBased-SignUpSignInPolicyId'</para>
         /// </summary>
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
         [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.B2COIDCKeys.DefaultPolicyId)]
@@ -87,7 +87,7 @@
         ///     <para>eg: 'B2C_1_B2C_Default_SignUp_Policy'</para>
         ///     <para>eg: 'B2C_1_B2C_SU'</para>
         ///     <para>Note: recommended to be same Policy Name as SignIn </para>
-        ///     <para>Default Host Seting key is 'App-Core-Integration-Oidc-PolicyBased-SignUpSignInPolicyId'</para>
+        ///     <para>Default Host Seting key is ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'System-Integration-') + 'Oidc-PolicyBased-SignUpSignInPolicyId'</para>
         /// </summary>
         [Obsolete]
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
@@ -115,7 +115,7 @@
         ///     <para>eg: 'B2C_1_B2C_Default_SignIn_Policy'</para>
         ///     <para>eg: 'B2C_1_B2C_SI'</para>
         ///     <para>Note: recommended to be same Policy Name is SignUp </para>
-        ///     <para>Default Host Seting key is 'App-Core-Integration-Oidc-PolicyBased-SignInPolicyId'</para>
+        ///     <para>Default Host Seting key is ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'System-Integration-') + 'Oidc-PolicyBased-SignInPolicyId'</para>
         /// </summary>
         [Obsolete]
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
@@ -152,7 +152,7 @@
         ///     The B2C User Profile Policy Name
         ///     <para>eg: 'B2C_1_B2C_Default_UserProfile_Policy'</para>
         ///     <para>eg: 'B2C_1_B2C_UP'</para>
-        ///     <para>Default Host Seting key is 'App-Core-Integration-Oidc-PolicyBased-UserProfilePolicyId'</para>
+        ///     <para>Default Host Seting key is ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'System-Integration-') + 'Oidc-PolicyBased-UserProfilePolicyId'</para>
         /// </summary>
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
         [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.B2COIDCKeys.UserProfilePolicyId)]
@@ -163,7 +163,7 @@
         ///     The B2C Edit Profile Policy Name
         ///     <para>eg: 'B2C_1_B2C_Default_EditProfile_Policy'</para>
         ///     <para>eg: 'B2C_1_B2C_EP'</para>
-        ///     <para>Default Host Seting key is 'App-Core-Integration-Oidc-PolicyBased-EditProfilePolicyId'</para>
+        ///     <para>Default Host Seting key is ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'System-Integration-') + 'Oidc-PolicyBased-EditProfilePolicyId'</para>
         /// </summary>
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
         [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.B2COIDCKeys.EditProfilePolicyId)]
@@ -177,7 +177,7 @@
         ///     The B2C SignUp/SignIn Policy Name
         ///     <para>eg: 'B2C_1_B2C_Default_ResetPassword_Policy'</para>
         ///     <para>eg: 'B2C_1_B2C_RP'</para>
-        ///     <para>Default Host Seting key is 'App-Core-Integration-Oidc-PolicyBased-ResetPasswordPolicyId'</para>
+        ///     <para>Default Host Seting key is ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'System-Integration-') + 'Oidc-PolicyBased-ResetPasswordPolicyId'</para>
         /// </summary>
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
         [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.B2COIDCKeys.ResetPasswordPolicyId)]

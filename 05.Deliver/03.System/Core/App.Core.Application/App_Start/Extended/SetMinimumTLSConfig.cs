@@ -3,6 +3,7 @@
     using System;
     using System.Net;
     using App.Core.Infrastructure.Services;
+    using App.Core.Shared.Constants;
     using App.Core.Shared.Models.Messages;
 
     /// <summary>
@@ -69,7 +70,7 @@
 
                 SecurityProtocolType setting;
 
-                string key = "App-Core-TLS-SecurityProtocol";
+                string key = ConfigurationKeys.SystemKeyPrefix + "TLS-SecurityProtocol";
 
                 var tmp = this._hostSettingsService.GetObject<string>(key);
 

@@ -34,27 +34,27 @@ SRC:KEYVAULT and REQUIRED:
 * App:
   * Core:
     * Integration:
-	  * Azure:
-	    * Insights:
-          * "App-Core-Integration-Azure-ApplicationInsights-InstrumentationKey"; REQUIRED; SRC:KEYVAULT;
-	    * DocumentDb:
-		  * Default:
-            * "App-Core-Integration-Azure-DocumentDb-Default-Key"; REQUIRED; SRC:KEYVAULT;
-	    * StorageAccount:
-		  * Diagnostics:
-            * "App-Core-Integration-Azure-StorageAccount-Diagnostics-Key"; REQUIRED; SRC:KEYVAULT;
-		  * Default:
-            * "App-Core-Integration-Azure-StorageAccount-Default-Key"; REQUIRED; SRC:KEYVAULT;
-		  * Backups:
-            * "App-Core-Integration-Azure-StorageAccount-Backups-Key"; REQUIRED; SRC:KEYVAULT;
-	  * Scanii:
-        * "App-Core-Integration-Scanii-MalwareDetection-Key"; REQUIRED; SRC:KEYVAULT;
-        * "App-Core-Integration-Scanii-MalwareDetection-Secret"; REQUIRED; SRC:KEYVAULT;
+    * Azure:
+      * Insights:
+          * "System-Integration-Azure-ApplicationInsights-InstrumentationKey"; REQUIRED; SRC:KEYVAULT;
+      * DocumentDb:
+        * Default:
+          * "System-Integration-Azure-DocumentDb-Default-Key"; REQUIRED; SRC:KEYVAULT;
+      * StorageAccount:
+        * Diagnostics:
+          * "System-Integration-Azure-StorageAccount-Diagnostics-Key"; REQUIRED; SRC:KEYVAULT;
+        * Default:
+          * "System-Integration-Azure-StorageAccount-Default-Key"; REQUIRED; SRC:KEYVAULT;
+        * Backups:
+          * "System-Integration-Azure-StorageAccount-Backups-Key"; REQUIRED; SRC:KEYVAULT;
+    * Scanii:
+        * "System-Integration-Scanii-MalwareDetection-OAuth-ClientId"; REQUIRED; SRC:KEYVAULT;
+        * "System-Integration-Scanii-MalwareDetection-OAuth-ClientSecret"; REQUIRED; SRC:KEYVAULT;
       * Oidc:
-          * "App-Core-Integration-Oidc-ClientId"; REQUIRED; SRC:KEYVAULT;
-    	    * Notes: The ClientId and ClientSecret are obtained by registering the app up to a remote OIDC capable IdP
-          * "App-Core-Integration-Oidc-ClientSecret"; REQUIRED; SRC:KEYVAULT;
-	    * Notes: The ClientId and ClientSecret are obtained by registering the app up to a remote OIDC capable IdP
+          * "System-Integration-Oidc-ClientId"; REQUIRED; SRC:KEYVAULT;
+          * Notes: The ClientId and ClientSecret are obtained by registering the app up to a remote OIDC capable IdP
+          * "System-Integration-Oidc-ClientSecret"; REQUIRED; SRC:KEYVAULT;
+      * Notes: The ClientId and ClientSecret are obtained by registering the app up to a remote OIDC capable IdP
 
 ### Optional
 
@@ -78,40 +78,40 @@ SRC:KEYVAULT and OPTIONAL:
     * Integration:
       * Azure:
         * Common:
-          * "App-Core-Integration-Azure-Common-ResourceName"; REQUIRED; SRC:PIPELINESETAPPSETTINGS
+          * "System-Integration-Azure-Common-ResourceName"; REQUIRED; SRC:PIPELINESETAPPSETTINGS
             * Example: "nzmoebase0000bt"
-	    * SqlServer:
-          * "App-Core-Integration-Sql-CodeFirst-AttachDebuggerToPSSeeding" 
+        * SqlServer:
+          * "System-Integration-Azure-SqlDatabase-CodeFirst-AttachDebuggerToPSSeeding" 
             * Options: true|false
             * Must be provided by pipeline, to ensure dev variables are not used in prod...
-          * "App-Core-Integration-Sql-CodeFirst-SeedIncludeDemoEntries"
+          * "System-Integration-Azure-SqlDatabase-CodeFirst-SeedIncludeDemoEntries"
             * Options: true|false
             * Must be provided by pipeline, to ensure dev variables are not used in prod...
       * Oidc:
-        * General Settings for all OIDC Clients:
-          * "App-Core-Integration-Oidc-AuthorityUri"; REQIURED; SRC:PIPELINESETAPPSETTINGS
-          * "App-Core-Integration-Oidc-RedirectUri"; REQIURED; SRC:PIPELINESETAPPSETTINGS
-    	    * Notes: This the DNS based url where the remote IdP redirects users back to when they have completed SignUp/In.
-    	    * Example: "https://foobar.com/"
-          * "App-Core-Integration-Oidc-ClientPostLogoutUri"; REQIURED; SRC:PIPELINESETAPPSETTINGS
-    	    * Notes: This the relational uri the user is directed back to after deleting their security token.
-    	    * Example: "/"
-          * "App-Core-Integration-Oidc-AuthorityUriType"; REQIURED; SRC:PIPELINESETAPPSETTINGS
-          * "App-Core-Integration-Oidc-AuthorityTenantName"; REQIURED; SRC:PIPELINESETAPPSETTINGS
-          * "App-Core-Integration-Oidc-AuthorityUri"; REQIURED; SRC:PIPELINESETAPPSETTINGS
-    	      <add key="App-Core-Integration-Oidc-ApproachType" value="B2CUsingOIDCAndCookiesAndBearerTokens"/>
+	    * General Settings for all OIDC Clients:
+          * "System-Integration-Oidc-AuthorityUri"; REQIURED; SRC:PIPELINESETAPPSETTINGS
+          * "System-Integration-Oidc-RedirectUri"; REQIURED; SRC:PIPELINESETAPPSETTINGS
+          * Notes: This the DNS based url where the remote IdP redirects users back to when they have completed SignUp/In.
+          * Example: "https://foobar.com/"
+          * "System-Integration-Oidc-ClientPostLogoutUri"; REQIURED; SRC:PIPELINESETAPPSETTINGS
+          * Notes: This the relational uri the user is directed back to after deleting their security token.
+          * Example: "/"
+          * "System-Integration-Oidc-AuthorityUriType"; REQIURED; SRC:PIPELINESETAPPSETTINGS
+          * "System-Integration-Oidc-AuthorityTenantName"; REQIURED; SRC:PIPELINESETAPPSETTINGS
+          * "System-Integration-Oidc-AuthorityUri"; REQIURED; SRC:PIPELINESETAPPSETTINGS
+            <add key="System-Integration-Oidc-ApproachType" value="B2CUsingOIDCAndCookiesAndBearerTokens"/>
         * AAD SPECIFIC OIDC Client Settings/TODO:
-          * "App-Core-Integration-Oidc-PolicyBased-AadInstance" REQUIRED: SRC:PIPELINESETAPPSETTINGS
+          * "System-Integration-Oidc-PolicyBased-AadInstance" REQUIRED: SRC:PIPELINESETAPPSETTINGS
         * B2C SPECIFIC OIDC Client Settings:
-          * "App-Core-Integration-Oidc-PolicyBased-AuthorityCookieConfigurationPolicyUri"; REQIURED; SRC:PIPELINESETAPPSETTINGS
-          * "App-Core-Integration-Oidc-PolicyBased-AuthorityTokenConfigurationPolicyUri"; REQIURED; SRC:PIPELINESETAPPSETTINGS
-          * "App-Core-Integration-Oidc-PolicyBased-DefaultPolicyId"; REQIURED; SRC:PIPELINESETAPPSETTINGS
-          * "App-Core-Integration-Oidc-PolicyBased-SignUpPolicyId"; REQIURED; SRC:PIPELINESETAPPSETTINGS
-          * "App-Core-Integration-Oidc-PolicyBased-SignInPolicyId"; REQIURED; SRC:PIPELINESETAPPSETTINGS
-          * "App-Core-Integration-Oidc-PolicyBased-SignUpSignInPolicyId"; REQIURED; SRC:PIPELINESETAPPSETTINGS
-          * "App-Core-Integration-Oidc-PolicyBased-UserProfilePolicyId"; REQIURED; SRC:PIPELINESETAPPSETTINGS
-          * "App-Core-Integration-Oidc-PolicyBased-EditProfilePolicyId"; REQIURED; SRC:PIPELINESETAPPSETTINGS
-          * "App-Core-Integration-Oidc-PolicyBased-ResetPasswordPolicyId"; REQIURED; SRC:PIPELINESETAPPSETTINGS
+          * "System-Integration-Oidc-PolicyBased-AuthorityCookieConfigurationPolicyUri"; REQIURED; SRC:PIPELINESETAPPSETTINGS
+          * "System-Integration-Oidc-PolicyBased-AuthorityTokenConfigurationPolicyUri"; REQIURED; SRC:PIPELINESETAPPSETTINGS
+          * "System-Integration-Oidc-PolicyBased-DefaultPolicyId"; REQIURED; SRC:PIPELINESETAPPSETTINGS
+          * "System-Integration-Oidc-PolicyBased-SignUpPolicyId"; REQIURED; SRC:PIPELINESETAPPSETTINGS
+          * "System-Integration-Oidc-PolicyBased-SignInPolicyId"; REQIURED; SRC:PIPELINESETAPPSETTINGS
+          * "System-Integration-Oidc-PolicyBased-SignUpSignInPolicyId"; REQIURED; SRC:PIPELINESETAPPSETTINGS
+          * "System-Integration-Oidc-PolicyBased-UserProfilePolicyId"; REQIURED; SRC:PIPELINESETAPPSETTINGS
+          * "System-Integration-Oidc-PolicyBased-EditProfilePolicyId"; REQIURED; SRC:PIPELINESETAPPSETTINGS
+          * "System-Integration-Oidc-PolicyBased-ResetPasswordPolicyId"; REQIURED; SRC:PIPELINESETAPPSETTINGS
 
 
 
@@ -121,22 +121,23 @@ The following are required as well..but can wait.
 They probably should not be in the CodeBase/web.config as it ties the code strongly down
 to a specific system, making the code less reusable. 
 
+
 * App:
   * Core:
-      * "SystemInfo":
-  	    * Provides the name/description of the app (used by FrontEnds):
-          * "App-Core-Application-Name"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
-          * "App-Core-Application-Description"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
-        * Describe the Creator of the App:
-          * "App-Core-Application-Creator-Name"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
-          * "App-Core-Application-Creator-Description"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
-          * "App-Core-Application-Creator-SiteUrl"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
-          * "App-Core-Application-Creator-ContactUrl"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
-        * Describe the Distributor of the App:
-          * "App-Core-Application-Distributor-Name"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
-          * "App-Core-Application-Distributor-Description"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
-          * "App-Core-Application-Distributor-SiteUrl"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
-          * "App-Core-Application-Distributor-ContactUrl"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
+    * "SystemInfo":
+      * Provides the name/description of the app (used by FrontEnds):
+        * "System-Application-Info-Name"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
+        * "System-Application-Info-Description"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
+      * Describe the Creator of the App:
+        * "System-Application-Creator-Name"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
+        * "System-Application-Creator-Description"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
+        * "System-Application-Creator-SiteUrl"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
+        * "System-Application-Creator-ContactUrl"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
+      * Describe the Distributor of the App:
+        * "System-Application-Distributor-Name"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
+        * "System-Application-Distributor-Description"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
+        * "System-Application-Distributor-SiteUrl"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
+        * "System-Application-Distributor-ContactUrl"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
 
 
 
@@ -150,72 +151,78 @@ The following are not required, but are there for those who have to fiddle.
       * Azure:
         * KeyVault:
           * Default:
-    	    * "App-Core-Integration-Azure-KeyVaultStores-Default-ResourceName"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS; 
-    	      * Notes: Not required as if not provided, falls back to App-Core-Integration-Azure-Common-ResourceName
-    	  * StorageAccount:
-    	    * Default:
-            * "App-Core-Integration-Azure-StorageAccount-Default-ResourceName"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
-    	        * Notes: If not provided, falls back to App-Core-Integration-Azure-Common-ResourceName + Suffix
-            * "App-Core-Integration-Azure-StorageAccount-Default-ResourceNameSuffix"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS|APPSETTINGS;
-    	        * Default: ''
-    	    * Diagnostics:
-            * "App-Core-Integration-Azure-StorageAccount-Diagnostics-ResourceName"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
-    	        * Notes: If not provided, falls back to App-Core-Integration-Azure-Common-ResourceName + Suffix
-            * "App-Core-Integration-Azure-StorageAccount-Diagnostics-ResourceNameSuffix"; OPTIONAL; SRC:APPSETTINGS|PIPELINESETAPPSETTINGS;
-      	    * Default: 'di'
+          * "System-Integration-Azure-KeyVaultStores-Default-ResourceName"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS; 
+            * Notes: Not required as if not provided, falls back to System-Integration-Azure-Common-ResourceName
+        * StorageAccount:
+          * Default:
+            * "System-Integration-Azure-StorageAccount-Default-ResourceName"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
+              * Notes: If not provided, falls back to System-Integration-Azure-Common-ResourceName + Suffix
+            * "System-Integration-Azure-StorageAccount-Default-ResourceNameSuffix"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS|APPSETTINGS;
+              * Default: ''
+          * Diagnostics:
+            * "System-Integration-Azure-StorageAccount-Diagnostics-ResourceName"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
+              * Notes: If not provided, falls back to System-Integration-Azure-Common-ResourceName + Suffix
+            * "System-Integration-Azure-StorageAccount-Diagnostics-ResourceNameSuffix"; OPTIONAL; SRC:APPSETTINGS|PIPELINESETAPPSETTINGS;
+            * Default: 'di'
           * Backups:
-            * "App-Core-Integration-Azure-StorageAccount-Backups-ResourceName"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
-    	        * Notes: If not provided, falls back to App-Core-Integration-Azure-Common-ResourceName + Suffix
-            * "App-Core-Integration-Azure-StorageAccount-Backups-ResourceNameSuffix"; OPTIONAL; SRC:APPSETTINGS|PIPELINESETAPPSETTINGS;
-    	        * Default: 'bk'
+            * "System-Integration-Azure-StorageAccount-Backups-ResourceName"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
+              * Notes: If not provided, falls back to System-Integration-Azure-Common-ResourceName + Suffix
+            * "System-Integration-Azure-StorageAccount-Backups-ResourceNameSuffix"; OPTIONAL; SRC:APPSETTINGS|PIPELINESETAPPSETTINGS;
+              * Default: 'bk'
         * DocumentDb:
-    	    * Default:
-              * "App-Core-Integration-Azure-DocumentDb-Default-ResourceName"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
-              * "App-Core-Integration-Azure-DocumentDb-Default-ResourceNameSuffix"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS|APPSETTINGS;
+          * Default:
+              * "System-Integration-Azure-DocumentDb-Default-ResourceName"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
+              * "System-Integration-Azure-DocumentDb-Default-ResourceNameSuffix"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS|APPSETTINGS;
         * SqlServer:
-    	  * Default:
-            * "App-Core-Integration-Sql-CodeFirst-AttachDebuggerToPSSeeding"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
-    	      * Options: "true|false" 
-    	      * Purpose: Seeding from Powershell can be difficult to debug. This Attaches a Debugger
-    	    * "App-Core-Integration-Sql-CodeFirst-SeedIncludeDemoEntries"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
-    	      * Options: "true|false" 
-    	      * Purpose: Seeding can include demo records to get going quicker:
+        * Default:
+            * "System-Integration-Azure-SqlDatabase-CodeFirst-AttachDebuggerToPSSeeding"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
+            * Options: "true|false" 
+            * Purpose: Seeding from Powershell can be difficult to debug. This Attaches a Debugger
+          * "System-Integration-Azure-SqlDatabase-CodeFirst-SeedIncludeDemoEntries"; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
+            * Options: "true|false" 
+            * Purpose: Seeding can include demo records to get going quicker:
         * Insights:
-          * App-Core-Integration-Azure-ApplicationInsights-Enabled; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
-    	    * Default: false
-    	    * Options: true|false
+          * System-Integration-Azure-ApplicationInsights-Enabled; OPTIONAL; SRC:PIPELINESETAPPSETTINGS;
+          * Default: false
+          * Options: true|false
             * Notes: Diagnostics should be enabled, but maybe you want to wait till you have other things sorted out:
       * Scanii:
-        * App-Core-Integration-MalwareDetection-Scanii-BaseUri; OPTIONAL; SRC:PIPELINESETAPPSETTINGS|APPSETTINGS;
-    	  * Notes: Most of the Scanii settings (secrets) are configured form the KeyVault, except for this optional path
-    	  * Default: https://api-ap1.scanii.com/v2.1/
+      * MalwareDetection:
+          * System-Integration-MalwareDetection-Scanii-BaseUri; OPTIONAL; SRC:PIPELINESETAPPSETTINGS|APPSETTINGS;
+            * Notes: Most of the Scanii settings (secrets) are configured form the KeyVault, except for this optional path
+            * Default: https://api-ap1.scanii.com/v2.1/
+
+
+
 
 
 ## AppSettings Defined Settings
 
 ### Required
 
+
+
 ### Optional
 
 * App:
   * Core:
     * Security:
-	  * "App-Core-TLS-SecurityProtocol"; OPTIONAL; SRC:APPSETTINGS;
-		* Description: define that all outgoing requests are over Tls12
-	    * Options:
-	* Media:
-	  * "App-Core-Media-HashType"; OPTIONAL; SRC:APPSETTINGS;
-	    * What hash to use to compare uploaded media.
+    * "System-TLS-SecurityProtocol"; OPTIONAL; SRC:APPSETTINGS;
+    * Description: define that all outgoing requests are over Tls12
+      * Options:
+  * Media:
+    * "System-Media-HashType"; OPTIONAL; SRC:APPSETTINGS;
+      * What hash to use to compare uploaded media.
 
 
 
 ### Developer Settings 
 
-* "App-Core-Integration-Azure-Common-ResourceName"; OPTIONAL: SRC:PIPELINESETAPPSETTINGS|APPSETTINGS;
+* "System-Integration-Azure-Common-ResourceName"; OPTIONAL: SRC:PIPELINESETAPPSETTINGS|APPSETTINGS;
   * Example: "nzmoebase0000bt"
   * It's sort of ok to be in local web.config (any better suggestion?), 
     but must be overwritten by pipeline
-* "App-Core-Integration-Sql-CodeFirst-AttachDebuggerToPSSeeding"; OPTIONAL: SRC:PIPELINESETAPPSETTINGS|APPSETTINGS; 
+* "System-Integration-Azure-SqlDatabase-CodeFirst-AttachDebuggerToPSSeeding"; OPTIONAL: SRC:PIPELINESETAPPSETTINGS|APPSETTINGS; 
   * Options: true|false
-* "App-Core-Integration-Sql-CodeFirst-SeedIncludeDemoEntries"; OPTIONAL: SRC:PIPELINESETAPPSETTINGS|APPSETTINGS;
+* "System-Integration-Azure-SqlDatabase-CodeFirst-SeedIncludeDemoEntries"; OPTIONAL: SRC:PIPELINESETAPPSETTINGS|APPSETTINGS;
   * Options: true|false
