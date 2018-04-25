@@ -18,7 +18,7 @@
       "value": false
     },
     "oauthEnabled": {
-      "value": true,
+      "value": true
     },
     "oauthAuthorityUri": {
       "value": ""
