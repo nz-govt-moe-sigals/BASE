@@ -455,10 +455,10 @@
                         "value": "[variables('oauth').client.secret]"
                     },
                     "oauthClientRedirectUri": {
-                        "value": "[variables('oidc').client.redirectUri]"
+                        "value": "[variables('oauth').client.redirectUri]"
                     },
                     "oauthClientPostLogoutRedirectUri": {
-                        "value": "[variables('oidc').client.postLogoutRedirectUri]"
+                        "value": "[variables('oauth').client.postLogoutRedirectUri]"
                     },
                     "oidcPoliciesSignUpSignInPolicyId": {
                         "value": "[variables('oidc').policies.signUpSignInPolicyId]"
