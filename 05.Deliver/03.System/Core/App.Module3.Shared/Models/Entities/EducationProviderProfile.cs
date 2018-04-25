@@ -18,11 +18,11 @@ namespace App.Module3.Shared.Models.Entities
 
         // ---------------------
 
-        public Guid TypeFK
+        public Guid? ClassificationFK
         {
             get; set;
         }
-        public EducationProviderType Type
+        public EducationProviderClassification Classification
         {
             get; set;
         }
@@ -38,7 +38,7 @@ namespace App.Module3.Shared.Models.Entities
         }
 
 
-        public Guid SchoolingGenderFK
+        public Guid? SchoolingGenderFK
         {
             get; set;
         }
@@ -82,7 +82,7 @@ namespace App.Module3.Shared.Models.Entities
 
 
 
-        public Guid AreaUnitFK
+        public Guid? AreaUnitFK
         {
             get; set;
         }
@@ -92,7 +92,7 @@ namespace App.Module3.Shared.Models.Entities
         }
 
 
-        public Guid CommunityBoardFK
+        public Guid? CommunityBoardFK
         {
             get; set;
         }
@@ -102,17 +102,17 @@ namespace App.Module3.Shared.Models.Entities
         }
 
 
-        public Guid GeneralElectorateFK
+        public Guid? GeneralElectorateFK
         {
             get; set;
         }
-        public MaoriElectorate GeneralElectorate
+        public GeneralElectorate GeneralElectorate
         {
             get; set;
         }
 
 
-        public Guid MaoriElectorateFK
+        public Guid? MaoriElectorateFK
         {
             get; set;
         }
@@ -122,17 +122,17 @@ namespace App.Module3.Shared.Models.Entities
         }
 
 
-        public Guid RegionalCouncilFK
+        public Guid? RegionalCouncilFK
         {
             get; set;
         }
 
-        public UrbanArea RegionalCouncil
+        public RegionalCouncil RegionalCouncil
         {
             get; set;
         }
 
-        public Guid? EducationProviderTypeFK
+        public Guid EducationProviderTypeFK
         {
             get; set;
         }
@@ -173,17 +173,17 @@ namespace App.Module3.Shared.Models.Entities
             get; set;
         }
 
-        public Guid TerritorialAuthorityFK
+        public Guid? TerritorialAuthorityFK
         {
             get; set;
         }
-        public UrbanArea TerritorialAuthority
+        public TerritorialAuthority TerritorialAuthority
         {
             get; set;
         }
 
 
-        public Guid UrbanAreaFK
+        public Guid? UrbanAreaFK
         {
             get; set;
         }
@@ -193,7 +193,7 @@ namespace App.Module3.Shared.Models.Entities
         }
 
 
-        public Guid WardFK
+        public Guid? WardFK
         {
             get; set;
         }

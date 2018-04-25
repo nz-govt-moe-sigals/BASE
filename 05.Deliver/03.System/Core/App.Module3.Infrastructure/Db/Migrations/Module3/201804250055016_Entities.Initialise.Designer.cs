@@ -7,13 +7,13 @@ namespace App.Module3.Infrastructure.Db.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class EntitiesMisingRelationshipType : IMigrationMetadata
+    public sealed partial class EntitiesInitialise : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(EntitiesMisingRelationshipType));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(EntitiesInitialise));
         
         string IMigrationMetadata.Id
         {
-            get { return "201804232143154_Entities.MisingRelationshipType"; }
+            get { return "201804250055016_Entities.Initialise"; }
         }
         
         string IMigrationMetadata.Source

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         private readonly IRepositoryService _repositoryService;
         private readonly ExtractCachedRepoObject _repoObject;
         private readonly IUnitOfWorkService _unitOfWorkService;
+        private bool? _educationProviderProfileHasData;
 
         public ExtractRepositoryService(ExtractCachedRepoObject repoObject, IRepositoryService repositoryService, IUnitOfWorkService unitOfWorkService)
         {
@@ -41,8 +43,8 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
             var cache = _repoObject.GetCachedLookUpData<T>();
             if (cache == null)
             {
-                cache = _repositoryService.GetQueryableSet<T>(_dbKey)
-                    .ToDictionary(x => x.SourceSystemKey, x => (SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase) x);
+                cache = new ConcurrentDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase>(_repositoryService.GetQueryableSet<T>(_dbKey)
+                    .ToDictionary(x => x.SourceSystemKey, x => (SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase) x));
                 _repoObject.CacheLookUpData<T>(cache);
             }
             return cache;
@@ -74,13 +76,36 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
             EducationProviderProfile profile;
             if (!_repoObject.EducationProviderProfiles.TryGetValue(schoolId, out profile))
             {
-                profile = _repositoryService.GetSingle<EducationProviderProfile>(_dbKey, x => x.SourceSystemKey == schoolId);
-                if (profile != null)
+                if (EducationProviderProfileHasData())
                 {
-                    _repoObject.EducationProviderProfiles.Add(profile.SourceSystemKey, profile);
+                    profile = _repositoryService.GetSingle<EducationProviderProfile>(_dbKey, x => x.SourceSystemKey == schoolId);
+                    if (profile != null)
+                    {
+                        _repoObject.EducationProviderProfiles.Add(profile.SourceSystemKey, profile);
+                    }
                 }
+                
             }
             return profile;
+        }
+
+        /// <summary>
+        /// Check to see if any rows exist, that way i know If doing a quick import or not, 
+        /// </summary>
+        /// <returns></returns>
+        public bool EducationProviderProfileHasData()
+        {
+            if (_educationProviderProfileHasData == null)
+            {
+                _educationProviderProfileHasData = false;
+                var count = _repositoryService.Count<EducationProviderProfile>(_dbKey);
+                if (count > 0)
+                {
+                    _educationProviderProfileHasData = true;
+                }
+            }
+            return _educationProviderProfileHasData.Value;
+
         }
 
 

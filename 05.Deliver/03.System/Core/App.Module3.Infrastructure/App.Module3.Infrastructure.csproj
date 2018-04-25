@@ -74,41 +74,9 @@
     <Compile Include="Db\Context\AppModule3DbContext.cs" />
     <Compile Include="Db\Migrations.Seeding\AppModule3DbContextSeedingOrchestrator.cs" />
     <Compile Include="Db\Migrations\AppModule3DbMigrationsConfiguration.cs" />
-    <Compile Include="Db\Migrations\Module3\201804142348097_Initialize.cs" />
-    <Compile Include="Db\Migrations\Module3\201804142348097_Initialize.Designer.cs">
-      <DependentUpon>201804142348097_Initialize.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Db\Migrations\Module3\201804172222034_ExtractWatermark.cs" />
-    <Compile Include="Db\Migrations\Module3\201804172222034_ExtractWatermark.Designer.cs">
-      <DependentUpon>201804172222034_ExtractWatermark.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Db\Migrations\Module3\201804182356296_Entities.EducationProviders.cs" />
-    <Compile Include="Db\Migrations\Module3\201804182356296_Entities.EducationProviders.Designer.cs">
-      <DependentUpon>201804182356296_Entities.EducationProviders.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Db\Migrations\Module3\201804200246107_Entities.SourceReferenceIds.cs" />
-    <Compile Include="Db\Migrations\Module3\201804200246107_Entities.SourceReferenceIds.Designer.cs">
-      <DependentUpon>201804200246107_Entities.SourceReferenceIds.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Db\Migrations\Module3\201804230227245_Entities.SourceAndSIFKeys.cs" />
-    <Compile Include="Db\Migrations\Module3\201804230227245_Entities.SourceAndSIFKeys.Designer.cs">
-      <DependentUpon>201804230227245_Entities.SourceAndSIFKeys.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Db\Migrations\Module3\201804232143154_Entities.MisingRelationshipType.cs" />
-    <Compile Include="Db\Migrations\Module3\201804232143154_Entities.MisingRelationshipType.Designer.cs">
-      <DependentUpon>201804232143154_Entities.MisingRelationshipType.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Db\Migrations\Module3\201804232312227_Entities.UpdateSourceSystemKeyDefinitons.cs" />
-    <Compile Include="Db\Migrations\Module3\201804232312227_Entities.UpdateSourceSystemKeyDefinitons.Designer.cs">
-      <DependentUpon>201804232312227_Entities.UpdateSourceSystemKeyDefinitons.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Db\Migrations\Module3\201804240034045_Entities.NullableSchoolProfile.cs" />
-    <Compile Include="Db\Migrations\Module3\201804240034045_Entities.NullableSchoolProfile.Designer.cs">
-      <DependentUpon>201804240034045_Entities.NullableSchoolProfile.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Db\Migrations\Module3\201804240158484_Entities.NullableSchoolProfile2.cs" />
-    <Compile Include="Db\Migrations\Module3\201804240158484_Entities.NullableSchoolProfile2.Designer.cs">
-      <DependentUpon>201804240158484_Entities.NullableSchoolProfile2.cs</DependentUpon>
+    <Compile Include="Db\Migrations\Module3\201804250055016_Entities.Initialise.cs" />
+    <Compile Include="Db\Migrations\Module3\201804250055016_Entities.Initialise.Designer.cs">
+      <DependentUpon>201804250055016_Entities.Initialise.cs</DependentUpon>
     </Compile>
     <Compile Include="Db\Migrations\Module3\Configuration.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineExtractWatermark.cs" />
@@ -261,32 +229,8 @@
     <None Include="Initialization\ObjectMaps\readme.md" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Db\Migrations\Module3\201804142348097_Initialize.resx">
-      <DependentUpon>201804142348097_Initialize.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Db\Migrations\Module3\201804172222034_ExtractWatermark.resx">
-      <DependentUpon>201804172222034_ExtractWatermark.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Db\Migrations\Module3\201804182356296_Entities.EducationProviders.resx">
-      <DependentUpon>201804182356296_Entities.EducationProviders.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Db\Migrations\Module3\201804200246107_Entities.SourceReferenceIds.resx">
-      <DependentUpon>201804200246107_Entities.SourceReferenceIds.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Db\Migrations\Module3\201804230227245_Entities.SourceAndSIFKeys.resx">
-      <DependentUpon>201804230227245_Entities.SourceAndSIFKeys.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Db\Migrations\Module3\201804232143154_Entities.MisingRelationshipType.resx">
-      <DependentUpon>201804232143154_Entities.MisingRelationshipType.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Db\Migrations\Module3\201804232312227_Entities.UpdateSourceSystemKeyDefinitons.resx">
-      <DependentUpon>201804232312227_Entities.UpdateSourceSystemKeyDefinitons.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Db\Migrations\Module3\201804240034045_Entities.NullableSchoolProfile.resx">
-      <DependentUpon>201804240034045_Entities.NullableSchoolProfile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Db\Migrations\Module3\201804240158484_Entities.NullableSchoolProfile2.resx">
-      <DependentUpon>201804240158484_Entities.NullableSchoolProfile2.cs</DependentUpon>
+    <EmbeddedResource Include="Db\Migrations\Module3\201804250055016_Entities.Initialise.resx">
+      <DependentUpon>201804250055016_Entities.Initialise.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

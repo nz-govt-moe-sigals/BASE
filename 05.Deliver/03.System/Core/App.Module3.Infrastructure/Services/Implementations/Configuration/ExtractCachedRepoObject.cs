@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,8 +16,8 @@ namespace App.Module3.Infrastructure.Services.Implementations.Configuration
 
         public ExtractCachedRepoObject()
         {
-            _lookDictionary = new Dictionary<Type, IDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase>>();
-            EducationProviderProfiles = new Dictionary<string, EducationProviderProfile>();
+            _lookDictionary = new ConcurrentDictionary<Type, IDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase>>();
+            EducationProviderProfiles = new ConcurrentDictionary<string, EducationProviderProfile>();
         }
 
         public IDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase> GetCachedLookUpData<T>()

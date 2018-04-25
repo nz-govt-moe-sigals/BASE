@@ -60,8 +60,8 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(s => s.Name))
                 .ForMember(dest => dest.StatusFK, opt => opt.MapFrom(s => s.StatusFK)) //
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(s => s.Status)) //
-                .ForMember(dest => dest.TypeFK, opt => opt.MapFrom(s => s.TypeFK)) //
-                .ForMember(dest => dest.Type, opt => opt.MapFrom(s => s.Type)) //
+                .ForMember(dest => dest.ClassificationFK, opt => opt.MapFrom(s => s.ClassificationFK)) //
+                .ForMember(dest => dest.Classification, opt => opt.MapFrom(s => s.Classification)) //
                 .ForMember(dest => dest.RegionalCouncilFK, opt => opt.MapFrom(s => s.RegionalCouncilFK)) //
                 .ForMember(dest => dest.RegionalCouncil, opt => opt.MapFrom(s => s.RegionalCouncil)) //
                 .ForMember(dest => dest.EducationProviderTypeFK, opt => opt.MapFrom(s => s.EducationProviderTypeFK)) //)

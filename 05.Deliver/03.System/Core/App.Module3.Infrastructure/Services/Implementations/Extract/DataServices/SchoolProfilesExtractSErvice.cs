@@ -18,27 +18,29 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.DataServic
 
         }
 
+   
+
         public override void UpdateLocalData(SchoolProfile item)
         {
             var mappedEntity = Mapper.Map<SchoolProfile, EducationProviderProfile>(item);
-            mappedEntity.AreaUnitFK = LookUp<AreaUnit>(item.AreaUnitCode);
+            mappedEntity.AreaUnitFK = NullableLookUp<AreaUnit>(item.AreaUnitCode);
             mappedEntity.AuthorityTypeFK = LookUp<AuthorityType>(item.AuthorityCode);
-            mappedEntity.SchoolingGenderFK = LookUp<EducationProviderGender>(item.CoEdStatusCode);
-            //mappedEntity.CoLFK = NullableLookUp<AreaUnit>(item.ColId);
-            mappedEntity.CommunityBoardFK = LookUp<CommunityBoard>(item.CommunityBoardCode);
+            //mappedEntity.SchoolingGenderFK = LookUp<EducationProviderGender>(item.CoEdStatusCode); //CURRENTLY DATA Comes through as a Text not a code
+            //mappedEntity.CoLFK = NullableLookUp<AreaUnit>(item.ColId); // Do Not have a Reference Table
+            mappedEntity.CommunityBoardFK = NullableLookUp<CommunityBoard>(item.CommunityBoardCode);
             mappedEntity.RegionFK = LookUp<Region>(item.EducationRegionCode);
-            mappedEntity.GeneralElectorateFK = LookUp<GeneralElectorate>(item.GeneralElectorateCode);
-            //mappedEntity.LocalOfficeFK = NullableLookUp<LocalOffice>(item.LocalOfficeId);
-            mappedEntity.MaoriElectorateFK = LookUp<MaoriElectorate>(item.MaoriElectorateCode);
+            mappedEntity.GeneralElectorateFK = NullableLookUp<GeneralElectorate>(item.GeneralElectorateCode);
+            //mappedEntity.LocalOfficeFK = NullableLookUp<LocalOffice>(item.LocalOfficeId); // Do Not have a Reference Table
+            mappedEntity.MaoriElectorateFK = NullableLookUp<MaoriElectorate>(item.MaoriElectorateCode);
             mappedEntity.StatusFK = LookUp<EducationProviderStatus>(item.OrgStatus);
-            mappedEntity.TypeFK = LookUp<EducationProviderType>(item.OrgType);
-            mappedEntity.RegionalCouncilFK = LookUp<RegionalCouncil>(item.RegionalCouncilCode);
-            mappedEntity.EducationProviderTypeFK = NullableLookUp<EducationProviderType>(item.SchoolClassificationCode);
+            mappedEntity.EducationProviderTypeFK = LookUp<EducationProviderType>(item.OrgType);
+            mappedEntity.RegionalCouncilFK = NullableLookUp<RegionalCouncil>(item.RegionalCouncilCode);
+            mappedEntity.ClassificationFK = NullableLookUp<EducationProviderClassification>(item.SchoolClassificationCode);
             mappedEntity.SpecialSchoolingFK = NullableLookUp<SpecialSchooling>(item.SpecialSchoolingCode);
             mappedEntity.TeacherEducationFK = NullableLookUp<TeacherEducation>(item.TeacherEducationCode);
-            mappedEntity.TerritorialAuthorityFK = LookUp<TerritorialAuthority>(item.TerritorialAuthorityCode);
-            mappedEntity.UrbanAreaFK = LookUp<UrbanArea>(item.UrbanAreaCode);
-            mappedEntity.WardFK = LookUp<Ward>(item.WardCode);
+            mappedEntity.TerritorialAuthorityFK = NullableLookUp<TerritorialAuthority>(item.TerritorialAuthorityCode);
+            mappedEntity.UrbanAreaFK = NullableLookUp<UrbanArea>(item.UrbanAreaCode);
+            mappedEntity.WardFK = NullableLookUp<Ward>(item.WardCode);
 
             _repositoryService.AddOrUpdateEducationProfile(mappedEntity);
           
@@ -54,7 +56,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.DataServic
             {
                 return value.Value;
             }
-            throw new ArgumentException($"code : {code} not found for type : {typeof(T)}");
+            throw new ArgumentException($"code expected but not found for type : {typeof(T)}");
         }
 
         public Guid? NullableLookUp<T>(string code)
@@ -66,7 +68,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.DataServic
             {
                 return existingEntity.Id;
             }
-            throw new ArgumentException($"code : {code} not found for type : {typeof(T)}");
+            throw new ArgumentException($"Has code : {code} not found for type : {typeof(T)}");
         }
 
 
