@@ -446,7 +446,7 @@
                         "value": "[variables('oauth').enabled]"
                     },
                     "oauthAuthorityUri": {
-                        "value": "[variables('oauth').client.authorityId]"
+                        "value": "[variables('oauth').client.authorityUri]"
                     },
                     "oauthClientId": {
                         "value": "[variables('oauth').client.id]"
