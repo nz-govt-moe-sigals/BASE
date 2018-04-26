@@ -10,7 +10,7 @@ namespace App
 
     public static class AssemblyExtensions
     {
-        //[System.Diagnostics.DebuggerHidden]
+        [System.Diagnostics.DebuggerHidden]
         public static IEnumerable<Type> GetInstantiableTypesImplementing(this Assembly assembly, Type type)
         {
             // Return only types that are subsets of the given type (or are same)
@@ -33,6 +33,7 @@ namespace App
             catch (ReflectionTypeLoadException)
             {
                 //No biggie
+                System.Diagnostics.Trace.TraceInformation($"Running 'GetInstantiableTypesImplementing', could not find {type.Name}");
             }
             return null;
         }
