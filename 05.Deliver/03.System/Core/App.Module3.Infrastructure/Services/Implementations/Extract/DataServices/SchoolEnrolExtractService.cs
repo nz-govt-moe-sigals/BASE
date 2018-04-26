@@ -1,3 +1,4 @@
+
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using AutoMapper;
 
 namespace App.Module3.Infrastructure.Services.Implementations.Extract.DataServices
 {
-    public class SchoolEnrolExtractService : BaseExtractService<ReferenceAreaUnit>
+    public class SchoolEnrolExtractService : BaseDataExtractServices<SchoolEnrol>
     {
         public SchoolEnrolExtractService(BaseExtractServiceConfiguration configuration, IExtractRepositoryService reposorityService, IExtractAzureDocumentDbService documentDbService)
             : base(configuration, reposorityService, documentDbService)
@@ -18,20 +19,13 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.DataServic
 
         }
 
-        public override void UpdateLocalData(ReferenceAreaUnit item)
+        public override void UpdateLocalData(SchoolEnrol item)
         {
-            var mappedEntity = Mapper.Map<ReferenceAreaUnit, AreaUnit>(item);
-            var areaUnitsLookup = _repositoryService.GetSifCachedData<AreaUnit>(); // is CACHED DATA
-            if (areaUnitsLookup.TryGetValue(mappedEntity.SourceSystemKey, out var existingEntity))
-            {
-                _repositoryService.UpdateSifData(existingEntity, mappedEntity);
-            }
-            else
-            {
-                _repositoryService.AddSifData(mappedEntity);
-            }
-            //_repositoryService.UpdateOnCommit(_dbKey, );
-            // Some Sky Magic Code
+            var mappedEntity = Mapper.Map<SchoolEnrol, EducationProviderEnrolmentCount>(item);
+            var educationProviderProfile = _repositoryService.GetEducationProviderProfile(item.SchoolId.ToString());
+            mappedEntity.EducationProviderFK = educationProviderProfile.Id;
+            _repositoryService.AddOrUpdate(mappedEntity);
+
         }
     }
 }

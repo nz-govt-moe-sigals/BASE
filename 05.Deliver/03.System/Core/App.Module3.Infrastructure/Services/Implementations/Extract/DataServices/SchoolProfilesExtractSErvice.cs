@@ -1,3 +1,4 @@
+
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using AutoMapper;
 
 namespace App.Module3.Infrastructure.Services.Implementations.Extract.DataServices
 {
-    public class SchoolProfilesExtractService : BaseExtractService<ReferenceAreaUnit>
+    public class SchoolProfilesExtractService : BaseDataExtractServices<SchoolProfile>
     {
         public SchoolProfilesExtractService(BaseExtractServiceConfiguration configuration, IExtractRepositoryService reposorityService, IExtractAzureDocumentDbService documentDbService)
             : base(configuration, reposorityService, documentDbService)
@@ -18,20 +19,51 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.DataServic
 
         }
 
-        public override void UpdateLocalData(ReferenceAreaUnit item)
+
+        protected override void UpdateLocalDataList(IList<SchoolProfile> list)
         {
-            var mappedEntity = Mapper.Map<ReferenceAreaUnit, AreaUnit>(item);
-            var areaUnitsLookup = _repositoryService.GetSifCachedData<AreaUnit>(); // is CACHED DATA
-            if (areaUnitsLookup.TryGetValue(mappedEntity.SourceSystemKey, out var existingEntity))
-            {
-                _repositoryService.UpdateSifData(existingEntity, mappedEntity);
-            }
-            else
-            {
-                _repositoryService.AddSifData(mappedEntity);
-            }
-            //_repositoryService.UpdateOnCommit(_dbKey, );
-            // Some Sky Magic Code
+            Test(list);
         }
+        
+        private async void Test(IList<SchoolProfile> list)
+        {
+            var count = 0;
+            UpdateLocalData(list.First());
+            
+            //await Task.WhenAll(list.Select((item) => Task.Run(() => UpdateLocalData(item))));
+        }
+
+        public override void UpdateLocalData(SchoolProfile item)
+        {
+            var mappedEntity = Mapper.Map<SchoolProfile, EducationProviderProfile>(item);
+            mappedEntity.AreaUnitFK = NullableLookUp<AreaUnit>(item.AreaUnitCode);
+            mappedEntity.AuthorityTypeFK = LookUp<AuthorityType>(item.AuthorityCode);
+            //mappedEntity.SchoolingGenderFK = LookUp<EducationProviderGender>(item.CoEdStatusCode); //CURRENTLY DATA Comes through as a Text not a code
+            //mappedEntity.CoLFK = NullableLookUp<AreaUnit>(item.ColId); // Do Not have a Reference Table
+            mappedEntity.CommunityBoardFK = NullableLookUp<CommunityBoard>(item.CommunityBoardCode);
+            mappedEntity.RegionFK = LookUp<Region>(item.EducationRegionCode);
+            mappedEntity.GeneralElectorateFK = NullableLookUp<GeneralElectorate>(item.GeneralElectorateCode);
+            //mappedEntity.LocalOfficeFK = NullableLookUp<LocalOffice>(item.LocalOfficeId); // Do Not have a Reference Table
+            mappedEntity.MaoriElectorateFK = NullableLookUp<MaoriElectorate>(item.MaoriElectorateCode);
+            mappedEntity.StatusFK = LookUp<EducationProviderStatus>(item.OrgStatus);
+            mappedEntity.EducationProviderTypeFK = LookUp<EducationProviderType>(item.OrgType);
+            mappedEntity.RegionalCouncilFK = NullableLookUp<RegionalCouncil>(item.RegionalCouncilCode);
+            mappedEntity.ClassificationFK = NullableLookUp<EducationProviderClassification>(item.SchoolClassificationCode);
+            mappedEntity.SpecialSchoolingFK = NullableLookUp<SpecialSchooling>(item.SpecialSchoolingCode);
+            mappedEntity.TeacherEducationFK = NullableLookUp<TeacherEducation>(item.TeacherEducationCode);
+            mappedEntity.TerritorialAuthorityFK = NullableLookUp<TerritorialAuthority>(item.TerritorialAuthorityCode);
+            mappedEntity.UrbanAreaFK = NullableLookUp<UrbanArea>(item.UrbanAreaCode);
+            mappedEntity.WardFK = NullableLookUp<Ward>(item.WardCode);
+
+            _repositoryService.AddOrUpdateEducationProfile(mappedEntity);
+          
+        }
+
+
+
+
+
+
     }
 }
+

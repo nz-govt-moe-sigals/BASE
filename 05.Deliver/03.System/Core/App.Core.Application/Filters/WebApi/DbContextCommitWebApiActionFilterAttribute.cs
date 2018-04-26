@@ -34,12 +34,11 @@
 
             HackSessionLog(actionExecutedContext);
 
-
+           
             // Get Current DbContext
             foreach (DbContext dbContext in AppDependencyLocator.Current.GetAllInstances<DbContext>())
             {
-                var shouldSave = dbContext.ChangeTracker.HasChanges();
-                if (shouldSave)
+                if (ShouldSave(dbContext, actionExecutedContext))
                 {
                     PreprocessModelsBeforeSaving(dbContext);
                     dbContext.SaveChanges();
@@ -47,6 +46,14 @@
             }
 
             base.OnActionExecuted(actionExecutedContext);
+        }
+
+        //dont want it to try save if there is an exception unless it is core
+        //because core does some sort of save every time?
+        private bool ShouldSave(DbContext dbContext, HttpActionExecutedContext actionExecutedContext)
+        {
+            return dbContext.ChangeTracker.HasChanges() &&
+                   (actionExecutedContext.Exception == null || dbContext.GetType() == typeof(App.Core.Infrastructure.Db.Context.AppCoreDbContext));
         }
 
         private void PreprocessModelsBeforeSaving(DbContext dbContext)

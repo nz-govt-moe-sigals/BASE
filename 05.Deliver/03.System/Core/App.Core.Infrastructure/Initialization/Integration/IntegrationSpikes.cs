@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using App.Core.Infrastructure.Constants.Storage;
 
 namespace App.Core.Infrastructure.Initialization.Integration
 {

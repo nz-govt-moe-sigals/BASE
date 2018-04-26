@@ -1,4 +1,7 @@
-﻿namespace App.Module3.Infrastructure.Initialization.DependencyResolution
+﻿using App.Module3.Infrastructure.Services;
+using App.Module3.Infrastructure.Services.Implementations.Extract;
+
+namespace App.Module3.Infrastructure.Initialization.DependencyResolution
 {
     using App.Core.Infrastructure.Db.Interception;
     using App.Module3.Infrastructure.Constants.Db;
@@ -36,6 +39,7 @@
             // automatically filled in)
             assemblyScanner.AddAllTypesOf<IDbCommitPreCommitProcessingStrategy>();
             this.RegisterDbContextInHttpContext<AppModule3DbContext>(AppModule3DbContextNames.Module3);
+            For<IExtractRepositoryService>().Use<ExtractRepositoryService>().Singleton(); //?? hmmm
         }
     }
 }

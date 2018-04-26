@@ -1,3 +1,4 @@
+
 ﻿using System;
 using AutoMapper;
 using App.Module3.Shared.Models.Entities;
@@ -23,7 +24,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract
                 .ForMember(dest => dest.MELAA, opt => opt.MapFrom(s => s.Melaa))
                 .ForMember(dest => dest.Other, opt => opt.MapFrom(s => s.Other))
                 .ForMember(dest => dest.Pasifika, opt => opt.MapFrom(s => s.Pasifika))
-                .ForMember(dest => dest.SchoolFK, opt => opt.Ignore()) //.ForMember(dest => dest.SchoolFK, opt => opt.MapFrom(s => s.SchoolId))
+                .ForMember(dest => dest.EducationProviderFK, opt => opt.Ignore()) //.ForMember(dest => dest.EducationProviderFK, opt => opt.MapFrom(s => s.SchoolId))
                 .ForMember(dest => dest.TotalRoll, opt => opt.MapFrom(s => s.TotalRoll))
                 .ForMember(dest => dest.SourceSystemKey, opt => opt.MapFrom(s => s.EnrolId))
                 .ForMember(dest => dest.SourceSystemName, opt => opt.Ignore())
@@ -31,3 +32,4 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract
         }
     }
 }
+

@@ -1,3 +1,4 @@
+
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ using AutoMapper;
 namespace App.Module3.Infrastructure.Services.Implementations.Extract.ReferenceServices
 {
     public class ReferenceMaoriElectorateExtractService
-        : BaseExtractService<ReferenceAreaUnit>
+        : BaseExtractService<ReferenceMaoriElectorate>
     {
         public ReferenceMaoriElectorateExtractService(BaseExtractServiceConfiguration configuration, IExtractRepositoryService reposorityService, IExtractAzureDocumentDbService documentDbService)
             : base(configuration, reposorityService, documentDbService)
@@ -20,9 +21,9 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.ReferenceS
 
         }
 
-        public override void UpdateLocalData(ReferenceAreaUnit item)
+        public override void UpdateLocalData(ReferenceMaoriElectorate item)
         {
-            var mappedEntity = Mapper.Map<ReferenceAreaUnit, AreaUnit>(item);
+            var mappedEntity = Mapper.Map<ReferenceMaoriElectorate, MaoriElectorate>(item);
             var areaUnitsLookup = _repositoryService.GetSifCachedData< AreaUnit>(); // is CACHED DATA
             if (areaUnitsLookup.TryGetValue(mappedEntity.SourceSystemKey, out var existingEntity))
             {

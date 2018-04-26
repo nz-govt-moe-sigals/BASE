@@ -1,22 +1,27 @@
-﻿using System;
+using App.Module3.Shared.Models.Entities;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using App.Module3.Shared.Models.Entities;
+
 
 namespace App.Module3.Infrastructure.Services.Implementations.Configuration
 {
     public class ExtractCachedRepoObject
     {
-        private readonly IDictionary<Type, IDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase>> _lookDictionary;
+        private readonly ConcurrentDictionary<Type, ConcurrentDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase>> _lookDictionary;
+        
+
 
         public ExtractCachedRepoObject()
         {
-            _lookDictionary = new Dictionary<Type, IDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase>>();
+            _lookDictionary = new ConcurrentDictionary<Type, ConcurrentDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase>>();
+            EducationProviderProfiles = new ConcurrentDictionary<string, EducationProviderProfile>();
         }
 
-        public IDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase> GetCachedLookUpData<T>()
+        public ConcurrentDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase> GetCachedLookUpData<T>()
         {
             if(_lookDictionary.TryGetValue(typeof(T), out var existingEntity))
             {
@@ -25,10 +30,13 @@ namespace App.Module3.Infrastructure.Services.Implementations.Configuration
             return null;
         }
 
-        public void CacheLookUpData<T>(IDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase> dic)
+        public void CacheLookUpData<T>(ConcurrentDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase> dic)
         {
-            _lookDictionary.Add(typeof(T), dic);
+            _lookDictionary.TryAdd(typeof(T), dic);
         }
+
+
+        public ConcurrentDictionary<string, EducationProviderProfile> EducationProviderProfiles { get; set; }
         /*
         public IDictionary<string, AreaUnit> AreaUnitsLookup { get; set; }
 
@@ -68,3 +76,4 @@ namespace App.Module3.Infrastructure.Services.Implementations.Configuration
         */
     }
 }
+

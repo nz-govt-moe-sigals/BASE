@@ -1,3 +1,4 @@
+
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App.Module3.Infrastructure.Db.Schema
@@ -52,9 +53,9 @@ namespace App.Module3.Infrastructure.Db.Schema
 
 
             modelBuilder.Entity<EducationProviderProfile>()
-                .HasRequired(x => x.SchoolingGender)
+                .HasOptional(x => x.SchoolingGender)
                 .WithMany()
-                .HasForeignKey(x => x.GeneralElectorateFK)
+                .HasForeignKey(x => x.SchoolingGenderFK)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<EducationProviderProfile>()
@@ -70,74 +71,74 @@ namespace App.Module3.Infrastructure.Db.Schema
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<EducationProviderProfile>()
-                .HasRequired(x => x.LocalOffice)
+                .HasOptional(x => x.LocalOffice)
                 .WithMany()
                 .HasForeignKey(x => x.LocalOfficeFK)
                 .WillCascadeOnDelete(false);
 
 
             modelBuilder.Entity<EducationProviderProfile>()
-                .HasRequired(x => x.EducationProviderType)
+                .HasOptional(x => x.Classification)
                 .WithMany()
-                .HasForeignKey(x => x.EducationProviderTypeFK)
+                .HasForeignKey(x => x.ClassificationFK)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<EducationProviderProfile>()
-                .HasRequired(x => x.SpecialSchooling)
+                .HasOptional(x => x.SpecialSchooling)
                 .WithMany()
                 .HasForeignKey(x => x.SpecialSchoolingFK)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<EducationProviderProfile>()
-                .HasRequired(x => x.TeacherEducation)
+                .HasOptional(x => x.TeacherEducation)
                 .WithMany()
                 .HasForeignKey(x => x.TeacherEducationFK)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<EducationProviderProfile>()
-                .HasRequired(x => x.AreaUnit)
+                .HasOptional(x => x.AreaUnit)
                 .WithMany()
                 .HasForeignKey(x => x.AreaUnitFK)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<EducationProviderProfile>()
-                .HasRequired(x => x.CommunityBoard)
+                .HasOptional(x => x.CommunityBoard)
                 .WithMany()
                 .HasForeignKey(x => x.CommunityBoardFK)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<EducationProviderProfile>()
-                .HasRequired(x => x.GeneralElectorate)
+                .HasOptional(x => x.GeneralElectorate)
                 .WithMany()
                 .HasForeignKey(x => x.GeneralElectorateFK)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<EducationProviderProfile>()
-                .HasRequired(x => x.MaoriElectorate)
+                .HasOptional(x => x.MaoriElectorate)
                 .WithMany()
                 .HasForeignKey(x => x.MaoriElectorateFK)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<EducationProviderProfile>()
-                .HasRequired(x => x.RegionalCouncil)
+                .HasOptional(x => x.RegionalCouncil)
                 .WithMany()
                 .HasForeignKey(x => x.RegionalCouncilFK)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<EducationProviderProfile>()
-                .HasRequired(x => x.TerritorialAuthority)
+                .HasOptional(x => x.TerritorialAuthority)
                 .WithMany()
                 .HasForeignKey(x => x.TerritorialAuthorityFK)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<EducationProviderProfile>()
-                .HasRequired(x => x.UrbanArea)
+                .HasOptional(x => x.UrbanArea)
                 .WithMany()
                 .HasForeignKey(x => x.UrbanAreaFK)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<EducationProviderProfile>()
-                .HasRequired(x => x.Ward)
+                .HasOptional(x => x.Ward)
                 .WithMany()
                 .HasForeignKey(x => x.WardFK)
                 .WillCascadeOnDelete(false);
@@ -155,7 +156,7 @@ namespace App.Module3.Infrastructure.Db.Schema
             modelBuilder.Entity<EducationProviderProfile>()
                 .HasMany(x => x.RollCounts)
                 .WithOptional()
-                .HasForeignKey(x => x.SchoolFK);
+                .HasForeignKey(x => x.EducationProviderFK);
 
             modelBuilder.Entity<EducationProviderProfile>()
                 .HasMany(x => x.Locations)

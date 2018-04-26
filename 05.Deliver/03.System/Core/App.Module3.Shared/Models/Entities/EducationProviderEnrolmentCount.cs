@@ -1,3 +1,4 @@
+
 ﻿namespace App.Module3.Shared.Models.Entities
 {
     using System;
@@ -12,7 +13,7 @@
         /// <value>
         /// The school fk.
         /// </value>
-        public Guid SchoolFK
+        public Guid EducationProviderFK
         {
             get; set;
         }

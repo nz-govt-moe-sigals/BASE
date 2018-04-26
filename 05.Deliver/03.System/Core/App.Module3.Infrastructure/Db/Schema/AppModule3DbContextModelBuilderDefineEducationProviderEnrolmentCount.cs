@@ -1,3 +1,4 @@
+
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Infrastructure.Annotations;
 using App.Core.Infrastructure.Constants.Db;
@@ -27,7 +28,7 @@ namespace App.Module3.Infrastructure.Db.Schema
 
             // An Enrol Record is one of x child records of a school profile.
             modelBuilder.Entity<EducationProviderEnrolmentCount>()
-                .Property(x => x.SchoolFK)
+                .Property(x => x.EducationProviderFK)
                 .HasColumnOrder(order++)
                 .IsRequired();
             // ...taken on a specific date

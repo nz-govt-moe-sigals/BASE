@@ -1,4 +1,6 @@
-﻿namespace App
+﻿using StructureMap.Web;
+
+namespace App
 {
     using System.Data.Entity;
     using App.Core.Infrastructure.Factories;
@@ -36,7 +38,12 @@
                 //Register it under specific TDbContext, without name:
                 new CreatePluginFamilyExpression<TDbContext>(registry,
                     new HttpContextLifecycle()).Use(y => DbContextFactory.Create<TDbContext>());
-
+                 /*
+                registry.For<DbContext>().HybridHttpOrThreadLocalScoped().Use(y => DbContextFactory.Create<TDbContext>()).Named(key).Singleton();
+                registry.For<TDbContext>().HybridHttpOrThreadLocalScoped().Use(y => DbContextFactory.Create<TDbContext>()).Named(key).Singleton();
+                registry.For<TDbContext>().HybridHttpOrThreadLocalScoped()
+                    .Use(y => DbContextFactory.Create<TDbContext>()).Singleton();
+                    */
             };
         }
     }

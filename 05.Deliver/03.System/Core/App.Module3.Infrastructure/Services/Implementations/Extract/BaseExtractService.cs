@@ -1,4 +1,5 @@
-﻿using App.Core.Infrastructure.Services;
+
+using App.Core.Infrastructure.Services;
 using App.Module3.Infrastructure.Db.Context;
 using App.Module3.Shared.Models.Entities;
 using App.Module3.Shared.Models.Messages.Extract;
@@ -85,9 +86,12 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         protected virtual void UpdateLocalDataList(IList<T> list)
         {
             if (list == null || list.Count == 0) { return; }
+
+            var count = 0;
             foreach (var item in list.OrderBy(x => x.ModifiedDate)) // Order by modified date so that if we get a duplicate record it should get to the latest version last
             {
                 UpdateLocalData(item);
+                count++;
             }
             
         }
