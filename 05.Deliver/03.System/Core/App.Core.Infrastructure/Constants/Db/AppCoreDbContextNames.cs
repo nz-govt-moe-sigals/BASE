@@ -4,7 +4,7 @@
 
     public static class AppCoreDbConnectionStringNames
     {
-        public const string App = "AppCoreDbContext";
+        public const string Default = "Default";
     }
 
     public static class AppCoreDbContextNames
