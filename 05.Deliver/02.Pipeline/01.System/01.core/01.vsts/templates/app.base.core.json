@@ -263,31 +263,172 @@
                     "name": "system-integration-scanii-malwaredetection-oauth-clientsecret",
                     "type": "text/plain",
                     "value": "todo:how to get this from vault?"
-                },
-                {
-                    "name": "system-integration-oidc-authorityuri",
-                    "type": "text/plain",
-                    "value": "todo"
-                },
-                {
-                    "name": "system-integration-oidc-clientid",
-                    "type": "text/plain",
-                    "value": "todo:how to get this from vault?"
-                },
-                {
-                    "name": "system-integration-oidc-clientsecret",
-                    "type": "text/plain",
-                    "value": "todo:how to get this from vault?"
-                },
-                {
-                    "name": "system-integration-oidc-redirecturi",
-                    "type": "text/plain",
-                    "value": "todo"
                 }
             ],
             "metadata": {
                 "description": "Optional. An array of Complex of name, type, value. With no comments allowed within the array (due to bug in VSTS)."
             }
+        },
+        "smtpServiceEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        "smtpServiceUri": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
+			}
+        },
+        "smtpServiceClientId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                 "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        "smtpServiceClientSecret": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
+			}
+        },
+        "malwareDetectionServiceEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        "malwareDetectionServiceUri": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        "malwareDetectionServiceClientId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        "malwareDetectionServiceClientSecret": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        "service01Name": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. Provide a name to recognize what these settings are for."
+            }
+        },
+        "service01Enabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. To use service 01 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        "service01Uri": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use service 01 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+			}
+        },
+        "service01ClientId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                 "description": "Optional. To use service 01 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        "service01ClientSecret": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use service 01 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+			}
+        },
+        "service02Name": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. Provide a name to recognize what these settings are for."
+            }
+        },
+        "service02Enabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        "service02Uri": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+			}
+        },
+        "service02ClientId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                 "description": "Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        "service02ClientSecret": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+			}
+        },
+        "service03Name": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. Provide a name to recognize what these settings are for."
+            }
+        },
+        "service03Enabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. To use service 03 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        "service03Uri": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use service 03 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+			}
+        },
+        "service03ClientId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                 "description": "Optional. To use service 03 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        "service03ClientSecret": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use service 03 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+			}
         }
     },
     "variables": {
@@ -365,6 +506,51 @@
                 "editProfilePolicyId": "[parameters('oidcPoliciesEditProfilePolicyId')]",
                 "resetPasswordPolicyId": "[parameters('oidcPoliciesResetPasswordPolicyId')]"
             }
+        },
+        "services": {
+            "smtp":{
+                "enabled":"[parameters('smtpServiceEnabled')]",
+                "uri":"[parameters('smtpServiceUri')]",
+                "client":{
+                    "id":"[parameters('smtpServiceClientId')]",
+                    "secret":"[parameters('smtpServiceClientSecret')]"
+                }
+            },
+            "malwareDetection":{
+                "enabled":"[parameters('malwareDetectionServiceEnabled')]",
+                "uri":"[parameters('malwareDetectionServiceUri')]",
+                "client":{
+                    "id":"[parameters('malwareDetectionServiceClientId')]",
+                    "secret":"[parameters('malwareDetectionServiceClientSecret')]"
+                }
+            },
+            "service01":{
+                "name":"[parameters('service01Name')]",
+                "enabled":"[parameters('service01Enabled')]",
+                "uri":"[parameters('service01Uri')]",
+                "client":{
+                    "id":"[parameters('service01ClientId')]",
+                    "secret":"[parameters('service01ClientSecret')]"
+                }
+            },
+            "service02":{
+                "name":"[parameters('service02Name')]",
+                "enabled":"[parameters('service02Enabled')]",
+                "uri":"[parameters('service02Uri')]",
+                "client":{
+                    "id":"[parameters('service02ClientId')]",
+                    "secret":"[parameters('service02ClientSecret')]"
+                }
+            },     
+            "service03":{
+                "name":"[parameters('service03Name')]",
+                "enabled":"[parameters('service03Enabled')]",
+                "uri":"[parameters('service03Uri')]",
+                "client":{
+                    "id":"[parameters('service03ClientId')]",
+                    "secret":"[parameters('service03ClientSecret')]"
+                }
+            }        
         }
     }, 
     "resources": [
@@ -471,6 +657,75 @@
                     },
                     "oidcPoliciesResetPasswordPolicyId": {
                         "value": "[variables('oidc').policies.resetPasswordPolicyId]"
+                    },
+                    "smtpServiceEnabled": {
+                        "value":"[variables('services').smtp.enabled]"
+                    },
+                    "smtpServiceUri": {
+                        "value":"[variables('services').smtp.uri]"
+                    },
+                    "smtpServiceClientId": {
+                        "value":"[variables('services').smtp.client.id]"
+                    },
+                    "smtpServiceClientSecret": {
+                        "value":"[variables('services').smtp.client.secret]"
+                    },
+                    "malwareDetectionServiceEnabled": {
+                        "value":"[variables('services').malwareDetection.enabled]"
+                    },
+                    "malwareDetectionServiceUri": {
+                        "value":"[variables('services').malwareDetection.uri]"
+                    },
+                    "malwareDetectionServiceClientId": {
+                        "value":"[variables('services').malwareDetection.client.id]"
+                    },
+                    "malwareDetectionServiceClientSecret": {
+                        "value":"[variables('services').malwareDetection.client.secret]"
+                    },
+                    "service01Name": {
+                        "value":"[variables('services').service01.name]"
+                    },
+                    "service01Enabled": {
+                        "value":"[variables('services').service01.enabled]"
+                    },
+                    "service01Uri": {
+                        "value":"[variables('services').service01.uri]"
+                    },
+                    "service01ClientId": {
+                        "value":"[variables('services').service01.client.id]"
+                    },
+                    "service01ClientSecret": {
+                        "value":"[variables('services').service01.client.secret]"
+                    },
+                    "service02Name": {
+                        "value":"[variables('services').service02.name]"
+                    },
+                    "service02Enabled": {
+                        "value":"[variables('services').service02.enabled]"
+                    },
+                    "service02Uri": {
+                        "value":"[variables('services').service02.uri]"
+                    },
+                    "service02ClientId": {
+                        "value":"[variables('services').service02.client.id]"
+                    },
+                    "service02ClientSecret": {
+                        "value":"[variables('services').service02.client.secret]"
+                    },
+                    "service03Name": {
+                        "value":"[variables('services').service03.name]"
+                    },
+                    "service03Enabled": {
+                        "value":"[variables('services').service03.enabled]"
+                    },
+                    "service03Uri": {
+                        "value":"[variables('services').service03.uri]"
+                    },
+                    "service03ClientId": {
+                        "value":"[variables('services').service03.client.id]"
+                    },
+                    "service03ClientSecret": {
+                        "value":"[variables('services').service03.client.secret]"
                     }
                 } 
             } 
