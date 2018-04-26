@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace App.Core.Infrastructure.Initialization.Integration
 {
+    using App.Core.Infrastructure.Constants.Storage;
     using App.Core.Infrastructure.Services;
 
     public class IntegrationSpikes : IHasAppCoreInitializer
@@ -20,7 +21,7 @@ namespace App.Core.Infrastructure.Initialization.Integration
 
         public void Initialize()
         {
-            var containerName = "FooContainer";
+            var containerName = BlobStorageContainers.Testing;
             var fileName = "foo.txt";
 
 

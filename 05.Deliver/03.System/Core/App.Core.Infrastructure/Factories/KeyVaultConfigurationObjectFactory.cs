@@ -129,6 +129,9 @@
                         case ConfigurationSettingSource.SourceType.AppSetting:
                             //For sure it was suppossed to not be set here:
                             continue;
+                        case ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline:
+                            //For sure it was suppossed to not be set here:
+                            continue;
                         case ConfigurationSettingSource.SourceType.Any:
                             var o = propertyInfo.GetValue(target, null);
                             if ((!o.IsDefault()) && (skipIfAlreadyHasValue))

@@ -77,6 +77,7 @@ namespace App.Core.Infrastructure.Integration.Azure.Storage
                 // Develop any known required Containers, with rights as needed:
                 EnsureContainer(GetContainer(Constants.Storage.BlobStorageContainers.Public), BlobContainerPublicAccessType.Blob);
                 EnsureContainer(GetContainer(Constants.Storage.BlobStorageContainers.Private), BlobContainerPublicAccessType.Off);
+                EnsureContainer(GetContainer(Constants.Storage.BlobStorageContainers.Testing), BlobContainerPublicAccessType.Blob);
 
                 ContainersInitialized = true;
             }
