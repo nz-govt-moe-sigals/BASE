@@ -1,3 +1,4 @@
+
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App.Module3.Infrastructure.Db.Schema

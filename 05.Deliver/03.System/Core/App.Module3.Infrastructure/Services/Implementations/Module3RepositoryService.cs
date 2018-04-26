@@ -23,5 +23,21 @@ namespace App.Module3.Infrastructure.Services.Implementations
         {
             return _dbContext;
         }
+
+        public void ConfigureBatchProcessing()
+        {
+            _dbContext.Configuration.AutoDetectChangesEnabled = false;
+            _dbContext.Configuration.ValidateOnSaveEnabled = false;
+        }
+
+        public int CommitBatch()
+        {
+            //TODO: WIRE THESE BACK UP?
+            // IDbCommitPreCommitProcessingStrategy
+            // via IDbContextPreCommitService 
+                
+            var result =_dbContext.SaveChanges();
+            return result;
+        }
     }
 }

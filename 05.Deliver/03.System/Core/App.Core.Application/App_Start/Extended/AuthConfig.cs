@@ -15,6 +15,17 @@
     /// </summary>
     public class AuthConfig
     {
+        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
+        private readonly IAzureKeyVaultService _keyVaultService;
+        private readonly IConfigurationStepService _configurationStepService;
+
+        public AuthConfig(IDiagnosticsTracingService diagnosticsTracingService, IAzureKeyVaultService keyVaultService,
+            IConfigurationStepService configurationStepService)
+        {
+            this._diagnosticsTracingService = diagnosticsTracingService;
+            this._keyVaultService = keyVaultService;
+            this._configurationStepService = configurationStepService;
+        }
         /// <summary>
         /// Configures the specified application builder.
         /// <para>
@@ -22,34 +33,21 @@
         /// </para>
         /// </summary>
         /// <param name="appBuilder">The application builder.</param>
-        public static void Configure(IAppBuilder appBuilder)
+        public void Configure(IAppBuilder appBuilder)
         {
             using (var elapsedTime = new ElapsedTime())
             {
 
-                // No:
-                //_diagnosticsTracingService = StructuremapMvc.StructureMapDependencyScope.Container.GetInstance<IDiagnosticsTracingService>();
-                // _hostSettingsService =StructuremapMvc.StructureMapDependencyScope.Container.GetInstance<IHostSettingsService>();
-                // Better (no direct reference to 3rd party vendor, allowing you how-swap DI service providers without change to code):
-                var diagnosticsTracingService = AppDependencyLocator.Current.GetInstance<IDiagnosticsTracingService>();
-                var hostSettingsService = AppDependencyLocator.Current.GetInstance<IHostSettingsService>();
-
                 var scopes = ScanForAllModulesRequiredScopeDefinitions();
 
-
-                var authorisationConfiguration = hostSettingsService.GetObject<AuthorisationConfiguration>();
+                var authorisationConfiguration = this._keyVaultService.GetObject<AuthorisationConfiguration>();
                 var demoType = authorisationConfiguration.AuthorisationDemoType;
-
-
-                IOIDCNotificationHandlerService oidcNotificationHandlerService =
-                    AppDependencyLocator.Current.GetInstance<IOIDCNotificationHandlerService>();
-
 
                 switch (demoType)
                 {
                     case AuthorisationDemoType.AADUsingOIDCAndCookies:
                         AppDependencyLocator.Current.GetInstance<AADV2ForOIDCCookiesConfiguration>()
-                            .Configure(appBuilder, hostSettingsService, oidcNotificationHandlerService);
+                            .Configure(appBuilder);
                         break;
                     case AuthorisationDemoType.B2CUsingOIDCAndCookies:
                         AppDependencyLocator.Current.GetInstance<B2COAuthCookieBasedAuthenticationConfig>()
@@ -67,9 +65,9 @@
                         break;
                 }
                 // 11.0836463 secs
-                AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
+                _configurationStepService
                     .Register(
-                        ConfigurationStepType.Security,
+                        ConfigurationStepType.Performance,
                         ConfigurationStepStatus.Green,
                         "Telemetry",
                         $"OIDC configuration. Took {elapsedTime.ElapsedText}.");

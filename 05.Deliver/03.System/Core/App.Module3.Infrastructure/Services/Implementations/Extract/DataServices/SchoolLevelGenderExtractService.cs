@@ -1,3 +1,4 @@
+
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,3 +30,4 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.DataServic
         }
     }
 }
+

@@ -25,6 +25,7 @@ namespace App.Core.Application
         private readonly WebApiFilterConfig _webApiFilterConfig;
         private readonly InitializerConfig _initializerConfig;
         private readonly WebApiConfig _webApiConfig;
+        private readonly AuthConfig _authConfig;
         private readonly WebMvcConfig _webMvcConfig;
 
         public StartupExtended(
@@ -32,13 +33,15 @@ namespace App.Core.Application
             WebMvcConfig webMvcConfig,
             WebApiFilterConfig webApiFilterConfig,
             InitializerConfig initializerConfig,
-            WebApiConfig webApiConfig
+            WebApiConfig webApiConfig,
+            AuthConfig authConfig
         )
         {
             this._sessionOperationLogService = sessionOperationLogService;
             this._webApiFilterConfig = webApiFilterConfig;
             this._initializerConfig = initializerConfig;
             this._webApiConfig = webApiConfig;
+            this._authConfig = authConfig;
             this._webMvcConfig = webMvcConfig;
         }
 
@@ -116,7 +119,7 @@ namespace App.Core.Application
             //TODO: This triggers requests to a remote server during bootstrap...
             // contrary to design principles, and should be
             // moved to later
-            AuthConfig.Configure(appBuilder);
+            _authConfig.Configure(appBuilder);
 
             //Invoke Service Initialization:
             this._initializerConfig.Configure(appBuilder);

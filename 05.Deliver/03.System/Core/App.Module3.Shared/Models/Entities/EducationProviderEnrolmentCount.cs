@@ -1,3 +1,4 @@
+
 ﻿namespace App.Module3.Shared.Models.Entities
 {
     using System;

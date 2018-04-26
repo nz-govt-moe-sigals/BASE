@@ -1,4 +1,5 @@
-﻿using System;
+
+using System;
 using AutoMapper;
 using App.Module3.Shared.Models.Entities;
 using App.Module3.Shared.Models.Messages.Extract;
@@ -85,3 +86,4 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract
         }
     }
 }
+

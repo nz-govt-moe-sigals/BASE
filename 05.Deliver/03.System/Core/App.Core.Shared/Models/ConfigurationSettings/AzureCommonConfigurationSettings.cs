@@ -13,7 +13,7 @@
         /// AppSettings 
         /// key.
         /// </summary>
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
         [Alias(Constants.ConfigurationKeys.AppCoreIntegrationAzureCommonResourceName)]
         public string RootResourceName
         {

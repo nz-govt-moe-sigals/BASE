@@ -1,3 +1,4 @@
+
 ﻿using System;
 using AutoMapper;
 using App.Module3.Shared.Models.Entities;
@@ -31,3 +32,4 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract
         }
     }
 }
+

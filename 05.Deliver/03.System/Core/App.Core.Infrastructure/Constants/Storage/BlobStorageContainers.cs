@@ -37,6 +37,8 @@ namespace App.Core.Infrastructure.Constants.Storage
     /// </summary>
     public static class BlobStorageContainers
     {
+
+        public static string Testing = "testing";
         /// <summary>
         /// Publicly accessible (Blob, not Container) storage.
         /// <para>

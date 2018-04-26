@@ -20,16 +20,16 @@
         // These values are pulled from web.config
         private static IB2COidcConfidentialClientConfiguration _b2cOidcConfidentialClientConfiguration;
 
-        private readonly IHostSettingsService _hostSettingsService;
+        private readonly IAzureKeyVaultService _keyVaultService;
         private readonly IOIDCNotificationHandlerService _oidcNotificationHandlerService;
         private IDiagnosticsTracingService _diagnosticsTracingService;
 
 
         public B2COAuthBearerTokenAuthenticationConfiguration(IDiagnosticsTracingService diagnosticsTracingService,
-            IHostSettingsService hostSettingsService, IOIDCNotificationHandlerService oidcNotificationHandlerService)
+            IAzureKeyVaultService keyVaultService, IOIDCNotificationHandlerService oidcNotificationHandlerService)
         {
             this._diagnosticsTracingService = diagnosticsTracingService;
-            this._hostSettingsService = hostSettingsService;
+            this._keyVaultService = keyVaultService;
             this._oidcNotificationHandlerService = oidcNotificationHandlerService;
         }
 
@@ -41,7 +41,7 @@
         {
             // Retrieve settings from web.settings (actually, web.settings.appSettings.exclude):
             // We want the ClientId / CallbackUri relevent to this API service
-            _b2cOidcConfidentialClientConfiguration = this._hostSettingsService
+            _b2cOidcConfidentialClientConfiguration = this._keyVaultService
                 .GetObject<B2COidcConfidentialClientConfiguration>("bearerTokenAuth:");
 
             // TokenValidationParameters: parameters used by System.IdentityModel.Tokens.SecurityTokenHandler validating System.IdentityModel.Tokens.SecurityToken.

@@ -17,6 +17,36 @@
     "cacheRedisProvision": {
       "value": false
     },
+    "oauthEnabled": {
+      "value": true
+    },
+    "oauthAuthorityUri": {
+      "value": ""
+    },
+    "oauthClientId": {
+      "value": ""
+    },
+    "oauthClientSecret": {
+      "value": ""
+    },
+    "oauthClientRedirectUri": {
+      "value": ""
+    },
+    "oauthClientPostLogoutRedirectUri": {
+      "value": ""
+    },
+    "oidcPoliciesSignUpSignInPolicyId": {
+      "value": ""
+    },
+    "oidcPoliciesUserProfilePolicyId": {
+      "value": ""
+    },
+    "oidcPoliciesEditProfilePolicyId": {
+      "value": ""
+    },
+    "oidcPoliciesResetPasswordPolicyId": {
+      "value": ""
+    },
     "sqlServerAdministratorLogin": {
       "reference": {
         "keyVault": {
@@ -35,9 +65,6 @@
     },
     "sqlServerDeveloperStatingSecretsAreNotRecordedInCode": {
       "value": "sigals"
-    },
-    "webServerFarmResourceSku": {
-      "value": "S1"
     },
     "webCertificatePfxBase64": {
       "value": "",
@@ -59,6 +86,9 @@
     },
     "webCertificateDeveloperStatingSecretsAreNotRecordedInCode": {
       "value": "SSigal"
+    },
+    "webServerFarmResourceSku": {
+      "value": "S1"
     },
     "webSiteConfigAppSettings": {
       "value": {

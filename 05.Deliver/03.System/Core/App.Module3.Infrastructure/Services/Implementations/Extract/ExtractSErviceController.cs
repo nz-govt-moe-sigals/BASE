@@ -1,4 +1,5 @@
-﻿using App.Core.Infrastructure.Services;
+
+using App.Core.Infrastructure.Services;
 using App.Module3.Shared.Models.Messages.Extract;
 using System;
 using System.Collections.Generic;
@@ -134,3 +135,4 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
 
     }
 }
+

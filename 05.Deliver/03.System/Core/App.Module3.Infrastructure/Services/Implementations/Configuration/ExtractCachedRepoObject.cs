@@ -1,10 +1,11 @@
-﻿using System;
+using App.Module3.Shared.Models.Entities;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using App.Module3.Shared.Models.Entities;
+
 
 namespace App.Module3.Infrastructure.Services.Implementations.Configuration
 {
@@ -75,3 +76,4 @@ namespace App.Module3.Infrastructure.Services.Implementations.Configuration
         */
     }
 }
+

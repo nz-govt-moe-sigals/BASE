@@ -85,8 +85,6 @@
         public virtual T Provision<T>(T target, string prefix = null) where T : class
         {
             var objectName = target.GetType().Name;
-            var validSources = new[]
-                {ConfigurationSettingSource.SourceType.All, ConfigurationSettingSource.SourceType.AppSetting};
                 
             // Iterate over the public properties of the target object
             // using the property's name, o
@@ -98,14 +96,12 @@
 
                 // Determine if we should look for this value here:
                 var sourceAttribute = propertyInfo.GetCustomAttribute<ConfigurationSettingSource>();
-                if (sourceAttribute != null)
+                if (sourceAttribute?.Source == ConfigurationSettingSource.SourceType.KeyVault)
                 {
-                    if (!validSources.Any(x => x == sourceAttribute.Source))
-                    {
-                        continue;
-                    }
+                    continue;
                 }
-
+                // The setting is either not decorated with ConfigurationSettingsSourceAttribute
+                // or it's fine, as it is either marked All, AppSetttings, or AppSettingsViaDeploymentPipeline
 
                 // Use aliases first, as they can be richer, if there are any:
                 var aliasAttribute = propertyInfo.GetCustomAttribute<AliasAttribute>();

@@ -1,3 +1,4 @@
+
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -77,7 +78,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
 
         public void CommitResults()
         {
-            _unitOfWorkService.CommitBatch(_dbKey);
+            _repositoryService.CommitBatch();
         }
 
 

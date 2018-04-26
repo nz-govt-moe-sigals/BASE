@@ -1,3 +1,4 @@
+
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Infrastructure.Annotations;
 using App.Core.Infrastructure.Constants.Db;

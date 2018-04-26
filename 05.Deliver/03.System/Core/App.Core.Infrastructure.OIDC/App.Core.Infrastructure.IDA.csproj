@@ -83,7 +83,7 @@
     <Compile Include="Constants\Uris.cs" />
     <Compile Include="Factories\OIDCConfigurationFactory.cs" />
     <Compile Include="Models\Implementations\AADOidcConfidentialClientConfiguration.cs" />
-    <Compile Include="Models\AuthorisationConfiguration.cs" />
+    <Compile Include="Models\Implementations\AuthorisationConfiguration.cs" />
     <Compile Include="Models\Enums\AuthorisationDemoType.cs" />
     <Compile Include="Models\IAADOIDCClientConfiguration.cs" />
     <Compile Include="Models\IApiQueryConfiguration.cs" />

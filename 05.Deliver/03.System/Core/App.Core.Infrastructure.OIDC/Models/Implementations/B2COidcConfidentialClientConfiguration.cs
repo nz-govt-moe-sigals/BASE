@@ -6,9 +6,6 @@
     public class B2COidcConfidentialClientConfiguration : AADOidcConfidentialClientConfiguration,
         IB2COidcConfidentialClientConfiguration, IB2CTenantPolicyConfiguration
     {
-        private string _authorityBearerTokenConfigurationPolicyUri;
-        private string _authorityCookieConfigurationPolicyUri;
-
         /// <summary>
         ///     In addition to the base Uri to the OIDC IdP (ie, AuthorityUri),
         ///     B2C uses a more complex Uri that includes the Policy Id, in order to
@@ -17,7 +14,8 @@
         ///         "https://login.microsoftonline.com/tfp/{tenant}/{defaultPolicyId}/v2.0/.well-known/openid-configuration"
         ///     </para>
         /// </summary>
-        [Alias("App-Core-Integration-ida-AuthorityCookieConfigurationPolicyUri")]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.B2COIDCKeys.AuthorityCookieConfigurationPolicyUri)]
         public string AuthorityCookieConfigurationPolicyUri
         {
             get => this._authorityCookieConfigurationPolicyUri
@@ -33,9 +31,11 @@
                 this._authorityCookieConfigurationPolicyUri = value;
             }
         }
+        private string _authorityCookieConfigurationPolicyUri;
 
 
-        [Alias("App-Core-Integration-ida-AuthorityTokenConfigurationPolicyUri")]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.B2COIDCKeys.AuthorityBearerTokenConfigurationPolicyUri)]
         public string AuthorityBearerTokenConfigurationPolicyUri
         {
             get => this._authorityBearerTokenConfigurationPolicyUri
@@ -51,11 +51,21 @@
                 this._authorityBearerTokenConfigurationPolicyUri = value;
             }
         }
+        private string _authorityBearerTokenConfigurationPolicyUri;
 
 
         #region Policie Ids
 
-        [Alias("App-Core-Integration-ida-DefaultPolicyId")]
+        /// <summary>
+        ///     If not set, defaults to SignUp/SignIn policy.
+        /// 
+        ///     <para>eg: 'B2C_1_B2C_Default_SignUp_Policy'</para>
+        ///     <para>eg: 'B2C_1_B2C_SU'</para>
+        ///     <para>Note: recommended to be same Policy Name as SignIn </para>
+        ///     <para>Default Host Seting key is ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'System-Integration-') + 'Oidc-PolicyBased-SignUpSignInPolicyId'</para>
+        /// </summary>
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.B2COIDCKeys.DefaultPolicyId)]
         public string DefaultPolicyId
         {
             get => this._defaultPolicyId ?? this.TenantSignUpSignInPolicyId;
@@ -75,11 +85,15 @@
         /// <summary>
         ///     The B2C SignUp Policy Name
         ///     <para>eg: 'B2C_1_B2C_Default_SignUp_Policy'</para>
+        ///     <para>eg: 'B2C_1_B2C_SU'</para>
         ///     <para>Note: recommended to be same Policy Name as SignIn </para>
-        ///     <para>Default Host Seting key is 'App-Core-Integration-ida-SignUpSignInPolicyId'</para>
+        ///     <para>Default Host Seting key is ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'System-Integration-') + 'Oidc-PolicyBased-SignUpSignInPolicyId'</para>
         /// </summary>
         [Obsolete]
-        [Alias("App-Core-Integration-ida-SignUpPolicyId")]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+#pragma warning disable CS0612 // Type or member is obsolete
+        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.B2COIDCKeys.SignInPolicyId)]
+#pragma warning restore CS0612 // Type or member is obsolete
         public string TenantSignUpPolicyId
         {
             get => this._signUpPolicyId ?? this.TenantSignUpSignInPolicyId;
@@ -99,11 +113,15 @@
         /// <summary>
         ///     The B2C SignIn Policy Name
         ///     <para>eg: 'B2C_1_B2C_Default_SignIn_Policy'</para>
+        ///     <para>eg: 'B2C_1_B2C_SI'</para>
         ///     <para>Note: recommended to be same Policy Name is SignUp </para>
-        ///     <para>Default Host Seting key is 'App-Core-Integration-ida-SignInPolicyId'</para>
+        ///     <para>Default Host Seting key is ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'System-Integration-') + 'Oidc-PolicyBased-SignInPolicyId'</para>
         /// </summary>
         [Obsolete]
-        [Alias("App-Core-Integration-ida-SignInPolicyId")]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+#pragma warning disable CS0612 // Type or member is obsolete
+        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.B2COIDCKeys.SignInPolicyId)]
+#pragma warning restore CS0612 // Type or member is obsolete
         public string TenantSignInPolicyId
         {
             get => this._signInPolicyId ?? this.TenantSignUpSignInPolicyId;
@@ -122,38 +140,49 @@
         /// <summary>
         ///     The B2C SignUp/SignIn Policy Name
         ///     <para>eg: 'B2C_1_B2C_Default_SignUpSignIn_Policy'</para>
-        ///     <para>Note: recommended to be same Policy Name is SignUp </para>
+        ///     <para>eg: 'B2C_1_B2C_SUSI'</para>
+        ///     <para>Note: recommended to be same Policy Name as SignUp </para>
         /// </summary>
-        [Alias("App-Core-Integration-ida-SignUpSignInPolicyId")]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.B2COIDCKeys.SignUpSignInPolicyId)]
         public string TenantSignUpSignInPolicyId { get; set; }
 
 
         /// <summary>
         ///     The B2C User Profile Policy Name
         ///     <para>eg: 'B2C_1_B2C_Default_UserProfile_Policy'</para>
-        ///     <para>Default Host Seting key is 'App-Core-Integration-ida-UserProfilePolicyId'</para>
+        ///     <para>eg: 'B2C_1_B2C_UP'</para>
+        ///     <para>Default Host Seting key is ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'System-Integration-') + 'Oidc-PolicyBased-UserProfilePolicyId'</para>
         /// </summary>
-        [Alias("App-Core-Integration-ida-UserProfilePolicyId")]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.B2COIDCKeys.UserProfilePolicyId)]
         public string TenantUserProfilePolicyId { get; set; }
 
 
         /// <summary>
         ///     The B2C Edit Profile Policy Name
         ///     <para>eg: 'B2C_1_B2C_Default_EditProfile_Policy'</para>
-        ///     <para>Default Host Seting key is 'App-Core-Integration-ida-EditProfilePolicyId'</para>
+        ///     <para>eg: 'B2C_1_B2C_EP'</para>
+        ///     <para>Default Host Seting key is ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'System-Integration-') + 'Oidc-PolicyBased-EditProfilePolicyId'</para>
         /// </summary>
-        [Alias("App-Core-Integration-ida-EditProfilePolicyId")]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.B2COIDCKeys.EditProfilePolicyId)]
         public string TenantEditProfilePolicyId { get; set; }
+
+
+
 
 
         /// <summary>
         ///     The B2C SignUp/SignIn Policy Name
         ///     <para>eg: 'B2C_1_B2C_Default_ResetPassword_Policy'</para>
-        ///     <para>Default Host Seting key is 'App-Core-Integration-ida-ResetPasswordPolicyId'</para>
+        ///     <para>eg: 'B2C_1_B2C_RP'</para>
+        ///     <para>Default Host Seting key is ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'System-Integration-') + 'Oidc-PolicyBased-ResetPasswordPolicyId'</para>
         /// </summary>
-        [Alias("App-Core-Integration-ida-ResetPasswordPolicyId")]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.B2COIDCKeys.ResetPasswordPolicyId)]
         public string TenantResetPasswordPolicyId { get; set; }
-
+        
         #endregion
     }
 }

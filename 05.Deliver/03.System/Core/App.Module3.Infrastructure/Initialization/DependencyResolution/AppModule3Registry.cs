@@ -39,7 +39,7 @@ namespace App.Module3.Infrastructure.Initialization.DependencyResolution
             // automatically filled in)
             assemblyScanner.AddAllTypesOf<IDbCommitPreCommitProcessingStrategy>();
             this.RegisterDbContextInHttpContext<AppModule3DbContext>(AppModule3DbContextNames.Module3);
-            //For<IExtractRepositoryService>().Use<ExtractRepositoryService>().Singleton(); ///?? hmmm
+            For<IExtractRepositoryService>().Use<ExtractRepositoryService>().Singleton(); //?? hmmm
         }
     }
 }
