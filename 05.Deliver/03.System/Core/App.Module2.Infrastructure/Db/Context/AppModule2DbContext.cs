@@ -54,7 +54,7 @@ namespace App.Module2.Infrastructure.Db.Context
 
         // Constructor invokes base with Key used to find the ConnectionString in web.config
         // Note use of same db, but different schema
-        public AppModule2DbContext() : base(AppCoreDbConnectionStringNames.App)
+        public AppModule2DbContext() : base(AppCoreDbConnectionStringNames.Default)
         {
         }
 

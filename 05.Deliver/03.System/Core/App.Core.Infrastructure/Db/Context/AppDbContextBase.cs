@@ -24,7 +24,7 @@ namespace App.Core.Infrastructure.Db.Context
         }
 
         // Constructor invokes base with Key used to find the ConnectionString in web.config
-        protected AppDbContextBase() : this(AppCoreDbConnectionStringNames.App)
+        protected AppDbContextBase() : this(AppCoreDbConnectionStringNames.Default)
         {
         }
 
