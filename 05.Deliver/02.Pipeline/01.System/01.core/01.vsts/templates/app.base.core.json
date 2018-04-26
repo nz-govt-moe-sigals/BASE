@@ -269,161 +269,161 @@
                 "description": "Optional. An array of Complex of name, type, value. With no comments allowed within the array (due to bug in VSTS)."
             }
         },
-        "smtpServiceEnabled": {
+        "servicesSMTPEnabled": {
             "type": "bool",
             "defaultValue": true,
             "metadata": {
                 "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
             }
         },
-        "smtpServiceUri": {
+        "servicesSMTPUri": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
 			}
         },
-        "smtpServiceClientId": {
+        "servicesSMTPClientId": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                  "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
             }
         },
-        "smtpServiceClientSecret": {
+        "servicesSMTPClientSecret": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
 			}
         },
-        "malwareDetectionServiceEnabled": {
+        "servicesMalwareDetectionEnabled": {
             "type": "bool",
             "defaultValue": true,
             "metadata": {
                 "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
             }
         },
-        "malwareDetectionServiceUri": {
+        "servicesMalwareDetectionUri": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
             }
         },
-        "malwareDetectionServiceClientId": {
+        "servicesMalwareDetectionClientId": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
             }
         },
-        "malwareDetectionServiceClientSecret": {
+        "servicesMalwareDetectionClientSecret": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
             }
         },
-        "service01Name": {
+        "servicesService01Name": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. Provide a name to recognize what these settings are for."
             }
         },
-        "service01Enabled": {
+        "servicesService01Enabled": {
             "type": "bool",
             "defaultValue": true,
             "metadata": {
                 "description": "Optional. To use service 01 (whatever it is), you need to enable it then provide the uri, client id and client secret."
             }
         },
-        "service01Uri": {
+        "servicesService01Uri": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. To use service 01 (whatever it is), you need to enable it then provide the uri, client id and client secret."
 			}
         },
-        "service01ClientId": {
+        "servicesService01ClientId": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                  "description": "Optional. To use service 01 (whatever it is), you need to enable it then provide the uri, client id and client secret."
             }
         },
-        "service01ClientSecret": {
+        "servicesService01ClientSecret": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. To use service 01 (whatever it is), you need to enable it then provide the uri, client id and client secret."
 			}
         },
-        "service02Name": {
+        "servicesService02Name": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. Provide a name to recognize what these settings are for."
             }
         },
-        "service02Enabled": {
+        "servicesService02Enabled": {
             "type": "bool",
             "defaultValue": true,
             "metadata": {
                 "description": "Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret."
             }
         },
-        "service02Uri": {
+        "servicesService02Uri": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret."
 			}
         },
-        "service02ClientId": {
+        "servicesService02ClientId": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                  "description": "Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret."
             }
         },
-        "service02ClientSecret": {
+        "servicesService02ClientSecret": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret."
 			}
         },
-        "service03Name": {
+        "servicesService03Name": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. Provide a name to recognize what these settings are for."
             }
         },
-        "service03Enabled": {
+        "servicesService03Enabled": {
             "type": "bool",
             "defaultValue": true,
             "metadata": {
                 "description": "Optional. To use service 03 (whatever it is), you need to enable it then provide the uri, client id and client secret."
             }
         },
-        "service03Uri": {
+        "servicesService03Uri": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. To use service 03 (whatever it is), you need to enable it then provide the uri, client id and client secret."
 			}
         },
-        "service03ClientId": {
+        "servicesService03ClientId": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                  "description": "Optional. To use service 03 (whatever it is), you need to enable it then provide the uri, client id and client secret."
             }
         },
-        "service03ClientSecret": {
+        "servicesService03ClientSecret": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
@@ -509,46 +509,46 @@
         },
         "services": {
             "smtp":{
-                "enabled":"[parameters('smtpServiceEnabled')]",
-                "uri":"[parameters('smtpServiceUri')]",
+                "enabled":"[parameters('servicesSMTPEnabled')]",
+                "uri":"[parameters('servicesSMTPUri')]",
                 "client":{
-                    "id":"[parameters('smtpServiceClientId')]",
-                    "secret":"[parameters('smtpServiceClientSecret')]"
+                    "id":"[parameters('servicesSMTPClientId')]",
+                    "secret":"[parameters('servicesSMTPClientSecret')]"
                 }
             },
             "malwareDetection":{
-                "enabled":"[parameters('malwareDetectionServiceEnabled')]",
-                "uri":"[parameters('malwareDetectionServiceUri')]",
+                "enabled":"[parameters('servicesMalwareDetectionEnabled')]",
+                "uri":"[parameters('servicesMalwareDetectionUri')]",
                 "client":{
-                    "id":"[parameters('malwareDetectionServiceClientId')]",
-                    "secret":"[parameters('malwareDetectionServiceClientSecret')]"
+                    "id":"[parameters('servicesMalwareDetectionClientId')]",
+                    "secret":"[parameters('servicesMalwareDetectionClientSecret')]"
                 }
             },
             "service01":{
-                "name":"[parameters('service01Name')]",
-                "enabled":"[parameters('service01Enabled')]",
-                "uri":"[parameters('service01Uri')]",
+                "name":"[parameters('servicesService01Name')]",
+                "enabled":"[parameters('servicesService01Enabled')]",
+                "uri":"[parameters('servicesService01Uri')]",
                 "client":{
-                    "id":"[parameters('service01ClientId')]",
-                    "secret":"[parameters('service01ClientSecret')]"
+                    "id":"[parameters('servicesService01ClientId')]",
+                    "secret":"[parameters('servicesService01ClientSecret')]"
                 }
             },
             "service02":{
-                "name":"[parameters('service02Name')]",
-                "enabled":"[parameters('service02Enabled')]",
-                "uri":"[parameters('service02Uri')]",
+                "name":"[parameters('servicesService02Name')]",
+                "enabled":"[parameters('servicesService02Enabled')]",
+                "uri":"[parameters('servicesService02Uri')]",
                 "client":{
-                    "id":"[parameters('service02ClientId')]",
-                    "secret":"[parameters('service02ClientSecret')]"
+                    "id":"[parameters('servicesService02ClientId')]",
+                    "secret":"[parameters('servicesService02ClientSecret')]"
                 }
             },     
             "service03":{
-                "name":"[parameters('service03Name')]",
-                "enabled":"[parameters('service03Enabled')]",
-                "uri":"[parameters('service03Uri')]",
+                "name":"[parameters('servicesService03Name')]",
+                "enabled":"[parameters('servicesService03Enabled')]",
+                "uri":"[parameters('servicesService03Uri')]",
                 "client":{
-                    "id":"[parameters('service03ClientId')]",
-                    "secret":"[parameters('service03ClientSecret')]"
+                    "id":"[parameters('servicesService03ClientId')]",
+                    "secret":"[parameters('servicesService03ClientSecret')]"
                 }
             }        
         }
@@ -658,73 +658,73 @@
                     "oidcPoliciesResetPasswordPolicyId": {
                         "value": "[variables('oidc').policies.resetPasswordPolicyId]"
                     },
-                    "smtpServiceEnabled": {
+                    "servicesSMTPEnabled": {
                         "value":"[variables('services').smtp.enabled]"
                     },
-                    "smtpServiceUri": {
+                    "servicesSMTPUri": {
                         "value":"[variables('services').smtp.uri]"
                     },
-                    "smtpServiceClientId": {
+                    "servicesSMTPClientId": {
                         "value":"[variables('services').smtp.client.id]"
                     },
-                    "smtpServiceClientSecret": {
+                    "servicesSMTPClientSecret": {
                         "value":"[variables('services').smtp.client.secret]"
                     },
-                    "malwareDetectionServiceEnabled": {
+                    "servicesMalwareDetectionEnabled": {
                         "value":"[variables('services').malwareDetection.enabled]"
                     },
-                    "malwareDetectionServiceUri": {
+                    "servicesMalwareDetectionUri": {
                         "value":"[variables('services').malwareDetection.uri]"
                     },
-                    "malwareDetectionServiceClientId": {
+                    "servicesMalwareDetectionClientId": {
                         "value":"[variables('services').malwareDetection.client.id]"
                     },
-                    "malwareDetectionServiceClientSecret": {
+                    "servicesMalwareDetectionClientSecret": {
                         "value":"[variables('services').malwareDetection.client.secret]"
                     },
-                    "service01Name": {
+                    "servicesService01Name": {
                         "value":"[variables('services').service01.name]"
                     },
-                    "service01Enabled": {
+                    "servicesService01Enabled": {
                         "value":"[variables('services').service01.enabled]"
                     },
-                    "service01Uri": {
+                    "servicesService01Uri": {
                         "value":"[variables('services').service01.uri]"
                     },
-                    "service01ClientId": {
+                    "servicesService01ClientId": {
                         "value":"[variables('services').service01.client.id]"
                     },
-                    "service01ClientSecret": {
+                    "servicesService01ClientSecret": {
                         "value":"[variables('services').service01.client.secret]"
                     },
-                    "service02Name": {
+                    "servicesService02Name": {
                         "value":"[variables('services').service02.name]"
                     },
-                    "service02Enabled": {
+                    "servicesService02Enabled": {
                         "value":"[variables('services').service02.enabled]"
                     },
-                    "service02Uri": {
+                    "servicesService02Uri": {
                         "value":"[variables('services').service02.uri]"
                     },
-                    "service02ClientId": {
+                    "servicesService02ClientId": {
                         "value":"[variables('services').service02.client.id]"
                     },
-                    "service02ClientSecret": {
+                    "servicesService02ClientSecret": {
                         "value":"[variables('services').service02.client.secret]"
                     },
-                    "service03Name": {
+                    "servicesService03Name": {
                         "value":"[variables('services').service03.name]"
                     },
-                    "service03Enabled": {
+                    "servicesService03Enabled": {
                         "value":"[variables('services').service03.enabled]"
                     },
-                    "service03Uri": {
+                    "servicesService03Uri": {
                         "value":"[variables('services').service03.uri]"
                     },
-                    "service03ClientId": {
+                    "servicesService03ClientId": {
                         "value":"[variables('services').service03.client.id]"
                     },
-                    "service03ClientSecret": {
+                    "servicesService03ClientSecret": {
                         "value":"[variables('services').service03.client.secret]"
                     }
                 } 
