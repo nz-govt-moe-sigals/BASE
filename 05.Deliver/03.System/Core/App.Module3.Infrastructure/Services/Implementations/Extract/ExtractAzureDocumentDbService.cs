@@ -32,7 +32,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
             //sooo hardcoded
             this._configuration = new ExtractDocumentDbServiceConfiguration()
             {
-                EndpointUrl = new Uri("https://nzmoebase.documents.azure.com:443/"),
+                EndpointUrlString = "https://nzmoebase.documents.azure.com:443/",
                 AuthorizationKey = "wEDBI7B1MPHtNK4y2Myi1h5falYVviMuVBQHgI9hUzT4HnLxsRCJzUC4BPvXW2XEzPJHFztRzhpRK6lBI3NG6A==",
                 CollectionName= "syncData",
                 DatabaseName="dataFactory"

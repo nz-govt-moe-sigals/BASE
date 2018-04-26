@@ -19,6 +19,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         private readonly ExtractCachedRepoObject _repoObject;
         private readonly IUnitOfWorkService _unitOfWorkService;
         private bool? _educationProviderProfileHasData;
+        private object _lock = new Object();
 
         public ExtractRepositoryService(ExtractCachedRepoObject repoObject, IModule3RepositoryService repositoryService, IUnitOfWorkService unitOfWorkService)
         {
@@ -38,15 +39,23 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
             _repositoryService.AddOrUpdate<ExtractWatermark>(_dbKey, x => x.SourceTableName, watermark);
         }
 
-        public IDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase> GetSifCachedData<T>()
+        public ConcurrentDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase> GetSifCachedData<T>()
             where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase
         {
             var cache = _repoObject.GetCachedLookUpData<T>();
             if (cache == null)
             {
-                cache = new ConcurrentDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase>(_repositoryService.GetQueryableSet<T>(_dbKey)
-                    .ToDictionary(x => x.SourceSystemKey, x => (SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase) x));
-                _repoObject.CacheLookUpData<T>(cache);
+                lock (_lock) 
+                {
+                    cache = _repoObject.GetCachedLookUpData<T>();
+                    if (cache == null)
+                    {
+                        cache = new ConcurrentDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase>(_repositoryService.GetQueryableSet<T>(_dbKey)
+                           .ToDictionary(x => x.SourceSystemKey, x => (SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase)x));
+                        _repoObject.CacheLookUpData<T>(cache);
+                    }
+                    
+                }
             }
             return cache;
         }
@@ -55,7 +64,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         public void AddSifData<T>(T newAreaUnit)
             where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase
         {
-            GetSifCachedData<T>().Add(newAreaUnit.SourceSystemKey, newAreaUnit); 
+            GetSifCachedData<T>().TryAdd(newAreaUnit.SourceSystemKey, newAreaUnit); 
             AddOnCommit(newAreaUnit);
         }
 
@@ -79,11 +88,19 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
             {
                 if (EducationProviderProfileHasData())
                 {
-                    profile = _repositoryService.GetSingle<EducationProviderProfile>(_dbKey, x => x.SourceSystemKey == schoolId);
-                    if (profile != null)
+                    lock (_lock)
                     {
-                        _repoObject.EducationProviderProfiles.Add(profile.SourceSystemKey, profile);
+                        if (!_repoObject.EducationProviderProfiles.TryGetValue(schoolId, out profile))
+                        {
+                            profile = _repositoryService.GetSingle<EducationProviderProfile>(_dbKey,
+                                x => x.SourceSystemKey == schoolId);
+                            if (profile != null)
+                            {
+                                _repoObject.EducationProviderProfiles.TryAdd(profile.SourceSystemKey, profile);
+                            }
+                        }
                     }
+                    
                 }
                 
             }
@@ -99,10 +116,16 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
             if (_educationProviderProfileHasData == null)
             {
                 _educationProviderProfileHasData = false;
-                var count = _repositoryService.Count<EducationProviderProfile>(_dbKey);
-                if (count > 0)
+                lock (_lock)
                 {
-                    _educationProviderProfileHasData = true;
+                    if (_educationProviderProfileHasData == null)
+                    {
+                        var count = _repositoryService.Count<EducationProviderProfile>(_dbKey);
+                        if (count > 0)
+                        {
+                            _educationProviderProfileHasData = true;
+                        }
+                    }
                 }
             }
             return _educationProviderProfileHasData.Value;
@@ -120,7 +143,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
             }
             else
             {
-                _repoObject.EducationProviderProfiles.Add(profile.SourceSystemKey, profile);
+                _repoObject.EducationProviderProfiles.TryAdd(profile.SourceSystemKey, profile);
                _repositoryService.AddOnCommit(_dbKey, profile);
             }
         }

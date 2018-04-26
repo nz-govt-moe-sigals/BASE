@@ -24,8 +24,6 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.DataServic
             var educationProviderProfile = _repositoryService.GetEducationProviderProfile(item.InstitutionNumber.ToString());
             mappedEntity.EducationProviderFK = educationProviderProfile.Id;
             _repositoryService.AddOrUpdate(mappedEntity);
-            //_repositoryService.UpdateOnCommit(_dbKey, );
-            // Some Sky Magic Code
         }
     }
 }

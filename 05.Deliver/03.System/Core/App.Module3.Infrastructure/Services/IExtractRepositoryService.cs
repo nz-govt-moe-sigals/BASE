@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace App.Module3.Infrastructure.Services
 
         void UpdateWaterMarkTimeStamp(ExtractWatermark watermark);
 
-        IDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase> GetSifCachedData<T>()
+        ConcurrentDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase> GetSifCachedData<T>()
             where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase;
  
 

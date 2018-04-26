@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\ConfigurationKeys.cs" />
     <Compile Include="Models\Configuration\ExampleApiConfiguration.cs" />
     <Compile Include="Models\Contracts\IHasSourceSystemKey.cs" />
     <Compile Include="Models\Contracts\IHasSIFKey.cs" />

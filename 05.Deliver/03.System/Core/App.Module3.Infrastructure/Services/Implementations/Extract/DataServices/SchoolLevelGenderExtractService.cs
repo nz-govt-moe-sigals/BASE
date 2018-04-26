@@ -26,8 +26,6 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.DataServic
             mappedEntity.GenderFK = LookUp<EducationProviderGender>(item.GenderValueId);
             mappedEntity.YearFK = LookUp<EducationProviderYearLevel>(item.YearValueId);
             _repositoryService.AddOrUpdate(mappedEntity);
-            //_repositoryService.UpdateOnCommit(_dbKey, );
-            // Some Sky Magic Code
         }
     }
 }
