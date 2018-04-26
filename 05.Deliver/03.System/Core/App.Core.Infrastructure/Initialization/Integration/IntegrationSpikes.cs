@@ -7,6 +7,7 @@ using App.Core.Infrastructure.Constants.Storage;
 
 namespace App.Core.Infrastructure.Initialization.Integration
 {
+    using App.Core.Infrastructure.Constants.Storage;
     using App.Core.Infrastructure.Services;
 
     public class IntegrationSpikes : IHasAppCoreInitializer
