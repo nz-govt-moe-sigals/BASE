@@ -736,6 +736,10 @@
             "type": "string",
             "value": "[reference(variables('assembly').armTemplateId).outputs.webSiteResourceName.value]"
         },
+        "webSiteTenantId":{
+            "type":"string",
+            "value": "[reference(variables('assembly').armTemplateId).outputs.webSiteTenantId.value]"
+        },
         "webSitePrincipalId": {
             "type": "string",
             "value": "[reference(variables('assembly').armTemplateId).outputs.webSitePrincipalId.value]"
