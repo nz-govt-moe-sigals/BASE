@@ -733,7 +733,7 @@
     ],
     "outputs": {
         "identity":{
-            "type":"string",
+            "type":"object",
             "value": "[reference(variables('assembly').armTemplateId).outputs.identity.value]"
         },
         "webSiteSubscriptionId":{
