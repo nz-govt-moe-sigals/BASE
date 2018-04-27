@@ -82,6 +82,10 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract
                 .ForMember(dest => dest.Ward, opt => opt.Ignore()) //
                 .ForMember(dest => dest.SourceSystemKey, opt => opt.MapFrom(s => s.ProfilesId))
                 .ForMember(dest => dest.SourceSystemName, opt => opt.Ignore())
+
+                .ForMember(dest => dest.Locations, opt => opt.Ignore()) //
+                .ForMember(dest => dest.LevelGender, opt => opt.Ignore())
+                .ForMember(dest => dest.RollCounts, opt => opt.Ignore())
                 ;
         }
     }

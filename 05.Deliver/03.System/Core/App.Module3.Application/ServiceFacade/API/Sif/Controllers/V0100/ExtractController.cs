@@ -1,4 +1,6 @@
-﻿namespace App.Module3.Application.ServiceFacade.API.Controllers.V0100
+﻿using System.Diagnostics;
+
+namespace App.Module3.Application.ServiceFacade.API.Controllers.V0100
 {
     using App.Core.Infrastructure.Services;
     using App.Module3.Infrastructure.Db.Context;
@@ -28,8 +30,16 @@
 
         public string Get()
         {
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
             _extractServiceController.ProcessAllTables();
-            return "success";
+            stopWatch.Stop();
+            // Get the elapsed time as a TimeSpan value.
+            TimeSpan ts = stopWatch.Elapsed;
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                ts.Hours, ts.Minutes, ts.Seconds,
+                ts.Milliseconds / 10);
+            return $"success - elapsedTime : {elapsedTime}";
         }
 
     }

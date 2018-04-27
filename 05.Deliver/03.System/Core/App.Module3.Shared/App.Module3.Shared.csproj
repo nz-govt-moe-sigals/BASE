@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Constants\ConfigurationKeys.cs" />
     <Compile Include="Models\Configuration\ExampleApiConfiguration.cs" />
+    <Compile Include="Models\Configuration\ExtractDocumentDbConfig.cs" />
     <Compile Include="Models\Contracts\IHasSourceSystemKey.cs" />
     <Compile Include="Models\Contracts\IHasSIFKey.cs" />
     <Compile Include="Models\Entities\Base\SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase.cs" />
