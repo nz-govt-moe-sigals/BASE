@@ -158,6 +158,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
             var existingItem = _repositoryService.GetSingle<TModel>(_dbKey, x => x.SourceSystemKey == model.SourceSystemKey);
             if (existingItem != null)
             {
+                Mapper.Map<TModel, TModel>(model, existingItem);
                 _repositoryService.UpdateOnCommit(_dbKey, existingItem);
             }
             else

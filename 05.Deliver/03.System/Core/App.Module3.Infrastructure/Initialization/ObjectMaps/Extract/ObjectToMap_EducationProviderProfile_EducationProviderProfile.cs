@@ -79,6 +79,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract
                 .ForMember(dest => dest.Url, opt => opt.MapFrom(s => s.Url))
                 .ForMember(dest => dest.WardFK, opt => opt.MapFrom(s => s.WardFK)) //.ForMember(dest => dest.WardFK, opt => opt.MapFrom(s => s.WardCode))
                 .ForMember(dest => dest.Ward, opt => opt.MapFrom(s => s.Ward)) //
+                
                 .ForMember(dest => dest.SourceSystemKey, opt => opt.MapFrom(s => s.SourceSystemKey))
                 .ForMember(dest => dest.SourceSystemName, opt => opt.MapFrom(s => s.SourceSystemName))
 

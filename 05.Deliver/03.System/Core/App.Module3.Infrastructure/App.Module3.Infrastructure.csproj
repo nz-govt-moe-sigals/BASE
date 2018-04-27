@@ -138,6 +138,9 @@
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceWard_Ward.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceUrbanArea_UrbanArea.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceTerritorialAuthority_TerritorialAuthority.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectToMap_EducationProviderEnrolmentCount_EducationProviderEnrolmentCount.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectToMap_EducationProviderLevelGender_EducationProviderLevelGender.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectToMap_EducationProviderLocation_EducationProviderLocation.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectToMap_EducationProviderProfile_EducationProviderProfile.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\Base\ObjectMap_TenantedFIRSTKeyedGuidIdReferenceDataBase_TenantedSIFTypeDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ObjectMap_EducationProviderEnrolmentCount_EducationProviderEnrolmentCountDto.cs" />
