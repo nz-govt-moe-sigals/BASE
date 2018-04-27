@@ -3,15 +3,16 @@ using System.Linq;
 using App.Core.Infrastructure.Services;
 using App.Core.Infrastructure.Services.Implementations.Base;
 using App.Module3.Infrastructure.Services.Implementations.Configuration;
+using App.Module3.Shared.Models.Configuration;
 using App.Module3.Shared.Models.Messages.Extract;
 
 namespace App.Module3.Infrastructure.Services.Implementations.Extract
 {
     public class ExtractAzureDocumentDbService  :AzureDocumentDbBaseService,  IExtractAzureDocumentDbService
     {
-        private readonly ExtractDocumentDbServiceConfiguration _configuration;
+        private readonly ExtractDocumentDbConfig _configuration;
 
-        public ExtractDocumentDbServiceConfiguration Configuration 
+        public ExtractDocumentDbConfig Configuration 
         {
             get => _configuration;
         }
@@ -23,20 +24,22 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         /// <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
         public ExtractAzureDocumentDbService(ExtractDocumentDbServiceConfiguration configuration,
             IDiagnosticsTracingService diagnosticsTracingService)
-            :base(new Uri("https://nzmoebase.documents.azure.com:443/"), 
-                 "wEDBI7B1MPHtNK4y2Myi1h5falYVviMuVBQHgI9hUzT4HnLxsRCJzUC4BPvXW2XEzPJHFztRzhpRK6lBI3NG6A==", 
+            :base(configuration.Config.EndpointUrl, 
+                configuration.Config.AuthorizationKey,
                  diagnosticsTracingService)
         {
-            this._configuration = configuration;
+            this._configuration = configuration.Config;
 
             //sooo hardcoded
-            this._configuration = new ExtractDocumentDbServiceConfiguration()
-            {
-                EndpointUrlString = "https://nzmoebase.documents.azure.com:443/",
-                AuthorizationKey = "wEDBI7B1MPHtNK4y2Myi1h5falYVviMuVBQHgI9hUzT4HnLxsRCJzUC4BPvXW2XEzPJHFztRzhpRK6lBI3NG6A==",
-                CollectionName= "syncData",
-                DatabaseName="dataFactory"
-            };
+            //this._configuration = new ExtractDocumentDbConfig()
+            //{
+            //    EndpointUrlString = "https://nzmoebase.documents.azure.com:443/",
+            //    AuthorizationKey = "wEDBI7B1MPHtNK4y2Myi1h5falYVviMuVBQHgI9hUzT4HnLxsRCJzUC4BPvXW2XEzPJHFztRzhpRK6lBI3NG6A==",
+            //    CollectionName = "syncData",
+            //    DatabaseName = "dataFactory"
+            //};
+            
+
 
         }
 

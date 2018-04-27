@@ -12,11 +12,12 @@ namespace App.Module3.Infrastructure.Services.Implementations
 {
     public class Module3RepositoryService : RepositoryService, IModule3RepositoryService
     {
-        private readonly AppModule3DbContext _dbContext;
-
-        public Module3RepositoryService(AppModule3DbContext dbContext)
+        private DbContext _dbContext;
+        private string _dbKey = Constants.Db.AppModule3DbContextNames.Module3;
+        private bool _batched = false;
+        public Module3RepositoryService()
         {
-            _dbContext = dbContext;
+            _dbContext = base.GetDbContext(_dbKey);
         }
 
         protected override DbContext GetDbContext(string contextKey)
@@ -24,20 +25,31 @@ namespace App.Module3.Infrastructure.Services.Implementations
             return _dbContext;
         }
 
-        public void ConfigureBatchProcessing()
+        public void ConfigureBatchProcessing(bool batched = true)
         {
-            _dbContext.Configuration.AutoDetectChangesEnabled = false;
-            _dbContext.Configuration.ValidateOnSaveEnabled = false;
+            _batched = batched;
+            _dbContext.Configuration.AutoDetectChangesEnabled = !batched;
+            _dbContext.Configuration.ValidateOnSaveEnabled = !batched;
         }
 
         public int CommitBatch()
         {
-            //TODO: WIRE THESE BACK UP?
-            // IDbCommitPreCommitProcessingStrategy
-            // via IDbContextPreCommitService 
-                
-            var result =_dbContext.SaveChanges();
-            return result;
+            //if (_batched)
+            //{
+            //    _dbContext.ChangeTracker.DetectChanges();
+            //}
+            try
+            {
+                var result = _dbContext.SaveChanges();
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
+            
         }
     }
 }

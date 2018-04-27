@@ -50,11 +50,16 @@
             }
         }
 
+
         private void DirectTrace(TraceLevel traceLevel, string message, params object[] arguments)
         {
             const string lineEnding = "\r\n";
 
-            message = string.Format(message, arguments);
+            if (arguments != null && arguments.Length > 0)
+            {
+                message = string.Format(message, arguments);
+            }
+           
 
             var threadId = Thread.CurrentThread.Name?? Thread.CurrentThread.ManagedThreadId.ToString();
 

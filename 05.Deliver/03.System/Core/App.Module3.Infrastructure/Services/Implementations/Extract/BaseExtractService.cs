@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using App.Core.Shared.Models.Entities;
 
 
 namespace App.Module3.Infrastructure.Services.Implementations.Extract
@@ -17,40 +18,40 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         where T: BaseMessage
     {
         private readonly BaseExtractServiceConfiguration _configuration;
-        protected readonly IExtractRepositoryService _repositoryService;
         protected readonly string _sourceTableName;
         protected readonly IExtractAzureDocumentDbService _documentDbService;
-        
+        protected readonly IDiagnosticsTracingService _tracingService;
 
-        public BaseExtractService(BaseExtractServiceConfiguration configuration, IExtractRepositoryService reposorityService, IExtractAzureDocumentDbService documentDbService)
+
+        public BaseExtractService(BaseExtractServiceConfiguration configuration, IDiagnosticsTracingService tracingService, IExtractAzureDocumentDbService documentDbService)
         {
             this._configuration = configuration;
-            _repositoryService = reposorityService;
             _documentDbService = documentDbService;
             _sourceTableName = ExtractConstants.LookupTableNameList(typeof(T));
+            _tracingService = tracingService;
         }
 
         public string SourceTableName { get { return _sourceTableName; } }
 
 
-        public void Process()
+        public void Process(IExtractRepositoryService repositoryService)
         {
-            var existingWaterMark = GetWatermark();
+            var existingWaterMark = GetWatermark(repositoryService);
             var datatoUpdate = GetDataToUpdate(existingWaterMark);
             var updatedWaterMark = GetMaxTime(datatoUpdate);
-            UpdateLocalDataList(datatoUpdate);
-            UpdateWaterMark(existingWaterMark, updatedWaterMark);
-            _repositoryService.CommitResults();
+            UpdateLocalDataList(repositoryService, datatoUpdate);
+            UpdateWaterMark(repositoryService, existingWaterMark, updatedWaterMark);
+            repositoryService.CommitResults();
             //_unitOfWorkService.Commit(_dbKey);
             //Ideally call some sort of Save here!
         }
 
 
 
-        public virtual DateTime GetWatermark()
+        public virtual DateTime GetWatermark(IExtractRepositoryService repositoryService)
         {
             //need to extract this out into a method so i can test 
-            var record = _repositoryService.GetWaterMarkTimestamp(SourceTableName);
+            var record = repositoryService.GetWaterMarkTimestamp(SourceTableName);
             if (record != null)
             {
                 return record.Watermark;
@@ -83,14 +84,21 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         /// Protect the method  so it doesn't do anything dumb 
         /// </summary>
         /// <param name="list"></param>
-        protected virtual void UpdateLocalDataList(IList<T> list)
+        protected virtual void UpdateLocalDataList(IExtractRepositoryService repositoryService, IList<T> list)
         {
             if (list == null || list.Count == 0) { return; }
 
             var count = 0;
             foreach (var item in list.OrderBy(x => x.ModifiedDate)) // Order by modified date so that if we get a duplicate record it should get to the latest version last
             {
-                UpdateLocalData(item);
+                try
+                {
+                    UpdateLocalData(repositoryService, item);
+                }
+                catch (Exception e)
+                {
+                   HandleConversionException(e, item);
+                }
                 count++;
             }
             
@@ -100,7 +108,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         /// shouldn't need to write any guard clauses or if you do oveerride the UpdateLocalDataWithGuard method
         /// </summary>
         /// <param name="item">update each item</param>
-        public virtual void UpdateLocalData(T item)
+        public virtual void UpdateLocalData(IExtractRepositoryService repositoryService, T item)
         {
         }
 
@@ -110,7 +118,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         /// </summary>
         /// <param name="extistingWatermark">the existing watermark</param>
         /// <param name="updatedWaterMark">should be the value that we are to update to</param>
-        public virtual void UpdateWaterMark(DateTime extistingWatermark, DateTime? updatedWaterMark)
+        public virtual void UpdateWaterMark(IExtractRepositoryService repositoryService, DateTime extistingWatermark, DateTime? updatedWaterMark)
         {
             //need to extract this out into a method so i can test 
             if (!updatedWaterMark.HasValue) { return; }
@@ -120,9 +128,12 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
                 Watermark = updatedWaterMark.Value,
                 SourceTableName = SourceTableName
             };
-            _repositoryService.UpdateWaterMarkTimeStamp(entity);
+            repositoryService.UpdateWaterMarkTimeStamp(entity);
         }
 
-
+        public void HandleConversionException(Exception ex, object item)
+        {
+            _tracingService.Trace(TraceLevel.Error, $"{ex.Message}, source: {JsonConvert.SerializeObject(item)}");
+        }
     }
 }

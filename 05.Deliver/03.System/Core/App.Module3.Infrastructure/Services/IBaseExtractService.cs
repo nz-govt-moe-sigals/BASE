@@ -8,6 +8,6 @@ namespace App.Module3.Infrastructure.Services
 {
     public interface IBaseExtractService
     {
-        void Process();
+        void Process(IExtractRepositoryService repositoryService);
     }
 }

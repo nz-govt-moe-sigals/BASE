@@ -25,6 +25,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         public ExtractRepositoryService(ExtractCachedRepoObject repoObject, IModule3RepositoryService repositoryService, IUnitOfWorkService unitOfWorkService)
         {
             _repositoryService = repositoryService;
+            _repositoryService.ConfigureBatchProcessing();
             _repoObject = repoObject ?? new ExtractCachedRepoObject();
             _unitOfWorkService = unitOfWorkService;
         }
@@ -82,7 +83,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         }
 
 
-        public EducationProviderProfile GetEducationProviderProfile(string schoolId)
+        public EducationProviderProfile GetEducationProviderProfile(int schoolId)
         {
             EducationProviderProfile profile;
             if (!_repoObject.EducationProviderProfiles.TryGetValue(schoolId, out profile))
@@ -94,10 +95,10 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
                         if (!_repoObject.EducationProviderProfiles.TryGetValue(schoolId, out profile))
                         {
                             profile = _repositoryService.GetSingle<EducationProviderProfile>(_dbKey,
-                                x => x.SourceSystemKey == schoolId);
+                                x => x.SchoolId == schoolId);
                             if (profile != null)
                             {
-                                _repoObject.EducationProviderProfiles.TryAdd(profile.SourceSystemKey, profile);
+                                _repoObject.EducationProviderProfiles.TryAdd(profile.SchoolId, profile);
                             }
                         }
                     }
@@ -116,11 +117,12 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         {
             if (_educationProviderProfileHasData == null)
             {
-                _educationProviderProfileHasData = false;
+                
                 lock (_lock)
                 {
                     if (_educationProviderProfileHasData == null)
                     {
+                        _educationProviderProfileHasData = false;
                         var count = _repositoryService.Count<EducationProviderProfile>(_dbKey);
                         if (count > 0)
                         {
@@ -136,23 +138,32 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
 
         public void AddOrUpdateEducationProfile(EducationProviderProfile profile)
         {
-            var profileToUpdate = GetEducationProviderProfile(profile.SourceSystemKey);
-            if (profileToUpdate != null)
+            var existingProfile = GetEducationProviderProfile(profile.SchoolId);
+            if (existingProfile != null)
             {
-                Mapper.Map<EducationProviderProfile, EducationProviderProfile>(profile, profileToUpdate);
-                _repositoryService.UpdateOnCommit(_dbKey, profileToUpdate);
+                Mapper.Map<EducationProviderProfile, EducationProviderProfile>(profile, existingProfile);
+                _repositoryService.UpdateOnCommit(_dbKey, existingProfile);
             }
             else
             {
-                _repoObject.EducationProviderProfiles.TryAdd(profile.SourceSystemKey, profile);
-               _repositoryService.AddOnCommit(_dbKey, profile);
+                _repoObject.EducationProviderProfiles.TryAdd(profile.SchoolId, profile);
+                _repositoryService.AddOnCommit(_dbKey, profile);
             }
         }
 
 
         public void AddOrUpdate<TModel>(TModel model) where TModel : class, IHasSourceSystemKey
         {
-            _repositoryService.AddOrUpdate<TModel>(_dbKey, x => x.SourceSystemKey == model.SourceSystemKey, model);
+            //write lock around this possibly
+            var existingItem = _repositoryService.GetSingle<TModel>(_dbKey, x => x.SourceSystemKey == model.SourceSystemKey);
+            if (existingItem != null)
+            {
+                _repositoryService.UpdateOnCommit(_dbKey, existingItem);
+            }
+            else
+            {
+                _repositoryService.AddOnCommit(_dbKey, model);
+            }
         }
 
         private void AddOnCommit<TModel>(TModel model) where TModel : class
@@ -166,4 +177,6 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         }
 
     }
+
+
 }

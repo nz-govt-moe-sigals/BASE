@@ -11,7 +11,7 @@ namespace App.Module3.Infrastructure.Services
     {
         int CommitBatch();
 
-        void ConfigureBatchProcessing();
+        void ConfigureBatchProcessing(bool batched = true);
 
     }
 }

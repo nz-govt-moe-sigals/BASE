@@ -14,23 +14,23 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.ReferenceS
     public class ReferenceSpecialSchoolingExtractService
         : BaseExtractService<ReferenceSpecialSchooling>
     {
-        public ReferenceSpecialSchoolingExtractService(BaseExtractServiceConfiguration configuration, IExtractRepositoryService reposorityService,IExtractAzureDocumentDbService documentDbService)
-            : base(configuration, reposorityService,  documentDbService)
+        public ReferenceSpecialSchoolingExtractService(BaseExtractServiceConfiguration configuration, IDiagnosticsTracingService tracingService, IExtractAzureDocumentDbService documentDbService)
+            : base(configuration, tracingService, documentDbService)
         {
 
         }
 
-        public override void UpdateLocalData(ReferenceSpecialSchooling item)
+        public override void UpdateLocalData(IExtractRepositoryService repositoryService, ReferenceSpecialSchooling item)
         {
             var mappedEntity = Mapper.Map<ReferenceSpecialSchooling, SpecialSchooling>(item);
-            var areaUnitsLookup = _repositoryService.GetSifCachedData< SpecialSchooling>(); // is CACHED DATA
+            var areaUnitsLookup = repositoryService.GetSifCachedData< SpecialSchooling>(); // is CACHED DATA
             if (areaUnitsLookup.TryGetValue(mappedEntity.SourceSystemKey, out var existingEntity))
             {
-                _repositoryService.UpdateSifData(existingEntity, mappedEntity);
+                repositoryService.UpdateSifData(existingEntity, mappedEntity);
             }
             else
             {
-                _repositoryService.AddSifData(mappedEntity);
+                repositoryService.AddSifData(mappedEntity);
             }
             //_repositoryService.UpdateOnCommit(_dbKey, );
             // Some Sky Magic Code

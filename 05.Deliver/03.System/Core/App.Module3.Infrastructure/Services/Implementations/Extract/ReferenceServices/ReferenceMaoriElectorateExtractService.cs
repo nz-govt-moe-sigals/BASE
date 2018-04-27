@@ -15,23 +15,23 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.ReferenceS
     public class ReferenceMaoriElectorateExtractService
         : BaseExtractService<ReferenceMaoriElectorate>
     {
-        public ReferenceMaoriElectorateExtractService(BaseExtractServiceConfiguration configuration, IExtractRepositoryService reposorityService, IExtractAzureDocumentDbService documentDbService)
-            : base(configuration, reposorityService, documentDbService)
+        public ReferenceMaoriElectorateExtractService(BaseExtractServiceConfiguration configuration, IDiagnosticsTracingService tracingService, IExtractAzureDocumentDbService documentDbService)
+            : base(configuration, tracingService, documentDbService)
         {
 
         }
 
-        public override void UpdateLocalData(ReferenceMaoriElectorate item)
+        public override void UpdateLocalData(IExtractRepositoryService repositoryService,  ReferenceMaoriElectorate item)
         {
             var mappedEntity = Mapper.Map<ReferenceMaoriElectorate, MaoriElectorate>(item);
-            var areaUnitsLookup = _repositoryService.GetSifCachedData< AreaUnit>(); // is CACHED DATA
+            var areaUnitsLookup = repositoryService.GetSifCachedData< AreaUnit>(); // is CACHED DATA
             if (areaUnitsLookup.TryGetValue(mappedEntity.SourceSystemKey, out var existingEntity))
             {
-                _repositoryService.UpdateSifData(existingEntity, mappedEntity);
+                repositoryService.UpdateSifData(existingEntity, mappedEntity);
             }
             else
             {
-                _repositoryService.AddSifData(mappedEntity);
+                repositoryService.AddSifData(mappedEntity);
             }
             //_repositoryService.UpdateOnCommit(_dbKey, );
             // Some Sky Magic Code
