@@ -732,9 +732,9 @@
         } 
     ],
     "outputs": {
-        "webSiteResourceName": {
-            "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.webSiteResourceName.value]"
+        "webSiteSubscriptionId":{
+            "type":"string",
+            "value": "[reference(variables('assembly').armTemplateId).outputs.webSiteSubscriptionId.value]"
         },
         "webSiteTenantId":{
             "type":"string",
