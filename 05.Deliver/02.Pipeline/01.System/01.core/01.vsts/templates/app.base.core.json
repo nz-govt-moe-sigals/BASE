@@ -732,6 +732,10 @@
         } 
     ],
     "outputs": {
+        "identity":{
+            "type":"string",
+            "value": "[reference(variables('assembly').armTemplateId).outputs.identity.value]"
+        },
         "webSiteSubscriptionId":{
             "type":"string",
             "value": "[reference(variables('assembly').armTemplateId).outputs.webSiteSubscriptionId.value]"
@@ -744,19 +748,35 @@
             "type": "string",
             "value": "[reference(variables('assembly').armTemplateId).outputs.webSitePrincipalId.value]"
         },
+        "webSiteResourceName": {
+            "type": "string",
+            "value": "[reference(variables('assembly').armTemplateId).outputs.webSiteResourceName.value]"
+        },
         "webSiteDefaultConnectionString": {
             "type": "string",
             "value": "[reference(variables('assembly').armTemplateId).outputs.webSiteDefaultConnectionString.value]"
         },
-        "webSiteKeyVaultResourceName": {
+        "keyVaultResourceName": {
             "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.webSiteKeyVaultResourceName.value]"
+            "value": "[reference(variables('assembly').armTemplateId).outputs.keyVaultResourceName.value]"
         },
         "sqlServerResourceName": {
             "type": "string",
             "value": "[reference(variables('assembly').armTemplateId).outputs.sqlServerResourceName.value]"
         },
-        "sqlServerDatabaseResourceName": {
+        "diagnosticsStorageAccountResourceName": {
+            "type": "string",
+            "value": "[reference(variables('assembly').armTemplateId).outputs.diagnosticsStorageAccountResourceName.value]"
+        },
+        "tempStorageAccountResourceName": {
+            "type": "string",
+            "value": "[reference(variables('assembly').armTemplateId).outputs.tempStorageAccountResourceName.value]"
+        },
+        "defaultStorageAccountResourceName": {
+            "type": "string",
+            "value": "[reference(variables('assembly').armTemplateId).outputs.defaultStorageAccountResourceName.value]"
+        },
+        "defaultSqlServerDatabaseResourceName": {
             "type": "string",
             "value": "[reference(variables('assembly').armTemplateId).outputs.sqlServerDatabaseResourceName.value]"
         }
