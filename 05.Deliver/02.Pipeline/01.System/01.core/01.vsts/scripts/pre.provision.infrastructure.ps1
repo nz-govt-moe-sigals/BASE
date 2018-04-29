@@ -104,6 +104,8 @@ function Provision-Variables {
     if ([string]::IsNullOrEmpty($appIdentifier)) {$appIdentifier = $ENV:CUSTOM_COMMON_VARS_SYSTEMID; }
     if ([string]::IsNullOrEmpty($appIdentifier)) {$appIdentifier = $ENV:CUSTOM_VARS_APPID; }
     if ([string]::IsNullOrEmpty($appIdentifier)) {$appIdentifier = $ENV:CUSTOM_VARS_SYSTEMID; }
+    # finally, if no App Id, fall back to the Project Name...
+    if ([string]::IsNullOrEmpty($appIdentifier)) {$appIdentifier = $ENV:SYSTEM_TEAMPROJECT; }
     if ([string]::IsNullOrEmpty($appIdentifier)) {$appIdentifier = ""; }
 
 
@@ -122,6 +124,10 @@ function Provision-Variables {
         $buildSourceBranchName = $masterBranchNameReplacement; 
     }else {
         Write-Host "Is Not Master Branch"
+        $userStoryFilter = "(/(us|id)(\d+))"
+        $userStoryId = [regex]::match($buildSourceBranchName, $userStoryFilter).Groups[3].Value
+        if ([string]::IsNullOrEmpty($userStoryId)) {$userStoryId = ""; }
+        $userStoryId = $userStoryId.PadLeft(4,"0")
     }
 
     # Get the ENV ID|DENTIFIER From the local vars. (Eg: BT, DT, ST, UAT, PROD, etc.)
