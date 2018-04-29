@@ -212,12 +212,14 @@ function Provision-Variables {
     # Make the Resource GroupName:
     $resourceGroupName = $resourceNameTemplate `
         -replace "{RT}", "" `
-        -replace "-", ""
+        -replace "--", "-"
 
     Write-Host "...ResourceGroupName set to $resourceGroupName"
 
     # Now that ResourceGroup name is created, safe to lowercase the resourcenametemplate:
-    $resourceNameTemplate = $resourceNameTemplate.ToLower()
+    $resourceNameTemplate = ($resourceNameTemplate -replace "-", "").ToLower()
+
+    
 
     # Saving the updated variables in the globally ENV space, 
     # TIP:
