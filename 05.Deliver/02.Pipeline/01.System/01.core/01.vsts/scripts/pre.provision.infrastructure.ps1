@@ -109,7 +109,7 @@ function Provision-Variables {
 
 
     # the git branch name should be a Userstory:
-    $buildSourceBranchName = $ENV:BUILD_SOURCEBRANCH_NAME;
+    $buildSourceBranchName = $ENV:BUILD_SOURCEBRANCHNAME;
     if ([string]::IsNullOrEmpty($buildSourceBranchName)) {$buildSourceBranchName = ""; }
 
     # now replace brnach name if need be. ie replace 'master' with '', '0000' ... or even 'master'.
@@ -132,6 +132,7 @@ function Provision-Variables {
     if ([string]::IsNullOrEmpty($defaultResourceLocation)) {$defaultResourceLocation = $env:CUSTOM_VARS_DEFAULTRESOURCELOCATION; }
     if ([string]::IsNullOrEmpty($defaultResourceLocation)) {$defaultResourceLocation = $defaultResourceLocationIdentifier; }
 
+    
 
     # Output System, Build's default and injected Variables:
     Write-Host "Script variables of potential interest:"
@@ -163,6 +164,17 @@ function Provision-Variables {
 
     Write-Host ""
 
+              # Output System, Build's default and injected Variables:
+              Write-Host "PREREQUISITES: VSTS TASK ENVIRONMENT VARIABLES: "
+              Write-Host "* REQUIRED: CUSTOM_VARS_RESOURCENAMETEMPLATE (eg: 'MYORG-MYAPP-{BRANCHNAME}-{ENVID}-{RT}')"
+              Write-Host "* OPTIONAL: CUSTOM_COMMON_VARS_ORGIDENTIFIER (eg: 'NZ-MOE')"
+              Write-Host "* OPTIONAL: CUSTOM_COMMON_VARS_APPIDENTIFIER (eg: 'FOO')"
+              Write-Host "* OPTIONAL: CUSTOM_VARS_MASTERBRANCHNAMEREPLACEMENT (eg: '0000')"
+              Write-Host "* OPTIONAL: CUSTOM_VARS_DEFAULTRESOURCELOCATION (eg: 'australiaeast')"
+              Write-Host "* OPTIONAL: CUSTOM_VARS_ENVIDENTIFIER (eg: BT, DT, ST, UAT, PROD, etc.)"
+      
+              Write-Host ""
+    
     # Create Name of ResourceGroup
     Write-Host "Solving Resource Group Name Template"
     Write-Host "...resourceNameTemplate (as received): $resourceNameTemplate"
