@@ -256,6 +256,6 @@ function Provision-Variables {
 # --------------------------------------------------
 # --------------------------------------------------
 # Invoke Method
-Provision-Variables
+Provision-Variables -defaultMasterBranchNameReplacement:"0000" -defaultResourceLocationIdentifier "australiaeast"
 # --------------------------------------------------
 # --------------------------------------------------
