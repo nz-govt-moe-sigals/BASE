@@ -201,7 +201,7 @@ function Provision-Variables {
 
     # Use shorthand:
     # And remove final dashes and duplicates:
-    $resourceNameTemplate = $resourceNameTemplate 
+    $resourceNameTemplate = $resourceNameTemplate `
         -replace "{RESOURCETYPE}", "{RT}" `
         -replace "--", "-"
     
@@ -210,9 +210,12 @@ function Provision-Variables {
 
 
     # Make the Resource GroupName:
-    $resourceGroupName = $resourceNameTemplate `
+    $resourceGroupName = ($resourceNameTemplate `
         -replace "{RT}", "" `
-        -replace "--", "-"
+        -replace "--", "-").TrimEnd("-")
+        
+
+    
 
     Write-Host "...ResourceGroupName set to $resourceGroupName"
 
