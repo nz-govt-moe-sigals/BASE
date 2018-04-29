@@ -76,7 +76,7 @@ function Provision-Variables {
   #>
 
 
-  # Cleanup Variables, Parameters and make local parameters:
+    # Cleanup Variables, Parameters and make local parameters:
 
     # Get the resourceNameTemplate (eg: 'MYORG-MYAPP-{BRANCHNAME}-{ENVID}-{RT}' )
     $resourceNameTemplate = $env:CUSTOM_COMMON_VARS_RESOURCENAMETEMPLATE;
@@ -122,12 +122,13 @@ function Provision-Variables {
         if ([string]::IsNullOrEmpty($masterBranchNameReplacement)) {$masterBranchNameReplacement = $ENV:CUSTOM_VARS_MASTERBRANCHNAMEREPLACEMENT; }
         if ([string]::IsNullOrEmpty($masterBranchNameReplacement)) {$masterBranchNameReplacement = $defaultMasterBranchNameReplacement; }
         $buildSourceBranchName = $masterBranchNameReplacement; 
-    }else {
+    }
+    else {
         Write-Host "Is Not Master Branch"
         $userStoryFilter = "(/(us|id)(\d+))"
         $userStoryId = [regex]::match($buildSourceBranchName, $userStoryFilter).Groups[3].Value
         if ([string]::IsNullOrEmpty($userStoryId)) {$userStoryId = ""; }
-        $userStoryId = $userStoryId.PadLeft(4,"0")
+        $userStoryId = $userStoryId.PadLeft(4, "0")
     }
 
     # Get the ENV ID|DENTIFIER From the local vars. (Eg: BT, DT, ST, UAT, PROD, etc.)
@@ -172,16 +173,16 @@ function Provision-Variables {
 
     Write-Host ""
 
-              # Output System, Build's default and injected Variables:
-              Write-Host "PREREQUISITES: VSTS TASK ENVIRONMENT VARIABLES: "
-              Write-Host "* REQUIRED: CUSTOM_VARS_RESOURCENAMETEMPLATE (eg: 'MYORG-MYAPP-{BRANCHNAME}-{ENVID}-{RT}')"
-              Write-Host "* OPTIONAL: CUSTOM_COMMON_VARS_ORGIDENTIFIER (eg: 'NZ-MOE')"
-              Write-Host "* OPTIONAL: CUSTOM_COMMON_VARS_APPIDENTIFIER (eg: 'FOO')"
-              Write-Host "* OPTIONAL: CUSTOM_VARS_MASTERBRANCHNAMEREPLACEMENT (eg: '0000')"
-              Write-Host "* OPTIONAL: CUSTOM_VARS_DEFAULTRESOURCELOCATION (eg: 'australiaeast')"
-              Write-Host "* OPTIONAL: CUSTOM_VARS_ENVIDENTIFIER (eg: BT, DT, ST, UAT, PROD, etc.)"
+    # Output System, Build's default and injected Variables:
+    Write-Host "PREREQUISITES: VSTS TASK ENVIRONMENT VARIABLES: "
+    Write-Host "* REQUIRED: CUSTOM_VARS_RESOURCENAMETEMPLATE (eg: 'MYORG-MYAPP-{BRANCHNAME}-{ENVID}-{RT}')"
+    Write-Host "* OPTIONAL: CUSTOM_COMMON_VARS_ORGIDENTIFIER (eg: 'NZ-MOE')"
+    Write-Host "* OPTIONAL: CUSTOM_COMMON_VARS_APPIDENTIFIER (eg: 'FOO')"
+    Write-Host "* OPTIONAL: CUSTOM_VARS_MASTERBRANCHNAMEREPLACEMENT (eg: '0000')"
+    Write-Host "* OPTIONAL: CUSTOM_VARS_DEFAULTRESOURCELOCATION (eg: 'australiaeast')"
+    Write-Host "* OPTIONAL: CUSTOM_VARS_ENVIDENTIFIER (eg: BT, DT, ST, UAT, PROD, etc.)"
       
-              Write-Host ""
+    Write-Host ""
     
     # Create Name of ResourceGroup
     Write-Host "Solving Resource Group Name Template"
@@ -231,8 +232,8 @@ function Provision-Variables {
 
     # Make the Resource GroupName:
     $resourceGroupName = ($resourceNameTemplate `
-        -replace "{RT}", "" `
-        -replace "--", "-").TrimEnd("-")
+            -replace "{RT}", "" `
+            -replace "--", "-").TrimEnd("-")
         
 
     
@@ -241,6 +242,8 @@ function Provision-Variables {
 
     # Now that ResourceGroup name is created, safe to lowercase the resourcenametemplate:
     $resourceNameTemplate = ($resourceNameTemplate -replace "-", "").ToLower()
+    # HACK / FIX: Have to get the token back to the right case.
+    $resourceNameTemplate = $resourceNameTemplate -replace "{rt}", "{RT}"
 
     
 
