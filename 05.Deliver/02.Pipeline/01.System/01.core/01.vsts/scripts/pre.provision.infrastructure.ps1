@@ -199,18 +199,21 @@ function Provision-Variables {
         -replace "{BRANCHNAME}", $buildSourceBranchName `
         -replace "{BRANCH}", $buildSourceBranchName
 
+    # Use shorthand:
+    $resourceNameTemplate = $resourceNameTemplate -replace "{RESOURCETYPE}", "{RT}"
+
     # Remove final dashes and duplicates:
     $resourceNameTemplate = $resourceNameTemplate -replace "--", "-"
     
     # $resourceNameTemplate= [Regex]::Replace($resourceNameTemplate.Replace("--", "-"),"(.*)-*$","$1");
     Write-Host "...resourceNameTemplate (cleaned up): $resourceNameTemplate"
 
-    $resourceGroupName = $resourceGroupName `
-        -replace "{RESOURCETYPE}", "" `
+
+    # Make the Resource GroupName:
+    $resourceGroupName = $resourceNameTemplate `
         -replace "{RT}", "" `
         -replace "-", ""
 
-    
     Write-Host "...ResourceGroupName set to $resourceGroupName"
 
     # Now that ResourceGroup name is created, safe to lowercase the resourcenametemplate:
