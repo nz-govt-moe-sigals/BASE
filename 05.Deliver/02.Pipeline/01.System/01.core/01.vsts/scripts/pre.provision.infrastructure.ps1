@@ -118,8 +118,7 @@ function Provision-Variables {
         Write-Host "Is Master Branch."
         $masterBranchNameReplacement = $ENV:CUSTOM_COMMON_VARS_MASTERBRANCHNAMEREPLACEMENT
         if ([string]::IsNullOrEmpty($masterBranchNameReplacement)) {$masterBranchNameReplacement = $ENV:CUSTOM_VARS_MASTERBRANCHNAMEREPLACEMENT; }
-        if ([string]::IsNullOrEmpty($masterBranchNameReplacement)) {$masterBranchNameReplacement = $defaultMasterBranchNameReplacment; }
-
+        if ([string]::IsNullOrEmpty($masterBranchNameReplacement)) {$masterBranchNameReplacement = $defaultMasterBranchNameReplacement; }
         $buildSourceBranchName = $masterBranchNameReplacement; 
     }else {
         Write-Host "Is Not Master Branch"
