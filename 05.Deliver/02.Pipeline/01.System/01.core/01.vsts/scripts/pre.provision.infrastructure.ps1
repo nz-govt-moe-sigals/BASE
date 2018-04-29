@@ -78,12 +78,21 @@ function Provision-Variables {
 
   # Cleanup Variables, Parameters and make local parameters:
 
+    # Get the resourceNameTemplate (eg: 'MYORG-MYAPP-{BRANCHNAME}-{ENVID}-{RT}' )
+    $resourceNameTemplate = $env:CUSTOM_COMMON_VARS_RESOURCENAMETEMPLATE;
+    if ([string]::IsNullOrWhiteSpace($resourceNameTemplate)) {$resourceNameTemplate = $ENV:CUSTOM_VARS_RESOURCENAMETEMPLATE; }
+    if ([string]::IsNullOrWhiteSpace($resourceNameTemplate)) {$resourceNameTemplate = ""; }
 
-    # Get the Org Id (eg: 'NZ-MOE')
+
+    # Get the Org ID|ENTIFIER FROM COMMON OR LOCAL VARS (eg: 'NZ-MOE')
     $orgIdentifier = $ENV:CUSTOM_COMMON_VARS_ORGANISATIONIDENTIFIER
     if ([string]::IsNullOrEmpty($orgIdentifier)) {$orgIdentifier = $ENV:CUSTOM_COMMON_VARS_ORGIDENTIFIER; }
     if ([string]::IsNullOrEmpty($orgIdentifier)) {$orgIdentifier = $ENV:CUSTOM_VARS_ORGANISATIONIDENTIFIER; }
     if ([string]::IsNullOrEmpty($orgIdentifier)) {$orgIdentifier = $ENV:CUSTOM_VARS_ORGIDENTIFIER; }
+    if ([string]::IsNullOrEmpty($orgIdentifier)) {$orgIdentifier = $ENV:CUSTOM_COMMON_VARS_ORGANISATIONID; }
+    if ([string]::IsNullOrEmpty($orgIdentifier)) {$orgIdentifier = $ENV:CUSTOM_COMMON_VARS_ORGID; }
+    if ([string]::IsNullOrEmpty($orgIdentifier)) {$orgIdentifier = $ENV:CUSTOM_VARS_ORGANISATIONID; }
+    if ([string]::IsNullOrEmpty($orgIdentifier)) {$orgIdentifier = $ENV:CUSTOM_VARS_ORGI; }
     if ([string]::IsNullOrEmpty($orgIdentifier)) {$orgIdentifier = ""; }
 
     # Get the App Id (eg: 'MYAPP')
@@ -91,25 +100,32 @@ function Provision-Variables {
     if ([string]::IsNullOrEmpty($appIdentifier)) {$appIdentifier = $ENV:CUSTOM_COMMON_VARS_SYSTEMIDENTIFIER; }
     if ([string]::IsNullOrEmpty($appIdentifier)) {$appIdentifier = $ENV:CUSTOM_VARS_APPIDENTIFIER; }
     if ([string]::IsNullOrEmpty($appIdentifier)) {$appIdentifier = $ENV:CUSTOM_VARS_SYSTEMIDENTIFIER; }
+    if ([string]::IsNullOrEmpty($appIdentifier)) {$appIdentifier = $ENV:CUSTOM_COMMON_VARS_APPID; }
+    if ([string]::IsNullOrEmpty($appIdentifier)) {$appIdentifier = $ENV:CUSTOM_COMMON_VARS_SYSTEMID; }
+    if ([string]::IsNullOrEmpty($appIdentifier)) {$appIdentifier = $ENV:CUSTOM_VARS_APPID; }
+    if ([string]::IsNullOrEmpty($appIdentifier)) {$appIdentifier = $ENV:CUSTOM_VARS_SYSTEMID; }
     if ([string]::IsNullOrEmpty($appIdentifier)) {$appIdentifier = ""; }
 
-    # replace 'master' with '', '0000' ... or even 'master'.
-    $masterBranchNameReplacement = $ENV:CUSTOM_COMMON_VARS_MASTERBRANCHNAMEREPLACEMENT
-    if ([string]::IsNullOrEmpty($masterBranchNameReplacement)) {$masterBranchNameReplacement = $ENV:CUSTOM_VARS_MASTERBRANCHNAMEREPLACEMENT; }
-    if ([string]::IsNullOrEmpty($masterBranchNameReplacement)) {$masterBranchNameReplacement = $defaultMasterBranchNameReplacment; }
+
 
     # the git branch name should be a Userstory:
     $buildSourceBranchName = $ENV:BUILD_SOURCEBRANCH_NAME;
     if ([string]::IsNullOrEmpty($buildSourceBranchName)) {$buildSourceBranchName = ""; }
-    if ($buildSourceBranchName -eq "master") {$buildSourceBranchName = $masterBranchNameReplacement; }
 
-    # EnvIdentifier is going to be something like BT, DT, ST, UAT, PROD, etc.
+    # now replace brnach name if need be. ie replace 'master' with '', '0000' ... or even 'master'.
+    if ($buildSourceBranchName -eq "master") {
+        
+        $masterBranchNameReplacement = $ENV:CUSTOM_COMMON_VARS_MASTERBRANCHNAMEREPLACEMENT
+        if ([string]::IsNullOrEmpty($masterBranchNameReplacement)) {$masterBranchNameReplacement = $ENV:CUSTOM_VARS_MASTERBRANCHNAMEREPLACEMENT; }
+        if ([string]::IsNullOrEmpty($masterBranchNameReplacement)) {$masterBranchNameReplacement = $defaultMasterBranchNameReplacment; }
+
+        $buildSourceBranchName = $masterBranchNameReplacement; 
+    }
+
+    # Get the ENV ID|DENTIFIER From the local vars. (Eg: BT, DT, ST, UAT, PROD, etc.)
     $envIdentifier = $env:CUSTOM_VARS_ENVIDENTIFIER;
+    if ([string]::IsNullOrEmpty($envIdentifier)) {$envIdentifier = $env:CUSTOM_VARS_ENVID; }
     if ([string]::IsNullOrEmpty($envIdentifier)) {$envIdentifier = ""; }
-
-    # resourceNameTemplate is going to be something like MYORG-MYAPP-{BRANCHNAME}-{ENVID}-{RT}
-    $resourceNameTemplate = $env:CUSTOM_VARS_RESOURCENAMETEMPLATE;
-    if ([string]::IsNullOrWhiteSpace($resourceNameTemplate)) {$resourceNameTemplate = ""; }
 
     # default location should be 'australiaeast':
     $defaultResourceLocation = $env:CUSTOM_COMMON_VARS_DEFAULTRESOURCELOCATION;
@@ -217,6 +233,6 @@ function Provision-Variables {
 # --------------------------------------------------
 # --------------------------------------------------
 # Invoke Method
-Provision-Variables -defaultMasterBranchNameReplacement:"0000" -defaultResourceLocationIdentifier:"australiaeast"
+Provision-Variables
 # --------------------------------------------------
 # --------------------------------------------------
