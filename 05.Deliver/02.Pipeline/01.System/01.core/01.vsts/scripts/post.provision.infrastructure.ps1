@@ -1,6 +1,23 @@
-  # OPTIONAL: CUSTOM_COMMON_VARS_ORGIDENTIFIER (eg: 'NZ-MOE')
-  # OPTIONAL: CUSTOM_COMMON_VARS_APPIDENTIFIER (eg: 'FOO')
-  # OPTIONAL: CUSTOM_VARS_MASTERBRANCHNAMEREPLACEMENT (eg: '0000')
-  # OPTIONAL: CUSTOM_VARS_DEFAULTRESOURCELOCATION (eg: 'australiaeast')
-  # OPTIONAL: CUSTOM_VARS_ENVIDENTIFIER (eg: BT, DT, ST, UAT, PROD, etc.)
-  # REQUIRED: CUSTOM_VARS_RESOURCENAMETEMPLATE (eg: 'MYORG-MYAPP-{BRANCHNAME}-{ENVID}-{RT}')
+[cmdletbinding]
+function Post-Deploy-Infrastructure-Assign-Rights {
+    [CmdletBinding()]
+    Param (
+    )
+
+    # Assign rights from WebApp to default StorageAccount:
+    $scope = "/subscriptions/$($ENV:custom_vars_webSiteSubscriptionId)/resourceGroups/$resourceGroupName/providers/Microsoft.Storage/storageAccounts/$($ENV:custom_vars_diagnosticsStorageAccountResourceName)"
+    New-AzureRmRoleAssignment -ObjectId $ENV:custom_vars_webSitePrincipalId -RoleDefinitionName "Contributor" -Scope $scope
+
+    # Assign rights from WebApp to default StorageAccount:
+    $scope = "/subscriptions/$($ENV:custom_vars_webSiteSubscriptionId)/resourceGroups/$resourceGroupName/providers/Microsoft.Storage/storageAccounts/$($ENV:custom_vars_tempStorageAccountResourceName)"
+    New-AzureRmRoleAssignment -ObjectId $ENV:custom_vars_webSitePrincipalId -RoleDefinitionName "Contributor" -Scope $scope
+    
+    # Assign rights from WebApp to default StorageAccount:
+    $scope = "/subscriptions/$($ENV:custom_vars_webSiteSubscriptionId)/resourceGroups/$resourceGroupName/providers/Microsoft.Storage/storageAccounts/$($ENV:custom_vars_defaultStorageAccountResourceName)"
+    New-AzureRmRoleAssignment -ObjectId $ENV:custom_vars_webSitePrincipalId -RoleDefinitionName "Contributor" -Scope $scope
+
+}
+
+
+
+#Post-Deploy-Infrastructure-Assign-Rights

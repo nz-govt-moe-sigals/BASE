@@ -43,7 +43,7 @@
                 "description": "Required. The default name template to use when developing the names of newly created Resources (eg: 'MYORG-MYAPP-{ENVID}-{BRANCHID}-{RESOURCETYPE}')'."
             },
             "minLength": 6,
-            "maxLength": 32,
+            "maxLength": 50,
             "type": "string"
         },
         "commonResourceTags": {
