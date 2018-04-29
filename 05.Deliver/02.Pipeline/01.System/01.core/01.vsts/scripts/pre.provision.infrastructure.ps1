@@ -111,15 +111,18 @@ function Provision-Variables {
     # the git branch name should be a Userstory:
     $buildSourceBranchName = $ENV:BUILD_SOURCEBRANCHNAME;
     if ([string]::IsNullOrEmpty($buildSourceBranchName)) {$buildSourceBranchName = ""; }
+    Write-Host "Branch:$buildSourceBranchName"
 
     # now replace brnach name if need be. ie replace 'master' with '', '0000' ... or even 'master'.
     if ($buildSourceBranchName -eq "master") {
-        
+        Write-Host "Is Master Branch."
         $masterBranchNameReplacement = $ENV:CUSTOM_COMMON_VARS_MASTERBRANCHNAMEREPLACEMENT
         if ([string]::IsNullOrEmpty($masterBranchNameReplacement)) {$masterBranchNameReplacement = $ENV:CUSTOM_VARS_MASTERBRANCHNAMEREPLACEMENT; }
         if ([string]::IsNullOrEmpty($masterBranchNameReplacement)) {$masterBranchNameReplacement = $defaultMasterBranchNameReplacment; }
 
         $buildSourceBranchName = $masterBranchNameReplacement; 
+    }else {
+        Write-Host "Is Not Master Branch"
     }
 
     # Get the ENV ID|DENTIFIER From the local vars. (Eg: BT, DT, ST, UAT, PROD, etc.)
@@ -179,27 +182,27 @@ function Provision-Variables {
     Write-Host "Solving Resource Group Name Template"
     Write-Host "...resourceNameTemplate (as received): $resourceNameTemplate"
 
-    Write-Host "...Replacing {ORG[ID][ENTIFIER]} within 'env:CUSTOM_VARS_RESOURCENAMETEMPLATE':"
+    Write-Host "...Replacing {ORG[ID][ENTIFIER]}  with '$($orgIdentifier)':"
     $resourceNameTemplate = $resourceNameTemplate `
         -replace "{ORGANISATIONIDENTIFIER}", $orgIdentifier `
         -replace "{ORGIDENTIFIER}", $orgIdentifier `
         -replace "{ORGID}", $orgIdentifier `
         -replace "{ORG}", $orgIdentifier
 
-    Write-Host "...Replacing {APP[LICATION][ID][ENTIFIER]} within 'env:CUSTOM_VARS_RESOURCENAMETEMPLATE':"
+    Write-Host "...Replacing {APP[LICATION][ID][ENTIFIER]} with '$($appIdentifier)':"
     $resourceNameTemplate = $resourceNameTemplate `
         -replace "{APPLICATIONIDENTIFIER}", $appIdentifier `
         -replace "{APPIDENTIFIER}", $appIdentifier `
         -replace "{APPID}", $appIdentifier `
         -replace "{APP}", $appIdentifier
     
-    Write-Host "...Replacing {ENV[ID][ENTIFIER]} within 'env:CUSTOM_VARS_RESOURCENAMETEMPLATE':"
+    Write-Host "...Replacing {ENV[ID][ENTIFIER]} with '$($ebvIdentifier)':"
     $resourceNameTemplate = $resourceNameTemplate `
         -replace "{ENVIDENTIFIER}", $envIdentifier `
         -replace "{ENVID}", $envIdentifier `
         -replace "{ENV}", $envIdentifier
 
-    Write-Host "...Replacing '{[SOURCE]BRANCH[NAME|ID[DENTIFIER]]}' within 'env:CUSTOM_VARS_RESOURCENAMETEMPLATE':"
+    Write-Host "...Replacing '{[SOURCE]BRANCH[NAME|ID[DENTIFIER]]}' with '$($buildSourceBranchName)':"
     $resourceNameTemplate = $resourceNameTemplate `
         -replace "{SOURCEBRANCHIDENTIFIER}", $buildSourceBranchName `
         -replace "{SOURCEBRANCHID}", $buildSourceBranchName `
