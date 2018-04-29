@@ -200,10 +200,10 @@ function Provision-Variables {
         -replace "{BRANCH}", $buildSourceBranchName
 
     # Use shorthand:
-    $resourceNameTemplate = $resourceNameTemplate -replace "{RESOURCETYPE}", "{RT}"
-
-    # Remove final dashes and duplicates:
-    $resourceNameTemplate = $resourceNameTemplate -replace "--", "-"
+    # And remove final dashes and duplicates:
+    $resourceNameTemplate = $resourceNameTemplate 
+        -replace "{RESOURCETYPE}", "{RT}" `
+        -replace "--", "-"
     
     # $resourceNameTemplate= [Regex]::Replace($resourceNameTemplate.Replace("--", "-"),"(.*)-*$","$1");
     Write-Host "...resourceNameTemplate (cleaned up): $resourceNameTemplate"
