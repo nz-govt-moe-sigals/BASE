@@ -207,24 +207,24 @@ namespace App.Module3.Shared.Models.Entities
         // ---------------------
 
 
-        public virtual ICollection<EducationProviderLocation> Locations
-        {
+        public virtual ICollection<EducationProviderLocation> Locations { get; set; }
+        /*{
             get
             {
                 return _locations ?? (_locations = new Collection<EducationProviderLocation>());
             }
-            //set => _levelGender = value;
+            //set => _locations = value;
         }
         private ICollection<EducationProviderLocation> _locations;
-
+        */
 
 
 
 
         // ---------------------
 
-        public virtual ICollection<EducationProviderLevelGender> LevelGender
-        {
+        public virtual ICollection<EducationProviderLevelGender> LevelGender { get; set; }
+        /*{
             get
             {
                 return _levelGender ?? (_levelGender = new Collection<EducationProviderLevelGender>());
@@ -232,16 +232,17 @@ namespace App.Module3.Shared.Models.Entities
             //set => _levelGender = value;
         }
         private ICollection<EducationProviderLevelGender> _levelGender;
+        */
 
 
 
-
-        public virtual ICollection<EducationProviderEnrolmentCount> RollCounts
-        {
+        public virtual ICollection<EducationProviderEnrolmentCount> RollCounts { get; set; }
+        /*{
             get { return this._rollCount ?? (this._rollCount = new Collection<EducationProviderEnrolmentCount>()); }
+            //set => _rollCount = value;
         }
         private ICollection<EducationProviderEnrolmentCount> _rollCount;
-
+        */
         // ---------------------
 
         /// <summary>

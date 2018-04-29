@@ -10,7 +10,7 @@ namespace App.Module3.Shared.Constants
     {
 
         // DocumentDB
-        public const string AppModule3ExtractDocumentDbUri = "App-Module3-Extract-DocumentDb-Uri";
+        public const string AppModule3ExtractDocumentDbUri = "App-Module3-Extract-DocumentDb-Uri";// App-Module3-Extract-DocumentDb-Uri
         public const string AppModule3ExtractDocumentDbAuthorisationKey = "App-Module3-Extract-DocumentDb-AuthorisationKey";
         public const string AppModule3ExtractDocumentDbExtractDatabaseName = "App-Module3-Extract-DocumentDb-DatabaseName";
         public const string AppModule3ExtractDocumentDbCollectionName = "App-Module3-Extract-DocumentDb-CollectionName";

@@ -27,7 +27,7 @@ namespace App.Module3.Infrastructure.Services
 
         void AddOrUpdate<TModel>(TModel model) where TModel : class, IHasSourceSystemKey;
 
-        EducationProviderProfile GetEducationProviderProfile(string schoolId);
+        EducationProviderProfile GetEducationProviderProfile(int schoolId);
 
         void AddOrUpdateEducationProfile(EducationProviderProfile profile);
 

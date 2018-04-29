@@ -13,23 +13,23 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.ReferenceS
 {
     public class ReferenceCommunityBoardExtractService : BaseExtractService<ReferenceCommunityBoard>
     {
-        public ReferenceCommunityBoardExtractService(BaseExtractServiceConfiguration configuration, IExtractRepositoryService reposorityService, IExtractAzureDocumentDbService documentDbService)
-            : base(configuration, reposorityService,  documentDbService)
+        public ReferenceCommunityBoardExtractService(BaseExtractServiceConfiguration configuration, IDiagnosticsTracingService tracingService, IExtractAzureDocumentDbService documentDbService)
+            : base(configuration, tracingService, documentDbService)
         {
 
         }
 
-        public override void UpdateLocalData(ReferenceCommunityBoard item)
+        public override void UpdateLocalData(IExtractRepositoryService repositoryService, ReferenceCommunityBoard item)
         {
             var mappedEntity = Mapper.Map<ReferenceCommunityBoard, CommunityBoard>(item);
-            var areaUnitsLookup = _repositoryService.GetSifCachedData<CommunityBoard>(); // is CACHED DATA
+            var areaUnitsLookup = repositoryService.GetSifCachedData<CommunityBoard>(); // is CACHED DATA
             if (areaUnitsLookup.TryGetValue(mappedEntity.SourceSystemKey, out var existingEntity))
             {
-                _repositoryService.UpdateSifData(existingEntity, mappedEntity);
+                repositoryService.UpdateSifData(existingEntity, mappedEntity);
             }
             else
             {
-                _repositoryService.AddSifData(mappedEntity);
+                repositoryService.AddSifData(mappedEntity);
             }
             //_repositoryService.UpdateOnCommit(_dbKey, );
             // Some Sky Magic Code

@@ -79,20 +79,29 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract
                 .ForMember(dest => dest.Url, opt => opt.MapFrom(s => s.Url))
                 .ForMember(dest => dest.WardFK, opt => opt.MapFrom(s => s.WardFK)) //.ForMember(dest => dest.WardFK, opt => opt.MapFrom(s => s.WardCode))
                 .ForMember(dest => dest.Ward, opt => opt.MapFrom(s => s.Ward)) //
+                
                 .ForMember(dest => dest.SourceSystemKey, opt => opt.MapFrom(s => s.SourceSystemKey))
                 .ForMember(dest => dest.SourceSystemName, opt => opt.MapFrom(s => s.SourceSystemName))
 
-                .ForMember(dest => dest.CreatedByPrincipalId, opt => opt.UseDestinationValue())
-                .ForMember(dest => dest.CreatedOnUtc, opt => opt.UseDestinationValue())
-                .ForMember(dest => dest.DeletedByPrincipalId, opt => opt.UseDestinationValue())
-                .ForMember(dest => dest.DeletedOnUtc, opt => opt.UseDestinationValue())
-                .ForMember(dest => dest.Id, opt => opt.UseDestinationValue())
-                .ForMember(dest => dest.LastModifiedByPrincipalId, opt => opt.UseDestinationValue())
-                .ForMember(dest => dest.LastModifiedOnUtc, opt => opt.UseDestinationValue())
-                .ForMember(dest => dest.RecordState, opt => opt.UseDestinationValue())
-                .ForMember(dest => dest.TenantFK, opt => opt.UseDestinationValue())
-                .ForMember(dest => dest.Timestamp, opt => opt.UseDestinationValue())
-                ;
+                .ForMember(dest => dest.CreatedByPrincipalId, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedOnUtc, opt => opt.Ignore())
+                .ForMember(dest => dest.DeletedByPrincipalId, opt => opt.Ignore())
+                .ForMember(dest => dest.DeletedOnUtc, opt => opt.Ignore())
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.LastModifiedByPrincipalId, opt => opt.Ignore())
+                .ForMember(dest => dest.LastModifiedOnUtc, opt => opt.Ignore())
+                .ForMember(dest => dest.RecordState, opt => opt.Ignore())
+                .ForMember(dest => dest.TenantFK, opt => opt.Ignore())
+                .ForMember(dest => dest.Timestamp, opt => opt.Ignore())
+
+                .ForMember(dest => dest.Locations, opt => opt.MapFrom(s => s.Locations)) //
+                .ForMember(dest => dest.LevelGender, opt => opt.MapFrom(s => s.LevelGender))
+                .ForMember(dest => dest.RollCounts, opt => opt.MapFrom(s => s.RollCounts))
+                .AfterMap((src, dest) => dest.Locations = (dest.Locations != null && dest.Locations.Any()) ? dest.Locations : null)
+                .AfterMap((src, dest) => dest.LevelGender = (dest.LevelGender != null && dest.LevelGender.Any()) ? dest.LevelGender : null)
+                .AfterMap((src, dest) => dest.RollCounts = (dest.RollCounts != null && dest.RollCounts.Any()) ? dest.RollCounts : null)
+
+            ;
         }
     }
 }

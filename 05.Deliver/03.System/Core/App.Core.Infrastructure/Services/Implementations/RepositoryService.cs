@@ -87,7 +87,8 @@
 
         public void AddOnCommit<TModel>(string contextKey, TModel model) where TModel : class
         {
-            GetDbSet<TModel>(contextKey).Add(model);
+            var debset = GetDbSet<TModel>(contextKey);
+            debset.Add(model);
         }
 
         public void UpdateOnCommit<TModel>(string contextKey, TModel model) where TModel : class

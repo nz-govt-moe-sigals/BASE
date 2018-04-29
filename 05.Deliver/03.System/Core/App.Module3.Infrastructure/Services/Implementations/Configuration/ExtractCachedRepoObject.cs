@@ -18,7 +18,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Configuration
         public ExtractCachedRepoObject()
         {
             _lookDictionary = new ConcurrentDictionary<Type, ConcurrentDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase>>();
-            EducationProviderProfiles = new ConcurrentDictionary<string, EducationProviderProfile>();
+            EducationProviderProfiles = new ConcurrentDictionary<int, EducationProviderProfile>();
         }
 
         public ConcurrentDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase> GetCachedLookUpData<T>()
@@ -36,7 +36,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Configuration
         }
 
 
-        public ConcurrentDictionary<string, EducationProviderProfile> EducationProviderProfiles { get; set; }
+        public ConcurrentDictionary<int, EducationProviderProfile> EducationProviderProfiles { get; set; }
         /*
         public IDictionary<string, AreaUnit> AreaUnitsLookup { get; set; }
 

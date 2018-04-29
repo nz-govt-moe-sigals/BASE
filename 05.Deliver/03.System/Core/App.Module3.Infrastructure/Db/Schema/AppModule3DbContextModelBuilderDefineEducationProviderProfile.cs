@@ -27,6 +27,11 @@ namespace App.Module3.Infrastructure.Db.Schema
             modelBuilder.Entity<EducationProviderProfile>()
                 .Property(x => x.SchoolId)
                 .HasColumnOrder(order++)
+                .HasColumnAnnotation("Index",
+                    new IndexAnnotation(new IndexAttribute($"IX_EducationProviderProfile_SchoolId")
+                    {
+                        IsUnique = true
+                    }))
                 .IsRequired()
                 ;
 
