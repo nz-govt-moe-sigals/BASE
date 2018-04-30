@@ -102,16 +102,16 @@
     "servicesService01Name":{
       "value":"External DataFactory Hydrated CosmoDb Database"
     },
-    "servicesService01ClientUri":{
+    "servicesService01Uri":{
       "value":"https://nzmoebase.documents.azure.com:443/"
     },
     "servicesService01ClientId":{
       "value":""
     },
-    "servicesService01ClientKey":{
+    "servicesService01ClientSecret":{
       "value":"wEDBI7B1MPHtNK4y2Myi1h5falYVviMuVBQHgI9hUzT4HnLxsRCJzUC4BPvXW2XEzPJHFztRzhpRK6lBI3NG6A=="
     },
-    "servicesService01ClientMiscConfig":{
+    "servicesService01ClientMiscConfiguration":{
       "value":"DatabaseName=dataFactory;CollectionName=syncData;"
     }
 
