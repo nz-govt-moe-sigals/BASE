@@ -1202,7 +1202,7 @@
                     "servicesMalwareDetectionClientSecret": {
                         "value":"[variables('services').malwareDetection.client.secret]"
                     },
-                    "servicesMalwareDetectionMiscConfiguration": {
+                    "servicesMalwareDetectionClientMiscConfiguration": {
                         "value":"[variables('services').malwareDetection.client.miscConfig]"
                     },
                     // -------------------------------------------------------
