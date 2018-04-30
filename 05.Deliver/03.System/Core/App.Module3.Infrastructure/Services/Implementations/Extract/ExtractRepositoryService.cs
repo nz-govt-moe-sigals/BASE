@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using App.Core.Infrastructure.Services;
 using App.Module3.Infrastructure.Services.Implementations.Configuration;
-using App.Module3.Shared.Models;
+ using App.Module3.Shared.Models;
 using App.Module3.Shared.Models.Entities;
 using AutoMapper;
 
@@ -73,8 +73,8 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
         public void UpdateSifData<T>(T exisitingAreaUnit, T newAreaUnit)
             where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase
         {
-            exisitingAreaUnit.Text = newAreaUnit.Text;
             UpdateOnCommit(exisitingAreaUnit);
+            exisitingAreaUnit.Text = newAreaUnit.Text;
         }
 
         public void CommitResults()
@@ -141,8 +141,10 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
             var existingProfile = GetEducationProviderProfile(profile.SchoolId);
             if (existingProfile != null)
             {
-                Mapper.Map<EducationProviderProfile, EducationProviderProfile>(profile, existingProfile);
-                _repositoryService.UpdateOnCommit(_dbKey, existingProfile);
+                _repositoryService.AttachOnCommit(_dbKey, existingProfile);
+               Mapper.Map<EducationProviderProfile, EducationProviderProfile>(profile, existingProfile);
+
+
             }
             else
             {
@@ -158,8 +160,9 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
             var existingItem = _repositoryService.GetSingle<TModel>(_dbKey, x => x.SourceSystemKey == model.SourceSystemKey);
             if (existingItem != null)
             {
+                _repositoryService.AttachOnCommit(_dbKey, existingItem);
                 Mapper.Map<TModel, TModel>(model, existingItem);
-                _repositoryService.UpdateOnCommit(_dbKey, existingItem);
+                
             }
             else
             {
@@ -174,7 +177,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
 
         private void UpdateOnCommit<TModel>(TModel model) where TModel : class
         {
-            _repositoryService.UpdateOnCommit(_dbKey, model);
+            _repositoryService.AttachOnCommit(_dbKey, model);
         }
 
     }

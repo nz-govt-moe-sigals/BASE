@@ -14,10 +14,26 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract
         public void Initialize(IMapperConfigurationExpression config)
         {
             config.CreateMap<EducationProviderLevelGender, EducationProviderLevelGender>()
-                .ForMember(dest => dest.YearFK, opt => opt.MapFrom(s => s.YearFK)) //.ForMember(dest => dest.YearFK, opt => opt.MapFrom(s => s.YearValueId))          
-                .ForMember(dest => dest.Year, opt => opt.MapFrom(s => s.Year))
-                .ForMember(dest => dest.GenderFK, opt => opt.MapFrom(s => s.GenderFK)) //.ForMember(dest => dest.GenderFK, opt => opt.MapFrom(s => s.GenderValueId))    
-                .ForMember(dest => dest.Gender, opt => opt.MapFrom(s => s.Gender)) //  
+                .ForMember(dest => dest.YearFK, opt =>
+                {
+                    opt.Condition((src, dest) => dest.YearFK != src.YearFK);// suppose dest is not null.
+                    opt.MapFrom(src => src.YearFK);
+                })
+                .ForMember(dest => dest.Year, opt =>
+                {
+                    opt.Condition((src, dest) => dest.YearFK != src.YearFK);// suppose dest is not null.
+                    opt.MapFrom(src => src.Year);
+                })
+                .ForMember(dest => dest.GenderFK, opt =>
+                {
+                    opt.Condition((src, dest) => dest.GenderFK != src.GenderFK);// suppose dest is not null.
+                    opt.MapFrom(src => src.GenderFK);
+                })
+                .ForMember(dest => dest.Gender, opt =>
+                {
+                    opt.Condition((src, dest) => dest.GenderFK != src.GenderFK);// suppose dest is not null.
+                    opt.MapFrom(src => src.Gender);
+                })
                 .ForMember(dest => dest.EducationProviderFK, opt => opt.MapFrom(s => s.EducationProviderFK)) //.ForMember(dest => dest.EducationProviderFK, opt => opt.MapFrom(s => s.SchoolId))
 
 
