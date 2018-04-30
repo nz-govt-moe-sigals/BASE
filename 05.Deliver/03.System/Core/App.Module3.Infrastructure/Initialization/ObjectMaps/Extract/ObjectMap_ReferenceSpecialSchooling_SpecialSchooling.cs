@@ -10,11 +10,16 @@ using System.Threading.Tasks;
 
 namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract
 {
+    /// <summary>
+    /// <seealso cref="App.Module3.Infrastructure.Initialization.ObjectMaps.Extract.Base.ObjectMap_BaseReference_SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase"/>
+    /// <seealso cref="App.Module3.Infrastructure.Initialization.ObjectMaps.Extract.Base.ObjectMap_SIFSourceSystemKey_SIFSourceSystemKey"/>
+    /// </summary>
     public class ObjectMap_ReferenceSpecialSchooling_SpecialSchooling : IHasAutomapperInitializer
     {
         public void Initialize(IMapperConfigurationExpression config)
         {
             config.CreateMap<ReferenceSpecialSchooling, SpecialSchooling>();
+            config.CreateMap<SpecialSchooling, SpecialSchooling>();
         }
     }
 }

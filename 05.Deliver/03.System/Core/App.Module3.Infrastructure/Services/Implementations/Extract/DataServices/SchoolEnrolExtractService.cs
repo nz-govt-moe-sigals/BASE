@@ -26,7 +26,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.DataServic
             var educationProviderProfile = repositoryService.GetEducationProviderProfile(item.SchoolId);
             if(educationProviderProfile == null) { throw new ArgumentException($"SchoolId - {item.SchoolId} does not match any EducationProvider Profiles");}
             mappedEntity.EducationProviderFK = educationProviderProfile.Id;
-            repositoryService.AddOrUpdate(mappedEntity);
+            repositoryService.AddOrUpdateNonCachedData(mappedEntity);
 
         }
     }

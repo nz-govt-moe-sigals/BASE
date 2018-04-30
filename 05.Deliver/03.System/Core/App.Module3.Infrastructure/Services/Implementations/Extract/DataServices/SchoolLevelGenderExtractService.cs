@@ -28,7 +28,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.DataServic
             mappedEntity.EducationProviderFK = educationProviderProfile.Id;
             mappedEntity.GenderFK = LookUp<EducationProviderGender>(repositoryService, item.GenderValueId);
             mappedEntity.YearFK = LookUp<EducationProviderYearLevel>(repositoryService, item.YearValueId);
-            repositoryService.AddOrUpdate(mappedEntity);
+            repositoryService.AddOrUpdateNonCachedData(mappedEntity);
         }
     }
 }

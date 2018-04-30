@@ -6,7 +6,7 @@ using App.Module3.Infrastructure.Services.Implementations.Configuration;
 using App.Module3.Shared.Models.Configuration;
 using App.Module3.Shared.Models.Messages.Extract;
 
-namespace App.Module3.Infrastructure.Services.Implementations.Extract
+namespace App.Module3.Infrastructure.Services.Implementations.Extract.Repositories
 {
     public class ExtractAzureDocumentDbService  :AzureDocumentDbBaseService,  IExtractAzureDocumentDbService
     {
