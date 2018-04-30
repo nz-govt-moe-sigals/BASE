@@ -1185,7 +1185,7 @@
                     "servicesSMTPClientSecret": {
                         "value":"[variables('services').smtp.client.secret]"
                     },
-                    "servicesSMTPClientMiscConfig": {
+                    "servicesSMTPClientMiscConfiguration": {
                         "value":"[variables('services').smtp.client.miscConfig]"
                     },
                     // -------------------------------------------------------
@@ -1202,7 +1202,7 @@
                     "servicesMalwareDetectionClientSecret": {
                         "value":"[variables('services').malwareDetection.client.secret]"
                     },
-                    "servicesMalwareDetectionMiscConfig": {
+                    "servicesMalwareDetectionMiscConfiguration": {
                         "value":"[variables('services').malwareDetection.client.miscConfig]"
                     },
                     // -------------------------------------------------------
@@ -1222,7 +1222,7 @@
                     "servicesService01ClientSecret": {
                         "value":"[variables('services').service01.client.secret]"
                     },
-                    "servicesService01ClientMiscConfig": {
+                    "servicesService01ClientMiscConfiguration": {
                         "value":"[variables('services').service01.client.miscConfig]"
                     },
                     // -------------------------------------------------------
@@ -1242,7 +1242,7 @@
                     "servicesService02ClientSecret": {
                         "value":"[variables('services').service02.client.secret]"
                     },
-                    "servicesService02ClientMiscConfig": {
+                    "servicesService02ClientMiscConfiguration": {
                         "value":"[variables('services').service02.client.miscConfig]"
                     },
                     // -------------------------------------------------------
@@ -1262,7 +1262,7 @@
                     "servicesService03ClientSecret": {
                         "value":"[variables('services').service03.client.secret]"
                     },
-                    "servicesService03ClientMiscConfig": {
+                    "servicesService03ClientMiscConfiguration": {
                         "value":"[variables('services').service03.client.miscConfig]"
                     }
                     // -------------------------------------------------------
