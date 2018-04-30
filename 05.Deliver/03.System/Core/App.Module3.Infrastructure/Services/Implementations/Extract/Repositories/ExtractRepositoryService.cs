@@ -1,33 +1,32 @@
-
-﻿using System;
+using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using App.Core.Infrastructure.Services;
 using App.Module3.Infrastructure.Services.Implementations.Configuration;
- using App.Module3.Shared.Models;
+using App.Module3.Shared.Models;
 using App.Module3.Shared.Models.Entities;
 using AutoMapper;
 
-namespace App.Module3.Infrastructure.Services.Implementations.Extract
+namespace App.Module3.Infrastructure.Services.Implementations.Extract.Repositories
 {
     public class ExtractRepositoryService : IExtractRepositoryService
     {
         private string _dbKey = Constants.Db.AppModule3DbContextNames.Module3;
         private readonly IModule3RepositoryService _repositoryService;
         private readonly ExtractCachedRepoObject _repoObject;
-        private readonly IUnitOfWorkService _unitOfWorkService;
+        private readonly IExtractSifRepositoryService _extractSifRepositoryService;
+        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         private bool? _educationProviderProfileHasData;
         private object _lock = new Object();
 
-        public ExtractRepositoryService(ExtractCachedRepoObject repoObject, IModule3RepositoryService repositoryService, IUnitOfWorkService unitOfWorkService)
+        public ExtractRepositoryService(ExtractCachedRepoObject repoObject, IDiagnosticsTracingService diagnosticsTracingService, 
+            IModule3RepositoryService repositoryService, IExtractSifRepositoryService extractSifRepositoryService)
         {
             _repositoryService = repositoryService;
             _repositoryService.ConfigureBatchProcessing();
             _repoObject = repoObject ?? new ExtractCachedRepoObject();
-            _unitOfWorkService = unitOfWorkService;
+            _extractSifRepositoryService = extractSifRepositoryService;
+            _diagnosticsTracingService = diagnosticsTracingService;
         }
 
 
@@ -62,7 +61,33 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
             return cache;
         }
 
-        //Hmmm probably should make this baseReference but ontodo list;
+        public T LookupSifReference<T>(string id, SifLookup enumSifLookup)
+            where T : SifSouceDataBase
+        {
+            if (enumSifLookup == SifLookup.EvaId)
+            {
+                return _extractSifRepositoryService.GetSingle<T>(_dbKey, x => x.EvaId == id);
+            }
+            if (enumSifLookup == SifLookup.FirstId)
+            {
+                return _extractSifRepositoryService.GetSingle<T>(_dbKey, x => x.FirstId == id);
+            }
+            return _extractSifRepositoryService.GetSingle<T>(_dbKey, x => x.SifId == id);
+        }
+
+        public void AddOrUpdateSifData<T>(T entity) where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase
+        {
+            var lookup = GetSifCachedData<T>(); // is CACHED DATA
+            if (lookup.TryGetValue(entity.SourceSystemKey, out var existingEntity))
+            {
+                UpdateSifData(existingEntity as T, entity);
+            }
+            else
+            {
+                AddSifData(entity);
+            }
+        }
+
         public void AddSifData<T>(T newAreaUnit)
             where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase
         {
@@ -74,7 +99,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
             where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase
         {
             UpdateOnCommit(exisitingAreaUnit);
-            exisitingAreaUnit.Text = newAreaUnit.Text;
+            Mapper.Map<T, T>(newAreaUnit, exisitingAreaUnit);
         }
 
         public void CommitResults()
@@ -141,32 +166,29 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
             var existingProfile = GetEducationProviderProfile(profile.SchoolId);
             if (existingProfile != null)
             {
-                _repositoryService.AttachOnCommit(_dbKey, existingProfile);
-               Mapper.Map<EducationProviderProfile, EducationProviderProfile>(profile, existingProfile);
-
-
+                UpdateOnCommit(existingProfile);
+                Mapper.Map<EducationProviderProfile, EducationProviderProfile>(profile, existingProfile);
             }
             else
             {
                 _repoObject.EducationProviderProfiles.TryAdd(profile.SchoolId, profile);
-                _repositoryService.AddOnCommit(_dbKey, profile);
+                 AddOnCommit(profile);
             }
         }
 
 
-        public void AddOrUpdate<TModel>(TModel model) where TModel : class, IHasSourceSystemKey
+        public void AddOrUpdateNonCachedData<TModel>(TModel model) where TModel : class, IHasSourceSystemKey
         {
             //write lock around this possibly
             var existingItem = _repositoryService.GetSingle<TModel>(_dbKey, x => x.SourceSystemKey == model.SourceSystemKey);
             if (existingItem != null)
             {
-                _repositoryService.AttachOnCommit(_dbKey, existingItem);
+                UpdateOnCommit(existingItem);
                 Mapper.Map<TModel, TModel>(model, existingItem);
-                
             }
             else
             {
-                _repositoryService.AddOnCommit(_dbKey, model);
+                AddOnCommit(model);
             }
         }
 
@@ -180,7 +202,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract
             _repositoryService.AttachOnCommit(_dbKey, model);
         }
 
-    }
 
+    }
 
 }

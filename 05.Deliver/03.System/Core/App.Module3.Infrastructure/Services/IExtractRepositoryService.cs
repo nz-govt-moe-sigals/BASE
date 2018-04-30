@@ -19,18 +19,21 @@ namespace App.Module3.Infrastructure.Services
         ConcurrentDictionary<string, SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase> GetSifCachedData<T>()
             where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase;
  
-
+        void AddOrUpdateSifData<T>(T entity) where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase;
 
         void AddSifData<T>(T newAreaUnit) where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase;
 
         void UpdateSifData<T>(T exisitingAreaUnit, T newAreaUnit) where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase;
 
-        void AddOrUpdate<TModel>(TModel model) where TModel : class, IHasSourceSystemKey;
+        void AddOrUpdateNonCachedData<TModel>(TModel model) where TModel : class, IHasSourceSystemKey;
 
         EducationProviderProfile GetEducationProviderProfile(int schoolId);
 
         void AddOrUpdateEducationProfile(EducationProviderProfile profile);
 
         void CommitResults();
+
+        T LookupSifReference<T>(string id, SifLookup enumSifLookup)
+            where T : SifSouceDataBase;
     }
 }

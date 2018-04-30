@@ -10,11 +10,16 @@ using System.Threading.Tasks;
 
 namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract
 {
+    /// <summary>
+    /// <seealso cref="App.Module3.Infrastructure.Initialization.ObjectMaps.Extract.Base.ObjectMap_BaseReference_SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase"/>
+    /// <seealso cref="App.Module3.Infrastructure.Initialization.ObjectMaps.Extract.Base.ObjectMap_SIFSourceSystemKey_SIFSourceSystemKey"/>
+    /// </summary>
     public class ObjectMap_ReferenceCommunityBoard_CommunityBoard : IHasAutomapperInitializer
     {
         public void Initialize(IMapperConfigurationExpression config)
         {
             config.CreateMap<ReferenceCommunityBoard, CommunityBoard>();
+            config.CreateMap<CommunityBoard, CommunityBoard>();
         }
     }
 }
