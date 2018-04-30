@@ -98,6 +98,22 @@
     },
     "servicesMalwareDetectionClientSecret": {
       "value": "c841994b1"
+    },
+    "servicesService1ClientName":{
+      "value":"External DataFactory Hydrated CosmoDb Database"
+    },
+    "servicesService1ClientUri":{
+      "value":"https://nzmoebase.documents.azure.com:443/"
+    },
+    "servicesService1ClientId":{
+      "value":""
+    },
+    "servicesService1ClientKey":{
+      "value":"wEDBI7B1MPHtNK4y2Myi1h5falYVviMuVBQHgI9hUzT4HnLxsRCJzUC4BPvXW2XEzPJHFztRzhpRK6lBI3NG6A=="
+    },
+    "servicesService1ClientMiscConfig":{
+      "value":"DatabaseName=dataFactory;CollectionName=syncData;"
     }
+
   }
 }

@@ -59,6 +59,10 @@
     <Compile Include="Models\ConfigurationSettings\AzureStorageAccountDefaultConfigurationSettings.cs" />
     <Compile Include="Models\ConfigurationSettings\IHostSettingsBasedConfigurationObject.cs" />
     <Compile Include="Models\ConfigurationSettings\IStorageAccountConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\SmtpServiceClientConfiguration.cs" />
+    <Compile Include="Models\ConfigurationSettings\Service03Configuration.cs" />
+    <Compile Include="Models\ConfigurationSettings\Service02Configuration.cs" />
+    <Compile Include="Models\ConfigurationSettings\Service01Configuration.cs" />
     <Compile Include="Models\ConfigurationSettings\ScaniiHostConfiguration.cs" />
     <Compile Include="Models\ConfigurationSettings\ApplicationInsightsConfigurationSettings.cs" />
     <Compile Include="Models\ConfigurationSettings\ApplicationCreatorInformationConfigurationSettings.cs" />
