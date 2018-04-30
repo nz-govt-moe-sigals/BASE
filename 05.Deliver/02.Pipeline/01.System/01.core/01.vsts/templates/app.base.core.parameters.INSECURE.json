@@ -12,7 +12,7 @@
       "value": "NZ-MOE-BASE-0000-BT-{RT}"
     },
     "securityApproach": {
-      "value": "msi"
+      "value": "insecure"
     },
     "cacheRedisProvision": {
       "value": false
