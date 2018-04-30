@@ -12,34 +12,42 @@ namespace App.Module3.Infrastructure.Services.Implementations
 {
     public class Module3RepositoryService : RepositoryService, IModule3RepositoryService
     {
-        private DbContext _dbContext;
+       // private DbContext _dbContext;
         private string _dbKey = Constants.Db.AppModule3DbContextNames.Module3;
         private bool _batched = false;
         public Module3RepositoryService()
         {
-            _dbContext = base.GetDbContext(_dbKey);
+            //_dbContext = base.GetDbContext(_dbKey);
         }
 
+        /*
         protected override DbContext GetDbContext(string contextKey)
         {
             return _dbContext;
         }
-
+        */
         public void ConfigureBatchProcessing(bool batched = true)
         {
+            var _dbContext = base.GetDbContext(_dbKey);
             _batched = batched;
             _dbContext.Configuration.AutoDetectChangesEnabled = !batched;
             _dbContext.Configuration.ValidateOnSaveEnabled = !batched;
+            _dbContext.Configuration.LazyLoadingEnabled = !batched;
         }
+
+
 
         public int CommitBatch()
         {
-            //if (_batched)
-            //{
-            //    _dbContext.ChangeTracker.DetectChanges();
-            //}
+            var _dbContext = base.GetDbContext(_dbKey);
+            if (_batched)
+            {
+               _dbContext.ChangeTracker.DetectChanges();
+            }
+
             try
             {
+
                 var result = _dbContext.SaveChanges();
                 return result;
             }
@@ -47,6 +55,10 @@ namespace App.Module3.Infrastructure.Services.Implementations
             {
                 Console.WriteLine(e);
                 throw;
+            }
+            finally
+            {
+                ConfigureBatchProcessing();
             }
             
             
