@@ -24,6 +24,7 @@ function Provision-Variables {
 
     $countLength =  [math]::max($defaultMasterBranchNameReplacement.Length,5)
     
+    
     <#
   # README
   This script 
