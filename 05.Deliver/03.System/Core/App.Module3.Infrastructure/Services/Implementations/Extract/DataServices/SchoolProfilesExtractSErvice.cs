@@ -53,7 +53,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.DataServic
             mappedEntity.WardFK = NullableLookUp<Ward>(repositoryService, item.WardCode);
 
             repositoryService.AddOrUpdateEducationProfile(mappedEntity);
-          
+
         }
 
 

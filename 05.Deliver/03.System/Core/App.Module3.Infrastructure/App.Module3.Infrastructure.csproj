@@ -207,6 +207,7 @@
     <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceUrbanAreaExtractService.cs" />
     <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceWardExtractService.cs" />
     <Compile Include="Services\Implementations\Module3RepositoryService.cs" />
+    <Compile Include="Services\Mapping\ExtractMapping.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\App.Core.Infrastructure\App.Core.Infrastructure.csproj">
