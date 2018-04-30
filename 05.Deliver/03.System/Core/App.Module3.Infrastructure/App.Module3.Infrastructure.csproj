@@ -116,6 +116,7 @@
     <Compile Include="Initialization\ObjectMaps\Extract\Base\ObjectMap_BaseMessage_TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\Base\ObjectMap_BaseReference_SourceSystemKeyedTenantedGuidIdReferenceDataBase.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\Base\ObjectMap_BaseReference_SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\Base\ObjectMap_SIFSourceSystemKey_SIFSourceSystemKey.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceAreaUnit_AreaUnit.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceAuthorityType_AuthorityType.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceRegion_Region.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="Services\Configuration\IModule3ServiceConfigurationObject.cs" />
     <Compile Include="Services\IExtractAzureDocumentDbService.cs" />
     <Compile Include="Services\IExtractServiceController.cs" />
+    <Compile Include="Services\IExtractSifRepositoryService.cs" />
     <Compile Include="Services\IHasAppModule3Service.cs" />
     <Compile Include="Services\IModule3RepositoryService.cs" />
     <Compile Include="Services\Implementations\Base\AppModule3ServiceBase.cs" />
@@ -182,9 +184,9 @@
     <Compile Include="Services\Implementations\Extract\DataServices\SchoolLevelGenderExtractService.cs" />
     <Compile Include="Services\Implementations\Extract\DataServices\SchoolProfilesExtractService.cs" />
     <Compile Include="Services\Implementations\Extract\DataServices\SchoolWGSExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\ExtractAzureDocumentDbService.cs" />
+    <Compile Include="Services\Implementations\Extract\Repositories\ExtractAzureDocumentDbService.cs" />
     <Compile Include="Services\Implementations\Extract\BaseExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\ExtractRepositoryService.cs" />
+    <Compile Include="Services\Implementations\Extract\Repositories\ExtractRepositoryService.cs" />
     <Compile Include="Services\Implementations\Extract\ExtractServiceController.cs" />
     <Compile Include="Services\IBaseExtractService.cs" />
     <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceAreaUnitExtractService.cs" />
@@ -206,6 +208,7 @@
     <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceTerritorialAuthorityExtractService.cs" />
     <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceUrbanAreaExtractService.cs" />
     <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceWardExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\Repositories\ExtractSifRepositoryService.cs" />
     <Compile Include="Services\Implementations\Module3RepositoryService.cs" />
     <Compile Include="Services\Mapping\ExtractMapping.cs" />
   </ItemGroup>

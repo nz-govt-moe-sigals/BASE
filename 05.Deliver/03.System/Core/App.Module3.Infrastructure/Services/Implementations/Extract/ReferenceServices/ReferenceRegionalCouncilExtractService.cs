@@ -23,17 +23,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.ReferenceS
         public override void UpdateLocalData(IExtractRepositoryService repositoryService, ReferenceRegionalCouncil item)
         {
             var mappedEntity = Mapper.Map<ReferenceRegionalCouncil, RegionalCouncil>(item);
-            var areaUnitsLookup = repositoryService.GetSifCachedData< RegionalCouncil>(); // is CACHED DATA
-            if (areaUnitsLookup.TryGetValue(mappedEntity.SourceSystemKey, out var existingEntity))
-            {
-                repositoryService.UpdateSifData(existingEntity, mappedEntity);
-            }
-            else
-            {
-                repositoryService.AddSifData(mappedEntity);
-            }
-            //_repositoryService.UpdateOnCommit(_dbKey, );
-            // Some Sky Magic Code
+            repositoryService.AddOrUpdateSifData(mappedEntity);
         }
     }
 }

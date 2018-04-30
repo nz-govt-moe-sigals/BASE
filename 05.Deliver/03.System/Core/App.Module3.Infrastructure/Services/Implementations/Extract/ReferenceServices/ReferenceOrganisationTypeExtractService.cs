@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using App.Core.Infrastructure.Services;
 using App.Module3.Infrastructure.Services.Configuration;
 using App.Module3.Shared.Models.Entities;
+using App.Module3.Shared.Models.Entities.Sif;
 using App.Module3.Shared.Models.Messages.Extract;
 using AutoMapper;
 
@@ -23,17 +24,12 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.ReferenceS
         public override void UpdateLocalData(IExtractRepositoryService repositoryService, ReferenceOrganisationType item)
         {
             var mappedEntity = Mapper.Map<ReferenceOrganisationType, EducationProviderType>(item);
-            var areaUnitsLookup = repositoryService.GetSifCachedData< EducationProviderType>(); // is CACHED DATA
-            if (areaUnitsLookup.TryGetValue(mappedEntity.SourceSystemKey, out var existingEntity))
+            var sifData = repositoryService.LookupSifReference<SifOrgranisationType>(mappedEntity.SourceSystemKey, SifLookup.FirstId);
+            if (sifData != null)
             {
-                repositoryService.UpdateSifData(existingEntity, mappedEntity);
+                mappedEntity.SIFKey = sifData.SifId;
             }
-            else
-            {
-                repositoryService.AddSifData(mappedEntity);
-            }
-            //_repositoryService.UpdateOnCommit(_dbKey, );
-            // Some Sky Magic Code
+            repositoryService.AddOrUpdateSifData(mappedEntity);
         }
     }
 }
