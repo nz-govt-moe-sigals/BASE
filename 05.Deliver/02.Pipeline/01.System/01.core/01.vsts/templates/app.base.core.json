@@ -468,6 +468,7 @@
         "webSiteHostNameBindingHostName": {
             "type": "string",
             "minLength": 0,
+            "defaultValue": "",
             "metadata": {
                 "description": "Required. The public DNS name of the website. Default is ''. Will require a WebServerFarm SKU of S1 of higher to be set."
             }

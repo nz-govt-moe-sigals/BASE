@@ -119,7 +119,12 @@
     },
     "servicesService01ClientMiscConfiguration":{
       "value":"DatabaseName=dataFactory;CollectionName=syncData;"
+    },
+    "webSiteHostNameBindingHostName":{
+      "value":""
+    },
+    "webSiteHostNameBindingHostNameAlt":{
+      "value":""
     }
-
   }
 }
