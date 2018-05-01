@@ -4,7 +4,7 @@
   "parameters": {
     "environmentOverrides": {
       "value": {
-        "ST": {
+        "UT": {
           "webSiteHostNameBindingHostName": "www.baseplatform.space",
           "webSiteHostNameBindingHostNameAlt": "baseplatform.space"
         }
