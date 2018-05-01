@@ -25,7 +25,7 @@ namespace App.Core.Shared.Models.Configuration.AppHost
         }
 
 
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
         [Alias(Constants.ConfigurationKeys.AppCoreIntegrationService02BaseUri)]
         public string BaseUri
         {
@@ -33,7 +33,7 @@ namespace App.Core.Shared.Models.Configuration.AppHost
         }
 
 
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
         [Alias(Constants.ConfigurationKeys.AppCoreIntegrationService02MiscConfig)]
         public string MiscConfig
         {

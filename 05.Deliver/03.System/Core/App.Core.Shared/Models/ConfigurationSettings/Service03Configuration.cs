@@ -5,12 +5,12 @@ namespace App.Core.Shared.Models.Configuration.AppHost
     using App.Core.Shared.Attributes;
     using App.Core.Shared.Models.ConfigurationSettings;
 
-    public class Service01Configuration: IHostSettingsBasedConfigurationObject
+    public class Service03Configuration: IHostSettingsBasedConfigurationObject
     {
 
         // Make sure this kind of secrets are not gotten from AppSettings.
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
-        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationService01ClientId)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationService03ClientId)]
         public string Key
         {
             get; set;
@@ -18,23 +18,23 @@ namespace App.Core.Shared.Models.Configuration.AppHost
 
         // Make sure this kind of secrets are not gotten from AppSettings.
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
-        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationService01ClientSecret)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationService03ClientSecret)]
         public string Secret
         {
             get; set;
         }
 
 
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
-        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationService01BaseUri)]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationService03BaseUri)]
         public string BaseUri
         {
             get; set;
         }
 
 
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
-        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationService01MiscConfig)]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationService03MiscConfig)]
         public string MiscConfig
         {
             get; set;

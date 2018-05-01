@@ -335,11 +335,11 @@
         // Optional. The name of the Resource.
         // Default it ''. 
         // If not provided, falls back to an 'resourceNameTemplate'-based, automatically generated resource name, using 'web-site' for the {RT} token."
-        // See also 'webSiteHostNameBindingHostName'.
+        // See also 'webSiteHostNameBindingHostNames'.
         "webSiteResourceName": {
             "defaultValue": "",
             "metadata": {
-                "description": "Optional. The name for the Resource. Default it ''. If not provided, falls back to an 'resourceNameTemplate'-based, automatically generated resource name, using 'web-site' for the {RT} token. See also 'webSiteHostNameBindingHostName'."
+                "description": "Optional. The name for the Resource. Default it ''. If not provided, falls back to an 'resourceNameTemplate'-based, automatically generated resource name, using 'web-site' for the {RT} token. See also 'webSiteHostNameBindingHostNames'."
             },
             "type": "string"
         },
@@ -426,30 +426,32 @@
         // -------------------------------------------------------
         // Parameters: WEB / SITE / HOSTBINDINGNAME
         // -------------------------------------------------------
-        // Optional. The public DNS name of the website. Default is ''. 
-        // Will require a WebServerFarm SKU of S1 of higher to be set.
-        // Will also require atleast a CNAME record (or better yet an A record)
-        // You have to own the name and make a record of it
-        // or you will be get a deployment error or :
+        // Optional. A hash, or environmentId to webSiteHostNameBindingHostName and webSiteHostNameBindingHostNameAlt
+        //  (eg: 
+        // {
+        //   'BT':{'webSiteHostNameBindingHostName':'...', 'webSiteHostNameBindingHostNameAlt':'...'}, 
+        //   'ST':{'webSiteHostNameBindingHostName':'...', 'webSiteHostNameBindingHostNameAlt':'...'}
+        // }.
+        // Note that a cert can contain muliple hostnames.
+        // 
+        // Also, you have to own the name and make a CNAME record of it or you will be get a deployment error or :
         // "A CNAME record pointing from foobarsite.com to foobar.azurewebsites.net was not found. 
         // Alternative record awverify.foobarsite.com to awverify.foobar.azurewebsites.net was not found either."
-        //"value": "foobarsite.com"
-        "webSiteHostNameBindingHostName": {
-            "metadata": {
-                "description": "Optional. The public DNS name of the website. Default is ''. Will require a WebServerFarm SKU of S1 of higher to be set."
+        // 
+        // The alt record is optional. But if the primary hostname is for 'www.foobar.com', use alt for 'foobar.com' 
+        "webSiteHostNameBindingHostNames" : {
+            "type": "object",
+            "defaultValue": {
+                "--": {
+                    "webSiteHostNameBindingHostName": "",
+                    "webSiteHostNameBindingHostNameAlt": ""
+                }
             },
-            "type": "string"
-        },
-        // Optional. If 'webSiteHostNameBindingHostName' is used 
-        // for 'www.mydomain.tld', you want to be able to 
-        // also register 'mydomain.tld' as well.
-        "webSiteHostNameBindingHostNameAlt": {
-            "defaultValue": "",
             "metadata": {
-                "description": "Optional. If 'webSiteHostNameBindingHostName' is used for 'www.mydomain.tld', you want to be able to also register 'mydomain.tld' as well."
-            },
-            "type": "string"
+                "description": "Optional. A hash, or environmentId to webSiteHostNameBindingHostName and webSiteHostNameBindingHostNameAlt (eg: {'BT':{'webSiteHostNameBindingHostName':'...', 'webSiteHostNameBindingHostNameAlt':'...'}, {'ST':{'webSiteHostNameBindingHostName':'...', 'webSiteHostNameBindingHostNameAlt':'...'}, }."
+            }
         },
+
         // -------------------------------------------------------
         // Parameters: OAUTH / CLIENT / BASICS
         // -------------------------------------------------------
@@ -930,8 +932,10 @@
                     }
                 }, //~site.config
                 "hostNameBinding": {
-                    "hostName": "[parameters('webSiteHostNameBindingHostName')]",
-                    "hostNameAlt": "[parameters('webSiteHostNameBindingHostNameAlt')]"
+                    "hostNames": "[parameters('webSiteHostNameBindingHostNames')]",
+                    
+                    // "hostName": "[parameters('webSiteHostNameBindingHostName')]",
+                    // "hostNameAlt": "[parameters('webSiteHostNameBindingHostNameAlt')]"
                 }
             } //~site
         }, //~web
@@ -1128,12 +1132,15 @@
                     },
                     // -------------------------------------------------------
                     // Passthrough Parameters: Web Site HostNameBinding 
-                    "webSiteHostNameBindingHostName": {
-                        "value": "[variables('web').site.hostNameBinding.hostName]"
+                    "webSiteHostNameBindingHostNames": {
+                        "value": "[variables('web').site.hostNameBinding.hostNames]"
                     },
-                    "webSiteHostNameBindingHostNameAlt": {
-                        "value": "[variables('web').site.hostNameBinding.hostNameAlt]"
-                    },
+                    // "webSiteHostNameBindingHostName": {
+                    //     "value": "[variables('web').site.hostNameBinding.hostName]"
+                    // },
+                    // "webSiteHostNameBindingHostNameAlt": {
+                    //     "value": "[variables('web').site.hostNameBinding.hostNameAlt]"
+                    // },
                     // -------------------------------------------------------
                     // Passthrough Parameters: OAuth / Client
                     "oauthEnabled": {

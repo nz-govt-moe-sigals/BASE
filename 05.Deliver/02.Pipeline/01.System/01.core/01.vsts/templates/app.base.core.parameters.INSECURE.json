@@ -87,11 +87,13 @@
     "webSiteConfigConnectionStringsDeveloperStatingSecretsAreNotRecordedInCode": {
       "value": "ATotalIdiotForEmbeddingSecretsInAFileAndCheckingItIn"
     },
-    "webSiteHostNameBindingHostName": {
-      "value": "www.baseplatform.space"
-    },
-    "webSiteHostNameBindingHostNameAlt": {
-      "value": "baseplatform.space"
+    "webSiteHostNameBindingHostNames": {
+      "value": {
+        "ST": {
+          "webSiteHostNameBindingHostName": "www.baseplatform.space",
+          "webSiteHostNameBindingHostNameAlt": "baseplatform.space"
+        }
+      }
     },
     "servicesMalwareDetectionClientId": {
       "value": "394d3e42-18e1-4758-87b2-29e22c59d64b"

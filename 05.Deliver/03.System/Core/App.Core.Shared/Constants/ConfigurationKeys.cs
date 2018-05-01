@@ -83,6 +83,7 @@ namespace App.Core.Shared.Constants
         public const string AppCoreIntegrationSmtpServiceBaseUri = SystemIntegrationKeyPrefix + "Services-SmtpService-Uri";
         public const string AppCoreIntegrationSmtpServiceClientId = SystemIntegrationKeyPrefix + "Services-SmtpService-Client-Id";
         public const string AppCoreIntegrationSmtpServiceClientSecret = SystemIntegrationKeyPrefix + "Services-SmtpService-Client-Secret";
+        public const string AppCoreIntegrationSmtpServiceClientMiscConfig = SystemIntegrationKeyPrefix + "Services-SmtpService-Client-MiscConfig";
 
 
         // -----
@@ -91,6 +92,7 @@ namespace App.Core.Shared.Constants
         public const string AppCoreIntegrationMalwareDetectionBaseUri = SystemIntegrationKeyPrefix + "Services-MalwareDetectionService-Uri";
         public const string AppCoreIntegrationMalwareDetectionClientId = SystemIntegrationKeyPrefix + "Services-MalwareDetectionService-Client-Id";
         public const string AppCoreIntegrationMalwareDetectionClientSecret = SystemIntegrationKeyPrefix + "Services-MalwareDetectionService-Client-Secret";
+        public const string AppCoreIntegrationMalwareDetectionClientMiscConfig = SystemIntegrationKeyPrefix + "Services-MalwareDetectionService-Client-MiscConfig";
 
 
         // -----
@@ -100,6 +102,7 @@ namespace App.Core.Shared.Constants
         public const string AppCoreIntegrationService01BaseUri = SystemIntegrationKeyPrefix + "Services-Service01-Uri";
         public const string AppCoreIntegrationService01ClientId = SystemIntegrationKeyPrefix + "Services-Service01-Client-Id";
         public const string AppCoreIntegrationService01ClientSecret = SystemIntegrationKeyPrefix + "Services-Service01-Client-Secret";
+        public const string AppCoreIntegrationService01MiscConfig = SystemIntegrationKeyPrefix + "Services-Service01-Client-MiscConfig";
 
         // -----
         // Some Misc Service (note that it does not prefix with Azure, as it is hosted somewhere else):
@@ -108,6 +111,7 @@ namespace App.Core.Shared.Constants
         public const string AppCoreIntegrationService02BaseUri = SystemIntegrationKeyPrefix + "Services-Service02-Uri";
         public const string AppCoreIntegrationService02ClientId = SystemIntegrationKeyPrefix + "Services-Service02-Client-Id";
         public const string AppCoreIntegrationService02ClientSecret = SystemIntegrationKeyPrefix + "Services-Service02-Client-Secret";
+        public const string AppCoreIntegrationService02MiscConfig = SystemIntegrationKeyPrefix + "Services-Service02-Client-MiscConfig";
 
         // -----
         // Some Misc Service (note that it does not prefix with Azure, as it is hosted somewhere else):
@@ -116,5 +120,6 @@ namespace App.Core.Shared.Constants
         public const string AppCoreIntegrationService03BaseUri = SystemIntegrationKeyPrefix + "Services-Service03-Uri";
         public const string AppCoreIntegrationService03ClientId = SystemIntegrationKeyPrefix + "Services-Service03-Client-Id";
         public const string AppCoreIntegrationService03ClientSecret = SystemIntegrationKeyPrefix + "Services-Service03-Client-Secret";
+        public const string AppCoreIntegrationService03MiscConfig = SystemIntegrationKeyPrefix + "Services-Service03-Client-MiscConfig";
     }
 }

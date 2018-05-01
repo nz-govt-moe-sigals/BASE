@@ -25,9 +25,17 @@ namespace App.Core.Shared.Models.Configuration.AppHost
         }
 
 
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
         [Alias(Constants.ConfigurationKeys.AppCoreIntegrationMalwareDetectionBaseUri)]
         public string BaseUri
+        {
+            get; set;
+        }
+
+
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationMalwareDetectionClientMiscConfig)]
+        public string MiscConfig
         {
             get; set;
         }

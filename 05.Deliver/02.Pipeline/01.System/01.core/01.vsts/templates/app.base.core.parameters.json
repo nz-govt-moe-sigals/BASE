@@ -109,11 +109,13 @@
     "webSiteConfigConnectionStringsDeveloperStatingSecretsAreNotRecordedInCode": {
       "value": "sigals"
     },
-    "webSiteHostNameBindingHostName": {
-      "value": "www.baseplatform.space"
-    },
-    "webSiteHostNameBindingHostNameAlt": {
-      "value": "baseplatform.space"
+    "webSiteHostNameBindingHostNames": {
+      "value": {
+        "ST": {
+          "webSiteHostNameBindingHostName": "www.baseplatform.space",
+          "webSiteHostNameBindingHostNameAlt": "baseplatform.space"
+        }
+      }
     }
   }
 }
