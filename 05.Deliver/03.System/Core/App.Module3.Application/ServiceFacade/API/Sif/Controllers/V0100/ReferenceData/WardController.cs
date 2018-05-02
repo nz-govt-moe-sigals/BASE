@@ -8,12 +8,16 @@ using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
 
 namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.ReferenceData
 {
+    using App.Core.Shared.Attributes;
+    using App.Module3.Application.Constants.Api;
+
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class AuthorityTypeControllerSif : ODataControllerSifResourceDataBase<AuthorityType, AuthorityTypeDto>
+    [Key(ApiControllerNames.Ward)]
+    public class WardController : ODataControllerSifResourceDataBase<Ward, WardDto>
     {
-        public AuthorityTypeControllerSif(
+        public WardController(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -30,7 +34,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<AuthorityTypeDto> Get()
+        public IQueryable<WardDto> Get()
         {
             return InternalGet();
         }
@@ -41,21 +45,21 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
         /// Note OData's convention that parameter must be 'key' (not 'id' or other).
         /// </para>
         /// </summary>
-        [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public AuthorityTypeDto Get(string key)
+        [AllowAnonymous]
+        public WardDto Get(string key)
         {
             return InternalGet(key);
         }
 
         //// POST api/values 
-        public void Post(AuthorityTypeDto value)
+        public void Post(WardDto value)
         {
             InternalPost(value);
         }
 
         //// PUT api/values/5 
-        public void Put(AuthorityTypeDto value)
+        public void Put(WardDto value)
         {
             InternalPut(value);
         }

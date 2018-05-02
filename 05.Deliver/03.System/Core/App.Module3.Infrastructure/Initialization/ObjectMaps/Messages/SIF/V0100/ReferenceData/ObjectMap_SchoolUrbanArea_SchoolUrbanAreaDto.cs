@@ -13,7 +13,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
     /// </para>
     /// </summary>
     public class ObjectMap_SchoolUrbanArea_SchoolUrbanAreaDto
-        : ObjectMap_TenantedFIRSTKeyedGuidIdReferenceDataBase_TenantedSIFReferenceTypeDto
+        : ObjectMap_SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase_TenantedSIFReferenceTypeDto
             <UrbanArea, UrbanAreaDto>
     {
     }

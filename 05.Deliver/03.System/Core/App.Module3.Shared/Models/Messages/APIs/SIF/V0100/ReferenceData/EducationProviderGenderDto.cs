@@ -8,8 +8,8 @@
     /// Uses SIF Codes as public PK.
     /// </para>
     /// </summary>
-    /// <seealso cref="App.Module3.Shared.Models.Messages.APIs.SIF.V0100.Base.TenantedSIFReferenceDtoBase" />
-    public class EducationProviderGenderDto :/*ok*/ TenantedSIFReferenceDtoBase
+    /// <seealso cref="SIFReferenceDtoBase" />
+    public class EducationProviderGenderDto :/*ok*/ SIFReferenceDtoBase
     {
     }
 }

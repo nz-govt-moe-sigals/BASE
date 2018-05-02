@@ -157,6 +157,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\Class1.cs" />
     <Compile Include="Constants\Api\ApiControllerNames.cs" />
     <Compile Include="Initialization\DependencyResolution\AppModule3Registry.cs" />
     <Compile Include="Initialization\OData\IAppModule3OdataModelBuilder.cs" />
@@ -169,7 +170,7 @@
     <Compile Include="Initialization\OData\Implementations\GeneralElectorateODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\MaoriElectorateODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\OrganisationStatusODataModelBuilderConfiguration.cs" />
-    <Compile Include="Initialization\OData\Implementations\OrganisationTypeODataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\EducationProviderTypeODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\RegionalCouncilODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\RegionODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\RelationshipTypeODataModelBuilderConfiguration.cs" />
@@ -184,6 +185,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceFacade\API\ApiControllerBase.cs" />
     <Compile Include="ServiceFacade\API\Moe\Controllers\ODataControllerMoeResourceDataBase.cs" />
+    <Compile Include="ServiceFacade\API\Moe\Controllers\V0100\SchoolGeneralElectorateController.cs" />
     <Compile Include="ServiceFacade\API\Sif\Controllers\ODataControllerSifResourceDataBase.cs" />
     <Compile Include="ServiceFacade\API\Sif\Controllers\ODataControllerStandardDataBase.cs" />
     <Compile Include="ServiceFacade\API\ODataControllerBase.cs" />
@@ -195,29 +197,28 @@
     <Compile Include="ServiceFacade\API\Services\Implementations\ExampleApplicationService.cs" />
     <Compile Include="ServiceFacade\API\Services\Implementations\TaskService.cs" />
     <Compile Include="ServiceFacade\API\Services\ITaskService.cs" />
-    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataAreaUnitController.cs" />
-    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataAuthorityTypeController.cs" />
-    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataCommunityBoardController.cs" />
-    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataGeneralElectorateController.cs" />
-    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataMaoriElectorateController.cs" />
-    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataOrganisationStatusController.cs" />
-    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataOrganisationTypeController.cs" />
-    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataRegionController.cs" />
-    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataRegionalCouncilController.cs" />
-    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataRelationshipTypeController.cs" />
-    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataSchoolClassificationController.cs" />
-    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\EducationProviderGenderControllerSif.cs" />
-    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataSchoolYearLevelController.cs" />
-    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataSpecialSchoolingController.cs" />
-    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataTeacherEducationController.cs" />
-    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataTerritorialAuthorityController.cs" />
-    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataUrbanAreaController.cs" />
-    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\ReferenceDataWardController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\AreaUnitController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\AuthorityTypeController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\CommunityBoardController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\GeneralElectorateController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\MaoriElectorateController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\EducationProviderStatusController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\OrganisationTypeController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\RegionController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\RegionalCouncilController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\RelationshipTypeController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\EducationProviderClassificationController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\SchoolingGenderController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\EducationProviderYearLevelController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\SpecialSchoolingController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\TeacherEducationController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\TerritorialAuthorityController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\UrbanAreaController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\WardController.cs" />
   </ItemGroup>
   <ItemGroup>
     <!-- <EmbeddedResource Include="Presentation\Views\Module3\About.cshtml" /> -->
     <Folder Include="ExtensionMethods\" />
-    <Folder Include="ServiceFacade\API\Moe\Controllers\V0100\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\App.Core.Infrastructure.OIDC\App.Core.Infrastructure.IDA.csproj">

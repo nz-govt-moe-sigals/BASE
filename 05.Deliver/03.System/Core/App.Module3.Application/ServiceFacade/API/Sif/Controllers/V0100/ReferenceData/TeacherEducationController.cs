@@ -8,12 +8,17 @@ using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
 
 namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.ReferenceData
 {
+    using App.Core.Shared.Attributes;
+    using App.Module3.Application.Constants.Api;
+
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class RegionControllerSif : ODataControllerSifResourceDataBase<Region, RegionDto>
+    [Key(ApiControllerNames.TeacherEducation)]
+    public class TeacherEducationController : ODataControllerSifResourceDataBase<TeacherEducation, TeacherEducationDto>
     {
-        public RegionControllerSif(
+
+        public TeacherEducationController(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -30,7 +35,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<RegionDto> Get()
+        public IQueryable<TeacherEducationDto> Get()
         {
             return InternalGet();
         }
@@ -43,19 +48,19 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
         /// </summary>
         [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public RegionDto Get(string key)
+        public TeacherEducationDto Get(string key)
         {
             return InternalGet(key);
         }
 
         //// POST api/values 
-        public void Post(RegionDto value)
+        public void Post(TeacherEducationDto value)
         {
             InternalPost(value);
         }
 
         //// PUT api/values/5 
-        public void Put(RegionDto value)
+        public void Put(TeacherEducationDto value)
         {
             InternalPut(value);
         }

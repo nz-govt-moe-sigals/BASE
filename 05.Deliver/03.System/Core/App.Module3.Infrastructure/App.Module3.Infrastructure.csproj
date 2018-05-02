@@ -143,10 +143,10 @@
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectToMap_EducationProviderLevelGender_EducationProviderLevelGender.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectToMap_EducationProviderLocation_EducationProviderLocation.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectToMap_EducationProviderProfile_EducationProviderProfile.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\Base\ObjectMap_TenantedFIRSTKeyedGuidIdReferenceDataBase_TenantedSIFTypeDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\MOE\V0100\Base\ObjectMap_SSKeyedGuidIdReferenceDataBase_SSTypeDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ObjectMap_EducationProviderEnrolmentCount_EducationProviderEnrolmentCountDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ObjectMap_EducationProviderLocation_EducationProviderLocationDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\Base\ObjectMap_TenantedReferenceType_TenantedReferenceTypeDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\Base\ObjectMap_SIFReferenceType_SIFReferenceTypeDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_SchoolAreaUnit_SchoolAreaUnitDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_SchoolAuthority_SchoolAuthorityDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_SchoolCommunityBoard_SchoolCommunityBoardDto.cs" />
@@ -234,7 +234,6 @@
     <Folder Include="Db\Schema\ReferenceData\" />
     <Folder Include="ExtensionMethods\" />
     <Folder Include="Factories\" />
-    <Folder Include="Initialization\ObjectMaps\Messages\MOE\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Db\Migrations\Module3.README.txt" />

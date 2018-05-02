@@ -74,10 +74,20 @@ namespace App.Core.Infrastructure.Integration.Azure.Storage
         {
             lock (_lock)
             {
-                // Develop any known required Containers, with rights as needed:
-                EnsureContainer(GetContainer(Constants.Storage.BlobStorageContainers.Public), BlobContainerPublicAccessType.Blob);
-                EnsureContainer(GetContainer(Constants.Storage.BlobStorageContainers.Private), BlobContainerPublicAccessType.Off);
-                EnsureContainer(GetContainer(Constants.Storage.BlobStorageContainers.Testing), BlobContainerPublicAccessType.Blob);
+                try
+                {
+                    // Develop any known required Containers, with rights as needed:
+                    EnsureContainer(GetContainer(Constants.Storage.BlobStorageContainers.Public),
+                        BlobContainerPublicAccessType.Blob);
+                    EnsureContainer(GetContainer(Constants.Storage.BlobStorageContainers.Private),
+                        BlobContainerPublicAccessType.Off);
+                    EnsureContainer(GetContainer(Constants.Storage.BlobStorageContainers.Testing),
+                        BlobContainerPublicAccessType.Blob);
+                }
+                catch (System.Exception e)
+                {
+                    throw;
+                }
 
                 ContainersInitialized = true;
             }

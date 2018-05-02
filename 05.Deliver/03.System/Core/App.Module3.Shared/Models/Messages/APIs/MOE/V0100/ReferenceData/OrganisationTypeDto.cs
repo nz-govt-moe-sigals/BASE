@@ -1,6 +1,7 @@
 ﻿namespace App.Module3.Shared.Models.Messages.APIs.MOE.V0100
 {
     using App.Module3.Shared.Models.Messages.APIs.MOE.V0100.Base;
+    using App.Module3.Shared.Models.Messages.APIs.SIF.V0100.Base;
 
     /// <summary>
     /// I think this is
@@ -15,7 +16,7 @@
     /// unless they add a code transalation layer as well.
     /// </para>
     /// </summary>
-    /// <seealso cref="App.Module3.Shared.Models.Messages.APIs.SIF.V0100.Base.TenantedSIFReferenceDtoBase" />
+    /// <seealso cref="SIFReferenceDtoBase" />
     public class OrganisationTypeDto : TenantedMOEReferenceDtoBase
     {
     }

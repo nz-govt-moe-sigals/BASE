@@ -20,16 +20,16 @@
     /// <seealso cref="App.Core.Shared.Models.IHasTenantFK" />
     /// <seealso cref="App.Module3.Shared.Models.Entities.IHasSIFIdAsStringId" />
     // ReSharper disable once InconsistentNaming
-    public abstract class TenantedSIFReferenceDtoBase  /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ : 
+    public abstract class SIFReferenceDtoBase  /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ : 
         IHasId<string>, 
         IHasSIFIdAsStringId
     {
 
         /// <summary>
         /// Initializes a new instance of the 
-        /// <see cref="TenantedSIFReferenceDtoBase"/> class.
+        /// <see cref="SIFReferenceDtoBase"/> class.
         /// </summary>
-        protected TenantedSIFReferenceDtoBase()
+        protected SIFReferenceDtoBase()
         {
             //this.Id = GuidFactory.NewGuid();
         }

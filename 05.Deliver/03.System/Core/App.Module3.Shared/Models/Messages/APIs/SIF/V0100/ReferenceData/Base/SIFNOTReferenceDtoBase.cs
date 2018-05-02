@@ -23,8 +23,8 @@
     /// <seealso cref="App.Core.Shared.Models.IHasTenantFK" />
     /// <seealso cref="App.Module3.Shared.Models.Entities.IHasSIFIdAsStringId" />
     /// <seealso cref="App.Module3.Shared.Models.Entities.IHasSIFNOTIdAsStringId" />
-    public abstract class TenantedSIFNOTReferenceDtoBase :
-        TenantedSIFReferenceDtoBase,
+    public abstract class SIFNOTReferenceDtoBase :
+        SIFReferenceDtoBase,
         IHasId<string>,
         IHasSIFNOTIdAsStringId
     {

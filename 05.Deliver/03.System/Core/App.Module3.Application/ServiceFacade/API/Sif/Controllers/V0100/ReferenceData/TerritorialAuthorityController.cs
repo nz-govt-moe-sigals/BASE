@@ -8,12 +8,16 @@ using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
 
 namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.ReferenceData
 {
+    using App.Core.Shared.Attributes;
+    using App.Module3.Application.Constants.Api;
+
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class WardControllerSif : ODataControllerSifResourceDataBase<Ward, WardDto>
+    [Key(ApiControllerNames.TerritorialAuthority)]
+    public class TerritorialAuthorityController : ODataControllerSifResourceDataBase<TerritorialAuthority, TerritorialAuthorityDto>
     {
-        public WardControllerSif(
+        public TerritorialAuthorityController(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -30,7 +34,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<WardDto> Get()
+        public IQueryable<TerritorialAuthorityDto> Get()
         {
             return InternalGet();
         }
@@ -41,21 +45,21 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
         /// Note OData's convention that parameter must be 'key' (not 'id' or other).
         /// </para>
         /// </summary>
-        //[ODataRoute("({key})")]
         [AllowAnonymous]
-        public WardDto Get(string key)
+        //[ODataRoute("({key})")]
+        public TerritorialAuthorityDto Get(string key)
         {
             return InternalGet(key);
         }
 
         //// POST api/values 
-        public void Post(WardDto value)
+        public void Post(TerritorialAuthorityDto value)
         {
             InternalPost(value);
         }
 
         //// PUT api/values/5 
-        public void Put(WardDto value)
+        public void Put(TerritorialAuthorityDto value)
         {
             InternalPut(value);
         }

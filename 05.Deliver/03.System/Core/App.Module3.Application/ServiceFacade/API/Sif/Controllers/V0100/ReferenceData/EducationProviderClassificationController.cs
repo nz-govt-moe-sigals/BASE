@@ -8,12 +8,16 @@ using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
 
 namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.ReferenceData
 {
+    using App.Core.Shared.Attributes;
+    using App.Module3.Application.Constants.Api;
+
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class EducationProviderGenderControllerSif : ODataControllerSifResourceDataBase<EducationProviderGender, EducationProviderGenderDto>
+    [Key(ApiControllerNames.EducationProviderClassification)]
+    public class EducationProviderClassificationController : ODataControllerSifResourceDataBase<EducationProviderClassification, EducationProviderClassificationDto>
     {
-        public EducationProviderGenderControllerSif(
+        public EducationProviderClassificationController(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -30,7 +34,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<EducationProviderGenderDto> Get()
+        public IQueryable<EducationProviderClassificationDto> Get()
         {
             return InternalGet();
         }
@@ -43,20 +47,19 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
         /// </summary>
         [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public EducationProviderGenderDto Get(string key)
+        public EducationProviderClassificationDto Get(string key)
         {
             return InternalGet(key);
         }
 
         //// POST api/values 
-        public void Post(EducationProviderGenderDto value)
+        public void Post(EducationProviderClassificationDto value)
         {
             InternalPost(value);
         }
 
-        
         //// PUT api/values/5 
-        public void Put(EducationProviderGenderDto value)
+        public void Put(EducationProviderClassificationDto value)
         {
             InternalPut(value);
         }

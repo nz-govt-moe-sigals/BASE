@@ -5,7 +5,7 @@ namespace App.Module3.Application.Initialization.OData.Implementations
 
     public class EducationProviderClassificationODataModelBuilderConfiguration  : AppModule3ODataModelBuilderReferenceDataConfigurationBase<EducationProviderClassificationDto>
     {
-        public EducationProviderClassificationODataModelBuilderConfiguration() : base(ApiControllerNames.SchoolClassification)
+        public EducationProviderClassificationODataModelBuilderConfiguration() : base(ApiControllerNames.EducationProviderClassification)
         {
         }
     }

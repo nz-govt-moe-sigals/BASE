@@ -8,12 +8,16 @@ using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
 
 namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.ReferenceData
 {
+    using App.Core.Shared.Attributes;
+    using App.Module3.Application.Constants.Api;
+
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class AreaUnitControllerSif : ODataControllerSifResourceDataBase<AreaUnit, AreaUnitDto>
+    [Key(ApiControllerNames.EducationProviderYearLevel)]
+    public class EducationProviderYearLevelController : ODataControllerSifResourceDataBase<EducationProviderYearLevel, EducationProviderYearLevelDto>
     {
-        public AreaUnitControllerSif(
+        public EducationProviderYearLevelController(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -30,7 +34,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<AreaUnitDto> Get()
+        public IQueryable<EducationProviderYearLevelDto> Get()
         {
             return InternalGet();
         }
@@ -43,19 +47,19 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
         /// </summary>
         [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public AreaUnitDto Get(string key)
+        public EducationProviderYearLevelDto Get(string key)
         {
             return InternalGet(key);
         }
 
         //// POST api/values 
-        public void Post(AreaUnitDto value)
+        public void Post(EducationProviderYearLevelDto value)
         {
             InternalPost(value);
         }
 
         //// PUT api/values/5 
-        public void Put(AreaUnitDto value)
+        public void Put(EducationProviderYearLevelDto value)
         {
             InternalPut(value);
         }

@@ -8,12 +8,16 @@ using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
 
 namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.ReferenceData
 {
+    using App.Core.Shared.Attributes;
+    using App.Module3.Application.Constants.Api;
+
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class CommunityBoardControllerSif : ODataControllerSifResourceDataBase<CommunityBoard, CommunityBoardDto>
+    [Key(ApiControllerNames.Region)]
+    public class RegionController : ODataControllerSifResourceDataBase<Region, RegionDto>
     {
-        public CommunityBoardControllerSif(
+        public RegionController(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -22,13 +26,15 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
             (diagnosticsTracingService, principalService, repositoryService, objectMappingService, secureApiMessageAttribute)
         {
         }
+
+
         // GET api/values 
         //[ApplyDataContractResolver]
         //[ApplyProxyDataContractResolverAttribute]
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<CommunityBoardDto> Get()
+        public IQueryable<RegionDto> Get()
         {
             return InternalGet();
         }
@@ -41,10 +47,21 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
         /// </summary>
         [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public CommunityBoardDto Get(string key)
+        public RegionDto Get(string key)
         {
             return InternalGet(key);
         }
 
+        //// POST api/values 
+        public void Post(RegionDto value)
+        {
+            InternalPost(value);
+        }
+
+        //// PUT api/values/5 
+        public void Put(RegionDto value)
+        {
+            InternalPut(value);
+        }
     }
 }

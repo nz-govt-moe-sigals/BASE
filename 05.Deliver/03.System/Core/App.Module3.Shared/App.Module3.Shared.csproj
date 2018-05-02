@@ -117,8 +117,8 @@
     <Compile Include="Models\Messages\APIs\SIF\V0100\EducationProviderProfile.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\ReferenceData\AreaUnitDto.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\ReferenceData\AuthorityTypeDto.cs" />
-    <Compile Include="Models\Messages\APIs\SIF\V0100\ReferenceData\Base\TenantedSIFNOTReferenceDtoBase.cs" />
-    <Compile Include="Models\Messages\APIs\SIF\V0100\ReferenceData\Base\TenantedSIFReferenceDtoBase.cs" />
+    <Compile Include="Models\Messages\APIs\SIF\V0100\ReferenceData\Base\SIFNOTReferenceDtoBase.cs" />
+    <Compile Include="Models\Messages\APIs\SIF\V0100\ReferenceData\Base\SIFReferenceDtoBase.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\ReferenceData\CommunityBoardDto.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\ReferenceData\GeneralElectorateDto.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\ReferenceData\MaoriElectorateDto.cs" />

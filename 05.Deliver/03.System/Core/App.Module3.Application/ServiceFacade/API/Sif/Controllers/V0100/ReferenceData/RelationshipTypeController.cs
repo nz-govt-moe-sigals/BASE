@@ -8,12 +8,16 @@ using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
 
 namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.ReferenceData
 {
+    using App.Core.Shared.Attributes;
+    using App.Module3.Application.Constants.Api;
+
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class RelationshipTypeControllerSif : ODataControllerSifResourceDataBase<RelationshipType, RelationshipTypeDto>
+    [Key(ApiControllerNames.RelationshipType)]
+    public class RelationshipTypeController : ODataControllerSifResourceDataBase<RelationshipType, RelationshipTypeDto>
     {
-        public RelationshipTypeControllerSif(
+        public RelationshipTypeController(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,

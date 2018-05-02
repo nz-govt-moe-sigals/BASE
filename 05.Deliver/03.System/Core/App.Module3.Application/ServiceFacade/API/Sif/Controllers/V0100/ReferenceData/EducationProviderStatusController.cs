@@ -8,12 +8,16 @@ using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
 
 namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.ReferenceData
 {
+    using App.Core.Shared.Attributes;
+    using App.Module3.Application.Constants.Api;
+
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class SchoolYearLevelControllerSif : ODataControllerSifResourceDataBase<EducationProviderYearLevel, EducationProviderYearLevelDto>
+    [Key(ApiControllerNames.EducationProviderStatus)]
+    public class EducationProviderStatusController : ODataControllerSifResourceDataBase<EducationProviderStatus, OrganisationStatusDto>
     {
-        public SchoolYearLevelControllerSif(
+        public EducationProviderStatusController(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -30,7 +34,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<EducationProviderYearLevelDto> Get()
+        public IQueryable<OrganisationStatusDto> Get()
         {
             return InternalGet();
         }
@@ -43,21 +47,10 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
         /// </summary>
         [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public EducationProviderYearLevelDto Get(string key)
+        public OrganisationStatusDto Get(string key)
         {
             return InternalGet(key);
         }
 
-        //// POST api/values 
-        public void Post(EducationProviderYearLevelDto value)
-        {
-            InternalPost(value);
-        }
-
-        //// PUT api/values/5 
-        public void Put(EducationProviderYearLevelDto value)
-        {
-            InternalPut(value);
-        }
     }
 }

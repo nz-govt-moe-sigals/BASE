@@ -8,12 +8,16 @@ using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
 
 namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.ReferenceData
 {
+    using App.Core.Shared.Attributes;
+    using App.Module3.Application.Constants.Api;
+
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class UrbanAreaControllerSifControllerSif : ODataControllerSifResourceDataBase<UrbanArea, UrbanAreaDto>
+    [Key(ApiControllerNames.RegionalCouncil)]
+    public class RegionalCouncilController : ODataControllerSifResourceDataBase<RegionalCouncil, RegionalCouncilDto>
     {
-        public UrbanAreaControllerSifControllerSif(
+        public RegionalCouncilController(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -30,7 +34,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<UrbanAreaDto> Get()
+        public IQueryable<RegionalCouncilDto> Get()
         {
             return InternalGet();
         }
@@ -43,19 +47,19 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
         /// </summary>
         [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public UrbanAreaDto Get(string key)
+        public RegionalCouncilDto Get(string key)
         {
             return InternalGet(key);
         }
 
         //// POST api/values 
-        public void Post(UrbanAreaDto value)
+        public void Post(RegionalCouncilDto value)
         {
             InternalPost(value);
         }
 
         //// PUT api/values/5 
-        public void Put(UrbanAreaDto value)
+        public void Put(RegionalCouncilDto value)
         {
             InternalPut(value);
         }

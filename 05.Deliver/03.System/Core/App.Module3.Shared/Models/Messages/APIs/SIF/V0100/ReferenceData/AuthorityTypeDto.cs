@@ -11,8 +11,8 @@ namespace App.Module3.Shared.Models.Messages.APIs.SIF.V0100
     /// of the entity, it's SIFKey.
     /// </para>
     /// </summary>
-    /// <seealso cref="App.Module3.Shared.Models.Messages.APIs.SIF.V0100.Base.TenantedSIFReferenceDtoBase" />
-    public class AuthorityTypeDto : TenantedSIFReferenceDtoBase
+    /// <seealso cref="SIFReferenceDtoBase" />
+    public class AuthorityTypeDto : SIFReferenceDtoBase
     {
     }
 }

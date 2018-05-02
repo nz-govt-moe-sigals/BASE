@@ -8,12 +8,16 @@ using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
 
 namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.ReferenceData
 {
+    using App.Core.Shared.Attributes;
+    using App.Module3.Application.Constants.Api;
+
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class OrganisationTypeControllerSif : ODataControllerSifResourceDataBase<EducationProviderType, OrganisationTypeDto>
+    [Key(ApiControllerNames.CommunityBoard)]
+    public class CommunityBoardController : ODataControllerSifResourceDataBase<CommunityBoard, CommunityBoardDto>
     {
-        public OrganisationTypeControllerSif(
+        public CommunityBoardController(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -22,15 +26,13 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
             (diagnosticsTracingService, principalService, repositoryService, objectMappingService, secureApiMessageAttribute)
         {
         }
-
-
         // GET api/values 
         //[ApplyDataContractResolver]
         //[ApplyProxyDataContractResolverAttribute]
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<OrganisationTypeDto> Get()
+        public IQueryable<CommunityBoardDto> Get()
         {
             return InternalGet();
         }
@@ -43,21 +45,10 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
         /// </summary>
         [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public OrganisationTypeDto Get(string key)
+        public CommunityBoardDto Get(string key)
         {
             return InternalGet(key);
         }
 
-        //// POST api/values 
-        public void Post(OrganisationTypeDto value)
-        {
-            InternalPost(value);
-        }
-
-        //// PUT api/values/5 
-        public void Put(OrganisationTypeDto value)
-        {
-            InternalPut(value);
-        }
     }
 }

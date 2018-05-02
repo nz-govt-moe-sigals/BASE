@@ -242,9 +242,10 @@
                 var result = this._keyVaultService.RetrieveSecretAsync(key).Result;
                 return result;
             }
-            catch
+            catch (System.Exception e)
             {
                 this._diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Did not find an KeyVault Secret with id '{key}'.");
+                this._diagnosticsTracingService.Trace(TraceLevel.Verbose, e.Message);
                 throw;
             }
         }

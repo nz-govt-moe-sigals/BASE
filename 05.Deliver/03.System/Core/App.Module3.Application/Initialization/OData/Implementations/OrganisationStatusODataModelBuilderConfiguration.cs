@@ -5,7 +5,7 @@ namespace App.Module3.Application.Initialization.OData.Implementations
 
     public class OrganisationStatusODataModelBuilderConfiguration  : AppModule3ODataModelBuilderReferenceDataConfigurationBase<OrganisationStatusDto>
     {
-        public OrganisationStatusODataModelBuilderConfiguration() : base(ApiControllerNames.OrganisationStatus)
+        public OrganisationStatusODataModelBuilderConfiguration() : base(ApiControllerNames.EducationProviderStatus)
         {
         }
     }

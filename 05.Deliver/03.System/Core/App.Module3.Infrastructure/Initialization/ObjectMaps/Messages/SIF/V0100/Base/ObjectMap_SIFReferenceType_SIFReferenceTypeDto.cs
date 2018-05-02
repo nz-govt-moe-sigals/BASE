@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using App.Core.Infrastructure.Initialization.ObjectMaps;
-using App.Module3.Shared.Models.Entities;
-using App.Module3.Shared.Models.Messages.APIs.SIF.V0100.Base;
-using AutoMapper;
-
-namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V0100.Base
+﻿namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V0100.Base
 {
+    using App.Core.Infrastructure.Initialization.ObjectMaps;
+    using App.Module3.Shared.Models.Entities;
+    using App.Module3.Shared.Models.Messages.APIs.SIF.V0100.Base;
+    using AutoMapper;
+
     /// <summary>
     /// A Base class for 
     /// an outward (Entity -> DTO) map.
@@ -21,10 +16,10 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TDto">The type of the dto.</typeparam>
     /// <seealso cref="App.Core.Infrastructure.Initialization.ObjectMaps.IHasAutomapperInitializer" />
-    public class ObjectMap_TenantedFIRSTKeyedGuidIdReferenceDataBase_TenantedSIFReferenceTypeDto<T, TDto>
+    public abstract class ObjectMap_SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase_TenantedSIFReferenceTypeDto<T,TDto> 
         : IHasAutomapperInitializer
-        where T : SourceSystemKeyedTenantedGuidIdReferenceDataBase
-        where TDto : TenantedSIFReferenceDtoBase
+        where T : SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase
+        where TDto: SIFReferenceDtoBase
     {
 
         public void Initialize(IMapperConfigurationExpression config)
@@ -32,9 +27,10 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
             config.CreateMap<T, TDto>()
                 // IMPORTANT: Note that we are mapping from SIF to Id.
                 // Hopefully Automapper's Project method can handle this magic...
-                .ForMember(t => t.Id, opt => opt.MapFrom(s => s.SourceSystemKey))
+                .ForMember(t => t.Id, opt => opt.MapFrom(s => s.SIFKey))
                 .ForMember(t => t.Text, opt => opt.MapFrom(s => s.Text))
                 ;
         }
+
     }
 }

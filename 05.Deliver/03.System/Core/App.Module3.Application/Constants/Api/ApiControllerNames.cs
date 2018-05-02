@@ -8,29 +8,29 @@ namespace App.Module3.Application.Constants.Api
 {
     public static class ApiControllerNames
     {
-        public static string Example = "exampledto";
+        public const string Example = "exampledto";
 
 
-        public static string Suffix = "";
+        public const string Suffix = "";
         // Reference Data:
-        public static string AreaUnit = "AreaUnit" + Suffix;
-        public static string AuthorityType = "AuthorityType" + Suffix;
-        public static string CommunityBoard = "CommunityBoard" + Suffix;
-        public static string GeneralElectorate = "GeneralElectorate" + Suffix;
-        public static string MaoriElectorate = "MaoriElectorate" + Suffix;
-        public static string OrganisationType = "OrganisationType" + Suffix;
-        public static string OrganisationStatus = "OrganisationStatus" + Suffix;
-        public static string Region = "Region" + Suffix;
-        public static string RegionalCouncil = "RegionalCouncil" + Suffix;
-        public static string RelationshipType = "RelationshipType" + Suffix;
-        public static string SchoolClassification = "SchoolClassification" + Suffix;
-        public static string SchoolingGender = "SchoolingGender" + Suffix;
-        public static string SchoolYearLevel = "SchoolYearLevel" + Suffix;
-        public static string SpecialSchooling = "SpecialSchooling" + Suffix;
-        public static string TeacherEducation = "TeacherEducation" + Suffix;
-        public static string TerritorialAuthority = "TerritorialAuthority" + Suffix;
-        public static string UrbanArea = "UrbanArea" + Suffix;
-        public static string Ward = "Ward" + Suffix;
+        public const string AreaUnit = "AreaUnit" + Suffix;
+        public const string AuthorityType = "AuthorityType" + Suffix;
+        public const string CommunityBoard = "CommunityBoard" + Suffix;
+        public const string GeneralElectorate = "GeneralElectorate" + Suffix;
+        public const string MaoriElectorate = "MaoriElectorate" + Suffix;
+        public const string EducationProviderType = "EducationProviderType" + Suffix;
+        public const string EducationProviderStatus = "EducationProviderStatus" + Suffix;
+        public const string Region = "Region" + Suffix;
+        public const string RegionalCouncil = "RegionalCouncil" + Suffix;
+        public const string RelationshipType = "RelationshipType" + Suffix;
+        public const string EducationProviderClassification = "EducationProviderClassification" + Suffix;
+        public const string SchoolingGender = "SchoolingGender" + Suffix;
+        public const string EducationProviderYearLevel = "EducationProviderYearLevel" + Suffix;
+        public const string SpecialSchooling = "SpecialSchooling" + Suffix;
+        public const string TeacherEducation = "TeacherEducation" + Suffix;
+        public const string TerritorialAuthority = "TerritorialAuthority" + Suffix;
+        public const string UrbanArea = "UrbanArea" + Suffix;
+        public const string Ward = "Ward" + Suffix;
         // Resources:
     }
 }

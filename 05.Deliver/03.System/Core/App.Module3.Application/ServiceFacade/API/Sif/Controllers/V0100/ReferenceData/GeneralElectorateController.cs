@@ -8,13 +8,16 @@ using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
 
 namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.ReferenceData
 {
+    using App.Core.Shared.Attributes;
+    using App.Module3.Application.Constants.Api;
+
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class TeacherEducationControllerSif : ODataControllerSifResourceDataBase<TeacherEducation, TeacherEducationDto>
+    [Key(ApiControllerNames.GeneralElectorate)]
+    public class GeneralElectorateController : ODataControllerSifResourceDataBase<GeneralElectorate, GeneralElectorateDto>
     {
-
-        public TeacherEducationControllerSif(
+        public GeneralElectorateController(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -31,7 +34,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<TeacherEducationDto> Get()
+        public IQueryable<GeneralElectorateDto> Get()
         {
             return InternalGet();
         }
@@ -44,19 +47,19 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
         /// </summary>
         [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public TeacherEducationDto Get(string key)
+        public GeneralElectorateDto Get(string key)
         {
             return InternalGet(key);
         }
 
         //// POST api/values 
-        public void Post(TeacherEducationDto value)
+        public void Post(GeneralElectorateDto value)
         {
             InternalPost(value);
         }
 
         //// PUT api/values/5 
-        public void Put(TeacherEducationDto value)
+        public void Put(GeneralElectorateDto value)
         {
             InternalPut(value);
         }

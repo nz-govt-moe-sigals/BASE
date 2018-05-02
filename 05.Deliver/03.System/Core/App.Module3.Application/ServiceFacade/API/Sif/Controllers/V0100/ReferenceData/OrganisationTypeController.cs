@@ -8,12 +8,16 @@ using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
 
 namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.ReferenceData
 {
+    using App.Core.Shared.Attributes;
+    using App.Module3.Application.Constants.Api;
+
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class MaoriElectorateControllerSif : ODataControllerSifResourceDataBase<MaoriElectorate, MaoriElectorateDto>
+    [Key(ApiControllerNames.EducationProviderType)]
+    public class OrganisationTypeController : ODataControllerSifResourceDataBase<EducationProviderType, OrganisationTypeDto>
     {
-        public MaoriElectorateControllerSif(
+        public OrganisationTypeController(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,
@@ -30,7 +34,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<MaoriElectorateDto> Get()
+        public IQueryable<OrganisationTypeDto> Get()
         {
             return InternalGet();
         }
@@ -43,19 +47,19 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
         /// </summary>
         [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public MaoriElectorateDto Get(string key)
+        public OrganisationTypeDto Get(string key)
         {
             return InternalGet(key);
         }
 
         //// POST api/values 
-        public void Post(MaoriElectorateDto value)
+        public void Post(OrganisationTypeDto value)
         {
             InternalPost(value);
         }
 
         //// PUT api/values/5 
-        public void Put(MaoriElectorateDto value)
+        public void Put(OrganisationTypeDto value)
         {
             InternalPut(value);
         }

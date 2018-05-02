@@ -9,8 +9,8 @@
     /// Uses SIF Codes as public PK.
     /// </para>
     /// </summary>
-    /// <seealso cref="App.Module3.Shared.Models.Messages.APIs.SIF.V0100.Base.TenantedSIFReferenceDtoBase" />
-    public class RegionDto : TenantedSIFReferenceDtoBase
+    /// <seealso cref="SIFReferenceDtoBase" />
+    public class RegionDto : SIFReferenceDtoBase
     {
     }
 }
