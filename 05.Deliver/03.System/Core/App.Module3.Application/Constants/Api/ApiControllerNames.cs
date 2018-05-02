@@ -8,6 +8,19 @@ namespace App.Module3.Application.Constants.Api
 {
     public static class ApiControllerNames
     {
+
+
+        // Even if not used, keep, in order to keep relationship
+        // withou ModuleKey:
+        private static string PathRootOriginal = Infrastructure.Constants.Module.Names.ModuleKey.ToLower();
+
+        /// <summary>
+        /// The root of the path to API/OData Controllers within this module.
+        /// ie: foo.com/odata/educationproviders/genders/
+        /// </summary>
+        public static string PathRoot = "EducationProviders".ToLower();
+
+
         public const string Example = "exampledto";
 
 
