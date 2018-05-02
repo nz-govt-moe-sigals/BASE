@@ -18,11 +18,12 @@ function Provision-Variables {
     #>
     [CmdletBinding()]
     Param (
-        [Parameter(mandatory = $false)] [string]$defaultMasterBranchNameReplacement = "00000",
+        [Parameter(mandatory = $false)] [string]$defaultMasterBranchNameReplacement = "000000",
         [Parameter(mandatory = $false)] [string]$defaultResourceLocationIdentifier = "australiaeast"
     )
 
-    $countLength =  [math]::max($defaultMasterBranchNameReplacement.Length,4)
+    $countLength =  [math]::max($defaultMasterBranchNameReplacement.Length,5)
+    
     
     <#
   # README
@@ -265,6 +266,6 @@ function Provision-Variables {
 # --------------------------------------------------
 # --------------------------------------------------
 # Invoke Method
-Provision-Variables -defaultMasterBranchNameReplacement:"00000" -defaultResourceLocationIdentifier "australiaeast"
+Provision-Variables -defaultMasterBranchNameReplacement:"000000" -defaultResourceLocationIdentifier "australiaeast"
 # --------------------------------------------------
 # --------------------------------------------------

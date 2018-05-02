@@ -2,6 +2,17 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "environmentId": {
+      "value": "--"
+    },
+    "environmentOverrides": {
+      "value": {
+        "UT": {
+          "webSiteHostNameBindingHostName": "www.baseplatform.space",
+          "webSiteHostNameBindingHostNameAlt": "baseplatform.space"
+        }
+      }
+    },
     "linkedAssembliesArmTemplateRootUrl": {
       "value": "https://baseinfrastructureshared.blob.core.windows.net/public/base/infrastructure/releases/v-.-/arm-templates/commented/assemblies/"
     },
@@ -12,7 +23,7 @@
       "value": "NZ-MOE-BASE-0000-BT-{RT}"
     },
     "securityApproach": {
-      "value": "msi"
+      "value": "insecure"
     },
     "cacheRedisProvision": {
       "value": false
@@ -87,17 +98,33 @@
     "webSiteConfigConnectionStringsDeveloperStatingSecretsAreNotRecordedInCode": {
       "value": "ATotalIdiotForEmbeddingSecretsInAFileAndCheckingItIn"
     },
-    "webSiteHostNameBindingHostName": {
-      "value": "www.baseplatform.space"
-    },
-    "webSiteHostNameBindingHostNameAlt": {
-      "value": "baseplatform.space"
-    },
+
     "servicesMalwareDetectionClientId": {
       "value": "394d3e42-18e1-4758-87b2-29e22c59d64b"
     },
     "servicesMalwareDetectionClientSecret": {
       "value": "c841994b1"
+    },
+    "servicesService01Name":{
+      "value":"External DataFactory Hydrated CosmoDb Database"
+    },
+    "servicesService01Uri":{
+      "value":"https://nzmoebase.documents.azure.com:443/"
+    },
+    "servicesService01ClientId":{
+      "value":""
+    },
+    "servicesService01ClientSecret":{
+      "value":"wEDBI7B1MPHtNK4y2Myi1h5falYVviMuVBQHgI9hUzT4HnLxsRCJzUC4BPvXW2XEzPJHFztRzhpRK6lBI3NG6A=="
+    },
+    "servicesService01ClientMiscConfiguration":{
+      "value":"DatabaseName=dataFactory;CollectionName=syncData;"
+    },
+    "webSiteHostNameBindingHostName":{
+      "value":""
+    },
+    "webSiteHostNameBindingHostNameAlt":{
+      "value":""
     }
   }
 }

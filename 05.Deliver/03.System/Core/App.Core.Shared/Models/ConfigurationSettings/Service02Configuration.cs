@@ -5,12 +5,12 @@ namespace App.Core.Shared.Models.Configuration.AppHost
     using App.Core.Shared.Attributes;
     using App.Core.Shared.Models.ConfigurationSettings;
 
-    public class ScaniiHostConfiguration: IHostSettingsBasedConfigurationObject
+    public class Service02Configuration: IHostSettingsBasedConfigurationObject
     {
 
         // Make sure this kind of secrets are not gotten from AppSettings.
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
-        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationMalwareDetectionClientId)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationService02ClientId)]
         public string Key
         {
             get; set;
@@ -18,7 +18,7 @@ namespace App.Core.Shared.Models.Configuration.AppHost
 
         // Make sure this kind of secrets are not gotten from AppSettings.
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
-        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationMalwareDetectionClientSecret)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationService02ClientSecret)]
         public string Secret
         {
             get; set;
@@ -26,7 +26,7 @@ namespace App.Core.Shared.Models.Configuration.AppHost
 
 
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
-        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationMalwareDetectionBaseUri)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationService02BaseUri)]
         public string BaseUri
         {
             get; set;
@@ -34,10 +34,11 @@ namespace App.Core.Shared.Models.Configuration.AppHost
 
 
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
-        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationMalwareDetectionClientMiscConfig)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationService02MiscConfig)]
         public string MiscConfig
         {
             get; set;
         }
+
     }
 }

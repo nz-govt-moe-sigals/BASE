@@ -2,6 +2,17 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "environmentId": {
+      "value": "--"
+    },
+    "environmentOverrides": {
+      "value": {
+        "UT": {
+          "webSiteHostNameBindingHostName": "www.baseplatform.space",
+          "webSiteHostNameBindingHostNameAlt": "baseplatform.space"
+        }
+      }
+    },
     "linkedAssembliesArmTemplateRootUrl": {
       "value": "https://baseinfrastructureshared.blob.core.windows.net/public/base/infrastructure/releases/v-.-/arm-templates/commented/assemblies/"
     },
@@ -109,11 +120,11 @@
     "webSiteConfigConnectionStringsDeveloperStatingSecretsAreNotRecordedInCode": {
       "value": "sigals"
     },
-    "webSiteHostNameBindingHostName": {
-      "value": "www.baseplatform.space"
+    "webSiteHostNameBindingHostName":{
+      "value":""
     },
-    "webSiteHostNameBindingHostNameAlt": {
-      "value": "baseplatform.space"
+    "webSiteHostNameBindingHostNameAlt":{
+      "value":""
     }
   }
 }
