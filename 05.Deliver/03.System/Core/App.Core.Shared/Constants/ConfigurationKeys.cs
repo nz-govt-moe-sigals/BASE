@@ -44,7 +44,8 @@ namespace App.Core.Shared.Constants
         // -----
         // Integration / Azure:
         // WHen reosurces are not named (eg: DocumentDbResourceName), falls back to this setting:
-        public const string AppCoreIntegrationAzureCommonResourceName = SystemAzureIntegrationKeyPrefix + "Common-ResourceName";
+        public const string AppCoreIntegrationAzureCommonResourceName = SystemAzureIntegrationKeyPrefix + "Arm-Resources-DefaultName";
+
         // -----
         // Integration / Azure / AppInsights 
         public const string AppCoreIntegrationAzureApplicationInsightsInstrumentationKey =
