@@ -150,8 +150,11 @@
 
         public void AttachOnCommit<TModel>(string contextKey, TModel model) where TModel : class
         {
-            GetDbSet<TModel>(contextKey).Attach(model);
-            GetDbContext(contextKey).Entry(model).State = EntityState.Modified;
+            if (GetDbContext(contextKey).Entry(model).State != EntityState.Added) // since it's added dont' updated
+            {
+                GetDbSet<TModel>(contextKey).Attach(model);
+                GetDbContext(contextKey).Entry(model).State = EntityState.Modified;
+            }
         }
 
 
