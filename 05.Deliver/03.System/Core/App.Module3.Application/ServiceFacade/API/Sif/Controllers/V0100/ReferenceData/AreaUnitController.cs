@@ -8,12 +8,14 @@ using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
 
 namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.ReferenceData
 {
+    using System.Web.OData.Routing;
     using App.Core.Shared.Attributes;
     using App.Module3.Application.Constants.Api;
 
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
+    [ODataRoutePrefix("areaunit")]
     [Key(ApiControllerNames.AreaUnit)]
     public class AreaUnitController : ODataControllerSifResourceDataBase<AreaUnit, AreaUnitDto>
     {

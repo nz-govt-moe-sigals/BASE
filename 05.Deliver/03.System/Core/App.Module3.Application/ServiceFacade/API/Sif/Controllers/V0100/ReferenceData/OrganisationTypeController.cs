@@ -15,9 +15,9 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
 
     //[ODataRoutePrefix("body")]
     [Key(ApiControllerNames.EducationProviderType)]
-    public class OrganisationTypeController : ODataControllerSifResourceDataBase<EducationProviderType, OrganisationTypeDto>
+    public class EducationProviderTypeController : ODataControllerSifResourceDataBase<EducationProviderType, OrganisationTypeDto>
     {
-        public OrganisationTypeController(
+        public EducationProviderTypeController(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
             IRepositoryService repositoryService,

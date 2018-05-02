@@ -5,7 +5,7 @@ namespace App.Module3.Application.Initialization.OData.Implementations
 
     public class SchoolYearLevelODataModelBuilderConfiguration  : AppModule3ODataModelBuilderReferenceDataConfigurationBase<EducationProviderYearLevelDto>
     {
-        public SchoolYearLevelODataModelBuilderConfiguration() : base(ApiControllerNames.SchoolYearLevel)
+        public SchoolYearLevelODataModelBuilderConfiguration() : base(ApiControllerNames.EducationProviderYearLevel)
         {
         }
     }
