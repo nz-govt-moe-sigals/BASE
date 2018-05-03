@@ -38,7 +38,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "README", "README", "{8A4F3C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Core.Infrastructure.IDA", "App.Core.Infrastructure.OIDC\App.Core.Infrastructure.IDA.csproj", "{1F881B79-5EE4-42AA-8143-E2BF3BFDF4D9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{BF5BE208-7B53-484F-857B-F8F17289D5C8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module0.Core", "Module0.Core", "{BF5BE208-7B53-484F-857B-F8F17289D5C8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Core.Infrastructure.IDA.Tests", "App.Core.Infrastructure.OIDC.Tests\App.Core.Infrastructure.IDA.Tests.csproj", "{02248FC2-E362-4178-8946-AFD83DEA0F8F}"
 EndProject
