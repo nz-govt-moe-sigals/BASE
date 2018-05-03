@@ -20,7 +20,7 @@ namespace App.Module3.Application.Initialization.OData.Implementations
 
         protected AppModule3ODataModelBuilderReferenceDataConfigurationBase(string controllerName)
         {
-            this._controllerName = controllerName;
+            this._controllerName = controllerName.ToLower();
         }
 
         public void Define(object builder)

@@ -23,6 +23,7 @@ namespace App.Module3.Application.Constants.Api
 
         public const string Example = "exampledto";
 
+        // Note that the paths to the controllers will be registered in lower case...
 
         public const string Suffix = "";
         // Reference Data:
