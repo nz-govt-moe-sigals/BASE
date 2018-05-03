@@ -330,6 +330,7 @@
     <Compile Include="Services\Implementations\SharedAzureKeyVaultService.cs" />
     <Compile Include="Services\ISharedAzureKeyVaultService.cs" />
     <Compile Include="Startup\Spikes\msiTokenRetrievalFromDev.cs" />
+    <Compile Include="TOMOVE.cs" />
     <Compile Include="_old\IDictionaryBasedMimeTypeServiceConfiguration.cs" />
     <Compile Include="Services\IApplicationSettingsService.cs" />
     <Compile Include="Services\ICachingService.cs" />

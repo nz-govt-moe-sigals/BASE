@@ -330,15 +330,10 @@
     <Compile Include="App_Start\Extended\InitializerConfig.cs" />
     <Compile Include="App_Start\Extended\WebApiVersionConfig.cs" />
     <Compile Include="App_Start\StructuremapInterception.cs" />
-    <Compile Include="Filters\WebApi\WebApiAppAuthorizeAttribute.cs" />
+    <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
     <Compile Include="DependencyResolution\AppModule1Registry.cs" />
     <Compile Include="DependencyResolution\Interceptors\AuthorisationInterceptor.cs" />
     <Compile Include="Filters\WebMvc\WebMvcAppAuthorizeAttribute.cs" />
-    <Compile Include="Initialization\DependencyResolution\AppCoreRegistry.cs" />
-    <Compile Include="Initialization\OData\IAppOdataModelBuilder.cs" />
-    <Compile Include="Initialization\OData\IAppOdataModelBuilderConfiguration.cs" />
-    <Compile Include="Initialization\OData\Implementations\AppCoreOdataModelBuilder.cs" />
-    <Compile Include="Initialization\OData\Implementations\AppOdataModelBuilder.cs" />
     <Compile Include="App_Start\Extended\AuthConfig.cs" />
     <Compile Include="App_Start\Extended\AutoMapperConfig.cs" />
     <Compile Include="App_Start\Extended\DbContextConfig.cs" />
@@ -354,34 +349,8 @@
     <Compile Include="App_Start\Extended\WebApiJsonSerializerConfig.cs" />
     <Compile Include="App_Start\Extended\WebApiODataConfig.cs" />
     <Compile Include="App_Start\Extended\WebApiRouteConfig.cs" />
-    <Compile Include="Constants\Api\ApiControllerNames.cs" />
     <Compile Include="FilterConfig.cs" />
-    <Compile Include="Initialization\OData\IAppCoreOdataModelBuilder.cs" />
-    <Compile Include="Initialization\OData\Implementations\BaseClasses\AppCoreODataModelBuilderConfigurationBase.cs" />
-    <Compile Include="Initialization\OData\Implementations\DataClassificationOdataModelBuilderConfiguration.cs" />
-    <Compile Include="Initialization\OData\Implementations\ApplicationDescriptionOdataModelBuilderConfiguration.cs" />
-    <Compile Include="Initialization\OData\Implementations\ExceptionRecordOdataModelBuilderConfiguration.cs" />
-    <Compile Include="Initialization\OData\Implementations\ConfigurationStepRecordOdataModelBuilderConfiguration.cs" />
-    <Compile Include="Initialization\OData\Implementations\MediaMetadataOdataModelBuilderConfiguration.cs" />
-    <Compile Include="Initialization\OData\Implementations\PrincipalPropertyOdataModelBuilderConfiguration.cs" />
-    <Compile Include="Initialization\OData\Implementations\PrincipalClaimOdataModelBuilderConfiguration.cs" />
-    <Compile Include="Initialization\OData\Implementations\PrincipalTagOdataModelBuilderConfiguration.cs" />
-    <Compile Include="Initialization\OData\Implementations\PrincipalCategoryOdataModelBuilderConfiguration.cs" />
-    <Compile Include="Initialization\OData\Implementations\RoleOdataModelBuilderConfiguration.cs" />
-    <Compile Include="Initialization\OData\Implementations\SessionOperationOdataModelBuilderConfiguration.cs" />
-    <Compile Include="Initialization\OData\Implementations\TenantClaimOdataModelBuilderConfiguration.cs" />
-    <Compile Include="Initialization\OData\Implementations\TenantPropertyOdataModelBuilderConfiguration.cs" />
-    <Compile Include="Initialization\OData\IAppCoreOdataModelBuilderConfiguration.cs" />
-    <Compile Include="Initialization\OData\Implementations\NotificationOdataModelBuilderConfiguration.cs" />
-    <Compile Include="Initialization\OData\Implementations\PrincipalOdataModelBuilderConfiguration.cs" />
-    <Compile Include="Initialization\OData\Implementations\SessionOdataModelBuilderConfiguration.cs" />
-    <Compile Include="Initialization\OData\Implementations\TenantOdataModelBuilderConfiguration.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyScopeFactory.cs" />
-    <Compile Include="ExtensionMethods\HttpRequestBaseExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\HttpRequestExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\HttpRequestMessageExtensionMethods.cs" />
-    <Compile Include="Filters\WebApi\SessionOperationWebApiActionFilterAttribute.cs" />
-    <Compile Include="Filters\WebApi\ThrottleWebAPIActionFilterAttribute.cs" />
     <Compile Include="Filters\WebMvc\DbContexCommenttWebMvcActionFilterAttribute.cs" />
     <Compile Include="Filters\WebMvc\SessionOperationWebMvcActionFilterAttribute.cs" />
     <Compile Include="Filters\WebMvc\MyRequireHttpsWebMvcFilterAttribute.cs" />
@@ -393,11 +362,7 @@
     <Compile Include="DependencyResolution\StructureMapScopeModule.cs" />
     <Compile Include="DependencyResolution\StructureMapWebApiDependencyResolver.cs" />
     <Compile Include="DependencyResolution\StructureMapWebApiDependencyScope.cs" />
-    <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
-    <Compile Include="Filters\WebApi\DbContextCommitWebApiActionFilterAttribute.cs" />
-    <Compile Include="Filters\WebApi\RequireHttpsWebApiFilterAttribute.cs" />
     <Compile Include="Filters\WebMvc\ThrottleMvcActionFilterAttribute.cs" />
-    <Compile Include="Initialization\HttpConfigurationLocator.cs" />
     <Compile Include="Middleware\BasicMiddlewareAppBuilderExtensions.cs" />
     <Compile Include="Middleware\RequestTenantMiddleware.cs" />
     <Compile Include="Models\MediaUpload.cs" />
@@ -443,7 +408,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Implementations\AppCoreApplicationServiceBase.cs" />
     <Compile Include="Services\ITaskService.cs" />
-    <Compile Include="Services\Implementations\TaskService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="StartupExtended.cs" />
   </ItemGroup>
@@ -457,7 +421,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <None Include="DependencyResolution\_README.md" />
-    <Compile Include="Filters\WebApi\AppAuthorizeFilterAttribute.cs" />
     <Content Include="_readme.nuget.txt" />
     <None Include="Filters\readme.md" />
     <Content Include="HttpErrors\HTTP000.html" />
@@ -490,7 +453,6 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Connected Services\Application Insights\ConnectedService.json" />
     <Content Include="robots.txt" />
-    <Content Include="Filters\WebApi\readme.md" />
     <Content Include="Presentation\Controllers\_readme.md" />
     <Content Include="ServiceFacade\API\Controllers\V0100\_readme.md" />
     <None Include="ServiceFacade\API\README.md" />
@@ -572,13 +534,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Attributes\" />
     <Folder Include="Views\AadLogin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\App.Core.Application\App.Core.Application.csproj">
+      <Project>{f1b0ef43-bcbf-4c91-93ad-d13e8bb8d77d}</Project>
+      <Name>App.Core.Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\App.Core.Domain\App.Core.Domain.csproj">
       <Project>{3ce1773d-8767-45f8-bf1e-308759180347}</Project>
       <Name>App.Core.Domain</Name>

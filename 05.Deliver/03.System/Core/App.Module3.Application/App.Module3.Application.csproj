@@ -191,6 +191,7 @@
     <Compile Include="ServiceFacade\API\Sif\Controllers\ODataControllerStandardDataBase.cs" />
     <Compile Include="ServiceFacade\API\ODataControllerBase.cs" />
     <Compile Include="ServiceFacade\API\Services\Implementations\ExtractContractResolverService.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\Class1.cs" />
     <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ExtractController.cs" />
     <Compile Include="ServiceFacade\API\Services\IApplicationService.cs" />
     <Compile Include="ServiceFacade\API\Services\Implementations\ApplicationService.cs" />
