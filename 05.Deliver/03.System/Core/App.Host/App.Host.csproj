@@ -26,7 +26,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <ApplicationInsightsResourceId>/subscriptions/b195eb1f-f0fa-4430-8661-7905b7a9403d/resourcegroups/MOU_PROJ01_DEV/providers/microsoft.insights/components/MOU_PROJ01_DEV_AppInsights</ApplicationInsightsResourceId>
-    <ApplicationInsightsAnnotationResourceId>/subscriptions/f48c3fe3-0b20-4150-aed2-43028ac1d747/resourcegroups/App.Core.Application/providers/microsoft.insights/components/App.Core.Application</ApplicationInsightsAnnotationResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/f48c3fe3-0b20-4150-aed2-43028ac1d747/resourcegroups/App.Host/providers/microsoft.insights/components/App.Host</ApplicationInsightsAnnotationResourceId>
     <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -499,7 +499,7 @@
     <Content Include="packages.saved" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="App_Start\_README.md" />
-    <None Include="Properties\PublishProfiles\App.Core.Application.Release.pubxml" />
+    <None Include="Properties\PublishProfiles\App.Host.Release.pubxml" />
     <None Include="Properties\PublishProfiles\B2CSCT01ExampleWebAPI - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Dev01ExampleWebAPIEducationGovtNz-Hot - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\Dev01ExampleWebAPIEducationGovtNz-Hot - Web Deploy.pubxml" />

@@ -159,7 +159,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\App.Core.Application\App.Host.csproj">
+    <ProjectReference Include="..\App.Host\App.Host.csproj">
       <Project>{F05524D0-7306-48CD-A11A-4965EE64EC43}</Project>
       <Name>App.Host</Name>
     </ProjectReference>
