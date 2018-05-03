@@ -10,7 +10,6 @@
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Messages;
     using App.Core.Shared.Models.Messages.APIs.V0100;
-    using App.Module2.Application.ServiceFacade;
 
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
