@@ -9,8 +9,8 @@
     <ProjectGuid>{AF63F5D1-9064-41AC-A20E-86C4CE64744A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>App.Core.Application.Tests</RootNamespace>
-    <AssemblyName>App.Core.Application.Tests</AssemblyName>
+    <RootNamespace>App.Host.Tests</RootNamespace>
+    <AssemblyName>App.Host.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -159,9 +159,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\App.Core.Application\App.Core.Application.csproj">
+    <ProjectReference Include="..\App.Core.Application\App.Host.csproj">
       <Project>{F05524D0-7306-48CD-A11A-4965EE64EC43}</Project>
-      <Name>App.Core.Application</Name>
+      <Name>App.Host</Name>
     </ProjectReference>
     <ProjectReference Include="..\App.Core.Domain\App.Core.Domain.csproj">
       <Project>{3ce1773d-8767-45f8-bf1e-308759180347}</Project>

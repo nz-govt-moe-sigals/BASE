@@ -4,6 +4,8 @@
 
     public static class ApiControllerNames
     {
+        public static string PathRoot = Infrastructure.Constants.Module.Names.ModuleKey.ToLower();
+
         public const string DtoSuffix = ""/*"dto"*/;
 
         /// <summary>

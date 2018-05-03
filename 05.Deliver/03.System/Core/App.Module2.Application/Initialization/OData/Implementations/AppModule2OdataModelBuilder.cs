@@ -5,6 +5,7 @@ namespace App.Module2.Application.Initialization.OData.Implementations
     using System.Web.OData.Builder;
     using System.Web.OData.Extensions;
     using App.Core.Infrastructure.Initialization.OData;
+    using App.Module2.Application.Constants.Api;
 
     /// <summary>
     /// Implementation invoked at Statup, when building 
@@ -35,7 +36,7 @@ namespace App.Module2.Application.Initialization.OData.Implementations
             // WebAPIs if it is registered *before* WebAPI routes...
             httpConfiguration.MapODataServiceRoute(
                 routeName: Infrastructure.Constants.Module.Names.ModuleKey + "Paths",
-                routePrefix: "odata/" + Infrastructure.Constants.Module.Names.ModuleKey.ToLower(),
+                routePrefix: "odata/" + ApiControllerNames.PathRoot,
                 model: builder.GetEdmModel());
         }
 

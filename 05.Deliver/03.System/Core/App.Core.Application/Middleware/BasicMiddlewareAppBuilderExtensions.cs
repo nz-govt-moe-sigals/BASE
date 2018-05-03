@@ -1,4 +1,4 @@
-﻿namespace App.Core
+﻿namespace App
 {
     using App.Core.Application.Middleware;
     using Owin;

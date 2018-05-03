@@ -8,6 +8,9 @@ namespace App.Module2.Application.Constants.Api
 {
     public static class ApiControllerNames
     {
+        public static string PathRoot = Infrastructure.Constants.Module.Names.ModuleKey.ToLower();
+
+
         public static string Suffix = "";
         public static string Body = "body"+ Suffix;
         public static string EducationOrganisation = "educationorganisation" + Suffix;
@@ -24,9 +27,5 @@ namespace App.Module2.Application.Constants.Api
         public static string SchoolRegionalCouncil = "schoolregionalcouncil" + Suffix;
         public static string SchoolTerritorialAuthority = "schoolterritorialauthoritywithaucklandandlocalboard" + Suffix;
         public static string SchoolType = "schooltype" + Suffix;
-
-
-
-
     }
 }

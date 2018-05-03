@@ -1,4 +1,4 @@
-﻿namespace App.Core.Application
+﻿namespace App.Host
 {
     using System;
     using System.Collections.Generic;

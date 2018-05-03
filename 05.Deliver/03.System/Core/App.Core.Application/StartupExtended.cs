@@ -1,6 +1,7 @@
-namespace App.Core.Application
+namespace App.Host
 {
     using System.Web.Mvc;
+    using App.Core;
     using App.Core.Application.App_Start;
     using App.Core.Application.DependencyResolution;
     using App.Core.Application.Extended;

@@ -4,6 +4,7 @@ namespace App.Core.Application.App_Start
     using System.Web.Http;
     using System.Web.OData.Builder;
     using System.Web.OData.Extensions;
+    using App.Core.Application.Constants.Api;
     using App.Core.Application.Initialization.OData;
     using App.Core.Infrastructure.Initialization.OData;
     using App.Core.Infrastructure.Services;
@@ -46,7 +47,7 @@ namespace App.Core.Application.App_Start
             // WebAPIs if it is registered *before* WebAPI routes...
             httpConfiguration.MapODataServiceRoute(
                 routeName: Infrastructure.Constants.Module.Names.ModuleKey + "Paths",
-                routePrefix: "odata/" + Infrastructure.Constants.Module.Names.ModuleKey.ToLower(),
+                routePrefix: "odata/" + ApiControllerNames.PathRoot,
                 model: builder.GetEdmModel());
 
 

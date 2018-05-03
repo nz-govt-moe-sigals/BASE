@@ -1,4 +1,4 @@
-﻿namespace App.Core.Application
+﻿namespace App.Host
 {
     using App.Core.Application.App_Start;
     using App.Core.Infrastructure.Services;
