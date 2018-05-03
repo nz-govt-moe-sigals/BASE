@@ -75,6 +75,7 @@
     <Compile Include="Models\ConfigurationSettings\MediaManagementConfigurationSettings.cs" />
     <Compile Include="Models\ConfigurationSettings\IKeyVaultBasedConfigurationObject.cs" />
     <Compile Include="Models\Contracts\IHasAuditability.cs" />
+    <Compile Include="Models\Contracts\IHasChildren.cs" />
     <Compile Include="Models\Contracts\IHasDescription.cs" />
     <Compile Include="Models\Contracts\IHasDisplayStyleHint.cs" />
     <Compile Include="Models\Contracts\IHasKeyedMutableReferenceData.cs" />
@@ -99,6 +100,8 @@
     <Compile Include="Models\Entities\ExceptionRecord.cs" />
     <Compile Include="Models\Entities\IdentityProvider.cs" />
     <Compile Include="Models\Entities\MediaMetadata.cs" />
+    <Compile Include="Models\Entities\NavigationRouteEntry.cs" />
+    <Compile Include="Models\Entities\TenantedNavigationRoute.cs" />
     <Compile Include="Models\Entities\PersistedMedia.cs" />
     <Compile Include="Models\Entities\PersistedMediaProperty.cs" />
     <Compile Include="Models\Entities\PrincipalCategory.cs" />
@@ -119,6 +122,7 @@
     <Compile Include="Models\Messages\APIs\V0100\ConfigurationStepRecordDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\ExceptionRecordDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\MediaMetadataDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\NavigationRouteDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\NotificationDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\PrincipalCategoryDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\PrincipalTagDto.cs" />
@@ -128,6 +132,7 @@
     <Compile Include="Models\Messages\APIs\V0100\SessionOperationDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\TenantClaimDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\TenantDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\TenantedNavigationRouteDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\TenantPropertyDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\PrincipalClaimDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\PrincipalDto.cs" />

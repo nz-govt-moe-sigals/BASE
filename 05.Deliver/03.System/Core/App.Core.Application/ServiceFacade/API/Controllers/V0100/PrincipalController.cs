@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Web.Http;
     using System.Web.OData;
+    using App.Core.Application.Attributes;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages.APIs.V0100;
@@ -12,7 +13,8 @@
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class PrincipalController : ODataControllerStandardDataBase<Principal, PrincipalDto>
+    [ODataPath(Constants.Api.ApiControllerNames.Principal)]
+    public class PrincipalController : ActiveRecordStateCoreODataControllerBase<Principal, PrincipalDto>
     {
         public PrincipalController(
             IDiagnosticsTracingService diagnosticsTracingService, 

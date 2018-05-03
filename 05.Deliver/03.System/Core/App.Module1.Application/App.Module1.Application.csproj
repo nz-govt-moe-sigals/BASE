@@ -170,6 +170,7 @@
     <Compile Include="ServiceFacade\API\Controllers\ApiControllerBase.cs" />
     <Compile Include="ServiceFacade\API\Controllers\ODataControllerStandardDataBase.cs" />
     <Compile Include="ServiceFacade\API\Controllers\ODataControllerBase.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\TenantedODataControllerStandardDataBase.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\Example1Controller.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\Example2Controller.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\Example3Controller.cs" />
@@ -187,6 +188,10 @@
     <EmbeddedResource Include="Presentation/Views/**/*.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\App.Core.Application\App.Core.Application.csproj">
+      <Project>{f1b0ef43-bcbf-4c91-93ad-d13e8bb8d77d}</Project>
+      <Name>App.Core.Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\App.Core.Infrastructure.OIDC\App.Core.Infrastructure.IDA.csproj">
       <Project>{1f881b79-5ee4-42aa-8143-e2bf3bfdf4d9}</Project>
       <Name>App.Core.Infrastructure.IDA</Name>

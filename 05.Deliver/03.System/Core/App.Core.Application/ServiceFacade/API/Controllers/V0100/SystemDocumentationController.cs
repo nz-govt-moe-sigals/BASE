@@ -5,6 +5,7 @@ using System.Web;
 
 namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
 {
+    using App.Core.Application.Attributes;
     using App.Core.Infrastructure.Services;
 
     /// <summary>
@@ -13,6 +14,7 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
     /// * Privacy Document Text
     /// * Data Usage Document
     /// </summary>
+    [ODataPath(Constants.Api.ApiControllerNames.SystemDocumentation)]
     public class SystemDocumentationController : ODataControllerBase
     {
         public SystemDocumentationController(IDiagnosticsTracingService diagnosticsTracingService, IPrincipalService principalService) : base(diagnosticsTracingService, principalService)

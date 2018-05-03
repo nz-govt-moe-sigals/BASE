@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIs\XYZController.cs" />
+    <Compile Include="Attributes\ODataPathAttribute.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Constants\Api\ApiControllerNames.cs" />
     <Compile Include="ExtensionMethods\HttpRequestBaseExtensionMethods.cs" />
@@ -170,13 +171,16 @@
     <Compile Include="Initialization\OData\Implementations\TenantPropertyOdataModelBuilderConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceFacade\API\ApiControllerBase.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\ActiveRecordStateCoreODataControllerBase.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\TenantedActiveRecordStateODataControllerBase.cs" />
     <Compile Include="ServiceFacade\API\Controllers\ODataControllerBase.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\ODataControllerStandardDataBase.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\ActiveRecordStateODataControllerBase.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\ApplicationDescriptionController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\ConfigurationStepRecordController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\DataClassificationController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\ExceptionRecordController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\MediaMetadataController.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\V0100\NavigationRouteItemController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\NotificationController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\NotificationUpdateController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\PrincipalController.cs" />
@@ -188,6 +192,7 @@
     <Compile Include="ServiceFacade\API\Controllers\V0100\SystemDocumentationController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\SystemInformationController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\TenantController.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\V0100\TenantedNavigationRouteItemController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\Values1Controller.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\Values2Controller.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\ValuesController.cs" />
@@ -204,7 +209,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="APIs\NewFolder1\" />
-    <Folder Include="Attributes\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\App.Core.Domain\App.Core.Domain.csproj">

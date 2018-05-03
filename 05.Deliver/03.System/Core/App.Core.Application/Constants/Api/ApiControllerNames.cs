@@ -99,6 +99,20 @@
         /// metadata about media uploaded by users.
         /// </summary>
         public const string MediaMetadata = "mediametadata" + DtoSuffix;
+
+        public const string TenantedNavigationRouteItem = "TenantedNavigationRouteItem" + DtoSuffix;
+
+        public const string NavigationRouteItem = "navigationrouteitem" + DtoSuffix;
+
+        public const string NotificationUpdate = "notificationupdate" + DtoSuffix;
+
+        public const string Search = "search" + DtoSuffix;
+
+        public const string SystemDeveloper = "systemdeveloper" + DtoSuffix;
+
+        public const string SystemDocumentation = "systemdocumentation" + DtoSuffix;
+
+        public const string SystemInformation = "systeminformation" + DtoSuffix;
     }
 }
  

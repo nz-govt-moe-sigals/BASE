@@ -171,6 +171,7 @@
     <Compile Include="ServiceFacade\API\Controllers\ApiControllerBase.cs" />
     <Compile Include="ServiceFacade\API\Controllers\ODataControllerBase.cs" />
     <Compile Include="ServiceFacade\API\Controllers\ODataControllerStandardDataBase.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\TenantedODataControllerStandardDataBase.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\SchoolTypeController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\SchoolTerritorialAuthorityWithAucklandLocalBoardController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\SchoolRegionalCouncilController.cs" />
@@ -195,6 +196,10 @@
     <EmbeddedResource Include="Presentation/Views/**/*.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\App.Core.Application\App.Core.Application.csproj">
+      <Project>{f1b0ef43-bcbf-4c91-93ad-d13e8bb8d77d}</Project>
+      <Name>App.Core.Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\App.Core.Infrastructure\App.Core.Infrastructure.csproj">
       <Project>{b503ff64-e103-4ac1-8039-5012570c8770}</Project>
       <Name>App.Core.Infrastructure</Name>

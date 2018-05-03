@@ -3,6 +3,7 @@
 namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
 {
     using System.Linq;
+    using App.Core.Application.Attributes;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Configuration;
     using App.Core.Shared.Models.Configuration.AppHost;
@@ -17,6 +18,7 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
     /// for use by User Agents to render in Header Views as they see fit.
     /// </summary>
     /// <seealso cref="App.Core.Application.ServiceFacade.API.Controllers.ODataControllerBase" />
+    [ODataPath(Constants.Api.ApiControllerNames.ApplicationDescription)]
     public class ApplicationDescriptionController : ODataControllerBase
 
     {

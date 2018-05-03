@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using System.Web.OData;
+    using App.Core.Application.Attributes;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages.APIs.V0100;
@@ -11,7 +12,8 @@
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class RoleController : ODataControllerStandardDataBase<SystemRole, RoleDto>
+    [ODataPath(Constants.Api.ApiControllerNames.Role)]
+    public class RoleController : ActiveRecordStateCoreODataControllerBase<SystemRole, RoleDto>
     {
         public RoleController(
             IDiagnosticsTracingService diagnosticsTracingService, 

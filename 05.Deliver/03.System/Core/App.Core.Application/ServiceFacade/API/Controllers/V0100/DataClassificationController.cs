@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Web.Http;
     using System.Web.OData;
+    using App.Core.Application.Attributes;
     using App.Core.Infrastructure.Constants.Db;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
@@ -19,6 +20,7 @@
     /// </summary>
     //[ODataRoutePrefix("body")]
     [AllowAnonymous]
+    [ODataPath(Constants.Api.ApiControllerNames.DataClassification)]
     public class DataClassificationController : ODataControllerBase // ODataControllerStandardDataBase<DataClassification,DataClassificationDto>
     {
         private readonly IRepositoryService _repositoryService;

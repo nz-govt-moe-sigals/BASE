@@ -3,10 +3,14 @@
     using System;
     using System.Linq;
     using System.Web.OData;
+    using App.Core.Application.Attributes;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages.APIs.V0100;
     using AutoMapper.QueryableExtensions;
+
+
+
 
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
@@ -14,9 +18,10 @@
     /// OData Queryable REST Controller for
     /// <see cref="MediaMetadataDto"/> messages 
     /// 
-        /// </summary>
+    /// </summary>
     //[ODataRoutePrefix("body")]
-    public class MediaMetadataController : ODataControllerStandardDataBase<MediaMetadata, MediaMetadataDto>
+    [ODataPath(Constants.Api.ApiControllerNames.MediaMetadata)]
+    public class MediaMetadataController : ActiveRecordStateCoreODataControllerBase<MediaMetadata, MediaMetadataDto>
     {
         public MediaMetadataController(
             IDiagnosticsTracingService diagnosticsTracingService, 

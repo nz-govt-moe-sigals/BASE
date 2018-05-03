@@ -4,5 +4,6 @@
 
     public interface IHasGuidId : IHasId<Guid>
     {
+
     }
 }

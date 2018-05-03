@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using System.Web.OData;
+    using App.Core.Application.Attributes;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages.APIs.V0100;
@@ -17,7 +18,8 @@
     /// query what Exceptions have happened of late.
     /// </summary>
     //[ODataRoutePrefix("body")]
-    public class ExceptionRecordController : ODataControllerStandardDataBase<ExceptionRecord, ExceptionRecordDto>
+    [ODataPath(Constants.Api.ApiControllerNames.ExceptionRecord)]
+    public class ExceptionRecordController : ActiveRecordStateCoreODataControllerBase<ExceptionRecord, ExceptionRecordDto>
     {
         public ExceptionRecordController(
             IDiagnosticsTracingService diagnosticsTracingService, 

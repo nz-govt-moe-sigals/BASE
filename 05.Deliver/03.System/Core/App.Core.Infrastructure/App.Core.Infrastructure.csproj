@@ -245,6 +245,8 @@
     <Compile Include="ExtensionMethods\TypeExtensions.cs" />
     <Compile Include="Factories\AppSettingsConfigurationObjectFactory.cs" />
     <Compile Include="Factories\StructureMapServiceLocator.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ExceptionRecord_ExceptionRecordDto - Copy.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_TenantedNavigationRoute_TenantedNavigationRouteDto.cs" />
     <Compile Include="Initialization\Storage\Db\IHasAppCoreDbContextModelBuilderInitializer.cs" />
     <Compile Include="Initialization\IHasAppCoreInitializer.cs" />
     <Compile Include="Initialization\Integration\Scanii\ScaniiIntegrationInitializer.cs" />

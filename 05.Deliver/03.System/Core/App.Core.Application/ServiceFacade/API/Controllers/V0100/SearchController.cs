@@ -6,6 +6,7 @@
     using System.Web;
     using System.Web.OData;
     using System.Web.OData.Routing;
+    using App.Core.Application.Attributes;
     using App.Core.Infrastructure.Initialization.Search;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Messages;
@@ -14,6 +15,7 @@
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     [ODataRoutePrefix("search")]
+    [ODataPath(Constants.Api.ApiControllerNames.Search)]
     public class SearchController : ODataControllerBase
     {
         private readonly IObjectMappingService _objectMappingService;

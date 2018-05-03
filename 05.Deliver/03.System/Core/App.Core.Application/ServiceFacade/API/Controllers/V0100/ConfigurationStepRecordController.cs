@@ -6,6 +6,7 @@ using System.Web;
 namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
 {
     using System.Web.Http;
+    using App.Core.Application.Attributes;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages.APIs.V0100;
@@ -19,6 +20,7 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
     /// down issues by ruling out config mistakes first.
     /// </summary>
     /// <seealso cref="App.Core.Application.ServiceFacade.API.Controllers.ODataControllerBase" />
+    [ODataPath(Constants.Api.ApiControllerNames.ConfigurationStepRecord)]
     public class ConfigurationStepRecordController : ODataControllerBase
     {
         private readonly IConfigurationStepService _configurationStepService;

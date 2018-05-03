@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using System.Web.OData;
+    using App.Core.Application.Attributes;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages.APIs.V0100;
@@ -11,7 +12,8 @@
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class SessionController : ODataControllerStandardDataBase<Session, SessionDto>
+    [ODataPath(Constants.Api.ApiControllerNames.Session)]
+    public class SessionController : ActiveRecordStateCoreODataControllerBase<Session, SessionDto>
     {
         public SessionController(
             IDiagnosticsTracingService diagnosticsTracingService, 
