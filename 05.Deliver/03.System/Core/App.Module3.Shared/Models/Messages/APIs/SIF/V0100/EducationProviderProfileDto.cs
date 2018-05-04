@@ -141,7 +141,7 @@ namespace App.Module3.Shared.Models.Messages.APIs.SIF.V0100
         {
             get; set;
         }
-        public Region Region
+        public RegionDto Region
         {
             get; set;
         }

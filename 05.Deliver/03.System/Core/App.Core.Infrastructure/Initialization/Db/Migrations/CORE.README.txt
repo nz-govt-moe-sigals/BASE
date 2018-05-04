@@ -7,21 +7,21 @@ idea of how DbContexts, Migrations, Seeding work when combined with IoC/DI.
 // https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application
 
 // Run once, at the beginning of projects, to create the Db/Configuration class:
-Enable-Migrations -StartUpProjectName "App.Core.Application" -ProjectName "App.Core.Infrastructure" -ContextProjectName "App.Core.Infrastructure" -MigrationsDirectory "Db\Migrations\Core" -Verbose
+Enable-Migrations -StartUpProjectName "App.Host" -ProjectName "App.Core.Infrastructure" -ContextProjectName "App.Core.Infrastructure" -MigrationsDirectory "Initialization\Db\Migrations\Core" -Verbose
 
 // Run after every Db Model schema change, changing the name every time, in order to make a Migration class
-add-Migration "Entities.Example" -StartUpProjectName "App.Core.Application" -ProjectName "App.Core.Infrastructure" -Verbose
-//$migrationName="MyMigration";"Core","Module1","Module2" | foreach {add-Migration "$migrationName" -StartUpProjectName "App.Core.Application" -ProjectName "App.$_.Infrastructure" -Verbose} 
+add-Migration "Entities.Example" -StartUpProjectName "App.Host" -ProjectName "App.Core.Infrastructure" -Verbose
+//$migrationName="MyMigration";"Core","Module1","Module2" | foreach {add-Migration "$migrationName" -StartUpProjectName "App.Host" -ProjectName "App.$_.Infrastructure" -Verbose} 
 
 // Run after every Db Model schema change to apply the above migration class:
-Update-Database -StartUpProjectName "App.Core.Application" -ProjectName "App.Core.Infrastructure" -Verbose 
+Update-Database -StartUpProjectName "App.Host" -ProjectName "App.Core.Infrastructure" -Verbose 
 
 //Do them all together
 "Core","Module1","Module2" | foreach {Update-Database -StartUpProjectName:"App.Core.Application" -ProjectName:"App.$input.Infrastructure"  -Verbose}
 
 // Generate SQL scripts for deployemnt:
-Update-Database -StartUpProjectName "App.Core.Application" -ProjectName "App.Core.Infrastructure" -Script -SourceMigration: $InitialDatabase
+Update-Database -StartUpProjectName "App.Host" -ProjectName "App.Core.Infrastructure" -Script -SourceMigration: $InitialDatabase
 // Generate SQL scripts for deployment up to a target Migration:
-//Update-Database -StartUpProjectName "App.Core.Application" -ProjectName "App.Core.Infrastructure" -Script -SourceMigration: $InitialDatabase -TargetMigration: AddPostAbstract
+//Update-Database -StartUpProjectName "App.Host" -ProjectName "App.Core.Infrastructure" -Script -SourceMigration: $InitialDatabase -TargetMigration: AddPostAbstract
 
 

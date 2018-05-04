@@ -152,62 +152,62 @@
     <Compile Include="Db\Interception\Implementations\HasInRecordAuditabilityDbContextPreCommitStrategy.cs" />
     <Compile Include="Db\Interception\Implementations\Base\UnitOfWorkPreCommitProcessingStrategyBase.cs" />
     <Compile Include="Db\Interception\Implementations\HasTenantFKAuditabilityDbContextPreCommitStrategy.cs" />
-    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederDataClassification.cs" />
-    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederExceptionRecord.cs" />
-    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederPrincipalCategory.cs" />
-    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederPrincipalClaim.cs" />
-    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederPrincipalLogin.cs" />
-    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederPrincipalProperty.cs" />
-    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederPrincipalTag.cs" />
-    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederSystemRole.cs" />
-    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederSessionOperation.cs" />
-    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederTenant.cs" />
-    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederTenantClaim.cs" />
-    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederTenantProperty.cs" />
-    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeedingOrchestrator.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederDataClassification.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederExceptionRecord.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederPrincipalCategory.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederPrincipalClaim.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederPrincipalLogin.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederPrincipalProperty.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederPrincipalTag.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederSystemRole.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederSessionOperation.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederTenant.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederTenantClaim.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederTenantProperty.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeedingOrchestrator.cs" />
     <Compile Include="Db\Context\AppCoreDatabaseInitializerConfigurer.cs" />
-    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederNotification.cs" />
-    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederSession.cs" />
-    <Compile Include="Db\Migrations.Seeding\AppCoreDbContextSeederPrincipal.cs" />
-    <Compile Include="Db\Migrations\AppCoreDbMigrationsConfiguration.cs" />
-    <Compile Include="Db\Migrations\Core\201712040611471_Initialize.cs" />
-    <Compile Include="Db\Migrations\Core\201712040611471_Initialize.Designer.cs">
+    <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederNotification.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederSession.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederPrincipal.cs" />
+    <Compile Include="Initialization\Db\Migrations\AppCoreDbMigrationsConfiguration.cs" />
+    <Compile Include="Initialization\Db\Migrations\Core\201712040611471_Initialize.cs" />
+    <Compile Include="Initialization\Db\Migrations\Core\201712040611471_Initialize.Designer.cs">
       <DependentUpon>201712040611471_Initialize.cs</DependentUpon>
     </Compile>
-    <Compile Include="Db\Migrations\Core\201712051129121_MediaMetadata.LocalName.cs" />
-    <Compile Include="Db\Migrations\Core\201712051129121_MediaMetadata.LocalName.Designer.cs">
+    <Compile Include="Initialization\Db\Migrations\Core\201712051129121_MediaMetadata.LocalName.cs" />
+    <Compile Include="Initialization\Db\Migrations\Core\201712051129121_MediaMetadata.LocalName.Designer.cs">
       <DependentUpon>201712051129121_MediaMetadata.LocalName.cs</DependentUpon>
     </Compile>
-    <Compile Include="Db\Migrations\Core\201712070939290_SchoolRefs.cs" />
-    <Compile Include="Db\Migrations\Core\201712070939290_SchoolRefs.Designer.cs">
+    <Compile Include="Initialization\Db\Migrations\Core\201712070939290_SchoolRefs.cs" />
+    <Compile Include="Initialization\Db\Migrations\Core\201712070939290_SchoolRefs.Designer.cs">
       <DependentUpon>201712070939290_SchoolRefs.cs</DependentUpon>
     </Compile>
-    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineDataClassification.cs" />
-    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineExceptionRecord.cs" />
-    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefinePrincipal2Tags.cs" />
-    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalLogin.cs" />
-    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalTag.cs" />
-    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineSystemRole.cs" />
-    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineSession.cs" />
-    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineNotification.cs" />
-    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefinePrincipal2Role.cs" />
-    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineMediaMetadata.cs" />
-    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalCategory.cs" />
-    <Compile Include="Db\Schema\AppModuleModelBuilderCommonConfiguration.cs" />
-    <Compile Include="Db\Schema\Conventions\IdConvention.cs" />
-    <Compile Include="Db\Schema\Conventions\NonTenantFKEtcConvention.cs" />
-    <Compile Include="Db\Schema\Conventions\TenantedKeyedReferenceDataConvention.cs" />
-    <Compile Include="Db\Schema\Conventions\TenantedReferenceDataConvention.cs" />
-    <Compile Include="Db\Schema\Conventions\TenantFKEtcConvention.cs" />
-    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefinePrincipal.cs" />
-    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalProperty.cs" />
-    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineSessionOperationLog.cs" />
-    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineTenant.cs" />
-    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalClaim.cs" />
-    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineTenantClaim.cs" />
-    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineTenantProperty.cs" />
-    <Compile Include="Db\Schema\AppCoreDbContextModelBuilderDefineDataToken.cs" />
-    <Compile Include="Db\Schema\AppCoreModelBuilderOrchestrator.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineDataClassification.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineExceptionRecord.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipal2Tags.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalLogin.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalTag.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineSystemRole.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineSession.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineNotification.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipal2Role.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineMediaMetadata.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalCategory.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleModelBuilderCommonConfiguration.cs" />
+    <Compile Include="Initialization\Db\Schema\Conventions\IdConvention.cs" />
+    <Compile Include="Initialization\Db\Schema\Conventions\NonTenantFKEtcConvention.cs" />
+    <Compile Include="Initialization\Db\Schema\Conventions\TenantedKeyedReferenceDataConvention.cs" />
+    <Compile Include="Initialization\Db\Schema\Conventions\TenantedReferenceDataConvention.cs" />
+    <Compile Include="Initialization\Db\Schema\Conventions\TenantFKEtcConvention.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipal.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalProperty.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineSessionOperationLog.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineTenant.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalClaim.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineTenantClaim.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineTenantProperty.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineDataToken.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreModelBuilderOrchestrator.cs" />
     <Compile Include="Exceptions\ConfigurationException.cs" />
     <Compile Include="Exceptions\ToDoException.cs" />
     <Compile Include="ExtensionMethods\ByteArrayExtensions.cs" />
@@ -424,13 +424,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Db\Interception\README.txt" />
-    <Content Include="Db\Migrations\CORE.README.txt" />
+    <Content Include="Initialization\Db\Migrations\CORE.README.txt" />
     <Content Include="Db\README.txt" />
-    <Content Include="Db\Schema\Conventions\README.txt" />
-    <Content Include="Db\Schema\README.MANY-TO-MANY.txt" />
-    <Content Include="Db\Schema\README.MANY2ONE.txt" />
-    <Content Include="Db\Schema\README.ONE2MANY.txt" />
-    <Content Include="Db\Schema\README.ONE2ONE.txt" />
+    <Content Include="Initialization\Db\Schema\Conventions\README.txt" />
+    <Content Include="Initialization\Db\Schema\README.MANY-TO-MANY.txt" />
+    <Content Include="Initialization\Db\Schema\README.MANY2ONE.txt" />
+    <Content Include="Initialization\Db\Schema\README.ONE2MANY.txt" />
+    <Content Include="Initialization\Db\Schema\README.ONE2ONE.txt" />
     <Content Include="Initialization\DependencyResolution\README.STRUCTUREMAP.IDEMPOTENCY.txt" />
     <Content Include="Initialization\DependencyResolution\README.txt" />
     <Content Include="Initialization\Search\README.txt" />
@@ -443,13 +443,13 @@
     <Folder Include="Services\Configuration\Implementations\Base\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Db\Migrations\Core\201712040611471_Initialize.resx">
+    <EmbeddedResource Include="Initialization\Db\Migrations\Core\201712040611471_Initialize.resx">
       <DependentUpon>201712040611471_Initialize.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Db\Migrations\Core\201712051129121_MediaMetadata.LocalName.resx">
+    <EmbeddedResource Include="Initialization\Db\Migrations\Core\201712051129121_MediaMetadata.LocalName.resx">
       <DependentUpon>201712051129121_MediaMetadata.LocalName.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Db\Migrations\Core\201712070939290_SchoolRefs.resx">
+    <EmbeddedResource Include="Initialization\Db\Migrations\Core\201712070939290_SchoolRefs.resx">
       <DependentUpon>201712070939290_SchoolRefs.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

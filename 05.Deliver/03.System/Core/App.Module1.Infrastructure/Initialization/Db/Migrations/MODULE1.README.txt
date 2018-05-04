@@ -12,18 +12,18 @@ idea of how DbContexts, Migrations, Seeding work when combined with IoC/DI.
 // b) the Migrations directory is Module specific (eg: 'Db/Migrations/Module1')
 
 // Run once, at the beginning of projects, to create the Db/Configuration class:
-Enable-Migrations -StartUpProjectName "App.Core.Application" -ProjectName "App.Module1.Infrastructure" -ContextProjectName "App.Module1.Infrastructure" -MigrationsDirectory "Db\Migrations\Module1" -Verbose
+Enable-Migrations -StartUpProjectName "App.Host" -ProjectName "App.Module1.Infrastructure" -ContextProjectName "App.Module1.Infrastructure" -MigrationsDirectory "Initialization\Db\Migrations\Module1" -Verbose
 
 // Run after every Db Model schema change, changing the name every time, in order to make a Migration class
-add-Migration "Entities.Example" -StartUpProjectName "App.Core.Application" -ProjectName "App.Module1.Infrastructure" -Verbose
+add-Migration "Entities.Example" -StartUpProjectName "App.Host" -ProjectName "App.Module1.Infrastructure" -Verbose
 
 // Run after every Db Model schema change to apply the above migration class:
-Update-Database -StartUpProjectName "App.Core.Application" -ProjectName "App.Module1.Infrastructure" -Verbose
+Update-Database -StartUpProjectName "App.Host" -ProjectName "App.Module1.Infrastructure" -Verbose
 
 
 // Generate SQL scripts for deployemnt:
-Update-Database -StartUpProjectName "App.Core.Application" -ProjectName "App.Module1.Infrastructure" -Script -SourceMigration: $InitialDatabase -Verbose
+Update-Database -StartUpProjectName "App.Host" -ProjectName "App.Module1.Infrastructure" -Script -SourceMigration: $InitialDatabase -Verbose
 // Generate SQL scripts for deployment up to a target Migration:
-//Update-Database -StartUpProjectName "App.Core.Application" -ProjectName "App.Module1.Infrastructure" -Script -SourceMigration: $InitialDatabase -TargetMigration: AddPostAbstract -Verbose
+//Update-Database -StartUpProjectName "App.Host" -ProjectName "App.Module1.Infrastructure" -Script -SourceMigration: $InitialDatabase -TargetMigration: AddPostAbstract -Verbose
 
 

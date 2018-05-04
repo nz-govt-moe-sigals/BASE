@@ -10,7 +10,7 @@
 //        public Configuration()
 //        {
 //            AutomaticMigrationsEnabled = false;
-//            MigrationsDirectory = @"Db\Migrations\Module3";
+//            MigrationsDirectory = @"Initialization\Db\Migrations\Module3";
 //        }
 
 //        protected override void Seed(App.Module3.Infrastructure.Db.Context.AppModule3DbContext context)

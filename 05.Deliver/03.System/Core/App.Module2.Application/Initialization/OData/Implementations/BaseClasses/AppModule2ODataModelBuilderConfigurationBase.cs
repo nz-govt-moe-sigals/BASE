@@ -28,7 +28,7 @@ namespace App.Module2.Application.Initialization.OData.Implementations
         }
         public void Define(ODataModelBuilder builder)
         {
-            builder.EntitySet<T>(this._controllerName);
+            builder.EntitySet<T>(this._controllerName.ToLower());
             // Optional DTO Type description
             // Tip/Warning: if you define ops here, at the model level, have to relist all ops allowed (ie, it cancels the globally set operations list):
             // builder.EntityType<EducationOrganisationDto>().Filter(/*noparam to allow for any*/);

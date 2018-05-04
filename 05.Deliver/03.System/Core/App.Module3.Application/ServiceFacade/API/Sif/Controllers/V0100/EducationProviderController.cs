@@ -13,6 +13,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100
     using App.Core.Infrastructure.Services;
     using App.Module3.Application.Constants.Api;
     using App.Module3.Application.ServiceFacade.API.Controllers;
+    using App.Module3.Infrastructure.Constants.Db;
     using App.Module3.Shared.Models.Entities;
     using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
     using AutoMapper.QueryableExtensions;
@@ -27,6 +28,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100
             base(diagnosticsTracingService, principalService, repositoryService, objectMappingService,
                 secureApiMessageAttribute)
         {
+            base._dbContextIdentifier = AppModule3DbContextNames.Module3;
         }
 
         // GET api/values 
@@ -37,6 +39,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100
         [EnableQuery(PageSize = 100)]
         public IQueryable<EducationProviderDto> Get()
         {
+
             return InternalGet();
         }
 
