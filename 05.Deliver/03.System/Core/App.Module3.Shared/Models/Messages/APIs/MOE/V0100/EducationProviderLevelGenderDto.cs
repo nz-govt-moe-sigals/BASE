@@ -26,7 +26,7 @@
         {
             get; set;
         }
-        public virtual ICollection<EducationProviderGenderDto> Gender
+        public virtual ICollection<EducationProviderSchoolingGenderTypeDto> Gender
         {
             get;
             set;
@@ -37,7 +37,7 @@
         {
             get; set;
         }
-        public virtual ICollection<EducationProviderYearLevelDto> Level
+        public virtual ICollection<EducationProviderYearLevelTypeDto> Level
         {
             get;
             set;

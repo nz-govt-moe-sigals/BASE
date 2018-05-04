@@ -1,9 +1,9 @@
-namespace App.Module3.Shared.Models.Messages.APIs.MOE.V0100
+﻿namespace App.Module3.Shared.Models.Messages.APIs.MOE.V0100
 {
     using App.Module3.Shared.Models.Messages.APIs.MOE.V0100.Base;
 
     /// <summary>
-    /// Codes describing the nature of an Education Organisation; for Schools this indicates the schooling levels offered.
+    /// 
     /// <para>
     /// Uses MOE Codes as public PK.
     /// </para>
@@ -14,7 +14,7 @@ namespace App.Module3.Shared.Models.Messages.APIs.MOE.V0100
     /// </para>
     /// </summary>
     /// <seealso cref="App.Module3.Shared.Models.Messages.APIs.MOE.V0100.Base.TenantedMOEReferenceDtoBase" />
-    public class EducationProviderYearLevelDto : TenantedMOEReferenceDtoBase
+    public class UrbanAreaTypeDto : TenantedMOEReferenceDtoBase
     {
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace App.Module3.Shared.Models.Messages.APIs.MOE.V0100
+namespace App.Module3.Shared.Models.Messages.APIs.MOE.V0100
 {
     using App.Module3.Shared.Models.Messages.APIs.MOE.V0100.Base;
 
@@ -14,7 +14,7 @@
     /// </para>
     /// </summary>
     /// <seealso cref="App.Module3.Shared.Models.Messages.APIs.MOE.V0100.Base.TenantedMOEReferenceDtoBase" />
-    public class UrbanAreaDto : TenantedMOEReferenceDtoBase
+    public class SpecialSchoolingTypeDto : TenantedMOEReferenceDtoBase
     {
     }
 }

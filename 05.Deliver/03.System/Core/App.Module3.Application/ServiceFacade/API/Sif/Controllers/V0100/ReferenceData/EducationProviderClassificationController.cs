@@ -15,7 +15,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
 
     //[ODataRoutePrefix("body")]
     [Key(ApiControllerNames.EducationProviderClassification)]
-    public class EducationProviderClassificationController : ODataControllerSifResourceDataBase<EducationProviderClassification, EducationProviderClassificationDto>
+    public class EducationProviderClassificationController : ODataControllerSifResourceDataBase<EducationProviderClassification, EducationProviderClassificationTypeDto>
     {
         public EducationProviderClassificationController(
             IDiagnosticsTracingService diagnosticsTracingService, 
@@ -34,7 +34,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<EducationProviderClassificationDto> Get()
+        public IQueryable<EducationProviderClassificationTypeDto> Get()
         {
             return InternalGet();
         }
@@ -47,19 +47,19 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
         /// </summary>
         [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public EducationProviderClassificationDto Get(string key)
+        public EducationProviderClassificationTypeDto Get(string key)
         {
             return InternalGet(key);
         }
 
         //// POST api/values 
-        public void Post(EducationProviderClassificationDto value)
+        public void Post(EducationProviderClassificationTypeDto value)
         {
             InternalPost(value);
         }
 
         //// PUT api/values/5 
-        public void Put(EducationProviderClassificationDto value)
+        public void Put(EducationProviderClassificationTypeDto value)
         {
             InternalPut(value);
         }

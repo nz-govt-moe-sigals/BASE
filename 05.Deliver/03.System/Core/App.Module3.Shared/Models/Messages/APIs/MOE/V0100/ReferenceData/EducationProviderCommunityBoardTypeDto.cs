@@ -4,7 +4,6 @@
 
     /// <summary>
     /// 
-    /// 
     /// <para>
     /// Uses MOE Codes as public PK.
     /// </para>
@@ -15,7 +14,7 @@
     /// </para>
     /// </summary>
     /// <seealso cref="App.Module3.Shared.Models.Messages.APIs.MOE.V0100.Base.TenantedMOEReferenceDtoBase" />
-    public class TeacherEducationDto : TenantedMOEReferenceDtoBase
+    public class EducationProviderCommunityBoardTypeDto : TenantedMOEReferenceDtoBase
     {
     }
 }

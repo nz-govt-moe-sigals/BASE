@@ -19,10 +19,10 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract
                     opt.Condition((src, dest) => dest.YearFK != src.YearFK);// suppose dest is not null.
                     opt.MapFrom(src => src.YearFK);
                 })
-                .ForMember(dest => dest.Year, opt =>
+                .ForMember(dest => dest.Level, opt =>
                 {
                     opt.Condition((src, dest) => dest.YearFK != src.YearFK);// suppose dest is not null.
-                    opt.MapFrom(src => src.Year);
+                    opt.MapFrom(src => src.Level);
                 })
                 .ForMember(dest => dest.GenderFK, opt =>
                 {

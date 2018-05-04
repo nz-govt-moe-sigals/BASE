@@ -1,8 +1,10 @@
-namespace App.Module3.Shared.Models.Messages.APIs.MOE.V0100
+﻿namespace App.Module3.Shared.Models.Messages.APIs.MOE.V0100
 {
     using App.Module3.Shared.Models.Messages.APIs.MOE.V0100.Base;
+    using App.Module3.Shared.Models.Messages.APIs.SIF.V0100.Base;
 
     /// <summary>
+    /// Regions of New Zealand defined by Ministry of Education for administrative purposes. (North to South).
     /// 
     /// <para>
     /// Uses MOE Codes as public PK.
@@ -13,8 +15,8 @@ namespace App.Module3.Shared.Models.Messages.APIs.MOE.V0100
     /// unless they add a code transalation layer as well.
     /// </para>
     /// </summary>
-    /// <seealso cref="App.Module3.Shared.Models.Messages.APIs.MOE.V0100.Base.TenantedMOEReferenceDtoBase" />
-    public class SpecialSchoolingDto : TenantedMOEReferenceDtoBase
+    /// <seealso cref="SIFReferenceDtoBase" />
+    public class RegionTypeDto : /*ok*/ TenantedMOEReferenceDtoBase
     {
     }
 }

@@ -9,7 +9,7 @@
     /// </para>
     /// </summary>
     /// <seealso cref="SIFReferenceDtoBase" />
-    public class EducationProviderGenderDto :/*ok*/ SIFReferenceDtoBase
+    public class EducationProviderSchoolingGenderDto : /*ok*/ SIFReferenceDtoBase
     {
     }
 }

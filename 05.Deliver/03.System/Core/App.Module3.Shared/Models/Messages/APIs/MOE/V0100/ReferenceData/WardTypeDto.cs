@@ -14,7 +14,8 @@
     /// </para>
     /// </summary>
     /// <seealso cref="App.Module3.Shared.Models.Messages.APIs.MOE.V0100.Base.TenantedMOEReferenceDtoBase" />
-    public class CommunityBoardDto : TenantedMOEReferenceDtoBase
+    public class WardTypeDto : TenantedMOEReferenceDtoBase
     {
     }
+
 }

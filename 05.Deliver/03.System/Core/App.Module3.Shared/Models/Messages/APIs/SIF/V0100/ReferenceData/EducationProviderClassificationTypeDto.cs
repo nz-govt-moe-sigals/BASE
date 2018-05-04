@@ -2,7 +2,7 @@
 {
     using App.Module3.Shared.Models.Messages.APIs.SIF.V0100.Base;
 
-    public class EducationProviderClassificationDto : SIFReferenceDtoBase
+    public class EducationProviderClassificationTypeDto : SIFReferenceDtoBase
     {
     }
 }

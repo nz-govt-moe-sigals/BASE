@@ -18,4 +18,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
             <AuthorityType, AuthorityTypeDto>
     {
     }
+
+
+
 }

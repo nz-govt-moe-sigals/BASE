@@ -17,7 +17,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
 
     [ODataRoutePrefix(ApiControllerNames.SchoolingGender)]
     [Key(ApiControllerNames.SchoolingGender)]
-    public class SchoolingGenderController : ODataControllerSifResourceDataBase<EducationProviderGender, EducationProviderGenderDto>
+    public class SchoolingGenderController : ODataControllerSifResourceDataBase<EducationProviderGender, EducationProviderSchoolingGenderDto>
     {
         public SchoolingGenderController(
             IDiagnosticsTracingService diagnosticsTracingService, 
@@ -36,7 +36,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<EducationProviderGenderDto> Get()
+        public IQueryable<EducationProviderSchoolingGenderDto> Get()
         {
             return InternalGet();
         }
@@ -49,20 +49,20 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
         /// </summary>
         [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public EducationProviderGenderDto Get(string key)
+        public EducationProviderSchoolingGenderDto Get(string key)
         {
             return InternalGet(key);
         }
 
         //// POST api/values 
-        public void Post(EducationProviderGenderDto value)
+        public void Post(EducationProviderSchoolingGenderDto value)
         {
             InternalPost(value);
         }
 
         
         //// PUT api/values/5 
-        public void Put(EducationProviderGenderDto value)
+        public void Put(EducationProviderSchoolingGenderDto value)
         {
             InternalPut(value);
         }

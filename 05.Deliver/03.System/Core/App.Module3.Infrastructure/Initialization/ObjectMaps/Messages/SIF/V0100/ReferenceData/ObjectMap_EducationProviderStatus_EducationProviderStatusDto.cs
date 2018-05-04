@@ -12,10 +12,10 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
     /// in order to be auto discoverable/registerable at startup.
     /// </para>
     /// </summary>
-    /// <seealso cref="EducationProviderGenderDto" />
-    public class ObjectMap_SchoolSchoolingGender_SchoolSchoolingGenderDto
+    /// <seealso cref="OrganisationStatusDto" />
+    public class ObjectMap_EducationProviderStatus_EducationProviderStatusDto
         : ObjectMap_SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase_TenantedSIFReferenceTypeDto
-            <EducationProviderGender, EducationProviderGenderDto>
+            <EducationProviderStatus, EducationProviderStatusDto>
     {
     }
 }

@@ -31,7 +31,7 @@ namespace App.Module3.Shared.Models.Entities
         {
             get; set;
         }
-        public virtual EducationProviderYearLevel Year { get; set; }
+        public virtual EducationProviderYearLevel Level { get; set; }
 
         /// <summary>
         /// The Reference(record) Id that was received from the source 

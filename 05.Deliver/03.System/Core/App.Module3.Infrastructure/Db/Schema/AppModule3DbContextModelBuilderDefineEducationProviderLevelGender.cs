@@ -31,7 +31,7 @@ namespace App.Module3.Infrastructure.Db.Schema
 
             // A SchoolLevelGender record  points to one of each of the following:
             modelBuilder.Entity<EducationProviderLevelGender>()
-                .HasRequired(x => x.Year)
+                .HasRequired(x => x.Level)
                 .WithMany()
                 .HasForeignKey(x => x.YearFK);
 

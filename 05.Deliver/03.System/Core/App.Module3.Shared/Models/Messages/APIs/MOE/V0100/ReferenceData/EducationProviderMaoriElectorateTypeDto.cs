@@ -14,7 +14,7 @@
     /// </para>
     /// </summary>
     /// <seealso cref="App.Module3.Shared.Models.Messages.APIs.MOE.V0100.Base.TenantedMOEReferenceDtoBase" />
-    public class OrganisationStatusDto : TenantedMOEReferenceDtoBase
+    public class EducationProviderMaoriElectorateTypeDto : TenantedMOEReferenceDtoBase
     {
     }
 }

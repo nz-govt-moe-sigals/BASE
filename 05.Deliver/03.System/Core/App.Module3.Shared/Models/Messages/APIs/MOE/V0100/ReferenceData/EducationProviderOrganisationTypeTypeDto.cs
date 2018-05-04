@@ -1,8 +1,11 @@
-namespace App.Module3.Shared.Models.Messages.APIs.MOE.V0100
+﻿namespace App.Module3.Shared.Models.Messages.APIs.MOE.V0100
 {
     using App.Module3.Shared.Models.Messages.APIs.MOE.V0100.Base;
+    using App.Module3.Shared.Models.Messages.APIs.SIF.V0100.Base;
 
     /// <summary>
+    /// I think this is
+    /// Criteria for defining the nature of a school.
     /// 
     /// <para>
     /// Uses MOE Codes as public PK.
@@ -13,8 +16,8 @@ namespace App.Module3.Shared.Models.Messages.APIs.MOE.V0100
     /// unless they add a code transalation layer as well.
     /// </para>
     /// </summary>
-    /// <seealso cref="App.Module3.Shared.Models.Messages.APIs.MOE.V0100.Base.TenantedMOEReferenceDtoBase" />
-    public class TerritorialAuthorityDto : TenantedMOEReferenceDtoBase
+    /// <seealso cref="SIFReferenceDtoBase" />
+    public class EducationProviderOrganisationTypeTypeDto : TenantedMOEReferenceDtoBase
     {
     }
 }

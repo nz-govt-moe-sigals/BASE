@@ -14,7 +14,7 @@ namespace App.Module3.Shared.Models.Messages.APIs.MOE.V0100
     /// </para>
     /// </summary>
     /// <seealso cref="App.Module3.Shared.Models.Messages.APIs.MOE.V0100.Base.TenantedMOEReferenceDtoBase" />
-    public class GeneralElectorateDto : TenantedMOEReferenceDtoBase
+    public class EducationProviderAuthorityTypeDto : TenantedMOEReferenceDtoBase
     {
     }
 }

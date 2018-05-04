@@ -17,7 +17,7 @@
         {
             get; set;
         }
-
+         
 
         /// <summary>
         /// Gets or sets the EducationProfile record's Identifier <see cref="EducationProviderDto.Id"/> as FK.

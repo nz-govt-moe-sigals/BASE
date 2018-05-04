@@ -14,7 +14,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
     /// </summary>
     public class ObjectMap_SchoolOrganisationType_SchoolOrganisationTypeDto
         : ObjectMap_SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase_TenantedSIFReferenceTypeDto
-            <EducationProviderType, OrganisationTypeDto>
+            <EducationProviderType, EducationProviderOrganisationTypeDto>
     {
     }
 }

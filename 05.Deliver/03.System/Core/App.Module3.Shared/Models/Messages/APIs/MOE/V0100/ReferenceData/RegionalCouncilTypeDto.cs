@@ -15,7 +15,7 @@
     /// </para>
     /// </summary>
     /// <seealso cref="App.Module3.Shared.Models.Messages.APIs.MOE.V0100.Base.TenantedMOEReferenceDtoBase" />
-    public class RegionalCouncilDto : TenantedMOEReferenceDtoBase
+    public class RegionalCouncilTypeDto : TenantedMOEReferenceDtoBase
     {
     }
 }
