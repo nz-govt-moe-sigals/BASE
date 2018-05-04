@@ -15,7 +15,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
 
     //[ODataRoutePrefix("body")]
     [Key(ApiControllerNames.AuthorityType)]
-    public class AuthorityTypeController : ODataControllerSifResourceDataBase<AuthorityType, AuthorityTypeDto>
+    public class AuthorityTypeController : SIFResourceODataControllerBase<AuthorityType, AuthorityTypeDto>
     {
         public AuthorityTypeController(
             IDiagnosticsTracingService diagnosticsTracingService, 

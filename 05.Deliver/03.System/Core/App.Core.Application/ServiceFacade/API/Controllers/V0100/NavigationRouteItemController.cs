@@ -12,7 +12,7 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
     /// </summary>
     //[ODataRoutePrefix("body")]
     [ODataPath(Constants.Api.ApiControllerNames.NavigationRouteItem)]
-    public class NavigationRouteItemController : ActiveRecordStateCoreODataControllerBase<NavigationRoute, NavigationRouteDto>
+    public class NavigationRouteItemController : ActiveRecordStateGuidIdCoreODataControllerBase<NavigationRoute, NavigationRouteDto>
     {
         public NavigationRouteItemController(IDiagnosticsTracingService diagnosticsTracingService, IPrincipalService principalService, IRepositoryService repositoryService, IObjectMappingService objectMappingService, ISecureAPIMessageAttributeService secureApiMessageAttribute) : base(diagnosticsTracingService, principalService, repositoryService, objectMappingService, secureApiMessageAttribute)
         {

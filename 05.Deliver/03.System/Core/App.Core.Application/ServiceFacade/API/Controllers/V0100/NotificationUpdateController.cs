@@ -12,7 +12,7 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
     using App.Core.Shared.Models.Messages.APIs.V0100;
 
     [ODataPath(Constants.Api.ApiControllerNames.NotificationUpdate)]
-    public class NotificationUpdateController : ODataControllerBase
+    public class NotificationUpdateController : ODataControllerCommonBase
     {
         private readonly IUniversalDateTimeService _dateTimeService;
         private readonly IRepositoryService _repositoryService;

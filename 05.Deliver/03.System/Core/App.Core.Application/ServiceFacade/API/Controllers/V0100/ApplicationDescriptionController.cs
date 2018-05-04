@@ -17,9 +17,9 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
     /// that describe an Application Name, Description, Creator, Distributor,
     /// for use by User Agents to render in Header Views as they see fit.
     /// </summary>
-    /// <seealso cref="App.Core.Application.ServiceFacade.API.Controllers.ODataControllerBase" />
+    /// <seealso cref="ODataControllerCommonBase" />
     [ODataPath(Constants.Api.ApiControllerNames.ApplicationDescription)]
-    public class ApplicationDescriptionController : ODataControllerBase
+    public class ApplicationDescriptionController : ODataControllerCommonBase
 
     {
         private readonly IApplicationInformationService _applicationInformationService;

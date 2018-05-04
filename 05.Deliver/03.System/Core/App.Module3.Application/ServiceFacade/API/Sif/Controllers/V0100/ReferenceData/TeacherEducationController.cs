@@ -15,7 +15,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
 
     //[ODataRoutePrefix("body")]
     [Key(ApiControllerNames.TeacherEducation)]
-    public class TeacherEducationController : ODataControllerSifResourceDataBase<TeacherEducation, TeacherEducationDto>
+    public class TeacherEducationController : SIFResourceODataControllerBase<TeacherEducation, TeacherEducationDto>
     {
 
         public TeacherEducationController(

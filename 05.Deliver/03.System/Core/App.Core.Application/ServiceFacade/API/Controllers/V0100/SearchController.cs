@@ -16,7 +16,7 @@
 
     [ODataRoutePrefix("search")]
     [ODataPath(Constants.Api.ApiControllerNames.Search)]
-    public class SearchController : ODataControllerBase
+    public class SearchController : ODataControllerCommonBase
     {
         private readonly IObjectMappingService _objectMappingService;
 

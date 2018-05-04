@@ -15,7 +15,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
 
     //[ODataRoutePrefix("body")]
     [Key(ApiControllerNames.RelationshipType)]
-    public class RelationshipTypeController : ODataControllerSifResourceDataBase<RelationshipType, RelationshipTypeDto>
+    public class RelationshipTypeController : SIFResourceODataControllerBase<RelationshipType, RelationshipTypeDto>
     {
         public RelationshipTypeController(
             IDiagnosticsTracingService diagnosticsTracingService, 

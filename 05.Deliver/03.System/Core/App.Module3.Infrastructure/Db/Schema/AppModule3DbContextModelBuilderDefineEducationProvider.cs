@@ -10,11 +10,11 @@ namespace App.Module3.Infrastructure.Db.Schema
     using App.Module3.Infrastructure.Initialization.Db;
     using App.Module3.Shared.Models.Entities;
 
-    public class AppModule3DbContextModelBuilderDefineEducationProviderProfile : IHasAppModule3DbContextModelBuilderInitializer
+    public class AppModule3DbContextModelBuilderDefineEducationProvider : IHasAppModule3DbContextModelBuilderInitializer
     {
         private readonly TenantFKEtcConvention _schemaDefinitionConvention;
 
-        public AppModule3DbContextModelBuilderDefineEducationProviderProfile(TenantFKEtcConvention schemaDefinitionConvention)
+        public AppModule3DbContextModelBuilderDefineEducationProvider(TenantFKEtcConvention schemaDefinitionConvention)
         {
             this._schemaDefinitionConvention = schemaDefinitionConvention;
         }

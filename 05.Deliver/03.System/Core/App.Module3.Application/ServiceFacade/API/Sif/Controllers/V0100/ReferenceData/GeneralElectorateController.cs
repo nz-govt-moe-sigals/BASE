@@ -15,7 +15,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
 
     //[ODataRoutePrefix("body")]
     [Key(ApiControllerNames.GeneralElectorate)]
-    public class GeneralElectorateController : ODataControllerSifResourceDataBase<GeneralElectorate, GeneralElectorateDto>
+    public class GeneralElectorateController : SIFResourceODataControllerBase<GeneralElectorate, GeneralElectorateDto>
     {
         public GeneralElectorateController(
             IDiagnosticsTracingService diagnosticsTracingService, 

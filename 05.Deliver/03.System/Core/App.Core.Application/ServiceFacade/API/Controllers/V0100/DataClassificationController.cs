@@ -21,7 +21,7 @@
     //[ODataRoutePrefix("body")]
     [AllowAnonymous]
     [ODataPath(Constants.Api.ApiControllerNames.DataClassification)]
-    public class DataClassificationController : ODataControllerBase // ODataControllerStandardDataBase<DataClassification,DataClassificationDto>
+    public class DataClassificationController : ODataControllerCommonBase // ODataControllerStandardDataBase<DataClassification,DataClassificationDto>
     {
         private readonly IRepositoryService _repositoryService;
         private readonly ISecureAPIMessageAttributeService _secureApiMessageAttribute;

@@ -7,12 +7,13 @@
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
 
-    public abstract class ODataControllerBase : ODataController
+
+    public abstract class ODataControllerCommonBase : ODataController
     {
         protected readonly IDiagnosticsTracingService _diagnosticsTracingService;
         protected readonly IPrincipalService _principalService;
 
-        protected ODataControllerBase(IDiagnosticsTracingService diagnosticsTracingService, IPrincipalService principalService)
+        protected ODataControllerCommonBase(IDiagnosticsTracingService diagnosticsTracingService, IPrincipalService principalService)
         {
             this._diagnosticsTracingService = diagnosticsTracingService;
             this._principalService = principalService;

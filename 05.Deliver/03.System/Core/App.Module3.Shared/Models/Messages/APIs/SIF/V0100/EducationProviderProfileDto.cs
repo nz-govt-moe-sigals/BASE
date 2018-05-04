@@ -8,10 +8,10 @@ namespace App.Module3.Shared.Models.Messages.APIs.SIF.V0100
     using App.Module3.Shared.Models.Entities;
     using App.Module3.Shared.Models.Messages.APIs.V0100;
 
-    public class EducationProviderDto : IHasGuidId
+    public class EducationProviderDto : IHasId<string>
     {
         
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         
         public Guid? ClassificationFK

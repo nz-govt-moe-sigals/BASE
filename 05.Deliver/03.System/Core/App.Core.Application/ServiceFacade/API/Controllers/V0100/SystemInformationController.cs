@@ -7,7 +7,7 @@
     /// Controller to return System Description (Name/Subtitle/About)
     /// </summary>
     [ODataPath(Constants.Api.ApiControllerNames.SystemInformation)]
-    public class SystemInformationController : ODataControllerBase
+    public class SystemInformationController : ODataControllerCommonBase
     {
         public SystemInformationController(IDiagnosticsTracingService diagnosticsTracingService, IPrincipalService principalService) : base(diagnosticsTracingService, principalService)
         {

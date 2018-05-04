@@ -19,9 +19,9 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
     /// view of what config steps were taken, so they can track 
     /// down issues by ruling out config mistakes first.
     /// </summary>
-    /// <seealso cref="App.Core.Application.ServiceFacade.API.Controllers.ODataControllerBase" />
+    /// <seealso cref="ODataControllerCommonBase" />
     [ODataPath(Constants.Api.ApiControllerNames.ConfigurationStepRecord)]
-    public class ConfigurationStepRecordController : ODataControllerBase
+    public class ConfigurationStepRecordController : ODataControllerCommonBase
     {
         private readonly IConfigurationStepService _configurationStepService;
         private readonly ISecureAPIMessageAttributeService _secureApiMessageAttribute;

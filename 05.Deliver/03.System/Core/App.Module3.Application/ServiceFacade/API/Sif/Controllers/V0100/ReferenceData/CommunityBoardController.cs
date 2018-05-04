@@ -15,7 +15,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
 
     //[ODataRoutePrefix("body")]
     [Key(ApiControllerNames.CommunityBoard)]
-    public class CommunityBoardController : ODataControllerSifResourceDataBase<CommunityBoard, CommunityBoardDto>
+    public class CommunityBoardController : SIFResourceODataControllerBase<CommunityBoard, CommunityBoardDto>
     {
         public CommunityBoardController(
             IDiagnosticsTracingService diagnosticsTracingService, 

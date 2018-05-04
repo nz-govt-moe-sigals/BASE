@@ -21,7 +21,7 @@
     /// </summary>
     //[ODataRoutePrefix("body")]
     [ODataPath(Constants.Api.ApiControllerNames.MediaMetadata)]
-    public class MediaMetadataController : ActiveRecordStateCoreODataControllerBase<MediaMetadata, MediaMetadataDto>
+    public class MediaMetadataController : ActiveRecordStateGuidIdCoreODataControllerBase<MediaMetadata, MediaMetadataDto>
     {
         public MediaMetadataController(
             IDiagnosticsTracingService diagnosticsTracingService, 

@@ -90,7 +90,7 @@
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineEducationProviderEnrolmentCount.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineEducationProviderGender.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineEducationProviderLevelGender.cs" />
-    <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineEducationProviderProfile.cs" />
+    <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineEducationProvider.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineEducationProvideLocation.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineSchoolYearLevel.cs" />
     <Compile Include="Db\Schema\AppModule3DbContextModelBuilderDefineTeacherEducation.cs" />

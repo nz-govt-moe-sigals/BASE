@@ -6,7 +6,7 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
     using App.Core.Shared.Models.Messages.APIs.V0100;
 
     [ODataPath(Constants.Api.ApiControllerNames.TenantedNavigationRouteItem)]
-    public class TenantedNavigationRouteItemController : ActiveRecordStateCoreODataControllerBase<NavigationRoute, NavigationRouteDto>
+    public class TenantedNavigationRouteItemController : ActiveRecordStateGuidIdCoreODataControllerBase<NavigationRoute, NavigationRouteDto>
     {
         public TenantedNavigationRouteItemController(IDiagnosticsTracingService diagnosticsTracingService, IPrincipalService principalService, IRepositoryService repositoryService, IObjectMappingService objectMappingService, ISecureAPIMessageAttributeService secureApiMessageAttribute) : base(diagnosticsTracingService, principalService, repositoryService, objectMappingService, secureApiMessageAttribute)
         {

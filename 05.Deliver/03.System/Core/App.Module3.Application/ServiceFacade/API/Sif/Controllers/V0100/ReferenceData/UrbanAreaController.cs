@@ -15,7 +15,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
 
     //[ODataRoutePrefix("body")]
     [Key(ApiControllerNames.UrbanArea)]
-    public class UrbanAreaController : ODataControllerSifResourceDataBase<UrbanArea, UrbanAreaDto>
+    public class UrbanAreaController : SIFResourceODataControllerBase<UrbanArea, UrbanAreaDto>
     {
         public UrbanAreaController(
             IDiagnosticsTracingService diagnosticsTracingService, 

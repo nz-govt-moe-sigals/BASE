@@ -11,26 +11,31 @@ namespace App.Module3.Application.ServiceFacade.API.Controllers
     using App.Module3.Shared.Models.Entities;
     using AutoMapper.QueryableExtensions;
 
-    public abstract class ODataControllerSifResourceDataBase<TEntity, TDto> : ODataControllerBase
+    public abstract class SIFResourceODataControllerBase<TEntity, TDto> : ODataControllerBase
         where TEntity : class, IHasGuidId, IHasSIFKey, IHasRecordState, new()
         where TDto : class, IHasSIFIdAsStringId, /* IHasSIFNOTIdAsStringId*/ new()
     {
+
+        private string _dbContextIdentifier;
+
         private readonly IObjectMappingService _objectMappingService;
         private readonly ISecureAPIMessageAttributeService _secureApiMessageAttribute;
         private readonly IRepositoryService _repositoryService;
 
-        protected ODataControllerSifResourceDataBase(IDiagnosticsTracingService diagnosticsTracingService, IPrincipalService principalService,
+        protected SIFResourceODataControllerBase(IDiagnosticsTracingService diagnosticsTracingService, IPrincipalService principalService,
             IRepositoryService repositoryService, IObjectMappingService objectMappingService, ISecureAPIMessageAttributeService secureApiMessageAttribute)
             : base(diagnosticsTracingService, principalService)
         {
             this._repositoryService = repositoryService;
             this._objectMappingService = objectMappingService;
             this._secureApiMessageAttribute = secureApiMessageAttribute;
+
+            _dbContextIdentifier = AppModule3DbContextNames.Module3;
         }
 
         protected IQueryable<TEntity> InternalGetDbSet()
         {
-            return this._repositoryService.GetQueryableSet<TEntity>(AppModule3DbContextNames.Module3);
+            return this._repositoryService.GetQueryableSet<TEntity>(_dbContextIdentifier);
         }
 
         protected IQueryable<TEntity> InternalGetDbSetOfActivEntities()
@@ -55,7 +60,7 @@ namespace App.Module3.Application.ServiceFacade.API.Controllers
         {
             //Create a new record:
             var entity = this._objectMappingService.Map<TDto, TEntity>(value);
-            this._repositoryService.AddOnCommit(AppModule3DbContextNames.Module3, entity);
+            this._repositoryService.AddOnCommit(_dbContextIdentifier, entity);
         }
 
 

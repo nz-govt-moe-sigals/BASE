@@ -6,7 +6,7 @@ namespace App.Module3.Application.ServiceFacade.API.Controllers
     using App.Module3.Infrastructure.Constants.Db;
 
     public abstract class
-        TenantedODataControllerStandardDataBase<TEntity, TDto> : TenantedActiveRecordStateODataControllerBase<TEntity, TDto>
+        TenantedODataControllerStandardDataBase<TEntity, TDto> : TenantedActiveRecordStateGuidIdODataControllerCommonBase<TEntity, TDto>
         where TEntity : class, IHasGuidId, IHasRecordState, IHasTenantFK, new()
         where TDto : class, IHasGuidId, new()
     {

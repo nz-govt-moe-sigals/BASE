@@ -13,7 +13,7 @@
 
     //[ODataRoutePrefix("body")]
     [ODataPath(Constants.Api.ApiControllerNames.SessionOperation)]
-    public class SessionOperationController : ActiveRecordStateCoreODataControllerBase<SessionOperation, SessionOperationDto>
+    public class SessionOperationController : ActiveRecordStateGuidIdCoreODataControllerBase<SessionOperation, SessionOperationDto>
     {
         public SessionOperationController(
             IDiagnosticsTracingService diagnosticsTracingService, 

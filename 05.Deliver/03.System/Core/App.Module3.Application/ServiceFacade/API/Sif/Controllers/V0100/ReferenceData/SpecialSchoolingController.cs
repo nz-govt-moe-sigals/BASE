@@ -15,7 +15,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
 
     //[ODataRoutePrefix("body")]
     [Key(ApiControllerNames.SpecialSchooling)]
-    public class SpecialSchoolingController : ODataControllerSifResourceDataBase<SpecialSchooling, SpecialSchoolingDto>
+    public class SpecialSchoolingController : SIFResourceODataControllerBase<SpecialSchooling, SpecialSchoolingDto>
     {
         public SpecialSchoolingController(
             IDiagnosticsTracingService diagnosticsTracingService, 

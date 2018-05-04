@@ -1,12 +1,12 @@
-namespace App.Module2.Application.ServiceFacade.API.Controllers
+namespace App.Module1.Application.ServiceFacade.API.Controllers
 {
     using App.Core.Application.ServiceFacade.API.Controllers;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models;
-    using App.Module2.Infrastructure.Constants.Db;
+    using App.Module1.Infrastructure.Constants.Db;
 
     public abstract class
-        TenantedODataControllerStandardDataBase<TEntity, TDto> : TenantedActiveRecordStateODataControllerBase<TEntity, TDto>
+        TenantedODataControllerStandardDataBase<TEntity, TDto> : TenantedActiveRecordStateGuidIdODataControllerCommonBase<TEntity, TDto>
         where TEntity : class, IHasGuidId, IHasRecordState, IHasTenantFK, new()
         where TDto : class, IHasGuidId, new()
     {
@@ -16,7 +16,7 @@ namespace App.Module2.Application.ServiceFacade.API.Controllers
             base(diagnosticsTracingService, repositoryService, objectMappingService,
                 secureApiMessageAttribute, principalService, tenantService)
         {
-            this._dbContextIdentifier = AppModule2DbContextNames.Module2;
+            this._dbContextIdentifier = AppModule1DbContextNames.Module1;
         }
     }
 }

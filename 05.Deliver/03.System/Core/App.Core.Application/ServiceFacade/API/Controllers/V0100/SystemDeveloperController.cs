@@ -7,7 +7,7 @@
     /// Controller to return Creator, Distributor, Vendor information 
     /// </summary>
     [ODataPath(Constants.Api.ApiControllerNames.SystemDeveloper)]
-    public class SystemDeveloperController : ODataControllerBase
+    public class SystemDeveloperController : ODataControllerCommonBase
     {
         public SystemDeveloperController(IDiagnosticsTracingService diagnosticsTracingService, IPrincipalService principalService) : base(diagnosticsTracingService, principalService)
         {

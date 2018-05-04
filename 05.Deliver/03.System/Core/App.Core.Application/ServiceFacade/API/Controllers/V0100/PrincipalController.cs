@@ -14,7 +14,7 @@
 
     //[ODataRoutePrefix("body")]
     [ODataPath(Constants.Api.ApiControllerNames.Principal)]
-    public class PrincipalController : ActiveRecordStateCoreODataControllerBase<Principal, PrincipalDto>
+    public class PrincipalController : ActiveRecordStateGuidIdCoreODataControllerBase<Principal, PrincipalDto>
     {
         public PrincipalController(
             IDiagnosticsTracingService diagnosticsTracingService, 

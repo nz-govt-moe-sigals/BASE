@@ -15,7 +15,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
 
     //[ODataRoutePrefix("body")]
     [Key(ApiControllerNames.TerritorialAuthority)]
-    public class TerritorialAuthorityController : ODataControllerSifResourceDataBase<TerritorialAuthority, TerritorialAuthorityDto>
+    public class TerritorialAuthorityController : SIFResourceODataControllerBase<TerritorialAuthority, TerritorialAuthorityDto>
     {
         public TerritorialAuthorityController(
             IDiagnosticsTracingService diagnosticsTracingService, 

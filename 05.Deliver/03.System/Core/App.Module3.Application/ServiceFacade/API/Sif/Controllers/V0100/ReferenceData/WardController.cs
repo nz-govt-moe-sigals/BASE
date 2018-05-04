@@ -15,7 +15,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
 
     //[ODataRoutePrefix("body")]
     [Key(ApiControllerNames.Ward)]
-    public class WardController : ODataControllerSifResourceDataBase<Ward, WardDto>
+    public class WardController : SIFResourceODataControllerBase<Ward, WardDto>
     {
         public WardController(
             IDiagnosticsTracingService diagnosticsTracingService, 

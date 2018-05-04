@@ -19,7 +19,7 @@
     /// </summary>
     //[ODataRoutePrefix("body")]
     [ODataPath(Constants.Api.ApiControllerNames.ExceptionRecord)]
-    public class ExceptionRecordController : ActiveRecordStateCoreODataControllerBase<ExceptionRecord, ExceptionRecordDto>
+    public class ExceptionRecordController : ActiveRecordStateGuidIdCoreODataControllerBase<ExceptionRecord, ExceptionRecordDto>
     {
         public ExceptionRecordController(
             IDiagnosticsTracingService diagnosticsTracingService, 

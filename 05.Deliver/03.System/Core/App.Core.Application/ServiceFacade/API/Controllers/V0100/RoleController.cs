@@ -13,7 +13,7 @@
 
     //[ODataRoutePrefix("body")]
     [ODataPath(Constants.Api.ApiControllerNames.Role)]
-    public class RoleController : ActiveRecordStateCoreODataControllerBase<SystemRole, RoleDto>
+    public class RoleController : ActiveRecordStateGuidIdCoreODataControllerBase<SystemRole, RoleDto>
     {
         public RoleController(
             IDiagnosticsTracingService diagnosticsTracingService, 

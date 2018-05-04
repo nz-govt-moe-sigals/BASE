@@ -13,7 +13,7 @@
 
     //[ODataRoutePrefix("body")]
     [ODataPath(Constants.Api.ApiControllerNames.Tenant)]
-    public class TenantController : ActiveRecordStateCoreODataControllerBase<Tenant, TenantDto>
+    public class TenantController : ActiveRecordStateGuidIdCoreODataControllerBase<Tenant, TenantDto>
     {
         public TenantController(
             IDiagnosticsTracingService diagnosticsTracingService, 

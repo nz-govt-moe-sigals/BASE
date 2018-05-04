@@ -17,7 +17,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
 
     [ODataRoutePrefix(ApiControllerNames.SchoolingGender)]
     [Key(ApiControllerNames.SchoolingGender)]
-    public class SchoolingGenderController : ODataControllerSifResourceDataBase<EducationProviderGender, EducationProviderSchoolingGenderDto>
+    public class SchoolingGenderController : SIFResourceODataControllerBase<EducationProviderGender, EducationProviderSchoolingGenderDto>
     {
         public SchoolingGenderController(
             IDiagnosticsTracingService diagnosticsTracingService, 

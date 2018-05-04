@@ -15,7 +15,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
 
     //[ODataRoutePrefix("body")]
     [Key(ApiControllerNames.EducationProviderYearLevel)]
-    public class EducationProviderYearLevelController : ODataControllerSifResourceDataBase<EducationProviderYearLevel, EducationProviderYearLevelDto>
+    public class EducationProviderYearLevelController : SIFResourceODataControllerBase<EducationProviderYearLevel, EducationProviderYearLevelDto>
     {
         public EducationProviderYearLevelController(
             IDiagnosticsTracingService diagnosticsTracingService, 

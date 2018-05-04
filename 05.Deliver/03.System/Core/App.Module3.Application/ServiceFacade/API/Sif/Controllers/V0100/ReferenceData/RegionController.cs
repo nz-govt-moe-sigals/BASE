@@ -15,7 +15,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
 
     //[ODataRoutePrefix("body")]
     [Key(ApiControllerNames.Region)]
-    public class RegionController : ODataControllerSifResourceDataBase<Region, RegionDto>
+    public class RegionController : SIFResourceODataControllerBase<Region, RegionDto>
     {
         public RegionController(
             IDiagnosticsTracingService diagnosticsTracingService, 

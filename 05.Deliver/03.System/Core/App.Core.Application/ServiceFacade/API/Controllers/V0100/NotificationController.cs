@@ -13,7 +13,7 @@
 
     //[ODataRoutePrefix("body")]
     [ODataPath(Constants.Api.ApiControllerNames.Notification)]
-    public class NotificationController : ActiveRecordStateCoreODataControllerBase<Notification, NotificationDto>
+    public class NotificationController : ActiveRecordStateGuidIdCoreODataControllerBase<Notification, NotificationDto>
     {
         public NotificationController(
             IDiagnosticsTracingService diagnosticsTracingService, 

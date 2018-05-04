@@ -29,7 +29,7 @@
         private readonly AppModule3DbContextModelBuilderDefineWard _appModule3DbContextModelBuilderDefineWard;
         private readonly AppModule3DbContextModelBuilderDefineEducationProviderEnrolmentCount _appModule3DbContextModelBuilderDefineEducationProviderEnrolmentCount;
         private readonly AppModule3DbContextModelBuilderDefineEducationProviderLevelGender _appModule3DbContextModelBuilderDefineEducationProviderLevelGender;
-        private readonly AppModule3DbContextModelBuilderDefineEducationProviderProfile _appModule3DbContextModelBuilderDefineSchoolProfile;
+        private readonly AppModule3DbContextModelBuilderDefineEducationProvider _appModule3DbContextModelBuilderDefineSchoolProfile;
         private readonly AppModule3DbContextModelBuilderDefineEducationProvideLocation _appModule3DbContextModelBuilderDefineSchoolWgs;
 
 
@@ -57,7 +57,7 @@
 
                 AppModule3DbContextModelBuilderDefineEducationProviderEnrolmentCount appModule3DbContextModelBuilderDefineEducationProviderEnrolmentCount,
                 AppModule3DbContextModelBuilderDefineEducationProviderLevelGender appModule3DbContextModelBuilderDefineEducationProviderLevelGender,
-                AppModule3DbContextModelBuilderDefineEducationProviderProfile appModule3DbContextModelBuilderDefineSchoolProfile,
+                AppModule3DbContextModelBuilderDefineEducationProvider appModule3DbContextModelBuilderDefineSchoolProfile,
                 AppModule3DbContextModelBuilderDefineEducationProvideLocation appModule3DbContextModelBuilderDefineSchoolWgs,
             AppModule3DbContextModelBuilderDefineExtractWatermark  appModule3DbContextModelBuilderDefineExtractWatermark 
 

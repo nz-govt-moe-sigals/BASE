@@ -15,7 +15,7 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
     /// * Data Usage Document
     /// </summary>
     [ODataPath(Constants.Api.ApiControllerNames.SystemDocumentation)]
-    public class SystemDocumentationController : ODataControllerBase
+    public class SystemDocumentationController : ODataControllerCommonBase
     {
         public SystemDocumentationController(IDiagnosticsTracingService diagnosticsTracingService, IPrincipalService principalService) : base(diagnosticsTracingService, principalService)
         {

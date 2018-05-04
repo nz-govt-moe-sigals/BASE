@@ -15,7 +15,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
 
     //[ODataRoutePrefix("body")]
     [Key(ApiControllerNames.MaoriElectorate)]
-    public class MaoriElectorateController : ODataControllerSifResourceDataBase<MaoriElectorate, MaoriElectorateDto>
+    public class MaoriElectorateController : SIFResourceODataControllerBase<MaoriElectorate, MaoriElectorateDto>
     {
         public MaoriElectorateController(
             IDiagnosticsTracingService diagnosticsTracingService, 
