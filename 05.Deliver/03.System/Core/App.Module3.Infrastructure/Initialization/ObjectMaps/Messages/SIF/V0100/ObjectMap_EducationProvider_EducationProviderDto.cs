@@ -17,7 +17,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
     {
         public void Initialize(IMapperConfigurationExpression config)
         {
-            config.CreateMap<EducationProviderProfile, EducationProviderProfileDto>()
+            config.CreateMap<EducationProviderProfile, EducationProviderDto>()
                 .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
 
                 .ForMember(t => t.Address1Line1, opt => opt.MapFrom(s => s.Address1Line1))

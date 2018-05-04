@@ -10,6 +10,8 @@ using AutoMapper;
 
 namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract
 {
+    using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
+
     public class ObjectToMap_EducationProviderProfile_EducationProviderProfile : IHasAutomapperInitializer
     {
         public void Initialize(IMapperConfigurationExpression config)

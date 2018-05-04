@@ -101,7 +101,9 @@ namespace App.Core.Application.ServiceFacade.API.Controllers
                 InternalActiveRecords()
                 .ProjectTo<TDto>()
                 .SingleOrDefault(x => x.Id == key);
+
             this._secureApiMessageAttribute.Process(result);
+
             return result;
         }
 

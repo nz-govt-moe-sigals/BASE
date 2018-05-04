@@ -193,6 +193,7 @@
     <Compile Include="ServiceFacade\API\Services\Implementations\ExtractContractResolverService.cs" />
     <Compile Include="ServiceFacade\API\Sif\Controllers\TenantedODataControllerStandardDataBase.cs" />
     <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\Class1.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\EducationProviderController.cs" />
     <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ExtractController.cs" />
     <Compile Include="ServiceFacade\API\Services\IApplicationService.cs" />
     <Compile Include="ServiceFacade\API\Services\Implementations\ApplicationService.cs" />

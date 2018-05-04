@@ -14,15 +14,15 @@
 //        where T: class
 //        {
 //            var type = typeof(T);
-//            if (type == typeof(EducationProviderProfile))
+//            if (type == typeof(EducationProvider))
 //            {
-//                MapP(source as EducationProviderProfile, dest as EducationProviderProfile);
+//                MapP(source as EducationProvider, dest as EducationProvider);
 //            }
 //        }
 
-//        private static void MapP(EducationProviderProfile source, EducationProviderProfile dest)
+//        private static void MapP(EducationProvider source, EducationProvider dest)
 //        {
-//            //Mapper.Map<EducationProviderProfile, EducationProviderProfile>(source, dest); // really want this fixed but until it works
+//            //Mapper.Map<EducationProvider, EducationProvider>(source, dest); // really want this fixed but until it works
 //			dest.Address1City = source.Address1City;
 //			dest.Address1Line1 = source.Address1Line1;
 //			dest.Address1Line2 = source.Address1Line2;

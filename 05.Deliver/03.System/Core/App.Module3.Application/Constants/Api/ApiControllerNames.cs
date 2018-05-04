@@ -46,5 +46,8 @@ namespace App.Module3.Application.Constants.Api
         public const string UrbanArea = "UrbanArea" + Suffix;
         public const string Ward = "Ward" + Suffix;
         // Resources:
+
+        public const string EducationProvider = "EducationProvider" + Suffix;
+
     }
 }
