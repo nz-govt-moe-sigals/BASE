@@ -132,7 +132,6 @@
   <ItemGroup>
     <Compile Include="APIs\XYZController.cs" />
     <Compile Include="Attributes\ODataPathAttribute.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="Constants\Api\ApiControllerNames.cs" />
     <Compile Include="ExtensionMethods\HttpRequestBaseExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\HttpRequestExtensionMethods.cs" />
@@ -171,8 +170,8 @@
     <Compile Include="Initialization\OData\Implementations\TenantPropertyOdataModelBuilderConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceFacade\API\ApiControllerBase.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\Base\Base\IdActiveRecordStateCommonODataControllerBase.cs" />
     <Compile Include="ServiceFacade\API\Controllers\Base\GuidIdActiveRecordStateODataControllerBase.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\Base\ActiveRecordStateGuidIdODataControllerBase - Copy.cs" />
     <Compile Include="ServiceFacade\API\Controllers\Base\Base\CommonApiControllerBase.cs" />
     <Compile Include="ServiceFacade\API\Controllers\Base\Base\ActiveRecordStateCommonODataControllerBase.cs" />
     <Compile Include="ServiceFacade\API\Controllers\Base\Base\TenantedGuidIdActiveRecordStateCommonODataControllerBase.cs" />
@@ -210,6 +209,8 @@
     <Content Include="Filters\WebApi\readme.md" />
     <None Include="packages.config" />
     <Content Include="ServiceFacade\API\Controllers\V0100\_readme.md" />
+    <None Include="ServiceFacade\API\Controllers\Base\Base\_readme.md" />
+    <None Include="ServiceFacade\API\Controllers\Base\_readme.md" />
     <None Include="ServiceFacade\API\README.md" />
   </ItemGroup>
   <ItemGroup>

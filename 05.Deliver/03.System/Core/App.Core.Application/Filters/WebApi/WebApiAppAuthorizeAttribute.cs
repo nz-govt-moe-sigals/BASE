@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net.Http;
     using System.Security.Claims;
     using System.Web.Http;
     using System.Web.Http.Controllers;
@@ -47,7 +48,13 @@
         /// <param name="actionContext">The context.</param>
         protected override bool IsAuthorized(HttpActionContext actionContext)
         {
+            var request = actionContext.Request;
 
+            // There's no controller for the metadata, so have to return true this way:
+            if (IsAnODataMetadataRequests(request))
+            {
+                return true;
+            }
             /*
             // The default behaviour that you are overrridding is as follows:
             if (actionContext == null)
@@ -84,6 +91,19 @@
             return this._rolesSplit.Any(role => value.Contains(role));
         }
 
+        private static bool IsAnODataMetadataRequests(HttpRequestMessage request)
+        {
+            var absolutePath = request.RequestUri.AbsolutePath;
+            if (absolutePath.EndsWith("/$metadata") || (absolutePath.EndsWith("/%24metadata")))
+            {
+                return true;
+            }
+            if (absolutePath.EndsWith("/$metadata/") || (absolutePath.EndsWith("/%24metadata/")))
+            {
+                return true;
+            }
+            return false;
+        }
 
 
         static string[] SplitString(string original)
