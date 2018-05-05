@@ -1,4 +1,4 @@
-﻿namespace App.Core.Application.ServiceFacade.API.Controllers
+﻿namespace App.Core.Application.ServiceFacade.API.Controllers.Base.Base
 {
     using System.Net;
     using System.Net.Http;
@@ -7,13 +7,27 @@
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
 
-
-    public abstract class ODataControllerCommonBase : ODataController
+    /// <summary>
+    /// All Controllers, whatever module,  *should* inherit in one way or another
+    /// from this base controller.
+    /// <para>
+    /// The advantages include:
+    /// * only one class that needs to be updated to .NET Core when we get there.
+    /// * ensures that all classes are injected with an implementation of 
+    /// <see cref="IDiagnosticsTracingService"/> and <see cref="IPrincipalService"/>
+    /// so there is absolutely no excuse for poor diagnostics logs, or security...
+    /// (that said, still don't trust developers rushing to meet deadlines to take 
+    /// care of ISO-25010/Maintainability or ISO-25010/Security, so we handle 
+    /// Security and Logging as GLobal Filters anyway).
+    /// </para>
+    /// </summary>
+    /// <seealso cref="System.Web.OData.ODataController" />
+    public abstract class CommonODataControllerBase : ODataController
     {
         protected readonly IDiagnosticsTracingService _diagnosticsTracingService;
         protected readonly IPrincipalService _principalService;
 
-        protected ODataControllerCommonBase(IDiagnosticsTracingService diagnosticsTracingService, IPrincipalService principalService)
+        protected CommonODataControllerBase(IDiagnosticsTracingService diagnosticsTracingService, IPrincipalService principalService)
         {
             this._diagnosticsTracingService = diagnosticsTracingService;
             this._principalService = principalService;

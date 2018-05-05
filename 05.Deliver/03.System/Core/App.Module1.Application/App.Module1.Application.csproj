@@ -157,6 +157,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\Controllers\Base\GuidIdActiveRecordStateODataControllerBase.cs" />
     <Compile Include="Constants\Api\ApiControllerNames.cs" />
     <Compile Include="Initialization\DependencyResolution\AppModule1Registry.cs" />
     <Compile Include="Initialization\OData\IAppModule1OdataModelBuilder.cs" />
@@ -167,22 +168,19 @@
     <Compile Include="Presentation\Controllers\ExamplesController.cs" />
     <Compile Include="Presentation\Controllers\Module1Controller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="API\Controllers\ApiControllerBase.cs" />
-    <Compile Include="API\Controllers\ODataControllerStandardDataBase.cs" />
-    <Compile Include="API\Controllers\ODataControllerBase.cs" />
-    <Compile Include="API\Controllers\TenantedODataControllerStandardDataBase.cs" />
+    <Compile Include="API\Controllers\Base\TenantedGuidIdActiveRecordStateODataControllerDataBase.cs" />
     <Compile Include="API\Controllers\V0100\Example1Controller.cs" />
     <Compile Include="API\Controllers\V0100\Example2Controller.cs" />
     <Compile Include="API\Controllers\V0100\Example3Controller.cs" />
     <Compile Include="API\Controllers\V0100\Example4Controller.cs" />
     <Compile Include="API\Controllers\V0100\Example5Controller.cs" />
     <Compile Include="API\Controllers\V0100\Example6Controller.cs" />
-    <Compile Include="API\Controllers\Services\IApplicationService.cs" />
-    <Compile Include="API\Controllers\Services\Implementations\ApplicationService.cs" />
-    <Compile Include="API\Controllers\Services\IExampleApplicationService.cs" />
-    <Compile Include="API\Controllers\Services\Implementations\ExampleApplicationService.cs" />
-    <Compile Include="API\Controllers\Services\Implementations\TaskService.cs" />
-    <Compile Include="API\Controllers\Services\ITaskService.cs" />
+    <Compile Include="Services\IApplicationService.cs" />
+    <Compile Include="Services\Implementations\ApplicationService.cs" />
+    <Compile Include="Services\IExampleApplicationService.cs" />
+    <Compile Include="Services\Implementations\ExampleApplicationService.cs" />
+    <Compile Include="Services\Implementations\TaskService.cs" />
+    <Compile Include="Services\ITaskService.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Presentation/Views/**/*.cshtml" />

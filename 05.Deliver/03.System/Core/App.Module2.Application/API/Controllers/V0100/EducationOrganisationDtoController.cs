@@ -13,7 +13,7 @@
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class EducationOrganisationController : ODataControllerStandardDataBase<EducationOrganisation, EducationOrganisationDto>
+    public class EducationOrganisationController : GuidIdActiveRecordStateODataControllerBase<EducationOrganisation, EducationOrganisationDto>
     {
         public EducationOrganisationController(
             IDiagnosticsTracingService diagnosticsTracingService, 

@@ -14,7 +14,7 @@
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    public class SchoolGenderController : ODataControllerStandardDataBase<SchoolGender, SchoolGenderDto>
+    public class SchoolGenderController : GuidIdActiveRecordStateODataControllerBase<SchoolGender, SchoolGenderDto>
     {
         public SchoolGenderController(
             IDiagnosticsTracingService diagnosticsTracingService, 

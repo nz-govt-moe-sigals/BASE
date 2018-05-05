@@ -5,6 +5,7 @@
     using System.Net;
     using System.Web.Http;
     using System.Web.OData.Query;
+    using App.Core.Application.ServiceFacade.API.Controllers.Base.Base;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages.API.V0100;
@@ -31,7 +32,7 @@
     ///     </para>
     /// </summary>
     [Authorize]
-    public class Example6Controller : ODataControllerBase
+    public class Example6Controller : CommonODataControllerBase
     {
         private readonly ExampleApiConfiguration _apiConfiguration;
         private readonly IExampleApplicationService _exampleApplicationService;

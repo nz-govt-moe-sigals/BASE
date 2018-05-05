@@ -3,47 +3,29 @@ namespace App.Module3.Application.ServiceFacade.API.Controllers
     using System;
     using System.Linq;
     using System.Web.OData;
+    using App.Core.Application.ServiceFacade.API.Controllers.Base.Base;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models;
     using App.Core.Shared.Models.Entities;
+    using App.Module3.Application.ServiceFacade.API.Base;
     using App.Module3.Infrastructure.Constants.Db;
     using App.Module3.Shared.Models;
     using App.Module3.Shared.Models.Entities;
     using AutoMapper.QueryableExtensions;
 
-    public abstract class SIFResourceODataControllerBase<TEntity, TDto> : ODataControllerBase
-        where TEntity : class, IHasGuidId, IHasSIFKey, IHasRecordState, new()
+    public abstract class SIFResourceODataControllerBase<TEntity, TDto> : ActiveRecordStateODataControllerBase<TEntity, TDto> where TEntity
+        : class, IHasGuidId, IHasSIFKey, IHasRecordState, new()
         where TDto : class, IHasSIFIdAsStringId, /* IHasSIFNOTIdAsStringId*/ new()
     {
 
-        private string _dbContextIdentifier;
-
-        private readonly IObjectMappingService _objectMappingService;
-        private readonly ISecureAPIMessageAttributeService _secureApiMessageAttribute;
-        private readonly IRepositoryService _repositoryService;
 
         protected SIFResourceODataControllerBase(IDiagnosticsTracingService diagnosticsTracingService, IPrincipalService principalService,
             IRepositoryService repositoryService, IObjectMappingService objectMappingService, ISecureAPIMessageAttributeService secureApiMessageAttribute)
-            : base(diagnosticsTracingService, principalService)
+            : base(diagnosticsTracingService, principalService, repositoryService, objectMappingService, secureApiMessageAttribute)
         {
-            this._repositoryService = repositoryService;
-            this._objectMappingService = objectMappingService;
-            this._secureApiMessageAttribute = secureApiMessageAttribute;
-
-            _dbContextIdentifier = AppModule3DbContextNames.Module3;
-        }
-
-        protected IQueryable<TEntity> InternalGetDbSet()
-        {
-            return this._repositoryService.GetQueryableSet<TEntity>(_dbContextIdentifier);
-        }
-
-        protected IQueryable<TEntity> InternalGetDbSetOfActivEntities()
-        {
-            return InternalGetDbSet().Where(x => x.RecordState == RecordPersistenceState.Active);
+            // Base will invoke Initialize() to set base._dbContextIdentifier.
 
         }
-
 
         //// POST api/values 
         protected void InternalPost(TDto value)
@@ -74,8 +56,7 @@ namespace App.Module3.Application.ServiceFacade.API.Controllers
             IQueryable<TDto> results;
             try
             {
-                results =
-                    InternalGetDbSetOfActivEntities()
+                results = InternalActiveRecords()
                     .ProjectTo<TDto>()
                     ;
             }
@@ -95,18 +76,15 @@ namespace App.Module3.Application.ServiceFacade.API.Controllers
         protected TDto InternalGet(string sifKey)
         {
             var result =
-                InternalGetDbSetOfActivEntities()
-                    .ProjectTo<TDto>()
-                    .SingleOrDefault(x => x.Id == sifKey);
+            InternalActiveRecords()
+            .ProjectTo<TDto>()
+                .SingleOrDefault(x => x.Id == sifKey);
 
             this._secureApiMessageAttribute.Process(result);
 
             return result;
         }
 
-
-
- 
 
         public void InternalDelete(string sifKey)
         {

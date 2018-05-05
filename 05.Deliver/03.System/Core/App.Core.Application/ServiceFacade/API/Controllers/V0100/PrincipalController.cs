@@ -5,6 +5,7 @@
     using System.Web.Http;
     using System.Web.OData;
     using App.Core.Application.Attributes;
+    using App.Core.Application.ServiceFacade.API.Controllers.Base;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages.APIs.V0100;
@@ -14,7 +15,7 @@
 
     //[ODataRoutePrefix("body")]
     [ODataPath(Constants.Api.ApiControllerNames.Principal)]
-    public class PrincipalController : ActiveRecordStateGuidIdCoreODataControllerBase<Principal, PrincipalDto>
+    public class PrincipalController : GuidIdActiveRecordStateODataControllerBase<Principal, PrincipalDto>
     {
         public PrincipalController(
             IDiagnosticsTracingService diagnosticsTracingService, 

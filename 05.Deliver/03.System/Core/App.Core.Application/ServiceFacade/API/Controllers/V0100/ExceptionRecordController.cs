@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Web.OData;
     using App.Core.Application.Attributes;
+    using App.Core.Application.ServiceFacade.API.Controllers.Base;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages.APIs.V0100;
@@ -19,7 +20,7 @@
     /// </summary>
     //[ODataRoutePrefix("body")]
     [ODataPath(Constants.Api.ApiControllerNames.ExceptionRecord)]
-    public class ExceptionRecordController : ActiveRecordStateGuidIdCoreODataControllerBase<ExceptionRecord, ExceptionRecordDto>
+    public class ExceptionRecordController : GuidIdActiveRecordStateODataControllerBase<ExceptionRecord, ExceptionRecordDto>
     {
         public ExceptionRecordController(
             IDiagnosticsTracingService diagnosticsTracingService, 

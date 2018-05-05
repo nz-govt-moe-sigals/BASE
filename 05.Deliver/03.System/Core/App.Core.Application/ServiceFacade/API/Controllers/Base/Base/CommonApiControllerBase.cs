@@ -1,15 +1,15 @@
-﻿namespace App.Module2.Application.ServiceFacade.API.Controllers
+﻿namespace App.Core.Application.ServiceFacade.API.Controllers.Base.Base
 {
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
     using App.Core.Infrastructure.Services;
-
-    public abstract class ApiControllerBase : ApiController
+     
+    public abstract class ApiControllerCommonBase : ApiController
     {
         protected readonly IPrincipalService _principalService;
 
-        protected ApiControllerBase(IPrincipalService principalService)
+        protected ApiControllerCommonBase(IPrincipalService principalService)
         {
             this._principalService = principalService;
         }

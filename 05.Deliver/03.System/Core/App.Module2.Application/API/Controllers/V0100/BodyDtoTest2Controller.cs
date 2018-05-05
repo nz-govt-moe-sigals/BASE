@@ -8,6 +8,7 @@ namespace App.Module2.Application.ServiceFacade.API.Controllers.V0100
 {
     using System.Collections.ObjectModel;
     using System.Web.OData;
+    using App.Core.Application.ServiceFacade.API.Controllers.Base.Base;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
     using App.Module2.Shared.Models.Entities;
@@ -21,7 +22,7 @@ namespace App.Module2.Application.ServiceFacade.API.Controllers.V0100
     /// Notice that it works... (ie, without Automapper being in the picture)
     /// </summary>
     //[ODataRoutePrefix("bodybasic")]
-    public class BodyDtoTest2Controller : ODataControllerBase
+    public class BodyDtoTest2Controller : CommonODataControllerBase
     {
 
         static ICollection<BodyDto> _cache = new Collection<BodyDto>();

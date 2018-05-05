@@ -7,6 +7,7 @@
     using System.Web.OData;
     using System.Web.OData.Routing;
     using App.Core.Application.Attributes;
+    using App.Core.Application.ServiceFacade.API.Controllers.Base.Base;
     using App.Core.Infrastructure.Initialization.Search;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Messages;
@@ -16,7 +17,7 @@
 
     [ODataRoutePrefix("search")]
     [ODataPath(Constants.Api.ApiControllerNames.Search)]
-    public class SearchController : ODataControllerCommonBase
+    public class SearchController : CommonODataControllerBase
     {
         private readonly IObjectMappingService _objectMappingService;
 

@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Web.OData;
     using App.Core.Application.Attributes;
+    using App.Core.Application.ServiceFacade.API.Controllers.Base;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages.APIs.V0100;
@@ -13,7 +14,7 @@
 
     //[ODataRoutePrefix("body")]
     [ODataPath(Constants.Api.ApiControllerNames.Notification)]
-    public class NotificationController : ActiveRecordStateGuidIdCoreODataControllerBase<Notification, NotificationDto>
+    public class NotificationController : GuidIdActiveRecordStateODataControllerBase<Notification, NotificationDto>
     {
         public NotificationController(
             IDiagnosticsTracingService diagnosticsTracingService, 

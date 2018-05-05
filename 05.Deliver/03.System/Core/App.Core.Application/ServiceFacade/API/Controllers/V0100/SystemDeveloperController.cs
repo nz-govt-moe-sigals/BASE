@@ -1,13 +1,14 @@
 ﻿namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
 {
     using App.Core.Application.Attributes;
+    using App.Core.Application.ServiceFacade.API.Controllers.Base.Base;
     using App.Core.Infrastructure.Services;
 
     /// <summary>
     /// Controller to return Creator, Distributor, Vendor information 
     /// </summary>
     [ODataPath(Constants.Api.ApiControllerNames.SystemDeveloper)]
-    public class SystemDeveloperController : ODataControllerCommonBase
+    public class SystemDeveloperController : CommonODataControllerBase
     {
         public SystemDeveloperController(IDiagnosticsTracingService diagnosticsTracingService, IPrincipalService principalService) : base(diagnosticsTracingService, principalService)
         {

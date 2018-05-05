@@ -4,6 +4,7 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
 {
     using System.Linq;
     using App.Core.Application.Attributes;
+    using App.Core.Application.ServiceFacade.API.Controllers.Base.Base;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Configuration;
     using App.Core.Shared.Models.Configuration.AppHost;
@@ -17,9 +18,9 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
     /// that describe an Application Name, Description, Creator, Distributor,
     /// for use by User Agents to render in Header Views as they see fit.
     /// </summary>
-    /// <seealso cref="ODataControllerCommonBase" />
+    /// <seealso cref="CommonODataControllerBase" />
     [ODataPath(Constants.Api.ApiControllerNames.ApplicationDescription)]
-    public class ApplicationDescriptionController : ODataControllerCommonBase
+    public class ApplicationDescriptionController : CommonODataControllerBase
 
     {
         private readonly IApplicationInformationService _applicationInformationService;

@@ -5,6 +5,7 @@
     using System.Web.Http;
     using System.Web.OData;
     using App.Core.Application.Attributes;
+    using App.Core.Application.ServiceFacade.API.Controllers.Base.Base;
     using App.Core.Infrastructure.Constants.Db;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
@@ -21,7 +22,7 @@
     //[ODataRoutePrefix("body")]
     [AllowAnonymous]
     [ODataPath(Constants.Api.ApiControllerNames.DataClassification)]
-    public class DataClassificationController : ODataControllerCommonBase // ODataControllerStandardDataBase<DataClassification,DataClassificationDto>
+    public class DataClassificationController : CommonODataControllerBase // ODataControllerStandardDataBase<DataClassification,DataClassificationDto>
     {
         private readonly IRepositoryService _repositoryService;
         private readonly ISecureAPIMessageAttributeService _secureApiMessageAttribute;

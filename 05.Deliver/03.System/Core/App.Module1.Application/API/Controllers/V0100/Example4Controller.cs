@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Net;
     using System.Web.Http;
+    using App.Core.Application.ServiceFacade.API.Controllers.Base.Base;
     using App.Core.Infrastructure.Services;
     using App.Module1.Application.Services;
     using App.Module1.Shared.Configuration.Models;
@@ -23,7 +24,7 @@
     ///     </para>
     /// </summary>
     [Authorize]
-    public class Example4Controller : ApiControllerBase
+    public class Example4Controller : ApiControllerCommonBase
     {
         private readonly ExampleApiConfiguration _apiConfiguration;
         private readonly IExampleApplicationService _exampleApplicationService;
