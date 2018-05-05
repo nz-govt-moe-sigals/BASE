@@ -31,6 +31,27 @@
             }
         }
 
+        public bool NeedsProcessing(Type type)
+        {
+            foreach (var pi in type.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public))
+            {
+                var attribute = pi.GetCustomAttribute<RoleSecuredDtoModelAttributeAttribute>(true);
+                if (attribute == null)
+                {
+                    continue;
+                }
+
+                if (!string.IsNullOrWhiteSpace(attribute.Roles)
+                    &&
+                    this._principalService.IsInRole(attribute.Roles.Split(new[] { ',', ';', ':' },
+                        StringSplitOptions.RemoveEmptyEntries)))
+                {
+                    continue;
+                }
+                return true;
+            }
+            return false;
+        }
 
         public void Process(object model)
         {

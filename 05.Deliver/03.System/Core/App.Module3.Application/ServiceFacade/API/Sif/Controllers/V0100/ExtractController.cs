@@ -35,7 +35,7 @@ namespace App.Module3.Application.ServiceFacade.API.Controllers.V0100
             {
                 _extractServiceController.ProcessAllTables();
 
-                return $"success - elapsedTime : ${elapsedTime.ElapsedText}";
+                return $"success - elapsedTime : {elapsedTime.ElapsedText}";
             }
 
         }

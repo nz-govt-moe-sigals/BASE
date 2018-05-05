@@ -14,39 +14,23 @@ namespace App.Module3.Shared.Models.Messages.APIs.SIF.V0100
         public string Id { get; set; }
 
         
-        public Guid? ClassificationFK
-        {
-            get; set;
-        }
         public EducationProviderClassificationTypeDto Classification
         {
             get; set;
         }
 
 
-        public Guid StatusFK
-        {
-            get; set;
-        }
         public EducationProviderStatusDto Status
         {
             get; set;
         }
 
 
-        public Guid? SchoolingGenderFK
-        {
-            get; set;
-        }
         public EducationProviderSchoolingGenderDto SchoolingGender
         {
             get; set;
         }
 
-        public Guid? LocalOfficeFK
-        {
-            get; set;
-        }
         public LocalOfficeDto LocalOffice
         {
             get; set;
@@ -58,19 +42,11 @@ namespace App.Module3.Shared.Models.Messages.APIs.SIF.V0100
             get; set;
         }
 
-        public Guid? CoLFK
-        {
-            get; set;
-        }
         public CoLDto CoL
         {
             get; set;
         }
 
-        public Guid AuthorityTypeFK
-        {
-            get; set;
-        }
         public AuthorityTypeDto AuthorityType
         {
             get; set;
@@ -78,66 +54,36 @@ namespace App.Module3.Shared.Models.Messages.APIs.SIF.V0100
 
 
 
-        public Guid? AreaUnitFK
-        {
-            get; set;
-        }
         public AreaUnitDto AreaUnit
         {
             get; set;
         }
 
 
-        public Guid? CommunityBoardFK
-        {
-            get; set;
-        }
         public CommunityBoardDto CommunityBoard
         {
             get; set;
         }
 
 
-        public Guid? GeneralElectorateFK
-        {
-            get; set;
-        }
         public GeneralElectorateDto GeneralElectorate
         {
             get; set;
         }
 
 
-        public Guid? MaoriElectorateFK
-        {
-            get; set;
-        }
         public MaoriElectorateDto MaoriElectorate
         {
             get; set;
         }
 
 
-        public Guid? RegionalCouncilFK
-        {
-            get; set;
-        }
-
         public RegionalCouncilDto RegionalCouncil
         {
             get; set;
         }
 
-        public Guid EducationProviderTypeFK
-        {
-            get; set;
-        }
-
         public EducationProviderOrganisationTypeDto EducationProviderType
-        {
-            get; set;
-        }
-        public Guid RegionFK
         {
             get; set;
         }
@@ -147,52 +93,28 @@ namespace App.Module3.Shared.Models.Messages.APIs.SIF.V0100
         }
 
 
-        public Guid? SpecialSchoolingFK
-        {
-            get; set;
-        }
-
         public SpecialSchoolingDto SpecialSchooling
         {
             get; set;
         }
 
 
-
-        public Guid? TeacherEducationFK
-        {
-            get; set;
-        }
-
         public TeacherEducationDto TeacherEducation
         {
             get; set;
         }
 
-        public Guid? TerritorialAuthorityFK
-        {
-            get; set;
-        }
         public TerritorialAuthorityDto TerritorialAuthority
         {
             get; set;
         }
 
 
-        public Guid? UrbanAreaFK
-        {
-            get; set;
-        }
         public UrbanAreaDto UrbanArea
         {
             get; set;
         }
 
-
-        public Guid? WardFK
-        {
-            get; set;
-        }
 
         public WardDto Ward
         {

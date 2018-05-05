@@ -101,9 +101,11 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.Base.Base
             {
                 throw;
             }
-
-            // TODO: IMPORTANT: Verify this is not causing double iteration:
-            results.ForEach(x => this._secureApiMessageAttribute.Process(x));
+            if (this._secureApiMessageAttribute.NeedsProcessing(typeof(TDto)))
+            {
+                // TODO: IMPORTANT: Verify this is not causing double iteration:
+                results.ForEach(x => this._secureApiMessageAttribute.Process(x));
+            }
 
             return results;
         }

@@ -89,7 +89,7 @@
 //            var entity = InternalGetDbSet()
 //                .Filter(_property, key).FirstOrDefault();.SingleOrDefault(x => x.Id == value.Id);
 
-            
+
 //            this._objectMappingService.Map(value, entity);
 //            // Nothing else to do (it's already being tracked)
 //            //so when committed later, will be saved.
@@ -137,7 +137,7 @@
 
 //    public static class X
 //    {
-
+// TODO: https://stackoverflow.com/questions/10402029/ef-object-comparison-with-generic-types
 //        public static IQueryable<TEntity> Filter<TEntity, TProperty>(this IQueryable<TEntity> dbSet,
 //            Expression<Func<TEntity, TProperty>> property,
 //            TProperty value)
