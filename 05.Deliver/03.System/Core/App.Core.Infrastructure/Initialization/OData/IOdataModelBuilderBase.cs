@@ -24,6 +24,6 @@
     /// </summary>
     public interface IOdataModelBuilderBase : IHasInitialize<object>
     {
-        //void Initialize(object /*HttpConfiguration*/ httpConfiguration);
+        void Initialize(object /*HttpConfiguration*/ httpConfiguration);
     }
 }
