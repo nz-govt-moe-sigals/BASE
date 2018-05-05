@@ -16,7 +16,7 @@ namespace App.Module3.Application.Initialization.OData.Implementations
     public abstract class AppModule3ODataModelBuilderReferenceDataConfigurationBase<T> : IAppModule3OdataModelBuilderConfiguration
         where T: class, IHasId<string>,  new()
     {
-        private readonly string _controllerName;
+        protected readonly string _controllerName;
 
         protected AppModule3ODataModelBuilderReferenceDataConfigurationBase(string controllerName)
         {

@@ -19,6 +19,8 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
         {
             config.CreateMap<EducationProviderProfile, EducationProviderDto>()
 
+                //To get rid of:
+                //.ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
 
                 .ForMember(t => t.Address1Line1, opt => opt.MapFrom(s => s.Address1Line1))
                 .ForMember(t => t.Address1Line2, opt => opt.MapFrom(s => s.Address1Line2))

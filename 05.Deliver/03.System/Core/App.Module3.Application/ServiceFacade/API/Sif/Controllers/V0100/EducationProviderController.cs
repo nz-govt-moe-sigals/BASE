@@ -55,12 +55,12 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100
 
         [AllowAnonymous]
         //[ODataRoute("({key})")]
-        public EducationProviderDto Get(string key)
+        public EducationProviderDto Get(int key)
         {
             var result =
                 InternalActiveRecords()
                     .ProjectTo<EducationProviderDto>()
-                    .SingleOrDefault(x => x.Id == key);
+                    .SingleOrDefault(x => x.SchoolId == key);
 
             this._secureApiMessageAttribute.Process(result);
 
