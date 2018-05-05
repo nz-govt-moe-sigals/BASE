@@ -2,6 +2,7 @@ namespace App.Core.Infrastructure.Db.Context
 {
     using System.Data.Common;
     using System.Data.Entity;
+    using System.Diagnostics;
     using System.Threading.Tasks;
     using App.Core.Infrastructure.Constants.Db;
     using App.Core.Infrastructure.Initialization.DependencyResolution;
@@ -28,12 +29,14 @@ namespace App.Core.Infrastructure.Db.Context
         {
         }
 
-        protected AppDbContextBase(string connectionStringOrName) : base(App.AppDependencyLocator.Current.GetInstance<OpenDbConnectionBuilder>().CreateAsync(connectionStringOrName).Result, true)
+        protected AppDbContextBase(string connectionStringOrName) : this(App.AppDependencyLocator.Current.GetInstance<OpenDbConnectionBuilder>().CreateAsync(connectionStringOrName).Result, true)
         {
         }
 
         protected AppDbContextBase(DbConnection dbConnection, bool contextOwnsConnection) : base(dbConnection, contextOwnsConnection)
         {
+
+            this.Database.Log = s => Trace.WriteLine(s);
         }
 
 
