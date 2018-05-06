@@ -1,7 +1,10 @@
 ﻿using System.Web.Http;
+using System.Web.Http.Routing;
 using System.Web.OData.Extensions;
 using App.Core.Application.Initialization;
 using App.Core.Infrastructure.Services;
+using Microsoft.Web.Http.Routing;
+using Newtonsoft.Json.Serialization;
 using Owin;
 
 namespace App.Host.Extended.WebApi
@@ -53,6 +56,13 @@ namespace App.Host.Extended.WebApi
             httpConfiguration.EnableDependencyInjection();
             //NO: httpConfiguration.DependencyResolver = new DependencyResolver();
 
+            httpConfiguration.AddApiVersioning(
+                o =>
+                {
+                    o.ReportApiVersions = true;
+                    o.AssumeDefaultVersionWhenUnspecified = true;
+                });
+
             // Leave existing configuration for Web API routes
             // By default one can register 'global' routes to handle
             // API calls. But you can augment these 'global' route rules
@@ -65,7 +75,8 @@ namespace App.Host.Extended.WebApi
             // defining WebAPI routes. 
             // And also before OData is configured, 
             // or else EnsureInitialized gets unhappy:
-            httpConfiguration.MapHttpAttributeRoutes();
+            var constraintResolver = new DefaultInlineConstraintResolver() { ConstraintMap = { ["apiVersion"] = typeof(ApiVersionRouteConstraint) } };
+            httpConfiguration.MapHttpAttributeRoutes(constraintResolver);
 
 
             // OData route registration must be before WebAPI routing:
@@ -75,12 +86,13 @@ namespace App.Host.Extended.WebApi
 
             _filterConfig.RegisterGlobalFilters(httpConfiguration);
 
-            // Ensure WebAPI is activated (via Microsoft.AspNet.WebApi.Owin package):
-            // Not needed (also, gone in MVC 6): appBuilder.UseWebApi(httpConfiguration);
-            // See: https://stackoverflow.com/a/43852361
-            // Which is good, because GlobalConfiguration.Configuration seems to stops 
-            // working after adding '.UseWebApi'. 
-            appBuilder.UseWebApi(httpConfiguration);
+
+            // After WebApi is sorted out:
+            // Note that *usually* swagger is invoked because the SwaggerClass is decorated 
+            // with [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
+            // But that calls it too early. and Swagger's list of APIs ends up empty
+            // See: https://stackoverflow.com/questions/31840165/swashbuckle-5-cant-find-my-apicontrollers
+            SwaggerConfig.Register();
         }
     }
 }

@@ -2,6 +2,7 @@
 using App.Core.Infrastructure.Services;
 using App.Core.Shared.Models.Messages;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace App.Host.Extended.WebApi
 {
@@ -27,6 +28,8 @@ namespace App.Host.Extended.WebApi
                 // JSON chokes on most EF models:
                 httpConfiguration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling =
                     ReferenceLoopHandling.Ignore;
+                // note: this is required to make the default swagger json settings match the odata conventions applied by EnableLowerCamelCase()
+                httpConfiguration.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
                 AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
                     .Register(

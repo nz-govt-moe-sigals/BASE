@@ -360,7 +360,7 @@
     <Compile Include="Filters\WebMvc\MyRequireHttpsWebMvcFilterAttribute.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="App_Start\StructuremapWebApi.cs" />
-    <Compile Include="App_Start\Extended\WebApi\SwaggerConfig.cs" />
+    <Compile Include="App_Start\Extended\WebApi\Swagger\SwaggerConfig.cs" />
     <Compile Include="DependencyResolution\AppCoreControllerConvention.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />
     <Compile Include="DependencyResolution\StructureMapScopeModule.cs" />

@@ -1,3 +1,4 @@
+using App.Core.Application.Initialization;
 using App.Host.Extended;
 using App.Host.Extended.Mvc;
 using App.Host.Extended.WebApi;
@@ -83,12 +84,7 @@ namespace App.Host
             InitializeWebApi(appBuilder);
             
             
-            // After WebApi is sorted out:
-            // Note that *usually* swagger is invoked because the SwaggerClass is decorated 
-            // with [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
-            // But that calls it too early. and Swagger's list of APIs ends up empty
-            // See: https://stackoverflow.com/questions/31840165/swashbuckle-5-cant-find-my-apicontrollers
-            SwaggerConfig.Register();
+
             // After routing is sorted out:
             appBuilder.UseRequestTenantMiddleware();
 
@@ -97,8 +93,13 @@ namespace App.Host
 
             // TODO: Stop invoking this at startup!
             ExternalServiceInvocation(appBuilder);
-          
 
+            // Ensure WebAPI is activated (via Microsoft.AspNet.WebApi.Owin package):
+            // Not needed (also, gone in MVC 6): appBuilder.UseWebApi(httpConfiguration);
+            // See: https://stackoverflow.com/a/43852361
+            // Which is good, because GlobalConfiguration.Configuration seems to stops 
+            // working after adding '.UseWebApi'. 
+            appBuilder.UseWebApi(HttpConfigurationLocator.Current);
         }
 
 

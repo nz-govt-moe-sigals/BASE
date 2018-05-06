@@ -118,9 +118,9 @@ namespace App.Core.Infrastructure.DependencyResolution
             // So we search for and register the *untyped* version of the interface:
 
             //Scan for OData Model Builders in *all* modules.
-            assemblyScanner.AddAllTypesOf<IOdataModelBuilderBase>();
+            assemblyScanner.AddAllTypesOf<IOdataModelBuilderConfigurationBaseStub>();
             //Scan for OData Model Builder Configuration fragments in *all* modules.
-            assemblyScanner.AddAllTypesOf<IOdataModelBuilderConfigurationBase>();
+            assemblyScanner.AddAllTypesOf<IOdataModelBuilderStub>();
         }
 
 

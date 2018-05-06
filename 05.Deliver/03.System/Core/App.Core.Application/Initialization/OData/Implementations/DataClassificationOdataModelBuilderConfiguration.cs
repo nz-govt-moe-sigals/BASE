@@ -1,3 +1,5 @@
+using Microsoft.Web.Http;
+
 namespace App.Core.Application.Initialization.OData.Implementations
 {
     using System.Web.OData.Builder;
@@ -5,31 +7,52 @@ namespace App.Core.Application.Initialization.OData.Implementations
     using App.Core.Infrastructure.Initialization.OData;
     using App.Core.Shared.Models.Messages.APIs.V0100;
 
-    public class DataClassificationOdataModelBuilderConfiguration : IAppCoreOdataModelBuilderConfiguration
+    public class DataClassificationOdataModelBuilderConfiguration : IAppCoreOdataModelBuilderConfigurationBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DataClassificationOdataModelBuilderConfiguration"/> class.
         /// </summary>
         /// <internal>
         /// Remember to make these constructors public or reflection for 
-        /// <see cref="IOdataModelBuilderConfigurationBase"/> won't find them.
+        /// <see cref="IModelConfiguration"/> won't find them.
         /// </internal>
         public DataClassificationOdataModelBuilderConfiguration()
         {
         }
 
-        public void Define(object builder)
+        private void ConfigureV1(ODataModelBuilder builder)
         {
-            Define(builder as ODataModelBuilder);
+            var entity = Define(builder);
+            //entity.Ignore(p => p.ExtraField);
+
         }
-        public void Define(ODataModelBuilder builder)
+
+        private void ConfigureV2(ODataModelBuilder builder)
         {
-            builder.EntitySet<DataClassificationDto>(ApiControllerNames.DataClassification);
-            // Optional DTO Type description
-            // Tip/Warning: if you define ops here, at the model level, have to relist all ops allowed (ie, it cancels the globally set operations list):
-            // builder.EntityType<DataClassificationDto>().Filter(/*noparam to allow for any*/);
-            builder.EntityType<DataClassificationDto>()
-                .HasKey(x => x.Id);
+            Define(builder);
+        }
+
+        public void Apply(ODataModelBuilder builder, ApiVersion apiVersion)
+        {
+            switch (apiVersion.MajorVersion)
+            {
+                case 2:
+                    ConfigureV2(builder);
+                    break;
+                default:
+                    ConfigureV1(builder);
+                    break;
+
+            }
+
+        }
+
+
+        public EntityTypeConfiguration<DataClassificationDto> Define(ODataModelBuilder builder)
+        {
+            var entity = builder.EntitySet<DataClassificationDto>(ApiControllerNames.DataClassification).EntityType;
+            entity.HasKey(x => x.Id);
+            return entity;
         }
     }
 }

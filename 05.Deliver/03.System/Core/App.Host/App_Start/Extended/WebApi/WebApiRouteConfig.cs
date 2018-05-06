@@ -1,5 +1,6 @@
 ﻿using System.Web.Http;
 using App.Host.Extended.WebApi.Constraints;
+using Microsoft.Web.Http.Routing;
 
 namespace App.Host.Extended.WebApi
 {
@@ -25,6 +26,7 @@ namespace App.Host.Extended.WebApi
         /// <param name="httpConfiguration">The HTTP configuration.</param>
         public void Configure(HttpConfiguration httpConfiguration)
         {
+            /*
             // Leave existing configuration (ensure after 'config.MapODataServiceRoute')
             httpConfiguration.Routes.MapHttpRoute(
                 "TenantedLocaledDefaultWebApiRoute",
@@ -54,6 +56,14 @@ namespace App.Host.Extended.WebApi
                     locale = AppDependencyLocator.Current.GetInstance(typeof(LocaleWebApiRouteConstraint))
                 }
             );
+            */
+
+            httpConfiguration.Routes.MapHttpRoute(
+                "VersionedUrl",
+                "api/v{apiVersion}/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional },
+                constraints: new { apiVersion = new ApiVersionRouteConstraint() });
+
             httpConfiguration.Routes.MapHttpRoute(
                 "DefaultWebApiRoute",
                 "api/{controller}/{id}",
