@@ -1,13 +1,9 @@
-﻿using App.Module3.Infrastructure.Services;
-using App.Module3.Infrastructure.Services.Implementations.Configuration;
-using App.Module3.Infrastructure.Services.Implementations.Extract;
-
-namespace App.Module3.Infrastructure.Initialization.DependencyResolution
+﻿namespace App.Module1.Infrastructure.Initialization.DependencyResolution
 {
     using App.Core.Infrastructure.Db.Interception;
-    using App.Module3.Infrastructure.Constants.Db;
-    using App.Module3.Infrastructure.Db.Context;
-    using App.Module3.Infrastructure.Initialization.Db;
+    using App.Module1.Infrastructure.Constants.Db;
+    using App.Module1.Infrastructure.Db.Context;
+    using App.Module1.Infrastructure.Initialization.Db;
     using StructureMap;
     using StructureMap.Graph;
 
@@ -31,15 +27,14 @@ namespace App.Module3.Infrastructure.Initialization.DependencyResolution
         private void ScanForThisModulesDbContextTypes(IAssemblyScanner assemblyScanner)
         {
             // Register the Db Model definitions and seeder definitions for Core:
-            assemblyScanner.AddAllTypesOf<IHasAppModule3DbContextModelBuilderInitializer>();
-            assemblyScanner.AddAllTypesOf<IHasAppModule3DbContextSeedInitializer>();
+            assemblyScanner.AddAllTypesOf<IHasAppModule1DbContextModelBuilderInitializer>();
+            assemblyScanner.AddAllTypesOf<IHasAppModule1DbContextSeedInitializer>();
 
             // Add all Pre-Commit Processors (these kick in just as you
             // Commit a DbContext, and ensure specific fields are 
             // automatically filled in)
             assemblyScanner.AddAllTypesOf<IDbCommitPreCommitProcessingStrategy>();
-            this.RegisterDbContextInHttpContext<AppModule3DbContext>(AppModule3DbContextNames.Module3);
-            For<ExtractDocumentDbServiceConfiguration>().Use<ExtractDocumentDbServiceConfiguration>().Singleton();
+            this.RegisterDbContextInHttpContext<AppModule1DbContext>(AppModule1DbContextNames.Module1);
         }
     }
 }

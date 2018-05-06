@@ -1,7 +1,5 @@
 ﻿namespace App.Core.Application.Initialization.OData
 {
-    using System.Web.OData.Builder;
-    using App.Core.Infrastructure.Initialization.OData;
 
 
     /// <summary>
@@ -16,8 +14,7 @@
     /// the *untyped* base contract (IAppCoreOdataModelBuilderBuilderBase)
     /// </para>
     /// </summary>
-    public interface IAppCoreOdataModelBuilderConfiguration : IOdataModelBuilderConfigurationBase
+    public interface IAppCoreOdataModelBuilderConfiguration : IAppOdataModelBuilderConfiguration
     {
-        void Define(ODataModelBuilder builder);
     }
 }

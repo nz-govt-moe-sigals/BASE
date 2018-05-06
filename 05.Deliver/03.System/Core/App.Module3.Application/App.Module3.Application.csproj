@@ -160,7 +160,7 @@
     <Compile Include="Attributes\Class1.cs" />
     <Compile Include="Constants\Api\ApiControllerNames.cs" />
     <Compile Include="Constants\Api\ODataRoots.cs" />
-    <Compile Include="Initialization\DependencyResolution\AppModule3Registry.cs" />
+    <Compile Include="Initialization\DependencyResolution\AppModuleApplicationRegistry.cs" />
     <Compile Include="Initialization\OData\IAppModule3OdataModelBuilder.cs" />
     <Compile Include="Initialization\OData\Implementations\AppModule3OdataModelBuilder.cs" />
     <Compile Include="Initialization\OData\Implementations\BaseClasses\AppModule3ODataModelBuilderConfigurationBase.cs" />

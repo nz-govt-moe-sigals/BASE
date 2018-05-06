@@ -1,8 +1,8 @@
 namespace App.Module3.Application.Initialization.OData
 {
     using System.Web.Http;
-    using App.Core.Infrastructure.Initialization.OData;
-    using App.Module3.Infrastructure.Initialization.OData;
+    using App.Core.Application.Initialization.OData;
+
 
     /// <summary>
     /// A Module specific, and Typed, impelementation
@@ -19,8 +19,7 @@ namespace App.Module3.Application.Initialization.OData
     /// but makes it Module specific. 
     /// </para>
     /// </summary>    
-    public interface IAppModule3OdataModelBuilder : IAppModule3OdataModelBuilderBase
+    public interface IAppModule3OdataModelBuilder : IAppOdataModelBuilder
     {
-        void Initialize(HttpConfiguration httpConfiguration);
     }
 }

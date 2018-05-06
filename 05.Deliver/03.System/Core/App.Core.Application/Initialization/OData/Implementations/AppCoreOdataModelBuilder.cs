@@ -6,7 +6,6 @@ namespace App.Core.Application.App_Start
     using System.Web.OData.Extensions;
     using App.Core.Application.Constants.Api;
     using App.Core.Application.Initialization.OData;
-    using App.Core.Infrastructure.Initialization.OData;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
 
@@ -65,7 +64,7 @@ namespace App.Core.Application.App_Start
             //Find and read up in README.STRUCTUREMAP.IDEMPOTENCY.txt
 
             var items = AppDependencyLocator.Current
-                .GetAllInstances<IOdataModelBuilderConfigurationBase>()
+                .GetAllInstances<IAppOdataModelBuilderConfiguration>()
                 .Where(x => x is IAppCoreOdataModelBuilderConfiguration);
 
             var count = items.Count();

@@ -77,12 +77,10 @@
     </Compile>
     <Compile Include="Initialization\Db\Schema\AppModule1DbModelBuilderOrchestrator.cs" />
     <Compile Include="Initialization\Db\Schema\AppModule1DbContextModelBuilderDefineExample.cs" />
-    <Compile Include="Initialization\DependencyResolution\AppModule1Registry.cs" />
+    <Compile Include="Initialization\DependencyResolution\AppModuleInfrastructureRegistry.cs" />
     <Compile Include="Initialization\Db\IHasAppModule1DbContextSeedInitializer.cs" />
     <Compile Include="Initialization\Db\IHasAppModule1DbContextModelBuilderInitializer.cs" />
     <Compile Include="Initialization\Authorisation\HasOidcScopeInitializer.cs" />
-    <Compile Include="Initialization\OData\IAppModule1ODataModelBuilderConfigurationBase.cs" />
-    <Compile Include="Initialization\OData\IAppModule1OdataModelBuilderBase.cs" />
     <Compile Include="Initialization\Search\ExampleSearchProvider.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ExampleDto_Example.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_Example_ExampleDto.cs" />

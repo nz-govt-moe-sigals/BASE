@@ -147,7 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\Api\ApiControllerNames.cs" />
-    <Compile Include="Initialization\DependencyResolution\AppModule2Registry.cs" />
+    <Compile Include="Initialization\DependencyResolution\AppModuleApplicationRegistry.cs" />
     <Compile Include="Initialization\OData\IAppModule2OdataModelBuilder.cs" />
     <Compile Include="Initialization\OData\Implementations\AppModule2OdataModelBuilder.cs" />
     <Compile Include="Initialization\OData\Implementations\BodyDtoTest2ODataModelBuilderConfiguration.cs" />

@@ -1,7 +1,5 @@
 namespace App.Core.Application.Initialization.OData
 {
-    using System.Web.Http;
-    using App.Core.Infrastructure.Initialization.OData;
 
     /// <summary>
     /// Contract for a *Typed* implementation of Model Builder
@@ -13,8 +11,7 @@ namespace App.Core.Application.Initialization.OData
     /// the *untyped* base contract (IAppCoreOdataModelBuilderBuilderBase)
     /// </para>
     /// </summary>
-    public interface IAppCoreOdataModelBuilder : IOdataModelBuilderBase
+    public interface IAppCoreOdataModelBuilder : IAppOdataModelBuilder
     {
-        void Initialize(HttpConfiguration httpConfiguration);
     }
 }

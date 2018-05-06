@@ -5,30 +5,40 @@ using App.Module3.Infrastructure.Services.Implementations.Extract;
 namespace App.Module3.Infrastructure.Initialization.DependencyResolution
 {
     using App.Core.Infrastructure.Db.Interception;
+    using App.Core.Infrastructure.Initialization.DependencyResolution;
     using App.Module3.Infrastructure.Constants.Db;
     using App.Module3.Infrastructure.Db.Context;
     using App.Module3.Infrastructure.Initialization.Db;
+    //SKYOUT:using App.Module3.Infrastructure.Initialization.OData;
     using StructureMap;
     using StructureMap.Graph;
 
-    // Each Module has its own registry for handling specific cases.
-    // The general registration of Services is handled via the Core
-    // StructureMap Registry (ie, Services, Controllers, etc.)
+    /// <summary>
+    /// <para>
+    /// Each Module has its own registry for handling specific cases.
+    /// The general registration of Services is handled via the Core
+    /// StructureMap Registry (ie, Services, Controllers, etc.)    
+    /// </para>
+    /// <para>
+    /// Discovered by <see cref="AppAllInfrastructureRegistry"/>
+    /// </para>
+    /// </summary>
+    /// <seealso cref="StructureMap.Registry" />
     public class AppModuleInfrastructureRegistry : Registry
-    {
+    { 
         public AppModuleInfrastructureRegistry()
         {
             Scan(
                 assemblyScanner =>
                 {
-                    ScanForThisModulesDbContextTypes(assemblyScanner);
+                    ScanAllModulesForModuleSpecificDbContextTypes(assemblyScanner);
                 });
 
         }
 
         // Scan across all known assemblies for DbContext related model definitions
         // And seeding definitions, and define the DbContext lifespan:
-        private void ScanForThisModulesDbContextTypes(IAssemblyScanner assemblyScanner)
+        private void ScanAllModulesForModuleSpecificDbContextTypes(IAssemblyScanner assemblyScanner)
         {
             // Register the Db Model definitions and seeder definitions for Core:
             assemblyScanner.AddAllTypesOf<IHasAppModule3DbContextModelBuilderInitializer>();

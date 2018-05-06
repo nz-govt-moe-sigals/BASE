@@ -3,7 +3,6 @@
 
     using System.Web.OData.Builder;
     using App.Core.Application.Constants.Api;
-    using App.Core.Infrastructure.Initialization.OData;
     using App.Core.Shared.Models.Messages.APIs.V0100;
 
     public class PrincipalPropertyOdataModelBuilderConfiguration : AppCoreODataModelBuilderConfigurationBase<PrincipalPropertyDto>

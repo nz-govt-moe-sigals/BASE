@@ -3,9 +3,10 @@
     using System.Linq;
     using System.Web.Http;
     using System.Web.OData.Extensions;
-    using App.Core.Infrastructure.Initialization.OData;
+    using App.Core.Application.Initialization.OData;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Messages;
+    using App.Host;
 
     /// <summary>
     /// An <see cref="StartupExtended"/> invoked class to configure 
@@ -36,8 +37,11 @@
 
         private static int BuildCommonODataModel(HttpConfiguration httpConfiguration)
         {
+            //Search for the Common base class,
+            //using the untyped contract:
             var tmp = AppDependencyLocator.Current
-                .GetAllInstances<IOdataModelBuilderBase>();
+                .GetAllInstances<IAppOdataModelBuilder>();
+
             var count = tmp.Count();
             // This builds the OData Models -- both a common one, including
             // all modules, then Module specific end points

@@ -268,8 +268,6 @@
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ExceptionRecord_ExceptionRecordDto.cs" />
     <Compile Include="Initialization\OData\IAppCoreODataModelBuilderConfigurationBase.cs" />
     <Compile Include="Initialization\OData\IAppCoreOdataModelBuilderBase.cs" />
-    <Compile Include="Initialization\OData\IOdataModelBuilderConfigurationBase.cs" />
-    <Compile Include="Initialization\OData\IOdataModelBuilderBase.cs" />
     <Compile Include="Initialization\Search\Implementations\SearchProviderBase.cs" />
     <Compile Include="Initialization\Search\Implementations\TenantSearchProvider.cs" />
     <Compile Include="Initialization\Search\ISearchProvider.cs" />

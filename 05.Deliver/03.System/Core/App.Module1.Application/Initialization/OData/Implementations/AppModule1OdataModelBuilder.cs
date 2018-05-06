@@ -4,9 +4,8 @@ namespace App.Module1.Application.Initialization.OData.Implementations
     using System.Web.Http;
     using System.Web.OData.Builder;
     using System.Web.OData.Extensions;
-    using App.Core.Infrastructure.Initialization.OData;
+    using App.Core.Application.Initialization.OData;
     using App.Module1.Application.Constants.Api;
-    using App.Module1.Infrastructure.Initialization.OData;
 
     /// <summary>
     /// Implementation invoked at Statup, when building 
@@ -47,7 +46,7 @@ namespace App.Module1.Application.Initialization.OData.Implementations
             //Find and read up in README.STRUCTUREMAP.IDEMPOTENCY.txt
 
             var items = AppDependencyLocator.Current
-                .GetAllInstances<IOdataModelBuilderConfigurationBase>()
+                .GetAllInstances<IAppOdataModelBuilderConfiguration>()
                 .Where(x => x is IAppModule1OdataModelBuilderConfiguration).ToArray();
 
             var count = items.Count();

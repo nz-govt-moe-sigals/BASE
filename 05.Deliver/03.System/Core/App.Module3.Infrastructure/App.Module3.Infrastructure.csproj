@@ -169,8 +169,6 @@
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_SchoolTerritorialAuthority_SchoolTerritorialAuthorityDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_SchoolUrbanArea_SchoolUrbanAreaDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_SchoolWard_SchoolWardDto.cs" />
-    <Compile Include="Initialization\OData\IAppModule3ODataModelBuilderConfigurationBase.cs" />
-    <Compile Include="Initialization\OData\IAppModule3OdataModelBuilderBase.cs" />
     <Compile Include="Initialization\Search\ExampleSearchProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Configuration\IModule3ServiceConfigurationObject.cs" />

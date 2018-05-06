@@ -5,7 +5,6 @@ namespace App.Core.Application.App_Start
     using System.Web.OData.Builder;
     using System.Web.OData.Extensions;
     using App.Core.Application.Initialization.OData;
-    using App.Core.Infrastructure.Initialization.OData;
 
     /// <summary>
     /// Implementation invoked at Statup, when building 
@@ -48,7 +47,7 @@ namespace App.Core.Application.App_Start
             // generic contract, (<IOdataModelBuilderConfiguration<T>) specicic to 
             // the App.ModuleXXX.Application.
             var items = AppDependencyLocator.Current
-                .GetAllInstances<IOdataModelBuilderConfigurationBase>().ToArray();
+                .GetAllInstances<IAppOdataModelBuilderConfiguration>().ToArray();
 
             var count = items.Count();
             items.ForEach(x => x.Define(builder));

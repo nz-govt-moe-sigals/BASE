@@ -1,16 +1,14 @@
-namespace App.Core.Infrastructure.DependencyResolution
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace App.Core.Infrastructure.Initialization.DependencyResolution
 {
-    using System;
-    using System.Data.Entity;
-    using App.Core.Infrastructure.Constants;
-    using App.Core.Infrastructure.Constants.Db;
-    using App.Core.Infrastructure.Db.Context;
     using App.Core.Infrastructure.Db.Interception;
-    using App.Core.Infrastructure.Factories;
-    using App.Core.Infrastructure.Initialization;
+    using App.Core.Infrastructure.DependencyResolution;
     using App.Core.Infrastructure.Initialization.Authentication;
-    using App.Core.Infrastructure.Initialization.Db;
-    using App.Core.Infrastructure.Initialization.DependencyResolution;
     using App.Core.Infrastructure.Initialization.ObjectMaps;
     using App.Core.Infrastructure.Integration.Azure.Storage;
     using StructureMap;
@@ -18,12 +16,9 @@ namespace App.Core.Infrastructure.DependencyResolution
     using StructureMap.Graph;
     using StructureMap.Web.Pipeline;
 
-    // The App Core Module's StructureMap Registry.
-    // Invoked via StructuremapMvc which is invoked
-    // during startup.
-    public class AppCoreRegistry : Registry
+    public class AppAllInfrastructureRegistry : Registry
     {
-        public AppCoreRegistry()
+        public AppAllInfrastructureRegistry()
         {
             Scan(
                 assemblyScanner =>
@@ -36,6 +31,7 @@ namespace App.Core.Infrastructure.DependencyResolution
                     // (as per first line) for Module specific Registries. Such 
                     // as AppModule1Registry.
                     assemblyScanner.LookForRegistries();
+
 
                     //// Common across all Modules:
                     //var types = new[]
@@ -63,17 +59,17 @@ namespace App.Core.Infrastructure.DependencyResolution
                     //    assemblyScanner.AddAllTypesOf(type);
                     //}
 
-                    ScanForAllModulesAutoMapperInitializers(assemblyScanner);
-                    ScanForAllModulesOIDCFullyQualifiesScopes(assemblyScanner);
 
-                    //ScanForAllModulesODataBuilderTypes(assemblyScanner);
 
-                    ScanForAllModulesDbContextTypes(assemblyScanner);
+                    ScanAllModulesForAllModulesAutoMapperInitializers(assemblyScanner);
+                    ScanAllModulesForAllModulesOIDCFullyQualifiesScopes(assemblyScanner);
+
+                    // SKYOUT: Now moved to App.Core.Application Registry:
+                    //ScanAllModulesForModuleSpecificODataBuilderTypes(assemblyScanner);
+
+                    ScanAllModulesForModuleSpecificPrecommitStrategies(assemblyScanner);
 
                     ScanAndRegisterNamedInstancesOfStorageAccountContexts(assemblyScanner);
-
-                    // Specific to this Module:
-                    ScanForThisModulesDbContextTypes(assemblyScanner);
 
                     // Scan across all known assemblies for Services, Factories, etc.
                     // That meet ISomething => Something naming convention:
@@ -83,22 +79,26 @@ namespace App.Core.Infrastructure.DependencyResolution
                     // (eg: our custom MVC5 Controller scanner) and use them as well :
                     AppDomain.CurrentDomain
                         .InvokeImplementing<ICustomRegistrationConvention>(assemblyScanner.With);
-                });
+                }
+            );
+
+
         }
 
-        private void ScanForAllModulesAutoMapperInitializers(IAssemblyScanner assemblyScanner)
+
+        private void ScanAllModulesForAllModulesAutoMapperInitializers(IAssemblyScanner assemblyScanner)
         {
             // Register all Automapper Instances, which ever assembly they are in :
             assemblyScanner.AddAllTypesOf<IHasAutomapperInitializer>();
         }
 
-        private void ScanForAllModulesOIDCFullyQualifiesScopes(IAssemblyScanner assemblyScanner)
+        private void ScanAllModulesForAllModulesOIDCFullyQualifiesScopes(IAssemblyScanner assemblyScanner)
         {
             assemblyScanner.AddAllTypesOf<IHasOidcScopeInitializer>();
         }
 
 
-        private void ScanForAllModulesDbContextTypes(IAssemblyScanner assemblyScanner)
+        private void ScanAllModulesForModuleSpecificPrecommitStrategies(IAssemblyScanner assemblyScanner)
         {
             // Add all Pre-Commit Processors (these kick in just as you
             // Commit a DbContext, and ensure specific fields are 
@@ -107,9 +107,7 @@ namespace App.Core.Infrastructure.DependencyResolution
         }
 
 
-
-        // Moving it higher, in App.Core.Application:
-        //private void ScanForAllModulesODataBuilderTypes(IAssemblyScanner assemblyScanner)
+        //SKYOUT: private void ScanAllModulesForModuleSpecificODataBuilderTypes(IAssemblyScanner assemblyScanner)
         //{
         //    // Note that because we are in App.Core.Infrastructure, we can't see the
         //    // Typed version of this interface (as this assembly does not know anything 
@@ -118,24 +116,11 @@ namespace App.Core.Infrastructure.DependencyResolution
         //    // So we search for and register the *untyped* version of the interface:
 
         //    //Scan for OData Model Builders in *all* modules.
-        //    assemblyScanner.AddAllTypesOf<IOdataModelBuilderBase>();
-
+        //    assemblyScanner.AddAllTypesOf</*SKYOUT: IOdataModelBuilderBase*/ IAppODataModelBuilder>();
         //    //Scan for OData Model Builder Configuration fragments in *all* modules.
-        //    assemblyScanner.AddAllTypesOf<IOdataModelBuilderConfigurationBase>();
+        //    assemblyScanner.AddAllTypesOf</*SKYOUT: IOdataModelBuilderConfigurationBase */ IAppODataModelBuilderConfiguration>();
         //}
 
-
-
-        // Scan across all known assemblies for DbContext related model definitions
-        // And seeding definitions, and define the DbContext lifespan:
-        private void ScanForThisModulesDbContextTypes(IAssemblyScanner assemblyScanner)
-        {
-            // Register the Db Model definitions and seeder definitions for Core:
-            assemblyScanner.AddAllTypesOf<IHasAppCoreDbContextModelBuilderInitializer>();
-            assemblyScanner.AddAllTypesOf<IHasAppCoreDbContextSeedInitializer>();
-
-            this.RegisterDbContextInHttpContext<AppCoreDbContext>(AppCoreDbContextNames.Core);
-        }
 
         private void ScanAndRegisterNamedInstancesOfStorageAccountContexts(IAssemblyScanner assemblyScanner)
         {
@@ -153,7 +138,7 @@ namespace App.Core.Infrastructure.DependencyResolution
 
                 new CreatePluginFamilyExpression<IAzureStorageBlobContext>(this,
                         new HttpContextLifecycle())
-                    .Use(y => (IAzureStorageBlobContext) App.AppDependencyLocator.Current.GetInstance(t)).Named(name);
+                    .Use(y => (IAzureStorageBlobContext)App.AppDependencyLocator.Current.GetInstance(t)).Named(name);
             }
         }
 

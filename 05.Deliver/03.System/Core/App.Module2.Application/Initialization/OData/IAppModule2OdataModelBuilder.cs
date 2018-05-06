@@ -1,7 +1,7 @@
 namespace App.Module2.Application.Initialization.OData
 {
     using System.Web.Http;
-    using App.Core.Infrastructure.Initialization.OData;
+    using App.Core.Application.Initialization.OData;
 
     /// <summary>
     /// A Module specific, and Typed, impelementation
@@ -9,8 +9,7 @@ namespace App.Module2.Application.Initialization.OData
     /// which is untyped, and in App.Core.Infrastructure, 
     /// where it can be found by all modules.
     /// </summary>
-    public interface IAppModule2OdataModelBuilder : IOdataModelBuilderBase
+    public interface IAppModule2OdataModelBuilder : IAppOdataModelBuilder
     {
-        void Initialize(HttpConfiguration httpConfiguration);
     }
 }
