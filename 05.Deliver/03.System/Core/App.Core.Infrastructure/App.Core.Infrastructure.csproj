@@ -247,6 +247,8 @@
     <Compile Include="Factories\StructureMapServiceLocator.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ExceptionRecord_ExceptionRecordDto - Copy.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_TenantedNavigationRoute_TenantedNavigationRouteDto.cs" />
+    <Compile Include="Initialization\OData\IOdataModelBuilderConfigurationBaseStub.cs" />
+    <Compile Include="Initialization\OData\IOdataModelBuilderStub.cs" />
     <Compile Include="Initialization\Storage\Db\IHasAppCoreDbContextModelBuilderInitializer.cs" />
     <Compile Include="Initialization\IHasAppCoreInitializer.cs" />
     <Compile Include="Initialization\Integration\Scanii\ScaniiIntegrationInitializer.cs" />
@@ -266,10 +268,6 @@
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_PrincipalTag_PrincipalTagDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_PrincipalCategory_PrincipalCategoryDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ExceptionRecord_ExceptionRecordDto.cs" />
-    <Compile Include="Initialization\OData\IAppCoreODataModelBuilderConfigurationBase.cs" />
-    <Compile Include="Initialization\OData\IAppCoreOdataModelBuilderBase.cs" />
-    <Compile Include="Initialization\OData\IOdataModelBuilderConfigurationBase.cs" />
-    <Compile Include="Initialization\OData\IOdataModelBuilderBase.cs" />
     <Compile Include="Initialization\Search\Implementations\SearchProviderBase.cs" />
     <Compile Include="Initialization\Search\Implementations\TenantSearchProvider.cs" />
     <Compile Include="Initialization\Search\ISearchProvider.cs" />
@@ -439,7 +437,6 @@
   <ItemGroup>
     <Folder Include="Initialization\Integration\Azure\AzureStorage\" />
     <Folder Include="Initialization\Interception\" />
-    <Folder Include="Initialization\OData\Base\" />
     <Folder Include="Initialization\Storage\AzureStorageAccount\" />
     <Folder Include="Services\Configuration\Implementations\Base\" />
   </ItemGroup>

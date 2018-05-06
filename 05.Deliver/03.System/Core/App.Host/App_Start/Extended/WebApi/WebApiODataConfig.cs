@@ -4,6 +4,8 @@ using System.Web.OData.Extensions;
 using App.Core.Infrastructure.Initialization.OData;
 using App.Core.Infrastructure.Services;
 using App.Core.Shared.Models.Messages;
+using Microsoft.OData;
+using Microsoft.OData.UriParser;
 
 namespace App.Host.Extended.WebApi
 {
@@ -13,6 +15,11 @@ namespace App.Host.Extended.WebApi
     /// </summary>
     public class WebApiODataConfig
     {
+        public WebApiODataConfig()
+        {
+
+        }
+
         /// <summary>
         /// Configures the specified HTTP configuration.
         /// <para>
@@ -20,7 +27,7 @@ namespace App.Host.Extended.WebApi
         /// </para>
         /// </summary>
         /// <param name="httpConfiguration">The HTTP configuration.</param>
-        public static void Configure(HttpConfiguration httpConfiguration)
+        public void Configure(HttpConfiguration httpConfiguration)
         {
             //var queryAttribute = new EnableQueryAttribute()
             //{
@@ -34,31 +41,54 @@ namespace App.Host.Extended.WebApi
             BuildCommonODataModel(httpConfiguration);
         }
 
-        private static int BuildCommonODataModel(HttpConfiguration httpConfiguration)
+        private int BuildCommonODataModel(HttpConfiguration httpConfiguration)
         {
             var tmp = AppDependencyLocator.Current
-                .GetAllInstances<IOdataModelBuilderBase>();
+                .GetAllInstances<IOdataModelBuilderStub>()
+                .OfType<IOdataModelBuilder>().ToList();
             var count = tmp.Count();
             // This builds the OData Models -- both a common one, including
             // all modules, then Module specific end points
-            tmp.ForEach(x => x.Initialize(httpConfiguration));
+            tmp.ForEach(x => Config(x, httpConfiguration));
 
             return count;
         }
 
 
+        public static void Config(IOdataModelBuilder modefBuilder, HttpConfiguration configuration)
+        {
+            var models = modefBuilder.GetEdmModels(configuration).ToList();
+            string prefix = modefBuilder.GetRoutePrefix();
 
-        private static void EnableODataOperations(HttpConfiguration httpConfiguration)
+            //  while you can use both, it is advised you should choose only ONE of the following; comment, uncomment, or remove as necessary
+            //but who cares for advice
+
+            // WHEN VERSIONING BY: query string, header, or media type
+            configuration.MapVersionedODataRoutes("odata", "odata/" + prefix, models, ConfigureODataServices);
+
+            // WHEN VERSIONING BY: url segment
+            configuration.MapVersionedODataRoutes("odata-bypath", "odata/" + prefix + "/v{apiVersion}", models,
+                ConfigureODataServices);
+        }
+
+        static void ConfigureODataServices(IContainerBuilder builder)
+        {
+            builder.AddService(ServiceLifetime.Singleton, typeof(ODataUriResolver),
+                sp => new CaseInsensitiveODataUriResolver());
+        }
+
+
+        private void EnableODataOperations(HttpConfiguration httpConfiguration)
         {
             EnableODataCommandsAllowed(httpConfiguration);
 
         }
 
-        private static void EnableODataCommandsAllowed(HttpConfiguration httpConfiguration)
+        private void EnableODataCommandsAllowed(HttpConfiguration httpConfiguration)
         {
             using (var elapsedTime = new ElapsedTime())
             {
-// IMPORTANT:
+                // IMPORTANT:
                 // ENABLE THE LIST OF Commands
                 // Or you'll get HTTP 500's when you use $expand or any other command.
                 // Ref: https://stackoverflow.com/questions/39515218/odata-error-the-query-specified-in-the-uri-is-not-valid-the-property-cannot-be
@@ -91,6 +121,5 @@ namespace App.Host.Extended.WebApi
 
             }
         }
-
     }
 }

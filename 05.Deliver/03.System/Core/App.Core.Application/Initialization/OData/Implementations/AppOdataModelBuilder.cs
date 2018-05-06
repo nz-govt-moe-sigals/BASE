@@ -3,7 +3,6 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.OData.Builder;
 using System.Web.OData.Extensions;
-using App.Core.Infrastructure.Initialization.Odata;
 using App.Core.Infrastructure.Initialization.OData;
 using Microsoft.OData.Edm;
 using Microsoft.Web.OData.Builder;
