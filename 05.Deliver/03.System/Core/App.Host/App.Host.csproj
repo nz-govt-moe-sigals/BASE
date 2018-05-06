@@ -328,7 +328,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\Extended\InitializerConfig.cs" />
-    <Compile Include="App_Start\Extended\WebApiVersionConfig.cs" />
+    <Compile Include="App_Start\Extended\Mvc\Constraints\LocaleRouteConstraint.cs" />
+    <Compile Include="App_Start\Extended\Mvc\Constraints\TenantRouteConstraint.cs" />
+    <Compile Include="App_Start\Extended\WebApi\Constraints\LocaleWebApiRouteConstraint.cs" />
+    <Compile Include="App_Start\Extended\WebApi\Constraints\TenantWebApiRouteConstraint.cs" />
+    <Compile Include="App_Start\Extended\WebApi\WebApiVersionConfig.cs" />
     <Compile Include="App_Start\StructuremapInterception.cs" />
     <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
     <Compile Include="DependencyResolution\AppModule1Registry.cs" />
@@ -339,16 +343,16 @@
     <Compile Include="App_Start\Extended\DbContextConfig.cs" />
     <Compile Include="App_Start\Extended\EnabledAnalytics.cs" />
     <Compile Include="App_Start\LoadAllAssembliesConfig.cs" />
-    <Compile Include="App_Start\Extended\WebMvcConfig.cs" />
-    <Compile Include="App_Start\Extended\ResponseHeaderConfig.cs" />
+    <Compile Include="App_Start\Extended\Mvc\WebMvcConfig.cs" />
+    <Compile Include="App_Start\Extended\WebApi\ResponseHeaderConfig.cs" />
     <Compile Include="App_Start\ServiceLocatorConfig.cs" />
-    <Compile Include="App_Start\Extended\SetMinimumTLSConfig.cs" />
-    <Compile Include="App_Start\Extended\StaticFileHandlingConfig.cs" />
-    <Compile Include="App_Start\Extended\WebApiCorsConfig.cs" />
-    <Compile Include="App_Start\Extended\WebApiFilterConfig.cs" />
-    <Compile Include="App_Start\Extended\WebApiJsonSerializerConfig.cs" />
-    <Compile Include="App_Start\Extended\WebApiODataConfig.cs" />
-    <Compile Include="App_Start\Extended\WebApiRouteConfig.cs" />
+    <Compile Include="App_Start\Extended\WebApi\SetMinimumTLSConfig.cs" />
+    <Compile Include="App_Start\Extended\WebApi\StaticFileHandlingConfig.cs" />
+    <Compile Include="App_Start\Extended\WebApi\WebApiCorsConfig.cs" />
+    <Compile Include="App_Start\Extended\WebApi\WebApiFilterConfig.cs" />
+    <Compile Include="App_Start\Extended\WebApi\WebApiJsonSerializerConfig.cs" />
+    <Compile Include="App_Start\Extended\WebApi\WebApiODataConfig.cs" />
+    <Compile Include="App_Start\Extended\WebApi\WebApiRouteConfig.cs" />
     <Compile Include="FilterConfig.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyScopeFactory.cs" />
     <Compile Include="Filters\WebMvc\DbContexCommenttWebMvcActionFilterAttribute.cs" />
@@ -356,7 +360,7 @@
     <Compile Include="Filters\WebMvc\MyRequireHttpsWebMvcFilterAttribute.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="App_Start\StructuremapWebApi.cs" />
-    <Compile Include="App_Start\SwaggerConfig.cs" />
+    <Compile Include="App_Start\Extended\WebApi\SwaggerConfig.cs" />
     <Compile Include="DependencyResolution\AppCoreControllerConvention.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />
     <Compile Include="DependencyResolution\StructureMapScopeModule.cs" />
@@ -376,9 +380,9 @@
     <Compile Include="Presentation\Controllers\SetupController.cs" />
     <Compile Include="Presentation\Controllers\UsageController_Business.cs" />
     <Compile Include="App_Start\Extended\BundleConfig.cs" />
-    <Compile Include="App_Start\Extended\WebMvcFilterConfig.cs" />
-    <Compile Include="App_Start\Extended\WebMvcRouteConfig.cs" />
-    <Compile Include="App_Start\Extended\WebApiConfig.cs" />
+    <Compile Include="App_Start\Extended\Mvc\WebMvcFilterConfig.cs" />
+    <Compile Include="App_Start\Extended\Mvc\WebMvcRouteConfig.cs" />
+    <Compile Include="App_Start\Extended\WebApi\WebApiConfig.cs" />
     <Compile Include="Presentation\Controllers\AboutController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

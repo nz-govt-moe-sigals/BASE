@@ -1,11 +1,11 @@
-﻿namespace App.Core.Application.Extended
-{
-    using System.Web.Http;
-    using System.Web.Http.Filters;
-    using App.Core.Application.Filters.WebApi;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models.Messages;
+﻿using System.Web.Http;
+using System.Web.Http.Filters;
+using App.Core.Application.Filters.WebApi;
+using App.Core.Infrastructure.Services;
+using App.Core.Shared.Models.Messages;
 
+namespace App.Host.Extended.WebApi
+{
     /// <summary>
     /// An <see cref="StartupExtended"/> invoked class to configure 
     /// WebApi Filters.
@@ -55,9 +55,7 @@
         /// </para>
         /// </summary>
         /// <param name="httpConfiguration">The HTTP configuration.</param>
-        /// <param name="sessionOperationLogService">The session operation log service.</param>
-        public void RegisterGlobalFilters(HttpConfiguration httpConfiguration,
-            ISessionOperationLogService sessionOperationLogService)
+        public void RegisterGlobalFilters(HttpConfiguration httpConfiguration)
         {
             // Since WebAPI pipeline is totally separate from WebMVC, the registrarion
             // of the WebAPI interception is done in a different way.

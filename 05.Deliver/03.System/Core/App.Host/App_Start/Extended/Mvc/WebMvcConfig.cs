@@ -1,11 +1,11 @@
-﻿namespace App.Core.Application.Extended
-{
-    using System.Web.Mvc;
-    using System.Web.Optimization;
-    using System.Web.Routing;
-    using App.Core.Application.MvcModifications;
-    using Owin;
+﻿using System.Web.Mvc;
+using System.Web.Optimization;
+using System.Web.Routing;
+using App.Core.Application.MvcModifications;
+using Owin;
 
+namespace App.Host.Extended.Mvc
+{
     /// <summary>
     /// An <see cref="StartupExtended"/> invoked class to configure 
     /// MVC View management.

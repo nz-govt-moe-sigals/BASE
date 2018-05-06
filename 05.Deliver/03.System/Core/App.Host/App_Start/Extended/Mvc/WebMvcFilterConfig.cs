@@ -1,12 +1,12 @@
-﻿namespace App.Core.Application.Extended
-{
-    using System;
-    using System.Web.Mvc;
-    using App.Core.Application.ErrorHandler;
-    using App.Core.Application.Filters.WebMvc;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models.Messages;
+﻿using System;
+using System.Web.Mvc;
+using App.Core.Application.ErrorHandler;
+using App.Core.Application.Filters.WebMvc;
+using App.Core.Infrastructure.Services;
+using App.Core.Shared.Models.Messages;
 
+namespace App.Host.Extended.Mvc
+{
     /// <summary>
     /// An <see cref="StartupExtended"/> invoked class to configure 
     /// WebMVC Filtering. This class is injected into 

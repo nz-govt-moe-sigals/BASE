@@ -1,17 +1,12 @@
-using App.Core.Application.Extended;
+using System;
+using System.Net.Http;
+using Swashbuckle.Application;
+using Swashbuckle.OData;
 using WebActivatorEx;
 
 //[assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
-namespace App.Core.Application.Extended
+namespace App.Host.Extended.WebApi
 {
-    using App.Core.Application;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models.Messages;
-    using Swashbuckle.Application;
-    using System.Net.Http;
-    using System;
-    using Swashbuckle.OData;
-
     /// <summary>
     /// A pipeline invoked class (class is decorated with <see cref="PreApplicationStartMethodAttribute"/> )to configure
     /// Swagger to generate documentation of registered REST APIs.
@@ -230,7 +225,7 @@ namespace App.Core.Application.Extended
                         //c.CustomProvider((defaultProvider) => new CachingSwaggerProvider(defaultProvider));
                         //https://github.com/rbeauchamp/Swashbuckle.OData
 
-                        c.CustomProvider(defaultProvider => new ODataSwaggerProvider(defaultProvider, c, Initialization.HttpConfigurationLocator.Current).Configure(odataConfig =>
+                        c.CustomProvider(defaultProvider => new ODataSwaggerProvider(defaultProvider, c, Core.Application.Initialization.HttpConfigurationLocator.Current).Configure(odataConfig =>
                         {
                             // Set this flag to include navigation properties in your entity swagger models
                             //

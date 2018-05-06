@@ -1,10 +1,10 @@
-﻿namespace App.Core.Application.Extended
-{
-    using System.Web.Mvc;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models.Messages;
-    using Owin;
+﻿using System.Web.Mvc;
+using App.Core.Infrastructure.Services;
+using App.Core.Shared.Models.Messages;
+using Owin;
 
+namespace App.Host.Extended.WebApi
+{
     /// <summary>
     /// An <see cref="StartupExtended"/> invoked class to configure 
     /// the specified application builder.

@@ -1,12 +1,12 @@
-﻿namespace App.Core.Application.Extended
-{
-    using System.Linq;
-    using System.Web.Http;
-    using System.Web.OData.Extensions;
-    using App.Core.Infrastructure.Initialization.OData;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models.Messages;
+﻿using System.Linq;
+using System.Web.Http;
+using System.Web.OData.Extensions;
+using App.Core.Infrastructure.Initialization.OData;
+using App.Core.Infrastructure.Services;
+using App.Core.Shared.Models.Messages;
 
+namespace App.Host.Extended.WebApi
+{
     /// <summary>
     /// An <see cref="StartupExtended"/> invoked class to configure 
     /// the specified HTTP configuration.

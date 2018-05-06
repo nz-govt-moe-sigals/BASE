@@ -1,16 +1,14 @@
-namespace App.Core.Application.Extended
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Reflection;
-    using System.Web.Http;
-    using System.Web.OData;
-    using App.Core.Infrastructure.Initialization.ObjectMaps;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models.Entities;
-    using Microsoft.Web.Http;
-    using Microsoft.Web.Http.Versioning.Conventions;
+using System;
+using System.Reflection;
+using System.Web.Http;
+using System.Web.OData;
+using App.Core.Infrastructure.Services;
+using App.Core.Shared.Models.Entities;
+using Microsoft.Web.Http;
+using Microsoft.Web.Http.Versioning.Conventions;
 
+namespace App.Host.Extended.WebApi
+{
     public class WebApiVersionConfig
 
     {

@@ -1,10 +1,10 @@
-﻿namespace App.Core.Application.Extended
-{
-    using System.Web.Http;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models.Messages;
-    using Newtonsoft.Json;
+﻿using System.Web.Http;
+using App.Core.Infrastructure.Services;
+using App.Core.Shared.Models.Messages;
+using Newtonsoft.Json;
 
+namespace App.Host.Extended.WebApi
+{
     /// <summary>
     /// An <see cref="StartupExtended"/> invoked class to configure 
     /// the specified HTTP configuration.

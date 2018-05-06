@@ -1,11 +1,11 @@
-﻿namespace App.Core.Application.Extended
-{
-    using System;
-    using System.Net;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Constants;
-    using App.Core.Shared.Models.Messages;
+﻿using System;
+using System.Net;
+using App.Core.Infrastructure.Services;
+using App.Core.Shared.Constants;
+using App.Core.Shared.Models.Messages;
 
+namespace App.Host.Extended.WebApi
+{
     /// <summary>
     /// An <see cref="StartupExtended"/> invoked class to configure
     /// disable weak TLS for both incoming and outgoing connections.

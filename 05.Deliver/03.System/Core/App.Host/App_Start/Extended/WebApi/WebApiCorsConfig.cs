@@ -1,10 +1,10 @@
-﻿namespace App.Core.Application.Extended
-{
-    using System.Web.Http;
-    using System.Web.Http.Cors;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models.Messages;
+﻿using System.Web.Http;
+using System.Web.Http.Cors;
+using App.Core.Infrastructure.Services;
+using App.Core.Shared.Models.Messages;
 
+namespace App.Host.Extended.WebApi
+{
     /// <summary>
     /// An <see cref="StartupExtended"/> invoked class to configure 
     /// Cors for WebApi (which is required when Mashing from UI).

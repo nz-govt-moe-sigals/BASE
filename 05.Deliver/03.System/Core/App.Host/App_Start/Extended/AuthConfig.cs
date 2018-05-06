@@ -1,14 +1,14 @@
-﻿namespace App.Core.Application.Extended
-{
-    using System.Collections.Generic;
-    using App.Core.Infrastructure.IDA.Models;
-    using App.Core.Infrastructure.IDA.Models.Enums;
-    using App.Core.Infrastructure.IDA.Owin;
-    using App.Core.Infrastructure.Initialization.Authentication;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models.Messages;
-    using Owin;
+﻿using System.Collections.Generic;
+using App.Core.Infrastructure.IDA.Models;
+using App.Core.Infrastructure.IDA.Models.Enums;
+using App.Core.Infrastructure.IDA.Owin;
+using App.Core.Infrastructure.Initialization.Authentication;
+using App.Core.Infrastructure.Services;
+using App.Core.Shared.Models.Messages;
+using Owin;
 
+namespace App.Host.Extended
+{
     /// <summary>
     /// An <see cref="StartupExtended"/> invoked class to configure
     /// the specified application builder.
