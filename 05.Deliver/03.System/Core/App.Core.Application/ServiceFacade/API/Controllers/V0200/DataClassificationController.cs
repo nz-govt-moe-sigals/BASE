@@ -1,6 +1,11 @@
-﻿using Microsoft.Web.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Web.Http;
 
-namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
+namespace App.Core.Application.ServiceFacade.API.Controllers.V0200
 {
     using System;
     using System.Linq;
@@ -23,8 +28,8 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
     /// </summary>
     //[ODataRoutePrefix("body")]
     [AllowAnonymous]
-    [ApiVersion("1.0")]
     //[ODataPath(Constants.Api.ApiControllerNames.DataClassification)]
+    [ApiVersion("2.0")]
     public class DataClassificationController : CommonODataControllerBase // ODataControllerStandardDataBase<DataClassification,DataClassificationDto>
     {
         private readonly IRepositoryService _repositoryService;
@@ -35,7 +40,7 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
             IPrincipalService principalService,
             IRepositoryService repositoryService,
             IObjectMappingService objectMappingService,
-            ISecureAPIMessageAttributeService secureApiMessageAttribute):base(diagnosticsTracingService, principalService)
+            ISecureAPIMessageAttributeService secureApiMessageAttribute) : base(diagnosticsTracingService, principalService)
         {
             this._repositoryService = repositoryService;
             this._secureApiMessageAttribute = secureApiMessageAttribute;
@@ -61,8 +66,8 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
                     // Note how we only want only distribute active records:
                     .Where(x => x.RecordState == RecordPersistenceState.Active)
                     .ProjectTo<DataClassificationDto>(
-                        //(object)null,
-                        //x => x.DataClassification
+                    //(object)null,
+                    //x => x.DataClassification
                     );
             this._secureApiMessageAttribute.Process(result);
             return result;
@@ -77,8 +82,8 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
                     // Note how we only want only distribute active records:
                     .Where(x => x.RecordState == RecordPersistenceState.Active)
                     .ProjectTo<DataClassificationDto>(
-                        //(object)null,
-                        //x => x.DataClassification
+                    //(object)null,
+                    //x => x.DataClassification
                     )
                     .SingleOrDefault(x => x.Id == key);
             this._secureApiMessageAttribute.Process(result);

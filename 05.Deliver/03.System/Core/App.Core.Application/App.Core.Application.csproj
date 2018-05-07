@@ -199,9 +199,9 @@
     <Compile Include="ServiceFacade\API\Controllers\V0100\SystemInformationController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\TenantController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\TenantedNavigationRouteItemController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\Values1Controller.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\Values2Controller.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\ValuesController.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\V0200\ValuesController.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\V0200\DataClassificationController.cs" />
     <Compile Include="Services\Implementations\AppCoreApplicationServiceBase.cs" />
     <Compile Include="Services\Implementations\TaskService.cs" />
     <Compile Include="Services\ITaskService.cs" />
