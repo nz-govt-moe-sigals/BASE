@@ -3,7 +3,6 @@
 namespace App.Core.Infrastructure.Db.Migrations.Seeding
 {
     using System;
-    using System.Diagnostics;
     using App.Core.Infrastructure.Db.Context;
     using App.Core.Infrastructure.Initialization;
     using App.Core.Infrastructure.Initialization.Db;
@@ -12,7 +11,7 @@ namespace App.Core.Infrastructure.Db.Migrations.Seeding
     using App.Core.Shared.Models.Configuration.AppHost;
     using App.Core.Shared.Models.ConfigurationSettings;
     using App.Core.Shared.Models.Messages;
-    using TraceLevel = App.Core.Shared.Models.Entities.TraceLevel;
+    using App.Core.Shared.Models.Entities;
 
     // Invoked from within AppCoreDbMigrationsConfiguration.Seed method, 
     public class AppCoreDbContextSeedingOrchestrator
@@ -21,7 +20,10 @@ namespace App.Core.Infrastructure.Db.Migrations.Seeding
         private readonly IHostSettingsService _hostSettingsService;
         private readonly IConfigurationStepService _configurationStepService;
 
-        public AppCoreDbContextSeedingOrchestrator(IDiagnosticsTracingService diagnosticsTracingService, IHostSettingsService hostSettingsService ,IConfigurationStepService configurationStepService)
+        public AppCoreDbContextSeedingOrchestrator(
+            IDiagnosticsTracingService diagnosticsTracingService, 
+            IHostSettingsService hostSettingsService ,
+            IConfigurationStepService configurationStepService)
         {
             this._diagnosticsTracingService = diagnosticsTracingService;
             this._hostSettingsService = hostSettingsService;
@@ -81,15 +83,15 @@ namespace App.Core.Infrastructure.Db.Migrations.Seeding
 
             // Ensure sequence is DataClassification, Tenant, Principal, Role, Session, then Etc.
             _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding Exception Records. Start...");
-            App.AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederExceptionRecord>().Seed(dbContext);
+            AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederExceptionRecord>().Seed(dbContext);
             _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding End. Start...");
 
             _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding Data Classifications. Start...");
-            App.AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederDataClassification>().Seed(dbContext);
+            AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederDataClassification>().Seed(dbContext);
             _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding Data Classifications. End.");
 
             _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding System Roles. Start...");
-            App.AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederSystemRole>().Seed(dbContext);
+            AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederSystemRole>().Seed(dbContext);
             _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding System Roles. End.");
 
             _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding Tenants. Start...");
@@ -103,21 +105,21 @@ namespace App.Core.Infrastructure.Db.Migrations.Seeding
 
 
             _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding Sessions. Start...");
-            App.AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederSession>().Seed(dbContext);
+            AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederSession>().Seed(dbContext);
             _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding Sessions. End.");
 
             //After Tenant
             _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding Notifications. Start...");
-            App.AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederNotification>().Seed(dbContext);
+            AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederNotification>().Seed(dbContext);
             _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding Notifications. End.");
         }
 
         private static void SeedTenants(AppCoreDbContext dbContext)
         {
 
-            App.AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederTenant>().Seed(dbContext);
-            App.AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederTenantProperty>().Seed(dbContext);
-            App.AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederTenantClaim>().Seed(dbContext);
+            AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederTenant>().Seed(dbContext);
+            AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederTenantProperty>().Seed(dbContext);
+            AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederTenantClaim>().Seed(dbContext);
         }
 
         private static void SeedPrincipals(AppCoreDbContext dbContext)
@@ -138,7 +140,7 @@ namespace App.Core.Infrastructure.Db.Migrations.Seeding
                 // You'll *REALLY* like this piece of code if you are having trouble
                 // with seeding:
                 var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                if (Debugger.IsAttached == false)
+                if (System.Diagnostics.Debugger.IsAttached == false)
                 {
                     //Debugger.Launch();
                 }

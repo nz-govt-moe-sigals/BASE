@@ -25,7 +25,7 @@ namespace App.Module3.Application.Initialization.OData.Implementations
             this._controllerName = controllerName;
         }
 
-        public EntityTypeConfiguration<T1> Define<T1>(ODataModelBuilder builder)
+        public virtual EntityTypeConfiguration<T1> Define<T1>(ODataModelBuilder builder)
             where T1 : class, IHasId<string>
         {
             var entity = builder.EntitySet<T1>(this._controllerName).EntityType;

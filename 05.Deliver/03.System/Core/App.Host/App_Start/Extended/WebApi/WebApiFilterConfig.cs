@@ -1,14 +1,13 @@
-﻿namespace App.Core.Application.Extended
+﻿
+    namespace App.Host.Extended.WebApi
 {
     using System.Web.Http;
     using System.Web.Http.Filters;
-    using App.Core.Application.Filters.WebApi;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models.Messages;
     using App.Host;
+    using global::App.Core.Application.Filters.WebApi;
+    using global::App.Core.Infrastructure.Services;
+    using global::App.Core.Shared.Models.Messages;
 
-namespace App.Host.Extended.WebApi
-{
     /// <summary>
     /// An <see cref="StartupExtended"/> invoked class to configure 
     /// WebApi Filters.
@@ -47,7 +46,7 @@ namespace App.Host.Extended.WebApi
             IDiagnosticsTracingService diagnosticsTracingService,
             ISessionOperationLogService sessionOperationLogService,
             IPrincipalService principalService,
-            IConfigurationStepService configurationStepService, 
+            IConfigurationStepService configurationStepService,
             IContextService contextService)
         {
             this._diagnosticsTracingService = diagnosticsTracingService;
@@ -127,19 +126,19 @@ namespace App.Host.Extended.WebApi
                 filters.Add(new WebApiAppAuthorizeAttribute());
 
                 _configurationStepService.Register(
-                        ConfigurationStepType.Security,
-                        ConfigurationStepStatus.White,
-                        "WebAPI Filter: Authorization",
-                        "WebAPI Filter installed to ensure Authorization is enforced by default.");
+                    ConfigurationStepType.Security,
+                    ConfigurationStepStatus.White,
+                    "WebAPI Filter: Authorization",
+                    "WebAPI Filter installed to ensure Authorization is enforced by default.");
 
 
 
                 // LAST!!!!
-                filters.Add(new 
+                filters.Add(new
                     DbContextCommitWebApiActionFilterAttribute(
-                    this._diagnosticsTracingService,
-                    this._sessionOperationLogService,
-                    this._contextService));
+                        this._diagnosticsTracingService,
+                        this._sessionOperationLogService,
+                        this._contextService));
                 _configurationStepService
                     .Register(
                         ConfigurationStepType.General,
@@ -156,6 +155,7 @@ namespace App.Host.Extended.WebApi
         private static void RegisterExceptionFilters(HttpFilterCollection filters)
         {
         }
-    }
 
+    }
 }
+
