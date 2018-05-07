@@ -1,9 +1,9 @@
-﻿namespace App.Core.Application.Presentation.Controllers
-{
-    using System.Web.Mvc;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models.Entities;
+﻿using System.Web.Mvc;
+using App.Core.Infrastructure.Services;
+using App.Core.Shared.Models.Entities;
 
+namespace App.Host.Presentation.Controllers
+{
     [AllowAnonymous]
     public class AboutController : Controller
     {

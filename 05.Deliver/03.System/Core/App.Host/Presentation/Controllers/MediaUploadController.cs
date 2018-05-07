@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
+using App.Core.Application.Models;
+using App.Core.Infrastructure.Services;
+using App.Core.Shared.Models.Messages;
 
-namespace App.Core.Application.Presentation.Controllers
+namespace App.Host.Presentation.Controllers
 {
-    using System.IO;
-    using App.Core.Application.Models;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models.Messages;
-
     public class MediaUploadController : Controller
     {
         private readonly IMediaUploadService _mediaUploadService;

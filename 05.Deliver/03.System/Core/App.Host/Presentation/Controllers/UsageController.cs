@@ -1,21 +1,14 @@
-﻿using App.Core.Application.Services;
-using App.Core.Infrastructure.Db.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Web;
 using System.Web.Mvc;
+using App.Core.Application.Models;
 using App.Core.Infrastructure.Services;
-using App.Core.Shared.Models;
+using App.Core.Shared.Models.Entities;
+using App.Core.Shared.Models.Messages;
+using App.Module2.Infrastructure.Services;
 
-namespace App.Core.Application.Presentation.Controllers
+namespace App.Host.Presentation.Controllers
 {
-    using App.Core.Application.Models;
-    using App.Core.Shared.Models.Entities;
-    using App.Core.Shared.Models.Messages;
-    using App.Module2.Infrastructure.Services;
-    using App.Module2.Shared.Models.Entities;
-
     /// <summary>
     /// Controller for the Views that explain how to use this framework.
     /// </summary>

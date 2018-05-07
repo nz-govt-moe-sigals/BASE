@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web.Mvc;
 
-namespace App.Core.Application.Presentation.Controllers
+namespace App.Host.Presentation.Controllers
 {
-    using System.Web.Mvc;
-    
-
     partial class UsageController
     {
         public ActionResult Person()

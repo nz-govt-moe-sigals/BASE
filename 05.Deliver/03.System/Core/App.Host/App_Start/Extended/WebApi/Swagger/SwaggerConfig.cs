@@ -1,5 +1,7 @@
 using System;
 using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Description;
 using App.Core.Application.Initialization;
 using Swashbuckle.Application;
 using Swashbuckle.OData;
@@ -27,7 +29,7 @@ namespace App.Host.Extended.WebApi.Swagger
                 var path = "docs/api/{apiVersion}/";
 
                 var httpconfiguration = HttpConfigurationLocator.Current;
-                /*
+              
                 var apiExplorer = httpconfiguration.AddODataApiExplorer(
                     options =>
                     {
@@ -38,7 +40,7 @@ namespace App.Host.Extended.WebApi.Swagger
                         options.SubstituteApiVersionInUrl = true;
                         options.UseApiExplorerSettings = false;
                     });
-                */
+             
 
                 //So insted of using: System.Web.Http.GlobalConfiguration.Configuration
                 // we use our personally created:
@@ -72,36 +74,42 @@ namespace App.Host.Extended.WebApi.Swagger
                         // hold additional metadata for an API. Version and title are required but you can also provide
                         // additional fields by chaining methods off SingleApiVersion.
                         //
-                        c.SingleApiVersion("v1", "App.Core.Application")
-                            .Description("API to ... (add description here).")
-                            .TermsOfService("Some terms")
-                            .Contact(cc => cc
-                                .Name("Some contact")
-                                .Url("http://tempuri.org/contact")
-                                .Email("some.contact@tempuri.org"))
-                            .License(lc => lc
-                                .Name("Some License")
-                                .Url("http://tempuri.org/license"));
+                        //c.SingleApiVersion("v1", "App.Core.Application")
                         ;
 
                         // If you want the output Swagger docs to be indented properly, enable the "PrettyPrint" option.
                         //
                         c.PrettyPrint();
 
-                        // If your API has multiple versions, use "MultipleApiVersions" instead of "SingleApiVersion".
-                        // In this case, you must provide a lambda that tells Swashbuckle which actions should be
-                        // included in the docs for a given API version. Like "SingleApiVersion", each call to "Version"
-                        // returns an "Info" builder so you can provide additional metadata per API version.
-                        //
-                        //c.MultipleApiVersions(
-                        //    (apiDesc, targetApiVersion) => ResolveVersionSupportByRouteConstraint(apiDesc, targetApiVersion),
-                        //    (vc) =>
-                        //    {
-                        //        vc.Version("v2", "Swashbuckle Dummy API V2");
-                        //        vc.Version("v1", "Swashbuckle Dummy API V1");
-                        //    });
+                        // build a swagger document and endpoint for each discovered API version
+                        c.MultipleApiVersions(
+                            (apiDescription, version) => apiDescription.GetGroupName() == version,
+                            info =>
+                            {
+                                info.Version("v1", "Swashbuckle Dummy API V1");
+                                info.Version("v2", "Swashbuckle Dummy API V2");
+                                /*
+                                foreach (var group in apiExplorer.ApiDescriptions)
+                                {
+                                    var description = "A sample application with Swagger, Swashbuckle, OData, and API versioning.";
 
-                  
+                                    if (group.IsDeprecated)
+                                    {
+                                        description += " This API version has been deprecated.";
+                                    }
+
+                                    info.Version(group.Name, $"Sample API {group.ApiVersion}")
+                                        .Contact(c => c.Name("Bill Mei").Email("bill.mei@somewhere.com"))
+                                        .Description(description)
+                                        .License(l => l.Name("MIT").Url("https://opensource.org/licenses/MIT"))
+                                        .TermsOfService("Shareware");
+                                }
+                                */
+                            });
+
+                        // add a custom operation filter which documents the implicit API version parameter
+                        c.OperationFilter<SwaggerDefaultValues>();
+
 
                         // Set this flag to omit descriptions for any actions decorated with the Obsolete attribute
                         c.IgnoreObsoleteActions();
@@ -118,7 +126,7 @@ namespace App.Host.Extended.WebApi.Swagger
                         //
                         //c.CustomProvider((defaultProvider) => new CachingSwaggerProvider(defaultProvider));
                         //https://github.com/rbeauchamp/Swashbuckle.OData
-
+                        /*
                         c.CustomProvider(defaultProvider => new ODataSwaggerProvider(defaultProvider, c, httpconfiguration).Configure(odataConfig =>
                         {
                             // Set this flag to include navigation properties in your entity swagger models
@@ -131,6 +139,8 @@ namespace App.Host.Extended.WebApi.Swagger
                             //Set custom AssembliesResolver
                             //odataConfig.SetAssembliesResolver(new Utils.CustomAssembliesResolver());
                         }));
+                        */
+                        
                     })
                     .EnableSwaggerUi(c =>
                     {
@@ -138,6 +148,7 @@ namespace App.Host.Extended.WebApi.Swagger
                         // Very helpful when you have multiple Swagger pages open, to tell them apart.
                         //
                         c.DocumentTitle("My Swagger UI");
+                        c.EnableDiscoveryUrlSelector();
                        // c.EnableDiscoveryUrlSelector();
                     });
 
