@@ -4,7 +4,6 @@
     using App.Module1.Infrastructure.Constants.Db;
     using App.Module1.Infrastructure.Db.Context;
     using App.Module1.Infrastructure.Initialization.Db;
-    using App.Module1.Infrastructure.Initialization.OData;
     using StructureMap;
     using StructureMap.Graph;
 

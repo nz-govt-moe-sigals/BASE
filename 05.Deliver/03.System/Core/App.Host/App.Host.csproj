@@ -332,6 +332,8 @@
     <Compile Include="App_Start\Extended\Mvc\Constraints\TenantRouteConstraint.cs" />
     <Compile Include="App_Start\Extended\WebApi\Constraints\LocaleWebApiRouteConstraint.cs" />
     <Compile Include="App_Start\Extended\WebApi\Constraints\TenantWebApiRouteConstraint.cs" />
+    <Compile Include="App_Start\Extended\WebApi\OData\CaseInsensitiveODataUriResolver.cs" />
+    <Compile Include="App_Start\Extended\WebApi\Swagger\SwaggerDefaultValues.cs" />
     <Compile Include="App_Start\Extended\WebApi\WebApiVersionConfig.cs" />
     <Compile Include="App_Start\StructuremapInterception.cs" />
     <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
@@ -351,7 +353,7 @@
     <Compile Include="App_Start\Extended\WebApi\WebApiCorsConfig.cs" />
     <Compile Include="App_Start\Extended\WebApi\WebApiFilterConfig.cs" />
     <Compile Include="App_Start\Extended\WebApi\WebApiJsonSerializerConfig.cs" />
-    <Compile Include="App_Start\Extended\WebApi\WebApiODataConfig.cs" />
+    <Compile Include="App_Start\Extended\WebApi\OData\WebApiODataConfig.cs" />
     <Compile Include="App_Start\Extended\WebApi\WebApiRouteConfig.cs" />
     <Compile Include="FilterConfig.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyScopeFactory.cs" />

@@ -1,13 +1,14 @@
 ﻿using System.Linq;
 using System.Web.Http;
 using System.Web.OData.Extensions;
+using App.Core.Application.Initialization.OData;
 using App.Core.Infrastructure.Initialization.OData;
 using App.Core.Infrastructure.Services;
 using App.Core.Shared.Models.Messages;
 using Microsoft.OData;
 using Microsoft.OData.UriParser;
 
-namespace App.Host.Extended.WebApi
+namespace App.Host.Extended.WebApi.OData
 {
     /// <summary>
     /// An <see cref="StartupExtended"/> invoked class to configure 
@@ -64,10 +65,10 @@ namespace App.Host.Extended.WebApi
             //but who cares for advice
 
             // WHEN VERSIONING BY: query string, header, or media type
-            configuration.MapVersionedODataRoutes("odata", "odata/" + prefix, models, ConfigureODataServices);
+            configuration.MapVersionedODataRoutes("odata" + prefix, "odata/" + prefix, models, ConfigureODataServices);
 
             // WHEN VERSIONING BY: url segment
-            configuration.MapVersionedODataRoutes("odata-bypath", "odata/" + prefix + "/v{apiVersion}", models,
+            configuration.MapVersionedODataRoutes("odata-bypath" + prefix, "odata/" + prefix + "/v{apiVersion}", models,
                 ConfigureODataServices);
         }
 

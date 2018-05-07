@@ -3,6 +3,8 @@ using System.Web.Http.Routing;
 using System.Web.OData.Extensions;
 using App.Core.Application.Initialization;
 using App.Core.Infrastructure.Services;
+using App.Host.Extended.WebApi.OData;
+using App.Host.Extended.WebApi.Swagger;
 using Microsoft.Web.Http.Routing;
 using Newtonsoft.Json.Serialization;
 using Owin;
@@ -18,12 +20,14 @@ namespace App.Host.Extended.WebApi
         private readonly WebApiRouteConfig _webApiRouteConfig;
         private readonly ITenantService _tenantService;
         private readonly WebApiFilterConfig _filterConfig;
+        private readonly WebApiODataConfig _webApiODataConfig;
 
-        public WebApiConfig(WebApiRouteConfig webApiRouteConfig, WebApiFilterConfig filterConfig, ITenantService tenantService)
+        public WebApiConfig(WebApiRouteConfig webApiRouteConfig, WebApiFilterConfig filterConfig, WebApiODataConfig webApiODataConfig, ITenantService tenantService)
         {
             this._webApiRouteConfig = webApiRouteConfig;
             this._tenantService = tenantService;
             _filterConfig = filterConfig;
+            _webApiODataConfig = webApiODataConfig;
         }
         /// <summary>
         /// Configures the specified HTTP configuration.
@@ -80,7 +84,7 @@ namespace App.Host.Extended.WebApi
 
 
             // OData route registration must be before WebAPI routing:
-            WebApiODataConfig.Configure(httpConfiguration);
+            _webApiODataConfig.Configure(httpConfiguration);
 
             _webApiRouteConfig.Configure(httpConfiguration);
 

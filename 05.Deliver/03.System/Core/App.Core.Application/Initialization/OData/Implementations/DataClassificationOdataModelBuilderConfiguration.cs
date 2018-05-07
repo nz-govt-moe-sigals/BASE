@@ -14,7 +14,7 @@ namespace App.Core.Application.Initialization.OData.Implementations
         /// </summary>
         /// <internal>
         /// Remember to make these constructors public or reflection for 
-        /// <see cref="IModelConfiguration"/> won't find them.
+        /// <see cref="IAppCoreOdataModelBuilderConfigurationBase"/> won't find them.
         /// </internal>
         public DataClassificationOdataModelBuilderConfiguration()
         {

@@ -8,7 +8,6 @@ namespace App.Module3.Infrastructure.Initialization.DependencyResolution
     using App.Module3.Infrastructure.Constants.Db;
     using App.Module3.Infrastructure.Db.Context;
     using App.Module3.Infrastructure.Initialization.Db;
-    using App.Module3.Infrastructure.Initialization.OData;
     using StructureMap;
     using StructureMap.Graph;
 

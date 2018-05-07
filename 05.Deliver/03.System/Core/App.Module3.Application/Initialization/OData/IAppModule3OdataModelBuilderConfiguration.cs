@@ -2,7 +2,7 @@
 {
     using System.Web.OData.Builder;
     using App.Core.Infrastructure.Initialization.OData;
-    using App.Module3.Infrastructure.Initialization.OData;
+    using Microsoft.Web.OData.Builder;
 
     /// <summary>
     /// A Module specific implementation of
@@ -10,8 +10,7 @@
     /// allowing for distinct Odata 'clumps of apis' (ie metadatas).
     /// separated by domain (eg: 'api/odata/core', 'api/odata/module1', etc.)
     /// </summary>
-    public interface IAppModule3OdataModelBuilderConfiguration : IOdataModelBuilderConfigurationBase
+    public interface IAppModule3OdataModelBuilderConfiguration : IOdataModelBuilderConfigurationBaseStub, IModelConfiguration
     {
-        void Define(ODataModelBuilder builder);
     }
 }
