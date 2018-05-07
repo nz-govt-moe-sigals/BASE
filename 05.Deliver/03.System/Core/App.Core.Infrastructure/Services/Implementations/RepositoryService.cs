@@ -1,4 +1,6 @@
-﻿namespace App.Core.Infrastructure.Services.Implementations
+﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+
+namespace App.Core.Infrastructure.Services.Implementations
 {
     using System;
     using System.Data.Entity;

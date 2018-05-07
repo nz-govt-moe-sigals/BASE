@@ -1,58 +1,50 @@
-namespace App.Core.Application.App_Start
-{
-    using System.Linq;
-    using System.Web.Http;
-    using System.Web.OData.Builder;
-    using System.Web.OData.Extensions;
-    using App.Core.Application.Initialization.OData;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
+using System.Web.OData.Builder;
+using System.Web.OData.Extensions;
+using App.Core.Infrastructure.Initialization.DependencyResolution;
+using App.Core.Infrastructure.Initialization.OData;
+using Microsoft.OData.Edm;
+using Microsoft.Web.OData.Builder;
 
+namespace App.Core.Application.Initialization.OData.Implementations
+{
     /// <summary>
     /// Implementation invoked at Statup, when building 
     /// OData Models.
     /// </summary>
-    public class AppOdataModelBuilder : IAppOdataModelBuilder
+    public class AppOdataModelBuilder : IOdataModelBuilder
     {
-
-        public void Initialize(object untypedHttpConfiguration)
+        public IEnumerable<IEdmModel> GetEdmModels(HttpConfiguration configuration)
         {
+            var modelBuilder = new VersionedODataModelBuilder(configuration)
+            {
+                ModelBuilderFactory = () => new ODataConventionModelBuilder().EnableLowerCamelCase(),
+                ModelConfigurations =
+                {
+                    //new ApplicationDescriptionOdataModelBuilderConfiguration(),
+                    //new DataClassificationOdataModelBuilderConfiguration(),
 
-            Initialize(untypedHttpConfiguration as HttpConfiguration);
+                }
+            };
+            foreach (var item in RegisterByReflectionTheODataModelDefinitions())
+            {
+                modelBuilder.ModelConfigurations.Add(item);
+            }
+
+            return modelBuilder.GetEdmModels();
         }
 
-        public void Initialize(HttpConfiguration httpConfiguration)
+        public string GetRoutePrefix()
         {
-            // Whereas WebAPI are individual REST endpoints, OData endpoints
-            // expose a model of intertwined entities. 
-            // Hence these need to be defined first.
-            ODataModelBuilder builder = new ODataConventionModelBuilder();
-
-            // Find all definition fragments, which ever assembly they were defined in:
-            RegisterByReflectionTheODataModelDefinitions(builder);
-
-            //SETUP STEP: 
-            // Important: Can only be same routePrefix (eg:'api') as 
-            // WebAPIs if it is registered *before* WebAPI routes...
-            httpConfiguration.MapODataServiceRoute(
-                routeName:"AppAllODataApiPaths",
-                routePrefix: "odata/"+"all",
-                model:builder.GetEdmModel());
+            return "core";
         }
 
-        private int RegisterByReflectionTheODataModelDefinitions(ODataModelBuilder builder)
+
+        private IAppCoreOdataModelBuilderConfigurationBase[] RegisterByReflectionTheODataModelDefinitions()
         {
-            // HACK: Notice we are refering to the non-generic base instance (which 
-            // accepts an Object argument) because the contract has to be defined in
-            // App.Core.Infrastructure for App.ModuleXXX.Application to be able to reference
-            // it. But in each Module, the base non-generic contract is enherited by a *Typed*
-            // generic contract, (<IOdataModelBuilderConfiguration<T>) specicic to 
-            // the App.ModuleXXX.Application.
-            var items = AppDependencyLocator.Current
-                .GetAllInstances<IAppOdataModelBuilderConfiguration>().ToArray();
-
-            var count = items.Count();
-            items.ForEach(x => x.Define(builder));
-
-            return count;
+            return AppDependencyLocator.Current.GetAllInstances<IOdataModelBuilderConfigurationBaseStub>().OfType<IAppCoreOdataModelBuilderConfigurationBase>().ToArray();
         }
 
         /*

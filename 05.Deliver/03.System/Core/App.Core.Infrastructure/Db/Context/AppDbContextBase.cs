@@ -29,7 +29,7 @@ namespace App.Core.Infrastructure.Db.Context
         {
         }
 
-        protected AppDbContextBase(string connectionStringOrName) : this(App.AppDependencyLocator.Current.GetInstance<OpenDbConnectionBuilder>().CreateAsync(connectionStringOrName).Result, true)
+        protected AppDbContextBase(string connectionStringOrName) : this(AppDependencyLocator.Current.GetInstance<OpenDbConnectionBuilder>().CreateAsync(connectionStringOrName).Result, true)
         {
         }
 

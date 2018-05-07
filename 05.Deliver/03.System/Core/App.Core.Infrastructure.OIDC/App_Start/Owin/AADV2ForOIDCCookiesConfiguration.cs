@@ -1,4 +1,6 @@
-﻿namespace App.Core.Infrastructure.IDA.Owin
+﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+
+namespace App.Core.Infrastructure.IDA.Owin
 {
     using System;
     using System.IdentityModel.Tokens;

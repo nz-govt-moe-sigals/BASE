@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using App.Core.Infrastructure.Initialization.Integration;
+using Owin;
 
-namespace App.Core.Application.App_Start
+namespace App.Host.Extended
 {
-    using App.Core.Infrastructure.Initialization.Integration;
-    using Owin;
-
     public class InitializerConfig
     {
         private readonly IntegrationSpikes _spikes;

@@ -1,4 +1,6 @@
-﻿namespace App.Core.Application.Filters.WebApi
+﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+
+namespace App.Core.Application.Filters.WebApi
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -24,7 +26,7 @@
 
         private IPrincipalService PrincipalService
         {
-            get { return App.AppDependencyLocator.Current.GetInstance<IPrincipalService>(); }
+            get { return AppDependencyLocator.Current.GetInstance<IPrincipalService>(); }
         }
 
 

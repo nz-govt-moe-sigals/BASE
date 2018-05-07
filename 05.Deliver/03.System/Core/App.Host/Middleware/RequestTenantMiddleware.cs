@@ -1,3 +1,5 @@
+using App.Core.Infrastructure.Initialization.DependencyResolution;
+
 namespace App.Core.Application.Middleware
 {
     using System.Threading.Tasks;

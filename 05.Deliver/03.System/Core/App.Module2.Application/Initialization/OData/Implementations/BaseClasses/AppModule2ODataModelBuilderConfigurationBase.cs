@@ -1,3 +1,5 @@
+using Microsoft.Web.Http;
+
 namespace App.Module2.Application.Initialization.OData.Implementations
 {
     using System.Web.OData.Builder;
@@ -22,18 +24,22 @@ namespace App.Module2.Application.Initialization.OData.Implementations
             this._controllerName = controllerName;
         }
 
-        public void Define(object builder)
+        public EntityTypeConfiguration<T1> Define<T1>(ODataModelBuilder builder)
+            where T1 : class, IHasGuidId, new()
         {
-            Define(builder as ODataModelBuilder);
+            var entity = builder.EntitySet<T1>(this._controllerName).EntityType;
+            entity.HasKey(x => x.Id);
+            return entity;
         }
-        public void Define(ODataModelBuilder builder)
+
+        /// <summary>
+        /// override this when you have more versions of an object 
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="apiVersion"></param>
+        public virtual void Apply(ODataModelBuilder builder, ApiVersion apiVersion)
         {
-            builder.EntitySet<T>(this._controllerName.ToLower());
-            // Optional DTO Type description
-            // Tip/Warning: if you define ops here, at the model level, have to relist all ops allowed (ie, it cancels the globally set operations list):
-            // builder.EntityType<EducationOrganisationDto>().Filter(/*noparam to allow for any*/);
-            builder.EntityType<T>()
-                .HasKey(x => x.Id);
+            Define<T>(builder);
         }
     }
 }

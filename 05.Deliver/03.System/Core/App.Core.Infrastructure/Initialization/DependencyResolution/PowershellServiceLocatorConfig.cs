@@ -1,7 +1,5 @@
 namespace App.Core.Infrastructure.Initialization.DependencyResolution
 {
-    using App.Core.Infrastructure.DependencyResolution;
-
     // This is totally a hack to do with limitations of 
     // CodeFirst for EF6. 
     // It is an alternate StructureMap initializer

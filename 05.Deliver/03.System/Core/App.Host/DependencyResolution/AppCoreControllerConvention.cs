@@ -1,4 +1,5 @@
 using System.Data.Entity;
+using App.Core.Infrastructure.Initialization.DependencyResolution;
 using App.Module3.Infrastructure.Db.Context;
 using StructureMap.Web;
 
@@ -12,7 +13,6 @@ namespace App.Core.Application.DependencyResolution
     using System.Web.Mvc;
     using App.Core.Application.DependencyResolution.Interceptors;
     using App.Core.Infrastructure.Contracts;
-    using App.Core.Infrastructure.DependencyResolution;
     using StructureMap;
     using StructureMap.Building.Interception;
     using StructureMap.DynamicInterception;

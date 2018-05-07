@@ -1,7 +1,7 @@
-﻿namespace App.Core.Infrastructure.DependencyResolution
-{
-    using StructureMap.Graph;
+﻿using StructureMap.Graph;
 
+namespace App.Core.Infrastructure.Initialization.DependencyResolution
+{
     public interface ICustomRegistrationConvention : IRegistrationConvention
     {
     }

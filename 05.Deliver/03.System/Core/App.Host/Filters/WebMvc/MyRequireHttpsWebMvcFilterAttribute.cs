@@ -1,3 +1,5 @@
+using App.Core.Infrastructure.Initialization.DependencyResolution;
+
 namespace App.Core.Application.Filters.WebMvc
 {
     using System;
@@ -13,7 +15,7 @@ namespace App.Core.Application.Filters.WebMvc
         {
             get
             {
-                return App.AppDependencyLocator.Current.GetInstance<IDiagnosticsTracingService>();
+                return AppDependencyLocator.Current.GetInstance<IDiagnosticsTracingService>();
             }
 
         }

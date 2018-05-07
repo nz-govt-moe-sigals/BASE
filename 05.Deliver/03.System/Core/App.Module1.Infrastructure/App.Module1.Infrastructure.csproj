@@ -110,6 +110,7 @@
   <ItemGroup>
     <Folder Include="ExtensionMethods\" />
     <Folder Include="Factories\" />
+    <Folder Include="Initialization\OData\" />
     <Folder Include="Services\Configuration\Base\" />
   </ItemGroup>
   <ItemGroup>

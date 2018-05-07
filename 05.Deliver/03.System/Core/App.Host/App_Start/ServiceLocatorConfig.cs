@@ -1,6 +1,7 @@
-﻿namespace App.Core.Application.App_Start
+﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+
+namespace App.Core.Application.App_Start
 {
-    using App.Core.Infrastructure.DependencyResolution;
     using Owin;
 
 

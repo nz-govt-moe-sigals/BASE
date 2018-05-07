@@ -1,4 +1,6 @@
-﻿namespace App.Host
+﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+
+namespace App.Host
 {
     using App.Core.Application.App_Start;
     using App.Core.Infrastructure.Services;

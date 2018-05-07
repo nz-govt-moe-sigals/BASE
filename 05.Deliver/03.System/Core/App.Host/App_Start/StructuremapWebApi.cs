@@ -17,6 +17,7 @@
 
 using System.Web.Http;
 using App.Core.Application.DependencyResolution;
+using App.Core.Application.Initialization;
 
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(App.Core.Application.App_Start.StructuremapWebApi), "Start")]
 
@@ -26,7 +27,9 @@ namespace App.Core.Application.App_Start {
     public static class StructuremapWebApi {
         public static void Start() {
 			var container = StructuremapMvc.StructureMapDependencyScope.Container;
-            GlobalConfiguration.Configuration.DependencyResolver = new StructureMapWebApiDependencyResolver(container);
+            //GlobalConfiguration.Configuration.DependencyResolver = new StructureMapWebApiDependencyResolver(container);
+            // Have to use our new instance of HttpConfiguration
+            HttpConfigurationLocator.Current.DependencyResolver = new StructureMapWebApiDependencyResolver(container);
             // Do not call yet:
             //GlobalConfiguration.Configuration.EnsureInitialized();
         }

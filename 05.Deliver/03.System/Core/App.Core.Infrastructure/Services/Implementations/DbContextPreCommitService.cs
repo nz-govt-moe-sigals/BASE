@@ -1,4 +1,6 @@
-﻿namespace App.Core.Infrastructure.Services
+﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+
+namespace App.Core.Infrastructure.Services
 {
     //using App.Core.Infrastructure.Db.DbContextFactories;
     //using App.Core.Infrastructure.Db.DbContextFactories.Implementations;

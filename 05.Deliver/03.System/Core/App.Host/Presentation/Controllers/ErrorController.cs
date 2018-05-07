@@ -1,7 +1,7 @@
-﻿namespace App.Core.Application.Presentation.Controllers
-{
-    using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
+namespace App.Host.Presentation.Controllers
+{
     [AllowAnonymous]
     public class ErrorController : Controller
     {

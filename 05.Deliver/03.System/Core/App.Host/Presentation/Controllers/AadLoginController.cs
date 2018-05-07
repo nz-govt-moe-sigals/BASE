@@ -1,12 +1,11 @@
-﻿namespace App.Core.Application.Presentation.Controllers
-{
-    using System.Web;
-    using System.Web.Mvc;
-    using App.Core.Infrastructure.Constants.Roles;
-    using Microsoft.Owin.Security;
-    using Microsoft.Owin.Security.Cookies;
-    using Microsoft.Owin.Security.OpenIdConnect;
+﻿using System.Web;
+using System.Web.Mvc;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.OpenIdConnect;
 
+namespace App.Host.Presentation.Controllers
+{
     /// <summary>
     ///     A Controller to handle sign in via AAD (V2).
     /// </summary>

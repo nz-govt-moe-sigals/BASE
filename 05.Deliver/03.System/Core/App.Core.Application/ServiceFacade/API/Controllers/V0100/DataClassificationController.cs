@@ -1,4 +1,6 @@
-﻿namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
+﻿using Microsoft.Web.Http;
+
+namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
 {
     using System;
     using System.Linq;
@@ -21,7 +23,8 @@
     /// </summary>
     //[ODataRoutePrefix("body")]
     [AllowAnonymous]
-    [ODataPath(Constants.Api.ApiControllerNames.DataClassification)]
+    [ApiVersion("1.0")]
+    //[ODataPath(Constants.Api.ApiControllerNames.DataClassification)]
     public class DataClassificationController : CommonODataControllerBase // ODataControllerStandardDataBase<DataClassification,DataClassificationDto>
     {
         private readonly IRepositoryService _repositoryService;

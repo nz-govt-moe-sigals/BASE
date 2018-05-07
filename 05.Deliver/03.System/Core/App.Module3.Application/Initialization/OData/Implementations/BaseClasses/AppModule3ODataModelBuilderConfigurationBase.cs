@@ -1,3 +1,5 @@
+using Microsoft.Web.Http;
+
 namespace App.Module3.Application.Initialization.OData.Implementations
 {
     using System.Web.OData.Builder;
@@ -16,29 +18,29 @@ namespace App.Module3.Application.Initialization.OData.Implementations
     public abstract class AppModule3ODataModelBuilderReferenceDataConfigurationBase<T> : IAppModule3OdataModelBuilderConfiguration
         where T: class, IHasId<string>,  new()
     {
-        protected readonly string _controllerName;
+        private readonly string _controllerName;
 
         protected AppModule3ODataModelBuilderReferenceDataConfigurationBase(string controllerName)
         {
-            this._controllerName = controllerName.ToLower();
+            this._controllerName = controllerName;
         }
 
-        public void Define(object builder)
+        public EntityTypeConfiguration<T1> Define<T1>(ODataModelBuilder builder)
+            where T1 : class, IHasId<string>
         {
-            Define(builder as ODataModelBuilder);
+            var entity = builder.EntitySet<T1>(this._controllerName).EntityType;
+            entity.HasKey(x => x.Id);
+            return entity;
         }
-        public void Define(ODataModelBuilder builder)
-        {
-            // Note that we are registering the path in lower case.
-            // And the full root with start with 
-            // ApiControllerNames.PathRoot (ie, 'odata/foo' for FooController):
-            builder.EntitySet<T>(this._controllerName.ToLower().ToLower());
 
-            // Optional DTO Type description
-            // Tip/Warning: if you define ops here, at the model level, have to relist all ops allowed (ie, it cancels the globally set operations list):
-            // builder.EntityType<EducationOrganisationDto>().Filter(/*noparam to allow for any*/);
-            builder.EntityType<T>()
-                .HasKey(x => x.Id);
+        /// <summary>
+        /// override this when you have more versions of an object 
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="apiVersion"></param>
+        public virtual void Apply(ODataModelBuilder builder, ApiVersion apiVersion)
+        {
+            Define<T>(builder);
         }
     }
 }

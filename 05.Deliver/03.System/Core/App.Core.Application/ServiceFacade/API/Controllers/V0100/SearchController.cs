@@ -1,4 +1,6 @@
-﻿namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
+﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+
+namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
 {
     using System;
     using System.Collections.Generic;

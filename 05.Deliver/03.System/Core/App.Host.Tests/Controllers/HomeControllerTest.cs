@@ -1,7 +1,8 @@
-﻿namespace App.Core.Application.Tests.Controllers
+﻿using App.Host.Presentation.Controllers;
+
+namespace App.Core.Application.Tests.Controllers
 {
     using System.Web.Mvc;
-    using App.Core.Application.Presentation.Controllers;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]

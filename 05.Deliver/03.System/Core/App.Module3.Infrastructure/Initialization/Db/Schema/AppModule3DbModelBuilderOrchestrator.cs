@@ -1,4 +1,6 @@
-﻿namespace App.Module3.Infrastructure.Db.Schema
+﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+
+namespace App.Module3.Infrastructure.Db.Schema
 {
     using System.Data.Entity;
     using App.Module3.Infrastructure.Initialization;

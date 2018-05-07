@@ -23,11 +23,11 @@
     {
         public AppModuleApplicationRegistry()
         {
-            Scan(
-                assemblyScanner =>
-                {
-                    ScanThisModulesForODataModelBuilderTypes(assemblyScanner);
-                });
+            //Scan(
+            //    assemblyScanner =>
+            //    {
+            //        ScanThisModulesForODataModelBuilderTypes(assemblyScanner);
+            //    });
 
         }
 
@@ -41,7 +41,7 @@
             // So we search for and register the *untyped* version of the interface:
 
             //Scan for OData Model Builders in *this* modules.
-            assemblyScanner.AddAllTypesOf<IAppModule2OdataModelBuilder>();
+           // assemblyScanner.AddAllTypesOf<IAppModule2OdataModelBuilder>();
             //Scan for OData Model Builder Configuration fragments in *this* modules.
             assemblyScanner.AddAllTypesOf<IAppModule2OdataModelBuilderConfiguration>();
         }

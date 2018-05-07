@@ -11,6 +11,6 @@ namespace App.Module1.Application.Constants.Api
         public static string PathRoot = Infrastructure.Constants.Module.Names.ModuleKey.ToLower();
 
 
-        public static string Example = "exampledto";
+        public static string Example = "Example";
     }
 }
