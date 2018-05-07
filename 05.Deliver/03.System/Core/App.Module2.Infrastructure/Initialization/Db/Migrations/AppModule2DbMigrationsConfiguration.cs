@@ -1,3 +1,5 @@
+using App.Core.Infrastructure.Initialization.DependencyResolution;
+
 namespace App.Module2.Infrastructure.Db.Migrations
 {
     using System.Data.Entity.Migrations;

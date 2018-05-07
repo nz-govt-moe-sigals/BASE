@@ -1,8 +1,8 @@
-﻿namespace App.Core.Application
-{
-    using System.Web.Optimization;
-    using App.Core.Application.Extended;
+﻿using System.Web.Optimization;
+using App.Host.Extended.Mvc;
 
+namespace App.Host.Extended
+{
     public class BundleConfig
     {
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862

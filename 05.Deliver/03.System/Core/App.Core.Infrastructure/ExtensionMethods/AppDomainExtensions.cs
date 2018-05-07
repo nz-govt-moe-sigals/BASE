@@ -1,6 +1,8 @@
 ﻿// Extensions are always put in root namespace
 // for maximum usability from elsewhere:
 
+using App.Core.Infrastructure.Initialization.DependencyResolution;
+
 namespace App
 {
     using System;
@@ -12,7 +14,7 @@ namespace App
     {
         /// <summary>
         /// Gets all derived instantiable types, instantiates them 
-        /// (using <see cref="Activator"/> - *not* <see cref="App.AppDependencyLocator"/>!)
+        /// (using <see cref="Activator"/> - *not* <see cref="AppDependencyLocator"/>!)
         /// then runs the new instance through the provided action.
         /// <para>
         /// Invoked at least when scanning for StructureMap scanners

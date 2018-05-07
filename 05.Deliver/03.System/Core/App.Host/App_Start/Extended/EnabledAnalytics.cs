@@ -1,13 +1,13 @@
-﻿namespace App.Core.Application.Extended
-{
-    using System.Configuration;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models.Configuration;
-    using App.Core.Shared.Models.ConfigurationSettings;
-    using App.Core.Shared.Models.Messages;
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Owin;
+﻿using System.Configuration;
+using App.Core.Infrastructure.Initialization.DependencyResolution;
+using App.Core.Infrastructure.Services;
+using App.Core.Shared.Models.ConfigurationSettings;
+using App.Core.Shared.Models.Messages;
+using Microsoft.ApplicationInsights.Extensibility;
+using Owin;
 
+namespace App.Host.Extended
+{
     public class EnabledAnalytics
     {
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;

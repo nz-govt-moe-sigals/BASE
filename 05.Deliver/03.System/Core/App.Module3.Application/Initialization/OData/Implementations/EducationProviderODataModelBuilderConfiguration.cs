@@ -1,3 +1,5 @@
+using Microsoft.Web.Http;
+
 namespace App.Module3.Application.Initialization.OData.Implementations
 {
     using System.Web.OData.Builder;
@@ -15,37 +17,19 @@ namespace App.Module3.Application.Initialization.OData.Implementations
         //{
         //}
 
-
-
-        protected readonly string _controllerName;
-
-        public EducationProviderODataModelBuilderConfiguration():this(ApiControllerNames.EducationProvider)
+        public void Apply(ODataModelBuilder builder, ApiVersion apiVersion)
         {
+            Define(builder);
 
         }
 
-        public EducationProviderODataModelBuilderConfiguration(string controllerName)
+        public EntityTypeConfiguration<EducationProviderDto> Define(ODataModelBuilder builder)
         {
-            this._controllerName = controllerName.ToLower();
+            var entity = builder.EntitySet<EducationProviderDto>(ApiControllerNames.EducationProvider).EntityType;
+            entity.HasKey(x => x.SchoolId);
+            return entity;
         }
 
-        public void Define(object builder)
-        {
-            Define(builder as ODataModelBuilder);
-        }
-        public void Define(ODataModelBuilder builder)
-        {
-            // Note that we are registering the path in lower case.
-            // And the full root with start with 
-            // ApiControllerNames.PathRoot (ie, 'odata/foo' for FooController):
-            builder.EntitySet<EducationProviderDto>(this._controllerName.ToLower().ToLower());
-
-            // Optional DTO Type description
-            // Tip/Warning: if you define ops here, at the model level, have to relist all ops allowed (ie, it cancels the globally set operations list):
-            // builder.EntityType<EducationOrganisationDto>().Filter(/*noparam to allow for any*/);
-            builder.EntityType<EducationProviderDto>()
-                .HasKey(x => x.SchoolId);
-        }
-
+      
     }
 }

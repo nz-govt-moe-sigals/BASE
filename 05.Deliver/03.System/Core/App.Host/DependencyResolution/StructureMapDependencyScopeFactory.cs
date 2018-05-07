@@ -1,7 +1,7 @@
-﻿namespace App.Core.Application.DependencyResolution
-{
-    using App.Core.Infrastructure.DependencyResolution;
+﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
 
+namespace App.Core.Application.DependencyResolution
+{
     public class StructureMapDependencyScopeFactory
     {
         public static StructureMapDependencyScope ConfigureContainer()

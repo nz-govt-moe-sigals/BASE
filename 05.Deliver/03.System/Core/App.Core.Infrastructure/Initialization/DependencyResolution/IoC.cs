@@ -1,7 +1,7 @@
-namespace App.Core.Infrastructure.DependencyResolution
-{
-    using StructureMap;
+using StructureMap;
 
+namespace App.Core.Infrastructure.Initialization.DependencyResolution
+{
     public static class IoC
     {
         public static IContainer Initialize()

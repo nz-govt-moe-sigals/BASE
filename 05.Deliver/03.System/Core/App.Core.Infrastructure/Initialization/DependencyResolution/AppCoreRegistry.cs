@@ -1,23 +1,19 @@
-namespace App.Core.Infrastructure.DependencyResolution
-{
-    using System;
-    using System.Data.Entity;
-    using App.Core.Infrastructure.Constants;
-    using App.Core.Infrastructure.Constants.Db;
-    using App.Core.Infrastructure.Db.Context;
-    using App.Core.Infrastructure.Db.Interception;
-    using App.Core.Infrastructure.Factories;
-    using App.Core.Infrastructure.Initialization;
-    using App.Core.Infrastructure.Initialization.Authentication;
-    using App.Core.Infrastructure.Initialization.Db;
-    using App.Core.Infrastructure.Initialization.DependencyResolution;
-    using App.Core.Infrastructure.Initialization.ObjectMaps;
-    using App.Core.Infrastructure.Integration.Azure.Storage;
-    using StructureMap;
-    using StructureMap.Configuration.DSL.Expressions;
-    using StructureMap.Graph;
-    using StructureMap.Web.Pipeline;
+using System;
+using App.Core.Infrastructure.Constants.Db;
+using App.Core.Infrastructure.Db.Context;
+using App.Core.Infrastructure.Db.Interception;
+using App.Core.Infrastructure.Initialization.Authentication;
+using App.Core.Infrastructure.Initialization.Db;
+using App.Core.Infrastructure.Initialization.ObjectMaps;
+using App.Core.Infrastructure.Initialization.OData;
+using App.Core.Infrastructure.Integration.Azure.Storage;
+using StructureMap;
+using StructureMap.Configuration.DSL.Expressions;
+using StructureMap.Graph;
+using StructureMap.Web.Pipeline;
 
+namespace App.Core.Infrastructure.Initialization.DependencyResolution
+{
     // The App Core Module's StructureMap Registry.
     // Invoked via StructuremapMvc which is invoked
     // during startup.
@@ -66,7 +62,7 @@ namespace App.Core.Infrastructure.DependencyResolution
                     ScanForAllModulesAutoMapperInitializers(assemblyScanner);
                     ScanForAllModulesOIDCFullyQualifiesScopes(assemblyScanner);
 
-                    //ScanForAllModulesODataBuilderTypes(assemblyScanner);
+                    ScanForAllModulesODataBuilderTypes(assemblyScanner);
 
                     ScanForAllModulesDbContextTypes(assemblyScanner);
 
@@ -117,12 +113,20 @@ namespace App.Core.Infrastructure.DependencyResolution
         //    // woudl drag in way too many other dependencies (ApiControllers, Web, etc.)
         //    // So we search for and register the *untyped* version of the interface:
 
-        //    //Scan for OData Model Builders in *all* modules.
-        //    assemblyScanner.AddAllTypesOf<IOdataModelBuilderBase>();
+        private void ScanForAllModulesODataBuilderTypes(IAssemblyScanner assemblyScanner)
+        {
+            // Note that because we are in App.Core.Infrastructure, we can't see the
+            // Typed version of this interface (as this assembly does not know anything 
+            // about OData as it does not have a Ref to OData Assemblies...nor should it, as that
+            // woudl drag in way too many other dependencies (ApiControllers, Web, etc.)
+            // So we search for and register the *untyped* version of the interface:
 
-        //    //Scan for OData Model Builder Configuration fragments in *all* modules.
-        //    assemblyScanner.AddAllTypesOf<IOdataModelBuilderConfigurationBase>();
-        //}
+            //Scan for OData Model Builders in *all* modules.
+            assemblyScanner.AddAllTypesOf<IOdataModelBuilderConfigurationBaseStub>();
+            //Scan for OData Model Builder Configuration fragments in *all* modules.
+            assemblyScanner.AddAllTypesOf<IOdataModelBuilderStub>();
+        }
+
 
 
 
@@ -153,7 +157,7 @@ namespace App.Core.Infrastructure.DependencyResolution
 
                 new CreatePluginFamilyExpression<IAzureStorageBlobContext>(this,
                         new HttpContextLifecycle())
-                    .Use(y => (IAzureStorageBlobContext) App.AppDependencyLocator.Current.GetInstance(t)).Named(name);
+                    .Use(y => (IAzureStorageBlobContext) AppDependencyLocator.Current.GetInstance(t)).Named(name);
             }
         }
 

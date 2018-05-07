@@ -55,7 +55,7 @@
         {
         }
 
-        public AppCoreDbContext(string connectionStringOrName) : base(App.AppDependencyLocator.Current.GetInstance<OpenDbConnectionBuilder>().CreateAsync(connectionStringOrName).Result, true)
+        public AppCoreDbContext(string connectionStringOrName) : base(AppDependencyLocator.Current.GetInstance<OpenDbConnectionBuilder>().CreateAsync(connectionStringOrName).Result, true)
         {
         }
 

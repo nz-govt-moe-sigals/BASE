@@ -1,4 +1,6 @@
-﻿namespace App.Module3.Infrastructure.Db.Migrations.Seeding
+﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+
+namespace App.Module3.Infrastructure.Db.Migrations.Seeding
 {
     using System;
     using System.Diagnostics;

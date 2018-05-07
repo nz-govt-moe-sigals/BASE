@@ -1,4 +1,6 @@
-﻿namespace App.Module2.Infrastructure.Db.Schema
+﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+
+namespace App.Module2.Infrastructure.Db.Schema
 {
     using System.Data.Entity;
     using App.Module2.DbContextModelBuilder;

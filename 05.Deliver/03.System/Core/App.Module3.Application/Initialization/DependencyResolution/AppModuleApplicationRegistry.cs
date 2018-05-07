@@ -42,7 +42,7 @@
             // So we search for and register the *untyped* version of the interface:
 
             //Scan for OData Model Builders in *this* modules.
-            assemblyScanner.AddAllTypesOf<IAppModule3OdataModelBuilder>();
+            //assemblyScanner.AddAllTypesOf<IAppModule3OdataModelBuilder>();
             //Scan for OData Model Builder Configuration fragments in *this* modules.
             assemblyScanner.AddAllTypesOf<IAppModule3OdataModelBuilderConfiguration>();
         }

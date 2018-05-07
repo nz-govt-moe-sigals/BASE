@@ -1,8 +1,8 @@
-﻿namespace App.Core.Infrastructure.DependencyResolution
-{
-    using System;
-    using StructureMap;
+﻿using System;
+using StructureMap;
 
+namespace App.Core.Infrastructure.Initialization.DependencyResolution
+{
     // When the App starts up it invokes StructuremapMvc
     // which sets up this class (watch out to make sure that
     // updating the StructureMap package does not overwrite

@@ -1,4 +1,6 @@
-﻿namespace App.Core.Application.Filters.WebMvc
+﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+
+namespace App.Core.Application.Filters.WebMvc
 {
     using System;
     using System.Web.Mvc;

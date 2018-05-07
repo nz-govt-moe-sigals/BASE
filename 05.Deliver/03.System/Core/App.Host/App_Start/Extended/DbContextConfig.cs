@@ -1,8 +1,8 @@
-﻿namespace App.Core.Application.Extended
-{
-    using App.Core.Infrastructure.Services;
-    using Owin;
+﻿using App.Core.Infrastructure.Services;
+using Owin;
 
+namespace App.Host.Extended
+{
     /// <summary>
     /// An <see cref="StartupExtended"/> invoked class to configure
     /// DbContexts to handle code migrations.

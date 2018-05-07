@@ -1,9 +1,9 @@
-﻿namespace App
-{
-    using System;
-    using System.Collections.Generic;
-    using Microsoft.Practices.ServiceLocation;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Practices.ServiceLocation;
 
+namespace App.Core.Infrastructure.Initialization.DependencyResolution
+{
     public class AppDependencyLocator
     {
         static AppDependencyLocator()

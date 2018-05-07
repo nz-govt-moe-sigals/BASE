@@ -1,4 +1,6 @@
-﻿namespace App.Core.Application.Initialization.OData.Implementations
+﻿using App.Core.Application.Initialization.OData.Implementations.BaseClasses;
+
+namespace App.Core.Application.Initialization.OData.Implementations
 {
     using System.Web.OData.Builder;
     using App.Core.Application.Constants.Api;
@@ -12,7 +14,7 @@
         /// </summary>
         /// <internal>
         /// Remember to make these constructors public or reflection for 
-        /// <see cref="IOdataModelBuilderConfigurationBase"/> won't find them.
+        /// <see cref="IAppCoreOdataModelBuilderConfigurationBase"/> won't find them.
         /// </internal>
         public ConfigurationStepRecordOdataModelBuilderConfiguration() : base(ApiControllerNames.ConfigurationStepRecord)
         {

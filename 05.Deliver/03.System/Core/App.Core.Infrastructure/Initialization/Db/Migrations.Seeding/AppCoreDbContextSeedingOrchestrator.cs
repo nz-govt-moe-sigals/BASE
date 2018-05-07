@@ -1,4 +1,6 @@
-﻿namespace App.Core.Infrastructure.Db.Migrations.Seeding
+﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+
+namespace App.Core.Infrastructure.Db.Migrations.Seeding
 {
     using System;
     using System.Diagnostics;
@@ -120,12 +122,12 @@
 
         private static void SeedPrincipals(AppCoreDbContext dbContext)
         {
-            App.AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederPrincipalTag>().Seed(dbContext);
-            App.AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederPrincipalCategory>().Seed(dbContext);
-            App.AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederPrincipal>().Seed(dbContext);
-            App.AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederPrincipalLogin>().Seed(dbContext);
-            App.AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederPrincipalProperty>().Seed(dbContext);
-            App.AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederPrincipalClaim>().Seed(dbContext);
+            AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederPrincipalTag>().Seed(dbContext);
+            AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederPrincipalCategory>().Seed(dbContext);
+            AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederPrincipal>().Seed(dbContext);
+            AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederPrincipalLogin>().Seed(dbContext);
+            AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederPrincipalProperty>().Seed(dbContext);
+            AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederPrincipalClaim>().Seed(dbContext);
         }
 
         private void AttachDebuggerWhenRunningUnderPowershell()

@@ -1,11 +1,12 @@
-﻿namespace App.Core.Application.Extended
-{
-    using App.Core.Infrastructure.Initialization.ObjectMaps;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models.Messages;
-    using AutoMapper;
-    using Owin;
+﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+using App.Core.Infrastructure.Initialization.ObjectMaps;
+using App.Core.Infrastructure.Services;
+using App.Core.Shared.Models.Messages;
+using AutoMapper;
+using Owin;
 
+namespace App.Host.Extended
+{
     /// <summary>
     /// An <see cref="StartupExtended"/> invoked class to configure
     /// Automapper using ServiceLocator discovered implementations

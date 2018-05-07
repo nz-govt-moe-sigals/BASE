@@ -44,12 +44,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\App.Core.Application\App.Core.Application.csproj">
-      <Project>{f1b0ef43-bcbf-4c91-93ad-d13e8bb8d77d}</Project>
-      <Name>App.Core.Application</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

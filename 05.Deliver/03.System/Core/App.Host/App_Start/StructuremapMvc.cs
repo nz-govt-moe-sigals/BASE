@@ -16,7 +16,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using App.Core.Application.App_Start;
-
+using App.Core.Infrastructure.Initialization.DependencyResolution;
 using WebActivatorEx;
 
 [assembly: PreApplicationStartMethod(typeof(StructuremapMvc), "Start")]
@@ -53,7 +53,7 @@ namespace App.Core.Application.App_Start {
             // --------------------------------------------------
             //Register container so that App.Core.Infrastructure.ServiceLocatorInitiator
             //Can get back to it:
-            App.Core.Infrastructure.DependencyResolution.StructureMapContainerLocator.Register(
+            StructureMapContainerLocator.Register(
                 () => StructureMapDependencyScope.Container);
             // --------------------------------------------------
 

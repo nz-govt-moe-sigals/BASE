@@ -236,6 +236,7 @@
     <Folder Include="ExtensionMethods\" />
     <Folder Include="Factories\" />
     <Folder Include="Initialization\Db\Schema\ReferenceData\" />
+    <Folder Include="Initialization\OData\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Initialization\Db\Migrations\Module3.README.txt" />

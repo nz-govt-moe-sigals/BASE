@@ -1,4 +1,6 @@
-﻿namespace App.Core.Application.Filters.WebApi
+﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+
+namespace App.Core.Application.Filters.WebApi
 {
     using System;
     using System.Linq;
@@ -20,7 +22,7 @@
     {
         private IDiagnosticsTracingService DiagnosticsTracingService
         {
-             get { return App.AppDependencyLocator.Current.GetInstance<IDiagnosticsTracingService>(); }
+             get { return AppDependencyLocator.Current.GetInstance<IDiagnosticsTracingService>(); }
 
         }
 

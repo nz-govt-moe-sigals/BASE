@@ -1,4 +1,4 @@
-﻿namespace App.Core.Infrastructure.DependencyResolution
+﻿namespace App.Core.Infrastructure.Initialization.DependencyResolution
 {
     public class StructureMapRepository
     {

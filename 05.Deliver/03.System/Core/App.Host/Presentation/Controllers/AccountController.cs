@@ -1,12 +1,12 @@
-﻿namespace App.Core.Application.Presentation.Controllers
-{
-    using System.Linq;
-    using System.Web;
-    using System.Web.Mvc;
-    using App.Core.Infrastructure.IDA.Models;
-    using App.Core.Infrastructure.Services;
-    using Microsoft.Owin.Security;
+﻿using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using App.Core.Infrastructure.IDA.Models;
+using App.Core.Infrastructure.Services;
+using Microsoft.Owin.Security;
 
+namespace App.Host.Presentation.Controllers
+{
     //
     public class AccountController : Controller
     {
