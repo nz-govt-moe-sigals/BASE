@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace App.Core.Infrastructure.Services.Implementations
 {
+    using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages;
 
     /// <summary>
@@ -23,6 +24,7 @@ namespace App.Core.Infrastructure.Services.Implementations
     public class ConfigurationStepService : AppCoreServiceBase, IConfigurationStepService
     {
         private readonly IUniversalDateTimeService _universalDateTimeService;
+        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
 
         /// <summary>
         /// Host Specific, in-mem cache. 
@@ -35,9 +37,10 @@ namespace App.Core.Infrastructure.Services.Implementations
         /// Initializes a new instance of the <see cref="ConfigurationStepService"/> class.
         /// </summary>
         /// <param name="universalDateTimeService">The universal date time service.</param>
-        public ConfigurationStepService(IUniversalDateTimeService universalDateTimeService)
+        public ConfigurationStepService(IUniversalDateTimeService universalDateTimeService, IDiagnosticsTracingService diagnosticsTracingService)
         {
             this._universalDateTimeService = universalDateTimeService;
+            this._diagnosticsTracingService = diagnosticsTracingService;
         }
 
         /// <summary>
@@ -58,6 +61,21 @@ namespace App.Core.Infrastructure.Services.Implementations
                 Description = description
             };
             _cache.Add(configurationStep);
+
+            var traceLevel = TraceLevel.Verbose;
+            if (status == ConfigurationStepStatus.Orange)
+            {
+                traceLevel = TraceLevel.Warn;
+            }
+            if (status == ConfigurationStepStatus.Red)
+            {
+                traceLevel = TraceLevel.Warn;
+            }
+
+            this._diagnosticsTracingService.Trace(traceLevel, $"----------------------------------------------------------------------");
+            this._diagnosticsTracingService.Trace(traceLevel, $"{status}:{type}:{title}:{description}");
+            this._diagnosticsTracingService.Trace(traceLevel, $"----------------------------------------------------------------------");
+
         }
 
         /// <summary>

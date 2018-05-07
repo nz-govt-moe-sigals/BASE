@@ -12,6 +12,7 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100
     using App.Core.Application.ServiceFacade.API.Controllers;
     using App.Core.Application.ServiceFacade.API.Controllers.Base.Base;
     using App.Core.Infrastructure.Services;
+    using App.Core.Shared.Models.Entities;
     using App.Module3.Application.Constants.Api;
     using App.Module3.Application.ServiceFacade.API.Base;
     using App.Module3.Application.ServiceFacade.API.Controllers;
@@ -24,6 +25,8 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100
     public class EducationProviderController : ActiveRecordStateODataControllerBase<EducationProviderProfile,
         EducationProviderDto>
     {
+        private readonly ISessionOperationLogService _sessionOperationLogService;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EducationProviderController"/> class.
         /// </summary>
@@ -33,11 +36,12 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100
         /// <param name="objectMappingService">The object mapping service.</param>
         /// <param name="secureApiMessageAttribute">The secure API message attribute.</param>
         public EducationProviderController(IDiagnosticsTracingService diagnosticsTracingService,
-            IPrincipalService principalService, IRepositoryService repositoryService,
+            IPrincipalService principalService, IRepositoryService repositoryService, ISessionOperationLogService sessionOperationLogService,
             IObjectMappingService objectMappingService, ISecureAPIMessageAttributeService secureApiMessageAttribute) :
             base(diagnosticsTracingService, principalService, repositoryService, objectMappingService,
                 secureApiMessageAttribute)
         {
+            this._sessionOperationLogService = sessionOperationLogService;
             // Base will invoke Initialize() to set base._dbContextIdentifier.
         }
 
@@ -47,10 +51,44 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<EducationProviderDto> Get()
+        public EducationProviderDto[] Get()
         {
+            using (var elapsedTime = new ElapsedTime())
+            {
 
-            return InternalGet();
+                var r = InternalGet(
+                        x=>x.AreaUnit,
+                        x => x.AuthorityType,
+                        x => x.Classification,
+                    x => x.CoL,
+                    x=>x.CommunityBoard,
+                        x => x.EducationProviderType,
+                    x => x.GeneralElectorate,
+                        x => x.LevelGender,
+                        x => x.LocalOffice,
+                        x => x.Locations,
+                    x => x.MaoriElectorate,
+                        x => x.Region,
+                        x => x.RollCounts,
+                    x => x.SchoolingGender,
+                    x => x.Status,
+                    x => x.TeacherEducation,
+                    x=>x.TerritorialAuthority,
+                    x=>x.RegionalCouncil,
+                    x=>x.UrbanArea,
+                        x => x.Ward
+                    )
+                    .ToArray();
+
+                this._sessionOperationLogService.SetDetail("DbDuration", elapsedTime.Elapsed.TotalMilliseconds );
+
+                if (elapsedTime.Elapsed.TotalMilliseconds > 2000)
+                {
+                    this._diagnosticsTracingService.Trace(TraceLevel.Warn, "Taking too long to get Providers");
+                }
+
+                return r;
+            }
         }
 
         [AllowAnonymous]

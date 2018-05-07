@@ -18,5 +18,7 @@
         public virtual DateTimeOffset EndDateTimeUtc { get; set; }
         public virtual TimeSpan Duration { get; set; }
         public virtual string ResponseCode { get; set; }
+
+
     }
 }

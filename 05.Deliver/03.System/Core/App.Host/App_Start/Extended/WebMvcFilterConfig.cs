@@ -29,10 +29,12 @@
     /// </summary>
     public class WebMvcFilterConfig
     {
+        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         private readonly ISessionOperationLogService _sessionOperationLogService;
         private readonly IPrincipalService _principalService;
         private readonly IConfigurationStepService _configurationStepService;
-        private readonly DbContexCommenttWebMvcActionFilterAttribute _dbContexCommenttWebMvcActionFilterAttribute;
+        private readonly DbContextCommittWebMvcActionFilterAttribute _dbContexCommenttWebMvcActionFilterAttribute;
+        private readonly IContextService _contextService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WebMvcFilterConfig"/> class.
@@ -50,15 +52,21 @@
         /// <param name="principalService">The principal service.</param>
         /// <param name="configurationStepService">The configuration step service.</param>
         /// <param name="dbContexCommenttWebMvcActionFilterAttribute">The database contex commentt web MVC action filter attribute.</param>
-        public WebMvcFilterConfig(ISessionOperationLogService sessionOperationLogService,
+        /// <param name="contextService"></param>
+        public WebMvcFilterConfig(
+            IDiagnosticsTracingService diagnosticsTracingService,
+            ISessionOperationLogService sessionOperationLogService,
             IPrincipalService principalService,
             IConfigurationStepService configurationStepService,
-            DbContexCommenttWebMvcActionFilterAttribute dbContexCommenttWebMvcActionFilterAttribute)
+            DbContextCommittWebMvcActionFilterAttribute dbContexCommenttWebMvcActionFilterAttribute,
+            IContextService contextService)
         {
+            this._diagnosticsTracingService = diagnosticsTracingService;
             this._sessionOperationLogService = sessionOperationLogService;
             this._principalService = principalService;
             this._configurationStepService = configurationStepService;
             this._dbContexCommenttWebMvcActionFilterAttribute = dbContexCommenttWebMvcActionFilterAttribute;
+            this._contextService = contextService;
         }
 
         /// <summary>
@@ -92,7 +100,7 @@
                 this._configurationStepService
                     .Register(
                         ConfigurationStepType.Security,
-                        ConfigurationStepStatus.Green,
+                        ConfigurationStepStatus.White,
                         "WebMVC Filter: Authorisation",
                         $"Global Filter installed to RBAC Authenticated Users. Took {elapsedTime.ElapsedText}");
             }
@@ -104,12 +112,12 @@
             // IMPORTANT: Notice the Order of Execution numbers added:
             using (var elapsedTime = new ElapsedTime())
             {
-                filters.Add(new MyRequireHttpsWebMvcFilterAttribute(), 1);
+                filters.Add(new MyRequireHttpsWebMvcFilterAttribute(), order:1);
 
                 this._configurationStepService
                     .Register(
                         ConfigurationStepType.Security,
-                        ConfigurationStepStatus.Green,
+                        ConfigurationStepStatus.White,
                         "HTTPS Required (WebMVC)",
                         $"Global Filter installed to redirect HTTP requests to HTTPS. Took {elapsedTime.ElapsedText}");
             }
@@ -117,13 +125,17 @@
             using (var elapsedTime = new ElapsedTime())
             {
                 filters.Add(
-                    new SessionOperationWebMvcActionFilterAttribute(this._sessionOperationLogService,
-                        this._principalService), 2);
+                    new SessionOperationWebMvcActionFilterAttribute(
+                        this._diagnosticsTracingService,
+                        this._sessionOperationLogService,
+                        this._principalService,
+                        _contextService), 
+                    order:2);
 
                 this._configurationStepService
                     .Register(
                         ConfigurationStepType.Security,
-                        ConfigurationStepStatus.Green,
+                        ConfigurationStepStatus.White,
                         "Operation Auditing",
                         $"Global Filter installed to Audit all operations (in a general manner). Took {elapsedTime.ElapsedText}");
             }
@@ -132,7 +144,8 @@
             using (var elapsedTime = new ElapsedTime())
             {
                 // NOTICE THE HIGH NUMBER:
-                filters.Add(this._dbContexCommenttWebMvcActionFilterAttribute, Int32.MaxValue);
+                filters.Add(this._dbContexCommenttWebMvcActionFilterAttribute, 
+                    order:Int32.MaxValue);
 
                 this._configurationStepService
                     .Register(

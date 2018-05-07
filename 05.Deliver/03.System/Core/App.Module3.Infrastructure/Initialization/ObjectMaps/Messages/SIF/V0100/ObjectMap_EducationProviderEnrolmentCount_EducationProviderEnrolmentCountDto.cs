@@ -18,7 +18,6 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
         {
             config.CreateMap<EducationProviderEnrolmentCount, EducationProviderEnrolmentCountDto>()
                 .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
-                .ForMember(t => t.EducationProviderFK, opt => opt.MapFrom(s => s.EducationProviderFK))
                 .ForMember(t => t.Date, opt => opt.MapFrom(s => s.Date))
                 .ForMember(t => t.TotalRoll, opt => opt.MapFrom(s => s.TotalRoll))
                 .ForMember(t => t.Asian, opt => opt.MapFrom(s => s.Asian))

@@ -151,7 +151,7 @@ namespace App.Host
             WebApiJsonSerializerConfig.Configure(httpConfiguration);
             _webApiConfig.Configure(httpConfiguration);
 
-            this._webApiFilterConfig.RegisterGlobalFilters(httpConfiguration, sessionOperationLogService);
+            this._webApiFilterConfig.RegisterGlobalFilters( httpConfiguration);
 
             //Since we're not using GlobalConfiguration, we also have to do what
             // StructureMapWebApi is going to do.

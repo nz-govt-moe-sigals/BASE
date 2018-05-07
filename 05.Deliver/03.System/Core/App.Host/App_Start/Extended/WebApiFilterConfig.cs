@@ -5,6 +5,7 @@
     using App.Core.Application.Filters.WebApi;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Messages;
+    using App.Host;
 
     /// <summary>
     /// An <see cref="StartupExtended"/> invoked class to configure 
@@ -25,9 +26,11 @@
     /// </summary>
     public class WebApiFilterConfig
     {
+        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         private readonly ISessionOperationLogService _sessionOperationLogService;
         private readonly IPrincipalService _principalService;
         private readonly IConfigurationStepService _configurationStepService;
+        private readonly IContextService _contextService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WebApiFilterConfig"/> class.
@@ -39,13 +42,17 @@
         /// <param name="principalService">The principal service.</param>
         /// <param name="configurationStepService">The configuration step service.</param>
         public WebApiFilterConfig(
+            IDiagnosticsTracingService diagnosticsTracingService,
             ISessionOperationLogService sessionOperationLogService,
             IPrincipalService principalService,
-            IConfigurationStepService configurationStepService)
+            IConfigurationStepService configurationStepService, 
+            IContextService contextService)
         {
+            this._diagnosticsTracingService = diagnosticsTracingService;
             this._sessionOperationLogService = sessionOperationLogService;
             this._principalService = principalService;
             this._configurationStepService = configurationStepService;
+            this._contextService = contextService;
         }
 
         /// <summary>
@@ -56,8 +63,8 @@
         /// </summary>
         /// <param name="httpConfiguration">The HTTP configuration.</param>
         /// <param name="sessionOperationLogService">The session operation log service.</param>
-        public void RegisterGlobalFilters(HttpConfiguration httpConfiguration,
-            ISessionOperationLogService sessionOperationLogService)
+        public void RegisterGlobalFilters(
+            HttpConfiguration httpConfiguration)
         {
             // Since WebAPI pipeline is totally separate from WebMVC, the registrarion
             // of the WebAPI interception is done in a different way.
@@ -93,35 +100,45 @@
                 filters.Add(
                     new SessionOperationWebApiActionFilterAttribute(
                         this._principalService,
-                        this._sessionOperationLogService
+                        this._sessionOperationLogService,
+                        this._diagnosticsTracingService,
+                        _contextService
                     ));
+                _configurationStepService
+                    .Register(
+                        ConfigurationStepType.Security,
+                        ConfigurationStepStatus.White,
+                        "SessionOperation (WebAPI)",
+                        "WebAPI Filter installed to record all operations (includig View).");
 
 
                 // Apply a custom Filter to intercept WebAPI requests and return errors (no redirection).
                 filters.Add(new RequireHttpsWebApiFilterAttribute());
-                AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
+                _configurationStepService
                     .Register(
                         ConfigurationStepType.Security,
-                        ConfigurationStepStatus.Green,
+                        ConfigurationStepStatus.White,
                         "HTTPS Required (WebAPI)",
                         "WebAPI Filter installed to redirect HTTP requests to HTTPS.");
 
 
                 filters.Add(new WebApiAppAuthorizeAttribute());
 
-                AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
-                    .Register(
+                _configurationStepService.Register(
                         ConfigurationStepType.Security,
-                        ConfigurationStepStatus.Green,
+                        ConfigurationStepStatus.White,
                         "WebAPI Filter: Authorization",
                         "WebAPI Filter installed to ensure Authorization is enforced by default.");
 
 
 
                 // LAST!!!!
-                filters.Add(new DbContextCommitWebApiActionFilterAttribute(this._sessionOperationLogService));
-
-                AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
+                filters.Add(new 
+                    DbContextCommitWebApiActionFilterAttribute(
+                    this._diagnosticsTracingService,
+                    this._sessionOperationLogService,
+                    this._contextService));
+                _configurationStepService
                     .Register(
                         ConfigurationStepType.General,
                         ConfigurationStepStatus.White,

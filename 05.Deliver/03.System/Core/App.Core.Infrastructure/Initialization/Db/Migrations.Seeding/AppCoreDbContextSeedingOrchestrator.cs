@@ -9,31 +9,54 @@
     using App.Core.Shared.Models.Configuration;
     using App.Core.Shared.Models.Configuration.AppHost;
     using App.Core.Shared.Models.ConfigurationSettings;
+    using App.Core.Shared.Models.Messages;
+    using TraceLevel = App.Core.Shared.Models.Entities.TraceLevel;
 
     // Invoked from within AppCoreDbMigrationsConfiguration.Seed method, 
     public class AppCoreDbContextSeedingOrchestrator
     {
+        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         private readonly IHostSettingsService _hostSettingsService;
+        private readonly IConfigurationStepService _configurationStepService;
 
-        public AppCoreDbContextSeedingOrchestrator(IHostSettingsService hostSettingsService)
+        public AppCoreDbContextSeedingOrchestrator(IDiagnosticsTracingService diagnosticsTracingService, IHostSettingsService hostSettingsService ,IConfigurationStepService configurationStepService)
         {
+            this._diagnosticsTracingService = diagnosticsTracingService;
             this._hostSettingsService = hostSettingsService;
+            this._configurationStepService = configurationStepService;
         }
 
         // This method will be called after migrating to the latest version.
         public void Initialize(AppCoreDbContext context)
         {
-            //if (!PowershellServiceLocatorConfig.Activated)
-            //{
-            //    //Actually, Seeding needs to be done in a specific order
-            //    //so for now ByHand is preferable 
-            //    SeedByReflection(context);
-            //}
-            //else
-            //{
-            //    //Reflection does not work under Powershell, so:
-            SeedByHand(context);
-            //}
+            using (ElapsedTime elapsedTime = new ElapsedTime())
+            {
+
+                //if (!PowershellServiceLocatorConfig.Activated)
+                //{
+                //    //Actually, Seeding needs to be done in a specific order
+                //    //so for now ByHand is preferable 
+                //    SeedByReflection(context);
+                //}
+                //else
+                //{
+                //    //Reflection does not work under Powershell, so:
+                SeedByHand(context);
+                //}
+
+                var color = ConfigurationStepStatus.White;
+                if (elapsedTime.Elapsed.TotalMilliseconds >= 5000)
+                {
+                    color = ConfigurationStepStatus.Orange;
+                }
+                if (elapsedTime.Elapsed.TotalMilliseconds >= 1000)
+                {
+                    color = ConfigurationStepStatus.Red;
+                }
+                this._configurationStepService.Register(ConfigurationStepType.General, color, "Seeding",$"Core seeding completed. Took {elapsedTime.ElapsedText}.");
+                
+
+            }
         }
 
         // I spend ages on this...but it won't work. 
@@ -55,22 +78,41 @@
             AttachDebuggerWhenRunningUnderPowershell();
 
             // Ensure sequence is DataClassification, Tenant, Principal, Role, Session, then Etc.
+            _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding Exception Records. Start...");
             App.AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederExceptionRecord>().Seed(dbContext);
+            _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding End. Start...");
+
+            _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding Data Classifications. Start...");
             App.AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederDataClassification>().Seed(dbContext);
+            _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding Data Classifications. End.");
 
+            _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding System Roles. Start...");
             App.AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederSystemRole>().Seed(dbContext);
+            _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding System Roles. End.");
 
+            _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding Tenants. Start...");
             SeedTenants(dbContext);
+            _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding Tenants. End.");
+
+
+            _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding Pricipals. Start...");
             SeedPrincipals(dbContext);
+            _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding Principals. End.");
 
 
+            _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding Sessions. Start...");
             App.AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederSession>().Seed(dbContext);
+            _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding Sessions. End.");
+
             //After Tenant
+            _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding Notifications. Start...");
             App.AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederNotification>().Seed(dbContext);
+            _diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Seeding Notifications. End.");
         }
 
         private static void SeedTenants(AppCoreDbContext dbContext)
         {
+
             App.AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederTenant>().Seed(dbContext);
             App.AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederTenantProperty>().Seed(dbContext);
             App.AppDependencyLocator.Current.GetInstance<AppCoreDbContextSeederTenantClaim>().Seed(dbContext);

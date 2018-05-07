@@ -12,10 +12,12 @@
     /// </summary>
     public class SetMinimumTLSConfig
     {
+        private readonly IConfigurationStepService _configurationStepService;
         private readonly IHostSettingsService _hostSettingsService;
 
-        public SetMinimumTLSConfig(IHostSettingsService hostSettingsService)
+        public SetMinimumTLSConfig(IConfigurationStepService configurationStepService, IHostSettingsService hostSettingsService)
         {
+            this._configurationStepService = configurationStepService;
             this._hostSettingsService = hostSettingsService;
         }
 
@@ -51,7 +53,7 @@
             // azure cloud service web role to host your application."
 
 
-            AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
+            _configurationStepService
                 .Register(
                     ConfigurationStepType.Security,
                     ConfigurationStepStatus.Orange,
@@ -76,7 +78,7 @@
 
                 if (!Enum.TryParse(tmp, out setting))
                 {
-                    AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
+                    _configurationStepService
                         .Register(
                             ConfigurationStepType.Security,
                             ConfigurationStepStatus.Orange,
@@ -88,10 +90,10 @@
                 //Starting with .NET4.7 the default value is set to a new value "Default"
                 ServicePointManager.SecurityProtocol = setting;
 
-                AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
+                _configurationStepService
                     .Register(
                         ConfigurationStepType.Security,
-                        ConfigurationStepStatus.Green,
+                        ConfigurationStepStatus.White,
                         "TLS",
                         $"TLS11 and lower is disallowed for outgoing. Took {elapsedTime.ElapsedText}");
             }

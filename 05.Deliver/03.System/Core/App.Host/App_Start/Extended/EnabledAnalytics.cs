@@ -11,11 +11,16 @@
     public class EnabledAnalytics
     {
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
+        private readonly IConfigurationStepService _configurationStepService;
         private readonly IAzureKeyVaultService _keyVaultService;
 
-        public EnabledAnalytics(IDiagnosticsTracingService diagnosticsTracingService, IAzureKeyVaultService keyVaultService)
+        public EnabledAnalytics(
+            IDiagnosticsTracingService diagnosticsTracingService, 
+            IConfigurationStepService configurationStepService,
+            IAzureKeyVaultService keyVaultService)
         {
             this._diagnosticsTracingService = diagnosticsTracingService;
+            this._configurationStepService = configurationStepService;
             this._keyVaultService = keyVaultService;
         }
         /// <summary>
@@ -49,11 +54,20 @@
                     TelemetryConfiguration.Active.InstrumentationKey = analyticsConfiguration.Key;
                 }
 
+                var color = ConfigurationStepStatus.White;
+                if (elapsedTime.Elapsed.TotalMilliseconds > 5000)
+                {
+                    color = ConfigurationStepStatus.Orange;
+                }
+                if (elapsedTime.Elapsed.TotalMilliseconds > 10000)
+                {
+                    color = ConfigurationStepStatus.Red;
+                }
 
-                AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
+                _configurationStepService
                     .Register(
                         ConfigurationStepType.General,
-                        ConfigurationStepStatus.Green,
+                        color,
                         "Telemetry",
                         $"Telemetry configured. Took {elapsedTime.ElapsedText}.");
 

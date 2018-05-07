@@ -65,10 +65,20 @@
                         break;
                 }
                 // 11.0836463 secs
+                var color = ConfigurationStepStatus.Green;
+                if (elapsedTime.Elapsed.TotalMilliseconds > 5000)
+                {
+                    color = ConfigurationStepStatus.Orange;
+                }
+                if (elapsedTime.Elapsed.TotalMilliseconds > 10000)
+                {
+                    color = ConfigurationStepStatus.Red;
+                }
+
                 _configurationStepService
                     .Register(
                         ConfigurationStepType.Performance,
-                        ConfigurationStepStatus.Green,
+                        color,
                         "Telemetry",
                         $"OIDC configuration. Took {elapsedTime.ElapsedText}.");
             }

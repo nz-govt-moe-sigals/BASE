@@ -22,18 +22,24 @@ namespace App.Core.Application.Filters.WebApi
     {
         private readonly IPrincipalService _principalService;
         private readonly ISessionOperationLogService _sessionOperationLogService;
+        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
+        private readonly IContextService _contextService;
 
-        public SessionOperationWebApiActionFilterAttribute(IPrincipalService principalService, ISessionOperationLogService sessionOperationLogService)
+        public SessionOperationWebApiActionFilterAttribute(IPrincipalService principalService, ISessionOperationLogService sessionOperationLogService, IDiagnosticsTracingService diagnosticsTracingService, IContextService contextService)
         {
             this._principalService = principalService;
             this._sessionOperationLogService = sessionOperationLogService;
+            this._diagnosticsTracingService = diagnosticsTracingService;
+            this._contextService = contextService;
         }
 
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
+            this._diagnosticsTracingService.Trace(TraceLevel.Warn, $"--------------------------------------------------");
+            this._diagnosticsTracingService.Trace(TraceLevel.Warn, $"Request Start....");
 
-            var sessionOperationLog = _sessionOperationLogService.Current;
-
+            SessionOperation sessionOperationLog = _sessionOperationLogService.Current;
+            
             sessionOperationLog.BeginDateTimeUtc = DateTime.UtcNow;
             sessionOperationLog.ClientIp = actionContext.Request.RemoteIPChain();
             sessionOperationLog.OwnerFK = this._principalService.CurrentSessionIdentifier;
@@ -54,18 +60,24 @@ namespace App.Core.Application.Filters.WebApi
         {
             base.OnActionExecuted(actionExecutedContext);
 
-            var sessionOperationLog = this._sessionOperationLogService.Current;
+            SessionOperation sessionOperation = _sessionOperationLogService.Current;
 
-            sessionOperationLog.EndDateTimeUtc = DateTime.UtcNow;
-            sessionOperationLog.Duration =
-                sessionOperationLog.EndDateTimeUtc.Subtract(sessionOperationLog.BeginDateTimeUtc);
+            sessionOperation.EndDateTimeUtc = DateTime.UtcNow;
+            sessionOperation.Duration =
+                sessionOperation.EndDateTimeUtc.Subtract(sessionOperation.BeginDateTimeUtc);
+
+
             if (actionExecutedContext.Response != null)
             {
-                sessionOperationLog.ResponseCode = ((int) actionExecutedContext.Response.StatusCode).ToString();
+                sessionOperation.ResponseCode = ((int) actionExecutedContext.Response.StatusCode).ToString();
             }
             else
             {
-                sessionOperationLog.ResponseCode = "-1";
+                sessionOperation.ResponseCode = "-1";
+            }
+            if (sessionOperation.Duration.TotalMilliseconds > 2000)
+            {
+                this._diagnosticsTracingService.Trace(TraceLevel.Warn, $"Operation took too long: {sessionOperation.Duration}");
             }
         }
     }

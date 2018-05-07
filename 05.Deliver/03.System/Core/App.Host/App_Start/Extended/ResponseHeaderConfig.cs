@@ -12,10 +12,14 @@
     public class ResponseHeaderConfig
     {
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
+        private readonly IConfigurationStepService _configurationStepService;
 
-        public ResponseHeaderConfig(IDiagnosticsTracingService diagnosticsTracingService)
+        public ResponseHeaderConfig(
+            IDiagnosticsTracingService diagnosticsTracingService,
+            IConfigurationStepService configurationStepService)
         {
             this._diagnosticsTracingService = diagnosticsTracingService;
+            this._configurationStepService = configurationStepService;
         }
         /// <summary>
         /// Configures the specified application builder.
@@ -32,10 +36,10 @@
                 // SETUP STEP: Remove the X-AspNetMvc-Version Header disclosing too much:
                 MvcHandler.DisableMvcResponseHeader = true;
 
-                AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
+                _configurationStepService
                     .Register(
                         ConfigurationStepType.Security,
-                        ConfigurationStepStatus.Green,
+                        ConfigurationStepStatus.White,
                         "Verbose Headers",
                         $"X-AspNetMvc-Version removed. Took {elapsedTime.ElapsedText}");
             }

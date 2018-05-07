@@ -35,7 +35,7 @@ namespace App.Core.Application.Extended
 
                 //AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
                 //    .Register(
-                //        ConfigurationStepType.Security,
+                //        ConfigurationStepType.General,
                 //        ConfigurationStepStatus.White,
                 //        "Swagger",
                 //        "Swagger documentation enabled at " + path);

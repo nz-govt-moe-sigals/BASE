@@ -14,13 +14,15 @@
     ///     but only if there is something to commit.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-    public class DbContexCommenttWebMvcActionFilterAttribute : ActionFilterAttribute
+    public class DbContextCommittWebMvcActionFilterAttribute : ActionFilterAttribute
     {
         private readonly ISessionOperationLogService _sessionOperationLogService;
+        private readonly IContextService _contextService;
 
-        public DbContexCommenttWebMvcActionFilterAttribute(ISessionOperationLogService sessionOperationLogService)
+        public DbContextCommittWebMvcActionFilterAttribute(ISessionOperationLogService sessionOperationLogService, IContextService contextService)
         {
             this._sessionOperationLogService = sessionOperationLogService;
+            this._contextService = contextService;
         }
 
         public override void OnResultExecuted(ResultExecutedContext filterContext)
@@ -52,12 +54,13 @@
 
         private void HackSessionLog(ResultExecutedContext filterContext)
         {
-            var sessionOperationLog = this._sessionOperationLogService.Current;
-
-            sessionOperationLog.EndDateTimeUtc = DateTimeOffset.UtcNow;
-            sessionOperationLog.Duration =
-                sessionOperationLog.EndDateTimeUtc.Subtract(sessionOperationLog.BeginDateTimeUtc);
-            sessionOperationLog.ResponseCode = filterContext.HttpContext.Response.StatusCode.ToString();
+            SessionOperation sessionOperation  = this._sessionOperationLogService.Current;
+            
+            
+            sessionOperation.EndDateTimeUtc = DateTimeOffset.UtcNow;
+            sessionOperation.Duration =
+                sessionOperation.EndDateTimeUtc.Subtract(sessionOperation.BeginDateTimeUtc);
+            sessionOperation.ResponseCode = filterContext.HttpContext.Response.StatusCode.ToString();
 
         }
     }

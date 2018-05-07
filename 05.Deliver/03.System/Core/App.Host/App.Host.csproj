@@ -351,7 +351,7 @@
     <Compile Include="App_Start\Extended\WebApiRouteConfig.cs" />
     <Compile Include="FilterConfig.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyScopeFactory.cs" />
-    <Compile Include="Filters\WebMvc\DbContexCommenttWebMvcActionFilterAttribute.cs" />
+    <Compile Include="Filters\WebMvc\DbContextCommittWebMvcActionFilterAttribute.cs" />
     <Compile Include="Filters\WebMvc\SessionOperationWebMvcActionFilterAttribute.cs" />
     <Compile Include="Filters\WebMvc\MyRequireHttpsWebMvcFilterAttribute.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
