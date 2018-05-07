@@ -18,6 +18,14 @@ namespace App.Core.Application.Initialization.OData
     /// </summary>
     public interface IOdataModelBuilder : IOdataModelBuilderStub
     {
+        /// <summary>
+        /// Returns to the Route Prefix (Module3, ModuleX, etc.)
+        /// <para>
+        /// Invoked by Shell (should it be Core?)
+        ///  when registering Model and building Path.
+        /// </para>
+        /// </summary>
+        /// <returns></returns>
         string GetRoutePrefix();
 
         IEnumerable<Microsoft.OData.Edm.IEdmModel> GetEdmModels(HttpConfiguration configuration);

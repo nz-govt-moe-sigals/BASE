@@ -173,6 +173,7 @@
     <Compile Include="Initialization\OData\Implementations\AreaUnitODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\AuthorityTypeODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\CommunityBoardODataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\EducationProviderEnrolmentCountDtoODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\GeneralElectorateODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\MaoriElectorateODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\OrganisationStatusODataModelBuilderConfiguration.cs" />
@@ -228,6 +229,7 @@
   <ItemGroup>
     <!-- <EmbeddedResource Include="Presentation\Views\Module3\About.cshtml" /> -->
     <Folder Include="ExtensionMethods\" />
+    <Folder Include="Initialization\OData\Implementations\ReferenceData\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\App.Core.Application\App.Core.Application.csproj">

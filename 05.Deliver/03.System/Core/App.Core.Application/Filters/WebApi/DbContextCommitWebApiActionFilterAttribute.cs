@@ -11,11 +11,15 @@
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public class DbContextCommitWebApiActionFilterAttribute : ActionFilterAttribute
     {
+        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         private readonly ISessionOperationLogService _sessionOperationLogService;
+        private readonly IContextService _contextService;
 
-        public DbContextCommitWebApiActionFilterAttribute(ISessionOperationLogService sessionOperationLogService)
+        public DbContextCommitWebApiActionFilterAttribute(IDiagnosticsTracingService diagnosticsTracingService, ISessionOperationLogService sessionOperationLogService, IContextService contextService)
         {
+            this._diagnosticsTracingService = diagnosticsTracingService;
             this._sessionOperationLogService = sessionOperationLogService;
+            this._contextService = contextService;
         }
 
         /// <summary>
@@ -38,20 +42,23 @@
 
 
             base.OnActionExecuted(actionExecutedContext);
+
+            this._diagnosticsTracingService.Trace(TraceLevel.Warn, $"Request End.");
+            this._diagnosticsTracingService.Trace(TraceLevel.Warn, $"--------------------------------------------------");
         }
 
 
 
         private void HackSessionLog(HttpActionExecutedContext actionExecutedContext)
         {
-            
-            var sessionOperationLog = _sessionOperationLogService.Current;
+
+            SessionOperation sessionOperation  = _sessionOperationLogService.Current;
             
 
-            sessionOperationLog.EndDateTimeUtc = DateTimeOffset.UtcNow;
-            sessionOperationLog.Duration =
-                sessionOperationLog.EndDateTimeUtc.Subtract(sessionOperationLog.BeginDateTimeUtc);
-            sessionOperationLog.ResponseCode = HttpContext.Current.Response.StatusCode.ToString();
+            sessionOperation.EndDateTimeUtc = DateTimeOffset.UtcNow;
+            sessionOperation.Duration =
+                sessionOperation.EndDateTimeUtc.Subtract(sessionOperation.BeginDateTimeUtc);
+            sessionOperation.ResponseCode = HttpContext.Current.Response.StatusCode.ToString();
         }
     }
 }

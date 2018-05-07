@@ -29,10 +29,20 @@ namespace App.Host
                 // Use Service Locator to build injection right from the start:
                 AppDependencyLocator.Current.GetInstance<StartupExtended>().Configure(appBuilder);
 
+                var color = ConfigurationStepStatus.White;
+                if (elapsedTime.Elapsed.TotalMilliseconds > 5000)
+                {
+                    color = ConfigurationStepStatus.Orange;
+                }
+                if (elapsedTime.Elapsed.TotalMilliseconds > 10000)
+                {
+                    color = ConfigurationStepStatus.Red;
+                }
+
                 AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
                     .Register(
                         ConfigurationStepType.General,
-                        ConfigurationStepStatus.White,
+                        color,
                         "Startup",
                         $"Startup sequence complete. Took {elapsedTime.ElapsedText}");
             }

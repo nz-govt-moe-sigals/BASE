@@ -47,6 +47,8 @@ namespace App.Module3.Application.Constants.Api
         public const string Ward = "Ward" + Suffix;
         // Resources:
 
+        public const string EducationProviderRollCount = "EducationProviderRollCount" + Suffix;
+
         public const string EducationProvider = "EducationProvider" + Suffix;
 
     }

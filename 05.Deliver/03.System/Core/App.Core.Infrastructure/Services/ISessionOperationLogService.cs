@@ -1,5 +1,6 @@
 ﻿namespace App.Core.Infrastructure.Services
 {
+    using System.Collections.Generic;
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Services;
 
@@ -18,7 +19,16 @@
         ///         Creates a new one if this is the first request for the OperationLog.
         ///     </para>
         /// </summary>
-        SessionOperation Current { get; }
+        SessionOperation Current
+        {
+            get;
+        }
+        Dictionary<string,object> CurrentDetails { get; }
+
+        object GetDetail(string key);
+        void SetDetail(string key,object value);
+
+        void IncrementDetail(string key);
 
     }
 }

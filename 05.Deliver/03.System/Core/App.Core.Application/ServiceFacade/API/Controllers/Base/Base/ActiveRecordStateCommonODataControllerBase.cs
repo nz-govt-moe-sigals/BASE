@@ -1,6 +1,8 @@
 namespace App.Core.Application.ServiceFacade.API.Controllers.Base.Base
 {
+    using System;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Web.OData;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Contracts;
@@ -85,14 +87,17 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.Base.Base
         // Limit options for Denial of Service by 
         // excessive resource consumtion conditions:
         [EnableQuery(PageSize = 100)]
-        protected virtual IQueryable<TDto> InternalGet()
+        protected virtual IQueryable<TDto> InternalGet(params Expression<Func<TDto,object>>[] expandProperties)
         {
             IQueryable<TDto> results;
             try
             {
                 results =
                     InternalActiveRecords()
-                        .ProjectTo<TDto>()
+                        .ProjectTo<TDto>(
+                        (object)null,
+                        expandProperties
+                        )
                     ;
             }
 #pragma warning disable CS0168 // Variable is declared but never used

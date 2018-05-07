@@ -58,8 +58,8 @@ namespace App.Host.Extended
 
                 AppDependencyLocator.Current.GetInstance<IConfigurationStepService>()
                     .Register(
-                        ConfigurationStepType.Security,
-                        ConfigurationStepStatus.Green,
+                        ConfigurationStepType.General,
+                        ConfigurationStepStatus.White,
                         "Automapper",
                         $"Maps have been installed. Took {elapsedTime.ElapsedText}.");
 

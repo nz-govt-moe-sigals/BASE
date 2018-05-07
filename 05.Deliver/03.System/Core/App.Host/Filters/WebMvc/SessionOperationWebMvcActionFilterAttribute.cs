@@ -12,40 +12,44 @@ namespace App.Core.Application.Filters.WebMvc
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public class SessionOperationWebMvcActionFilterAttribute : ActionFilterAttribute
     {
+        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         private readonly ISessionOperationLogService _sessionOperationLogService;
         private readonly IPrincipalService _principalService;
+        private readonly IContextService _contextService;
 
-        public SessionOperationWebMvcActionFilterAttribute(ISessionOperationLogService sessionOperationLogService, IPrincipalService principalService )
+        public SessionOperationWebMvcActionFilterAttribute(IDiagnosticsTracingService diagnosticsTracingService, ISessionOperationLogService sessionOperationLogService, IPrincipalService principalService , IContextService contextService)
         {
+            this._diagnosticsTracingService = diagnosticsTracingService;
             this._sessionOperationLogService = sessionOperationLogService;
             this._principalService = principalService;
+            this._contextService = contextService;
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             // Filters are shared across requests, so save variables within the Request context to  pass between methods:
 
-            var sessionOperationLog = this._sessionOperationLogService.Current;
+            SessionOperation sessionOperation = _sessionOperationLogService.Current;
 
-            sessionOperationLog.BeginDateTimeUtc = DateTime.UtcNow;
-            sessionOperationLog.OwnerFK = this._principalService.CurrentSessionIdentifier;
-            sessionOperationLog.ClientIp = filterContext.RequestContext.HttpContext.Request.RemoteIPChain();
-            sessionOperationLog.Url = filterContext.RequestContext.HttpContext.Request.RawUrl;
-            sessionOperationLog.ControllerName =
+            sessionOperation.BeginDateTimeUtc = DateTime.UtcNow;
+            sessionOperation.OwnerFK = this._principalService.CurrentSessionIdentifier;
+            sessionOperation.ClientIp = filterContext.RequestContext.HttpContext.Request.RemoteIPChain();
+            sessionOperation.Url = filterContext.RequestContext.HttpContext.Request.RawUrl;
+            sessionOperation.ControllerName =
                 filterContext.ActionDescriptor.ControllerDescriptor
                     .ControllerName; //filterContext.RouteData.Values["controller"] as string;
-            sessionOperationLog.ActionName =
+            sessionOperation.ActionName =
                 filterContext.ActionDescriptor.ActionName; //filterContext.RouteData.Values["action"] as string;
-            sessionOperationLog.ResponseCode = "-1";
+            sessionOperation.ResponseCode = "-1";
             try
             {
-                sessionOperationLog.ActionArguments = JsonConvert.SerializeObject(filterContext.ActionParameters,
+                sessionOperation.ActionArguments = JsonConvert.SerializeObject(filterContext.ActionParameters,
                     Formatting.Indented,
                     new JsonSerializerSettings {ReferenceLoopHandling = ReferenceLoopHandling.Ignore});
             }
             catch
             {
-                sessionOperationLog.ActionArguments = "ERROR";
+                sessionOperation.ActionArguments = "ERROR";
             }
 
             
@@ -58,25 +62,33 @@ namespace App.Core.Application.Filters.WebMvc
         {
             base.OnResultExecuted(filterContext);
 
-            var sessionOperationLog = this._sessionOperationLogService.Current;
+            SessionOperation sessionOperation = _sessionOperationLogService.Current;
 
- 
+            //Record the HTTP response code (should be 200 everytime, right?)
+            sessionOperation.ResponseCode = filterContext.HttpContext.Response.StatusCode.ToString();
 
-            sessionOperationLog.EndDateTimeUtc = DateTimeOffset.UtcNow;
-            sessionOperationLog.Duration =
-                sessionOperationLog.EndDateTimeUtc.Subtract(sessionOperationLog.BeginDateTimeUtc);
-            sessionOperationLog.ResponseCode = filterContext.HttpContext.Response.StatusCode.ToString();
+            //Record end, and duration:
+            sessionOperation.EndDateTimeUtc = DateTimeOffset.UtcNow;
 
-            var msg = "Ivoked:";
+            sessionOperation.Duration =
+                sessionOperation.EndDateTimeUtc.Subtract(sessionOperation.BeginDateTimeUtc);
 
-            Log(msg);
+            //if (sessionOperation.Duration.TotalMilliseconds > 2000)
+            //{
+            // this._diagnosticsTracingService.Trace(TraceLevel.Warn, $"Operation took too long: {sessionOperation.Duration}");   
+            //}
+
+            
+            //var msg = "Invoked:";
+
+            //Log(msg);
         }
 
-        private static void Log(string msg)
-        {
-            var diagnosticsTracingService =
-                AppDependencyLocator.Current.GetInstance<IDiagnosticsTracingService>();
-            diagnosticsTracingService.Trace(TraceLevel.Info, msg);
-        }
+        //private static void Log(string msg)
+        //{
+        //    var diagnosticsTracingService =
+        //        AppDependencyLocator.Current.GetInstance<IDiagnosticsTracingService>();
+        //    diagnosticsTracingService.Trace(TraceLevel.Info, msg);
+        //}
     }
 }

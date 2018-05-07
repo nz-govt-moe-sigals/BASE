@@ -20,8 +20,7 @@ namespace App.Core.Infrastructure.Db.Migrations
         protected override void Seed(AppCoreDbContext context)
         {
             // Hand off to a specialized class for Seeding.
-            var hostSettingsService = AppDependencyLocator.Current.GetInstance<IHostSettingsService>();
-            new AppCoreDbContextSeedingOrchestrator(hostSettingsService).Initialize(context);
+            AppDependencyLocator.Current.GetInstance< AppCoreDbContextSeedingOrchestrator >().Initialize(context);
         }
     }
 }
