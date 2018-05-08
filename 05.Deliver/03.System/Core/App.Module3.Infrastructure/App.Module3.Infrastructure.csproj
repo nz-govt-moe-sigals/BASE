@@ -109,7 +109,7 @@
     <Compile Include="Initialization\Db\Schema\AppModule3DbModelBuilderOrchestrator.cs" />
     <Compile Include="Initialization\Db\Schema\Conventions\TenantedSourceSystemKeyedGuidIdReferenceDataConvention.cs" />
     <Compile Include="Initialization\Db\Schema\Conventions\TenantedSIFSourceSystemKeyedGuidIdReferenceDataConvention.cs" />
-    <Compile Include="Initialization\DependencyResolution\AppModule3Registry.cs" />
+    <Compile Include="Initialization\DependencyResolution\AppModuleInfrastructureRegistry.cs" />
     <Compile Include="Initialization\Db\IHasAppModule3DbContextSeedInitializer.cs" />
     <Compile Include="Initialization\Db\IHasAppModule3DbContextModelBuilderInitializer.cs" />
     <Compile Include="Initialization\Authorisation\HasOidcScopeInitializer.cs" />

@@ -2,7 +2,7 @@ using System.Web.OData.Builder;
 using App.Core.Shared.Models;
 using Microsoft.Web.Http;
 
-namespace App.Core.Application.Initialization.OData.Implementations.BaseClasses
+namespace App.Core.Application.Initialization.OData.Implementations
 {
     public abstract class AppCoreODataModelBuilderConfigurationBase<T> : IAppCoreOdataModelBuilderConfigurationBase
         where T : class, IHasGuidId, new()
