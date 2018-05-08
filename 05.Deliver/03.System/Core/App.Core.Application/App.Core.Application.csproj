@@ -151,10 +151,11 @@
     <Compile Include="Filters\WebApi\ThrottleWebAPIActionFilterAttribute.cs" />
     <Compile Include="Filters\WebApi\WebApiAppAuthorizeAttribute.cs" />
     <Compile Include="Initialization\DependencyResolution\AppAllRegistry.cs" />
+    <Compile Include="Initialization\DependencyResolution\AppCoreApplicationRegistry.cs" />
     <Compile Include="Initialization\HttpConfigurationLocator.cs" />
     <Compile Include="Initialization\OData\Base\Base\IAppOdataModelBuilder.cs" />
     <Compile Include="Initialization\OData\Base\Base\IAppOdataModelBuilderConfiguration.cs" />
-    <Compile Include="Initialization\OData\IAppCoreOdataModelBuilderConfigurationBase.cs" />
+    <Compile Include="Initialization\OData\IAppCoreOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\ApplicationDescriptionOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\AppOdataModelBuilder.cs" />
     <Compile Include="Initialization\OData\Implementations\Base\AppCoreODataModelBuilderConfigurationBase.cs" />

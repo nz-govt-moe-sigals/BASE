@@ -42,9 +42,9 @@ namespace App.Core.Application.Initialization.OData.Implementations
         }
 
 
-        private IAppCoreOdataModelBuilderConfigurationBase[] RegisterByReflectionTheODataModelDefinitions()
+        private IAppCoreOdataModelBuilderConfiguration[] RegisterByReflectionTheODataModelDefinitions()
         {
-            return AppDependencyLocator.Current.GetAllInstances<IAppCoreOdataModelBuilderConfigurationBase>().ToArray();
+            return AppDependencyLocator.Current.GetAllInstances<IAppCoreOdataModelBuilderConfiguration>().ToArray();
         }
 
         /*

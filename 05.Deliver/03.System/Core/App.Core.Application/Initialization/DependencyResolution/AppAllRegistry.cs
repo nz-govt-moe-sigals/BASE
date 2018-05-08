@@ -55,7 +55,7 @@ namespace App.Core.Application.Initialization.DependencyResolution
             assemblyScanner.AddAllTypesOf<IAppOdataModelBuilder>();
             //Scan for OData Model Builder Configuration fragments in *all* modules.
             assemblyScanner.AddAllTypesOf<IAppOdataModelBuilderConfiguration>(); 
-            assemblyScanner.AddAllTypesOf<IAppCoreOdataModelBuilderConfigurationBase>();
+            assemblyScanner.AddAllTypesOf<IAppCoreOdataModelBuilderConfiguration>();
         }
 
 

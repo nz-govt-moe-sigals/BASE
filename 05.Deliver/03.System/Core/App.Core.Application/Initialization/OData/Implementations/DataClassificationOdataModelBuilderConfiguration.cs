@@ -6,14 +6,14 @@ namespace App.Core.Application.Initialization.OData.Implementations
     using App.Core.Application.Constants.Api;
     using App.Core.Shared.Models.Messages.APIs.V0100;
 
-    public class DataClassificationOdataModelBuilderConfiguration : IAppCoreOdataModelBuilderConfigurationBase
+    public class DataClassificationOdataModelBuilderConfiguration : IAppCoreOdataModelBuilderConfiguration
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DataClassificationOdataModelBuilderConfiguration"/> class.
         /// </summary>
         /// <internal>
         /// Remember to make these constructors public or reflection for 
-        /// <see cref="IAppCoreOdataModelBuilderConfigurationBase"/> won't find them.
+        /// <see cref="IAppCoreOdataModelBuilderConfiguration"/> won't find them.
         /// </internal>
         public DataClassificationOdataModelBuilderConfiguration()
         {

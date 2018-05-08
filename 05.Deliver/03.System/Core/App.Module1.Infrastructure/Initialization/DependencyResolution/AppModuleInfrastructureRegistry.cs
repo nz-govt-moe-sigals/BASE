@@ -25,6 +25,9 @@
             Scan(
                 assemblyScanner =>
                 {
+                    //Where we want to be:
+                    assemblyScanner.AssembliesFromApplicationBaseDirectory();
+
                     ScanAllModulesForModuleSpecificDbContextTypes(assemblyScanner);
                 });
 

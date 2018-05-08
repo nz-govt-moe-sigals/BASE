@@ -37,16 +37,13 @@ namespace App.Core.Application.Initialization.DependencyResolution
             Scan(
                 assemblyScanner =>
                 {
-                    ScanAllModulesForModuleSpecificODataModelBuilder(assemblyScanner);
+                    assemblyScanner.AssembliesFromApplicationBaseDirectory();
+
                     ScanAllModulesForModuleSpecificODataModelBuilderConfigurationTypes(assemblyScanner);
                 });
         }
 
 
-        private void ScanAllModulesForModuleSpecificODataModelBuilder(IAssemblyScanner assemblyScanner)
-        {
-            assemblyScanner.AddAllTypesOf<IAppCoreOdataModelBuilder>();
-        }
 
         private void ScanAllModulesForModuleSpecificODataModelBuilderConfigurationTypes(IAssemblyScanner assemblyScanner)
         {

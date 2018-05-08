@@ -28,6 +28,9 @@ namespace App.Module3.Infrastructure.Initialization.DependencyResolution
             Scan(
                 assemblyScanner =>
                 {
+                    //Where we want to be:
+                    assemblyScanner.AssembliesFromApplicationBaseDirectory();
+
                     ScanAllModulesForModuleSpecificDbContextTypes(assemblyScanner);
                 });
 
