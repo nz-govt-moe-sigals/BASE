@@ -175,7 +175,6 @@
     <Compile Include="Initialization\OData\Implementations\TenantOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\TenantPropertyOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\IOdataModelBuilder.cs" />
-    <Compile Include="Initialization\OData\OData\IOdataModelBuilderConfigurationBaseStub.cs" />
     <Compile Include="Initialization\OData\OData\IOdataModelBuilderStub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceFacade\API\ApiControllerBase.cs" />

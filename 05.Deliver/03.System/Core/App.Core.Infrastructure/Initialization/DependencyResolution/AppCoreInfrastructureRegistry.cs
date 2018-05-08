@@ -1,23 +1,11 @@
 namespace App.Core.Infrastructure.DependencyResolution
 {
-    using System;
-    using System.Data.Entity;
-    using App.Core.Infrastructure.Constants;
     using App.Core.Infrastructure.Constants.Db;
     using App.Core.Infrastructure.Db.Context;
-    using App.Core.Infrastructure.Db.Interception;
-    using App.Core.Infrastructure.Factories;
-    using App.Core.Infrastructure.Initialization;
-    using App.Core.Infrastructure.Initialization.Authentication;
     using App.Core.Infrastructure.Initialization.Db;
-    using App.Core.Infrastructure.Initialization.DependencyResolution;
-    using App.Core.Infrastructure.Initialization.ObjectMaps;
     //SKYOUT: using App.Core.Infrastructure.Initialization.OData;
-    using App.Core.Infrastructure.Integration.Azure.Storage;
     using StructureMap;
-    using StructureMap.Configuration.DSL.Expressions;
     using StructureMap.Graph;
-    using StructureMap.Web.Pipeline;
 
 
 
@@ -37,6 +25,9 @@ namespace App.Core.Infrastructure.DependencyResolution
             Scan(
                 assemblyScanner =>
                 {
+                    //Where we want to be:
+                    assemblyScanner.AssembliesFromApplicationBaseDirectory();
+
                     // Specific to this Module:
                     ScanAllModulesForModuleSpecificDbContextTypes(assemblyScanner);
 
@@ -53,9 +44,9 @@ namespace App.Core.Infrastructure.DependencyResolution
         //    // So we search for and register the *untyped* version of the interface:
 
         //    //Scan for OData Model Builders in *all* modules.
-        //    assemblyScanner.AddAllTypesOf</*SKYOUT: IOdataModelBuilderBase*/ IAppODataModelBuilder>();
+        //    assemblyScanner.AddAllTypesOf<IAppODataModelBuilder>();
         //    //Scan for OData Model Builder Configuration fragments in *all* modules.
-        //    assemblyScanner.AddAllTypesOf</*SKYOUT: IOdataModelBuilderConfigurationBase */ IAppODataModelBuilderConfiguration>();
+        //    assemblyScanner.AddAllTypesOf<IAppODataModelBuilderConfiguration>();
         //}
 
 

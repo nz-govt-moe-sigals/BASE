@@ -11,7 +11,7 @@ namespace App.Core.Infrastructure.Initialization.DependencyResolution
             // a new version of the Nuget packages (which will overwrite
             // the DefaultRegistry...and loose all your Bindings)
             return new Container(
-                c => c.AddRegistry<AppCoreRegistry>()
+                c => c.AddRegistry<AppAllInfrastructureRegistry>()
             );
         }
     }

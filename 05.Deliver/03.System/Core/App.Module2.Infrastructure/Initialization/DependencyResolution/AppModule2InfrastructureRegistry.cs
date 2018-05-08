@@ -10,21 +10,21 @@
     // Each Module has its own registry for handling specific cases.
     // The general registration of Services is handled via the Core
     // StructureMap Registry (ie, Services, Controllers, etc.)
-    public class AppModule2Registry : Registry
+    public class AppModule2InfrastructureRegistry : Registry
     {
-        public AppModule2Registry()
+        public AppModule2InfrastructureRegistry()
         {
             Scan(
                 assemblyScanner =>
                 {
-                    ScanForThisModulesDbContextTypes(assemblyScanner);
+                    ScanAllModulesForModuleSpecificDbContextTypes(assemblyScanner);
                 });
 
         }
 
         // Scan across all known assemblies for DbContext related model definitions
         // And seeding definitions, and define the DbContext lifespan:
-        private void ScanForThisModulesDbContextTypes(IAssemblyScanner assemblyScanner)
+        private void ScanAllModulesForModuleSpecificDbContextTypes(IAssemblyScanner assemblyScanner)
         {
             // Register the Db Model definitions and seeder definitions for Core:
             assemblyScanner.AddAllTypesOf<IHasAppModule2DbContextModelBuilderInitializer>();

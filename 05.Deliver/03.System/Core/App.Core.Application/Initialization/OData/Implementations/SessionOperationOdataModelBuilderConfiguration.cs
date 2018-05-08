@@ -1,4 +1,4 @@
-﻿using App.Core.Application.Initialization.OData.Implementations.BaseClasses;
+﻿using App.Core.Application.Initialization.OData.Implementations;
 
 namespace App.Core.Application.Initialization.OData.Implementations
 {

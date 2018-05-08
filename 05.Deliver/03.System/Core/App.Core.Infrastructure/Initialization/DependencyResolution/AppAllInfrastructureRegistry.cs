@@ -84,9 +84,9 @@ namespace App.Core.Infrastructure.Initialization.DependencyResolution
         //    // So we search for and register the *untyped* version of the interface:
 
         //    //Scan for OData Model Builders in *all* modules.
-        //    assemblyScanner.AddAllTypesOf</*SKYOUT: IOdataModelBuilderBase*/ IAppODataModelBuilder>();
+        //    assemblyScanner.AddAllTypesOf<IAppODataModelBuilder>();
         //    //Scan for OData Model Builder Configuration fragments in *all* modules.
-        //    assemblyScanner.AddAllTypesOf</*SKYOUT: IOdataModelBuilderConfigurationBase */ IAppODataModelBuilderConfiguration>();
+        //    assemblyScanner.AddAllTypesOf<IAppODataModelBuilderConfiguration>();
         //}
 
 
