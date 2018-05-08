@@ -32,44 +32,12 @@ namespace App.Core.Infrastructure.Initialization.DependencyResolution
                     // as AppModule1Registry.
                     assemblyScanner.LookForRegistries();
 
-
-                    //// Common across all Modules:
-                    //var types = new[]
-                    //{
-                    //    // Register all Automapper Instances, which ever assembly they are in :
-                    //    typeof(IHasAutomapperInitializer),
-
-                    //    typeof(IHasOidcScopeInitializer),
-                    //    typeof(IBlobStorageAccountContext),
-                    //    typeof(IFileStorageAccountContext),
-                    //    typeof(IQueueStorageAccountContext),
-                    //    //Scan for OData Model Builders in *all* modules.
-                    //    typeof(IOdataModelBuilderBase),
-                    //    //Scan for OData Model Builder Configuration fragments in *all* modules.
-                    //    typeof(IOdataModelBuilderConfigurationBase),
-                    //    // Add all Pre-Commit Processors (these kick in just as you
-                    //    // Commit a DbContext, and ensure specific fields are 
-                    //    // automatically filled in)
-                    //    typeof(IDbCommitPreCommitProcessingStrategy),
-
-
-                    //};
-                    //foreach (var type in types)
-                    //{
-                    //    assemblyScanner.AddAllTypesOf(type);
-                    //}
-
-
-
                     ScanAllModulesForAllModulesAutoMapperInitializers(assemblyScanner);
                     ScanAllModulesForAllModulesOIDCFullyQualifiesScopes(assemblyScanner);
 
-                    // SKYOUT: Now moved to App.Core.Application Registry:
-                    //ScanAllModulesForModuleSpecificODataBuilderTypes(assemblyScanner);
+                    ScanAllModulesForAllModulesPrecommitStrategies(assemblyScanner);
 
-                    ScanAllModulesForModuleSpecificPrecommitStrategies(assemblyScanner);
-
-                    ScanAndRegisterNamedInstancesOfStorageAccountContexts(assemblyScanner);
+                    ScanAllModulesAndRegisterNamedInstancesOfStorageAccountContexts(assemblyScanner);
 
                     // Scan across all known assemblies for Services, Factories, etc.
                     // That meet ISomething => Something naming convention:
@@ -98,7 +66,7 @@ namespace App.Core.Infrastructure.Initialization.DependencyResolution
         }
 
 
-        private void ScanAllModulesForModuleSpecificPrecommitStrategies(IAssemblyScanner assemblyScanner)
+        private void ScanAllModulesForAllModulesPrecommitStrategies(IAssemblyScanner assemblyScanner)
         {
             // Add all Pre-Commit Processors (these kick in just as you
             // Commit a DbContext, and ensure specific fields are 
@@ -122,7 +90,7 @@ namespace App.Core.Infrastructure.Initialization.DependencyResolution
         //}
 
 
-        private void ScanAndRegisterNamedInstancesOfStorageAccountContexts(IAssemblyScanner assemblyScanner)
+        private void ScanAllModulesAndRegisterNamedInstancesOfStorageAccountContexts(IAssemblyScanner assemblyScanner)
         {
             var types = AppDomain.CurrentDomain.GetInstantiableTypesImplementing<IAzureStorageBlobContext>();
             foreach (Type t in types)
@@ -138,7 +106,7 @@ namespace App.Core.Infrastructure.Initialization.DependencyResolution
 
                 new CreatePluginFamilyExpression<IAzureStorageBlobContext>(this,
                         new HttpContextLifecycle())
-                    .Use(y => (IAzureStorageBlobContext)App.AppDependencyLocator.Current.GetInstance(t)).Named(name);
+                    .Use(y => (IAzureStorageBlobContext)AppDependencyLocator.Current.GetInstance(t)).Named(name);
             }
         }
 

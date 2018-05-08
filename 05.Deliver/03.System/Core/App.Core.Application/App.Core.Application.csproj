@@ -157,7 +157,7 @@
     <Compile Include="Initialization\OData\IAppCoreOdataModelBuilderConfigurationBase.cs" />
     <Compile Include="Initialization\OData\Implementations\ApplicationDescriptionOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\AppOdataModelBuilder.cs" />
-    <Compile Include="Initialization\OData\Implementations\BaseClasses\AppCoreODataModelBuilderConfigurationBase.cs" />
+    <Compile Include="Initialization\OData\Implementations\Base\AppCoreODataModelBuilderConfigurationBase.cs" />
     <Compile Include="Initialization\OData\Implementations\ConfigurationStepRecordOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\DataClassificationOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\ExceptionRecordOdataModelBuilderConfiguration.cs" />
@@ -175,6 +175,8 @@
     <Compile Include="Initialization\OData\Implementations\TenantOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\TenantPropertyOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\IOdataModelBuilder.cs" />
+    <Compile Include="Initialization\OData\OData\IOdataModelBuilderConfigurationBaseStub.cs" />
+    <Compile Include="Initialization\OData\OData\IOdataModelBuilderStub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceFacade\API\ApiControllerBase.cs" />
     <Compile Include="ServiceFacade\API\Controllers\Base\Base\IdActiveRecordStateCommonODataControllerBase.cs" />

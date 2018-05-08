@@ -222,11 +222,12 @@
     <Compile Include="Factories\ExtendedConfigurationFactory.cs" />
     <Compile Include="Helpers\ElapsedTime.cs" />
     <Compile Include="IHasDocumentId.cs" />
+    <Compile Include="Initialization\DependencyResolution\AppAllInfrastructureRegistry.cs" />
+    <Compile Include="Initialization\DependencyResolution\AppCoreInfrastructureRegistry.cs" />
     <Compile Include="Initialization\Integration\Azure\AzureApplicationRegistrationIntegrationInitializer.cs" />
     <Compile Include="Initialization\Integration\Azure\AzureIntegrationInitializer.cs" />
     <Compile Include="Initialization\Integration\Azure\AzureKeyVaultIntegrationInitializer.cs" />
     <Compile Include="Initialization\Integration\Azure\AzureStorageIntegrationInitializer.cs" />
-    <Compile Include="Initialization\DependencyResolution\AppCoreRegistry.cs" />
     <Compile Include="Initialization\DependencyResolution\AppDependencyLocator.cs" />
     <Compile Include="Initialization\DependencyResolution\CommonServiceLocatorInitiator.cs" />
     <Compile Include="Initialization\DependencyResolution\StructureMapContainerLocator.cs" />
@@ -247,8 +248,6 @@
     <Compile Include="Factories\StructureMapServiceLocator.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ExceptionRecord_ExceptionRecordDto - Copy.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_TenantedNavigationRoute_TenantedNavigationRouteDto.cs" />
-    <Compile Include="Initialization\OData\IOdataModelBuilderConfigurationBaseStub.cs" />
-    <Compile Include="Initialization\OData\IOdataModelBuilderStub.cs" />
     <Compile Include="Initialization\Storage\Db\IHasAppCoreDbContextModelBuilderInitializer.cs" />
     <Compile Include="Initialization\IHasAppCoreInitializer.cs" />
     <Compile Include="Initialization\Integration\Scanii\ScaniiIntegrationInitializer.cs" />

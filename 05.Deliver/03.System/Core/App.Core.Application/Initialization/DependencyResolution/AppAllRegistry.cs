@@ -3,6 +3,7 @@
 namespace App.Core.Application.Initialization.DependencyResolution
 {
     using App.Core.Application.Initialization.OData;
+    using App.Core.Infrastructure.Initialization.OData;
     using StructureMap;
     using StructureMap.Graph;
 
@@ -55,6 +56,23 @@ namespace App.Core.Application.Initialization.DependencyResolution
             //Scan for OData Model Builder Configuration fragments in *all* modules.
             assemblyScanner.AddAllTypesOf<IAppOdataModelBuilderConfiguration>();
         }
+
+
+        private void ScanForAllModulesODataBuilderTypes(IAssemblyScanner assemblyScanner)
+        {
+            // Note that because we are in App.Core.Infrastructure, we can't see the
+            // Typed version of this interface (as this assembly does not know anything 
+            // about OData as it does not have a Ref to OData Assemblies...nor should it, as that
+            // woudl drag in way too many other dependencies (ApiControllers, Web, etc.)
+            // So we search for and register the *untyped* version of the interface:
+
+            //Scan for OData Model Builders in *all* modules.
+            assemblyScanner.AddAllTypesOf<IOdataModelBuilderConfigurationBaseStub>();
+            //Scan for OData Model Builder Configuration fragments in *all* modules.
+            assemblyScanner.AddAllTypesOf<IOdataModelBuilderStub>();
+        }
+
+
 
 
 
