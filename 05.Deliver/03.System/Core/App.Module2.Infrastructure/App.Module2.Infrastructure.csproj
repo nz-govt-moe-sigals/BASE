@@ -102,7 +102,7 @@
     <Compile Include="Initialization\Db\Schema\AppModule2DbContextModelBuilderDefineSchoolRegionalCouncil.cs" />
     <Compile Include="Initialization\Db\Schema\AppModule2DbContextModelBuilderDefineSchoolTerritorialAuthoritywithAucklandLocalBoard.cs" />
     <Compile Include="Initialization\Db\Schema\AppModule2DbContextModelBuilderDefineSchoolType.cs" />
-    <Compile Include="Initialization\DependencyResolution\AppModule2Registry.cs" />
+    <Compile Include="Initialization\DependencyResolution\AppModule2InfrastructureRegistry.cs" />
     <Compile Include="Initialization\Implementations\AppModule2ServiceLocatorInitializer.cs" />
     <Compile Include="Initialization\Db\IHasAppModule2DbContextModelBuilderInitializer.cs" />
     <Compile Include="Initialization\Db\IHasAppModule2DbContextSeedInitializer.cs" />
