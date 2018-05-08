@@ -1,4 +1,6 @@
-﻿namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
+﻿using System.Web.Http;
+
+namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
 {
     using System;
     using System.Linq;
@@ -14,6 +16,7 @@
 
     //[ODataRoutePrefix("body")]
     [ODataPath(Constants.Api.ApiControllerNames.Tenant)]
+    [AllowAnonymous]
     public class TenantController : GuidIdActiveRecordStateODataControllerBase<Tenant, TenantDto>
     {
         public TenantController(

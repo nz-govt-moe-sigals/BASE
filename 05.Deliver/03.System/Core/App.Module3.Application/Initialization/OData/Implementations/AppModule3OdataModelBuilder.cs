@@ -26,9 +26,10 @@ namespace App.Module3.Application.Initialization.OData.Implementations
                 ModelBuilderFactory = () => new ODataConventionModelBuilder().EnableLowerCamelCase(),
                 ModelConfigurations =
                 {
-                    //new ApplicationDescriptionOdataModelBuilderConfiguration(),
-                    //new DataClassificationOdataModelBuilderConfiguration(),
-
+                    //new WardODataModelBuilderConfiguration(),
+                    //new UrbanAreaODataModelBuilderConfiguration(),
+                    //new AreaUnitODataModelBuilderConfiguration(),
+                    //new TerritorialAuthorityODataModelBuilderConfiguration()
                 }
             };
             foreach (var item in RegisterByReflectionTheODataModelDefinitions())
@@ -47,7 +48,7 @@ namespace App.Module3.Application.Initialization.OData.Implementations
 
         private IAppModule3OdataModelBuilderConfiguration[] RegisterByReflectionTheODataModelDefinitions()
         {
-            return AppDependencyLocator.Current.GetAllInstances<IOdataModelBuilderConfigurationBaseStub>().OfType<IAppModule3OdataModelBuilderConfiguration>().ToArray();
+            return AppDependencyLocator.Current.GetAllInstances<IAppModule3OdataModelBuilderConfiguration>().ToArray();
         }
     }
 }

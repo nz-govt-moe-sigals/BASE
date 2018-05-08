@@ -44,7 +44,7 @@ namespace App.Core.Application.Initialization.OData.Implementations
 
         private IAppCoreOdataModelBuilderConfigurationBase[] RegisterByReflectionTheODataModelDefinitions()
         {
-            return AppDependencyLocator.Current.GetAllInstances<IOdataModelBuilderConfigurationBaseStub>().OfType<IAppCoreOdataModelBuilderConfigurationBase>().ToArray();
+            return AppDependencyLocator.Current.GetAllInstances<IAppCoreOdataModelBuilderConfigurationBase>().ToArray();
         }
 
         /*

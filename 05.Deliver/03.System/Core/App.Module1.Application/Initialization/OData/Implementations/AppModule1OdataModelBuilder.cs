@@ -47,7 +47,7 @@ namespace App.Module1.Application.Initialization.OData.Implementations
 
         private IAppModule1OdataModelBuilderConfiguration[] RegisterByReflectionTheODataModelDefinitions()
         {
-            return AppDependencyLocator.Current.GetAllInstances<IOdataModelBuilderConfigurationBaseStub>().OfType<IAppModule1OdataModelBuilderConfiguration>().ToArray();
+            return AppDependencyLocator.Current.GetAllInstances<IAppModule1OdataModelBuilderConfiguration>().ToArray();
         }
 
     }

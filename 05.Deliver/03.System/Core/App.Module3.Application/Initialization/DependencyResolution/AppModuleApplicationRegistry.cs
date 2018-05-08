@@ -24,11 +24,11 @@
     {
         public AppModuleApplicationRegistry()
         {
-            //Scan(
-            //    assemblyScanner =>
-            //    {
-            //        ScanThisModulesForODataModelBuilderTypes(assemblyScanner);
-            //    });
+            Scan(
+                assemblyScanner =>
+                {
+                    ScanThisModulesForODataModelBuilderTypes(assemblyScanner);
+                });
 
         }
 

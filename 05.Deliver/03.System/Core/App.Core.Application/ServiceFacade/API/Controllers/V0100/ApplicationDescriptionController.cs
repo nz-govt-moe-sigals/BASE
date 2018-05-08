@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Http;
 
 namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
 {
@@ -20,6 +21,7 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
     /// </summary>
     /// <seealso cref="CommonODataControllerBase" />
     [ODataPath(Constants.Api.ApiControllerNames.ApplicationDescription)]
+    [AllowAnonymous]
     public class ApplicationDescriptionController : CommonODataControllerBase
 
     {

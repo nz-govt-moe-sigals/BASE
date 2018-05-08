@@ -25,11 +25,11 @@
     {
         public AppModuleApplicationRegistry()
         {
-            //Scan(
-            //    assemblyScanner =>
-            //    {
-            //        ScanThisModulesForODataModelBuilderTypes(assemblyScanner);
-            //    });
+            Scan(
+                assemblyScanner =>
+                {
+                    ScanThisModulesForODataModelBuilderTypes(assemblyScanner);
+                });
 
         }
 
@@ -42,8 +42,6 @@
             // woudl drag in way too many other dependencies (ApiControllers, Web, etc.)
             // So we search for and register the *untyped* version of the interface:
 
-            //Scan for OData Model Builders in *this* modules.
-            assemblyScanner.AddAllTypesOf<IAppModule1OdataModelBuilder>();
             //Scan for OData Model Builder Configuration fragments in *this* modules.
             assemblyScanner.AddAllTypesOf<IAppModule1OdataModelBuilderConfiguration>();
         }
