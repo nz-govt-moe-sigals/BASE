@@ -157,6 +157,7 @@
     <Compile Include="Initialization\OData\Base\Base\IAppOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\IAppCoreOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\ApplicationDescriptionOdataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\AppOdataAllModelBuilder.cs" />
     <Compile Include="Initialization\OData\Implementations\AppOdataModelBuilder.cs" />
     <Compile Include="Initialization\OData\Implementations\Base\AppCoreODataModelBuilderConfigurationBase.cs" />
     <Compile Include="Initialization\OData\Implementations\ConfigurationStepRecordOdataModelBuilderConfiguration.cs" />

@@ -1,5 +1,7 @@
 ﻿
 
+using Microsoft.Web.OData.Builder;
+
 namespace App.Core.Application.Initialization.DependencyResolution
 {
     using App.Core.Application.Initialization.OData;
@@ -52,10 +54,11 @@ namespace App.Core.Application.Initialization.DependencyResolution
             // So we search for and register the *untyped* version of the interface:
 
             //Scan for OData Model Builders in *all* modules.
-            assemblyScanner.AddAllTypesOf<IAppOdataModelBuilder>();
+            assemblyScanner.AddAllTypesOf<IAppOdataModelBuilder>(); //todo delete dont think used anymore
             //Scan for OData Model Builder Configuration fragments in *all* modules.
-            assemblyScanner.AddAllTypesOf<IAppOdataModelBuilderConfiguration>(); 
+            assemblyScanner.AddAllTypesOf<IAppOdataModelBuilderConfiguration>();  //todo delete dont think used anymore
             assemblyScanner.AddAllTypesOf<IAppCoreOdataModelBuilderConfiguration>();
+            assemblyScanner.AddAllTypesOf<IModelConfiguration>();
         }
 
 
