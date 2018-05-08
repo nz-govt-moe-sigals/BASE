@@ -3,7 +3,6 @@
 namespace App.Core.Application.Initialization.DependencyResolution
 {
     using App.Core.Application.Initialization.OData;
-    using App.Core.Infrastructure.Initialization.OData;
     using StructureMap;
     using StructureMap.Graph;
 
@@ -33,6 +32,7 @@ namespace App.Core.Application.Initialization.DependencyResolution
 
                     //Scan all assemblies first:
                     ScanAllModulesForAllModulesDataBuilderTypes(assemblyScanner);
+                    ScanForAllModulesODataBuilderTypes(assemblyScanner);
 
                 });
 
@@ -71,7 +71,7 @@ namespace App.Core.Application.Initialization.DependencyResolution
             //assemblyScanner.AddAllTypesOf<IOdataModelBuilderConfigurationBaseStub>();
             
             //Scan for OData Model Builder Configuration fragments in *all* modules.
-            assemblyScanner.AddAllTypesOf<IOdataModelBuilderStub>();
+            assemblyScanner.AddAllTypesOf<IOdataModelBuilder>();
         }
 
 

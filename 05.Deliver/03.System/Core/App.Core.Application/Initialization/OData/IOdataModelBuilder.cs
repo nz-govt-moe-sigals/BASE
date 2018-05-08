@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
-using App.Core.Infrastructure.Initialization.OData;
+
 
 namespace App.Core.Application.Initialization.OData
 {
@@ -16,7 +16,7 @@ namespace App.Core.Application.Initialization.OData
     /// the *untyped* base contract (IAppCoreOdataModelBuilderBuilderBase)
     /// </para>
     /// </summary>
-    public interface IOdataModelBuilder : IOdataModelBuilderStub
+    public interface IOdataModelBuilder 
     {
         /// <summary>
         /// Returns to the Route Prefix (Module3, ModuleX, etc.)

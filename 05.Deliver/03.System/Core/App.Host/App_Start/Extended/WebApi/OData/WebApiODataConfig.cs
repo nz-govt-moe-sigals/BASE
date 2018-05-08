@@ -4,7 +4,6 @@ using System.Web.Http;
 using System.Web.OData.Extensions;
 using App.Core.Application.Initialization.OData;
 using App.Core.Infrastructure.Initialization.DependencyResolution;
-using App.Core.Infrastructure.Initialization.OData;
 using App.Core.Infrastructure.Services;
 using App.Core.Shared.Models.Messages;
 using Microsoft.OData;
@@ -50,8 +49,7 @@ namespace App.Host.Extended.WebApi.OData
             //Search for the Common base class,
             //using the untyped contract:
             var tmp = AppDependencyLocator.Current
-                .GetAllInstances<IOdataModelBuilderStub>()
-                .OfType<IOdataModelBuilder>().ToList();
+                .GetAllInstances<IOdataModelBuilder>().ToList();
             var count = tmp.Count();
             // This builds the OData Models -- both a common one, including
             // all modules, then Module specific end points

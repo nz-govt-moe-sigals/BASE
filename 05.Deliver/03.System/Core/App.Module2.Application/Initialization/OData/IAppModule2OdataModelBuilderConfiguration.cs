@@ -1,5 +1,4 @@
-﻿using App.Core.Infrastructure.Initialization.OData;
-using Microsoft.Web.OData.Builder;
+﻿using Microsoft.Web.OData.Builder;
 
 namespace App.Module2.Application.Initialization.OData
 {

@@ -176,7 +176,6 @@
     <Compile Include="Initialization\OData\Implementations\TenantOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\TenantPropertyOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\IOdataModelBuilder.cs" />
-    <Compile Include="Initialization\OData\OData\IOdataModelBuilderStub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceFacade\API\ApiControllerBase.cs" />
     <Compile Include="ServiceFacade\API\Controllers\Base\Base\IdActiveRecordStateCommonODataControllerBase.cs" />
@@ -226,6 +225,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="APIs\" />
+    <Folder Include="Initialization\OData\OData\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\App.Core.Domain\App.Core.Domain.csproj">

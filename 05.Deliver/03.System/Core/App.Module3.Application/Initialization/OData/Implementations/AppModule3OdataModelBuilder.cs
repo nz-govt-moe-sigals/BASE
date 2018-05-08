@@ -4,7 +4,7 @@ using System.Web.Http;
 using System.Web.OData.Builder;
 using App.Core.Application.Initialization.OData;
 using App.Core.Infrastructure.Initialization.DependencyResolution;
-using App.Core.Infrastructure.Initialization.OData;
+using App.Module3.Application.Constants.Api;
 using Microsoft.OData.Edm;
 using Microsoft.Web.OData.Builder;
 
@@ -42,7 +42,7 @@ namespace App.Module3.Application.Initialization.OData.Implementations
 
         public string GetRoutePrefix()
         {
-            return Infrastructure.Constants.Module.Names.ModuleKey.ToLower();
+            return ApiControllerNames.PathRoot.ToLower();
         }
 
 

@@ -1,4 +1,6 @@
-﻿namespace App.Module3.Application.Initialization.DependencyResolution
+﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+
+namespace App.Module3.Application.Initialization.DependencyResolution
 {
     using System.Linq;
     using App.Module3.Application.Initialization.OData;
