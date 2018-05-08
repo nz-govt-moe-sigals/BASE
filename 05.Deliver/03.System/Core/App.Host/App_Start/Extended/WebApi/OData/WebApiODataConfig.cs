@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using System.Web.OData.Extensions;
 using App.Core.Application.Initialization.OData;
@@ -7,6 +8,7 @@ using App.Core.Infrastructure.Initialization.OData;
 using App.Core.Infrastructure.Services;
 using App.Core.Shared.Models.Messages;
 using Microsoft.OData;
+using Microsoft.OData.Edm;
 using Microsoft.OData.UriParser;
 
 namespace App.Host.Extended.WebApi.OData
@@ -53,13 +55,16 @@ namespace App.Host.Extended.WebApi.OData
             var count = tmp.Count();
             // This builds the OData Models -- both a common one, including
             // all modules, then Module specific end points
-            tmp.ForEach(x => Config(x, httpConfiguration));
+            tmp.ForEach(x =>
+            {
+                Config(x, httpConfiguration);
+            });
 
             return count;
         }
 
 
-        public static void Config(IOdataModelBuilder modefBuilder, HttpConfiguration configuration)
+        public List<IEdmModel> Config(IOdataModelBuilder modefBuilder, HttpConfiguration configuration)
         {
             var models = modefBuilder.GetEdmModels(configuration).ToList();
             string prefix = modefBuilder.GetRoutePrefix();
@@ -73,6 +78,8 @@ namespace App.Host.Extended.WebApi.OData
             // WHEN VERSIONING BY: url segment
             configuration.MapVersionedODataRoutes("odata-bypath" + prefix, "odata/" + prefix + "/v{apiVersion}", models,
                 ConfigureODataServices);
+
+            return models;
         }
 
         static void ConfigureODataServices(IContainerBuilder builder)

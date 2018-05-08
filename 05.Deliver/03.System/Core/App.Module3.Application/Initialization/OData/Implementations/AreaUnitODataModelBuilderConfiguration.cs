@@ -11,10 +11,6 @@ namespace App.Module3.Application.Initialization.OData.Implementations
         {
         }
 
-        public override EntityTypeConfiguration<AreaUnitDto> Define(ODataModelBuilder builder)
-        {
-            return base.Define(builder);
-
-        }
+       
     }
 }

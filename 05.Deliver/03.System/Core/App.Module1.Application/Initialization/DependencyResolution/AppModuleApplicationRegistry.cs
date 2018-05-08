@@ -28,6 +28,7 @@
             Scan(
                 assemblyScanner =>
                 {
+                    assemblyScanner.AssembliesFromApplicationBaseDirectory();
                     ScanThisModulesForODataModelBuilderTypes(assemblyScanner);
                 });
 
