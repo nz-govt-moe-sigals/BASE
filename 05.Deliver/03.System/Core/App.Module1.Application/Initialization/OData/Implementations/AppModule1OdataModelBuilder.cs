@@ -23,7 +23,7 @@ namespace App.Module1.Application.Initialization.OData.Implementations
         {
             var modelBuilder = new VersionedODataModelBuilder(configuration)
             {
-                ModelBuilderFactory = () => new ODataConventionModelBuilder().EnableLowerCamelCase(),
+                ModelBuilderFactory = () => new ODataConventionModelBuilder(),
                 ModelConfigurations =
                 {
                     //new ApplicationDescriptionOdataModelBuilderConfiguration(),

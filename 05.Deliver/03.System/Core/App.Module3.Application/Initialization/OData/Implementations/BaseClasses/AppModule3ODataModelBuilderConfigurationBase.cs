@@ -25,9 +25,10 @@ namespace App.Module3.Application.Initialization.OData.Implementations
             this._controllerName = controllerName;
         }
 
-        public EntityTypeConfiguration<T> Define(ODataModelBuilder builder)
+        public virtual EntityTypeConfiguration<T> Define(ODataModelBuilder builder)
         {
-            var entity = builder.EntitySet<T>(this._controllerName).EntityType;
+            builder.EntitySet<T>(this._controllerName);
+            var entity = builder.EntityType<T>();
             entity.HasKey(x => x.Id);
             return entity;
         }
@@ -39,7 +40,9 @@ namespace App.Module3.Application.Initialization.OData.Implementations
         /// <param name="apiVersion"></param>
         public virtual void Apply(ODataModelBuilder builder, ApiVersion apiVersion)
         {
-            Define(builder);
+           Define(builder);
         }
     }
+
+
 }
