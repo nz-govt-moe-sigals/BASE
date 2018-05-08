@@ -11,7 +11,7 @@ namespace App.Module2.Application.Initialization.OData
     /// <see cref="IOdataModelBuilderConfigurationBaseStub"/>
     /// allowing for defining odata apis 'clumped by module' (ie distinct metadatas...)
     /// </summary>
-    public interface IAppModule2OdataModelBuilderConfiguration : IOdataModelBuilderConfigurationBaseStub, IModelConfiguration
+    public interface IAppModule2OdataModelBuilderConfiguration : IModelConfiguration
     {
 
 

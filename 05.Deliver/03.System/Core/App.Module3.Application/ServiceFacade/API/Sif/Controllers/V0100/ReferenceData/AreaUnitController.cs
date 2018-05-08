@@ -15,8 +15,8 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100.Refere
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
-    [ODataRoutePrefix("areaunit")]
-    [Key(ApiControllerNames.AreaUnit)]
+    //[ODataRoutePrefix("areaunit")]
+    //[Key(ApiControllerNames.AreaUnit)]
     public class AreaUnitController : SIFResourceODataControllerBase<AreaUnit, AreaUnitDto>
     {
         public AreaUnitController(

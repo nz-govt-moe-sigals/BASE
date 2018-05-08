@@ -166,7 +166,6 @@
     <Compile Include="API\Controllers\Base\GuidIdActiveRecordStateODataControllerBase.cs" />
     <Compile Include="Constants\Api\ApiControllerNames.cs" />
     <Compile Include="Initialization\DependencyResolution\AppModuleApplicationRegistry.cs" />
-    <Compile Include="Initialization\OData\IAppModule1OdataModelBuilder.cs" />
     <Compile Include="Initialization\OData\Implementations\AppModule1OdataModelBuilder.cs" />
     <Compile Include="Initialization\OData\Implementations\ExampleOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\IAppModule1OdataModelBuilderConfiguration.cs" />

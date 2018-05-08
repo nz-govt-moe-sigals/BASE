@@ -10,7 +10,7 @@
     /// allowing for distinct Odata 'clumps of apis' (ie metadatas).
     /// separated by domain (eg: 'api/odata/core', 'api/odata/module1', etc.)
     /// </summary>
-    public interface IAppModule3OdataModelBuilderConfiguration : IOdataModelBuilderConfigurationBaseStub, IModelConfiguration
+    public interface IAppModule3OdataModelBuilderConfiguration : IModelConfiguration
     {
     }
 }

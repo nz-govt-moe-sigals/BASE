@@ -8,7 +8,7 @@ using Microsoft.Web.OData.Builder;
 
 namespace App.Core.Application.Initialization.OData
 {
-    internal interface IAppCoreOdataModelBuilderConfigurationBase : IOdataModelBuilderConfigurationBaseStub, IModelConfiguration
+    internal interface IAppCoreOdataModelBuilderConfigurationBase :  IModelConfiguration
     {
     }
 }

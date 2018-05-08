@@ -14,14 +14,14 @@ namespace App.Core.Application.Initialization.OData.Implementations
             this._controllerName = controllerName;
         }
 
-        public EntityTypeConfiguration<T1> Define<T1>(ODataModelBuilder builder)
-            where T1 : class, IHasGuidId, new()
+        public  EntityTypeConfiguration<T> Define(ODataModelBuilder builder)
+
         {
-            var entity = builder.EntitySet<T1>(this._controllerName).EntityType;
+            var entity = builder.EntitySet<T>(this._controllerName).EntityType;
             entity.HasKey(x => x.Id);
             return entity;
         }
-
+        
         /// <summary>
         /// override this when you have more versions of an object 
         /// </summary>
@@ -29,7 +29,7 @@ namespace App.Core.Application.Initialization.OData.Implementations
         /// <param name="apiVersion"></param>
         public virtual void Apply(ODataModelBuilder builder, ApiVersion apiVersion)
         {
-            Define<T>(builder);
+            Define(builder);
         }
 
 
