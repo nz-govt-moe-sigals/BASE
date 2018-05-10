@@ -62,11 +62,13 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.Base.Base
 
 
         //Helper:
+        [EnableQuery(PageSize = 100)]
         protected virtual IQueryable<TEntity> InternalGetDbSet()
         {
             return this._repositoryService.GetQueryableSet<TEntity>(this._dbContextIdentifier);
         }
 
+        [EnableQuery(PageSize = 100)]
         protected virtual IQueryable<TEntity> InternalActiveRecords()
         {
             return InternalGetDbSet().Where(x => x.RecordState == RecordPersistenceState.Active);
