@@ -18,6 +18,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
         public void Initialize(IMapperConfigurationExpression config)
         {
             config.CreateMap<EducationProviderLevelGender, EducationProviderLevelGenderDto>()
+                .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
                 .ForMember(t => t.Gender, opt => opt.MapFrom(s => s.Gender))
                 .ForMember(t => t.Level, opt => opt.MapFrom(s => s.Level));
         }

@@ -24,6 +24,7 @@ namespace App.Module3.Shared.Models.Entities
         {
             get; set;
         }
+
         public virtual EducationProviderGender Gender { get; set; }
 
 

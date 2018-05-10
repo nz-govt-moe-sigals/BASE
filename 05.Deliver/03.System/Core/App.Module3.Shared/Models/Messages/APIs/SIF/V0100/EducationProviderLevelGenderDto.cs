@@ -8,6 +8,11 @@
     public class EducationProviderLevelGenderDto
     {
 
+        public Guid Id
+        {
+            get; set;
+        }
+
         public virtual EducationProviderSchoolingGenderDto Gender
         {
             get;
