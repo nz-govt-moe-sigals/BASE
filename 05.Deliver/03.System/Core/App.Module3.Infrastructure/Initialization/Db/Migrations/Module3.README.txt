@@ -27,3 +27,4 @@ Update-Database -StartUpProjectName "App.Host" -ProjectName "App.Module3.Infrast
 //Update-Database -StartUpProjectName "App.Host" -ProjectName "App.Module3.Infrastructure" -Script -SourceMigration: $InitialDatabase -TargetMigration: AddPostAbstract -Verbose
 
 
+//Update-Database -StartUpProjectName "App.Host" -ProjectName "App.Module3.Infrastructure" -Script -TargetMigration: "Entities.SchoolIdIndex" -Verbose

@@ -82,6 +82,10 @@
     <Compile Include="Initialization\Db\Migrations\Module3\201804270236165_Entities.SchoolIdIndex.Designer.cs">
       <DependentUpon>201804270236165_Entities.SchoolIdIndex.cs</DependentUpon>
     </Compile>
+    <Compile Include="Initialization\Db\Migrations\Module3\201805100426221_Check.cs" />
+    <Compile Include="Initialization\Db\Migrations\Module3\201805100426221_Check.Designer.cs">
+      <DependentUpon>201805100426221_Check.cs</DependentUpon>
+    </Compile>
     <Compile Include="Initialization\Db\Migrations\Module3\201805100444327_Entities.IndexOnRecordState.cs" />
     <Compile Include="Initialization\Db\Migrations\Module3\201805100444327_Entities.IndexOnRecordState.Designer.cs">
       <DependentUpon>201805100444327_Entities.IndexOnRecordState.cs</DependentUpon>
@@ -254,6 +258,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Initialization\Db\Migrations\Module3\201804270236165_Entities.SchoolIdIndex.resx">
       <DependentUpon>201804270236165_Entities.SchoolIdIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Module3\201805100426221_Check.resx">
+      <DependentUpon>201805100426221_Check.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Initialization\Db\Migrations\Module3\201805100444327_Entities.IndexOnRecordState.resx">
       <DependentUpon>201805100444327_Entities.IndexOnRecordState.cs</DependentUpon>
