@@ -4,6 +4,13 @@ using Microsoft.Web.Http;
 
 namespace App.Core.Application.Initialization.OData.Implementations
 {
+
+    /// <summary>
+    /// Module Specific
+    /// OData Model Definition.
+    /// Invoked by a Model Builder.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public abstract class AppCoreODataModelBuilderConfigurationBase<T> : IAppCoreOdataModelBuilderConfiguration
         where T : class, IHasGuidId, new()
     {

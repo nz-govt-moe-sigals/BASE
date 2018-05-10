@@ -35,6 +35,8 @@ namespace App.Core.Infrastructure.Db.Context
 
         protected AppDbContextBase(DbConnection dbConnection, bool contextOwnsConnection) : base(dbConnection, contextOwnsConnection)
         {
+            Database.CommandTimeout = System.Math.Max(dbConnection.ConnectionTimeout,30);
+
 
             this.Database.Log = s => Trace.WriteLine(s);
         }

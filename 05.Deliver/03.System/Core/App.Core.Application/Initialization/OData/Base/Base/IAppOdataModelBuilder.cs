@@ -8,7 +8,7 @@ namespace App.Core.Application.Initialization.OData
     /// all Modules for ModelBuilderConfiguration implenetations,
     /// as oppossed to scanning just this module.
     /// </summary>
-    public interface IAppOdataModelBuilder /* SKYOUT: IOdataModelBuilderBase */
+    public interface IAppOdataModelBuilder 
     {
         void Initialize(HttpConfiguration httpConfiguration);
     }
