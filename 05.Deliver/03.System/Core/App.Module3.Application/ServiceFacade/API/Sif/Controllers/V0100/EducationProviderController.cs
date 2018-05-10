@@ -51,44 +51,45 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100
         //[ODataRoute()]
         [AllowAnonymous]
         [EnableQuery(PageSize = 100)]
-        public EducationProviderDto[] Get()
+        public IQueryable<EducationProviderDto> Get()
         {
-            using (var elapsedTime = new ElapsedTime())
-            {
+            return InternalGet();
+            //using (var elapsedTime = new ElapsedTime())
+            //{
 
-                var r = InternalGet(
-                        x=>x.AreaUnit,
-                        x => x.AuthorityType,
-                        x => x.Classification,
-                    x => x.CoL,
-                    x=>x.CommunityBoard,
-                        x => x.EducationProviderType,
-                    x => x.GeneralElectorate,
-                        x => x.LevelGender,
-                        x => x.LocalOffice,
-                        x => x.Locations,
-                    x => x.MaoriElectorate,
-                        x => x.Region,
-                        x => x.RollCounts,
-                    x => x.SchoolingGender,
-                    x => x.Status,
-                    x => x.TeacherEducation,
-                    x=>x.TerritorialAuthority,
-                    x=>x.RegionalCouncil,
-                    x=>x.UrbanArea,
-                        x => x.Ward
-                    )
-                    .ToArray();
+            //    var r = InternalGet(
+            //            x=>x.AreaUnit,
+            //            x => x.AuthorityType,
+            //            x => x.Classification,
+            //        x => x.CoL,
+            //        x=>x.CommunityBoard,
+            //            x => x.EducationProviderType,
+            //        x => x.GeneralElectorate,
+            //            x => x.LevelGender,
+            //            x => x.LocalOffice,
+            //            x => x.Locations,
+            //        x => x.MaoriElectorate,
+            //            x => x.Region,
+            //            x => x.RollCounts,
+            //        x => x.SchoolingGender,
+            //        x => x.Status,
+            //        x => x.TeacherEducation,
+            //        x=>x.TerritorialAuthority,
+            //        x=>x.RegionalCouncil,
+            //        x=>x.UrbanArea,
+            //            x => x.Ward
+            //        )
+            //        .ToArray();
 
-                this._sessionOperationLogService.SetDetail("DbDuration", elapsedTime.Elapsed.TotalMilliseconds );
+            //    this._sessionOperationLogService.SetDetail("DbDuration", elapsedTime.Elapsed.TotalMilliseconds );
 
-                if (elapsedTime.Elapsed.TotalMilliseconds > 2000)
-                {
-                    this._diagnosticsTracingService.Trace(TraceLevel.Warn, "Taking too long to get Providers");
-                }
+            //    if (elapsedTime.Elapsed.TotalMilliseconds > 2000)
+            //    {
+            //        this._diagnosticsTracingService.Trace(TraceLevel.Warn, "Taking too long to get Providers");
+            //    }
 
-                return r;
-            }
+            //    return r;
+            //}
         }
 
         [AllowAnonymous]

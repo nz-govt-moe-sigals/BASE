@@ -82,6 +82,10 @@
     <Compile Include="Initialization\Db\Migrations\Module3\201804270236165_Entities.SchoolIdIndex.Designer.cs">
       <DependentUpon>201804270236165_Entities.SchoolIdIndex.cs</DependentUpon>
     </Compile>
+    <Compile Include="Initialization\Db\Migrations\Module3\201805100444327_Entities.IndexOnRecordState.cs" />
+    <Compile Include="Initialization\Db\Migrations\Module3\201805100444327_Entities.IndexOnRecordState.Designer.cs">
+      <DependentUpon>201805100444327_Entities.IndexOnRecordState.cs</DependentUpon>
+    </Compile>
     <Compile Include="Initialization\Db\Migrations\Module3\Configuration.cs" />
     <Compile Include="Initialization\Db\Schema\AppModule3DbContextModelBuilderDefineExtractWatermark.cs" />
     <Compile Include="Initialization\Db\Schema\AppModule3DbContextModelBuilderDefineRelationshipType.cs" />
@@ -250,6 +254,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Initialization\Db\Migrations\Module3\201804270236165_Entities.SchoolIdIndex.resx">
       <DependentUpon>201804270236165_Entities.SchoolIdIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Module3\201805100444327_Entities.IndexOnRecordState.resx">
+      <DependentUpon>201805100444327_Entities.IndexOnRecordState.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
