@@ -30,7 +30,9 @@ namespace App.Core.Application.Filters.WebApi
                         TypeName = e.InnerException.GetType().ToString()
                        
                     };
+                    error.Message = Newtonsoft.Json.JsonConvert.SerializeObject(error.InnerError);
                 }
+              
                 context.Response = context.Request.CreateErrorResponse(HttpStatusCode.InternalServerError, error); 
             }
             else
