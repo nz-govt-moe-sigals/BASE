@@ -1,15 +1,12 @@
-﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+﻿using System;
+using System.Data.Entity;
+using System.Web.Mvc;
+using App.Core.Infrastructure.Initialization.DependencyResolution;
+using App.Core.Infrastructure.Services;
+using App.Core.Shared.Models.Entities;
 
-namespace App.Core.Application.Filters.WebMvc
+namespace App.Host.Filters.WebMvc
 {
-    using System;
-    using System.Data.Entity;
-    using System.Web.Mvc;
-    using App.Core.Infrastructure.Constants.Context;
-    using App.Core.Infrastructure.Db.Context;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models.Entities;
-
     /// <summary>
     ///     An Filter for MVC Controllers (not WebAPI)
     ///     that will ensure that the DbContext is committed at the end of the request --

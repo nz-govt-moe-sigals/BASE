@@ -1,13 +1,11 @@
-﻿namespace App.Core.Application.Filters.WebMvc
-{
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Security.Claims;
-    using System.Web;
-    using System.Web.Mvc;
-    using App.Core.Infrastructure.Services;
-    using AuthorizationContext = System.Web.Mvc.AuthorizationContext;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Web;
+using System.Web.Mvc;
 
+namespace App.Host.Filters.WebMvc
+{
     // In WebAPI there are two base Filters to know about (with the dumbest/confusing names).
     // * AuthorizeFilterAttribute: used to validate if not based on current users (not sure when that would be the case)
     // * AuthorizeAttribute: used to validate the current user. 

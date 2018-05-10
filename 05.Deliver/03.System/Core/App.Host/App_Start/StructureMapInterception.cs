@@ -1,5 +1,5 @@
 ﻿
-namespace App.Core.Application.App_Start
+namespace App.Host
 {
     public class StructuremapInterception
     {

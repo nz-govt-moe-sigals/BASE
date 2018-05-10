@@ -1,11 +1,10 @@
+using System.Threading.Tasks;
 using App.Core.Infrastructure.Initialization.DependencyResolution;
+using App.Core.Infrastructure.Services;
+using Microsoft.Owin;
 
-namespace App.Core.Application.Middleware
+namespace App.Host.Middleware
 {
-    using System.Threading.Tasks;
-    using App.Core.Infrastructure.Services;
-    using Microsoft.Owin;
-
     public class RequestTenantMiddleware : OwinMiddleware
     {
         public RequestTenantMiddleware(OwinMiddleware next) : base(next)

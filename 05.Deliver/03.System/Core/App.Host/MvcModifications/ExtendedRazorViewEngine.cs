@@ -1,8 +1,8 @@
-﻿namespace App.Core.Application.MvcModifications
-{
-    using System.Collections.Generic;
-    using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 
+namespace App.Host.MvcModifications
+{
     public class ExtendedRazorViewEngine : RazorViewEngine
     {
         public void AddMasterLocationFormat(string paths)

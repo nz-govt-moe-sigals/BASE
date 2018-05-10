@@ -1,14 +1,11 @@
-﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+﻿using System;
+using System.Web.Mvc;
+using App.Core.Infrastructure.Services;
+using App.Core.Shared.Models.Entities;
+using Newtonsoft.Json;
 
-namespace App.Core.Application.Filters.WebMvc
+namespace App.Host.Filters.WebMvc
 {
-    using System;
-    using System.Web.Mvc;
-    using App.Core.Infrastructure.Constants.Context;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models.Entities;
-    using Newtonsoft.Json;
-
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public class SessionOperationWebMvcActionFilterAttribute : ActionFilterAttribute
     {

@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using App.Core.Application.MvcModifications;
 using App.Core.Infrastructure.Initialization.DependencyResolution;
+using App.Host.MvcModifications;
 using Owin;
 
 namespace App.Host.Extended.Mvc

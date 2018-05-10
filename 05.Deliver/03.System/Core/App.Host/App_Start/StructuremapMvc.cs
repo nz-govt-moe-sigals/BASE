@@ -17,6 +17,7 @@
 
 using App.Core.Application.App_Start;
 using App.Core.Infrastructure.Initialization.DependencyResolution;
+using App.Host.DependencyResolution;
 using WebActivatorEx;
 
 [assembly: PreApplicationStartMethod(typeof(StructuremapMvc), "Start")]

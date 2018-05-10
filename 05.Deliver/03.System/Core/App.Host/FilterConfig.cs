@@ -1,11 +1,13 @@
 using System.Web.Mvc;
+using App.Host.ErrorHandler;
 
-namespace App.Core.Application{
+namespace App.Host
+{
     public class FilterConfig
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new ErrorHandler.AiHandleErrorAttribute());
+            filters.Add(new AiHandleErrorAttribute());
         }
     }
 }

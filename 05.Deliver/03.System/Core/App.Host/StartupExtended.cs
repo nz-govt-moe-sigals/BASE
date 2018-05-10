@@ -3,6 +3,7 @@ using App.Core.Infrastructure.Initialization.DependencyResolution;
 using App.Host.Extended;
 using App.Host.Extended.Mvc;
 using App.Host.Extended.WebApi;
+using App.Host.Middleware;
 
 namespace App.Host
 {

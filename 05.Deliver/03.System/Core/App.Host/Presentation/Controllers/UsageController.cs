@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
-using App.Core.Application.Models;
 using App.Core.Infrastructure.Services;
 using App.Core.Shared.Models.Entities;
 using App.Core.Shared.Models.Messages;
+using App.Host.Models;
 using App.Module2.Infrastructure.Services;
 
 namespace App.Host.Presentation.Controllers

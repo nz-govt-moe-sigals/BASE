@@ -150,6 +150,7 @@
     <Compile Include="Filters\WebApi\SessionOperationWebApiActionFilterAttribute.cs" />
     <Compile Include="Filters\WebApi\ThrottleWebAPIActionFilterAttribute.cs" />
     <Compile Include="Filters\WebApi\WebApiAppAuthorizeAttribute.cs" />
+    <Compile Include="Filters\WebApi\WebApiExceptionFilterAttribute.cs" />
     <Compile Include="Initialization\DependencyResolution\AppAllRegistry.cs" />
     <Compile Include="Initialization\DependencyResolution\AppCoreApplicationRegistry.cs" />
     <Compile Include="Initialization\HttpConfigurationLocator.cs" />

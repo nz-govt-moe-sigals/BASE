@@ -1,11 +1,11 @@
-﻿namespace App.Core.Application.Filters.WebMvc
-{
-    using System;
-    using System.Net;
-    using System.Web;
-    using System.Web.Caching;
-    using System.Web.Mvc;
+﻿using System;
+using System.Net;
+using System.Web;
+using System.Web.Caching;
+using System.Web.Mvc;
 
+namespace App.Host.Filters.WebMvc
+{
     /// <summary>
     ///     Decorates any MVC route that needs to have client requests limited by time.
     /// </summary>

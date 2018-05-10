@@ -1,4 +1,4 @@
-﻿namespace App.Core.Application.Services
+﻿namespace App.Host.Services
 {
     public interface ITaskService
     {

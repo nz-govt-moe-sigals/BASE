@@ -1,7 +1,7 @@
-﻿namespace App.Core.Application.DependencyResolution.Interceptors
-{
-    using StructureMap.DynamicInterception;
+﻿using StructureMap.DynamicInterception;
 
+namespace App.Host.DependencyResolution.Interceptors
+{
     public class AuthorisationInterceptor : ISyncInterceptionBehavior
     {
         public IMethodInvocationResult Intercept(ISyncMethodInvocation methodInvocation)

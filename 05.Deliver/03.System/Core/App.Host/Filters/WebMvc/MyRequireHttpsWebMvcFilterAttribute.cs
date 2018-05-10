@@ -1,12 +1,10 @@
+using System;
+using System.Web.Mvc;
 using App.Core.Infrastructure.Initialization.DependencyResolution;
+using App.Core.Infrastructure.Services;
 
-namespace App.Core.Application.Filters.WebMvc
+namespace App.Host.Filters.WebMvc
 {
-    using System;
-    using System.Web.Mvc;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models.Entities;
-
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public class MyRequireHttpsWebMvcFilterAttribute : RequireHttpsAttribute
     {

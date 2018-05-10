@@ -1,9 +1,9 @@
-﻿namespace App.Core.Application
-{
-    using System;
-    using System.Diagnostics;
-    using Owin;
+﻿using System;
+using System.Diagnostics;
+using Owin;
 
+namespace App.Host
+{
     /// <summary>
     /// An <see cref="StartupExtended"/> invoked class to 
     /// load all Assemblies found in the system's Bin directory

@@ -1,10 +1,8 @@
 ﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+using Owin;
 
-namespace App.Core.Application.App_Start
+namespace App.Host
 {
-    using Owin;
-
-
     /// <summary>
     /// Class to initialize the Microsoft Common ServiceLocator
     /// with the StructureMap service locator, so that one can 

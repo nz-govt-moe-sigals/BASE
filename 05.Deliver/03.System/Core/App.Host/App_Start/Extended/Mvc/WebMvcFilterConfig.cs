@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Web.Mvc;
-using App.Core.Application.ErrorHandler;
-using App.Core.Application.Filters.WebMvc;
 using App.Core.Infrastructure.Services;
 using App.Core.Shared.Models.Messages;
+using App.Host.ErrorHandler;
+using App.Host.Filters.WebMvc;
 
 namespace App.Host.Extended.Mvc
 {

@@ -1,6 +1,7 @@
-﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+﻿using App.Core.Application.DependencyResolution;
+using App.Core.Infrastructure.Initialization.DependencyResolution;
 
-namespace App.Core.Application.DependencyResolution
+namespace App.Host.DependencyResolution
 {
     public class StructureMapDependencyScopeFactory
     {

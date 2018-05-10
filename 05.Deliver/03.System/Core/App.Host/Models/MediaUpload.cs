@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
+using App.Core.Shared.Models.Entities;
 
-namespace App.Core.Application.Models
+namespace App.Host.Models
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Net;
-    using App.Core.Shared.Models.Entities;
-
     public class MediaUpload
     {
         [Required]

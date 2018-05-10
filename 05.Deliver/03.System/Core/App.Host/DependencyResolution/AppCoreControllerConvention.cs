@@ -1,25 +1,14 @@
-using System.Data.Entity;
+using System.Linq;
+using System.Web.Http;
+using System.Web.Mvc;
 using App.Core.Infrastructure.Initialization.DependencyResolution;
-using App.Module3.Infrastructure.Db.Context;
-using StructureMap.Web;
+using StructureMap;
+using StructureMap.Graph.Scanning;
+using StructureMap.Pipeline;
+using StructureMap.TypeRules;
 
-namespace App.Core.Application.DependencyResolution
+namespace App.Host.DependencyResolution
 {
-    using System;
-    using System.Linq;
-    using System.Reflection;
-    using System.Web.Http;
-    using System.Web.Http.Controllers;
-    using System.Web.Mvc;
-    using App.Core.Application.DependencyResolution.Interceptors;
-    using App.Core.Infrastructure.Contracts;
-    using StructureMap;
-    using StructureMap.Building.Interception;
-    using StructureMap.DynamicInterception;
-    using StructureMap.Graph.Scanning;
-    using StructureMap.Pipeline;
-    using StructureMap.TypeRules;
-
     public class AppCoreControllerConvention : ICustomRegistrationConvention
     {
         public void ScanTypes(TypeSet types, Registry registry)
