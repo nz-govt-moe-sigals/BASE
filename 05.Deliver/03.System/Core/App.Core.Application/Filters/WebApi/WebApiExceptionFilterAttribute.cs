@@ -23,9 +23,15 @@ namespace App.Core.Application.Filters.WebApi
                 };
                 if (e.InnerException != null)
                 {
-                    error.InnerError = new ODataInnerError(e.InnerException);
+                    error.InnerError = new ODataInnerError(e.InnerException)
+                    {
+                        Message = e.InnerException.Message,
+                        StackTrace = e.InnerException.StackTrace,
+                        TypeName = e.InnerException.GetType().ToString()
+                       
+                    };
                 }
-                context.Response = context.Request.CreateErrorResponse(HttpStatusCode.InternalServerError, error); ;
+                context.Response = context.Request.CreateErrorResponse(HttpStatusCode.InternalServerError, error); 
             }
             else
             {
