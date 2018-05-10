@@ -23,6 +23,14 @@ namespace App.Module3.Infrastructure.Db.Schema
             var order = 1;
             this._schemaDefinitionConvention.Define<EducationProviderProfile>(modelBuilder, ref order);
 
+            modelBuilder.Entity<EducationProviderProfile>()
+                .Property(x => x.RecordState)
+                .HasColumnAnnotation("Index",
+                    new IndexAnnotation(new IndexAttribute($"IX_EducationProviderProfile_RecordState")
+                    {
+                        IsUnique = false
+                    }))
+                ;
 
             modelBuilder.Entity<EducationProviderProfile>()
                 .Property(x => x.SchoolId)
