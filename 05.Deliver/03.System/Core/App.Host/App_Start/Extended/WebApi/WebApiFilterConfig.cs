@@ -154,7 +154,7 @@
 
         private static void RegisterExceptionFilters(HttpFilterCollection filters)
         {
-            filters.Add(new WebApiExceptionFilterAttribute());
+            //filters.Add(new WebApiExceptionFilterAttribute());
         }
 
     }

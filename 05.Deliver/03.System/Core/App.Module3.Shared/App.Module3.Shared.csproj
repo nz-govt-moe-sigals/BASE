@@ -115,6 +115,18 @@
     <Compile Include="Models\Messages\APIs\SIF\V0100\EducationProviderLevelGenderDto.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\EducationProviderLocationDto.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\EducationProviderProfileDto.cs" />
+    <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifRelatedOrganisationDto.cs" />
+    <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifAddressDto.cs" />
+    <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifAddressStreetDto.cs" />
+    <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifCommunicationChannelDto.cs" />
+    <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifContactDto.cs" />
+    <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifContactNameDto.cs" />
+    <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifEmailDto.cs" />
+    <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifEnactedPolicyDto.cs" />
+    <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifOraganisationDto.cs" />
+    <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifPhoneNumberDto.cs" />
+    <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifSchoolServiceDto.cs" />
+    <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifSchoolYearDto.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\ReferenceData\AreaUnitDto.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\ReferenceData\AuthorityTypeDto.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\ReferenceData\Base\SIFNOTReferenceDtoBase.cs" />
@@ -139,6 +151,7 @@
     <Compile Include="Models\Messages\APIs\SIF\V0100\ReferenceData\TerritorialAuthorityDto.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\ReferenceData\UrbanAreaDto.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\ReferenceData\WardDto.cs" />
+    <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifProviderDto.cs" />
     <Compile Include="Models\Messages\Extract\Base\BaseMessage.cs" />
     <Compile Include="Models\Messages\Extract\Base\BaseReference.cs" />
     <Compile Include="Models\Messages\Extract\ExtractConstants.cs" />

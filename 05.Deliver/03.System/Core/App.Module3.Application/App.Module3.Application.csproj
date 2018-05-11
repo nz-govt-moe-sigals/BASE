@@ -174,6 +174,7 @@
     <Compile Include="Initialization\OData\Implementations\AuthorityTypeODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\CommunityBoardODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\EducationProviderEnrolmentCountDtoODataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\Formatted\ProfileODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\GeneralElectorateODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\MaoriElectorateODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\OrganisationStatusODataModelBuilderConfiguration.cs" />
@@ -198,7 +199,6 @@
     <Compile Include="ServiceFacade\API\Sif\Controllers\Base\SIFResourceODataControllerBase.cs" />
     <Compile Include="ServiceFacade\API\Services\Implementations\ExtractContractResolverService.cs" />
     <Compile Include="ServiceFacade\API\Base\TenantedGuidIdActiveRecordStateODataControllerBase.cs" />
-    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\Class1.cs" />
     <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\EducationProviderController.cs" />
     <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ExtractController.cs" />
     <Compile Include="ServiceFacade\API\Services\IApplicationService.cs" />
@@ -207,6 +207,7 @@
     <Compile Include="ServiceFacade\API\Services\Implementations\ExampleApplicationService.cs" />
     <Compile Include="ServiceFacade\API\Services\Implementations\TaskService.cs" />
     <Compile Include="ServiceFacade\API\Services\ITaskService.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ProvidersController.cs" />
     <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\AreaUnitController.cs" />
     <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\AuthorityTypeController.cs" />
     <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\CommunityBoardController.cs" />
