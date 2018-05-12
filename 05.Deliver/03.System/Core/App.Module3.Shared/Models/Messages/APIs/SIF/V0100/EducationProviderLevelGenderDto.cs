@@ -1,12 +1,13 @@
-﻿namespace App.Module3.Shared.Models.Messages.APIs.SIF.V0100
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using App.Module3.Shared.Models.Entities;
+﻿using App.Core.Shared.Models;
 
-    public class EducationProviderLevelGenderDto
+namespace App.Module3.Shared.Models.Messages.APIs.SIF.V0100
+{
+
+    public class EducationProviderLevelGenderDto : IHasId<string>
     {
+
+        public string Id { get; set; }
+
 
         public virtual EducationProviderSchoolingGenderDto Gender
         {
