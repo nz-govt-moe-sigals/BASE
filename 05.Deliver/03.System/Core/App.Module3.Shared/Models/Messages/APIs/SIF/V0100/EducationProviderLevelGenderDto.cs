@@ -3,11 +3,13 @@
 namespace App.Module3.Shared.Models.Messages.APIs.SIF.V0100
 {
 
-    public class EducationProviderLevelGenderDto : IHasId<string>
+    public class EducationProviderLevelGenderDto
     {
 
-        public string Id { get; set; }
-
+        public Guid Id
+        {
+            get; set;
+        }
 
         public virtual EducationProviderSchoolingGenderDto Gender
         {

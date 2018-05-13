@@ -152,6 +152,7 @@
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectToMap_EducationProviderLocation_EducationProviderLocation.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectToMap_EducationProviderProfile_EducationProviderProfile.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\MOE\V0100\Base\ObjectMap_SSKeyedGuidIdReferenceDataBase_SSTypeDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\Formatted\ObjectMap_EducationProvider_SifProviderDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ObjectMap_EdProviderLevelGender_EdProviderLevelGenderDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ObjectMap_EducationProviderEnrolmentCount_EducationProviderEnrolmentCountDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ObjectMap_EducationProviderLocation_EducationProviderLocationDto.cs" />
@@ -220,7 +221,6 @@
     <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceWardExtractService.cs" />
     <Compile Include="Services\Implementations\Extract\Repositories\ExtractSifRepositoryService.cs" />
     <Compile Include="Services\Implementations\Module3RepositoryService.cs" />
-    <Compile Include="Services\Mapping\ExtractMapping.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\App.Core.Infrastructure\App.Core.Infrastructure.csproj">
