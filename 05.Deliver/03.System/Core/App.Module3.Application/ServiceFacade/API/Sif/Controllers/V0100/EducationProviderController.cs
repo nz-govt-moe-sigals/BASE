@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http.Results;
+using System.Web.OData.Extensions;
+using System.Web.OData.Query;
 
 namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100
 {
@@ -45,6 +49,14 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100
             // Base will invoke Initialize() to set base._dbContextIdentifier.
         }
 
+        //[AllowAnonymous]
+        //[EnableQuery(PageSize = 100)]
+        //public IQueryable<EducationProviderDto> Get()
+        //{
+        //    return InternalGet();
+        //}
+
+  
         // GET api/values 
         //[ApplyDataContractResolver]
         //[ApplyProxyDataContractResolverAttribute]
@@ -53,7 +65,14 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100
         [EnableQuery(PageSize = 100)]
         public IQueryable<EducationProviderDto> Get()
         {
-            return InternalGet();
+            return InternalGet();            
+            /*
+            var y = InternalActiveRecords();
+            var z = y.ProjectTo<EducationProviderDto>();
+            var a = queryOptions.ApplyTo(z, ignoreQueryOptions: AllowedQueryOptions.Expand | AllowedQueryOptions.Select) as IQueryable<EducationProviderDto>;
+
+            return Ok(a, a.GetType());
+            */
             //using (var elapsedTime = new ElapsedTime())
             //{
 

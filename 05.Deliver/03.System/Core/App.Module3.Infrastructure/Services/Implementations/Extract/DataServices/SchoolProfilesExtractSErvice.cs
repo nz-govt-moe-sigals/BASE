@@ -20,16 +20,6 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.DataServic
 
         }
 
-
-        
-        private async Task Test(IExtractRepositoryService repositoryService, IList<SchoolProfile> list)
-        {
-          
-            //UpdateLocalData(repositoryService, list.First());
-            
-            await Task.WhenAll(list.Select((item) => Task.Run(() => UpdateLocalData(repositoryService, item))));
-        }
-
         public override void UpdateLocalData(IExtractRepositoryService repositoryService, SchoolProfile item)
         {
             var mappedEntity = Mapper.Map<SchoolProfile, EducationProviderProfile>(item);

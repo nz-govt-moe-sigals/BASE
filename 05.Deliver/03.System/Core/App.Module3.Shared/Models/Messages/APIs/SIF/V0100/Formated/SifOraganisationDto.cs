@@ -8,7 +8,7 @@ namespace App.Module3.Shared.Models.Messages.APIs.SIF.V0100.Formated
 {
     public class SifOraganisationDto
     {
-        public virtual ICollection<SifAddressDto> AddreessList { get; set; }
+        public virtual ICollection<SifAddressDto> AddressList { get; set; }
 
         public virtual ICollection<SifEmailDto> EmailList { get; set; }
 

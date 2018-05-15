@@ -28,6 +28,8 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.Repositori
 
         private IEnumerable<SifSchoolTeacherEducation> SchoolTeacherEducation { get; set; }
 
+        private IEnumerable<SifYearLevel> SchoolYearLevel { get; set; }
+
 
         public ExtractSifRepositoryService()
         {
@@ -39,6 +41,7 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.Repositori
             InitSchoolClassification();
             InitSpecialSchooling();
             InitSchoolTeacherEducation();
+            InitYearLevel();
         }
 
         public TModel GetSingle<TModel>(string contextKey, Expression<Func<IHasSifSouceDataBase, bool>> filterPredicate) where TModel : class, IHasSifSouceDataBase
@@ -75,6 +78,10 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.Repositori
             if (type == typeof(SifSchoolTeacherEducation))
             {
                 return SchoolTeacherEducation.AsQueryable().SingleOrDefault(filterPredicate) as TModel;
+            }
+            if (type == typeof(SifYearLevel))
+            {
+                return SchoolYearLevel.AsQueryable().SingleOrDefault(filterPredicate) as TModel;
             }
             return null;
         }
@@ -225,6 +232,30 @@ namespace App.Module3.Infrastructure.Services.Implementations.Extract.Repositori
                 new SifSchoolTeacherEducation() { FirstId = "50002", EvaId = "50002", SifId = "303"}
             };
             SchoolTeacherEducation = list;
+        }
+
+        /// <summary>
+        /// 2.4.20	Year Level Type
+        /// </summary>
+        private void InitYearLevel()
+        {
+            var list = new List<SifYearLevel>()
+            {
+                new SifYearLevel() { FirstId = "54001", EvaId = "54001", SifId = "1"},
+                new SifYearLevel() { FirstId = "54002", EvaId = "54002", SifId = "2"},
+                new SifYearLevel() { FirstId = "54003", EvaId = "54003", SifId = "3"},
+                new SifYearLevel() { FirstId = "54004", EvaId = "54004", SifId = "4"},
+                new SifYearLevel() { FirstId = "54005", EvaId = "54005", SifId = "5"},
+                new SifYearLevel() { FirstId = "54006", EvaId = "54006", SifId = "6"},
+                new SifYearLevel() { FirstId = "54007", EvaId = "54007", SifId = "7"},
+                new SifYearLevel() { FirstId = "54008", EvaId = "54008", SifId = "8"},
+                new SifYearLevel() { FirstId = "54009", EvaId = "54009", SifId = "9"},
+                new SifYearLevel() { FirstId = "54010", EvaId = "54010", SifId = "10"},
+                new SifYearLevel() { FirstId = "54011", EvaId = "54011", SifId = "11"},
+                new SifYearLevel() { FirstId = "54012", EvaId = "54012", SifId = "12"},
+                new SifYearLevel() { FirstId = "54013", EvaId = "54013", SifId = "13"}
+            };
+            SchoolYearLevel = list;
         }
     }
 }
