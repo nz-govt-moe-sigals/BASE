@@ -174,7 +174,7 @@
     <Compile Include="Initialization\OData\Implementations\AuthorityTypeODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\CommunityBoardODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\EducationProviderEnrolmentCountDtoODataModelBuilderConfiguration.cs" />
-    <Compile Include="Initialization\OData\Implementations\Formatted\ProfileODataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\EducationProviderLevelGenderODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\GeneralElectorateODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\MaoriElectorateODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\OrganisationStatusODataModelBuilderConfiguration.cs" />
