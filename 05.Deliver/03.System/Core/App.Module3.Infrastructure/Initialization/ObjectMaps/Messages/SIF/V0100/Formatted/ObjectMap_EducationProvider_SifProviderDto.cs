@@ -38,11 +38,11 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
         }
     }
 
-    public class OrganisationResolver : IValueResolver<EducationProviderDto, SifProviderDto, SifOraganisationDto>
+    public class OrganisationResolver : IValueResolver<EducationProviderDto, SifProviderDto, SifOrganisationDto>
     {
-        public SifOraganisationDto Resolve(EducationProviderDto src, SifProviderDto dest, SifOraganisationDto member, ResolutionContext context)
+        public SifOrganisationDto Resolve(EducationProviderDto src, SifProviderDto dest, SifOrganisationDto member, ResolutionContext context)
         {
-            var obj = new SifOraganisationDto();
+            var obj = new SifOrganisationDto();
             ResolveAddress(obj, src);
             ResolveEmail(obj, src);
             ResolveCommunicationChannel(obj, src);
@@ -56,7 +56,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
             return obj;
         }
 
-        private void ResolveOrgranisation(SifOraganisationDto obj, EducationProviderDto src)
+        private void ResolveOrgranisation(SifOrganisationDto obj, EducationProviderDto src)
         {
             obj.RelatedOrganisationList = new List<SifRelatedOrganisationDto>();
             if (src.CoL != null)
@@ -83,7 +83,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
             }
         }
 
-        private void ResolvePhoneNumber(SifOraganisationDto obj, EducationProviderDto src)
+        private void ResolvePhoneNumber(SifOrganisationDto obj, EducationProviderDto src)
         {
             obj.PhoneNumberList = new List<SifPhoneNumberDto>();
             if (!string.IsNullOrWhiteSpace(src.Telephone))
@@ -105,7 +105,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
 
         }
 
-        private void ResolveContact(SifOraganisationDto obj, EducationProviderDto src)
+        private void ResolveContact(SifOrganisationDto obj, EducationProviderDto src)
         {
             obj.ContactList = new List<SifContactDto>();
             if (!string.IsNullOrWhiteSpace(src.Contact1Name))
@@ -126,7 +126,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
             }
         }
 
-        private void ResolveAddress(SifOraganisationDto obj, EducationProviderDto src)
+        private void ResolveAddress(SifOrganisationDto obj, EducationProviderDto src)
         {
             obj.AddressList = new List<SifAddressDto>();
             //assuming logic on address line 1 should always be populated if others are
@@ -166,7 +166,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
             }
         }
 
-        private void ResolveEmail(SifOraganisationDto obj, EducationProviderDto src)
+        private void ResolveEmail(SifOrganisationDto obj, EducationProviderDto src)
         {
             obj.EmailList = new List<SifEmailDto>();
             if (!string.IsNullOrWhiteSpace(src.Email))
@@ -181,7 +181,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
                
         }
 
-        private void ResolveCommunicationChannel(SifOraganisationDto obj, EducationProviderDto src)
+        private void ResolveCommunicationChannel(SifOrganisationDto obj, EducationProviderDto src)
         {
             obj.CommunicationChannelList = new List<SifCommunicationChannelDto>();
             if (!string.IsNullOrWhiteSpace(src.Email))
@@ -202,7 +202,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
         {
             var obj = new SifSchoolServiceDto();
             obj.CoEdStatus = src.SchoolingGender != null ? src.SchoolingGender.Id : null;
-            obj.Decile = src.Decile;
+            obj.Decile = src.Decile ?? 0;
             ResolveDefinition(obj, src);
             ResolveNewEntrantPolicy(obj, src);
             ResolveSchoolYear(obj, src);

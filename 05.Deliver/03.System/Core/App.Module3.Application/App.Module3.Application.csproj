@@ -163,9 +163,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\Class1.cs" />
     <Compile Include="Constants\Api\ApiControllerNames.cs" />
     <Compile Include="Constants\Api\ODataRoots.cs" />
+    <Compile Include="Attributes\EnableQueryExtendedAttribute.cs" />
+    <Compile Include="ExtensionMethods\ODataQueryOptionsTest.cs" />
     <Compile Include="Initialization\DependencyResolution\AppModuleApplicationRegistry.cs" />
     <Compile Include="Initialization\OData\Implementations\AppModule3OdataModelBuilder.cs" />
     <Compile Include="Initialization\OData\Implementations\BaseClasses\AppModule3ODataModelBuilderConfigurationBase.cs" />
@@ -230,7 +231,6 @@
   </ItemGroup>
   <ItemGroup>
     <!-- <EmbeddedResource Include="Presentation\Views\Module3\About.cshtml" /> -->
-    <Folder Include="ExtensionMethods\" />
     <Folder Include="Initialization\OData\Implementations\ReferenceData\" />
   </ItemGroup>
   <ItemGroup>

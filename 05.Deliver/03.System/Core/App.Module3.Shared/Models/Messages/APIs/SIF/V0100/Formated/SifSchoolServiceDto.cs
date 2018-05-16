@@ -8,7 +8,9 @@ namespace App.Module3.Shared.Models.Messages.APIs.SIF.V0100.Formated
 {
     public class SifSchoolServiceDto
     {
-        public int? Decile { get; set; }
+
+
+        public int Decile { get; set; }
 
         public string CoEdStatus { get; set; }
 

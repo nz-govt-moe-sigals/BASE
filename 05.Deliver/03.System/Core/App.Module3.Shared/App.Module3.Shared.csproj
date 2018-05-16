@@ -130,7 +130,7 @@
     <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifContactNameDto.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifEmailDto.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifEnactedPolicyDto.cs" />
-    <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifOraganisationDto.cs" />
+    <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifOrganisationDto.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifPhoneNumberDto.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifSchoolServiceDto.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifSchoolYearDto.cs" />
