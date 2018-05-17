@@ -44,6 +44,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\ConfigurationKeys.cs" />
+    <Compile Include="Constants\Sif\SifAddressTypeType.cs" />
+    <Compile Include="Constants\Sif\SifCommunicationChannelTypeType.cs" />
+    <Compile Include="Constants\Sif\SifDataObjectsTypeType.cs" />
+    <Compile Include="Constants\Sif\SifEmailTypeType.cs" />
+    <Compile Include="Constants\Sif\SifOrganisationTypeType.cs" />
+    <Compile Include="Constants\Sif\SifTelephoneNumberTypeType.cs" />
     <Compile Include="Models\Configuration\ExampleApiConfiguration.cs" />
     <Compile Include="Models\Configuration\ExtractDocumentDbConfig.cs" />
     <Compile Include="Models\Contracts\IHasSifSouceDataBase.cs" />
@@ -88,6 +94,7 @@
     <Compile Include="Models\Entities\Sif\SifSchoolTeacherEducation.cs" />
     <Compile Include="Models\Entities\Sif\SifAuthorityType.cs" />
     <Compile Include="Models\Entities\Sif\SifSpecialSchooling.cs" />
+    <Compile Include="Models\Entities\Sif\SifYearLevel.cs" />
     <Compile Include="Models\Enums\LocationType.cs" />
     <Compile Include="Models\Contracts\Messages\APIs\V0100\EducationProviderEnrolmentCountDto.cs" />
     <Compile Include="Models\Messages\APIs\MOE\V0100\EducationProviderLevelGenderDto.cs" />
@@ -123,7 +130,7 @@
     <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifContactNameDto.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifEmailDto.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifEnactedPolicyDto.cs" />
-    <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifOraganisationDto.cs" />
+    <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifOrganisationDto.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifPhoneNumberDto.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifSchoolServiceDto.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifSchoolYearDto.cs" />

@@ -46,8 +46,11 @@ namespace App.Core.Application.Filters.WebApi
             sessionOperationLog.Url = actionContext.Request.RequestUri.OriginalString;
             sessionOperationLog.ControllerName = actionContext.ActionDescriptor.ControllerDescriptor.ControllerName;
             sessionOperationLog.ActionName = actionContext.ActionDescriptor.ActionName;
+            sessionOperationLog.ActionArguments = "{}"; //todo: FIX this up
+            /*
             sessionOperationLog.ActionArguments = JsonConvert.SerializeObject(actionContext.ActionArguments,
                 Formatting.Indented, new JsonSerializerSettings {ReferenceLoopHandling = ReferenceLoopHandling.Ignore});
+                */ // When using ODataQueryOptions this throws an outofmemoryException
             sessionOperationLog.ResponseCode = "-1";
 
             //No need to start tracking, and it is allready automatically committed when gotten.

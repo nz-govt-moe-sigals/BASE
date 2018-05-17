@@ -73,6 +73,7 @@
     <Compile Include="Db\Context\AppModule3DatabaseInitializerConfigurer.cs" />
     <Compile Include="Db\Context\AppModule3DbContext.cs" />
     <Compile Include="ExtensionMethods\X.cs" />
+    <Compile Include="ExtensionMethods\Enumerations.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\AppModule3DbContextSeedingOrchestrator.cs" />
     <Compile Include="Initialization\Db\Migrations\AppModule3DbMigrationsConfiguration.cs" />
     <Compile Include="Initialization\Db\Migrations\Module3\201804250055016_Entities.Initialise.cs" />

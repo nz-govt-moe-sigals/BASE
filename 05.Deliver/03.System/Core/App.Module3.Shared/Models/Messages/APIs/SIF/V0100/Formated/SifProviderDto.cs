@@ -10,7 +10,7 @@
 
         public string Authority { get; set; }
 
-        public SifOraganisationDto Organisation { get; set; }
+        public SifOrganisationDto Organisation { get; set; }
 
         public SifSchoolServiceDto SchoolService { get; set; }
 

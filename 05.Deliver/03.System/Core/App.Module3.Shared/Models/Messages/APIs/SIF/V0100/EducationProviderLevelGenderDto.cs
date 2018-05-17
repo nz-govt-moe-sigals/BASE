@@ -1,4 +1,5 @@
-﻿using App.Core.Shared.Models;
+﻿using System;
+using App.Core.Shared.Models;
 
 namespace App.Module3.Shared.Models.Messages.APIs.SIF.V0100
 {

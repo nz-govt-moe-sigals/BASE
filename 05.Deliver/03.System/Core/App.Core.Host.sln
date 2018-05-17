@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2024
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Host", "App.Host\App.Host.csproj", "{F05524D0-7306-48CD-A11A-4965EE64EC43}"
 EndProject
@@ -26,14 +26,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "README", "README", "{8A4F3C
 		_Readme\readme.blank.storage.md = _Readme\readme.blank.storage.md
 		_Readme\readme.blank.tenancies subscriptions and accounts.md = _Readme\readme.blank.tenancies subscriptions and accounts.md
 		_Readme\readme.conventions.md = _Readme\readme.conventions.md
-		readme.md = readme.md
-		_Readme\readme.objectives.md = _Readme\readme.objectives.md
-		_Readme\readme.security.md = _Readme\readme.security.md
-		_Readme\readme.settings.md = _Readme\readme.settings.md
-		_Readme\readme.setup.azure.md = _Readme\readme.setup.azure.md
-		_Readme\readme.setup.md = _Readme\readme.setup.md
+		Readme\readme.objectives.md = Readme\readme.objectives.md
+		Readme\readme.security.md = Readme\readme.security.md
+		Readme\readme.settings.md = Readme\readme.settings.md
+		Readme\readme.setup.azure.md = Readme\readme.setup.azure.md
+		Readme\readme.setup.md = Readme\readme.setup.md
+		Readme\readme.setup.msi.md = Readme\readme.setup.msi.md
+		Readme\readme.setup.oidc.md = Readme\readme.setup.oidc.md
 		_Readme\readme.ui.md = _Readme\readme.ui.md
-		_Readme\readme.versioning.md = _Readme\readme.versioning.md
+		Readme\readme.versioning.md = Readme\readme.versioning.md
+		readme_odata.md = readme_odata.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Core.Infrastructure.IDA", "App.Core.Infrastructure.OIDC\App.Core.Infrastructure.IDA.csproj", "{1F881B79-5EE4-42AA-8143-E2BF3BFDF4D9}"

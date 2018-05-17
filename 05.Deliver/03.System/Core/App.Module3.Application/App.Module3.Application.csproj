@@ -163,9 +163,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\Class1.cs" />
     <Compile Include="Constants\Api\ApiControllerNames.cs" />
     <Compile Include="Constants\Api\ODataRoots.cs" />
+    <Compile Include="Attributes\EnableQueryExtendedAttribute.cs" />
+    <Compile Include="ExtensionMethods\ODataQueryOptionsTest.cs" />
     <Compile Include="Initialization\DependencyResolution\AppModuleApplicationRegistry.cs" />
     <Compile Include="Initialization\OData\Implementations\AppModule3OdataModelBuilder.cs" />
     <Compile Include="Initialization\OData\Implementations\BaseClasses\AppModule3ODataModelBuilderConfigurationBase.cs" />
@@ -175,6 +176,7 @@
     <Compile Include="Initialization\OData\Implementations\CommunityBoardODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\EducationProviderEnrolmentCountDtoODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\EducationProviderLevelGenderODataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\Formatted\ProfileODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\GeneralElectorateODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\MaoriElectorateODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\OrganisationStatusODataModelBuilderConfiguration.cs" />
@@ -229,7 +231,6 @@
   </ItemGroup>
   <ItemGroup>
     <!-- <EmbeddedResource Include="Presentation\Views\Module3\About.cshtml" /> -->
-    <Folder Include="ExtensionMethods\" />
     <Folder Include="Initialization\OData\Implementations\ReferenceData\" />
   </ItemGroup>
   <ItemGroup>

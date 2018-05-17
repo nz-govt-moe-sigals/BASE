@@ -5,15 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.OData;
+using System.Web.OData.Query;
 using App.Core.Infrastructure.Services;
+using App.Module3.Application.Attributes;
 using App.Module3.Application.ServiceFacade.API.Base;
 using App.Module3.Shared.Models.Entities;
 using App.Module3.Shared.Models.Messages.APIs.SIF.V0100;
 using App.Module3.Shared.Models.Messages.APIs.SIF.V0100.Formated;
 using AutoMapper.QueryableExtensions;
+using Microsoft.OData.UriParser;
+using Microsoft.Web.Http;
 
 namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100
 {
+    [ApiVersion("1.0")]
+    [ApiVersion("2.0")] // currently object does the code logic
     public class ProvidersController : ActiveRecordStateODataControllerBase<EducationProviderProfile,
         SifProviderDto>
     {
@@ -42,10 +48,22 @@ namespace App.Module3.Application.ServiceFacade.API.Sif.Controllers.V0100
         //[ApplyProxyDataContractResolverAttribute]
         //[ODataRoute()]
         [AllowAnonymous]
-        [EnableQuery(PageSize = 100)]
-        public IQueryable<SifProviderDto> Get()
+        [EnableQueryExtended( )]
+        public IQueryable<SifProviderDto> Get(ODataQueryOptions<EducationProviderDto> queryOptions)
         {
-            return InternalGet();
+            var y = InternalActiveRecords();
+            var z = y.ProjectTo<EducationProviderDto>();
+            var a = (queryOptions.ApplyTo(z, 
+                ignoreQueryOptions:
+                                    AllowedQueryOptions.Expand // ODataQueryOptions does not support, so apply at end
+                                    | AllowedQueryOptions.Select // ODataQueryOptions does not support, so apply at end
+                ,querySettings: new ODataQuerySettings()
+                { 
+                    PageSize = 100
+                }) as IQueryable<EducationProviderDto>);
+            var x = AutoMapper.Mapper.Map<IList<SifProviderDto>>(a).AsQueryable();
+            return x;
+            //return Ok(x, x.GetType());
         }
 
         [AllowAnonymous]

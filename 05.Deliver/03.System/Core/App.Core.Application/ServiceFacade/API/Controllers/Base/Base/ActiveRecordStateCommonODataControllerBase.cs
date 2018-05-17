@@ -1,3 +1,6 @@
+using System.Web.Http;
+using System.Web.Http.Results;
+
 namespace App.Core.Application.ServiceFacade.API.Controllers.Base.Base
 {
     using System;
@@ -74,7 +77,11 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.Base.Base
             return InternalGetDbSet().Where(x => x.RecordState == RecordPersistenceState.Active);
         }
 
-
+        protected IHttpActionResult Ok(object content, Type type)
+        {
+            Type resultType = typeof(OkNegotiatedContentResult<>).MakeGenericType(type);
+            return Activator.CreateInstance(resultType, content, this) as IHttpActionResult;
+        }
 
 
 
