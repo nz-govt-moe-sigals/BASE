@@ -8,18 +8,18 @@
 
     public class AppModule2DbContextModelBuilderDefineBody : IHasAppModule2DbContextModelBuilderInitializer
     {
-        private readonly TenantFKEtcConvention _tenantFkEtcConvention;
-
-        public AppModule2DbContextModelBuilderDefineBody(TenantFKEtcConvention tenantFkEtcConvention)
+        private readonly TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention _modelBuilderConvention;
+                         
+        public AppModule2DbContextModelBuilderDefineBody(TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention modelBuilderConvention)
         {
-            this._tenantFkEtcConvention = tenantFkEtcConvention;
+            this._modelBuilderConvention = modelBuilderConvention;
         }
 
         public void Define(DbModelBuilder modelBuilder)
         {
             var order = 1;
 
-            this._tenantFkEtcConvention.Define<Body>(modelBuilder, ref order);
+            this._modelBuilderConvention.Define<Body>(modelBuilder, ref order);
 
 
             modelBuilder.Entity<Body>()

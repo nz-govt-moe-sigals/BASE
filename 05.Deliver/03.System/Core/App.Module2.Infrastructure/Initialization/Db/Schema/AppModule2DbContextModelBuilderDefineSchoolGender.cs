@@ -7,16 +7,16 @@ namespace App.Module2.DbContextModelBuilder
 
     public class AppModule2DbContextModelBuilderDefineSchoolGender : IHasAppModule2DbContextModelBuilderInitializer
     {
-        private readonly TenantedReferenceDataConvention _tenantedReferenceDataConvention;
+        private readonly TenantFKAuditedRecordStatedTimestampedGuidIdReferenceDataConvention _modelBuilderConvention;
 
-        public AppModule2DbContextModelBuilderDefineSchoolGender(TenantedReferenceDataConvention tenantedReferenceDataConvention)
+        public AppModule2DbContextModelBuilderDefineSchoolGender(TenantFKAuditedRecordStatedTimestampedGuidIdReferenceDataConvention modelBuilderConvention)
         {
-            this._tenantedReferenceDataConvention = tenantedReferenceDataConvention;
+            this._modelBuilderConvention = modelBuilderConvention;
         }
         public void Define(DbModelBuilder modelBuilder)
         {
             var order = 1;
-            this._tenantedReferenceDataConvention.Define<SchoolGender>(modelBuilder, ref order);
+            this._modelBuilderConvention.Define<SchoolGender>(modelBuilder, ref order);
         }
     }
 }

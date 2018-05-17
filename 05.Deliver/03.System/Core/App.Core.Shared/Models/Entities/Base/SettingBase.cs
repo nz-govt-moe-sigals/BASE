@@ -1,6 +1,6 @@
 ﻿namespace App.Core.Shared.Models.Entities
 {
-    public abstract class SettingBase : UntenantedTimestampedAuditedRecordStatedGuidIdEntityBase, IHasKey, IHasEnabled,
+    public abstract class SettingBase : UntenantedAuditedRecordStatedTimestampedGuidIdEntityBase, IHasKey, IHasEnabled,
         IHasSerializedTypeValue
     {
         public bool Enabled { get; set; }

@@ -4,7 +4,7 @@
     using System;
     using App.Core.Shared.Models.Entities;
 
-    public class EducationProviderEnrolmentCount : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase, IHasSourceSystemKey
+    public class EducationProviderEnrolmentCount : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase, IHasSourceSystemKey
     {
 
         /// <summary>

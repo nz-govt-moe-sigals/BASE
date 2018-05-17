@@ -18,6 +18,9 @@ namespace App.Module1.Infrastructure.Db.Schema
 
         public void Initialize(DbModelBuilder modelBuilder)
         {
+            DefineByReflection(modelBuilder);
+
+            
             //if (!PowershellServiceLocatorConfig.Activated)
             //{
             //    DefineByReflection(modelBuilder);
@@ -25,7 +28,7 @@ namespace App.Module1.Infrastructure.Db.Schema
             //else
             //{
             //    //Reflection does not work under Powershell, so:
-            DefineByHand(modelBuilder);
+            //DefineByHand(modelBuilder);
             //}
 
             // Or if convention/reflection/magic is not your cup of tea, 
@@ -44,9 +47,9 @@ namespace App.Module1.Infrastructure.Db.Schema
                 .ForEach(x => x.Define(modelBuilder));
         }
 
-        private void DefineByHand(DbModelBuilder modelBuilder)
-        {
-            this._appModule1DbContextModelBuilderDefineExample.Define(modelBuilder);
-        }
+        //private void DefineByHand(DbModelBuilder modelBuilder)
+        //{
+        //    this._appModule1DbContextModelBuilderDefineExample.Define(modelBuilder);
+        //}
     }
 }

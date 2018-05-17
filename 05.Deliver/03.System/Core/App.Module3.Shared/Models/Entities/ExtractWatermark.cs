@@ -3,7 +3,7 @@ using System;
 
 namespace App.Module3.Shared.Models.Entities
 {
-    public class ExtractWatermark : UntenantedTimestampedAuditedRecordStatedGuidIdEntityBase
+    public class ExtractWatermark : UntenantedAuditedRecordStatedTimestampedGuidIdEntityBase
     {
         /// <summary>
         /// The Table Name that is required to be updated

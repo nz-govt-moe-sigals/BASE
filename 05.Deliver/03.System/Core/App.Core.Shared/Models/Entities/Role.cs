@@ -4,7 +4,7 @@
     ///     Roles within this System (not the same as Claims Roles that came in via remote IdP)
     /// And not the same as custom Tenant roles (still to solve).
     /// </summary>
-    public class SystemRole : UntenantedTimestampedAuditedRecordStatedGuidIdEntityBase, IHasEnabled, IHasKey
+    public class SystemRole : UntenantedAuditedRecordStatedTimestampedGuidIdEntityBase, IHasEnabled, IHasKey
     {
         public virtual bool Enabled { get; set; }
 

@@ -15,7 +15,7 @@
             var order = 1;
 
 
-            new NonTenantFKEtcConvention().Define<PrincipalLogin>(modelBuilder, ref order);
+            new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<PrincipalLogin>(modelBuilder, ref order);
 
             modelBuilder.Entity<PrincipalLogin>()
                 .Property(x => x.Enabled)
@@ -27,7 +27,7 @@
                 .HasColumnOrder(order++)
                 .HasMaxLength(TextFieldSizes.X1024)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute("IX_PrincipalLogin_IdpLogin") { IsUnique = false }))
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(PrincipalLogin).Name}_IdpLogin") { IsUnique = false }))
                 .IsRequired();
 
             modelBuilder.Entity<PrincipalLogin>()

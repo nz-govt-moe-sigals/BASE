@@ -16,7 +16,8 @@
             var order = 1;
 
             // Note that this Schema uses an Enum as the Id:
-            new NonTenantFKEtcConvention().Define<DataClassification,NZDataClassification>(modelBuilder, ref order);
+            new UntenantedAuditedRecordStatedTimestampedCustomIdDataConvention()
+                .Define<DataClassification, NZDataClassification>(modelBuilder, ref order);
 
             modelBuilder.Entity<DataClassification>()
                 .Property(x => x.Enabled)

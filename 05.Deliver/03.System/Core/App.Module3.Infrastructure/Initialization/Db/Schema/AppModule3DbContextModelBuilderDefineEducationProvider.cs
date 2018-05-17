@@ -12,31 +12,23 @@ namespace App.Module3.Infrastructure.Db.Schema
 
     public class AppModule3DbContextModelBuilderDefineEducationProvider : IHasAppModule3DbContextModelBuilderInitializer
     {
-        private readonly TenantFKEtcConvention _schemaDefinitionConvention;
+        private readonly TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention _modelBuilderConvention;
 
-        public AppModule3DbContextModelBuilderDefineEducationProvider(TenantFKEtcConvention schemaDefinitionConvention)
+        public AppModule3DbContextModelBuilderDefineEducationProvider(TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention modelBuilderConvention)
         {
-            this._schemaDefinitionConvention = schemaDefinitionConvention;
+            this._modelBuilderConvention = modelBuilderConvention;
         }
         public void Define(DbModelBuilder modelBuilder)
         {
             var order = 1;
-            this._schemaDefinitionConvention.Define<EducationProviderProfile>(modelBuilder, ref order);
 
-            modelBuilder.Entity<EducationProviderProfile>()
-                .Property(x => x.RecordState)
-                .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute($"IX_EducationProviderProfile_RecordState")
-                    {
-                        IsUnique = false
-                    }))
-                ;
+            this._modelBuilderConvention.Define<EducationProviderProfile>(modelBuilder, ref order);
 
             modelBuilder.Entity<EducationProviderProfile>()
                 .Property(x => x.SchoolId)
                 .HasColumnOrder(order++)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute($"IX_EducationProviderProfile_SchoolId")
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(EducationProviderProfile).Name}_SchoolId")
                     {
                         IsUnique = true
                     }))
@@ -341,7 +333,7 @@ namespace App.Module3.Infrastructure.Db.Schema
                 .HasColumnOrder(order++)
                 .HasMaxLength(TextFieldSizes.X10)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute($"IX_EducationProviderProfile_SourceSystemKey")
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(EducationProviderProfile).Name}_SourceSystemKey")
                     {
                         IsUnique = true
                     }))

@@ -2,7 +2,7 @@
 {
     using App.Core.Shared.Models.Entities.Base;
 
-    public class DataClassification : UntenantedCustomIdReferenceDataBase<NZDataClassification>
+    public class DataClassification : UntenantedAuditedRecordStatedTimestampedCustomIdReferenceDataEntityBase<NZDataClassification>
     {
     }
 }

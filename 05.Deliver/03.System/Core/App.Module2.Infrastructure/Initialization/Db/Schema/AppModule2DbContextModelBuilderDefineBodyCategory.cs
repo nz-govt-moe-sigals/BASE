@@ -8,18 +8,18 @@
 
     public class AppModule2DbContextModelBuilderDefineBodyCategory : IHasAppModule2DbContextModelBuilderInitializer
     {
-        private readonly TenantedReferenceDataConvention _tenantedReferenceDataConvention;
+        private readonly TenantFKAuditedRecordStatedTimestampedGuidIdReferenceDataConvention _modelBuilderConvention;
 
-        public AppModule2DbContextModelBuilderDefineBodyCategory(TenantedReferenceDataConvention tenantedReferenceDataConvention)
+        public AppModule2DbContextModelBuilderDefineBodyCategory(TenantFKAuditedRecordStatedTimestampedGuidIdReferenceDataConvention modelBuilderConvention)
         {
-            this._tenantedReferenceDataConvention = tenantedReferenceDataConvention;
+            this._modelBuilderConvention = modelBuilderConvention;
         }
 
         public void Define(DbModelBuilder modelBuilder)
         {
             var order = 1;
 
-            _tenantedReferenceDataConvention.Define<BodyCategory>(modelBuilder, ref order);
+            _modelBuilderConvention.Define<BodyCategory>(modelBuilder, ref order);
 
 
         }

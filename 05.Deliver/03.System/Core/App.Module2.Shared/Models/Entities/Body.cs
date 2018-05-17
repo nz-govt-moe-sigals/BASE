@@ -8,7 +8,7 @@
 
     // Should be wary of enums, but this will do for a demo
 
-    public class Body : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase
+    public class Body : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase
     {
     
 

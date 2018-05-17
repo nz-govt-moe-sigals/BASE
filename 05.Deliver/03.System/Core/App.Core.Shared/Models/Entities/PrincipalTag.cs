@@ -2,7 +2,7 @@
 {
     using App.Core.Shared.Models.Entities.Base;
 
-    public class PrincipalTag : UntenantedGuidIdReferenceDataBase
+    public class PrincipalTag : UntenantedAuditedRecordStatedTimestampedGuidIdReferenceDataEntityBase
     {
     }
 }

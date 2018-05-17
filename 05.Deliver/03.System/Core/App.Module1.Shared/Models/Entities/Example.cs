@@ -2,7 +2,7 @@
 {
     using App.Core.Shared.Models.Entities;
 
-    public class Example : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase
+    public class Example : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase
     {
         // A Field to save current User name (only used to demonstrate Filtering) 
         public virtual string Owner { get; set; }

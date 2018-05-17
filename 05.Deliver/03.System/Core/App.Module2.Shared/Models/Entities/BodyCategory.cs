@@ -3,7 +3,7 @@
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Entities.Base;
 
-    public class BodyCategory : TenantedGuidIdReferenceDataBase
+    public class BodyCategory : TenantFKAuditedRecordStatedTimestampedGuidIdReferenceDataEntityBase
     {
     }
 }

@@ -34,7 +34,7 @@ namespace App.Core.Shared.Models.Contracts
     /// <seealso cref="App.Core.Shared.Models.IHasDisplayOrderHint" />
     /// <seealso cref="App.Core.Shared.Models.IHasKey" />
     /// <seealso cref="App.Core.Shared.Models.IHasValue{TValue}" />
-    public interface IHasMutableValuedReferenceData<TValue> : IHasMutableReferenceData, IHasValue<TValue>
+    public interface IHasMutableValuedReferenceData<TValue> : IHasMutableDisplayableReferenceData, IHasValue<TValue>
     {
 
     }

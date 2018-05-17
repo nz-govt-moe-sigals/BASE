@@ -13,7 +13,7 @@ namespace App.Module3.Shared.Models.Entities
     using App.Core.Shared.Models.Entities.Base;
     using App.Module3.Shared.Models.Messages.Extract;
 
-    public class EducationProviderProfile : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase, IHasName, IHasSourceSystemKey
+    public class EducationProviderProfile : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase, IHasName, IHasSourceSystemKey
     {
 
 

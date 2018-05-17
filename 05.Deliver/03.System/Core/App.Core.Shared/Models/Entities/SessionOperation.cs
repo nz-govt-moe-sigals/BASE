@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class SessionOperation : UntenantedTimestampedAuditedRecordStatedGuidIdEntityBase, IHasOwnerFK
+    public class SessionOperation : UntenantedAuditedRecordStatedTimestampedGuidIdEntityBase, IHasOwnerFK
     {
         // A Session Operation is bound to a Session
         // Which is bound to a Principal, but not a Tenant

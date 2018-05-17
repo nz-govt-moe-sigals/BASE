@@ -5,7 +5,7 @@
     using App.Core.Shared.Models.Entities;
     using App.Module2.Shared.Models.Enums;
 
-    public class BodyLocation : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase //, IHasOwnerFK
+    public class BodyLocation : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase //, IHasOwnerFK
     {
         public virtual LocationType Type { get; set; }
         //public virtual Guid OwnerFK { get; set; }        

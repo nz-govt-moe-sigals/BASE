@@ -21,19 +21,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Core.Domain.Tests", "Ap
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "README", "README", "{8A4F3C88-EDBB-46C4-A52B-B11A603A1F1A}"
 	ProjectSection(SolutionItems) = preProject
-		Readme\readme.apis.md = Readme\readme.apis.md
-		Readme\readme.blank - Copy (6).md = Readme\readme.blank - Copy (6).md
-		Readme\readme.blank.storage.md = Readme\readme.blank.storage.md
-		Readme\readme.conventions.md = Readme\readme.conventions.md
+		_Readme\readme.apis.md = _Readme\readme.apis.md
+		_Readme\readme.blank.md = _Readme\readme.blank.md
+		_Readme\readme.blank.storage.md = _Readme\readme.blank.storage.md
+		_Readme\readme.blank.tenancies subscriptions and accounts.md = _Readme\readme.blank.tenancies subscriptions and accounts.md
+		_Readme\readme.conventions.md = _Readme\readme.conventions.md
 		readme.md = readme.md
-		Readme\readme.objectives.md = Readme\readme.objectives.md
-		Readme\readme.security.md = Readme\readme.security.md
-		Readme\readme.settings.md = Readme\readme.settings.md
-		Readme\readme.setup.azure.md = Readme\readme.setup.azure.md
-		Readme\readme.setup.md = Readme\readme.setup.md
-		Readme\readme.setup.msi.md = Readme\readme.setup.msi.md
-		Readme\readme.setup.oidc.md = Readme\readme.setup.oidc.md
-		Readme\readme.versioning.md = Readme\readme.versioning.md
+		_Readme\readme.objectives.md = _Readme\readme.objectives.md
+		_Readme\readme.security.md = _Readme\readme.security.md
+		_Readme\readme.settings.md = _Readme\readme.settings.md
+		_Readme\readme.setup.azure.md = _Readme\readme.setup.azure.md
+		_Readme\readme.setup.md = _Readme\readme.setup.md
+		_Readme\readme.ui.md = _Readme\readme.ui.md
+		_Readme\readme.versioning.md = _Readme\readme.versioning.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Core.Infrastructure.IDA", "App.Core.Infrastructure.OIDC\App.Core.Infrastructure.IDA.csproj", "{1F881B79-5EE4-42AA-8143-E2BF3BFDF4D9}"
@@ -72,13 +72,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module3.Domain", "App.M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module3.Application", "App.Module3.Application\App.Module3.Application.csproj", "{6A3908F9-1883-480B-A358-450BB65DDB95}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blanks", "Blanks", "{EF96B243-C7AF-4471-88CE-3B1137076005}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Blanks", "_Blanks", "{EF96B243-C7AF-4471-88CE-3B1137076005}"
 	ProjectSection(SolutionItems) = preProject
-		Readme\readme.blank - Copy (3).md = Readme\readme.blank - Copy (3).md
-		Readme\readme.blank - Copy (4).md = Readme\readme.blank - Copy (4).md
-		Readme\readme.blank - Copy (6).md = Readme\readme.blank - Copy (6).md
+		_Readme\readme.blank - Copy (13).md = _Readme\readme.blank - Copy (13).md
+		_Readme\readme.blank - Copy (14).md = _Readme\readme.blank - Copy (14).md
+		_Readme\readme.blank - Copy (15).md = _Readme\readme.blank - Copy (15).md
+		_Readme\readme.blank - Copy (16).md = _Readme\readme.blank - Copy (16).md
+		_Readme\readme.blank - Copy (17).md = _Readme\readme.blank - Copy (17).md
+		_Readme\readme.blank - Copy (18).md = _Readme\readme.blank - Copy (18).md
+		_Readme\readme.blank - Copy (19).md = _Readme\readme.blank - Copy (19).md
+		_Readme\readme.blank - Copy (20).md = _Readme\readme.blank - Copy (20).md
 		Readme\readme.blank - Copy.md = Readme\readme.blank - Copy.md
-		Readme\readme.blank.md = Readme\readme.blank.md
+		_Readme\readme.blank - Copy.md = _Readme\readme.blank - Copy.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Host", "Host", "{8A1210CD-A098-44FA-9B2F-95537024E421}"
@@ -86,6 +91,44 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Core.Application", "App.Core.Application\App.Core.Application.csproj", "{F1B0EF43-BCBF-4C91-93AD-D13E8BB8D77D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Core.Application.Tests", "App.Core.Application.Tests\App.Core.Application.Tests.csproj", "{12E60B34-8268-46A5-AEFC-B55D57494AAF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APIs", "APIs", "{51422C55-D244-487C-B3C1-B7B5BAAEFEE2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DBs", "DBs", "{DC84FDAE-75F4-4F28-B5CD-506F981A9829}"
+	ProjectSection(SolutionItems) = preProject
+		Readme\readme.blank.EF Code first Relationships.md = Readme\readme.blank.EF Code first Relationships.md
+		_Readme\readme.EF.many-to-many-(x)-(x)-both-ways.md = _Readme\readme.EF.many-to-many-(x)-(x)-both-ways.md
+		_Readme\readme.EF.many-to-many-(x)-(x)-with-properties.md = _Readme\readme.EF.many-to-many-(x)-(x)-with-properties.md
+		_Readme\readme.EF.many-to-many-(x)-(x).md = _Readme\readme.EF.many-to-many-(x)-(x).md
+		_Readme\readme.EF.many-to-one-(x)-(0-1).md = _Readme\readme.EF.many-to-one-(x)-(0-1).md
+		_Readme\readme.EF.many-to-one-(x)-(1-1).md = _Readme\readme.EF.many-to-one-(x)-(1-1).md
+		_Readme\readme.EF.one-to-many-(1)-(0-x)-owned.md = _Readme\readme.EF.one-to-many-(1)-(0-x)-owned.md
+		_Readme\readme.EF.one-to-many-(1)-(0-x)-recursive.md = _Readme\readme.EF.one-to-many-(1)-(0-x)-recursive.md
+		_Readme\readme.EF.one-to-many-(1)-(1-x)-owned.md = _Readme\readme.EF.one-to-many-(1)-(1-x)-owned.md
+		_Readme\readme.EF.one-to-many-(1)-(1-x)-recursive.md = _Readme\readme.EF.one-to-many-(1)-(1-x)-recursive.md
+		_Readme\readme.EF.one-to-many-to-many-to-one-(1)-(0-x)-(0-x)-(1).md = _Readme\readme.EF.one-to-many-to-many-to-one-(1)-(0-x)-(0-x)-(1).md
+		_Readme\readme.EF.one-to-one-(1)-(0-1).md = _Readme\readme.EF.one-to-one-(1)-(0-1).md
+		_Readme\readme.EF.one-to-one-(1)-(1-1).md = _Readme\readme.EF.one-to-one-(1)-(1-1).md
+		_Readme\readme.EF.TODO.troubleshooting.many-to-many.md = _Readme\readme.EF.TODO.troubleshooting.many-to-many.md
+		_Readme\readme.EF.TODO.troubleshooting.md = _Readme\readme.EF.TODO.troubleshooting.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{F2B0D33B-00BD-4196-841B-C36741518AA4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{63301A1B-FFC6-4DF7-9D6B-0CC5A5E0E035}"
+	ProjectSection(SolutionItems) = preProject
+		_Readme\readme.setup.msi.md = _Readme\readme.setup.msi.md
+		_Readme\readme.setup.oidc.md = _Readme\readme.setup.oidc.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blueprints", "Blueprints", "{FC2376CD-76A5-4312-9017-9DD27B040E5C}"
+	ProjectSection(SolutionItems) = preProject
+		_Readme\readme.blank.tenancies subscriptions and accounts.md = _Readme\readme.blank.tenancies subscriptions and accounts.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module4", "Module4", "{2316B271-DC55-4A4B-B4B1-E3719CAF13C5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module5", "Module5", "{EE52FBA1-DB51-44D2-88E0-2D9EA04412B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -219,6 +262,11 @@ Global
 		{EF96B243-C7AF-4471-88CE-3B1137076005} = {8A4F3C88-EDBB-46C4-A52B-B11A603A1F1A}
 		{F1B0EF43-BCBF-4C91-93AD-D13E8BB8D77D} = {BF5BE208-7B53-484F-857B-F8F17289D5C8}
 		{12E60B34-8268-46A5-AEFC-B55D57494AAF} = {BF5BE208-7B53-484F-857B-F8F17289D5C8}
+		{51422C55-D244-487C-B3C1-B7B5BAAEFEE2} = {8A4F3C88-EDBB-46C4-A52B-B11A603A1F1A}
+		{DC84FDAE-75F4-4F28-B5CD-506F981A9829} = {8A4F3C88-EDBB-46C4-A52B-B11A603A1F1A}
+		{F2B0D33B-00BD-4196-841B-C36741518AA4} = {8A4F3C88-EDBB-46C4-A52B-B11A603A1F1A}
+		{63301A1B-FFC6-4DF7-9D6B-0CC5A5E0E035} = {8A4F3C88-EDBB-46C4-A52B-B11A603A1F1A}
+		{FC2376CD-76A5-4312-9017-9DD27B040E5C} = {8A4F3C88-EDBB-46C4-A52B-B11A603A1F1A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2F529A1D-CBD2-4505-88EC-746854D7FB98}

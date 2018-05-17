@@ -17,7 +17,7 @@
         {
             var order = 1;
 
-            new NonTenantFKEtcConvention().Define<Notification>(modelBuilder, ref order);
+            new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<Notification>(modelBuilder, ref order);
 
 
             modelBuilder.Entity<Notification>()
@@ -37,7 +37,7 @@
             modelBuilder.Entity<Notification>()
                 .Property(x => x.PrincipalFK)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute("IX_Notification_PrincipalFK") { IsUnique = false }))
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(Notification).Name}_PrincipalFK") { IsUnique = false }))
                 .HasColumnOrder(order++)
                 .IsRequired();
 
@@ -58,7 +58,7 @@
                 .Property(x => x.From)
                 .HasColumnOrder(order++)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute("IX_Notification_From") { IsUnique = false }))
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(Notification).Name}_From") { IsUnique = false }))
                 .HasMaxLength(TextFieldSizes.X64)
                 .IsRequired();
 

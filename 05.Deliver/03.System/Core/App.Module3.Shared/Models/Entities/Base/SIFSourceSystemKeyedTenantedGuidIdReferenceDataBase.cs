@@ -14,7 +14,7 @@ namespace App.Module3.Shared.Models.Entities
     /// * the Source Id is used to find and fill in the <see cref="IHasSIFKey.SIFKey"/> value.
     /// </para>
     /// </summary>
-    /// <seealso cref="App.Core.Shared.Models.Entities.Base.TenantedGuidIdReferenceDataBase" />
+    /// <seealso cref="App.Core.Shared.Models.Entities.Base.TenantFKAuditedRecordStatedTimestampedGuidIdReferenceDataEntityBase" />
     /// <seealso cref="App.Module3.Shared.Models.IHasSourceSystemKey" />
     /// <seealso cref="App.Module3.Shared.Models.IHasSIFKey" />
     // ReSharper disable once InconsistentNaming

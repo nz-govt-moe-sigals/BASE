@@ -15,7 +15,7 @@
             var order = 1;
 
 
-            new NonTenantFKEtcConvention().Define<PrincipalTag>(modelBuilder, ref order);
+            new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<PrincipalTag>(modelBuilder, ref order);
 
             modelBuilder.Entity<PrincipalTag>()
                 .Property(x => x.Enabled)
@@ -27,7 +27,7 @@
                 .HasColumnOrder(order++)
                 .HasMaxLength(TextFieldSizes.X64)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute("IX_PrincipalTag_Text") { IsUnique = false }))
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(PrincipalTag).Name}_Text") { IsUnique = false }))
                 .IsRequired();
 
             modelBuilder.Entity<PrincipalTag>()

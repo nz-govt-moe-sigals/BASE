@@ -12,17 +12,18 @@ namespace App.Module3.Infrastructure.Db.Schema
 
     public class AppModule3DbContextModelBuilderDefineEducationProviderEnrolmentCount : IHasAppModule3DbContextModelBuilderInitializer
     {
-        private readonly TenantFKEtcConvention _schemaDefinitionConvention;
-
-        public AppModule3DbContextModelBuilderDefineEducationProviderEnrolmentCount(TenantFKEtcConvention schemaDefinitionConvention)
+        
+        private readonly TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention _modelBuilderConvention;
+        
+        public AppModule3DbContextModelBuilderDefineEducationProviderEnrolmentCount(TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention modelBuilderConvention)
         {
-            this._schemaDefinitionConvention = schemaDefinitionConvention;
+            this._modelBuilderConvention = modelBuilderConvention;
         }
 
         public void Define(DbModelBuilder modelBuilder)
         {
             var order = 1;
-            this._schemaDefinitionConvention.Define<EducationProviderEnrolmentCount>(modelBuilder, ref order);
+            this._modelBuilderConvention.Define<EducationProviderEnrolmentCount>(modelBuilder, ref order);
 
 
 
@@ -77,7 +78,7 @@ namespace App.Module3.Infrastructure.Db.Schema
                 .HasColumnOrder(order++)
                 .HasMaxLength(TextFieldSizes.X10)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute($"IX_EducationProviderEnrolmentCount_SourceSystemKey")
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(EducationProviderEnrolmentCount).Name}_SourceSystemKey")
                     {
                         IsUnique = true
                     }))

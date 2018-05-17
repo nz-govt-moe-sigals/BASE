@@ -17,12 +17,12 @@
         {
             var order = 1;
 
-            new NonTenantFKEtcConvention().Define<Tenant>(modelBuilder, ref order);
+            new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<Tenant>(modelBuilder, ref order);
 
             modelBuilder.Entity<Tenant>()
                 .Property(x => x.IsDefault)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute("IX_Tenant_IsDefault") {IsUnique = true}))
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(Tenant).Name}_IsDefault") {IsUnique = true}))
                 .HasColumnOrder(order++)
                 .IsOptional();
 
@@ -39,14 +39,14 @@
             modelBuilder.Entity<Tenant>()
                 .Property(x => x.Key)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute("IX_Tenant_Key") {IsUnique = true}))
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(Tenant).Name}_Key") {IsUnique = true}))
                 .HasColumnOrder(order++)
                 .HasMaxLength(TextFieldSizes.X64)
                 .IsRequired();
             modelBuilder.Entity<Tenant>()
                 .Property(x => x.HostName)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute("IX_Tenant_HostName") {IsUnique = true}))
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(Tenant).Name}_HostName") {IsUnique = true}))
                 .HasColumnOrder(order++)
                 .HasMaxLength(TextFieldSizes.X64)
                 .IsOptional();
@@ -55,7 +55,7 @@
                 .Property(x => x.DisplayName)
                 .HasColumnOrder(order++)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute("IX_Tenant_DisplayName") { IsUnique = false }))
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(Tenant).Name}_DisplayName") { IsUnique = false }))
                 .HasMaxLength(TextFieldSizes.X64)
                 .IsRequired();
 

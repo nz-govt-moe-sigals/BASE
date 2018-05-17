@@ -9,7 +9,7 @@ namespace App.Module3.Shared.Models.Entities
     using System.Collections.ObjectModel;
     using App.Core.Shared.Models.Entities;
 
-    public class EducationProviderLevelGender : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase, IHasSourceSystemKey
+    public class EducationProviderLevelGender : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase, IHasSourceSystemKey
     {
         /// <summary>
         /// Gets or sets the parent <see cref="EducationProviderProfile"/>'s Id.

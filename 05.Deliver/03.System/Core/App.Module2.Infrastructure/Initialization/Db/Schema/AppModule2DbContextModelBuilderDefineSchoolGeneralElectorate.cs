@@ -7,16 +7,16 @@
 
     public class AppModule2DbContextModelBuilderDefineSchoolGeneralElectorate : IHasAppModule2DbContextModelBuilderInitializer
     {
-        private readonly TenantedReferenceDataConvention _tenantedReferenceDataConvention;
+        private readonly TenantFKAuditedRecordStatedTimestampedGuidIdReferenceDataConvention _modelBuilderConvention;
 
-        public AppModule2DbContextModelBuilderDefineSchoolGeneralElectorate(TenantedReferenceDataConvention tenantedReferenceDataConvention)
+        public AppModule2DbContextModelBuilderDefineSchoolGeneralElectorate(TenantFKAuditedRecordStatedTimestampedGuidIdReferenceDataConvention modelBuilderConvention)
         {
-            this._tenantedReferenceDataConvention = tenantedReferenceDataConvention;
+            this._modelBuilderConvention = modelBuilderConvention;
         }
         public void Define(DbModelBuilder modelBuilder)
         {
             var order = 1;
-            this._tenantedReferenceDataConvention.Define<SchoolGeneralElectorate>(modelBuilder, ref order);
+            this._modelBuilderConvention.Define<SchoolGeneralElectorate>(modelBuilder, ref order);
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class MediaMetadata : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase
+    public class MediaMetadata : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase
     {
         // Use an Enum as DataClassification is shared across Bounded DbContexts
         public virtual NZDataClassification DataClassificationFK {get; set;} /* Unclassified or not determines whether external scanning services can be invoked or not */

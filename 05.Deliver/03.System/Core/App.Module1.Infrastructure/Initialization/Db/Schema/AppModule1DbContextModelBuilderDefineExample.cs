@@ -13,8 +13,15 @@
         public void Define(DbModelBuilder modelBuilder)
         {
             var order = 1;
+                
+            new TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention().Define<Example>(modelBuilder, ref order);
 
-            new TenantFKEtcConvention().Define<Example>(modelBuilder, ref order);
+
+            // --------------------------------------------------
+            // FK Properties:
+
+            // --------------------------------------------------
+            // Model Specific Properties:
 
 
             modelBuilder.Entity<Example>()
@@ -33,6 +40,14 @@
                 .Property(x => x.AppPrivateText)
                 .HasColumnOrder(order++)
                 .IsOptional();
+
+            // --------------------------------------------------
+            // Entity Navigation Properties:
+
+            // --------------------------------------------------
+            // Collection Navigation Properties:
+
+            // --------------------------------------------------
         }
     }
 }

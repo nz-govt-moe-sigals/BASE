@@ -15,7 +15,7 @@
         {
             var order = 1;
 
-            new NonTenantFKEtcConvention().Define<ExceptionRecord>(modelBuilder, ref order);
+            new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<ExceptionRecord>(modelBuilder, ref order);
 
             modelBuilder.Entity<ExceptionRecord>()
                 .Property(x => x.Level)

@@ -77,15 +77,17 @@
         //Invoked from AppCoreDbContext/OnModelCreating
         public void Initialize(DbModelBuilder modelBuilder)
         {
-            if (!PowershellServiceLocatorConfig.Activated)
-            {
-                DefineByReflection(modelBuilder);
-            }
-            else
-            {
-                //Reflection does not work under Powershell, so:
-                DefineByHand(modelBuilder);
-            }
+            DefineByReflection(modelBuilder);
+
+            //if (!PowershellServiceLocatorConfig.Activated)
+            //{
+            //    DefineByReflection(modelBuilder);
+            //}
+            //else
+            //{
+            //    //Reflection does not work under Powershell, so:
+            //    DefineByHand(modelBuilder);
+            //}
         }
 
 
@@ -97,31 +99,31 @@
                 .ForEach(x => x.Define(modelBuilder));
         }
 
-        private void DefineByHand(DbModelBuilder modelBuilder)
-        {
-            this._appCoreDbContextModelBuilderDefineExceptionRecord.Define(modelBuilder);
-            this._appCoreDbContextModelBuilderDefineDataClasssification.Define(modelBuilder);
-            this._appCoreDbContextModelBuilderDefineDataToken.Define(modelBuilder);
-            this._appCoreDbContextModelBuilderDefineNotification.Define(modelBuilder);
+        //private void DefineByHand(DbModelBuilder modelBuilder)
+        //{
+        //    this._appCoreDbContextModelBuilderDefineExceptionRecord.Define(modelBuilder);
+        //    this._appCoreDbContextModelBuilderDefineDataClasssification.Define(modelBuilder);
+        //    this._appCoreDbContextModelBuilderDefineDataToken.Define(modelBuilder);
+        //    this._appCoreDbContextModelBuilderDefineNotification.Define(modelBuilder);
 
-            this._appCoreDbContextModelBuilderDefineSystemRole.Define(modelBuilder);
+        //    this._appCoreDbContextModelBuilderDefineSystemRole.Define(modelBuilder);
 
-            this._appCoreDbContextModelBuilderDefinePrincipalCategory.Define(modelBuilder);
-            this._appCoreDbContextModelBuilderDefinePrincipalTag.Define(modelBuilder);
-            this._appCoreDbContextModelBuilderDefinePrincipal.Define(modelBuilder);
-            this._appCoreDbContextModelBuilderDefinePrincipalClaim.Define(modelBuilder);
-            this._appCoreDbContextModelBuilderDefinePrincipalProperty.Define(modelBuilder);
-            this._appCoreDbContextModelBuilderDefinePrincipalLogin.Define(modelBuilder);
-            this._appCoreDbContextModelBuilderDefinePrincipal2Role.Define(modelBuilder);
+        //    this._appCoreDbContextModelBuilderDefinePrincipalCategory.Define(modelBuilder);
+        //    this._appCoreDbContextModelBuilderDefinePrincipalTag.Define(modelBuilder);
+        //    this._appCoreDbContextModelBuilderDefinePrincipal.Define(modelBuilder);
+        //    this._appCoreDbContextModelBuilderDefinePrincipalClaim.Define(modelBuilder);
+        //    this._appCoreDbContextModelBuilderDefinePrincipalProperty.Define(modelBuilder);
+        //    this._appCoreDbContextModelBuilderDefinePrincipalLogin.Define(modelBuilder);
+        //    this._appCoreDbContextModelBuilderDefinePrincipal2Role.Define(modelBuilder);
 
 
-            this._appCoreDbContextModelBuilderDefineSession.Define(modelBuilder);
-            this._appCoreDbContextModelBuilderDefineSessionOperationLog.Define(modelBuilder);
+        //    this._appCoreDbContextModelBuilderDefineSession.Define(modelBuilder);
+        //    this._appCoreDbContextModelBuilderDefineSessionOperationLog.Define(modelBuilder);
 
-            this._appCoreDbContextModelBuilderDefineTenant.Define(modelBuilder);
-            this._appCoreDbContextModelBuilderDefineTenantClaim.Define(modelBuilder);
-            this._appCoreDbContextModelBuilderDefineTenantProperty.Define(modelBuilder);
+        //    this._appCoreDbContextModelBuilderDefineTenant.Define(modelBuilder);
+        //    this._appCoreDbContextModelBuilderDefineTenantClaim.Define(modelBuilder);
+        //    this._appCoreDbContextModelBuilderDefineTenantProperty.Define(modelBuilder);
 
-        }
+        //}
     }
 }

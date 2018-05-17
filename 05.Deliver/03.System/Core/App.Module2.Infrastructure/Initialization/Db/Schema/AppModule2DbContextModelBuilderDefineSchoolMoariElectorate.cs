@@ -7,16 +7,16 @@ namespace App.Module2.DbContextModelBuilder
 
     public class AppModule2DbContextModelBuilderDefineSchoolMoariElectorate : IHasAppModule2DbContextModelBuilderInitializer
     {
-        private readonly TenantedReferenceDataConvention _tenantedReferenceDataConvention;
+        private readonly TenantFKAuditedRecordStatedTimestampedGuidIdReferenceDataConvention _modelBuilderConvention;
 
-        public AppModule2DbContextModelBuilderDefineSchoolMoariElectorate(TenantedReferenceDataConvention tenantedReferenceDataConvention)
+        public AppModule2DbContextModelBuilderDefineSchoolMoariElectorate(TenantFKAuditedRecordStatedTimestampedGuidIdReferenceDataConvention modelBuilderConvention)
         {
-            this._tenantedReferenceDataConvention = tenantedReferenceDataConvention;
+            this._modelBuilderConvention = modelBuilderConvention;
         }
         public void Define(DbModelBuilder modelBuilder)
         {
             var order = 1;
-            this._tenantedReferenceDataConvention.Define<SchoolMaoriElectorate>(modelBuilder, ref order);
+            this._modelBuilderConvention.Define<SchoolMaoriElectorate>(modelBuilder, ref order);
         }
     }
 }

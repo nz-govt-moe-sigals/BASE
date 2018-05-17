@@ -8,23 +8,20 @@
 
     public class AppModule2DbContextModelBuilderDefineBodyAlias : IHasAppModule2DbContextModelBuilderInitializer
     {
-        private readonly TenantFKEtcConvention _tenantFkEtcConvention;
+        private readonly TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention _convention;
 
-        public AppModule2DbContextModelBuilderDefineBodyAlias(TenantFKEtcConvention tenantFkEtcConvention)
+        public AppModule2DbContextModelBuilderDefineBodyAlias(TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention modelBuilderConvention)
         {
-            this._tenantFkEtcConvention = tenantFkEtcConvention;
+            this._convention = modelBuilderConvention;
         }
 
         public void Define(DbModelBuilder modelBuilder)
         {
             var order = 1;
 
-            _tenantFkEtcConvention.Define<BodyAlias>(modelBuilder, ref order);
+            _convention.Define<BodyAlias>(modelBuilder, ref order);
 
-            modelBuilder.Entity<BodyAlias>()
-                .Property(x => x.RecordState)
-                .HasColumnOrder(order++)
-                .IsRequired();
+
 
             modelBuilder.Entity<BodyAlias>()
                 .Property(x => x.OwnerFK)

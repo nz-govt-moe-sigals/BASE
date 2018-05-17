@@ -17,7 +17,7 @@
         {
             var order = 1;
 
-            new NonTenantFKEtcConvention().Define<TenantClaim>(modelBuilder, ref order);
+            new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<TenantClaim>(modelBuilder, ref order);
 
 
             modelBuilder.Entity<TenantClaim>()
@@ -30,14 +30,14 @@
                 .HasColumnOrder(order++)
                 .HasMaxLength(TextFieldSizes.X64)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute("IX_TenantClaim_Authority") { IsUnique = false }))
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(TenantClaim).Name}_Authority") { IsUnique = false }))
                 .IsRequired();
             modelBuilder.Entity<TenantClaim>()
                 .Property(x => x.Key)
                 .HasColumnOrder(order++)
                 .HasMaxLength(TextFieldSizes.X64)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute("IX_TenantClaim_Key") { IsUnique = false }))
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(TenantClaim).Name}_Key") { IsUnique = false }))
                 .IsRequired();
 
             modelBuilder.Entity<TenantClaim>()

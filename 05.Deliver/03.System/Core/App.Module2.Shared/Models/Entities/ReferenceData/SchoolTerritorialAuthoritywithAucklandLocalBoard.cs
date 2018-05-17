@@ -2,7 +2,7 @@
 {
     using App.Core.Shared.Models.Entities.Base;
 
-    public class SchoolTerritorialAuthorityWithAucklandLocalBoard : TenantedGuidIdReferenceDataBase
+    public class SchoolTerritorialAuthorityWithAucklandLocalBoard : TenantFKAuditedRecordStatedTimestampedGuidIdReferenceDataEntityBase
     {
     }
 }

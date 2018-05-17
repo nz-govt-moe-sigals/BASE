@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class Notification : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase
+    public class Notification : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase
     {
         public virtual NotificationType Type { get; set; }
 

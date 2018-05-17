@@ -9,7 +9,7 @@ namespace App.Core.Shared.Models.Entities
     /// When an IdP sends back the response, it has to be correlated back to a System Principal.
     /// That's done via this object.
     /// </summary>
-    public class PrincipalLogin : UntenantedTimestampedAuditedRecordStatedGuidIdEntityBase, IHasEnabled , IHasOwnerFK
+    public class PrincipalLogin : UntenantedAuditedRecordStatedTimestampedGuidIdEntityBase, IHasEnabled , IHasOwnerFK
     {
 
         public Guid OwnerFK { get; set; }

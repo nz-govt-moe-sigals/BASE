@@ -14,11 +14,11 @@ namespace App.Core.Infrastructure.Db.Schema
             modelBuilder.Entity<Principal>()
                 .HasMany(s => s.Roles)
                 .WithMany()
-                .Map(cs =>
+                .Map(j =>
                 {
-                    cs.MapLeftKey("PrincipalFK");
-                    cs.MapRightKey("RoleFK");
-                    cs.ToTable("Principal2Role");
+                    j.ToTable(typeof(Principal).Name + "2" + /*(typeof(SystemRole)).Name)*/ "Role");
+                    j.MapLeftKey("PrincipalFK");
+                    j.MapRightKey("RoleFK");
                 });
         }
     }

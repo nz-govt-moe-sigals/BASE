@@ -142,7 +142,7 @@ namespace App.Core.Infrastructure.Db.Migrations.Seeding
                 var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 if (System.Diagnostics.Debugger.IsAttached == false)
                 {
-                    //Debugger.Launch();
+                   System.Diagnostics.Debugger.Launch();
                 }
             }
         }

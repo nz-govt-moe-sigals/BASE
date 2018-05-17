@@ -4,7 +4,7 @@
     using App.Core.Shared.Models.Entities;
     using App.Module3.Shared.Models.Enums;
 
-    public class EducationProviderLocation : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase, IHasSourceSystemKey
+    public class EducationProviderLocation : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase, IHasSourceSystemKey
     {
 
         public Guid EducationProviderFK { get; set; }

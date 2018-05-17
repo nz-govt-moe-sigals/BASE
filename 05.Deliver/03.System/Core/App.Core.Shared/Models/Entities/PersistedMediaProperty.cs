@@ -7,7 +7,7 @@
     ///     <see cref="PersistedMedia" />
     /// </summary>
     public class PersistedMediaProperty :
-        TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase,
+        TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase,
         IHasOwnerFK, IHasKeyValue<string>,
         IHasTag
     {

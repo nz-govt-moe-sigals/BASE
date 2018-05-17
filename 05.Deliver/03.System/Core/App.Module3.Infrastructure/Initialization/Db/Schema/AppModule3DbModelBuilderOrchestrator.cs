@@ -98,12 +98,12 @@ namespace App.Module3.Infrastructure.Db.Schema
         {
             //if (!PowershellServiceLocatorConfig.Activated)
             //{
-            //    DefineByReflection(modelBuilder);
+                DefineByReflection(modelBuilder);
             //}
             //else
             //{
             //    //Reflection does not work under Powershell, so:
-            DefineByHand(modelBuilder);
+            //DefineByHand(modelBuilder);
             //}
 
             // Or if convention/reflection/magic is not your cup of tea, 
@@ -122,35 +122,35 @@ namespace App.Module3.Infrastructure.Db.Schema
                 .ForEach(x => x.Define(modelBuilder));
         }
 
-        private void DefineByHand(DbModelBuilder modelBuilder)
-        {
-            //Azure Data Factory Import:
-            _appModule3DbContextModelBuilderDefineExtractWatermark.DefineTable(modelBuilder);
-            // Reference Data:
-            _appModule3DbContextModelBuilderDefineAreaUnit.Define(modelBuilder);
-            _appModule3DbContextModelBuilderDefineAuthorityType.Define(modelBuilder);
-            _appModule3DbContextModelBuilderDefineCommunityBoard.Define(modelBuilder);
-            _appModule3DbContextModelBuilderDefineGeneralElectorate.Define(modelBuilder);
-            _appModule3DbContextModelBuilderDefineMaoriElectorate.Define(modelBuilder);
-            _appModule3DbContextModelBuilderDefineOrganisationStatus.Define(modelBuilder);
-            _appModule3DbContextModelBuilderDefineOrganisationType.Define(modelBuilder);
-            _appModule3DbContextModelBuilderDefineRegion.Define(modelBuilder);
-            _appModule3DbContextModelBuilderDefineRegionalCouncil.Define(modelBuilder);
-            _appModule3DbContextModelBuilderDefineRelationshipType.Define(modelBuilder);
-            _appModule3DbContextModelBuilderDefineSchoolClassification.Define(modelBuilder);
-            _appModule3DbContextModelBuilderDefineSchoolGender.Define(modelBuilder);
-            _appModule3DbContextModelBuilderDefineSchoolYearLevel.Define(modelBuilder);
-            _appModule3DbContextModelBuilderDefineSpecialSchooling.Define(modelBuilder);
-            _appModule3DbContextModelBuilderDefineTeacherEducation.Define(modelBuilder);
-            _appModule3DbContextModelBuilderDefineTerritorialAuthority.Define(modelBuilder);
-            _appModule3DbContextModelBuilderDefineUrbanArea.Define(modelBuilder);
-            _appModule3DbContextModelBuilderDefineWard.Define(modelBuilder);
-            // Data:
-            _appModule3DbContextModelBuilderDefineSchoolWgs.Define(modelBuilder);
-            _appModule3DbContextModelBuilderDefineEducationProviderEnrolmentCount.Define(modelBuilder);
-            _appModule3DbContextModelBuilderDefineEducationProviderLevelGender.Define(modelBuilder);
-            _appModule3DbContextModelBuilderDefineSchoolProfile.Define(modelBuilder);
+        //private void DefineByHand(DbModelBuilder modelBuilder)
+        //{
+        //    //Azure Data Factory Import:
+        //    _appModule3DbContextModelBuilderDefineExtractWatermark.DefineTable(modelBuilder);
+        //    // Reference Data:
+        //    _appModule3DbContextModelBuilderDefineAreaUnit.Define(modelBuilder);
+        //    _appModule3DbContextModelBuilderDefineAuthorityType.Define(modelBuilder);
+        //    _appModule3DbContextModelBuilderDefineCommunityBoard.Define(modelBuilder);
+        //    _appModule3DbContextModelBuilderDefineGeneralElectorate.Define(modelBuilder);
+        //    _appModule3DbContextModelBuilderDefineMaoriElectorate.Define(modelBuilder);
+        //    _appModule3DbContextModelBuilderDefineOrganisationStatus.Define(modelBuilder);
+        //    _appModule3DbContextModelBuilderDefineOrganisationType.Define(modelBuilder);
+        //    _appModule3DbContextModelBuilderDefineRegion.Define(modelBuilder);
+        //    _appModule3DbContextModelBuilderDefineRegionalCouncil.Define(modelBuilder);
+        //    _appModule3DbContextModelBuilderDefineRelationshipType.Define(modelBuilder);
+        //    _appModule3DbContextModelBuilderDefineSchoolClassification.Define(modelBuilder);
+        //    _appModule3DbContextModelBuilderDefineSchoolGender.Define(modelBuilder);
+        //    _appModule3DbContextModelBuilderDefineSchoolYearLevel.Define(modelBuilder);
+        //    _appModule3DbContextModelBuilderDefineSpecialSchooling.Define(modelBuilder);
+        //    _appModule3DbContextModelBuilderDefineTeacherEducation.Define(modelBuilder);
+        //    _appModule3DbContextModelBuilderDefineTerritorialAuthority.Define(modelBuilder);
+        //    _appModule3DbContextModelBuilderDefineUrbanArea.Define(modelBuilder);
+        //    _appModule3DbContextModelBuilderDefineWard.Define(modelBuilder);
+        //    // Data:
+        //    _appModule3DbContextModelBuilderDefineSchoolWgs.Define(modelBuilder);
+        //    _appModule3DbContextModelBuilderDefineEducationProviderEnrolmentCount.Define(modelBuilder);
+        //    _appModule3DbContextModelBuilderDefineEducationProviderLevelGender.Define(modelBuilder);
+        //    _appModule3DbContextModelBuilderDefineSchoolProfile.Define(modelBuilder);
 
-        }
+        //}
     }
 }

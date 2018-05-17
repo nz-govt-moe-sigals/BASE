@@ -9,14 +9,14 @@ namespace App.Core.Shared.Models.Entities
     /// A single element within a Navigation Map used by user interfaces.
     /// <see cref="NavigationRoute"/>.
     /// </summary>
-    /// <seealso cref="App.Core.Shared.Models.Entities.TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase" />
+    /// <seealso cref="App.Core.Shared.Models.Entities.TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase" />
     /// <seealso cref="App.Core.Shared.Models.IHasGuidId" />
     /// <seealso cref="App.Core.Shared.Models.IHasOwnerFK" />
     /// <seealso cref="App.Core.Shared.Models.IHasText" />
     /// <seealso cref="App.Core.Shared.Models.IHasDescription" />
     /// <seealso cref="App.Core.Shared.Models.IHasDisplayOrderHint" />
     /// <seealso cref="App.Core.Shared.Models.IHasDisplayStyleHint" />
-    public class TenantedNavigationRoute : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase, IHasGuidId, IHasOwnerFK, IHasText, IHasDescription, IHasDisplayOrderHint, IHasDisplayStyleHint
+    public class TenantedNavigationRoute : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase, IHasGuidId, IHasOwnerFK, IHasText, IHasDescription, IHasDisplayOrderHint, IHasDisplayStyleHint
     {
         public bool Enabled
         {

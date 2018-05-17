@@ -72,6 +72,7 @@
     <Compile Include="Db\Context\AppModule3DbContextFactory.cs" />
     <Compile Include="Db\Context\AppModule3DatabaseInitializerConfigurer.cs" />
     <Compile Include="Db\Context\AppModule3DbContext.cs" />
+    <Compile Include="ExtensionMethods\X.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\AppModule3DbContextSeedingOrchestrator.cs" />
     <Compile Include="Initialization\Db\Migrations\AppModule3DbMigrationsConfiguration.cs" />
     <Compile Include="Initialization\Db\Migrations\Module3\201804250055016_Entities.Initialise.cs" />
@@ -89,6 +90,10 @@
     <Compile Include="Initialization\Db\Migrations\Module3\201805100444327_Entities.IndexOnRecordState.cs" />
     <Compile Include="Initialization\Db\Migrations\Module3\201805100444327_Entities.IndexOnRecordState.Designer.cs">
       <DependentUpon>201805100444327_Entities.IndexOnRecordState.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Initialization\Db\Migrations\Module3\201805170313015_More.cs" />
+    <Compile Include="Initialization\Db\Migrations\Module3\201805170313015_More.Designer.cs">
+      <DependentUpon>201805170313015_More.cs</DependentUpon>
     </Compile>
     <Compile Include="Initialization\Db\Migrations\Module3\Configuration.cs" />
     <Compile Include="Initialization\Db\Schema\AppModule3DbContextModelBuilderDefineExtractWatermark.cs" />
@@ -241,7 +246,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ExtensionMethods\" />
     <Folder Include="Factories\" />
     <Folder Include="Initialization\Db\Schema\ReferenceData\" />
     <Folder Include="Initialization\OData\" />
@@ -264,6 +268,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Initialization\Db\Migrations\Module3\201805100444327_Entities.IndexOnRecordState.resx">
       <DependentUpon>201805100444327_Entities.IndexOnRecordState.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Module3\201805170313015_More.resx">
+      <DependentUpon>201805170313015_More.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class ExceptionRecord : UntenantedTimestampedAuditedRecordStatedGuidIdEntityBase
+    public class ExceptionRecord : UntenantedAuditedRecordStatedTimestampedGuidIdEntityBase
     {
         public TraceLevel Level { get; set; }
         public string Title { get; set; }

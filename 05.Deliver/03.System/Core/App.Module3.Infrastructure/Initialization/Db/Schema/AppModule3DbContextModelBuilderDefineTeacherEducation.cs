@@ -9,16 +9,16 @@ namespace App.Module3.Infrastructure.Db.Schema
 
     public class AppModule3DbContextModelBuilderDefineTeacherEducation : IHasAppModule3DbContextModelBuilderInitializer
     {
-        private readonly TenantedSIFSourceSystemKeyedGuidIdReferenceDataConvention _schemaDefinitionConvention;
+        private readonly TenantedSIFSourceSystemKeyedGuidIdReferenceDataConvention _modelBuilderConvention;
 
-        public AppModule3DbContextModelBuilderDefineTeacherEducation(TenantedSIFSourceSystemKeyedGuidIdReferenceDataConvention schemaDefinitionConvention)
+        public AppModule3DbContextModelBuilderDefineTeacherEducation(TenantedSIFSourceSystemKeyedGuidIdReferenceDataConvention modelBuilderConvention)
         {
-            this._schemaDefinitionConvention = schemaDefinitionConvention;
+            this._modelBuilderConvention = modelBuilderConvention;
         }
         public void Define(DbModelBuilder modelBuilder)
         {
             var order = 1;
-            this._schemaDefinitionConvention.Define<TeacherEducation>(modelBuilder, ref order);
+            this._modelBuilderConvention.Define<TeacherEducation>(modelBuilder, ref order);
         }
     }
 }

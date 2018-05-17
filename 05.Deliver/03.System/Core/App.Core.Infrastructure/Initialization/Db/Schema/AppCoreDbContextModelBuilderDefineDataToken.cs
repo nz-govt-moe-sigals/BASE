@@ -14,8 +14,8 @@
         public void Define(DbModelBuilder modelBuilder)
         {
             var order = 1;
-
-            new TenantFKEtcConvention().Define<DataToken>(modelBuilder, ref order);
+                
+            new TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention().Define<DataToken>(modelBuilder, ref order);
 
             modelBuilder.Entity<DataToken>()
                 .Property(x => x.Value)

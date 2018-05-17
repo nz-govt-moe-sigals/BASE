@@ -11,9 +11,16 @@
         private const int basic = 64;
 
         /// <summary>
+        /// Use for AccountName that have to be indexed.
+        /// ie, used by CreatedBy, LastModifiedBy, DeletedBy
+        /// </summary>
+        public const int X32 = basic / 2;
+        
+        /// <summary>
         /// 64. Use for Keys, Names
         /// </summary>
         public const int X64 = basic; 
+
         /// <summary>
         /// 246. Use for FileNames (can be up to 1024, but Indexes must be less than 900 total, so start with this).
         /// </summary>

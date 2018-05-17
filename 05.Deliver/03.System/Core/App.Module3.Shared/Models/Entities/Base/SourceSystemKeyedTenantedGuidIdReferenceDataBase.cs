@@ -7,7 +7,7 @@ using App.Core.Shared.Models.Entities.Base;
 
 namespace App.Module3.Shared.Models.Entities
 {
-    public class SourceSystemKeyedTenantedGuidIdReferenceDataBase : TenantedGuidIdReferenceDataBase, Models.IHasSourceSystemKey 
+    public class SourceSystemKeyedTenantedGuidIdReferenceDataBase : TenantFKAuditedRecordStatedTimestampedGuidIdReferenceDataEntityBase, Models.IHasSourceSystemKey 
     {
         /// <summary>
         /// Gets or sets the name of systme that provided

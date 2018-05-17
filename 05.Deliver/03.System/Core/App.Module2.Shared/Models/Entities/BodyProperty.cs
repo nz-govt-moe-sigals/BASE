@@ -4,7 +4,7 @@
     using App.Core.Shared.Models;
     using App.Core.Shared.Models.Entities;
 
-    public class BodyProperty : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase, IHasOwnerFK
+    public class BodyProperty : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase, IHasOwnerFK
     {
         public virtual string Key { get; set; }
         public virtual string Value { get; set; }

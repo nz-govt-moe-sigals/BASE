@@ -4,7 +4,7 @@
     using App.Core.Shared.Models;
     using App.Core.Shared.Models.Entities;
 
-    public class BodyChannel : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase, IHasOwnerFK, IHasDisplayOrderHint
+    public class BodyChannel : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase, IHasOwnerFK, IHasDisplayOrderHint
     {
         // Protocol: Phone, Email, Twitter, Instagram
         public virtual BodyChannelType Protocol { get; set; }

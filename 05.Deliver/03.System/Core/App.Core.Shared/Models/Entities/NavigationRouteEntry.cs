@@ -8,14 +8,14 @@ namespace App.Core.Shared.Models.Entities
     /// An untenanted (ie, Universal/App) Navigation route entry.
     /// <see cref="TenantedNavigationRoute"/>
     /// </summary>
-    /// <seealso cref="App.Core.Shared.Models.Entities.UntenantedTimestampedAuditedRecordStatedGuidIdEntityBase" />
+    /// <seealso cref="App.Core.Shared.Models.Entities.UntenantedAuditedRecordStatedTimestampedGuidIdEntityBase" />
     /// <seealso cref="App.Core.Shared.Models.IHasGuidId" />
     /// <seealso cref="App.Core.Shared.Models.IHasOwnerFK" />
     /// <seealso cref="App.Core.Shared.Models.IHasText" />
     /// <seealso cref="App.Core.Shared.Models.IHasDescription" />
     /// <seealso cref="App.Core.Shared.Models.IHasDisplayOrderHint" />
     /// <seealso cref="App.Core.Shared.Models.IHasDisplayStyleHint" />
-    public class NavigationRoute : UntenantedTimestampedAuditedRecordStatedGuidIdEntityBase, IHasGuidId, IHasOwnerFK, IHasText, IHasDescription, IHasDisplayOrderHint, IHasDisplayStyleHint
+    public class NavigationRoute : UntenantedAuditedRecordStatedTimestampedGuidIdEntityBase, IHasGuidId, IHasOwnerFK, IHasText, IHasDescription, IHasDisplayOrderHint, IHasDisplayStyleHint
     {
         public Guid OwnerFK
         {

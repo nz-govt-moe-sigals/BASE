@@ -4,7 +4,7 @@
     using App.Core.Shared.Models;
     using App.Core.Shared.Models.Entities;
 
-    public class BodyClaim : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase, IHasOwnerFK
+    public class BodyClaim : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase, IHasOwnerFK
     {
         public virtual string Authority { get; set; }
         public virtual string AuthoritySignature { get; set; }

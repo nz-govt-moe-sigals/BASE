@@ -69,7 +69,7 @@ namespace App.Module1.Infrastructure.Db.Migrations.Seeding
                 var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 if (Debugger.IsAttached == false)
                 {
-                    //Debugger.Launch();
+                    Debugger.Launch();
                 }
             }
         }

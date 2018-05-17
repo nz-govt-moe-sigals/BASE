@@ -5,7 +5,7 @@
     using System.Collections.ObjectModel;
 
     // It's *not* called User because a security Principal can be a User, but also a Device or Service.
-    public class Principal : UntenantedTimestampedAuditedRecordStatedGuidIdEntityBase, IHasEnabled
+    public class Principal : UntenantedAuditedRecordStatedTimestampedGuidIdEntityBase, IHasEnabled
     {
         public DateTime? EnabledBeginningUtc { get; set; }
         public DateTime? EnabledEndingUtc { get; set; }

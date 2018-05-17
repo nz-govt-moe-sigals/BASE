@@ -1,12 +1,45 @@
 ﻿namespace App.Core.Shared.Models.Entities
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
-    public class Tenant : UntenantedTimestampedAuditedRecordStatedGuidIdEntityBase, IHasKey, IHasEnabled
+
+    /// <summary>
+    /// <para>
+    /// A Tenant is an Application Account.
+    /// A Tenant/ApplicationAccount has 1+ UserAccounts/Principals
+    /// An ApplicationAccount/Tenant 
+    /// </para>
+    /// </summary>
+    public class Tenant : UntenantedAuditedRecordStatedTimestampedGuidIdEntityBase, IHasKey, IHasEnabled
     {
-        private ICollection<TenantClaim> _claims;
-        private ICollection<TenantProperty> _properties;
+
+        /// <summary>
+        /// Gets or sets whether the Account is enabled.
+        /// </summary>
+        public virtual bool Enabled { get; set; }
+
+
+        ///// <summary>
+        ///// The foreign key to the Subscription object
+        ///// related to this Application Account/Tenancy.
+        ///// <para>
+        ///// The Subscription provides Access information (ie, Beginning/End dates, etc.)
+        ///// to the logical Account/Tenancy.
+        ///// </para>
+        ///// </summary>
+        //public Guid SubscriptionFK { get; set; }
+        //public Subscription Subscription { get; set; }
+
+
+        /// <summary>
+        /// The key is unique, 
+        /// and provides a human readable element 
+        /// to paths.
+        /// </summary>
+        public virtual string Key { get; set; }
+
 
         /// <summary>
         ///     Only one Tenant can be marked as Default.
@@ -32,6 +65,7 @@
             get => this._properties ?? (this._properties = new Collection<TenantProperty>());
             set => this._properties = value;
         }
+        private ICollection<TenantProperty> _properties;
 
         public virtual ICollection<TenantClaim> Claims
         {
@@ -45,9 +79,7 @@
             }
             set => this._claims = value;
         }
+        private ICollection<TenantClaim> _claims;
 
-        public virtual bool Enabled { get; set; }
-
-        public virtual string Key { get; set; }
     }
 }

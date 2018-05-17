@@ -2,7 +2,7 @@
 {
     using App.Core.Shared.Models.Entities.Base;
 
-    public class SchoolRegionalCouncil : TenantedGuidIdReferenceDataBase
+    public class SchoolRegionalCouncil : TenantFKAuditedRecordStatedTimestampedGuidIdReferenceDataEntityBase
     {
     }
 }

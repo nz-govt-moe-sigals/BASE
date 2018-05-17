@@ -10,7 +10,7 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Extract.Base
     {
         public void Initialize(IMapperConfigurationExpression config)
         {
-            config.CreateMap<BaseMessage, TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase>()
+            config.CreateMap<BaseMessage, TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase>()
                 .Include<SchoolEnrol, EducationProviderEnrolmentCount>()
                 .Include<SchoolLevelGender, EducationProviderLevelGender>()
                 .Include<SchoolProfile, EducationProviderProfile>()

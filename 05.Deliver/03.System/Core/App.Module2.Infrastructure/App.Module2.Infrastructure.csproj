@@ -83,6 +83,14 @@
     <Compile Include="Initialization\Db\Migrations\Module2\201804190000598_Entities.AddedAltitude.Designer.cs">
       <DependentUpon>201804190000598_Entities.AddedAltitude.cs</DependentUpon>
     </Compile>
+    <Compile Include="Initialization\Db\Migrations\Module2\201805170242310_Reindex.cs" />
+    <Compile Include="Initialization\Db\Migrations\Module2\201805170242310_Reindex.Designer.cs">
+      <DependentUpon>201805170242310_Reindex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Initialization\Db\Migrations\Module2\201805170304517_ReindexMore.cs" />
+    <Compile Include="Initialization\Db\Migrations\Module2\201805170304517_ReindexMore.Designer.cs">
+      <DependentUpon>201805170304517_ReindexMore.cs</DependentUpon>
+    </Compile>
     <Compile Include="Initialization\Db\Schema\AppModule1DbModelBuilderOrchestrator.cs" />
     <Compile Include="Initialization\Db\Schema\AppModule2DbContextModelBuilderDefineBody.cs" />
     <Compile Include="Initialization\Db\Schema\AppModule2DbContextModelBuilderDefineBodyAlias.cs" />
@@ -174,6 +182,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Initialization\Db\Migrations\Module2\201804190000598_Entities.AddedAltitude.resx">
       <DependentUpon>201804190000598_Entities.AddedAltitude.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Module2\201805170242310_Reindex.resx">
+      <DependentUpon>201805170242310_Reindex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Module2\201805170304517_ReindexMore.resx">
+      <DependentUpon>201805170304517_ReindexMore.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

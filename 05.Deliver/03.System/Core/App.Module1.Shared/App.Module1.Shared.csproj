@@ -41,6 +41,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Configuration\ExampleApiConfiguration.cs" />
+    <Compile Include="Models\Entities\Course.cs" />
+    <Compile Include="Models\Entities\CourseCredit.cs" />
+    <Compile Include="Models\Entities\CourseDepartment.cs" />
+    <Compile Include="Models\Entities\CourseDepartmentStatus.cs" />
+    <Compile Include="Models\Entities\CourseEnrollee.cs" />
+    <Compile Include="Models\Entities\CourseEnrollment.cs" />
+    <Compile Include="Models\Entities\CourseGrade.cs" />
+    <Compile Include="Models\Entities\CourseInstructor.cs" />
+    <Compile Include="Models\Entities\CourseInstructorAssignment.cs" />
+    <Compile Include="Models\Entities\CourseInstructorOffice.cs" />
+    <Compile Include="Models\Entities\CourseInstructorOfficeAssignment.cs" />
+    <Compile Include="Models\Entities\CourseOccurance.cs" />
+    <Compile Include="Models\Entities\CourseResource.cs" />
+    <Compile Include="Models\Entities\CourseResourceAssignment.cs" />
+    <Compile Include="Models\Entities\CourseResourceType.cs" />
+    <Compile Include="Models\Entities\CourseRole.cs" />
+    <Compile Include="Models\Entities\CourseStatus.cs" />
+    <Compile Include="Models\Entities\EducationProvider.cs" />
+    <Compile Include="Models\Entities\Enums\CourseStatus.cs" />
     <Compile Include="Models\Entities\Example.cs" />
     <Compile Include="Models\Enums\ExampleEnum.cs" />
     <Compile Include="Models\Messages\APIs\V0100\ExampleDto.cs" />

@@ -6,7 +6,7 @@
     ///     inadvertently leaked, the data is basically
     ///     useless.
     /// </summary>
-    public class DataToken : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase
+    public class DataToken : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase
     {
         public virtual string Value { get; set; }
     }

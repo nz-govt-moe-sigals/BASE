@@ -1,5 +1,6 @@
 ﻿namespace App.Core.Infrastructure.Db.Schema
 {
+    using System;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure.Annotations;
@@ -16,8 +17,7 @@
         {
             var order = 1;
 
-            new NonTenantFKEtcConvention().Define<MediaMetadata>(modelBuilder, ref order);
-
+            new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<MediaMetadata>(modelBuilder, ref order);
 
             modelBuilder.Entity<MediaMetadata>()
                 .HasRequired(x => x.DataClassification)
@@ -32,7 +32,7 @@
                 .Property(x => x.ContentHash)
                 .HasMaxLength(Constants.Db.TextFieldSizes.X256)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute("IX_MediaMetadata_ContentHash") { IsUnique = false }))
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(MediaMetadata).Name}_ContentHash") { IsUnique = false }))
                 .HasColumnOrder(order++)
                 .IsRequired();
             modelBuilder.Entity<MediaMetadata>()
@@ -51,7 +51,7 @@
                 .HasColumnOrder(order++)
                 .HasMaxLength(Constants.Db.TextFieldSizes.X256)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute("IX_MediaMetadata_SourceFileName") { IsUnique = false }))
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(MediaMetadata).Name}_SourceFileName") { IsUnique = false }))
                 .IsRequired();
 
             modelBuilder.Entity<MediaMetadata>()
@@ -75,7 +75,7 @@
                 .HasColumnOrder(order++)
                 .HasMaxLength(Constants.Db.TextFieldSizes.X256)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute("IX_MediaMetadata_LocalFileName") { IsUnique = true }))
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(MediaMetadata).Name}_LocalFileName") { IsUnique = true }))
                 .IsOptional();
         }
     }

@@ -17,7 +17,7 @@
         {
             var order = 1;
 
-            new NonTenantFKEtcConvention().Define<SystemRole>(modelBuilder, ref order);
+            new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<SystemRole>(modelBuilder, ref order);
 
             modelBuilder.Entity<SystemRole>()
                 .Property(x => x.Enabled)
@@ -31,7 +31,7 @@
             modelBuilder.Entity<SystemRole>()
                 .Property(x => x.Key)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute("IX_SystemRole_Key") { IsUnique = false }))
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(SystemRole).Name}_Key") { IsUnique = false }))
                 .HasColumnOrder(order++)
                 .HasMaxLength(TextFieldSizes.X64)
                 .IsRequired();

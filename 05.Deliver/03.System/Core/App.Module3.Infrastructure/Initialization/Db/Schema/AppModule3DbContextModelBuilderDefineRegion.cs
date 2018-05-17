@@ -9,16 +9,16 @@ namespace App.Module3.Infrastructure.Db.Schema
 
     public class AppModule3DbContextModelBuilderDefineRegion : IHasAppModule3DbContextModelBuilderInitializer
     {
-        private readonly TenantedSIFSourceSystemKeyedGuidIdReferenceDataConvention _schemaDefinitionConvention;
+        private readonly TenantedSIFSourceSystemKeyedGuidIdReferenceDataConvention _modelBuilderConvention;
 
-        public AppModule3DbContextModelBuilderDefineRegion(TenantedSIFSourceSystemKeyedGuidIdReferenceDataConvention schemaDefinitionConvention)
+        public AppModule3DbContextModelBuilderDefineRegion(TenantedSIFSourceSystemKeyedGuidIdReferenceDataConvention modelBuilderConvention)
         {
-            this._schemaDefinitionConvention = schemaDefinitionConvention;
+            this._modelBuilderConvention = modelBuilderConvention;
         }
         public void Define(DbModelBuilder modelBuilder)
         {
             var order = 1;
-            this._schemaDefinitionConvention.Define<Region>(modelBuilder, ref order);
+            this._modelBuilderConvention.Define<Region>(modelBuilder, ref order);
         }
     }
 

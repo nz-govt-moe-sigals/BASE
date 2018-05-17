@@ -78,6 +78,7 @@ namespace App.Module2.Infrastructure.Db.Schema
 
         public void Initialize(DbModelBuilder modelBuilder)
         {
+                DefineByReflection(modelBuilder);
             //if (!PowershellServiceLocatorConfig.Activated)
             //{
             //    DefineByReflection(modelBuilder);
@@ -85,7 +86,7 @@ namespace App.Module2.Infrastructure.Db.Schema
             //else
             //{
             //Reflection does not work under Powershell, so:
-            DefineByHand(modelBuilder);
+            //DefineByHand(modelBuilder);
             //}
         }
 
@@ -97,28 +98,28 @@ namespace App.Module2.Infrastructure.Db.Schema
                 .ForEach(x => x.Define(modelBuilder));
         }
 
-        private void DefineByHand(DbModelBuilder modelBuilder)
-        {
-            this._appModule2DbContextModelBuilderDefineBody.Define(modelBuilder);
-            this._appModule2DbContextModelBuilderDefineBodyAlias.Define(modelBuilder);
-            this._appModule2DbContextModelBuilderDefineBodyCategory.Define(modelBuilder);
-            this._appModule2DbContextModelBuilderDefineBodyChannel.Define(modelBuilder);
-            this._appModule2DbContextModelBuilderDefineBodyClaim.Define(modelBuilder);
-            this._appModule2DbContextModelBuilderDefineBodyProperty.Define(modelBuilder);
+        //private void DefineByHand(DbModelBuilder modelBuilder)
+        //{
+        //    this._appModule2DbContextModelBuilderDefineBody.Define(modelBuilder);
+        //    this._appModule2DbContextModelBuilderDefineBodyAlias.Define(modelBuilder);
+        //    this._appModule2DbContextModelBuilderDefineBodyCategory.Define(modelBuilder);
+        //    this._appModule2DbContextModelBuilderDefineBodyChannel.Define(modelBuilder);
+        //    this._appModule2DbContextModelBuilderDefineBodyClaim.Define(modelBuilder);
+        //    this._appModule2DbContextModelBuilderDefineBodyProperty.Define(modelBuilder);
 
-            this._appModule2DbContextModelBuilderDefineSchoolAuthority.Define(modelBuilder);
-            this._appModule2DbContextModelBuilderDefineSchoolDecile.Define(modelBuilder);
-            this._appModule2DbContextModelBuilderDefineSchoolDefinition.Define(modelBuilder);
-            this._appModule2DbContextModelBuilderDefineSchoolEducationRegion.Define(modelBuilder);
-            this._appModule2DbContextModelBuilderDefineSchoolGender.Define(modelBuilder);
-            this._appModule2DbContextModelBuilderDefineSchoolGeneralElectorate.Define(modelBuilder);
-            this._appModule2DbContextModelBuilderDefineSchoolMinistryOfEducationLocalOffice.Define(modelBuilder);
-            this._appModule2DbContextModelBuilderDefineSchoolMoariElectorate.Define(modelBuilder);
-            this._appModule2DbContextModelBuilderDefineSchoolRegionalCouncil.Define(modelBuilder);
-            this._appModule2DbContextModelBuilderDefineSchoolTerritorialAuthoritywithAucklandLocalBoard.Define(modelBuilder);
-            this._appModule2DbContextModelBuilderDefineSchoolType.Define(modelBuilder);
+        //    this._appModule2DbContextModelBuilderDefineSchoolAuthority.Define(modelBuilder);
+        //    this._appModule2DbContextModelBuilderDefineSchoolDecile.Define(modelBuilder);
+        //    this._appModule2DbContextModelBuilderDefineSchoolDefinition.Define(modelBuilder);
+        //    this._appModule2DbContextModelBuilderDefineSchoolEducationRegion.Define(modelBuilder);
+        //    this._appModule2DbContextModelBuilderDefineSchoolGender.Define(modelBuilder);
+        //    this._appModule2DbContextModelBuilderDefineSchoolGeneralElectorate.Define(modelBuilder);
+        //    this._appModule2DbContextModelBuilderDefineSchoolMinistryOfEducationLocalOffice.Define(modelBuilder);
+        //    this._appModule2DbContextModelBuilderDefineSchoolMoariElectorate.Define(modelBuilder);
+        //    this._appModule2DbContextModelBuilderDefineSchoolRegionalCouncil.Define(modelBuilder);
+        //    this._appModule2DbContextModelBuilderDefineSchoolTerritorialAuthoritywithAucklandLocalBoard.Define(modelBuilder);
+        //    this._appModule2DbContextModelBuilderDefineSchoolType.Define(modelBuilder);
 
-            this._appModule2DbContextModelBuilderDefineEducationOrganisation.Define(modelBuilder);
-        }
+        //    this._appModule2DbContextModelBuilderDefineEducationOrganisation.Define(modelBuilder);
+        //}
     }
 }

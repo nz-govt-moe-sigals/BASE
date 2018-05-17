@@ -4,16 +4,40 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
-    public class Session : UntenantedTimestampedAuditedRecordStatedGuidIdEntityBase, IHasEnabled, IHasPrincipalFK
+    /// <summary>
+    /// <para>
+    /// A Session is bound to a single <see cref="Principal"/>
+    /// but not to a single <see cref="Tenant"/>.
+    /// </para>
+    /// </summary>
+    public class Session : UntenantedAuditedRecordStatedTimestampedGuidIdEntityBase, IHasEnabled, IHasPrincipalFK
     {
         public Session():base()
         {
+            // By default, until overridden 
+            // when hydrated by EF from a db
+            // record:
             Enabled = true;
         }
 
+        /// <summary>
+        /// Gets or sets whether a Session is enabled.
+        /// <para>
+        /// A Security Specialist could disable an active session 
+        /// if the session is believed to be a risk.
+        /// </para>
+        /// </summary>
         public virtual bool Enabled { get; set; }
 
+        /// <summary>
+        /// Gets or sets the FK of the Principal 
+        /// who initiated the Session.
+        /// </summary>
         public virtual Guid PrincipalFK { get; set; }
+        /// <summary>
+        /// Get or sets the Principal
+        /// who initiated the Session.
+        /// </summary>
         public virtual Principal Principal { get; set; }
 
         // A Session is bound to a Principal, 
@@ -23,6 +47,11 @@
         // NO: public Guid TenantFK { get; set; }
 
 
+            /// <summary>
+            /// Gets a collection of all <see cref="SessionOperation"/>s
+            /// performed by the <see cref="Principal"/> during this 
+            /// <see cref="Session"/>.
+            /// </summary>
         public virtual ICollection<SessionOperation> Operations
         {
             get

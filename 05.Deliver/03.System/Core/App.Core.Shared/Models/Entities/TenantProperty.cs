@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class TenantProperty : UntenantedTimestampedAuditedRecordStatedGuidIdEntityBase, IHasOwnerFK
+    public class TenantProperty : UntenantedAuditedRecordStatedTimestampedGuidIdEntityBase, IHasOwnerFK
     {
         public virtual string Key { get; set; }
         public virtual string Value { get; set; }

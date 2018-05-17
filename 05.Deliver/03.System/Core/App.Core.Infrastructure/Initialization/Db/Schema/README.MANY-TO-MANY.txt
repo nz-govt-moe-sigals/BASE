@@ -1,9 +1,9 @@
 ﻿    modelBuilder.Entity<Student>()
                 .HasMany<Course>(s => s.Courses)
                 .WithMany(c => c.Students)
-                .Map(cs =>
+                .Map(j =>
                         {
-                            cs.MapLeftKey("StudentRefId");
-                            cs.MapRightKey("CourseRefId");
-                            cs.ToTable("StudentCourse");
+                            j.ToTable(typeof(Student).Name + "_to_" typeof(Course).Name);
+                            j.MapLeftKey("StudentRefId");
+                            j.MapRightKey("CourseRefId");
                         });

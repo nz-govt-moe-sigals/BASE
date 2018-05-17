@@ -1,6 +1,7 @@
 ﻿namespace App.Core.Shared.Models
 {
     public interface IHasId<T>
+        //where T  /*No: because string is not a struct : struct */
     {
         /// <summary>
         /// Gets or sets the identifier.

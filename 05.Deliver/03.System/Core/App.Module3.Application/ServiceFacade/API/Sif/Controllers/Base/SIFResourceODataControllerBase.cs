@@ -28,7 +28,7 @@ namespace App.Module3.Application.ServiceFacade.API.Controllers
         }
 
         //// POST api/values 
-        protected void InternalPost(TDto value)
+        protected virtual void InternalPost(TDto value)
         {
             //Update an existing record:
             var entity = InternalGetDbSet().SingleOrDefault(x => x.SIFKey.ToString() == value.Id);
@@ -38,7 +38,7 @@ namespace App.Module3.Application.ServiceFacade.API.Controllers
         }
 
         // PUT api/values/5 
-        protected void InternalPut(TDto value)
+        protected new void InternalPut(TDto value)
         {
             //Create a new record:
             var entity = this._objectMappingService.Map<TDto, TEntity>(value);

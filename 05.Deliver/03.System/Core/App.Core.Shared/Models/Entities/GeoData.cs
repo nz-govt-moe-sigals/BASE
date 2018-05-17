@@ -1,6 +1,6 @@
 namespace App.Core.Shared.Models.Entities
 {
-    public class GeoData : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase
+    public class GeoData : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase
     {
         public virtual decimal Latitude { get; set; }
         public virtual decimal Longitude { get; set; }

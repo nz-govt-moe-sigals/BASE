@@ -7,16 +7,20 @@ namespace App.Module2.DbContextModelBuilder
 
     public class AppModule2DbContextModelBuilderDefineSchoolMinistryOfEducationLocalOffice : IHasAppModule2DbContextModelBuilderInitializer
     {
-        private readonly TenantedReferenceDataConvention _tenantedReferenceDataConvention;
-
-        public AppModule2DbContextModelBuilderDefineSchoolMinistryOfEducationLocalOffice(TenantedReferenceDataConvention tenantedReferenceDataConvention)
+                         
+        private readonly TenantFKAuditedRecordStatedTimestampedGuidIdReferenceDataConvention _modelBuilderConvention;
+        
+        public AppModule2DbContextModelBuilderDefineSchoolMinistryOfEducationLocalOffice(
+            TenantFKAuditedRecordStatedTimestampedGuidIdReferenceDataConvention 
+            
+            modelBuilderConvention)
         {
-            this._tenantedReferenceDataConvention = tenantedReferenceDataConvention;
+            this._modelBuilderConvention = modelBuilderConvention;
         }
         public void Define(DbModelBuilder modelBuilder)
         {
             var order = 1;
-            this._tenantedReferenceDataConvention.Define<SchoolMinistryOfEducationLocalOffice>(modelBuilder, ref order);
+            this._modelBuilderConvention.Define<SchoolMinistryOfEducationLocalOffice>(modelBuilder, ref order);
         }
     }
 }

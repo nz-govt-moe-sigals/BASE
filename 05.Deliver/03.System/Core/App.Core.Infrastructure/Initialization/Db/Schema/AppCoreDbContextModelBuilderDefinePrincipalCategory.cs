@@ -13,7 +13,7 @@
             var order = 1;
 
 
-            new NonTenantFKEtcConvention().Define<PrincipalCategory>(modelBuilder, ref order);
+            new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<PrincipalCategory>(modelBuilder, ref order);
 
             modelBuilder.Entity<PrincipalCategory>()
                 .Property(x => x.Enabled)

@@ -11,17 +11,19 @@ namespace App.Module3.Infrastructure.Db.Schema
 
     public class AppModule3DbContextModelBuilderDefineEducationProviderLevelGender : IHasAppModule3DbContextModelBuilderInitializer
     {
-        private readonly TenantFKEtcConvention _schemaDefinitionConvention;
+        
+        private readonly TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention _modelBuilderConvention;
 
-        public AppModule3DbContextModelBuilderDefineEducationProviderLevelGender(TenantFKEtcConvention schemaDefinitionConvention)
+        public AppModule3DbContextModelBuilderDefineEducationProviderLevelGender(
+            TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention modelBuilderConvention)
         {
-            this._schemaDefinitionConvention = schemaDefinitionConvention;
+            this._modelBuilderConvention = modelBuilderConvention;
         }
 
         public void Define(DbModelBuilder modelBuilder)
         {
             var order = 1;
-            this._schemaDefinitionConvention.Define<EducationProviderLevelGender>(modelBuilder, ref order);
+            this._modelBuilderConvention.Define<EducationProviderLevelGender>(modelBuilder, ref order);
 
             // A school profile can have n SchoolLevelGender records.
             modelBuilder.Entity<EducationProviderLevelGender>()
@@ -45,7 +47,7 @@ namespace App.Module3.Infrastructure.Db.Schema
                 .HasColumnOrder(order++)
                 .HasMaxLength(TextFieldSizes.X10)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute($"IX_EducationProviderLevelGender_SourceSystemKey")
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(EducationProviderLevelGender).Name}_SourceSystemKey")
                     {
                         IsUnique = true
                     }))

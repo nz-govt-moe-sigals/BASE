@@ -4,7 +4,7 @@
     using App.Core.Shared.Models;
     using App.Core.Shared.Models.Entities;
 
-    public class BodyAlias : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase, IHasOwnerFK, IHasDisplayOrderHint,
+    public class BodyAlias : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase, IHasOwnerFK, IHasDisplayOrderHint,
         IHasTitle
     {
         // Display if Type=Organisation

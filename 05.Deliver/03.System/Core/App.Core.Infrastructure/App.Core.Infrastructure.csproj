@@ -152,6 +152,7 @@
     <Compile Include="Db\Interception\Implementations\HasInRecordAuditabilityDbContextPreCommitStrategy.cs" />
     <Compile Include="Db\Interception\Implementations\Base\UnitOfWorkPreCommitProcessingStrategyBase.cs" />
     <Compile Include="Db\Interception\Implementations\HasTenantFKAuditabilityDbContextPreCommitStrategy.cs" />
+    <Compile Include="ExtensionMethods\ModelBuilderExtensions.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederDataClassification.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederExceptionRecord.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederPrincipalCategory.cs" />
@@ -182,6 +183,14 @@
     <Compile Include="Initialization\Db\Migrations\Core\201712070939290_SchoolRefs.Designer.cs">
       <DependentUpon>201712070939290_SchoolRefs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Initialization\Db\Migrations\Core\201805170243526_Reindex.cs" />
+    <Compile Include="Initialization\Db\Migrations\Core\201805170243526_Reindex.Designer.cs">
+      <DependentUpon>201805170243526_Reindex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Initialization\Db\Migrations\Core\201805170309584_More.cs" />
+    <Compile Include="Initialization\Db\Migrations\Core\201805170309584_More.Designer.cs">
+      <DependentUpon>201805170309584_More.cs</DependentUpon>
+    </Compile>
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineDataClassification.cs" />
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineExceptionRecord.cs" />
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipal2Tags.cs" />
@@ -195,10 +204,6 @@
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalCategory.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleModelBuilderCommonConfiguration.cs" />
     <Compile Include="Initialization\Db\Schema\Conventions\IdConvention.cs" />
-    <Compile Include="Initialization\Db\Schema\Conventions\NonTenantFKEtcConvention.cs" />
-    <Compile Include="Initialization\Db\Schema\Conventions\TenantedKeyedReferenceDataConvention.cs" />
-    <Compile Include="Initialization\Db\Schema\Conventions\TenantedReferenceDataConvention.cs" />
-    <Compile Include="Initialization\Db\Schema\Conventions\TenantFKEtcConvention.cs" />
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipal.cs" />
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalProperty.cs" />
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineSessionOperationLog.cs" />
@@ -222,6 +227,15 @@
     <Compile Include="Factories\ExtendedConfigurationFactory.cs" />
     <Compile Include="Helpers\ElapsedTime.cs" />
     <Compile Include="IHasDocumentId.cs" />
+    <Compile Include="Initialization\Db\Schema\Conventions\TenantFKAuditedRecordStatedTimestampedCustomIdDataConvention.cs" />
+    <Compile Include="Initialization\Db\Schema\Conventions\TenantFKAuditedRecordStatedTimestampedCustomIdReferenceDataConvention.cs" />
+    <Compile Include="Initialization\Db\Schema\Conventions\TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention.cs" />
+    <Compile Include="Initialization\Db\Schema\Conventions\TenantFKAuditedRecordStatedTimestampedGuidIdReferenceDataConvention.cs" />
+    <Compile Include="Initialization\Db\Schema\Conventions\TenantFKKeyedAuditedRecordStatedTimestampedCustomIdReferenceDataConvention.cs" />
+    <Compile Include="Initialization\Db\Schema\Conventions\UntenantedAuditedRecordStatedTimestampedCustomIdDataConvention.cs" />
+    <Compile Include="Initialization\Db\Schema\Conventions\UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention.cs" />
+    <Compile Include="Initialization\Db\Schema\Conventions\TenantFKAuditedRecordStatedTimestampedNoIdDataConvention.cs" />
+    <Compile Include="Initialization\Db\Schema\Conventions\UntenantedAuditedRecordStatedTimestampedNoIdDataConvention.cs" />
     <Compile Include="Initialization\DependencyResolution\AppAllInfrastructureRegistry.cs" />
     <Compile Include="Initialization\DependencyResolution\AppCoreInfrastructureRegistry.cs" />
     <Compile Include="Initialization\Integration\Azure\AzureApplicationRegistrationIntegrationInitializer.cs" />
@@ -434,6 +448,7 @@
     <Content Include="Initialization\ObjectMaps\README.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Initialization\Db\Schema\Conventions\Fragments\" />
     <Folder Include="Initialization\Integration\Azure\AzureStorage\" />
     <Folder Include="Initialization\Interception\" />
     <Folder Include="Initialization\Storage\AzureStorageAccount\" />
@@ -448,6 +463,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Initialization\Db\Migrations\Core\201712070939290_SchoolRefs.resx">
       <DependentUpon>201712070939290_SchoolRefs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Core\201805170243526_Reindex.resx">
+      <DependentUpon>201805170243526_Reindex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Core\201805170309584_More.resx">
+      <DependentUpon>201805170309584_More.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -8,11 +8,11 @@
 
     public class AppModule2DbContextModelBuilderDefineBodyChannel : IHasAppModule2DbContextModelBuilderInitializer
     {
-        private readonly TenantFKEtcConvention _tenantFkEtcConvention;
+        private readonly TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention _convention;
 
-        public AppModule2DbContextModelBuilderDefineBodyChannel(TenantFKEtcConvention tenantFkEtcConvention)
+        public AppModule2DbContextModelBuilderDefineBodyChannel(TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention modelBuilderConvention)
         {
-            this._tenantFkEtcConvention = tenantFkEtcConvention;
+            this._convention = modelBuilderConvention;
         }
 
 
@@ -21,7 +21,7 @@
             var order = 1;
 
 
-            _tenantFkEtcConvention.Define<BodyChannel>(modelBuilder, ref order);
+            _convention.Define<BodyChannel>(modelBuilder, ref order);
 
 
             modelBuilder.Entity<BodyChannel>()
@@ -42,7 +42,6 @@
             modelBuilder.Entity<BodyChannel>()
                 .Property(x => x.Title)
                 .HasColumnOrder(order++)
-                .HasMaxLength(App.Core.Infrastructure.Constants.Db.TextFieldSizes.X256)
                 .HasMaxLength(App.Core.Infrastructure.Constants.Db.TextFieldSizes.X64)
                 .IsRequired();
             modelBuilder.Entity<BodyChannel>()

@@ -11,7 +11,7 @@
     ///         Behavior provided by Extension Methods.
     ///     </para>
     /// </internal>
-    public class PersistedMedia : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase,
+    public class PersistedMedia : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase,
         IHasName,
         IHasValue<byte[]>,
         IHasTag,

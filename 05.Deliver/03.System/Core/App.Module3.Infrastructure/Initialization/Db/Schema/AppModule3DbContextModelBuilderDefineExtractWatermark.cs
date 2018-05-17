@@ -24,8 +24,7 @@ namespace App.Module3.Infrastructure.Db.Schema
         public void DefineTable(DbModelBuilder modelBuilder)
         {
             var order = 1;
-
-            new NonTenantFKEtcConvention().Define<ExtractWatermark>(modelBuilder, ref order);
+            new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<ExtractWatermark>(modelBuilder, ref order);
 
 
             modelBuilder.Entity<ExtractWatermark>()
@@ -41,7 +40,7 @@ namespace App.Module3.Infrastructure.Db.Schema
 
             modelBuilder.Entity<ExtractWatermark>()
                 .Property(t => t.SourceTableName)
-                .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute("UX_ExtractWatermark_SourceTableName") { IsUnique = true }));
+                .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute($"UX_{typeof(ExtractWatermark).Name}_SourceTableName") { IsUnique = true }));
         }
     }
 }

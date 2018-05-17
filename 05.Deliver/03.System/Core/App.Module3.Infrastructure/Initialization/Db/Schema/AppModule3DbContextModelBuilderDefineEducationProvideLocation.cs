@@ -12,17 +12,17 @@ namespace App.Module3.Infrastructure.Db.Schema
     public class AppModule3DbContextModelBuilderDefineEducationProvideLocation
         : IHasAppModule3DbContextModelBuilderInitializer
     {
-        private readonly TenantFKEtcConvention _schemaDefinitionConvention;
+        private readonly TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention _modelBuilderConvention;
 
-        public AppModule3DbContextModelBuilderDefineEducationProvideLocation(TenantFKEtcConvention schemaDefinitionConvention)
+        public AppModule3DbContextModelBuilderDefineEducationProvideLocation(TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention modelBuilderConvention)
         {
-            this._schemaDefinitionConvention = schemaDefinitionConvention;
+            this._modelBuilderConvention = modelBuilderConvention;
         }
 
         public void Define(DbModelBuilder modelBuilder)
         {
             var order = 1;
-            this._schemaDefinitionConvention.Define<EducationProviderLocation>(modelBuilder, ref order);
+            this._modelBuilderConvention.Define<EducationProviderLocation>(modelBuilder, ref order);
 
             modelBuilder.Entity<EducationProviderLocation>()
                 .Property(x => x.EducationProviderFK)
@@ -50,7 +50,7 @@ namespace App.Module3.Infrastructure.Db.Schema
                 .HasColumnOrder(order++)
                 .HasMaxLength(TextFieldSizes.X10)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute($"IX_EducationProviderLocation_SourceSystemKey")
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(EducationProviderLocation).Name}_SourceSystemKey")
                     {
                         IsUnique = true
                     }))

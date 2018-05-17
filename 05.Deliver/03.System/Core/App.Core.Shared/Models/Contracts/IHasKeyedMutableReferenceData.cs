@@ -32,7 +32,7 @@ namespace App.Core.Shared.Models.Contracts
     /// </summary>
     /// </summary>
     /// <seealso cref="IHasMutableValuedReferenceData{TValue}" />
-    public interface IHasKeyedMutableReferenceData : IHasMutableReferenceData
+    public interface IHasKeyedMutableReferenceData : IHasMutableDisplayableReferenceData
     {
 
     }

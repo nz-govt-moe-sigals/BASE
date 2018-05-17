@@ -11,25 +11,19 @@
     public class
         AppModule2DbContextModelBuilderDefineEducationOrganisation : IHasAppModule2DbContextModelBuilderInitializer
     {
-        private readonly TenantFKEtcConvention _tenantFkEtcConvention;
+        private readonly TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention _convention;
 
         
-        public AppModule2DbContextModelBuilderDefineEducationOrganisation(TenantFKEtcConvention _tenantFkEtcConvention)
+        public AppModule2DbContextModelBuilderDefineEducationOrganisation(TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention _convention)
         {
-            this._tenantFkEtcConvention = _tenantFkEtcConvention;
+            this._convention = _convention;
         }
 
         public void Define(DbModelBuilder modelBuilder)
         {
             var order = 1;
 
-            this._tenantFkEtcConvention.Define<EducationOrganisation>(modelBuilder, ref order);
-
-            modelBuilder.Entity<EducationOrganisation>()
-                .Property(x => x.Id)
-                .HasColumnOrder(order++)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None)
-                .IsRequired();
+            this._convention.Define<EducationOrganisation>(modelBuilder, ref order);
 
 
             modelBuilder.Entity<EducationOrganisation>()

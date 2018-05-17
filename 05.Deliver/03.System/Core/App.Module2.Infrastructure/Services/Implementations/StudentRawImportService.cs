@@ -137,7 +137,7 @@ namespace App.Module2.Infrastructure.Services.Implementations
 
 
         private int BuildReferenceData_EducationEstablishmentAuthority<T>(string[] srcRecords, IEnumerable<IHasText> _source)
-            where T: TenantedGuidIdReferenceDataBase,new()
+            where T: TenantFKAuditedRecordStatedTimestampedGuidIdReferenceDataEntityBase,new()
         {
 
 

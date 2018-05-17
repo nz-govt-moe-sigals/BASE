@@ -11,11 +11,11 @@ namespace App.Core.Infrastructure.Db.Schema
             modelBuilder.Entity<Principal>()
                 .HasMany(p => p.Tags)
                 .WithMany()
-                .Map(x =>
+                .Map(j =>
                 {
-                    x.MapLeftKey("PrincipalFK");
-                    x.MapRightKey("TagFK");
-                    x.ToTable("Principal2Tag");
+                    j.ToTable(typeof(Principal).Name + "2" + /*typeof(PrincipalTag).Name*/ "Tag");
+                    j.MapLeftKey("PrincipalFK");
+                    j.MapRightKey("TagFK");
                 });
         }
     }

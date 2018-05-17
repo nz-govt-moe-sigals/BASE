@@ -17,7 +17,7 @@
         {
             var order = 1;
 
-            new NonTenantFKEtcConvention().Define<SessionOperation>(modelBuilder, ref order);
+            new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<SessionOperation>(modelBuilder, ref order);
 
             modelBuilder.Entity<SessionOperation>()
                 .Property(x => x.BeginDateTimeUtc)
@@ -44,14 +44,14 @@
             modelBuilder.Entity<SessionOperation>()
                 .Property(x => x.ControllerName)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute("IX_SessionOperationLog_ControllerName") {IsUnique = false}))
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(SessionOperation).Name}_ControllerName") {IsUnique = false}))
                 .HasColumnOrder(order++)
                 .HasMaxLength(TextFieldSizes.X64)
                 .IsRequired();
             modelBuilder.Entity<SessionOperation>()
                 .Property(x => x.ActionName)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute("IX_SessionOperationLog_ActionName") {IsUnique = false}))
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(SessionOperation).Name}_ActionName") {IsUnique = false}))
                 .HasColumnOrder(order++)
                 .HasMaxLength(TextFieldSizes.X64)
                 .IsRequired();

@@ -15,7 +15,7 @@
             var order = 1;
 
 
-            new NonTenantFKEtcConvention().Define<Session>(modelBuilder, ref order);
+            new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<Session>(modelBuilder, ref order);
 
 
             modelBuilder.Entity<Session>()

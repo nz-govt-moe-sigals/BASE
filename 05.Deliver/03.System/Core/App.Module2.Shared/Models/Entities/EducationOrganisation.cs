@@ -3,7 +3,7 @@
     using System;
     using App.Core.Shared.Models.Entities;
 
-    public class EducationOrganisation : TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase
+    public class EducationOrganisation : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase
     {
         public virtual Guid? ParentFK { get; set; }
 

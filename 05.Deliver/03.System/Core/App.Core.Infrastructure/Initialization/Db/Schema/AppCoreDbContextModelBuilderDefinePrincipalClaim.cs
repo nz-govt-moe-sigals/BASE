@@ -18,7 +18,7 @@
             var order = 1;
 
 
-            new NonTenantFKEtcConvention().Define<PrincipalClaim>(modelBuilder, ref order);
+            new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<PrincipalClaim>(modelBuilder, ref order);
 
             modelBuilder.Entity<PrincipalClaim>()
                 .Property(x => x.OwnerFK)
@@ -30,7 +30,7 @@
                 .HasColumnOrder(order++)
                 .HasMaxLength(TextFieldSizes.X64)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute("IX_PrincipalClaim_Authority") { IsUnique = false }))
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(PrincipalClaim).Name}_Authority") { IsUnique = false }))
                 .IsRequired();
 
             modelBuilder.Entity<PrincipalClaim>()
@@ -38,7 +38,7 @@
                 .HasColumnOrder(order++)
                 .HasMaxLength(TextFieldSizes.X64)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute("IX_PrincipalClaim_Key") { IsUnique = false }))
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(PrincipalClaim).Name}_Key") { IsUnique = false }))
                 .IsRequired();
 
             modelBuilder.Entity<PrincipalClaim>()

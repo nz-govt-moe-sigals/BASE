@@ -3,6 +3,7 @@
     using System;
 
     public interface IHasGuidId : IHasId<Guid>
+
     {
 
     }

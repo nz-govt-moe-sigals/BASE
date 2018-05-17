@@ -12,53 +12,29 @@ using App.Module3.Shared.Models.Entities;
 
 namespace App.Module3.Infrastructure.Db.Schema.Conventions
 {
-    public class TenantedSourceSystemKeyedGuidIdReferenceDataConvention : TenantedReferenceDataConvention
+    
+    public class TenantedSourceSystemKeyedGuidIdReferenceDataConvention 
     {
-        public new void Define<T>(DbModelBuilder modelBuilder, ref int order,
+        public void Define<T>(DbModelBuilder modelBuilder, ref int order,
             Func<int, int> injectedPropertyDefs = null)
             where T : SourceSystemKeyedTenantedGuidIdReferenceDataBase
         {
 
-            string typeName = typeof(T).Name;
-
-            // Call underlying method first:
-            base.Define<T>(modelBuilder, ref order, o =>
-            {
-                if (o != 11)
-                {
-                    return o;
-                }
 
 
-                modelBuilder.Entity<T>()
-                    .Property(x => x.SourceSystemKey)
-                    .HasColumnOrder(o++)
-                    .HasMaxLength(TextFieldSizes.X10)
-                    .HasColumnAnnotation("Index",
-                        new IndexAnnotation(new IndexAttribute($"IX_{typeName}_FIRSTKey")
-                        {
-                            IsUnique = true
-                        }))
-                    .IsRequired();
+            // Invoke Helpers:
 
-                if (injectedPropertyDefs != null)
-                {
-                    o = injectedPropertyDefs.Invoke(o);
-                }
+            modelBuilder.DefineTenantFK<T>(ref order);
 
-                modelBuilder.Entity<T>()
-                    .Property(x => x.SourceSystemName)
-                    .HasColumnOrder(o++)
-                    .HasMaxLength(TextFieldSizes.X256)
-                    .IsOptional();
+            modelBuilder.DefineCustomId<T, Guid>(ref order);
 
-                if (injectedPropertyDefs != null)
-                {
-                    o = injectedPropertyDefs.Invoke(o);
-                }
+            modelBuilder.DefineSourceSystemFields<T>(ref order);
 
-                return o;
-            });
+            modelBuilder.DefineTimestampedAuditedRecordStated<T>(ref order);
+
+            modelBuilder.DefineDisplayableReferenceData<T>(ref order);
+
+
         }
     }
 }
