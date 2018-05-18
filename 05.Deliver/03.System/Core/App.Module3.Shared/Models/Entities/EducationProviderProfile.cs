@@ -23,6 +23,9 @@ namespace App.Module3.Shared.Models.Entities
         {
             get; set;
         }
+        /// <summary>
+        /// Nullable
+        /// </summary>
         public EducationProviderClassification Classification
         {
             get; set;
@@ -43,6 +46,9 @@ namespace App.Module3.Shared.Models.Entities
         {
             get; set;
         }
+        /// <summary>
+        /// Nullable
+        /// </summary>
         public EducationProviderGender SchoolingGender
         {
             get; set;
@@ -52,6 +58,9 @@ namespace App.Module3.Shared.Models.Entities
         {
             get; set;
         }
+        /// <summary>
+        /// Nullable
+        /// </summary>
         public LocalOffice LocalOffice
         {
             get; set;
@@ -67,6 +76,9 @@ namespace App.Module3.Shared.Models.Entities
         {
             get; set;
         }
+        /// <summary>
+        /// Nullable
+        /// </summary>
         public CoL CoL
         {
             get; set;
@@ -87,6 +99,9 @@ namespace App.Module3.Shared.Models.Entities
         {
             get; set;
         }
+        /// <summary>
+        /// Nullable
+        /// </summary>
         public AreaUnit AreaUnit
         {
             get; set;
@@ -97,6 +112,9 @@ namespace App.Module3.Shared.Models.Entities
         {
             get; set;
         }
+        /// <summary>
+        /// Nullable
+        /// </summary>
         public CommunityBoard CommunityBoard
         {
             get; set;
@@ -107,6 +125,9 @@ namespace App.Module3.Shared.Models.Entities
         {
             get; set;
         }
+        /// <summary>
+        /// Nullable
+        /// </summary>
         public GeneralElectorate GeneralElectorate
         {
             get; set;
@@ -117,6 +138,9 @@ namespace App.Module3.Shared.Models.Entities
         {
             get; set;
         }
+        /// <summary>
+        /// Nullable
+        /// </summary>
         public MaoriElectorate MaoriElectorate
         {
             get; set;
@@ -127,7 +151,9 @@ namespace App.Module3.Shared.Models.Entities
         {
             get; set;
         }
-
+        /// <summary>
+        /// Nullable
+        /// </summary>
         public RegionalCouncil RegionalCouncil
         {
             get; set;
@@ -156,7 +182,9 @@ namespace App.Module3.Shared.Models.Entities
         {
             get; set;
         }
-
+        /// <summary>
+        /// Nullable
+        /// </summary>
         public SpecialSchooling SpecialSchooling
         {
             get; set;
@@ -168,7 +196,9 @@ namespace App.Module3.Shared.Models.Entities
         {
             get; set;
         }
-
+        /// <summary>
+        /// Nullable
+        /// </summary>
         public TeacherEducation TeacherEducation
         {
             get; set;
@@ -178,6 +208,9 @@ namespace App.Module3.Shared.Models.Entities
         {
             get; set;
         }
+        /// <summary>
+        /// Nullable
+        /// </summary>
         public TerritorialAuthority TerritorialAuthority
         {
             get; set;
@@ -188,6 +221,10 @@ namespace App.Module3.Shared.Models.Entities
         {
             get; set;
         }
+        
+        /// <summary>
+        /// Nullable
+        /// </summary>
         public UrbanArea UrbanArea
         {
             get; set;
@@ -198,7 +235,9 @@ namespace App.Module3.Shared.Models.Entities
         {
             get; set;
         }
-
+        /// <summary>
+        /// Nullable
+        /// </summary>
         public Ward Ward
         {
             get; set;
