@@ -44,9 +44,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module0.Core", "Module0.Cor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Core.Infrastructure.IDA.Tests", "App.Core.Infrastructure.OIDC.Tests\App.Core.Infrastructure.IDA.Tests.csproj", "{02248FC2-E362-4178-8946-AFD83DEA0F8F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module1", "Module1", "{0C0BF0F2-EEB7-4084-BF90-1CC74A228AEF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module1.Template", "Module1.Template", "{0C0BF0F2-EEB7-4084-BF90-1CC74A228AEF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module2", "Module2", "{A8AB3729-DD3E-40CB-83A2-16F809286B04}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module2.CMS", "Module2.CMS", "{A8AB3729-DD3E-40CB-83A2-16F809286B04}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module1.Shared", "App.Module1.Shared\App.Module1.Shared.csproj", "{B760143D-99A6-41D6-B526-337AB1F5929C}"
 EndProject
@@ -64,7 +64,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module2.Infrastructure"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module2.Application", "App.Module2.Application\App.Module2.Application.csproj", "{40CFC658-32D6-469D-AE0B-95A605958122}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module3", "Module3", "{B3B8DBD3-32A9-4791-8D1C-3FAFBF62A872}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module3.SchoolsRoll", "Module3.SchoolsRoll", "{B3B8DBD3-32A9-4791-8D1C-3FAFBF62A872}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module3.Shared", "App.Module3.Shared\App.Module3.Shared.csproj", "{5136CC88-5043-46E7-946A-92337F74C450}"
 EndProject
@@ -106,7 +106,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DBs", "DBs", "{DC84FDAE-75F
 		_Readme\readme.EF.many-to-one-(x)-(1-1).md = _Readme\readme.EF.many-to-one-(x)-(1-1).md
 		_Readme\readme.EF.one-to-many-(1)-(0-x)-owned.md = _Readme\readme.EF.one-to-many-(1)-(0-x)-owned.md
 		_Readme\readme.EF.one-to-many-(1)-(0-x)-recursive.md = _Readme\readme.EF.one-to-many-(1)-(0-x)-recursive.md
-		_Readme\readme.EF.one-to-many-(1)-(1-x)-owned.md = _Readme\readme.EF.one-to-many-(1)-(1-x)-owned.md
 		_Readme\readme.EF.one-to-many-(1)-(1-x)-recursive.md = _Readme\readme.EF.one-to-many-(1)-(1-x)-recursive.md
 		_Readme\readme.EF.one-to-many-to-many-to-one-(1)-(0-x)-(0-x)-(1).md = _Readme\readme.EF.one-to-many-to-many-to-one-(1)-(0-x)-(0-x)-(1).md
 		_Readme\readme.EF.one-to-one-(1)-(0-1).md = _Readme\readme.EF.one-to-one-(1)-(0-1).md
@@ -128,9 +127,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blueprints", "Blueprints", 
 		_Readme\readme.blank.tenancies subscriptions and accounts.md = _Readme\readme.blank.tenancies subscriptions and accounts.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module4", "Module4", "{2316B271-DC55-4A4B-B4B1-E3719CAF13C5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module4.Courses", "Module4.Courses", "{2316B271-DC55-4A4B-B4B1-E3719CAF13C5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module5", "Module5", "{EE52FBA1-DB51-44D2-88E0-2D9EA04412B8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module8.ATE", "Module8.ATE", "{EE52FBA1-DB51-44D2-88E0-2D9EA04412B8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_GettingStarted", "_GettingStarted", "{158E0857-D6CF-445A-988A-9F549509664C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module7.Readings", "Module7.Readings", "{E58ED385-C499-42B4-86BD-1F8A3864D626}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -269,6 +272,7 @@ Global
 		{F2B0D33B-00BD-4196-841B-C36741518AA4} = {8A4F3C88-EDBB-46C4-A52B-B11A603A1F1A}
 		{63301A1B-FFC6-4DF7-9D6B-0CC5A5E0E035} = {8A4F3C88-EDBB-46C4-A52B-B11A603A1F1A}
 		{FC2376CD-76A5-4312-9017-9DD27B040E5C} = {8A4F3C88-EDBB-46C4-A52B-B11A603A1F1A}
+		{158E0857-D6CF-445A-988A-9F549509664C} = {8A4F3C88-EDBB-46C4-A52B-B11A603A1F1A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2F529A1D-CBD2-4505-88EC-746854D7FB98}

@@ -6,6 +6,27 @@ namespace App.Module1.Application.ServiceFacade.API.Controllers
     using App.Core.Shared.Models;
     using App.Module1.Infrastructure.Constants.Db;
 
+    /// <summary>
+    /// Abstract Base class for OData Controllers within this specific Module.
+    /// <para>
+    /// Technically, DDD would stipilate that Http specific Controllers remain Dumb, 
+    /// not have direct access to Repositories
+    /// and instead use a Domain Service into which 
+    /// a <see cref="IRepositoryService"/>
+    /// is injected. At least in theory. The reality is that API Apps don't have 
+    /// much logic, so there's no advantage to get overly complex right away. Hence
+    /// why a Repository Service is injected into this controller.
+    /// </para>
+    /// <para>
+    /// That said, in order for the RepositoryService to know which DbContext/Schema
+    /// to work with, Controllers must defined the DbContext name.
+    /// This is done within the <see cref="IInitialize"/> method defined
+    /// in the underlying <see cref="ActiveRecordStateCommonODataControllerBase{TEntity,TDto}"/>
+    /// </para>
+    /// 
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <typeparam name="TDto"></typeparam>
     public abstract class
         TenantedGuidIdActiveRecordStateODataControllerDataBase<TEntity, TDto> : TenantedGuidIdActiveRecordStateCommonODataControllerBase<TEntity, TDto>
         where TEntity : class, IHasGuidId, IHasRecordState, IHasTenantFK, new()
