@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Host", "App.Host\App.Host.csproj", "{F05524D0-7306-48CD-A11A-4965EE64EC43}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Host", "App.Host\App.Host\App.Host.csproj", "{F05524D0-7306-48CD-A11A-4965EE64EC43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Host.Tests", "App.Host.Tests\App.Host.Tests.csproj", "{AF63F5D1-9064-41AC-A20E-86C4CE64744A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Host.Tests", "App.Host\App.Host.Tests\App.Host.Tests.csproj", "{AF63F5D1-9064-41AC-A20E-86C4CE64744A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Core.Shared", "App.Core\App.Core.Shared\App.Core.Shared.csproj", "{74AA77D2-5A81-490B-A160-C058B375524A}"
 EndProject
@@ -66,13 +66,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module2.Application", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module3.SchoolsRoll", "Module3.SchoolsRoll", "{B3B8DBD3-32A9-4791-8D1C-3FAFBF62A872}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module3.Shared", "App.Module3.Shared\App.Module3.Shared.csproj", "{5136CC88-5043-46E7-946A-92337F74C450}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module3.Shared", "App.Module3\App.Module3.Shared\App.Module3.Shared.csproj", "{5136CC88-5043-46E7-946A-92337F74C450}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module3.Infrastructure", "App.Module3.Infrastructure\App.Module3.Infrastructure.csproj", "{1493FB3E-966F-45D4-BD23-1537DE7E2114}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module3.Infrastructure", "App.Module3\App.Module3.Infrastructure\App.Module3.Infrastructure.csproj", "{1493FB3E-966F-45D4-BD23-1537DE7E2114}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module3.Domain", "App.Module3.Domain\App.Module3.Domain.csproj", "{D6BF0E86-323E-45A9-8EDD-C37A13FC580B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module3.Domain", "App.Module3\App.Module3.Domain\App.Module3.Domain.csproj", "{D6BF0E86-323E-45A9-8EDD-C37A13FC580B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module3.Application", "App.Module3.Application\App.Module3.Application.csproj", "{6A3908F9-1883-480B-A358-450BB65DDB95}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module3.Application", "App.Module3\App.Module3.Application\App.Module3.Application.csproj", "{6A3908F9-1883-480B-A358-450BB65DDB95}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Blanks", "_Blanks", "{EF96B243-C7AF-4471-88CE-3B1137076005}"
 	ProjectSection(SolutionItems) = preProject
