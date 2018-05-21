@@ -1,4 +1,4 @@
-namespace App.Module2.Infrastructure.Services.Implementations
+namespace App.Module02.Infrastructure.Services.Implementations
 {
     using System;
     using System.Collections.Generic;
@@ -8,9 +8,9 @@ namespace App.Module2.Infrastructure.Services.Implementations
     using App.Core.Shared.Models;
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Entities.Base;
-    using App.Module2.Infrastructure.Constants.Db;
-    using App.Module2.Shared.Models.Entities;
-    using App.Module2.Shared.Models.Messages.Imports;
+    using App.Module02.Infrastructure.Constants.Db;
+    using App.Module02.Shared.Models.Entities;
+    using App.Module02.Shared.Models.Messages.Imports;
 
     class XXX
     {
@@ -19,7 +19,7 @@ namespace App.Module2.Infrastructure.Services.Implementations
             get; set;
         }
     }
-    public class StudentRawImportService : AppModule2ServiceBase, IStudentRawImportService
+    public class StudentRawImportService : AppModuleServiceBase, IStudentRawImportService
     {
         private readonly IRepositoryService _repositoryService;
         private readonly ISchoolCsvImporterService _schoolCsvImporterService;
@@ -114,7 +114,7 @@ namespace App.Module2.Infrastructure.Services.Implementations
 
                 BuildEducationEstablishment(schoolDescriptionRaw, schoolGuid, esatablishmentOrganisation, principal);
 
-                //this._unitOfWorkService.Commit(Constants.Db.AppModule2DbContextNames.Module2);
+                //this._unitOfWorkService.Commit(Constants.Db.AppModuleDbContextNames.Default);
             }
         }
 
@@ -150,7 +150,7 @@ namespace App.Module2.Infrastructure.Services.Implementations
                     Enabled = true,
                     Text = tmp,
                 };
-                this._repositoryService.AddOnCommit<T>(Constants.Db.AppModule2DbContextNames.Module2, newRec);
+                this._repositoryService.AddOnCommit<T>(Constants.Db.AppModuleDbContextNames.Default, newRec);
             }
 
             return missing.Count();
@@ -241,7 +241,7 @@ namespace App.Module2.Infrastructure.Services.Implementations
             //Add a Name to the Org, then make it Preferred:
 
             //Save after saving BodyName:
-            this._repositoryService.AddOrUpdate<Body>(Constants.Db.AppModule2DbContextNames.Module2, p => p.Id, educationEstablishmentOrganisation);
+            this._repositoryService.AddOrUpdate<Body>(Constants.Db.AppModuleDbContextNames.Default, p => p.Id, educationEstablishmentOrganisation);
             return educationEstablishmentOrganisation;
         }
 
@@ -255,7 +255,7 @@ namespace App.Module2.Infrastructure.Services.Implementations
                 Title = schoolDescriptionRaw.Name,
                 Name = schoolDescriptionRaw.Name
             };
-            this._repositoryService.AddOrUpdate<BodyAlias>(Constants.Db.AppModule2DbContextNames.Module2, p => p.Id,
+            this._repositoryService.AddOrUpdate<BodyAlias>(Constants.Db.AppModuleDbContextNames.Default, p => p.Id,
                 educationEstablishmentOrganisationName);
 
             return educationEstablishmentOrganisationName;
@@ -274,7 +274,7 @@ namespace App.Module2.Infrastructure.Services.Implementations
                 Address = schoolDescriptionRaw.Telephone
             };
 
-            this._repositoryService.AddOrUpdate<BodyChannel>(Constants.Db.AppModule2DbContextNames.Module2, p => p.Id,
+            this._repositoryService.AddOrUpdate<BodyChannel>(Constants.Db.AppModuleDbContextNames.Default, p => p.Id,
                 educationEstablishmentOrganisationChannel);
 
             return educationEstablishmentOrganisationChannel;
@@ -302,7 +302,7 @@ namespace App.Module2.Infrastructure.Services.Implementations
                 Suffix = parsedNames.Suffix
             };
 
-            this._repositoryService.AddOrUpdate<Body>(Constants.Db.AppModule2DbContextNames.Module2, p => p.Id,
+            this._repositoryService.AddOrUpdate<Body>(Constants.Db.AppModuleDbContextNames.Default, p => p.Id,
                 principal);
 
             return principal;
@@ -327,23 +327,23 @@ namespace App.Module2.Infrastructure.Services.Implementations
                 PrincipalFK = principal.Id
             };
 
-            this._repositoryService.AddOrUpdate<EducationOrganisation>(Constants.Db.AppModule2DbContextNames.Module2,
+            this._repositoryService.AddOrUpdate<EducationOrganisation>(Constants.Db.AppModuleDbContextNames.Default,
                 p => p.Id, educationEstablishment);
         }
 
         private void PrepareKnownReferenceDataLists()
         {
-            this._schoolAuthority = this._repositoryService.GetQueryableSet<SchoolAuthority>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
-            this._schoolDecile = this._repositoryService.GetQueryableSet<SchoolDecile>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
-            this._schoolDefinition = this._repositoryService.GetQueryableSet<SchoolDefinition>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
-            this._schoolEducationRegion = this._repositoryService.GetQueryableSet<SchoolEducationRegion>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
-            this._schoolGender = this._repositoryService.GetQueryableSet<SchoolGender>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
-            this._schoolGeneralElectorate = this._repositoryService.GetQueryableSet<SchoolGeneralElectorate>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
-            this._schoolMaoriElectorate = this._repositoryService.GetQueryableSet<SchoolMaoriElectorate>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
-            this._schoolMinistryOfEducationLocalOffice = this._repositoryService.GetQueryableSet<SchoolMinistryOfEducationLocalOffice>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
-            this._schoolRegionalCouncil = this._repositoryService.GetQueryableSet<SchoolRegionalCouncil>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
-            this._schoolTerritorialAuthorityWithAucklandLocalBoard = this._repositoryService.GetQueryableSet<SchoolTerritorialAuthorityWithAucklandLocalBoard>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
-            this._schoolTypes = this._repositoryService.GetQueryableSet<SchoolType>(Constants.Db.AppModule2DbContextNames.Module2).ToList();
+            this._schoolAuthority = this._repositoryService.GetQueryableSet<SchoolAuthority>(Constants.Db.AppModuleDbContextNames.Default).ToList();
+            this._schoolDecile = this._repositoryService.GetQueryableSet<SchoolDecile>(Constants.Db.AppModuleDbContextNames.Default).ToList();
+            this._schoolDefinition = this._repositoryService.GetQueryableSet<SchoolDefinition>(Constants.Db.AppModuleDbContextNames.Default).ToList();
+            this._schoolEducationRegion = this._repositoryService.GetQueryableSet<SchoolEducationRegion>(Constants.Db.AppModuleDbContextNames.Default).ToList();
+            this._schoolGender = this._repositoryService.GetQueryableSet<SchoolGender>(Constants.Db.AppModuleDbContextNames.Default).ToList();
+            this._schoolGeneralElectorate = this._repositoryService.GetQueryableSet<SchoolGeneralElectorate>(Constants.Db.AppModuleDbContextNames.Default).ToList();
+            this._schoolMaoriElectorate = this._repositoryService.GetQueryableSet<SchoolMaoriElectorate>(Constants.Db.AppModuleDbContextNames.Default).ToList();
+            this._schoolMinistryOfEducationLocalOffice = this._repositoryService.GetQueryableSet<SchoolMinistryOfEducationLocalOffice>(Constants.Db.AppModuleDbContextNames.Default).ToList();
+            this._schoolRegionalCouncil = this._repositoryService.GetQueryableSet<SchoolRegionalCouncil>(Constants.Db.AppModuleDbContextNames.Default).ToList();
+            this._schoolTerritorialAuthorityWithAucklandLocalBoard = this._repositoryService.GetQueryableSet<SchoolTerritorialAuthorityWithAucklandLocalBoard>(Constants.Db.AppModuleDbContextNames.Default).ToList();
+            this._schoolTypes = this._repositoryService.GetQueryableSet<SchoolType>(Constants.Db.AppModuleDbContextNames.Default).ToList();
         }
 
 

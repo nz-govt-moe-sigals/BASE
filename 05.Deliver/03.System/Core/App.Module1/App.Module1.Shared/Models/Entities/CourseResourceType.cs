@@ -1,7 +1,7 @@
 ﻿using App.Core.Shared.Models.Entities.Base;
-using App.Module1.Shared.Models.Entities.Enums;
+using App.Module01.Shared.Models.Entities.Enums;
 
-namespace App.Module1.Shared.Models.Entities
+namespace App.Module01.Shared.Models.Entities
 {
     /// <summary>
     /// The Type of a <see cref="CourseResource"/>.

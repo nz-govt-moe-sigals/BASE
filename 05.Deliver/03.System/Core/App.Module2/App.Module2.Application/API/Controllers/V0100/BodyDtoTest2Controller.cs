@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Module2.Application.ServiceFacade.API.Controllers.V0100
+namespace App.Module02.Application.ServiceFacade.API.Controllers.V0100
 {
     using System.Collections.ObjectModel;
     using System.Web.OData;
     using App.Core.Application.ServiceFacade.API.Controllers.Base.Base;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
-    using App.Module2.Shared.Models.Entities;
-    using App.Module2.Shared.Models.Messages.V0100;
+    using App.Module02.Shared.Models.Entities;
+    using App.Module02.Shared.Models.Messages.V0100;
 
     /// <summary>
     /// Controller created to see how Odata can return BodyDto objects (hooked together

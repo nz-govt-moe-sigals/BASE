@@ -26,7 +26,7 @@
 //        public override IQueryable<SearchResponseItem> Search(string searchTerm)
 //        {
 //            var items =
-//                    this._repositoryService.GetByFilter<Example>(AppModule11DbContextNames.Module11,
+//                    this._repositoryService.GetByFilter<Example>(AppModuleDbContextNames.Module11,
 //                        x => x.PublicText.Contains(searchTerm))
 //                ;
 

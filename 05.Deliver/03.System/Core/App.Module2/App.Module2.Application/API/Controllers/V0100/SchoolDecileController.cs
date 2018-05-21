@@ -1,13 +1,13 @@
-﻿namespace App.Module2.Application.ServiceFacade.API.Controllers.V0100
+﻿namespace App.Module02.Application.ServiceFacade.API.Controllers.V0100
 {
     using System;
     using System.Linq;
     using System.Web.OData;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
-    using App.Module2.Application.ServiceFacade.API.Controllers;
-    using App.Module2.Shared.Models.Entities;
-    using App.Module2.Shared.Models.Messages.V0100;
+    using App.Module02.Application.ServiceFacade.API.Controllers;
+    using App.Module02.Shared.Models.Entities;
+    using App.Module02.Shared.Models.Messages.V0100;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
 

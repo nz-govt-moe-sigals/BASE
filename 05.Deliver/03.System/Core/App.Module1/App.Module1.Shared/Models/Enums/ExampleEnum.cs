@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Module1.Shared.Models.Enums
+namespace App.Module01.Shared.Models.Enums
 {
     public enum  ExampleEnum
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Module2.Shared.Models.Messages.V0100
+namespace App.Module02.Shared.Models.Messages.V0100
 {
     using App.Core.Shared.Factories;
     using App.Core.Shared.Models;

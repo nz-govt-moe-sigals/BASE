@@ -21,7 +21,7 @@ add-Migration "Entities.Example" -StartUpProjectName "App.Host" -ProjectName "Ap
 Update-Database -StartUpProjectName "App.Host" -ProjectName "App.Module11.Infrastructure" -Verbose
 
 
-// Generate SQL scripts for deployemnt:
+// Generate SQL scripts for deployment:
 Update-Database -StartUpProjectName "App.Host" -ProjectName "App.Module11.Infrastructure" -Script -SourceMigration: $InitialDatabase -Verbose
 // Generate SQL scripts for deployment up to a target Migration:
 //Update-Database -StartUpProjectName "App.Host" -ProjectName "App.Module11.Infrastructure" -Script -SourceMigration: $InitialDatabase -TargetMigration: AddPostAbstract -Verbose

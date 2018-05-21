@@ -1,7 +1,7 @@
-﻿namespace App.Module1.Application.Services
+﻿namespace App.Module01.Application.Services
 {
     using System.Data.Entity;
-    using App.Module1.Shared.Models.Entities;
+    using App.Module01.Shared.Models.Entities;
 
     public interface IExampleApplicationService
     {

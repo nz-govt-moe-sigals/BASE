@@ -2,10 +2,10 @@
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Module2.Infrastructure.Services
+namespace App.Module02.Infrastructure.Services
 {
     using System.IO;
-    using App.Module2.Infrastructure.Services.Implementations;
+    using App.Module02.Infrastructure.Services.Implementations;
 
     public interface IStudentRawImportService
     {

@@ -4,10 +4,10 @@
 //using System.Text;
 //using System.Threading.Tasks;
 
-//namespace App.Module2.Application.Services.Implementations
+//namespace App.Module02.Application.Services.Implementations
 //{
 //    using System.IO;
-//    using App.Module2.Shared.Models.Entities;
+//    using App.Module02.Shared.Models.Entities;
 
 //    public class SchoolDirectoryCSVImportService : ISchoolDirectoryCSVImportService
 //    {

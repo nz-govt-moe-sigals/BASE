@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Module2.Application.Services
+namespace App.Module02.Application.Services
 {
     public interface ISchoolDirectoryCSVImportService
     {

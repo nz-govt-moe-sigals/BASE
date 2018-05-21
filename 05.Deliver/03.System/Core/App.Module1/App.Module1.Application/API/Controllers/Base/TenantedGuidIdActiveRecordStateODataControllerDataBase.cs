@@ -1,10 +1,10 @@
-namespace App.Module1.Application.ServiceFacade.API.Controllers
+namespace App.Module01.Application.ServiceFacade.API.Controllers
 {
     using App.Core.Application.ServiceFacade.API.Controllers;
     using App.Core.Application.ServiceFacade.API.Controllers.Base.Base;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models;
-    using App.Module1.Infrastructure.Constants.Db;
+    using App.Module01.Infrastructure.Constants.Db;
 
     /// <summary>
     /// Abstract Base class for OData Controllers within this specific Module.
@@ -57,7 +57,7 @@ namespace App.Module1.Application.ServiceFacade.API.Controllers
         /// </summary>
         protected override void Initialize()
         {
-            this._dbContextIdentifier = AppModule1DbContextNames.Module1;
+            this._dbContextIdentifier = AppModuleDbContextNames.Default;
         }
 
 

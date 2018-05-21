@@ -1,16 +1,16 @@
-﻿namespace App.Module2.Infrastructure.Services.Implementations
+﻿namespace App.Module02.Infrastructure.Services.Implementations
 {
     using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Security.Cryptography.X509Certificates;
     using App.Core.Infrastructure.Services;
-    using App.Module2.Shared.Models.Configuration;
-    using App.Module2.Shared.Models.Entities;
-    using App.Module2.Shared.Models.Messages.Imports;
+    using App.Module02.Shared.Models.Configuration;
+    using App.Module02.Shared.Models.Entities;
+    using App.Module02.Shared.Models.Messages.Imports;
     using CsvHelper;
 
-    public class SchoolCsvImporterService : AppModule2ServiceBase, ISchoolCsvImporterService
+    public class SchoolCsvImporterService : AppModuleServiceBase, ISchoolCsvImporterService
     {
         private readonly IHostSettingsService _hostSettingsService;
 

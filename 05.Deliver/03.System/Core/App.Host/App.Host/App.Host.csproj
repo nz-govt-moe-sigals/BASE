@@ -343,7 +343,7 @@
     <Compile Include="App_Start\Extended\WebApi\WebApiVersionConfig.cs" />
     <Compile Include="App_Start\StructuremapInterception.cs" />
     <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
-    <Compile Include="DependencyResolution\AppModule1Registry.cs" />
+    <Compile Include="DependencyResolution\AppModuleRegistry.cs" />
     <Compile Include="DependencyResolution\Interceptors\AuthorisationInterceptor.cs" />
     <Compile Include="Filters\WebMvc\WebMvcAppAuthorizeAttribute.cs" />
     <Compile Include="App_Start\Extended\AuthConfig.cs" />
@@ -551,29 +551,29 @@
       <Project>{74aa77d2-5a81-490b-a160-c058b375524a}</Project>
       <Name>App.Core.Shared</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\App.Module1\App.Module1.Application\App.Module1.Application.csproj">
+    <ProjectReference Include="..\..\App.Module1\App.Module1.Application\App.Module01.Application.csproj">
       <Project>{ec294f27-5722-4728-b122-b02b3d732dcc}</Project>
-      <Name>App.Module1.Application</Name>
+      <Name>App.Module01.Application</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\App.Module1\App.Module1.Infrastructure\App.Module1.Infrastructure.csproj">
+    <ProjectReference Include="..\..\App.Module1\App.Module1.Infrastructure\App.Module01.Infrastructure.csproj">
       <Project>{b9b39c48-ce7d-4e61-9c71-3a4428375ea5}</Project>
-      <Name>App.Module1.Infrastructure</Name>
+      <Name>App.Module01.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\App.Module1\App.Module1.Shared\App.Module1.Shared.csproj">
+    <ProjectReference Include="..\..\App.Module1\App.Module1.Shared\App.Module01.Shared.csproj">
       <Project>{b760143d-99a6-41d6-b526-337ab1f5929c}</Project>
-      <Name>App.Module1.Shared</Name>
+      <Name>App.Module01.Shared</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\App.Module2\App.Module2.Application\App.Module2.Application.csproj">
+    <ProjectReference Include="..\..\App.Module2\App.Module2.Application\App.Module02.Application.csproj">
       <Project>{40cfc658-32d6-469d-ae0b-95a605958122}</Project>
-      <Name>App.Module2.Application</Name>
+      <Name>App.Module02.Application</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\App.Module2\App.Module2.Infrastructure\App.Module2.Infrastructure.csproj">
+    <ProjectReference Include="..\..\App.Module2\App.Module2.Infrastructure\App.Module02.Infrastructure.csproj">
       <Project>{488387c5-f33c-4999-819e-969427b8500c}</Project>
-      <Name>App.Module2.Infrastructure</Name>
+      <Name>App.Module02.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\App.Module2\App.Module2.Shared\App.Module2.Shared.csproj">
+    <ProjectReference Include="..\..\App.Module2\App.Module2.Shared\App.Module02.Shared.csproj">
       <Project>{64d8aa54-ece4-4d25-94c7-7ab145e3da39}</Project>
-      <Name>App.Module2.Shared</Name>
+      <Name>App.Module02.Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\App.Module11\App.Module11.Application\App.Module11.Application.csproj">
       <Project>{6a3908f9-1883-480b-a358-450bb65ddb95}</Project>

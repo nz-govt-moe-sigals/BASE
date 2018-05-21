@@ -65,71 +65,71 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants\AppSettingKeys\AppModule11ApiScopes.cs" />
-    <Compile Include="Constants\Db\AppModule11DbContextNames.cs" />
+    <Compile Include="Constants\AppSettingKeys\AppModuleApiScopes.cs" />
+    <Compile Include="Constants\Db\AppModuleDbContextNames.cs" />
     <Compile Include="Constants\Module\Names.cs" />
-    <Compile Include="Db\Context\AppModule11DatabaseInitializer.cs" />
-    <Compile Include="Db\Context\AppModule11DbContextFactory.cs" />
-    <Compile Include="Db\Context\AppModule11DatabaseInitializerConfigurer.cs" />
-    <Compile Include="Db\Context\AppModule11DbContext.cs" />
+    <Compile Include="Db\Context\AppModuleDatabaseInitializer.cs" />
+    <Compile Include="Db\Context\AppModuleDatabaseInitializerConfigurer.cs" />
+    <Compile Include="Db\Context\AppModuleDbContext.cs" />
+    <Compile Include="Db\Context\AppModuleDbContextFactory.cs" />
     <Compile Include="ExtensionMethods\X.cs" />
     <Compile Include="ExtensionMethods\Enumerations.cs" />
-    <Compile Include="Initialization\Db\Migrations.Seeding\AppModule11DbContextSeedingOrchestrator.cs" />
-    <Compile Include="Initialization\Db\Migrations\AppModule11DbMigrationsConfiguration.cs" />
-    <Compile Include="Initialization\Db\Migrations\Module11\201804250055016_Entities.Initialise.cs" />
-    <Compile Include="Initialization\Db\Migrations\Module11\201804250055016_Entities.Initialise.Designer.cs">
+    <Compile Include="Initialization\Db\IHasAppModuleDbContextModelBuilderInitializer.cs" />
+    <Compile Include="Initialization\Db\IHasAppModuleDbContextSeedInitializer.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\AppModuleDbContextSeedingOrchestrator.cs" />
+    <Compile Include="Initialization\Db\Migrations\AppModuleDbMigrationsConfiguration.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201804250055016_Entities.Initialise.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201804250055016_Entities.Initialise.Designer.cs">
       <DependentUpon>201804250055016_Entities.Initialise.cs</DependentUpon>
     </Compile>
-    <Compile Include="Initialization\Db\Migrations\Module11\201804270236165_Entities.SchoolIdIndex.cs" />
-    <Compile Include="Initialization\Db\Migrations\Module11\201804270236165_Entities.SchoolIdIndex.Designer.cs">
+    <Compile Include="Initialization\Db\Migrations\Default\201804270236165_Entities.SchoolIdIndex.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201804270236165_Entities.SchoolIdIndex.Designer.cs">
       <DependentUpon>201804270236165_Entities.SchoolIdIndex.cs</DependentUpon>
     </Compile>
-    <Compile Include="Initialization\Db\Migrations\Module11\201805100426221_Check.cs" />
-    <Compile Include="Initialization\Db\Migrations\Module11\201805100426221_Check.Designer.cs">
+    <Compile Include="Initialization\Db\Migrations\Default\201805100426221_Check.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201805100426221_Check.Designer.cs">
       <DependentUpon>201805100426221_Check.cs</DependentUpon>
     </Compile>
-    <Compile Include="Initialization\Db\Migrations\Module11\201805100444327_Entities.IndexOnRecordState.cs" />
-    <Compile Include="Initialization\Db\Migrations\Module11\201805100444327_Entities.IndexOnRecordState.Designer.cs">
+    <Compile Include="Initialization\Db\Migrations\Default\201805100444327_Entities.IndexOnRecordState.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201805100444327_Entities.IndexOnRecordState.Designer.cs">
       <DependentUpon>201805100444327_Entities.IndexOnRecordState.cs</DependentUpon>
     </Compile>
-    <Compile Include="Initialization\Db\Migrations\Module11\201805170313015_More.cs" />
-    <Compile Include="Initialization\Db\Migrations\Module11\201805170313015_More.Designer.cs">
+    <Compile Include="Initialization\Db\Migrations\Default\201805170313015_More.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201805170313015_More.Designer.cs">
       <DependentUpon>201805170313015_More.cs</DependentUpon>
     </Compile>
-    <Compile Include="Initialization\Db\Migrations\Module11\201805210600392_ChangeSchema.cs" />
-    <Compile Include="Initialization\Db\Migrations\Module11\201805210600392_ChangeSchema.Designer.cs">
+    <Compile Include="Initialization\Db\Migrations\Default\201805210600392_ChangeSchema.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201805210600392_ChangeSchema.Designer.cs">
       <DependentUpon>201805210600392_ChangeSchema.cs</DependentUpon>
     </Compile>
-    <Compile Include="Initialization\Db\Migrations\Module11\Configuration.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModule11DbContextModelBuilderDefineExtractWatermark.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModule11DbContextModelBuilderDefineRelationshipType.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModule11DbContextModelBuilderDefineRegionalCouncil.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModule11DbContextModelBuilderDefineRegion.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModule11DbContextModelBuilderDefineEducationProviderEnrolmentCount.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModule11DbContextModelBuilderDefineEducationProviderGender.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModule11DbContextModelBuilderDefineEducationProviderLevelGender.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModule11DbContextModelBuilderDefineEducationProvider.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModule11DbContextModelBuilderDefineEducationProvideLocation.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModule11DbContextModelBuilderDefineSchoolYearLevel.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModule11DbContextModelBuilderDefineTeacherEducation.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModule11DbContextModelBuilderDefineUrbanArea.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModule11DbContextModelBuilderDefineWard.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModule11DbContextModelBuilderDefineTerritorialAuthority.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModule11DbContextModelBuilderDefineSpecialSchooling.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModule11DbContextModelBuilderDefineSchoolClassification.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModule11DbContextModelBuilderDefineOrganisationType.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModule11DbContextModelBuilderDefineOrganisationStatus.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModule11DbContextModelBuilderDefineMaoriElectorate.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModule11DbContextModelBuilderDefineGeneralElectorate.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModule11DbContextModelBuilderDefineCommunityBoard.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModule11DbContextModelBuilderDefineAuthorityType.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModule11DbContextModelBuilderDefineAreaUnit.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModule11DbModelBuilderOrchestrator.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\Configuration.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAreaUnit.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAuthorityType.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCommunityBoard.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineEducationProvideLocation.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineEducationProvider.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineEducationProviderEnrolmentCount.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineEducationProviderGender.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineEducationProviderLevelGender.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineExtractWatermark.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineGeneralElectorate.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineMaoriElectorate.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineOrganisationStatus.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineOrganisationType.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineRegion.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineRegionalCouncil.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineRelationshipType.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineSchoolClassification.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineSchoolYearLevel.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineSpecialSchooling.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTeacherEducation.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTerritorialAuthority.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineUrbanArea.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineWard.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbModelBuilderOrchestrator.cs" />
     <Compile Include="Initialization\Db\Schema\Conventions\TenantedSourceSystemKeyedGuidIdReferenceDataConvention.cs" />
     <Compile Include="Initialization\Db\Schema\Conventions\TenantedSIFSourceSystemKeyedGuidIdReferenceDataConvention.cs" />
     <Compile Include="Initialization\DependencyResolution\AppModuleInfrastructureRegistry.cs" />
-    <Compile Include="Initialization\Db\IHasAppModule11DbContextSeedInitializer.cs" />
-    <Compile Include="Initialization\Db\IHasAppModule11DbContextModelBuilderInitializer.cs" />
     <Compile Include="Initialization\Authorisation\HasOidcScopeInitializer.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\Base\ObjectMap_BaseMessage_TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\Base\ObjectMap_BaseReference_SourceSystemKeyedTenantedGuidIdReferenceDataBase.cs" />
@@ -195,10 +195,10 @@
     <Compile Include="Services\IExtractAzureDocumentDbService.cs" />
     <Compile Include="Services\IExtractServiceController.cs" />
     <Compile Include="Services\IExtractSifRepositoryService.cs" />
-    <Compile Include="Services\IHasAppModule11Service.cs" />
+    <Compile Include="Services\IHasAppModuleService.cs" />
     <Compile Include="Services\IModule11RepositoryService.cs" />
-    <Compile Include="Services\Implementations\Base\AppModule11ServiceBase.cs" />
     <Compile Include="Services\Configuration\BaseExtractServiceConfiguration.cs" />
+    <Compile Include="Services\Implementations\Base\AppModuleServiceBase.cs" />
     <Compile Include="Services\Implementations\Configuration\ExtractCachedRepoObject.cs" />
     <Compile Include="Services\Implementations\Configuration\ExtractDocumentDbServiceConfiguration.cs" />
     <Compile Include="Services\Implementations\Extract\DataServices\BaseDataExtractServices.cs" />
@@ -249,6 +249,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Initialization\Db\Migrations\Default\README.md" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -263,25 +264,25 @@
     <None Include="Initialization\ObjectMaps\readme.md" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Module11\201804250055016_Entities.Initialise.resx">
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201804250055016_Entities.Initialise.resx">
       <DependentUpon>201804250055016_Entities.Initialise.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Module11\201804270236165_Entities.SchoolIdIndex.resx">
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201804270236165_Entities.SchoolIdIndex.resx">
       <DependentUpon>201804270236165_Entities.SchoolIdIndex.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Module11\201805100426221_Check.resx">
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805100426221_Check.resx">
       <DependentUpon>201805100426221_Check.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Module11\201805100444327_Entities.IndexOnRecordState.resx">
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805100444327_Entities.IndexOnRecordState.resx">
       <DependentUpon>201805100444327_Entities.IndexOnRecordState.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Module11\201805170313015_More.resx">
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805170313015_More.resx">
       <DependentUpon>201805170313015_More.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Module11\201805210600392_ChangeSchema.resx">
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805210600392_ChangeSchema.resx">
       <DependentUpon>201805210600392_ChangeSchema.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

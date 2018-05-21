@@ -11,15 +11,15 @@ Enable-Migrations -StartUpProjectName "App.Host" -ProjectName "App.Core.Infrastr
 
 // Run after every Db Model schema change, changing the name every time, in order to make a Migration class
 add-Migration "Entities.Example" -StartUpProjectName "App.Host" -ProjectName "App.Core.Infrastructure" -Verbose
-//$migrationName="MyMigration";"Core","Module1","Module2" | foreach {add-Migration "$migrationName" -StartUpProjectName "App.Host" -ProjectName "App.$_.Infrastructure" -Verbose} 
+//$migrationName="MyMigration";"Core","Module01","Module02" | foreach {add-Migration "$migrationName" -StartUpProjectName "App.Host" -ProjectName "App.$_.Infrastructure" -Verbose} 
 
 // Run after every Db Model schema change to apply the above migration class:
 Update-Database -StartUpProjectName "App.Host" -ProjectName "App.Core.Infrastructure" -Verbose 
 
 //Do them all together
-"Core","Module1","Module2" | foreach {Update-Database -StartUpProjectName:"App.Core.Application" -ProjectName:"App.$input.Infrastructure"  -Verbose}
+"Core","Module01","Module02" | foreach {Update-Database -StartUpProjectName:"App.Core.Application" -ProjectName:"App.$input.Infrastructure"  -Verbose}
 
-// Generate SQL scripts for deployemnt:
+// Generate SQL scripts for deployment:
 Update-Database -StartUpProjectName "App.Host" -ProjectName "App.Core.Infrastructure" -Script -SourceMigration: $InitialDatabase
 // Generate SQL scripts for deployment up to a target Migration:
 //Update-Database -StartUpProjectName "App.Host" -ProjectName "App.Core.Infrastructure" -Script -SourceMigration: $InitialDatabase -TargetMigration: AddPostAbstract

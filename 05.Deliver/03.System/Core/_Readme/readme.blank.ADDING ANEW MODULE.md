@@ -23,3 +23,23 @@ This cascades through and makes unique to the Module at least the following key 
   * AppModuleXXDatabaseInitializer (which CodeFirst relies upon, and WebConfig is referencing above)
 * App.ModuleXX.Application
   * the base OData Controller.
+
+
+## In App.ModuleX.Infrastructure ##
+
+Update the Constant that defines the name of the Mdoule.
+
+
+namespace App.ModuleXX.Infrastructure.Constants.Module
+{
+    public static class Names
+    {
+        public const string ModuleKey = "ModuleXX";
+    }
+}
+
+This name will end up being the name of the Db Schema, unless you overrride it (but why would you?):
+
+    ...
+    public const string SchemaKey = Constants.Module.Names.ModuleKey;
+	...

@@ -1,4 +1,4 @@
-﻿namespace App.Module2.Shared.Models.Messages.V0100
+﻿namespace App.Module02.Shared.Models.Messages.V0100
 {
     using System;
     using App.Core.Shared.Factories;

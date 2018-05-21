@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Module2.Infrastructure.Services.Implementations
+namespace App.Module02.Infrastructure.Services.Implementations
 {
     using System.Text.RegularExpressions;
-    using App.Module2.Infrastructure.Services.Implementations;
+    using App.Module02.Infrastructure.Services.Implementations;
 
     public class NameParts
     {
@@ -47,7 +47,7 @@ namespace App.Module2.Infrastructure.Services.Implementations
 
 
 
-    public class NameParsingService : AppModule2ServiceBase, INameParsingService
+    public class NameParsingService : AppModuleServiceBase, INameParsingService
     {
         string[] _prefixes = { "mr", "mrs", "ms", "dr", "miss", "sir", "madam", "mayor", "president" };
         string[] _suffixes =

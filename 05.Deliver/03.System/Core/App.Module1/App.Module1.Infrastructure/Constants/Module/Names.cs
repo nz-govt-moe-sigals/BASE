@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Module1.Infrastructure.Constants.Module
+namespace App.Module01.Infrastructure.Constants.Module
 {
     public static class Names
     {
-        public const string ModuleKey = "Module1";
+        public const string ModuleKey = "Module01";
     }
 }

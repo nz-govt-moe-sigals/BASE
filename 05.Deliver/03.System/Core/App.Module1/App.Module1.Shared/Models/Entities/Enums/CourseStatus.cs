@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Module1.Shared.Models.Entities.Enums
+namespace App.Module01.Shared.Models.Entities.Enums
 {
     public enum CourseStatusType
     {

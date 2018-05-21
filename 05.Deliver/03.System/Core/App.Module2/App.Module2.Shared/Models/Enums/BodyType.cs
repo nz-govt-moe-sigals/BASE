@@ -1,4 +1,4 @@
-﻿namespace App.Module2.Shared.Models.Entities
+﻿namespace App.Module02.Shared.Models.Entities
 {
     public enum BodyType
     {

@@ -1,7 +1,7 @@
-﻿namespace App.Module1.Application.Initialization.DependencyResolution
+﻿namespace App.Module01.Application.Initialization.DependencyResolution
 {
     using System.Linq;
-    using App.Module1.Application.Initialization.OData;
+    using App.Module01.Application.Initialization.OData;
     using StructureMap;
     using StructureMap.Graph;
 
@@ -21,7 +21,7 @@
     /// </para>
     /// </summary>
 
-    public class AppModuleApplicationRegistry : Registry
+    public class AppModuleApplicationRegistry : Registry, IHasModuleSpecificIdentifier
     {
         public AppModuleApplicationRegistry()
         {
@@ -45,7 +45,7 @@
             // So we search for and register the *untyped* version of the interface:
 
             //Scan for OData Model Builder Configuration fragments in *this* modules.
-            assemblyScanner.AddAllTypesOf<IAppModule1OdataModelBuilderConfiguration>();
+            assemblyScanner.AddAllTypesOf<IAppModuleOdataModelBuilderConfiguration>();
         }
 
     }

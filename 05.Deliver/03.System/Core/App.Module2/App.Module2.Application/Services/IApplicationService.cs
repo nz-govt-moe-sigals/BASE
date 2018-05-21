@@ -1,4 +1,4 @@
-﻿namespace App.Module2.Application.Services
+﻿namespace App.Module02.Application.Services
 {
     public interface IApplicationService
     {

@@ -1,6 +1,6 @@
-﻿namespace App.Module2.Application.Initialization.DependencyResolution
+﻿namespace App.Module02.Application.Initialization.DependencyResolution
 {
-    using App.Module2.Application.Initialization.OData;
+    using App.Module02.Application.Initialization.OData;
     using StructureMap;
     using StructureMap.Graph;
 
@@ -43,9 +43,9 @@
             // So we search for and register the *untyped* version of the interface:
 
             //Scan for OData Model Builders in *this* modules.
-           // assemblyScanner.AddAllTypesOf<IAppModule2OdataModelBuilder>();
+           // assemblyScanner.AddAllTypesOf<IAppModuleOdataModelBuilder>();
             //Scan for OData Model Builder Configuration fragments in *this* modules.
-            assemblyScanner.AddAllTypesOf<IAppModule2OdataModelBuilderConfiguration>();
+            assemblyScanner.AddAllTypesOf<IAppModuleOdataModelBuilderConfiguration>();
         }
 
     }

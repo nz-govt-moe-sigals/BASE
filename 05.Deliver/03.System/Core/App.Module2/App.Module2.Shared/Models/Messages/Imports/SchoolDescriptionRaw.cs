@@ -1,4 +1,4 @@
-﻿namespace App.Module2.Shared.Models.Messages.Imports
+﻿namespace App.Module02.Shared.Models.Messages.Imports
 {
     public class SchoolDescriptionRaw //: IHasIntId, IHasRecordState
     {

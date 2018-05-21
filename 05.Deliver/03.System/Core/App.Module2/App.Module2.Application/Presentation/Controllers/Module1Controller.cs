@@ -1,4 +1,4 @@
-﻿namespace App.Module2.Application.Presentation.Controllers
+﻿namespace App.Module02.Application.Presentation.Controllers
 {
     using System.Web.Mvc;
 

@@ -46,7 +46,7 @@ namespace App.Module11.Application.ServiceFacade.API.Base
         /// </summary>
         protected override void Initialize()
         {
-            _dbContextIdentifier = AppModule11DbContextNames.Module11;
+            _dbContextIdentifier = AppModuleDbContextNames.Module11;
         }
     }
 }

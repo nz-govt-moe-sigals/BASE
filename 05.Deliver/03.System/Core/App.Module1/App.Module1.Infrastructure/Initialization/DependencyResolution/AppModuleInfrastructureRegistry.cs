@@ -1,9 +1,9 @@
-﻿namespace App.Module1.Infrastructure.Initialization.DependencyResolution
+﻿namespace App.Module01.Infrastructure.Initialization.DependencyResolution
 {
     using App.Core.Infrastructure.Db.Interception;
-    using App.Module1.Infrastructure.Constants.Db;
-    using App.Module1.Infrastructure.Db.Context;
-    using App.Module1.Infrastructure.Initialization.Db;
+    using App.Module01.Infrastructure.Constants.Db;
+    using App.Module01.Infrastructure.Db.Context;
+    using App.Module01.Infrastructure.Initialization.Db;
     using StructureMap;
     using StructureMap.Graph;
 
@@ -38,14 +38,14 @@
         private void ScanAllModulesForModuleSpecificDbContextTypes(IAssemblyScanner assemblyScanner)
         {
             // Register the Db Model definitions and seeder definitions for Core:
-            assemblyScanner.AddAllTypesOf<IHasAppModule1DbContextModelBuilderInitializer>();
-            assemblyScanner.AddAllTypesOf<IHasAppModule1DbContextSeedInitializer>();
+            assemblyScanner.AddAllTypesOf<IHasAppModuleDbContextModelBuilderInitializer>();
+            assemblyScanner.AddAllTypesOf<IHasAppModuleDbContextSeedInitializer>();
 
             // Add all Pre-Commit Processors (these kick in just as you
             // Commit a DbContext, and ensure specific fields are 
             // automatically filled in)
             assemblyScanner.AddAllTypesOf<IDbCommitPreCommitProcessingStrategy>();
-            this.RegisterDbContextInHttpContext<AppModule1DbContext>(AppModule1DbContextNames.Module1);
+            this.RegisterDbContextInHttpContext<AppModuleDbContext>(AppModuleDbContextNames.Default);
         }
     }
 }

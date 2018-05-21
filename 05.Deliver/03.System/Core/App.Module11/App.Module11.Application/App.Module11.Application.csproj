@@ -168,11 +168,11 @@
     <Compile Include="Attributes\EnableQueryExtendedAttribute.cs" />
     <Compile Include="ExtensionMethods\ODataQueryOptionsTest.cs" />
     <Compile Include="Initialization\DependencyResolution\AppModuleApplicationRegistry.cs" />
-    <Compile Include="Initialization\OData\Implementations\AppModule11OdataModelBuilder.cs" />
-    <Compile Include="Initialization\OData\Implementations\BaseClasses\AppModule11ODataModelBuilderConfigurationBase.cs" />
-    <Compile Include="Initialization\OData\IAppModule11OdataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\IAppModuleOdataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\AppModuleOdataModelBuilder.cs" />
     <Compile Include="Initialization\OData\Implementations\AreaUnitODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\AuthorityTypeODataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\BaseClasses\AppModuleODataModelBuilderReferenceDataConfigurationBase.cs" />
     <Compile Include="Initialization\OData\Implementations\CommunityBoardODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\EducationProviderEnrolmentCountDtoODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\EducationProviderLevelGenderODataModelBuilderConfiguration.cs" />

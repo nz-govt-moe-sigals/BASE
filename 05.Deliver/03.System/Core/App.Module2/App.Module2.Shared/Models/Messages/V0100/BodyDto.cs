@@ -1,4 +1,4 @@
-﻿namespace App.Module2.Shared.Models.Messages.V0100
+﻿namespace App.Module02.Shared.Models.Messages.V0100
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +6,7 @@
     using App.Core.Shared.Factories;
     using App.Core.Shared.Models;
     using App.Core.Shared.Models.Entities;
-    using App.Module2.Shared.Models.Entities;
+    using App.Module02.Shared.Models.Entities;
 
     public class BodyDto  /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ : IHasGuidId, IHasTenantFK, IHasRecordState
     {

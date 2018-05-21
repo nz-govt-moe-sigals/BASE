@@ -1,7 +1,7 @@
 ﻿using App.Core.Shared.Models;
 using App.Core.Shared.Models.Entities.Base;
 
-namespace App.Module1.Shared.Models.Entities
+namespace App.Module01.Shared.Models.Entities
 {
     /// <summary>
     /// Grades will not always be A, B, C.

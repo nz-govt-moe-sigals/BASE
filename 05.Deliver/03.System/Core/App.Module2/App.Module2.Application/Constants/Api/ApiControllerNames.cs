@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Module2.Application.Constants.Api
+namespace App.Module02.Application.Constants.Api
 {
     public static class ApiControllerNames
     {

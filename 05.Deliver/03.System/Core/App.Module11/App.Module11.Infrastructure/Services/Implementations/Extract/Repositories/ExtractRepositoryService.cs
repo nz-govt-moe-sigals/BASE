@@ -11,7 +11,7 @@ namespace App.Module11.Infrastructure.Services.Implementations.Extract.Repositor
 {
     public class ExtractRepositoryService : IExtractRepositoryService
     {
-        private string _dbKey = Constants.Db.AppModule11DbContextNames.Module11;
+        private string _dbKey = Constants.Db.AppModuleDbContextNames.Module11;
         private readonly IModule11RepositoryService _repositoryService;
         private readonly ExtractCachedRepoObject _repoObject;
         private readonly IExtractSifRepositoryService _extractSifRepositoryService;

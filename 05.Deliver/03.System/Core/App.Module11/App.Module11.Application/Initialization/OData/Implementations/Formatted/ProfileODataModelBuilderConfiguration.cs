@@ -8,7 +8,7 @@ using Microsoft.Web.Http;
 
 namespace App.Module11.Application.Initialization.OData.Implementations.Formatted
 {
-    public class ProfileODataModelBuilderConfiguration : IAppModule11OdataModelBuilderConfiguration
+    public class ProfileODataModelBuilderConfiguration : IAppModuleOdataModelBuilderConfiguration
     {
         public void Apply(ODataModelBuilder builder, ApiVersion apiVersion)
         {

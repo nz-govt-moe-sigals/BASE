@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace App.Module1.Shared.Models.Entities
+namespace App.Module01.Shared.Models.Entities
 {
     public class CourseOccurance : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase
     {

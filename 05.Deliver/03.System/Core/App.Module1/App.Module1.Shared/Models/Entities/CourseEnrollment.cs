@@ -1,9 +1,9 @@
 ﻿using App.Core.Shared.Models;
 using App.Core.Shared.Models.Entities;
-using App.Module1.Shared.Models.Entities.Enums;
+using App.Module01.Shared.Models.Entities.Enums;
 using System;
 
-namespace App.Module1.Shared.Models.Entities
+namespace App.Module01.Shared.Models.Entities
 {
     /// <summary>
     /// A single student's enrollment of a course.

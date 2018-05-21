@@ -1,11 +1,11 @@
-﻿namespace App.Module2.Application.Initialization.OData.Implementations
+﻿namespace App.Module02.Application.Initialization.OData.Implementations
 {
 using System.Web.OData.Builder;
-using App.Module2.Application.Constants.Api;
-using App.Module2.Application.Initialization.OData;
-using App.Module2.Shared.Models.Entities;
+using App.Module02.Application.Constants.Api;
+using App.Module02.Application.Initialization.OData;
+using App.Module02.Shared.Models.Entities;
 
-    public class EducationOrganisationODataModelBuilderConfiguration : AppModule2ODataModelBuilderConfigurationBase<EducationOrganisationDto>
+    public class EducationOrganisationODataModelBuilderConfiguration : AppModuleODataModelBuilderConfigurationBase<EducationOrganisationDto>
     {
         public EducationOrganisationODataModelBuilderConfiguration() : base(ApiControllerNames.EducationOrganisation)
         {

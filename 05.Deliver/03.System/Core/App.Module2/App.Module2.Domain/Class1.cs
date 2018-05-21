@@ -1,4 +1,4 @@
-﻿namespace App.Module2.Domain
+﻿namespace App.Module02.Domain
 {
     public class Class1
     {

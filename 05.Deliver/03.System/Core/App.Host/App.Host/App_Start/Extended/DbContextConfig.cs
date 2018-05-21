@@ -29,7 +29,7 @@ namespace App.Host.Extended
             // https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application
 
             //AppCoreDatabaseInitializerConfigure.Configure();
-            //AppModule1DatabaseInitializerConfigure.Configure();
+            //AppModule01DatabaseInitializerConfigure.Configure();
 
             //Much prefer leaving it in the web.config to provide flexibility to your builde server on different builds
         }

@@ -1,13 +1,13 @@
-﻿using App.Module1.Application.Constants.Api;
+﻿using App.Module01.Application.Constants.Api;
 using Microsoft.Web.Http;
 
-namespace App.Module1.Application.Initialization.OData.Implementations
+namespace App.Module01.Application.Initialization.OData.Implementations
 {
     using System.Web.OData.Builder;
     using App.Core.Shared.Models.Messages.API.V0100;
-    using App.Module1.Application.Initialization.OData;
+    using App.Module01.Application.Initialization.OData;
 
-    public class ExampleOdataModelBuilderConfiguration : IAppModule1OdataModelBuilderConfiguration
+    public class ExampleOdataModelBuilderConfiguration : IAppModuleOdataModelBuilderConfiguration
     {
 
         public void Apply(ODataModelBuilder builder, ApiVersion apiVersion)

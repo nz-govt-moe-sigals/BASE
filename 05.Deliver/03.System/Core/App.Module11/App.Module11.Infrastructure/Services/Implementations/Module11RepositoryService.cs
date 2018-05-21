@@ -13,7 +13,7 @@ namespace App.Module11.Infrastructure.Services.Implementations
     public class Module11RepositoryService : RepositoryService, IModule11RepositoryService
     {
        // private DbContext _dbContext;
-        private string _dbKey = Constants.Db.AppModule11DbContextNames.Module11;
+        private string _dbKey = Constants.Db.AppModuleDbContextNames.Module11;
         private bool _batched = false;
         public Module11RepositoryService()
         {

@@ -1,10 +1,10 @@
-﻿namespace App.Module2.Shared.Models.Entities
+﻿namespace App.Module02.Shared.Models.Entities
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using App.Core.Shared.Models.Entities;
-    using App.Module2.Shared.Models.Messages.V0100;
+    using App.Module02.Shared.Models.Messages.V0100;
 
     // Should be wary of enums, but this will do for a demo
 

@@ -1,6 +1,6 @@
 ﻿
 
-namespace App.Module2.Shared.Models.Entities
+namespace App.Module02.Shared.Models.Entities
 {
     using App.Core.Shared.Models.Entities.Base;
 

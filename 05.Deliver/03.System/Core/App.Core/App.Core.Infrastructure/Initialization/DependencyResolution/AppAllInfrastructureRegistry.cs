@@ -29,7 +29,7 @@ namespace App.Core.Infrastructure.Initialization.DependencyResolution
                     //This ensures it looks for additional Registries beyond this
                     // Core one. In other words, it will scan all known assemblies 
                     // (as per first line) for Module specific Registries. Such 
-                    // as AppModule1Registry.
+                    // as AppModuleRegistry.
                     assemblyScanner.LookForRegistries();
 
                     ScanAllModulesForAllModulesAutoMapperInitializers(assemblyScanner);

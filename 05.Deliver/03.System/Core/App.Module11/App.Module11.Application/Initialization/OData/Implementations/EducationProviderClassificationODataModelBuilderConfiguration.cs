@@ -3,7 +3,7 @@ namespace App.Module11.Application.Initialization.OData.Implementations
     using App.Module11.Application.Constants.Api;
     using App.Module11.Shared.Models.Messages.APIs.SIF.V0100;
 
-    public class EducationProviderClassificationODataModelBuilderConfiguration  : AppModule11ODataModelBuilderReferenceDataConfigurationBase<EducationProviderClassificationTypeDto>
+    public class EducationProviderClassificationODataModelBuilderConfiguration  : AppModuleODataModelBuilderReferenceDataConfigurationBase<EducationProviderClassificationTypeDto>
     {
         public EducationProviderClassificationODataModelBuilderConfiguration() : base(ApiControllerNames.EducationProviderClassification)
         {

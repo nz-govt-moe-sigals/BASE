@@ -8,8 +8,8 @@ namespace App.Module11.Application.Initialization.OData.Implementations
 
     public class EducationProviderLevelGenderODataModelBuilderConfiguration 
         : 
-        //AppModule11ODataModelBuilderReferenceDataConfigurationBase<EducationProviderDto>
-            IAppModule11OdataModelBuilderConfiguration
+        //AppModuleODataModelBuilderReferenceDataConfigurationBase<EducationProviderDto>
+            IAppModuleOdataModelBuilderConfiguration
     {
 
 

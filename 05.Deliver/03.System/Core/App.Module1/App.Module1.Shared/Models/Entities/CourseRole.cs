@@ -1,6 +1,6 @@
 ﻿using App.Core.Shared.Models.Entities.Base;
 
-namespace App.Module1.Shared.Models.Entities
+namespace App.Module01.Shared.Models.Entities
 {
     public class CourseRole : TenantFKAuditedRecordStatedTimestampedGuidIdReferenceDataEntityBase
     {

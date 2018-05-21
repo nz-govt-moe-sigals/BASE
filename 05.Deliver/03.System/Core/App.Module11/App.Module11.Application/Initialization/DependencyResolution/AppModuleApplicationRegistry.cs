@@ -46,9 +46,9 @@ namespace App.Module11.Application.Initialization.DependencyResolution
             // So we search for and register the *untyped* version of the interface:
 
             //Scan for OData Model Builders in *this* modules.
-            //assemblyScanner.AddAllTypesOf<IAppModule11OdataModelBuilder>();
+            //assemblyScanner.AddAllTypesOf<IAppModuleOdataModelBuilder>();
             //Scan for OData Model Builder Configuration fragments in *this* modules.
-            assemblyScanner.AddAllTypesOf<IAppModule11OdataModelBuilderConfiguration>();
+            assemblyScanner.AddAllTypesOf<IAppModuleOdataModelBuilderConfiguration>();
         }
 
     }

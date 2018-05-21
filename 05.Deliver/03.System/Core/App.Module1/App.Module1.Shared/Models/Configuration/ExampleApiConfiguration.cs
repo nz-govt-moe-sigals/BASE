@@ -1,4 +1,4 @@
-﻿namespace App.Module1.Shared.Configuration.Models
+﻿namespace App.Module01.Shared.Configuration.Models
 {
     using App.Core.Shared.Attributes;
 

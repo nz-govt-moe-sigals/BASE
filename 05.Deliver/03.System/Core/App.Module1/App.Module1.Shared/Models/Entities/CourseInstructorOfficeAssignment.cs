@@ -1,7 +1,7 @@
 ﻿using App.Core.Shared.Models.Entities;
 using System;
 
-namespace App.Module1.Shared.Models.Entities
+namespace App.Module01.Shared.Models.Entities
 {
     public class CourseInstructorOfficeAssignment  : TenantFKAuditedRecordStatedTimestampedNoIdEntityBase
     {

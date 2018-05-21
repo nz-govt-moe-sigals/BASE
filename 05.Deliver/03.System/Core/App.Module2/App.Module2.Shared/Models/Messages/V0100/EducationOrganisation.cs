@@ -1,9 +1,9 @@
-﻿namespace App.Module2.Shared.Models.Entities
+﻿namespace App.Module02.Shared.Models.Entities
 {
     using System;
     using App.Core.Shared.Factories;
     using App.Core.Shared.Models;
-    using App.Module2.Shared.Models.Messages.V0100;
+    using App.Module02.Shared.Models.Messages.V0100;
 
     public class EducationOrganisationDto  /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ : IHasGuidId
     {

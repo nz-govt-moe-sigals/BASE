@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Module1.Application.Constants.Api
+namespace App.Module01.Application.Constants.Api
 {
-    public static class ApiControllerNames
+    public class ApiControllerNames: IHasModuleSpecificIdentifier
     {
         public static string PathRoot = Infrastructure.Constants.Module.Names.ModuleKey.ToLower();
 

@@ -7,8 +7,8 @@
 
 //    public class EducationProviderEnrolmentCountDtoODataModelBuilderConfiguration
 //        : 
-//        //AppModule11ODataModelBuilderReferenceDataConfigurationBase<EducationProviderDto>
-//            IAppModule11OdataModelBuilderConfiguration
+//        //AppModuleODataModelBuilderReferenceDataConfigurationBase<EducationProviderDto>
+//            IAppModuleOdataModelBuilderConfiguration
 //    {
 
 

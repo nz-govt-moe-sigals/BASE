@@ -11,7 +11,7 @@ How DbContexts and Migrations Work (when using an IoC Container)
 ================================================================ 
 A key concept of implementing Domain Driven Design (DDD) in a Modular manner is the 
 term Bounded Concepts: in other words, distinct DbContexts containing discrete Domains
-of functionality (Core, Module1, Module2) clearly separated from other Domains/DbContexts
+of functionality (Core, Module01, Module02) clearly separated from other Domains/DbContexts
 (think Separation of Concerns) -- as oppossed to a single DbContext with every single 
 model in there, all mapped to the dbo.xxx schema (fine for small apps, a mess in larger
 more apps).
@@ -76,10 +76,10 @@ Notice how the startup happens:
 * Where it finds the equivalent of:
 
 
-   public class AppModule1Registry : Registry {
-        public AppModule1Registry() {
-            Scan( scan => scan.AddAllTypesOf(typeof(IHasAppModule1DbContextModuleBuilderInitializer));
-            Scan( scan => scan.AddAllTypesOf(typeof(IHasAppModule1DbContextSeedInitializer));
+   public class AppModuleRegistry : Registry {
+        public AppModuleRegistry() {
+            Scan( scan => scan.AddAllTypesOf(typeof(IHasAppModuleDbContextModuleBuilderInitializer));
+            Scan( scan => scan.AddAllTypesOf(typeof(IHasAppModuleDbContextSeedInitializer));
         });
 	    ...
         }

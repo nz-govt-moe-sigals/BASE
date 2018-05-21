@@ -50,10 +50,12 @@
     <Compile Include="Contracts\IHasLifecycle.cs" />
     <Compile Include="Contracts\IHasSingletonLifecycle.cs" />
     <Compile Include="Contracts\IHasTransientLifecycle.cs" />
+    <Compile Include="Contracts\Interface1.cs" />
     <Compile Include="ExtensionMethods\GuidExtensions.cs" />
     <Compile Include="ExtensionMethods\IntExtensions.cs" />
     <Compile Include="ExtensionMethods\StringExtensions.cs" />
     <Compile Include="Factories\GuidFactory.cs" />
+    <Compile Include="ICoreModule.cs" />
     <Compile Include="Models\ConfigurationSettings\AzureCommonConfigurationSettings.cs" />
     <Compile Include="Models\ConfigurationSettings\AzureDocumentDbConfigurationSettings.cs" />
     <Compile Include="Models\ConfigurationSettings\AzureStorageAccountDefaultConfigurationSettings.cs" />

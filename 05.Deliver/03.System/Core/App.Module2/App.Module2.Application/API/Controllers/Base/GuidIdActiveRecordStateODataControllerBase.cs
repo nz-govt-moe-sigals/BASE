@@ -1,4 +1,4 @@
-namespace App.Module2.Application.ServiceFacade.API.Controllers
+namespace App.Module02.Application.ServiceFacade.API.Controllers
 {
     using System;
     using System.Linq;
@@ -8,7 +8,7 @@ namespace App.Module2.Application.ServiceFacade.API.Controllers
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models;
     using App.Core.Shared.Models.Entities;
-    using App.Module2.Infrastructure.Constants.Db;
+    using App.Module02.Infrastructure.Constants.Db;
     using AutoMapper.QueryableExtensions;
 
     public abstract class
@@ -42,7 +42,7 @@ namespace App.Module2.Application.ServiceFacade.API.Controllers
         {
             // Note the setting of the dbcontect identifier
             // (each module will do this, specific to the module):
-            this._dbContextIdentifier = AppModule2DbContextNames.Module2;
+            this._dbContextIdentifier = AppModuleDbContextNames.Default;
         }
     }
 }

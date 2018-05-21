@@ -19,8 +19,8 @@ namespace App.Core.Infrastructure.Db.Context
 
             //AppCoreDatabaseInitializerConfigurer.Configure();
 
-            //            //Database.SetInitializer(new AppModule2DatabaseInitializer());
-            //AppModule2DatabaseInitializerConfigurer.Configure();
+            //            //Database.SetInitializer(new AppModuleDatabaseInitializer());
+            //AppModuleDatabaseInitializerConfigurer.Configure();
 
         }
 

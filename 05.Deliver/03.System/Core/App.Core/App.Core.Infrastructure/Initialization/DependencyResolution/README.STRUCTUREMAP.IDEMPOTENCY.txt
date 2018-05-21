@@ -71,7 +71,7 @@ So...for now...I'm doing
 
 var tx = AppDependencyLocator.Current
   .GetAllInstances<IOdataModelBuilderConfigurationBase>()
-  .Where(x=>x is IAppModule2ODataModelBuilderConfiguration);
+  .Where(x=>x is IAppModuleODataModelBuilderConfiguration);
 var c3 = tx.Count(); //Yay (Finally)
 
 It's a bit of a mind-mess. But I'm open to better solutions.

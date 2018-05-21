@@ -1,4 +1,4 @@
-namespace App.Module1.Application.ServiceFacade.API.Controllers
+namespace App.Module01.Application.ServiceFacade.API.Controllers
 {
     using System;
     using System.Linq;
@@ -8,7 +8,7 @@ namespace App.Module1.Application.ServiceFacade.API.Controllers
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models;
     using App.Core.Shared.Models.Entities;
-    using App.Module1.Infrastructure.Constants.Db;
+    using App.Module01.Infrastructure.Constants.Db;
     using AutoMapper.QueryableExtensions;
 
     public abstract class
@@ -33,7 +33,7 @@ namespace App.Module1.Application.ServiceFacade.API.Controllers
         /// </summary>
         protected override void Initialize()
         {
-            this._dbContextIdentifier = AppModule1DbContextNames.Module1;
+            this._dbContextIdentifier = AppModuleDbContextNames.Default;
         }
 
     }

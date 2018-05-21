@@ -41,14 +41,14 @@ namespace App.Module11.Infrastructure.Initialization.DependencyResolution
         private void ScanAllModulesForModuleSpecificDbContextTypes(IAssemblyScanner assemblyScanner)
         {
             // Register the Db Model definitions and seeder definitions for Core:
-            assemblyScanner.AddAllTypesOf<IHasAppModule11DbContextModelBuilderInitializer>();
-            assemblyScanner.AddAllTypesOf<IHasAppModule11DbContextSeedInitializer>();
+            assemblyScanner.AddAllTypesOf<IHasAppModuleDbContextModelBuilderInitializer>();
+            assemblyScanner.AddAllTypesOf<IHasAppModuleDbContextSeedInitializer>();
 
             // Add all Pre-Commit Processors (these kick in just as you
             // Commit a DbContext, and ensure specific fields are 
             // automatically filled in)
             assemblyScanner.AddAllTypesOf<IDbCommitPreCommitProcessingStrategy>();
-            this.RegisterDbContextInHttpContext<AppModule11DbContext>(AppModule11DbContextNames.Module11);
+            this.RegisterDbContextInHttpContext<AppModuleDbContext>(AppModuleDbContextNames.Module11);
             For<ExtractDocumentDbServiceConfiguration>().Use<ExtractDocumentDbServiceConfiguration>().Singleton();
         }
     }

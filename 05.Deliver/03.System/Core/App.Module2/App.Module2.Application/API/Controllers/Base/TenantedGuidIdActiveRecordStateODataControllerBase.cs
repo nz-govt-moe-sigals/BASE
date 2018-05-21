@@ -1,10 +1,10 @@
-namespace App.Module2.Application.ServiceFacade.API.Controllers
+namespace App.Module02.Application.ServiceFacade.API.Controllers
 {
     using App.Core.Application.ServiceFacade.API.Controllers;
     using App.Core.Application.ServiceFacade.API.Controllers.Base.Base;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models;
-    using App.Module2.Infrastructure.Constants.Db;
+    using App.Module02.Infrastructure.Constants.Db;
 
     public abstract class
         TenantedGuidIdActiveRecordStateODataControllerBase<TEntity, TDto> : TenantedGuidIdActiveRecordStateCommonODataControllerBase<TEntity, TDto>
@@ -36,7 +36,7 @@ namespace App.Module2.Application.ServiceFacade.API.Controllers
         /// </summary>
         protected override void Initialize()
         {
-            this._dbContextIdentifier = AppModule2DbContextNames.Module2;
+            this._dbContextIdentifier = AppModuleDbContextNames.Default;
         }
 
     }

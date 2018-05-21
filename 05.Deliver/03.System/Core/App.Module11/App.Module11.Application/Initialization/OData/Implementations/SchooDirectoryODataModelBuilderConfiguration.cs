@@ -10,7 +10,7 @@ using Microsoft.Web.Http;
 
 namespace App.Module11.Application.Initialization.OData.Implementations
 {
-    public class SchooDirectoryODataModelBuilderConfiguration : IAppModule11OdataModelBuilderConfiguration
+    public class SchooDirectoryODataModelBuilderConfiguration : IAppModuleOdataModelBuilderConfiguration
     {
         public void Apply(ODataModelBuilder builder, ApiVersion apiVersion)
         {

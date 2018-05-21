@@ -1,10 +1,10 @@
 ﻿using App.Core.Shared.Models.Entities;
-using App.Module1.Shared.Models.Entities.Enums;
+using App.Module01.Shared.Models.Entities.Enums;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace App.Module1.Shared.Models.Entities
+namespace App.Module01.Shared.Models.Entities
 {
     public class CourseInstructor: TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase
     {

@@ -1,10 +1,10 @@
-﻿namespace App.Module2.Shared.Models.Configuration
+﻿namespace App.Module02.Shared.Models.Configuration
 {
     using App.Core.Shared.Attributes;
 
     public class SchoolImportConfiguration
     {
-        [Alias("App-Module2-SchoolImportSourcePath")]
+        [Alias("App-Module02-SchoolImportSourcePath")]
         public string CsvSourcePath { get; set; }
     }
 }

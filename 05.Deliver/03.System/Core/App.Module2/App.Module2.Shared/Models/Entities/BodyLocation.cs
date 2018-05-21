@@ -1,9 +1,9 @@
-﻿namespace App.Module2.Shared.Models.Entities
+﻿namespace App.Module02.Shared.Models.Entities
 {
     using System;
     using App.Core.Shared.Models;
     using App.Core.Shared.Models.Entities;
-    using App.Module2.Shared.Models.Enums;
+    using App.Module02.Shared.Models.Enums;
 
     public class BodyLocation : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase //, IHasOwnerFK
     {
