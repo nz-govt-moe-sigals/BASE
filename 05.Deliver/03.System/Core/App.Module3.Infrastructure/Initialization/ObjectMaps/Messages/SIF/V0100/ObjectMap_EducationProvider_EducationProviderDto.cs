@@ -17,68 +17,57 @@ namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V010
     {
         public void Initialize(IMapperConfigurationExpression config)
         {
-            config.CreateMap<EducationProviderProfile, EducationProviderDto>()
-
-                //To get rid of:
-                //.ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
-
-                .ForMember(t => t.Address1Line1, opt => opt.MapFrom(s => s.Address1Line1))
-                .ForMember(t => t.Address1Line2, opt => opt.MapFrom(s => s.Address1Line2))
-                .ForMember(t => t.Address1Line3, opt => opt.MapFrom(s => s.Address1Line3))
-                .ForMember(t => t.Address1City, opt => opt.MapFrom(s => s.Address1City))
-                .ForMember(t => t.Address1Suburb, opt => opt.MapFrom(s => s.Address1Suburb))
-                .ForMember(t => t.Address1PostalCode, opt => opt.MapFrom(s => s.Address1PostalCode))
-
-                .ForMember(t => t.ClosedDate, opt => opt.MapFrom(s => s.ClosedDate))
-                .ForMember(t => t.OpeningDate, opt => opt.MapFrom(s => s.OpeningDate))
-
-                .ForMember(t => t.CohortEntryCurrent, opt => opt.MapFrom(s => s.CohortEntryCurrent))
-                .ForMember(t => t.CohortEntryFuture, opt => opt.MapFrom(s => s.CohortEntryFuture))
-
-
-                .ForMember(t => t.Contact1Name, opt => opt.MapFrom(s => s.Contact1Name))
-                .ForMember(t => t.Contact1Role, opt => opt.MapFrom(s => s.Contact1Role))
-
-                .ForMember(t => t.Contact2Name, opt => opt.MapFrom(s => s.Contact2Name))
-                .ForMember(t => t.Contact2Role, opt => opt.MapFrom(s => s.Contact2Role))
-
-                .ForMember(t => t.Decile, opt => opt.MapFrom(s => s.Decile))
-
-                .ForMember(t => t.Email, opt => opt.MapFrom(s => s.Email))
-                .ForMember(t => t.Fax, opt => opt.MapFrom(s => s.Fax))
-
-                //--------
-
-                .ForMember(t => t.LevelGender, opt => opt.MapFrom(s => s.LevelGender))
-                .ForMember(t => t.RollCounts, opt => opt.MapFrom(s => s.RollCounts))
-
-                //--------
-                //Reference:
-
-                .ForMember(t => t.AreaUnit, opt => opt.MapFrom(s => s.AreaUnit))
-                .ForMember(t => t.AuthorityType, opt => opt.MapFrom(s => s.AuthorityType))
-                .ForMember(t => t.Classification, opt => opt.MapFrom(s => s.Classification))
-                .ForMember(t => t.CoL, opt => opt.MapFrom(s => s.CoL))
-                .ForMember(t => t.CommunityBoard, opt => opt.MapFrom(s => s.CommunityBoard))
-                .ForMember(t => t.EducationProviderType, opt => opt.MapFrom(s => s.EducationProviderType))
-                .ForMember(t => t.GeneralElectorate, opt => opt.MapFrom(s => s.GeneralElectorate))
-                .ForMember(t => t.LocalOffice, opt => opt.MapFrom(s => s.LocalOffice))
-                .ForMember(t => t.MaoriElectorate, opt => opt.MapFrom(s => s.MaoriElectorate))
-                .ForMember(t => t.EducationProviderType, opt => opt.MapFrom(s => s.EducationProviderType))
-                .ForMember(t => t.Region, opt => opt.MapFrom(s => s.Region))
-                .ForMember(t => t.RegionalCouncil, opt => opt.MapFrom(s => s.RegionalCouncil))
-
-
-                //.ForMember(t => t.RelationshipType, opt => opt.MapFrom(s => s.RelationshipType))
-
-
-                .ForMember(t => t.SpecialSchooling, opt => opt.MapFrom(s => s.SpecialSchooling))
-                .ForMember(t => t.Status, opt => opt.MapFrom(s => s.Status))
-                .ForMember(t => t.TeacherEducation, opt => opt.MapFrom(s => s.TeacherEducation))
-                .ForMember(t => t.TerritorialAuthority, opt => opt.MapFrom(s => s.TerritorialAuthority))
-                .ForMember(t => t.UrbanArea, opt => opt.MapFrom(s => s.UrbanArea))
-                .ForMember(t => t.Ward, opt => opt.MapFrom(s => s.Ward))
-
+            config.CreateMap<EducationProviderProfile, SchoolDirectoryDto>()
+                .ForMember(t => t.SchoolNumber, opt => opt.MapFrom(src => src.SchoolId))
+                .ForMember(t => t.SchoolName, opt => opt.MapFrom(src => src.Name))
+                .ForMember(t => t.Telephone, opt => opt.MapFrom(src => src.Telephone))
+                .ForMember(t => t.Fax, opt => opt.MapFrom(src => src.Fax))
+                .ForMember(t => t.Email, opt => opt.MapFrom(src => src.Email))
+                .ForMember(t => t.Principal, opt => opt.MapFrom(src => src.Contact1Name))
+                .ForMember(t => t.SchoolWebsite, opt => opt.MapFrom(src => src.Url))
+                .ForMember(t => t.Street, opt => opt.MapFrom(src => src.Address1Line1 + " " + src.Address1Line2 + " " + src.Address1Line3))
+                .ForMember(t => t.Suburb, opt => opt.MapFrom(src => src.Address1Suburb))
+                .ForMember(t => t.City, opt => opt.MapFrom(src => src.Address1City))
+                .ForMember(t => t.PostalAddress1, opt => opt.MapFrom(src => src.Address2Line1))
+                .ForMember(t => t.PostalAddress2, opt => opt.MapFrom(src => src.Address2Line2))
+                .ForMember(t => t.PostalAddress3, opt => opt.MapFrom(src => src.Address2Line3))
+                .ForMember(t => t.PostCode, opt => opt.MapFrom(src => src.Address2PostalCode))
+                .ForMember(t => t.UrbanArea, opt => opt.MapFrom(src => src.UrbanArea.Text))
+                .ForMember(t => t.SchoolType, opt => opt.MapFrom(src => src.EducationProviderType.Text))
+                .ForMember(t => t.Definition, opt => opt.Ignore()) //Not sure how to Map
+                .ForMember(t => t.Authority, opt => opt.MapFrom(src => src.AuthorityType.Text))
+                .ForMember(t => t.GenderOfStudents, opt => opt.MapFrom(src => src.SchoolingGender.Text))
+                .ForMember(t => t.TerritorialAuthority, opt => opt.MapFrom(src => src.TerritorialAuthority.Text))
+                .ForMember(t => t.RegionalCouncil, opt => opt.MapFrom(src => src.RegionalCouncil.Text))
+                .ForMember(t => t.LocalOffice, opt => opt.MapFrom(src => src.LocalOffice.Text))
+                .ForMember(t => t.EducationRegion, opt => opt.MapFrom(src => src.Region.Text))
+                .ForMember(t => t.GeneralElectorate, opt => opt.MapFrom(src => src.GeneralElectorate.Text))
+                .ForMember(t => t.MaoriElectorate, opt => opt.MapFrom(src => src.MaoriElectorate.Text))
+                .ForMember(t => t.CensusAreaUnit, opt => opt.MapFrom(src => src.AreaUnit.Text))
+                .ForMember(t => t.Ward, opt => opt.MapFrom(src => src.Ward.Text))
+                .ForMember(t => t.CommunityOfLearningId, opt => opt.MapFrom(src => src.CoL.Id))
+                .ForMember(t => t.CommunityOfLearningName, opt => opt.MapFrom(src => src.CoL.Text))
+                //.ForMember(t => t.Longitude, opt => opt.Ignore())
+                //.ForMember(t => t.Latitude, opt => opt.Ignore())
+                .ForMember(t => t.Longitude, opt => opt.MapFrom(src => src.Locations.OrderByDescending(x=> x.LastModifiedOnUtc).FirstOrDefault().Longitude))
+                .ForMember(t => t.Latitude, opt => opt.MapFrom(src => src.Locations.OrderByDescending(x => x.LastModifiedOnUtc).FirstOrDefault().Latitude))
+                .ForMember(t => t.Decile, opt => opt.MapFrom(src => src.Decile))
+                //.ForMember(t => t.TotalSchoolRole,  opt => opt.Ignore())
+                //.ForMember(t => t.EuropeanPakeha,opt => opt.Ignore())
+                //.ForMember(t => t.Maori,opt => opt.Ignore())
+                //.ForMember(t => t.Pasifika, opt => opt.Ignore())
+                //.ForMember(t => t.Asian, opt => opt.Ignore())
+                //.ForMember(t => t.MELAA, opt => opt.Ignore())
+                //.ForMember(t => t.Other, opt => opt.Ignore())
+                //.ForMember(t => t.International, opt => opt.Ignore())
+                .ForMember(t => t.TotalSchoolRole, opt => opt.MapFrom(src => src.RollCounts.OrderByDescending(x => x.Date).FirstOrDefault().TotalRoll))
+                .ForMember(t => t.EuropeanPakeha, opt => opt.MapFrom(src => src.RollCounts.OrderByDescending(x => x.Date).FirstOrDefault().European))
+                .ForMember(t => t.Maori, opt => opt.MapFrom(src => src.RollCounts.OrderByDescending(x => x.Date).FirstOrDefault().Maori))
+                .ForMember(t => t.Pasifika, opt => opt.MapFrom(src => src.RollCounts.OrderByDescending(x => x.Date).FirstOrDefault().Pasifika))
+                .ForMember(t => t.Asian, opt => opt.MapFrom(src => src.RollCounts.OrderByDescending(x => x.Date).FirstOrDefault().Asian))
+                .ForMember(t => t.MELAA, opt => opt.MapFrom(src => src.RollCounts.OrderByDescending(x => x.Date).FirstOrDefault().MELAA))
+                .ForMember(t => t.Other, opt => opt.MapFrom(src => src.RollCounts.OrderByDescending(x => x.Date).FirstOrDefault().Other))
+                .ForMember(t => t.International, opt => opt.MapFrom(src => src.RollCounts.OrderByDescending(x => x.Date).FirstOrDefault().International))
                 ;
 
 

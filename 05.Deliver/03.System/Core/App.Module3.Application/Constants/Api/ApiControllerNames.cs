@@ -55,5 +55,7 @@ namespace App.Module3.Application.Constants.Api
 
         public const string FormattedProvider = "Providers" + Suffix;
 
+        public const string SchoolsDirectory = "SchoolsDirectory" + Suffix;
+
     }
 }

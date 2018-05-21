@@ -18,12 +18,13 @@ namespace App.Module3.Application.Attributes
     {
         public override IQueryable ApplyQuery(IQueryable queryable, ODataQueryOptions queryOptions)
         {
-            SetSkiptoZero(queryOptions);
-
-                              
-            return base.ApplyQuery(queryable, queryOptions);
+            //SetSkiptoZero(queryOptions);
+            //return base.ApplyQuery(queryable, queryOptions);
+            var ignoreQueryOptions = AllowedQueryOptions.Skip | AllowedQueryOptions.Top;
+            return queryOptions.ApplyTo(queryable, ignoreQueryOptions);
         }
 
+        //turns out i dont even need this
         /// <summary>
         /// WE set the skip to zero because it is double applying the skip
         /// </summary>

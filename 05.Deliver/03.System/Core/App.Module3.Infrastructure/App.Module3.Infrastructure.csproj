@@ -164,6 +164,7 @@
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ObjectMap_EducationProviderLocation_EducationProviderLocationDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\Base\ObjectMap_SIFReferenceType_SIFReferenceTypeDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ObjectMap_EducationProvider_EducationProviderDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ObjectMap_EducationProvider_SchoolDirectoryDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_CoL_CoLDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_LocalOffice_LocalOfficeDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_SchoolAreaUnit_SchoolAreaUnitDto.cs" />

@@ -13,6 +13,10 @@ using AutoMapper;
 
 namespace App.Module3.Infrastructure.Initialization.ObjectMaps.Messages.SIF.V0100.Formatted
 {
+
+    /// <summary>
+    /// Warning : I couldn't make this Projectable, So if you are awesome and manage to do it full credit to you
+    /// </summary>
     public class ObjectMap_EducationProvider_SifProviderDto
       : IHasAutomapperInitializer
 

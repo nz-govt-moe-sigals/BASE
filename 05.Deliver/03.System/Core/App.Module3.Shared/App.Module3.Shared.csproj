@@ -159,6 +159,7 @@
     <Compile Include="Models\Messages\APIs\SIF\V0100\ReferenceData\UrbanAreaDto.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\ReferenceData\WardDto.cs" />
     <Compile Include="Models\Messages\APIs\SIF\V0100\Formated\SifProviderDto.cs" />
+    <Compile Include="Models\Messages\APIs\SIF\V0100\SchoolDirectoryDto.cs" />
     <Compile Include="Models\Messages\Extract\Base\BaseMessage.cs" />
     <Compile Include="Models\Messages\Extract\Base\BaseReference.cs" />
     <Compile Include="Models\Messages\Extract\ExtractConstants.cs" />

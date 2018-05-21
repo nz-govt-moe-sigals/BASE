@@ -185,6 +185,7 @@
     <Compile Include="Initialization\OData\Implementations\RegionODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\RelationshipTypeODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\EducationProviderClassificationODataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\SchooDirectoryODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\SchoolingGenderODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\SchoolYearLevelODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\SpecialSchoolingODataModelBuilderConfiguration.cs" />
@@ -228,6 +229,8 @@
     <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\TerritorialAuthorityController.cs" />
     <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\UrbanAreaController.cs" />
     <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\ReferenceData\WardController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0100\SchoolsDirectoryController.cs" />
+    <Compile Include="ServiceFacade\API\Sif\Controllers\V0200\SchoolsDirectoryController.cs" />
   </ItemGroup>
   <ItemGroup>
     <!-- <EmbeddedResource Include="Presentation\Views\Module3\About.cshtml" /> -->
