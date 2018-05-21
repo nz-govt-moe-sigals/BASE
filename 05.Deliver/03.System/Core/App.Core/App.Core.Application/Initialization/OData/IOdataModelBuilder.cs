@@ -19,7 +19,7 @@ namespace App.Core.Application.Initialization.OData
     public interface IOdataModelBuilder 
     {
         /// <summary>
-        /// Returns to the Route Prefix (Module3, ModuleX, etc.)
+        /// Returns to the Route Prefix (Module11, ModuleX, etc.)
         /// <para>
         /// Invoked by Shell (should it be Core?)
         ///  when registering Model and building Path.

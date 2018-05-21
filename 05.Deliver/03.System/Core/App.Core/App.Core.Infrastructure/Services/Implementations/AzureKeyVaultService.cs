@@ -192,7 +192,9 @@ namespace App.Core.Infrastructure.Services.Implementations
         /// <param name="secretKey">The secret key.</param>
         /// <param name="keyVaultUrl">The key vault URL.</param>
         /// <returns></returns>
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public async Task<string> RetrieveSecretAsync(string secretKey, string keyVaultUrl = null)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             secretKey = CleanKeyName(secretKey);
 

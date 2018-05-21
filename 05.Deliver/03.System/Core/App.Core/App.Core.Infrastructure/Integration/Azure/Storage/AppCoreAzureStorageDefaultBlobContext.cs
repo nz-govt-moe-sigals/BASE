@@ -84,7 +84,9 @@ namespace App.Core.Infrastructure.Integration.Azure.Storage
                     EnsureContainer(GetContainer(Constants.Storage.BlobStorageContainers.Testing),
                         BlobContainerPublicAccessType.Blob);
                 }
+#pragma warning disable CS0168 // Variable is declared but never used
                 catch (System.Exception e)
+#pragma warning restore CS0168 // Variable is declared but never used
                 {
                     throw;
                 }
