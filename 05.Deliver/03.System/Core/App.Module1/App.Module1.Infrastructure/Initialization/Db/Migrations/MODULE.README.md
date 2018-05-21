@@ -15,7 +15,7 @@ idea of how DbContexts, Migrations, Seeding work when combined with IoC/DI.
 Enable-Migrations -StartUpProjectName "App.Host" -ProjectName "App.Module01.Infrastructure" -ContextProjectName "App.Module01.Infrastructure" -MigrationsDirectory "Initialization\Db\Migrations\Default" -Verbose
 
 // Run after every Db Model schema change, changing the name every time, in order to make a Migration class
-add-Migration "Entities.Example" -StartUpProjectName "App.Host" -ProjectName "App.Module01.Infrastructure" -Verbose 
+add-Migration "Entities.Example" -StartUpProjectName "App.Host" -ProjectName "App.Module01.Infrastructure" -Verbose                      
 
 // Run after every Db Model schema change to apply the above migration class:
 Update-Database -StartUpProjectName "App.Host" -ProjectName "App.Module01.Infrastructure" -Verbose

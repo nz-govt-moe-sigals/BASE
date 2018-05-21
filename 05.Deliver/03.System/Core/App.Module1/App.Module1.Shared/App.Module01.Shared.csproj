@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\IHasModuleSpecificIdentifier.cs" />
-    <Compile Include="IModule1.cs" />
+    <Compile Include="IModule01.cs" />
     <Compile Include="Models\Configuration\ExampleApiConfiguration.cs" />
     <Compile Include="Models\Entities\Course.cs" />
     <Compile Include="Models\Entities\CourseCredit.cs" />

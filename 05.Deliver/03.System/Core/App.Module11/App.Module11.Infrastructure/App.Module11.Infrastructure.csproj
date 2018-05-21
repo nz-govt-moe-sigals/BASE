@@ -4,15 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1493FB3E-966F-45D4-BD23-1537DE7E2114}</ProjectGuid>
+    <ProjectGuid>{488387C5-F33C-4999-819E-969427B8500C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>App.Module11.Infrastructure</RootNamespace>
     <AssemblyName>App.Module11.Infrastructure</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,23 +33,16 @@
     <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="CsvHelper, Version=6.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CsvHelper.6.0.0\lib\net45\CsvHelper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Azure.Documents.Client, Version=1.21.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Azure.DocumentDB.1.21.1\lib\net45\Microsoft.Azure.Documents.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="StructureMap, Version=4.5.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\StructureMap.4.5.1\lib\net45\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -65,177 +56,78 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants\AppSettingKeys\AppModuleApiScopes.cs" />
     <Compile Include="Constants\Db\AppModuleDbContextNames.cs" />
+    <Compile Include="Constants\Db\OrganisationPropertyKeys.cs" />
     <Compile Include="Constants\Module\Names.cs" />
     <Compile Include="Db\Context\AppModuleDatabaseInitializer.cs" />
     <Compile Include="Db\Context\AppModuleDatabaseInitializerConfigurer.cs" />
     <Compile Include="Db\Context\AppModuleDbContext.cs" />
     <Compile Include="Db\Context\AppModuleDbContextFactory.cs" />
-    <Compile Include="ExtensionMethods\X.cs" />
-    <Compile Include="ExtensionMethods\Enumerations.cs" />
     <Compile Include="Initialization\Db\IHasAppModuleDbContextModelBuilderInitializer.cs" />
     <Compile Include="Initialization\Db\IHasAppModuleDbContextSeedInitializer.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\AppModuleDbContextSeederBody.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\AppModuleDbContextSeederBodyCategory.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\AppModuleDbContextSeederBodyClaim.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\AppModuleDbContextSeederBodyName.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\AppModuleDbContextSeederBodyProperty.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\AppModuleDbContextSeederEducationOrganisation.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\AppModuleDbContextSeedingOrchestrator.cs" />
     <Compile Include="Initialization\Db\Migrations\AppModuleDbMigrationsConfiguration.cs" />
-    <Compile Include="Initialization\Db\Migrations\Default\201804250055016_Entities.Initialise.cs" />
-    <Compile Include="Initialization\Db\Migrations\Default\201804250055016_Entities.Initialise.Designer.cs">
-      <DependentUpon>201804250055016_Entities.Initialise.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Initialization\Db\Migrations\Default\201804270236165_Entities.SchoolIdIndex.cs" />
-    <Compile Include="Initialization\Db\Migrations\Default\201804270236165_Entities.SchoolIdIndex.Designer.cs">
-      <DependentUpon>201804270236165_Entities.SchoolIdIndex.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Initialization\Db\Migrations\Default\201805100426221_Check.cs" />
-    <Compile Include="Initialization\Db\Migrations\Default\201805100426221_Check.Designer.cs">
-      <DependentUpon>201805100426221_Check.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Initialization\Db\Migrations\Default\201805100444327_Entities.IndexOnRecordState.cs" />
-    <Compile Include="Initialization\Db\Migrations\Default\201805100444327_Entities.IndexOnRecordState.Designer.cs">
-      <DependentUpon>201805100444327_Entities.IndexOnRecordState.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Initialization\Db\Migrations\Default\201805170313015_More.cs" />
-    <Compile Include="Initialization\Db\Migrations\Default\201805170313015_More.Designer.cs">
-      <DependentUpon>201805170313015_More.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Initialization\Db\Migrations\Default\201805210600392_ChangeSchema.cs" />
-    <Compile Include="Initialization\Db\Migrations\Default\201805210600392_ChangeSchema.Designer.cs">
-      <DependentUpon>201805210600392_ChangeSchema.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Initialization\Db\Migrations\Default\Configuration.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAreaUnit.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAuthorityType.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCommunityBoard.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineEducationProvideLocation.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineEducationProvider.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineEducationProviderEnrolmentCount.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineEducationProviderGender.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineEducationProviderLevelGender.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineExtractWatermark.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineGeneralElectorate.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineMaoriElectorate.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineOrganisationStatus.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineOrganisationType.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineRegion.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineRegionalCouncil.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineRelationshipType.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineSchoolClassification.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineSchoolYearLevel.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineSpecialSchooling.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTeacherEducation.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTerritorialAuthority.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineUrbanArea.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineWard.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineBody.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineBodyAlias.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineBodyCategory.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineBodyChannel.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineBodyClaim.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineBodyProperty.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineEducationOrganisation.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineSchoolAuthority.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineSchoolDecile.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineSchoolDefinition.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineSchoolEducationRegion.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineSchoolGender.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineSchoolGeneralElectorate.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineSchoolMinistryOfEducationLocalOffice.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineSchoolMoariElectorate.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineSchoolRegionalCouncil.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineSchoolTerritorialAuthoritywithAucklandLocalBoard.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineSchoolType.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbModelBuilderOrchestrator.cs" />
-    <Compile Include="Initialization\Db\Schema\Conventions\TenantedSourceSystemKeyedGuidIdReferenceDataConvention.cs" />
-    <Compile Include="Initialization\Db\Schema\Conventions\TenantedSIFSourceSystemKeyedGuidIdReferenceDataConvention.cs" />
     <Compile Include="Initialization\DependencyResolution\AppModuleInfrastructureRegistry.cs" />
-    <Compile Include="Initialization\Authorisation\HasOidcScopeInitializer.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\Base\ObjectMap_BaseMessage_TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\Base\ObjectMap_BaseReference_SourceSystemKeyedTenantedGuidIdReferenceDataBase.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\Base\ObjectMap_BaseReference_SIFSourceSystemKeyedTenantedGuidIdReferenceDataBase.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\Base\ObjectMap_SIFSourceSystemKey_SIFSourceSystemKey.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceAreaUnit_AreaUnit.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceAuthorityType_AuthorityType.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceRegion_Region.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceRegionalCouncil_RegionalCouncil.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceRelationshipType_RelationshipType.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceSchoolClassification_EducationProviderClassification.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceSchoolingGender_EducationProviderGender.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceSchoolYearLevel_EducationProviderYearLevel.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceSpecialSchooling_SpecialSchooling.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceOrganisationType_EducationProviderType.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceOrganisationStatus_EducationProviderStatus.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceMaoriElectorate_MaoriElectorate.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceGeneralElectorate_GeneralElectorate.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceCommunityBoard_CommunityBoard.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_SchoolProfile_EducationProviderProfile.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_SchoolWGS_EducationProviderLocation.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceTeacherEducation_TeacherEducation.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_SchoolEnrol_EducationProviderEnrolmentCount.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_SchoolLevelGender_EducationProviderLevelGender.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceWard_Ward.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceUrbanArea_UrbanArea.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_ReferenceTerritorialAuthority_TerritorialAuthority.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectToMap_EducationProviderEnrolmentCount_EducationProviderEnrolmentCount.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectToMap_EducationProviderLevelGender_EducationProviderLevelGender.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectToMap_EducationProviderLocation_EducationProviderLocation.cs" />
-    <Compile Include="Initialization\ObjectMaps\Extract\ObjectToMap_EducationProviderProfile_EducationProviderProfile.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\MOE\V0100\Base\ObjectMap_SSKeyedGuidIdReferenceDataBase_SSTypeDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\Formatted\ObjectMap_EducationProvider_SifProviderDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ObjectMap_EdProviderLevelGender_EdProviderLevelGenderDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ObjectMap_EducationProviderEnrolmentCount_EducationProviderEnrolmentCountDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ObjectMap_EducationProviderLocation_EducationProviderLocationDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\Base\ObjectMap_SIFReferenceType_SIFReferenceTypeDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ObjectMap_EducationProvider_EducationProviderDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ObjectMap_EducationProvider_SchoolDirectoryDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_CoL_CoLDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_LocalOffice_LocalOfficeDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_SchoolAreaUnit_SchoolAreaUnitDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_SchoolAuthority_SchoolAuthorityDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_SchoolCommunityBoard_SchoolCommunityBoardDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_SchoolGeneralElectorate_SchoolGeneralElectorateDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_SchoolMaoriElectorate_SchoolMaoriElectorateDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_EducationProviderStatus_EducationProviderStatusDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_SchoolOrganisationType_SchoolOrganisationTypeDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_SchoolRegionalCouncil_SchoolRegionalCouncilDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_SchoolRegion_SchoolRegionDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_SchoolRelationshipType_SchoolRelationshipTypeDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_EdProviderClassification_EdProviderClassificationDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_EdProviderSchoolingGender_EdProviderSchoolingGenderDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_SchoolSchoolYearLevel_SchoolSchoolYearLevelDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_SchoolSpecialSchooling_SchoolSpecialSchoolingDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_SchoolTeacherEducation_SchoolTeacherEducationDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_SchoolTerritorialAuthority_SchoolTerritorialAuthorityDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_SchoolUrbanArea_SchoolUrbanAreaDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_SchoolWard_SchoolWardDto.cs" />
+    <Compile Include="Initialization\Implementations\AppModuleServiceLocatorInitializer.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_BodyChannel_BodyChannelDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_BodyLocation_BodyLocationDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_BodyClaim_BodyClaimdto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_BodyAlias_BodyAliasDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_BodyProperty_BodyPropertyDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_EducationOrganisation_EducationOrganisationDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_Body_BodyDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_BodyCategory_BodyCategoryDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolAuthority_SchoolAuthorityDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolDecile_SchoolDecileDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolDefinition_SchoolDefinitionDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolEducationRegion_SchoolEducationRegionDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolGender_SchoolGenderDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolMaoriElectorate_SchoolMaoriElectorateDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolMOELocalOffice_SchoolMOELocalOfficeDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolReferenceType_SchoolGeneralElectorateDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolType_SchoolTypeDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolRegionalCouncil_SchoolRegionalCouncilDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SchoolTerritorialAuthority_SchoolTerritorialAuthorityDto.cs" />
     <Compile Include="Initialization\Search\ExampleSearchProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Configuration\IModule11ServiceConfigurationObject.cs" />
-    <Compile Include="Services\IExtractAzureDocumentDbService.cs" />
-    <Compile Include="Services\IExtractServiceController.cs" />
-    <Compile Include="Services\IExtractSifRepositoryService.cs" />
+    <Compile Include="Services\Configuration\IModule2ServiceConfigurationObject.cs" />
     <Compile Include="Services\IHasAppModuleService.cs" />
-    <Compile Include="Services\IModule11RepositoryService.cs" />
-    <Compile Include="Services\Configuration\BaseExtractServiceConfiguration.cs" />
     <Compile Include="Services\Implementations\Base\AppModuleServiceBase.cs" />
-    <Compile Include="Services\Implementations\Configuration\ExtractCachedRepoObject.cs" />
-    <Compile Include="Services\Implementations\Configuration\ExtractDocumentDbServiceConfiguration.cs" />
-    <Compile Include="Services\Implementations\Extract\DataServices\BaseDataExtractServices.cs" />
-    <Compile Include="Services\Implementations\Extract\DataServices\SchoolEnrolExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\DataServices\SchoolLevelGenderExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\DataServices\SchoolProfilesExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\DataServices\SchoolWGSExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\Repositories\ExtractAzureDocumentDbService.cs" />
-    <Compile Include="Services\Implementations\Extract\BaseExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\Repositories\ExtractRepositoryService.cs" />
-    <Compile Include="Services\Implementations\Extract\ExtractServiceController.cs" />
-    <Compile Include="Services\IBaseExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceAreaUnitExtractService.cs" />
-    <Compile Include="Services\IExtractRepositoryService.cs" />
-    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceAuthorityTypeExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceCommunityBoardExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceGeneralElectorateExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceMaoriElectorateExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceOrganisationStatusExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceOrganisationTypeExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceRegionalCouncilExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceRegionExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceRelationshipTypeExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceSchoolClassificationExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceSchoolingGenderExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceSchoolYearLevelExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceSpecialSchoolingExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceTeacherEducationExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceTerritorialAuthorityExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceUrbanAreaExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceWardExtractService.cs" />
-    <Compile Include="Services\Implementations\Extract\Repositories\ExtractSifRepositoryService.cs" />
-    <Compile Include="Services\Implementations\Module11RepositoryService.cs" />
+    <Compile Include="Services\Implementations\NameParsingService.cs" />
+    <Compile Include="Services\Implementations\SchoolCsvImporterService.cs" />
+    <Compile Include="Services\INameParsingService.cs" />
+    <Compile Include="Services\ISchoolCsvImporterService.cs" />
+    <Compile Include="Services\IStudentRawImportService.cs" />
+    <Compile Include="Services\Implementations\StudentRawImportService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\App.Core\App.Core.Infrastructure\App.Core.Infrastructure.csproj">
-      <Project>{b503ff64-e103-4ac1-8039-5012570c8770}</Project>
+      <Project>{B503FF64-E103-4AC1-8039-5012570C8770}</Project>
       <Name>App.Core.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\App.Core\App.Core.Shared\App.Core.Shared.csproj">
@@ -243,55 +135,24 @@
       <Name>App.Core.Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\App.Module11.Shared\App.Module11.Shared.csproj">
-      <Project>{5136cc88-5043-46e7-946a-92337f74c450}</Project>
+      <Project>{64d8aa54-ece4-4d25-94c7-7ab145e3da39}</Project>
       <Name>App.Module11.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="Initialization\Db\Migrations\Default\README.md" />
-    <None Include="packages.config" />
+    <Content Include="Initialization\Db\Migrations\MODULE.README.txt" />
+    <Content Include="Db\README.txt" />
+    <Content Include="Initialization\DependencyResolution\README.txt" />
+    <Content Include="Initialization\ObjectMaps\README.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Factories\" />
-    <Folder Include="Initialization\Db\Schema\ReferenceData\" />
-    <Folder Include="Initialization\OData\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Initialization\Db\Migrations\Module.README.txt" />
-    <None Include="Db\README.md" />
-    <Content Include="Initialization\DependencyResolution\README.txt" />
-    <None Include="Initialization\ObjectMaps\readme.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201804250055016_Entities.Initialise.resx">
-      <DependentUpon>201804250055016_Entities.Initialise.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201804270236165_Entities.SchoolIdIndex.resx">
-      <DependentUpon>201804270236165_Entities.SchoolIdIndex.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805100426221_Check.resx">
-      <DependentUpon>201805100426221_Check.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805100444327_Entities.IndexOnRecordState.resx">
-      <DependentUpon>201805100444327_Entities.IndexOnRecordState.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805170313015_More.resx">
-      <DependentUpon>201805170313015_More.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805210600392_ChangeSchema.resx">
-      <DependentUpon>201805210600392_ChangeSchema.cs</DependentUpon>
-    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="Data\DbContextSeederData\SchoolDirectory.csv" />
+    <None Include="Initialization\Db\Migrations\Default\README.md" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\packages\Microsoft.Azure.DocumentDB.1.21.1\build\Microsoft.Azure.DocumentDB.targets" Condition="Exists('..\..\packages\Microsoft.Azure.DocumentDB.1.21.1\build\Microsoft.Azure.DocumentDB.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Microsoft.Azure.DocumentDB.1.21.1\build\Microsoft.Azure.DocumentDB.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Azure.DocumentDB.1.21.1\build\Microsoft.Azure.DocumentDB.targets'))" />
-  </Target>
 </Project>

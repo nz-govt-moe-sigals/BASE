@@ -143,14 +143,14 @@
     <Compile Include="Models\Messages\APIs\V0100\PrincipalCategoryDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\PrincipalTagDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\RoleDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\SearchResponseItemDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\SearchResponseItemdto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\SessionDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\SessionOperationDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\TenantClaimDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\TenantClaimdto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\TenantDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\TenantedNavigationRouteDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\TenantPropertyDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\PrincipalClaimDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\PrincipalClaimdto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\PrincipalDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\PrincipalPropertyDto.cs" />
     <Compile Include="Models\Entities\ApplicationSetting.cs" />
@@ -204,7 +204,7 @@
     <Folder Include="Models\Messages\APIs\V0100\Enums\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Models\ConfigurationSettings\REAMDE.md" />
+    <None Include="Models\ConfigurationSettings\REAmdE.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

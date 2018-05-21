@@ -563,29 +563,29 @@
       <Project>{b760143d-99a6-41d6-b526-337ab1f5929c}</Project>
       <Name>App.Module01.Shared</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\App.Module2\App.Module2.Application\App.Module02.Application.csproj">
-      <Project>{40cfc658-32d6-469d-ae0b-95a605958122}</Project>
-      <Name>App.Module02.Application</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\App.Module2\App.Module2.Infrastructure\App.Module02.Infrastructure.csproj">
-      <Project>{488387c5-f33c-4999-819e-969427b8500c}</Project>
-      <Name>App.Module02.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\App.Module2\App.Module2.Shared\App.Module02.Shared.csproj">
-      <Project>{64d8aa54-ece4-4d25-94c7-7ab145e3da39}</Project>
-      <Name>App.Module02.Shared</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\App.Module11\App.Module11.Application\App.Module11.Application.csproj">
-      <Project>{6a3908f9-1883-480b-a358-450bb65ddb95}</Project>
+      <Project>{40cfc658-32d6-469d-ae0b-95a605958122}</Project>
       <Name>App.Module11.Application</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\App.Module11\App.Module11.Infrastructure\App.Module11.Infrastructure.csproj">
-      <Project>{1493fb3e-966f-45d4-bd23-1537de7e2114}</Project>
+      <Project>{488387c5-f33c-4999-819e-969427b8500c}</Project>
       <Name>App.Module11.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\App.Module11\App.Module11.Shared\App.Module11.Shared.csproj">
-      <Project>{5136cc88-5043-46e7-946a-92337f74c450}</Project>
+      <Project>{64d8aa54-ece4-4d25-94c7-7ab145e3da39}</Project>
       <Name>App.Module11.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\App.Module31\App.Module31.Application\App.Module31.Application.csproj">
+      <Project>{6a3908f9-1883-480b-a358-450bb65ddb95}</Project>
+      <Name>App.Module31.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\App.Module31\App.Module31.Infrastructure\App.Module31.Infrastructure.csproj">
+      <Project>{1493fb3e-966f-45d4-bd23-1537de7e2114}</Project>
+      <Name>App.Module31.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\App.Module31\App.Module31.Shared\App.Module31.Shared.csproj">
+      <Project>{5136cc88-5043-46e7-946a-92337f74c450}</Project>
+      <Name>App.Module31.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -69,26 +69,6 @@
     <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeederExample.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeedingOrchestrator.cs" />
     <Compile Include="Initialization\Db\Migrations\AppModuleDbMigrationsConfiguration.cs" />
-    <Compile Include="Initialization\Db\Migrations\Default\201711212223463_Initialize.cs" />
-    <Compile Include="Initialization\Db\Migrations\Default\201711212223463_Initialize.Designer.cs">
-      <DependentUpon>201711212223463_Initialize.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Initialization\Db\Migrations\Default\201712070939502_SchoolRefs.cs" />
-    <Compile Include="Initialization\Db\Migrations\Default\201712070939502_SchoolRefs.Designer.cs">
-      <DependentUpon>201712070939502_SchoolRefs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Initialization\Db\Migrations\Default\201805170143219_Entities.Courses.cs" />
-    <Compile Include="Initialization\Db\Migrations\Default\201805170143219_Entities.Courses.Designer.cs">
-      <DependentUpon>201805170143219_Entities.Courses.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Initialization\Db\Migrations\Default\201805170302177_Reindex.cs" />
-    <Compile Include="Initialization\Db\Migrations\Default\201805170302177_Reindex.Designer.cs">
-      <DependentUpon>201805170302177_Reindex.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Initialization\Db\Migrations\Default\201805211130288_ChangeSchema.cs" />
-    <Compile Include="Initialization\Db\Migrations\Default\201805211130288_ChangeSchema.Designer.cs">
-      <DependentUpon>201805211130288_ChangeSchema.cs</DependentUpon>
-    </Compile>
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCourseCredit.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCourse.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCourseDepartment.cs" />
@@ -148,24 +128,6 @@
     <Content Include="Db\README.txt" />
     <Content Include="Initialization\DependencyResolution\README.txt" />
     <Content Include="Initialization\ObjectMaps\README.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201711212223463_Initialize.resx">
-      <DependentUpon>201711212223463_Initialize.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201712070939502_SchoolRefs.resx">
-      <DependentUpon>201712070939502_SchoolRefs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805170143219_Entities.Courses.resx">
-      <DependentUpon>201805170143219_Entities.Courses.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805170302177_Reindex.resx">
-      <DependentUpon>201805170302177_Reindex.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805211130288_ChangeSchema.resx">
-      <DependentUpon>201805211130288_ChangeSchema.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

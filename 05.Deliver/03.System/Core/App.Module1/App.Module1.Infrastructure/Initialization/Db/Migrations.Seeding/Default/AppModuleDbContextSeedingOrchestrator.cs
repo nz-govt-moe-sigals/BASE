@@ -12,7 +12,7 @@ namespace App.Module01.Infrastructure.Db.Migrations.Seeding
     using App.Module01.Infrastructure.Initialization;
     using App.Module01.Infrastructure.Initialization.Db;
 
-    // Invoked from within AppModuleDbMigrationsConfiguration.Seed method, 
+    // Invoked from within AppModuleDefaultDbMigrationsConfiguration.Seed method, 
     public class AppModuleDbContextSeedingOrchestrator: IHasModuleSpecificIdentifier
     {
         private readonly IHostSettingsService _hostSettingsService;

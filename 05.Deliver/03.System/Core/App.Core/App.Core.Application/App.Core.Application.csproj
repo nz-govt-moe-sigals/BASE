@@ -202,8 +202,8 @@
     <Compile Include="ServiceFacade\API\Controllers\V0100\SearchController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\SessionController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\SessionOperationController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\SystemDeveloperController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\SystemDocumentationController.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\V0100\SystemdeveloperController.cs" />
+    <Compile Include="ServiceFacade\API\Controllers\V0100\SystemdocumentationController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\SystemInformationController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\TenantController.cs" />
     <Compile Include="ServiceFacade\API\Controllers\V0100\TenantedNavigationRouteItemController.cs" />

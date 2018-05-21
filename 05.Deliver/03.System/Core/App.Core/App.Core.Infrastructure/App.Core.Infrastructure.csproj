@@ -329,10 +329,10 @@
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_Notification_NotificationDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SessionOperation_SessionOperationDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_Session_SessionDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_TenantClaim_TenantClaimDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_TenantClaim_TenantClaimdto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_TenantProperty_TenantPropertyDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_Tenant_TenantDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_PrincipalClaim_PrincipalClaimDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_PrincipalClaim_PrincipalClaimdto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_PrincipalProperty_PrincipalPropertyDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_Principal_PrincipalDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -342,7 +342,7 @@
     <Compile Include="Services\Configuration\Implementations\DictionaryBasedMimeTypeServiceConfiguration.cs" />
     <Compile Include="Services\Implementations\SharedAzureKeyVaultService.cs" />
     <Compile Include="Services\ISharedAzureKeyVaultService.cs" />
-    <Compile Include="Startup\Spikes\msiTokenRetrievalFromDev.cs" />
+    <Compile Include="Startup\Spikes\msiTokenRetrievalFromdev.cs" />
     <Compile Include="TOMOVE.cs" />
     <Compile Include="_old\IDictionaryBasedMimeTypeServiceConfiguration.cs" />
     <Compile Include="Services\IApplicationSettingsService.cs" />
@@ -423,7 +423,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Integration\Azure\KeyVault\README.MD" />
+    <None Include="Integration\Azure\KeyVault\README.md" />
     <None Include="packages.config" />
     <None Include="Services\Caches\Implementations\_readme.md" />
     <None Include="Services\Configuration\Implementations\_readme.md" />

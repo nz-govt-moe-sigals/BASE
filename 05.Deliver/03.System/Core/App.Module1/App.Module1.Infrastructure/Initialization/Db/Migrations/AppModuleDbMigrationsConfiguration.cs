@@ -21,9 +21,9 @@ namespace App.Module01.Infrastructure.Db.Migrations
     /// Referenced by AppModuleDatabaseInitializer
     /// </para>
     /// </summary>
-    public sealed class AppModuleDbMigrationsConfiguration : DbMigrationsConfiguration<AppModuleDbContext>, IHasModuleSpecificIdentifier
+    public sealed class AppModuleDefaultDbMigrationsConfiguration : DbMigrationsConfiguration<AppModuleDbContext>, IHasModuleSpecificIdentifier
     {
-        public AppModuleDbMigrationsConfiguration()
+        public AppModuleDefaultDbMigrationsConfiguration()
         {
             this.AutomaticMigrationsEnabled = false;
             //Where to save Migrations (keep schemas distinct in their own folder):

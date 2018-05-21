@@ -2,8 +2,7 @@
 {
     using System.Data.Entity;
 
-    // Do NOT carelessly rename as this is referenced
-    // via web.config, under the EF section.
+
     public class AppModuleDatabaseInitializerConfigurer: IHasModuleSpecificIdentifier
     {
         /// <summary>
