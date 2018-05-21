@@ -5,7 +5,7 @@ using App.Core.Infrastructure.Services;
 using App.Core.Shared.Models.Entities;
 using App.Core.Shared.Models.Messages;
 using App.Host.Models;
-using App.Module02.Infrastructure.Services;
+using App.Module11.Infrastructure.Services;
 
 namespace App.Host.Presentation.Controllers
 {
