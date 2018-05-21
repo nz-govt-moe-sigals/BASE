@@ -229,11 +229,11 @@
     <Compile Include="Services\Implementations\Module3RepositoryService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\App.Core.Infrastructure\App.Core.Infrastructure.csproj">
+    <ProjectReference Include="..\App.Core\App.Core.Infrastructure\App.Core.Infrastructure.csproj">
       <Project>{b503ff64-e103-4ac1-8039-5012570c8770}</Project>
       <Name>App.Core.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\App.Core.Shared\App.Core.Shared.csproj">
+    <ProjectReference Include="..\App.Core\App.Core.Shared\App.Core.Shared.csproj">
       <Project>{74aa77d2-5a81-490b-a160-c058b375524a}</Project>
       <Name>App.Core.Shared</Name>
     </ProjectReference>

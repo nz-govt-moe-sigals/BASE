@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{74AA77D2-5A81-490B-A160-C058B375524A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>App.Core.Shared</RootNamespace>
+    <AssemblyName>App.Core.Shared</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\AliasAttribute.cs" />
+    <Compile Include="Attributes\ConfigurationSettingSource.cs" />
+    <Compile Include="Attributes\DataClassificationAttribute.cs" />
+    <Compile Include="Attributes\NamedAttribute.cs" />
+    <Compile Include="Attributes\RoleSecuredDtoModelAttributeAttribute.cs" />
+    <Compile Include="Constants\ConfigurationKeys.cs" />
+    <Compile Include="Contracts\IHasInitialize.cs" />
+    <Compile Include="Contracts\IHasLifecycle.cs" />
+    <Compile Include="Contracts\IHasSingletonLifecycle.cs" />
+    <Compile Include="Contracts\IHasTransientLifecycle.cs" />
+    <Compile Include="ExtensionMethods\GuidExtensions.cs" />
+    <Compile Include="ExtensionMethods\IntExtensions.cs" />
+    <Compile Include="ExtensionMethods\StringExtensions.cs" />
+    <Compile Include="Factories\GuidFactory.cs" />
+    <Compile Include="Models\ConfigurationSettings\AzureCommonConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\AzureDocumentDbConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\AzureStorageAccountDefaultConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\IHostSettingsBasedConfigurationObject.cs" />
+    <Compile Include="Models\ConfigurationSettings\IStorageAccountConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\SmtpServiceClientConfiguration.cs" />
+    <Compile Include="Models\ConfigurationSettings\Service03Configuration.cs" />
+    <Compile Include="Models\ConfigurationSettings\Service02Configuration.cs" />
+    <Compile Include="Models\ConfigurationSettings\Service01Configuration.cs" />
+    <Compile Include="Models\ConfigurationSettings\ScaniiHostConfiguration.cs" />
+    <Compile Include="Models\ConfigurationSettings\ApplicationInsightsConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\ApplicationCreatorInformationConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\ApplicationDistributorInformationConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\AzureKeyVaultConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\AzureStorageAccountDiagnosticsConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\AadApplicationRegistrationInformationConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\CodeFirstMigrationConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\DemoConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\MediaManagementConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\IKeyVaultBasedConfigurationObject.cs" />
+    <Compile Include="Models\Contracts\IHasAuditability.cs" />
+    <Compile Include="Models\Contracts\IHasChildren.cs" />
+    <Compile Include="Models\Contracts\IHasDescription.cs" />
+    <Compile Include="Models\Contracts\IHasDisplayableReferenceData.cs" />
+    <Compile Include="Models\Contracts\IHasDisplayStyleHint.cs" />
+    <Compile Include="Models\Contracts\IHasKeyedMutableReferenceData.cs" />
+    <Compile Include="Models\Contracts\IHasKeyedMutableValuedReferenceData.cs" />
+    <Compile Include="Models\Contracts\IHasKeyValue.cs" />
+    <Compile Include="Models\Contracts\IHasMutableDisplayableReferenceData.cs" />
+    <Compile Include="Models\Contracts\IHasMutableValuedReferenceData.cs" />
+    <Compile Include="Models\Contracts\IHasName.cs" />
+    <Compile Include="Models\Contracts\IHasReferenceData.cs" />
+    <Compile Include="Models\Contracts\IHasResourceKey.cs" />
+    <Compile Include="Models\Contracts\IHasTag.cs" />
+    <Compile Include="Models\Contracts\IHasText.cs" />
+    <Compile Include="Models\Entities\Account.cs" />
+    <Compile Include="Models\Entities\Base\Service.cs" />
+    <Compile Include="Models\Entities\Base\TenantFKAuditedRecordStatedTimestampedCustomIdEntityBase.cs" />
+    <Compile Include="Models\Entities\Base\TenantFKAuditedRecordStatedTimestampedCustomIdReferenceDataEntityBase.cs" />
+    <Compile Include="Models\Entities\Base\TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase.cs" />
+    <Compile Include="Models\Entities\Base\TenantFKAuditedRecordStatedTimestampedGuidIdReferenceDataEntityBase.cs" />
+    <Compile Include="Models\Entities\Base\TenantFKAuditedRecordStatedTimestampedNoIdEntityBase.cs" />
+    <Compile Include="Models\Entities\Base\TenantFKKeyedAuditedRecordStatedTimestampedCustomIdReferenceDataEntityBase.cs" />
+    <Compile Include="Models\Entities\Base\TenantFKKeyedAuditedRecordStatedTimestampedGuidIdReferenceDataEntityBase.cs" />
+    <Compile Include="Models\Entities\Base\UntenantedAuditedRecordStatedTimestampedCustomIdEntityBase.cs" />
+    <Compile Include="Models\Entities\Base\UntenantedAuditedRecordStatedTimestampedCustomIdReferenceDataEntityBase.cs" />
+    <Compile Include="Models\Entities\Base\UntenantedAuditedRecordStatedTimestampedGuidIdEntityBase.cs" />
+    <Compile Include="Models\Entities\Base\UntenantedAuditedRecordStatedTimestampedGuidIdReferenceDataEntityBase.cs" />
+    <Compile Include="Models\Entities\Base\UntenantedAuditedRecordStatedTimestampedNoIdEntityBase.cs" />
+    <Compile Include="_HOLD\ReferenceDataBase.cs" />
+    <Compile Include="_HOLD\TenantedAuditedTimestampedRecordStatedCustomIdEntityBase.cs" />
+    <Compile Include="_HOLD\UntenantedCustomIdReferenceDataBase.cs" />
+    <Compile Include="Models\Entities\DataClassification.cs" />
+    <Compile Include="Models\Entities\Enums\GeoDataType.cs" />
+    <Compile Include="Models\Entities\Enums\SubscriptionStatus.cs" />
+    <Compile Include="Models\Entities\ExceptionRecord.cs" />
+    <Compile Include="Models\Entities\IdentityProvider.cs" />
+    <Compile Include="Models\Entities\MediaMetadata.cs" />
+    <Compile Include="Models\Entities\NavigationRouteEntry.cs" />
+    <Compile Include="Models\Entities\Subscription.cs" />
+    <Compile Include="Models\Entities\SubscriptionRoleMember.cs" />
+    <Compile Include="Models\Entities\TenantedNavigationRoute.cs" />
+    <Compile Include="Models\Entities\PersistedMedia.cs" />
+    <Compile Include="Models\Entities\PersistedMediaProperty.cs" />
+    <Compile Include="Models\Entities\PrincipalCategory.cs" />
+    <Compile Include="Models\Entities\PrincipalLogin.cs" />
+    <Compile Include="Models\Entities\PrincipalMembershipInfo.cs" />
+    <Compile Include="Models\Entities\PrincipalTag.cs" />
+    <Compile Include="Models\Entities\Role.cs" />
+    <Compile Include="Models\Entities\Session.cs" />
+    <Compile Include="Models\Entities\Principal.cs" />
+    <Compile Include="Models\Entities\PrincipalClaim.cs" />
+    <Compile Include="Models\Entities\PrincipalProperty.cs" />
+    <Compile Include="Models\Entities\Enums\NZDataClassification.cs" />
+    <Compile Include="Models\Entities\Enums\NotificationType.cs" />
+    <Compile Include="Models\Messages\APIs\SmokeTestItem.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ApplicationDescriptionDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ApplicationProviderInformationDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\DataClassificationDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ConfigurationStepRecordDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\ExceptionRecordDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\MediaMetadataDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\NavigationRouteDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\NotificationDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\PrincipalCategoryDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\PrincipalTagDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\RoleDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\SearchResponseItemDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\SessionDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\SessionOperationDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\TenantClaimDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\TenantDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\TenantedNavigationRouteDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\TenantPropertyDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\PrincipalClaimDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\PrincipalDto.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\PrincipalPropertyDto.cs" />
+    <Compile Include="Models\Entities\ApplicationSetting.cs" />
+    <Compile Include="Models\Entities\DataToken.cs" />
+    <Compile Include="Models\Entities\PrincipalSetting.cs" />
+    <Compile Include="Models\Messages\APIs\V0100\NotificationUpdateDto.cs" />
+    <Compile Include="Models\ConfigurationSettings\ApplicationDescriptionConfigurationSettings.cs" />
+    <Compile Include="Models\Messages\BaseClasses\TenantedReferenceDtoBase.cs" />
+    <Compile Include="Models\Messages\ConfigurationTestStepSummary.cs" />
+    <Compile Include="Models\Messages\Enums\ConfigurationStepStatus.cs" />
+    <Compile Include="Models\Messages\Enums\ConfigurationStepType.cs" />
+    <Compile Include="Models\Messages\ConfigurationStepRecord.cs" />
+    <Compile Include="Models\Messages\IDA.cs" />
+    <Compile Include="Models\Messages\UploadedMedia.cs" />
+    <Compile Include="Models\Messages\SearchResponseItem.cs" />
+    <Compile Include="Models\Entities\SessionOperation.cs" />
+    <Compile Include="Models\Entities\Base\SettingBase.cs" />
+    <Compile Include="Models\Entities\Tenant.cs" />
+    <Compile Include="Models\Entities\TenantClaim.cs" />
+    <Compile Include="Models\Entities\TenantProperty.cs" />
+    <Compile Include="Models\Entities\Enums\RecordPersistenceState.cs" />
+    <Compile Include="Models\Entities\Enums\TraceLevel.cs" />
+    <Compile Include="Models\Contracts\IHasDateTimeCreatedUtc.cs" />
+    <Compile Include="Models\Contracts\IHasDisplayOrderHint.cs" />
+    <Compile Include="Models\Contracts\IHasEnabled.cs" />
+    <Compile Include="Models\Contracts\IHasGuidId.cs" />
+    <Compile Include="Models\Contracts\IHasId.cs" />
+    <Compile Include="Models\Contracts\IHasIntId.cs" />
+    <Compile Include="Models\Contracts\IHasKey.cs" />
+    <Compile Include="Models\Contracts\IHasOwnerFK.cs" />
+    <Compile Include="Models\Contracts\IHasParentFK.cs" />
+    <Compile Include="Models\Contracts\IHasRecordState.cs" />
+    <Compile Include="Models\Contracts\IHasSerializedType.cs" />
+    <Compile Include="Models\Contracts\IHasTenantFK.cs" />
+    <Compile Include="Models\Contracts\IHasTimestamp.cs" />
+    <Compile Include="Models\Contracts\IHasTitle.cs" />
+    <Compile Include="Models\Contracts\IHasPrincipalFK.cs" />
+    <Compile Include="Models\Contracts\IHasValue.cs" />
+    <Compile Include="Models\Contracts\IInitialize.cs" />
+    <Compile Include="Models\Entities\GeoData.cs" />
+    <Compile Include="Models\Entities\Notification.cs" />
+    <Compile Include="Models\Messages\MediaScanResult.cs" />
+    <Compile Include="Models\Messages\ODataResponse.cs" />
+    <Compile Include="Models\Messages\Task.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IHasAppService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Entities\NewFolder1\" />
+    <Folder Include="Models\Messages\APIs\V0100\Dtos\" />
+    <Folder Include="Models\Messages\APIs\V0100\Enums\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\ConfigurationSettings\REAMDE.md" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
