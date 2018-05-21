@@ -159,25 +159,29 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\App.Host\App.Host.csproj">
-      <Project>{F05524D0-7306-48CD-A11A-4965EE64EC43}</Project>
-      <Name>App.Host</Name>
+    <Analyzer Include="..\packages\xunit.analyzers.0.7.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\App.Core\App.Core.Application\App.Core.Application.csproj">
+      <Project>{f1b0ef43-bcbf-4c91-93ad-d13e8bb8d77d}</Project>
+      <Name>App.Core.Application</Name>
     </ProjectReference>
-    <ProjectReference Include="..\App.Core.Domain\App.Core.Domain.csproj">
+    <ProjectReference Include="..\App.Core\App.Core.Domain\App.Core.Domain.csproj">
       <Project>{3ce1773d-8767-45f8-bf1e-308759180347}</Project>
       <Name>App.Core.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\App.Core.Infrastructure\App.Core.Infrastructure.csproj">
+    <ProjectReference Include="..\App.Core\App.Core.Infrastructure\App.Core.Infrastructure.csproj">
       <Project>{b503ff64-e103-4ac1-8039-5012570c8770}</Project>
       <Name>App.Core.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\App.Core.Shared\App.Core.Shared.csproj">
+    <ProjectReference Include="..\App.Core\App.Core.Shared\App.Core.Shared.csproj">
       <Project>{74aa77d2-5a81-490b-a160-c058b375524a}</Project>
       <Name>App.Core.Shared</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\xunit.analyzers.0.7.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
+    <ProjectReference Include="..\App.Host\App.Host.csproj">
+      <Project>{f05524d0-7306-48cd-a11a-4965ee64ec43}</Project>
+      <Name>App.Host</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
