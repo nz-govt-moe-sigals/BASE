@@ -7,8 +7,8 @@
     <ProjectGuid>{1493FB3E-966F-45D4-BD23-1537DE7E2114}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>md.Infrastructure</RootNamespace>
-    <AssemblyName>md.Infrastructure</AssemblyName>
+    <RootNamespace>App.Module31.Infrastructure</RootNamespace>
+    <AssemblyName>App.Module31.Infrastructure</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
