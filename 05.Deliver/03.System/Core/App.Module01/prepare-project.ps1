@@ -3,7 +3,7 @@ function Prepare-Project {
     [CmdletBinding()]
     Param (
         [string]$relativePathToProject = ".\" ,
-        [string]$moduleName = "App.Module22"
+        [string]$moduleName = "App.Module01"
     )
 
     $relativePathToProject = (Get-Item -Path $relativePathToProject).FullName

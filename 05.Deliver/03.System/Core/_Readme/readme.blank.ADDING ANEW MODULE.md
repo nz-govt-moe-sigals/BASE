@@ -43,3 +43,17 @@ This name will end up being the name of the Db Schema, unless you overrride it (
     ...
     public const string SchemaKey = Constants.Module.Names.ModuleKey;
 	...
+
+
+
+After renaming a Module
+
+App.ModuleXX.Application/Constants/Api/ApiControllerName.cs
+* Add Controller Names.
+
+
+Need to hook App.Host to App.ModuleXX.Application
+
+* Need a Clean (as App.Host bin has copies of older dlls referencing each other differently. Have to clear out, or you'll have ghosts).
+
+

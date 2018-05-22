@@ -575,6 +575,18 @@
       <Project>{64d8aa54-ece4-4d25-94c7-7ab145e3da39}</Project>
       <Name>App.Module11.Shared</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\App.Module22\App.Module22.Application\App.Module22.Application.csproj">
+      <Project>{1b400796-8eae-4f83-b2b7-a9d8fb301658}</Project>
+      <Name>App.Module22.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\App.Module22\App.Module22.Infrastructure\App.Module22.Infrastructure.csproj">
+      <Project>{4b7a3896-24ff-4cf6-bef4-27f2ee80eb60}</Project>
+      <Name>App.Module22.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\App.Module22\App.Module22.Shared\App.Module22.Shared.csproj">
+      <Project>{fe4c642b-7265-43d1-8b50-69f68b6df62d}</Project>
+      <Name>App.Module22.Shared</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\App.Module31\App.Module31.Application\App.Module31.Application.csproj">
       <Project>{6a3908f9-1883-480b-a358-450bb65ddb95}</Project>
       <Name>App.Module31.Application</Name>
