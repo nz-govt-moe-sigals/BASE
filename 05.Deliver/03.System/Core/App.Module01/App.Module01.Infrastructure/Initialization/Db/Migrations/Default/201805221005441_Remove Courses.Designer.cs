@@ -7,13 +7,13 @@ namespace App.Module01.Infrastructure.Db.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Reindex : IMigrationMetadata
+    public sealed partial class RemoveCourses : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Reindex));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RemoveCourses));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805170302177_Reindex"; }
+            get { return "201805221005441_Remove Courses"; }
         }
         
         string IMigrationMetadata.Source

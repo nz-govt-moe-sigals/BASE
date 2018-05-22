@@ -22,6 +22,7 @@
                 .ForMember(t => t.DeletedOnUtc, opt => opt.Ignore())
                 .ForMember(t => t.TenantFK, opt => opt.Ignore())
                 //
+                .ForMember(t => t.Credits, opt => opt.Ignore())
                 .ForMember(t => t.DepartmentFK, opt => opt.Ignore())
                 .ForMember(t => t.Department, opt => opt.Ignore())
                 .ForMember(t => t.Description, opt => opt.Ignore())

@@ -8,11 +8,9 @@ namespace App.Module01.Infrastructure.Db.Schema
 
     public class AppModuleDbModelBuilderOrchestrator : IHasModuleSpecificIdentifier
     {
-        private readonly AppModuleDbContextModelBuilderDefineExample _appModuleDbContextModelBuilderDefineExample;
 
-        public AppModuleDbModelBuilderOrchestrator(AppModuleDbContextModelBuilderDefineExample appModuleDbContextModelBuilderDefineExample)
+        public AppModuleDbModelBuilderOrchestrator()
         {
-            this._appModuleDbContextModelBuilderDefineExample = appModuleDbContextModelBuilderDefineExample;
         }
 
 

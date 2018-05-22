@@ -73,23 +73,10 @@
     <Compile Include="Initialization\Db\Migrations\Default\201805220043497_Entities.init.Designer.cs">
       <DependentUpon>201805220043497_Entities.init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCourseCredit.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCourse.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCourseDepartment.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCourseEnrollee.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCourseEnrollment.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCourseEvent.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCourseGrade.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCourseInstructor.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCourseInstructorAssignment.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCourseInstructorOffice.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCourseInstructorOfficeAssignment.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCourseOccurance.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCourseResource.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCourseResourceAssignment.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCourseResourceType.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCourseRole.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCourseStatus.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201805221005441_Remove Courses.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201805221005441_Remove Courses.Designer.cs">
+      <DependentUpon>201805221005441_Remove Courses.cs</DependentUpon>
+    </Compile>
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineExample.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbModelBuilderOrchestrator.cs" />
     <Compile Include="Initialization\DependencyResolution\AppModuleInfrastructureRegistry.cs" />
@@ -111,7 +98,7 @@
       <Project>{74aa77d2-5a81-490b-a160-c058b375524a}</Project>
       <Name>App.Core.Shared</Name>
     </ProjectReference>
-    <ProjectReference Include="..\App.Module1.Shared\App.Module01.Shared.csproj">
+    <ProjectReference Include="..\App.Module01.Shared\App.Module01.Shared.csproj">
       <Project>{b760143d-99a6-41d6-b526-337ab1f5929c}</Project>
       <Name>App.Module01.Shared</Name>
     </ProjectReference>
@@ -136,6 +123,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805220043497_Entities.init.resx">
       <DependentUpon>201805220043497_Entities.init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805221005441_Remove Courses.resx">
+      <DependentUpon>201805221005441_Remove Courses.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
