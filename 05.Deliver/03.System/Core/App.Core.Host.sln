@@ -41,7 +41,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "README", "README", "{8A4F3C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Core.Infrastructure.IDA", "App.Core\App.Core.Infrastructure.OIDC\App.Core.Infrastructure.IDA.csproj", "{1F881B79-5EE4-42AA-8143-E2BF3BFDF4D9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module0.Core", "Module0.Core", "{BF5BE208-7B53-484F-857B-F8F17289D5C8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module00.Core", "Module00.Core", "{BF5BE208-7B53-484F-857B-F8F17289D5C8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Core.Infrastructure.IDA.Tests", "App.Core\App.Core.Infrastructure.OIDC.Tests\App.Core.Infrastructure.IDA.Tests.csproj", "{02248FC2-E362-4178-8946-AFD83DEA0F8F}"
 EndProject
@@ -49,13 +49,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module01.Template", "Module
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module11.CMS", "Module11.CMS", "{A8AB3729-DD3E-40CB-83A2-16F809286B04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module01.Shared", "App.Module1\App.Module1.Shared\App.Module01.Shared.csproj", "{B760143D-99A6-41D6-B526-337AB1F5929C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module01.Shared", "App.Module01\App.Module01.Shared\App.Module01.Shared.csproj", "{B760143D-99A6-41D6-B526-337AB1F5929C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module01.Infrastructure", "App.Module1\App.Module1.Infrastructure\App.Module01.Infrastructure.csproj", "{B9B39C48-CE7D-4E61-9C71-3A4428375EA5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module01.Infrastructure", "App.Module01\App.Module01.Infrastructure\App.Module01.Infrastructure.csproj", "{B9B39C48-CE7D-4E61-9C71-3A4428375EA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module01.Domain", "App.Module1\App.Module1.Domain\App.Module01.Domain.csproj", "{59934E30-B6A4-40AF-82BE-C91954B19D16}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module01.Domain", "App.Module01\App.Module01.Domain\App.Module01.Domain.csproj", "{59934E30-B6A4-40AF-82BE-C91954B19D16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module01.Application", "App.Module1\App.Module1.Application\App.Module01.Application.csproj", "{EC294F27-5722-4728-B122-B02B3D732DCC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module01.Application", "App.Module01\App.Module01.Application\App.Module01.Application.csproj", "{EC294F27-5722-4728-B122-B02B3D732DCC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module11.Shared", "App.Module11\App.Module11.Shared\App.Module11.Shared.csproj", "{64D8AA54-ECE4-4D25-94C7-7AB145E3DA39}"
 EndProject

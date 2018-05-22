@@ -551,15 +551,15 @@
       <Project>{74aa77d2-5a81-490b-a160-c058b375524a}</Project>
       <Name>App.Core.Shared</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\App.Module1\App.Module1.Application\App.Module01.Application.csproj">
+    <ProjectReference Include="..\..\App.Module01\App.Module01.Application\App.Module01.Application.csproj">
       <Project>{ec294f27-5722-4728-b122-b02b3d732dcc}</Project>
       <Name>App.Module01.Application</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\App.Module1\App.Module1.Infrastructure\App.Module01.Infrastructure.csproj">
+    <ProjectReference Include="..\..\App.Module01\App.Module01.Infrastructure\App.Module01.Infrastructure.csproj">
       <Project>{b9b39c48-ce7d-4e61-9c71-3a4428375ea5}</Project>
       <Name>App.Module01.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\App.Module1\App.Module1.Shared\App.Module01.Shared.csproj">
+    <ProjectReference Include="..\..\App.Module01\App.Module01.Shared\App.Module01.Shared.csproj">
       <Project>{b760143d-99a6-41d6-b526-337ab1f5929c}</Project>
       <Name>App.Module01.Shared</Name>
     </ProjectReference>
