@@ -175,7 +175,7 @@
     <Compile Include="Services\IExtractServiceController.cs" />
     <Compile Include="Services\IExtractSifRepositoryService.cs" />
     <Compile Include="Services\IHasAppModuleService.cs" />
-    <Compile Include="Services\IModule11RepositoryService.cs" />
+    <Compile Include="Services\IBatchRepositoryService.cs" />
     <Compile Include="Services\Configuration\BaseExtractServiceConfiguration.cs" />
     <Compile Include="Services\Implementations\Base\AppModuleServiceBase.cs" />
     <Compile Include="Services\Implementations\Configuration\ExtractCachedRepoObject.cs" />
@@ -210,7 +210,7 @@
     <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceUrbanAreaExtractService.cs" />
     <Compile Include="Services\Implementations\Extract\ReferenceServices\ReferenceWardExtractService.cs" />
     <Compile Include="Services\Implementations\Extract\Repositories\ExtractSifRepositoryService.cs" />
-    <Compile Include="Services\Implementations\Module11RepositoryService.cs" />
+    <Compile Include="Services\Implementations\BatchRepositoryService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\App.Core\App.Core.Infrastructure\App.Core.Infrastructure.csproj">
