@@ -170,7 +170,7 @@
     <Compile Include="Initialization\ObjectMaps\Messages\SIF\V0100\ReferenceData\ObjectMap_SchoolWard_SchoolWardDto.cs" />
     <Compile Include="Initialization\Search\ExampleSearchProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Configuration\IModule11ServiceConfigurationObject.cs" />
+    <Compile Include="Services\Configuration\IModuleServiceConfigurationObject.cs" />
     <Compile Include="Services\IExtractAzureDocumentDbService.cs" />
     <Compile Include="Services\IExtractServiceController.cs" />
     <Compile Include="Services\IExtractSifRepositoryService.cs" />
