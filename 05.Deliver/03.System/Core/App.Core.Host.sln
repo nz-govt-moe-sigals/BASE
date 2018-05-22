@@ -126,13 +126,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blueprints", "Blueprints", 
 		_Readme\readme.blank.tenancies subscriptions and accounts.md = _Readme\readme.blank.tenancies subscriptions and accounts.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module4.Courses", "Module4.Courses", "{2316B271-DC55-4A4B-B4B1-E3719CAF13C5}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module32.ATE", "Module32.ATE", "{EE52FBA1-DB51-44D2-88E0-2D9EA04412B8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_GettingStarted", "_GettingStarted", "{158E0857-D6CF-445A-988A-9F549509664C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module7.Readings", "Module7.Readings", "{E58ED385-C499-42B4-86BD-1F8A3864D626}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module07.Readings", "Module07.Readings", "{E58ED385-C499-42B4-86BD-1F8A3864D626}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module22.Courses", "Module22.Courses", "{3DF6D0FD-434E-4712-8F3E-408855DFD956}"
 EndProject
@@ -143,6 +141,16 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module22.Infrastructure", "App.Module22\App.Module22.Infrastructure\App.Module22.Infrastructure.csproj", "{4B7A3896-24FF-4CF6-BEF4-27F2EE80EB60}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module22.Application", "App.Module22\App.Module22.Application\App.Module22.Application.csproj", "{1B400796-8EAE-4F83-B2B7-A9D8FB301658}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module02.Spikes", "Module02.Spikes", "{60B13CA4-2C3D-4881-BFD8-8672F41FDD87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module02.Shared", "App.Module02\App.Module02.Shared\App.Module02.Shared.csproj", "{94106B2D-0450-48E9-90DC-5F5D566F6DF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module02.Domain", "App.Module02\App.Module02.Domain\App.Module02.Domain.csproj", "{1982B362-F178-4897-A99C-A8FA17C0CBF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module02.Infrastructure", "App.Module02\App.Module02.Infrastructure\App.Module02.Infrastructure.csproj", "{9C637CD4-9AE8-4845-916F-CF2927DE1C62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module02.Application", "App.Module02\App.Module02.Application\App.Module02.Application.csproj", "{C60456AE-B049-46D0-9076-C50DFEC8CFD1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -262,6 +270,22 @@ Global
 		{1B400796-8EAE-4F83-B2B7-A9D8FB301658}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B400796-8EAE-4F83-B2B7-A9D8FB301658}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B400796-8EAE-4F83-B2B7-A9D8FB301658}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94106B2D-0450-48E9-90DC-5F5D566F6DF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94106B2D-0450-48E9-90DC-5F5D566F6DF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94106B2D-0450-48E9-90DC-5F5D566F6DF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94106B2D-0450-48E9-90DC-5F5D566F6DF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1982B362-F178-4897-A99C-A8FA17C0CBF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1982B362-F178-4897-A99C-A8FA17C0CBF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1982B362-F178-4897-A99C-A8FA17C0CBF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1982B362-F178-4897-A99C-A8FA17C0CBF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C637CD4-9AE8-4845-916F-CF2927DE1C62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C637CD4-9AE8-4845-916F-CF2927DE1C62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C637CD4-9AE8-4845-916F-CF2927DE1C62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C637CD4-9AE8-4845-916F-CF2927DE1C62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C60456AE-B049-46D0-9076-C50DFEC8CFD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C60456AE-B049-46D0-9076-C50DFEC8CFD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C60456AE-B049-46D0-9076-C50DFEC8CFD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C60456AE-B049-46D0-9076-C50DFEC8CFD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -302,6 +326,10 @@ Global
 		{7D2DB032-0310-4136-B300-6AB7C75DD652} = {3DF6D0FD-434E-4712-8F3E-408855DFD956}
 		{4B7A3896-24FF-4CF6-BEF4-27F2EE80EB60} = {3DF6D0FD-434E-4712-8F3E-408855DFD956}
 		{1B400796-8EAE-4F83-B2B7-A9D8FB301658} = {3DF6D0FD-434E-4712-8F3E-408855DFD956}
+		{94106B2D-0450-48E9-90DC-5F5D566F6DF7} = {60B13CA4-2C3D-4881-BFD8-8672F41FDD87}
+		{1982B362-F178-4897-A99C-A8FA17C0CBF1} = {60B13CA4-2C3D-4881-BFD8-8672F41FDD87}
+		{9C637CD4-9AE8-4845-916F-CF2927DE1C62} = {60B13CA4-2C3D-4881-BFD8-8672F41FDD87}
+		{C60456AE-B049-46D0-9076-C50DFEC8CFD1} = {60B13CA4-2C3D-4881-BFD8-8672F41FDD87}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2F529A1D-CBD2-4505-88EC-746854D7FB98}

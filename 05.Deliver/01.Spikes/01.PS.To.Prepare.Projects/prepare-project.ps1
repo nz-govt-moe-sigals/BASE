@@ -3,13 +3,13 @@ function Prepare-Project {
     [CmdletBinding()]
     Param (
         [string]$relativePathToProject = ".\" ,
-        [string]$moduleName = "App.Module22"
+        [string]$moduleName = "Module01"
     )
 
     $relativePathToProject = (Get-Item -Path $relativePathToProject).FullName
 
     $excludeFolders = @("bin","obj")
-    $fileFilters = @('*.cs', '*.cshtml', '*.md','*.txt', '*.csproj','*.csproj.user', '*.csproj.DotSettings', '*.ps1')
+    $fileFilters = @('*.cs', '*.cshtml', '*.md','*.txt', 'web.config', '*.csproj','*.csproj.user', '*.csproj.DotSettings', '*.ps1')
 
     Write-Host "=================================================="
     Write-Host "Project Provisioner"

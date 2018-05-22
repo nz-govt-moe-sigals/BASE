@@ -16,7 +16,7 @@ namespace App.Module22
     /// than just with namespaces (which does the same thing, but...easy to miss...)
     /// </para>
     /// </summary>
-    public interface IHasModuleSpecificIdentifier : IModule22
+    public interface IHasModuleSpecificIdentifier : IAppModule22
     {
     }
 }

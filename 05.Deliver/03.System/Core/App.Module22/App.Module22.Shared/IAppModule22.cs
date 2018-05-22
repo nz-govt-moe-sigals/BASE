@@ -15,7 +15,7 @@ namespace App.Module22 {
     /// anything. 
     /// </para>
     /// </summary>
-    public interface IModule22
+    public interface IAppModule22
     {
     }
 
