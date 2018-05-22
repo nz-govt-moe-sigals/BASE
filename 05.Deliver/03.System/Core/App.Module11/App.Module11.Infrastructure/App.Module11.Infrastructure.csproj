@@ -73,6 +73,10 @@
     <Compile Include="Initialization\Db\Migrations.Seeding\AppModuleDbContextSeederEducationOrganisation.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\AppModuleDbContextSeedingOrchestrator.cs" />
     <Compile Include="Initialization\Db\Migrations\AppModuleDbMigrationsConfiguration.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201805220011119_Entities.Init.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201805220011119_Entities.Init.Designer.cs">
+      <DependentUpon>201805220011119_Entities.Init.cs</DependentUpon>
+    </Compile>
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineBody.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineBodyAlias.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineBodyCategory.cs" />
@@ -153,6 +157,11 @@
     <None Include="Data\DbContextSeederData\SchoolDirectory.csv" />
     <None Include="Initialization\Db\Migrations\Default\README.md" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805220011119_Entities.Init.resx">
+      <DependentUpon>201805220011119_Entities.Init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

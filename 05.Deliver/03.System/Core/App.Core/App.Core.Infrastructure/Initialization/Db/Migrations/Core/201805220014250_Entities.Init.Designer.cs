@@ -7,13 +7,13 @@ namespace App.Core.Infrastructure.Db.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class MediaMetadataLocalName : IMigrationMetadata
+    public sealed partial class EntitiesInit : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(MediaMetadataLocalName));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(EntitiesInit));
         
         string IMigrationMetadata.Id
         {
-            get { return "201712051129121_MediaMetadata.LocalName"; }
+            get { return "201805220014250_Entities.Init"; }
         }
         
         string IMigrationMetadata.Source

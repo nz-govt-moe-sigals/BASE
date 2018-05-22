@@ -78,7 +78,10 @@
     <Compile Include="Initialization\Db\IHasAppModuleDbContextSeedInitializer.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\AppModuleDbContextSeedingOrchestrator.cs" />
     <Compile Include="Initialization\Db\Migrations\AppModuleDbMigrationsConfiguration.cs" />
-    <Compile Include="Initialization\Db\Migrations\Default\Configuration.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201805220007263_Entities.Init.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201805220007263_Entities.Init.Designer.cs">
+      <DependentUpon>201805220007263_Entities.Init.cs</DependentUpon>
+    </Compile>
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAreaUnit.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAuthorityType.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCommunityBoard.cs" />
@@ -238,6 +241,11 @@
     <None Include="Db\README.md" />
     <Content Include="Initialization\DependencyResolution\README.txt" />
     <None Include="Initialization\ObjectMaps\readme.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805220007263_Entities.Init.resx">
+      <DependentUpon>201805220007263_Entities.Init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\Microsoft.Azure.DocumentDB.1.21.1\build\Microsoft.Azure.DocumentDB.targets" Condition="Exists('..\..\packages\Microsoft.Azure.DocumentDB.1.21.1\build\Microsoft.Azure.DocumentDB.targets')" />

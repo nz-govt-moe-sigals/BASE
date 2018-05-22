@@ -171,25 +171,9 @@
     <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederSession.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederPrincipal.cs" />
     <Compile Include="Initialization\Db\Migrations\AppCoreDbMigrationsConfiguration.cs" />
-    <Compile Include="Initialization\Db\Migrations\Core\201712040611471_Initialize.cs" />
-    <Compile Include="Initialization\Db\Migrations\Core\201712040611471_Initialize.Designer.cs">
-      <DependentUpon>201712040611471_Initialize.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Initialization\Db\Migrations\Core\201712051129121_MediaMetadata.LocalName.cs" />
-    <Compile Include="Initialization\Db\Migrations\Core\201712051129121_MediaMetadata.LocalName.Designer.cs">
-      <DependentUpon>201712051129121_MediaMetadata.LocalName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Initialization\Db\Migrations\Core\201712070939290_SchoolRefs.cs" />
-    <Compile Include="Initialization\Db\Migrations\Core\201712070939290_SchoolRefs.Designer.cs">
-      <DependentUpon>201712070939290_SchoolRefs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Initialization\Db\Migrations\Core\201805170243526_Reindex.cs" />
-    <Compile Include="Initialization\Db\Migrations\Core\201805170243526_Reindex.Designer.cs">
-      <DependentUpon>201805170243526_Reindex.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Initialization\Db\Migrations\Core\201805170309584_More.cs" />
-    <Compile Include="Initialization\Db\Migrations\Core\201805170309584_More.Designer.cs">
-      <DependentUpon>201805170309584_More.cs</DependentUpon>
+    <Compile Include="Initialization\Db\Migrations\Core\201805220014250_Entities.Init.cs" />
+    <Compile Include="Initialization\Db\Migrations\Core\201805220014250_Entities.Init.Designer.cs">
+      <DependentUpon>201805220014250_Entities.Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineDataClassification.cs" />
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineExceptionRecord.cs" />
@@ -455,20 +439,8 @@
     <Folder Include="Services\Configuration\Implementations\Base\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Core\201712040611471_Initialize.resx">
-      <DependentUpon>201712040611471_Initialize.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Core\201712051129121_MediaMetadata.LocalName.resx">
-      <DependentUpon>201712051129121_MediaMetadata.LocalName.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Core\201712070939290_SchoolRefs.resx">
-      <DependentUpon>201712070939290_SchoolRefs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Core\201805170243526_Reindex.resx">
-      <DependentUpon>201805170243526_Reindex.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Core\201805170309584_More.resx">
-      <DependentUpon>201805170309584_More.cs</DependentUpon>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Core\201805220014250_Entities.Init.resx">
+      <DependentUpon>201805220014250_Entities.Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
