@@ -247,7 +247,7 @@ function Provision-Variables {
     $resourceNameTemplate = $resourceNameTemplate -replace "{rt}", "{RT}"
 
         # defaultUrl of the application
-	$defaultUrl = $env:CUSTOM_COMMON_VARS_DEFAULTURL; 
+	$defaultUrl = $env:CUSTOM_VARS_DEFAULTURL; 
 	if ([string]::IsNullOrEmpty($defaultUrl)) { $defaultUrl = (-join("https://" + ($resourceNameTemplate -replace "{RT}", "") + ".azurewebsites.net")) }
 
     # Saving the updated variables in the globally ENV space, 
@@ -260,7 +260,7 @@ function Provision-Variables {
     Write-Host "##vso[task.setvariable variable=CUSTOM_VARS_RESOURCEGROUPNAME;]$resourceGroupName"
     Write-Host "##vso[task.setvariable variable=CUSTOM_VARS_RESOURCENAMETEMPLATE;]$resourceNameTemplate"
     Write-Host "##vso[task.setvariable variable=CUSTOM_VARS_DEFAULTRESOURCELOCATION;]$defaultResourceLocation"
-	Write-Host "##vso[task.setvariable variable=CUSTOM_COMMON_VARS_DEFAULTURL;]$defaultUrl"
+	Write-Host "##vso[task.setvariable variable=CUSTOM_VARS_DEFAULTURL;]$defaultUrl"
 	
 	
     Write-Host "Task Complete."  
