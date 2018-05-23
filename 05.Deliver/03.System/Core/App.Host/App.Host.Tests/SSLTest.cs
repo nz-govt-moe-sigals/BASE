@@ -9,11 +9,8 @@
     using OpenQA.Selenium.Chrome;
     using Xbehave;
 
-    public abstract class IISTestBase
-    {
-    }
 
-    public class SSLTest : IISTestBase
+    public class SSLTest 
     {
         private string httpSiteAddress;
         private readonly string httpsSiteAddress;
