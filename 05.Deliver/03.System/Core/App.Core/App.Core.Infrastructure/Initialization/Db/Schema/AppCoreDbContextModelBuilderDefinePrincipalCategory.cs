@@ -15,27 +15,9 @@
 
             new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<PrincipalCategory>(modelBuilder, ref order);
 
-            modelBuilder.Entity<PrincipalCategory>()
-                .Property(x => x.Enabled)
-                .HasColumnOrder(order++)
-                .IsRequired();
+            // Note that this Schema uses an Enum as the Id:
 
-            modelBuilder.Entity<PrincipalCategory>()
-                .Property(x => x.Text)
-                .HasColumnOrder(order++)
-                .HasMaxLength(TextFieldSizes.X64)
-                .IsRequired();
-
-            modelBuilder.Entity<PrincipalCategory>()
-                .Property(x => x.DisplayOrderHint)
-                .HasColumnOrder(order++)
-                .IsRequired();
-
-            modelBuilder.Entity<PrincipalCategory>()
-                .Property(x => x.DisplayStyleHint)
-                .HasColumnOrder(order++)
-                .HasMaxLength(TextFieldSizes.X64)
-                .IsOptional();
+            modelBuilder.DefineDisplayableReferenceData<DataClassification>(ref order);
 
         }
     }

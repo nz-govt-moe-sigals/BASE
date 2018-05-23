@@ -7,14 +7,9 @@ namespace App.Module22.Shared.Models.Entities
     /// Grades will not always be A, B, C.
     /// Depends on language and establishment preferences (eg: Pass/Fail)
     /// </summary>
-    public class CourseGrade : TenantFKAuditedRecordStatedTimestampedGuidIdReferenceDataEntityBase, IHasDescription
+    public class CourseGrade : TenantFKAuditedRecordStatedTimestampedGuidIdReferenceDataEntityBase
     {
         // Text is already part of the underlying object.
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual string Description { get; set; }
     }
 
 

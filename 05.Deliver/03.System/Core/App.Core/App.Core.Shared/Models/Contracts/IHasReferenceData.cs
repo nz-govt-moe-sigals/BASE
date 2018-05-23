@@ -1,6 +1,6 @@
 ﻿namespace App.Core.Shared.Models
 {
-    public interface IHasReferenceData : IHasEnabled, IHasText /*IHasDescription */
+    public interface IHasReferenceData : IHasEnabled, IHasTitleAndDescription
     {
 
     }

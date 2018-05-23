@@ -77,6 +77,10 @@
     <Compile Include="Initialization\Db\Migrations\Default\201805221005441_Remove Courses.Designer.cs">
       <DependentUpon>201805221005441_Remove Courses.cs</DependentUpon>
     </Compile>
+    <Compile Include="Initialization\Db\Migrations\Default\201805230103437_ReferenceDataAddedIndexedTitleAndDescription.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201805230103437_ReferenceDataAddedIndexedTitleAndDescription.Designer.cs">
+      <DependentUpon>201805230103437_ReferenceDataAddedIndexedTitleAndDescription.cs</DependentUpon>
+    </Compile>
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineExample.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbModelBuilderOrchestrator.cs" />
     <Compile Include="Initialization\DependencyResolution\AppModuleInfrastructureRegistry.cs" />
@@ -126,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805221005441_Remove Courses.resx">
       <DependentUpon>201805221005441_Remove Courses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805230103437_ReferenceDataAddedIndexedTitleAndDescription.resx">
+      <DependentUpon>201805230103437_ReferenceDataAddedIndexedTitleAndDescription.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

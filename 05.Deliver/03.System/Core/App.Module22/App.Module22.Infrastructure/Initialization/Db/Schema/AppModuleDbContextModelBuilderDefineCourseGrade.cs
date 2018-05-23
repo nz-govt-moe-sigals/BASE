@@ -21,15 +21,7 @@
 
             // --------------------------------------------------
             // Model Specific Properties:
-            //Underlying model adds Text column
 
-
-
-            modelBuilder.Entity<CourseGrade>()
-                .Property(x => x.Description)
-                .HasColumnOrder(order++)
-                .IsMaxLength()
-                .IsOptional();
             // --------------------------------------------------
             // Entity  Navigation Properties:
 

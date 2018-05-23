@@ -169,12 +169,24 @@ namespace App
 
             //13:
             modelBuilder.Entity<T>()
-                .Property(x => x.Text)
+                .Property(x => x.Title)
                 .HasColumnOrder(order++)
                 .HasMaxLength(App.Core.Infrastructure.Constants.Db.TextFieldSizes.X64)
-                .IsRequired();
+                .HasColumnAnnotation("Index",
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(T).Name}_Title")
+                    {
+                        IsUnique = false
+                    }))
+                .IsRequired()
+                ;
             if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
 
+            modelBuilder.Entity<T>()
+                .Property(x => x.Description)
+                .HasColumnOrder(order++)
+                .HasMaxLength(App.Core.Infrastructure.Constants.Db.TextFieldSizes.X2048)
+                .IsOptional();
+            if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
 
         }
 

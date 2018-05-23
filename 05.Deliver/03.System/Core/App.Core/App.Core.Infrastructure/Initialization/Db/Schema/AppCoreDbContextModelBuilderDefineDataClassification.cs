@@ -19,28 +19,8 @@
             new UntenantedAuditedRecordStatedTimestampedCustomIdDataConvention()
                 .Define<DataClassification, NZDataClassification>(modelBuilder, ref order);
 
-            modelBuilder.Entity<DataClassification>()
-                .Property(x => x.Enabled)
-                .HasColumnOrder(order++)
-                .IsRequired();
-
-            modelBuilder.Entity<DataClassification>()
-                .Property(x => x.Text)
-                .HasColumnOrder(order++)
-                .HasMaxLength(Constants.Db.TextFieldSizes.X64)
-                .IsRequired();
-
-
-            modelBuilder.Entity<DataClassification>()
-                .Property(x => x.DisplayStyleHint)
-                .HasColumnOrder(order++)
-                .HasMaxLength(Constants.Db.TextFieldSizes.X64)
-                .IsOptional();
-
-            modelBuilder.Entity<DataClassification>()
-                .Property(x => x.DisplayOrderHint)
-                .HasColumnOrder(order++)
-                .IsOptional();
+            modelBuilder.DefineDisplayableReferenceData<DataClassification>(ref order);
         }
+
     }
 }

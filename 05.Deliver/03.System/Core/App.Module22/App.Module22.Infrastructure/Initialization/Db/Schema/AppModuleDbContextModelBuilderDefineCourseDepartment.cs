@@ -40,7 +40,9 @@
 
             modelBuilder.Entity<CourseDepartment>()
                 .Property(x => x.Description)
+                .HasMaxLength(App.Core.Infrastructure.Constants.Db.TextFieldSizes.X2048)
                 .HasColumnOrder(order++)
+                //.HasMaxLength(App.Core.Infrastructure.Constants.Db.TextFieldSizes.X2048)
                 .IsMaxLength()
                 .IsOptional();
 

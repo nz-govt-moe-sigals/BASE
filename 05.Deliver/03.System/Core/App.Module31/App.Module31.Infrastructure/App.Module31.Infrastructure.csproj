@@ -82,6 +82,10 @@
     <Compile Include="Initialization\Db\Migrations\Default\201805220007263_Entities.Init.Designer.cs">
       <DependentUpon>201805220007263_Entities.Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Initialization\Db\Migrations\Default\201805230108433_ReferenceDataAddedIndexedTitleAndDescription.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201805230108433_ReferenceDataAddedIndexedTitleAndDescription.Designer.cs">
+      <DependentUpon>201805230108433_ReferenceDataAddedIndexedTitleAndDescription.cs</DependentUpon>
+    </Compile>
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAreaUnit.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAuthorityType.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCommunityBoard.cs" />
@@ -245,6 +249,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805220007263_Entities.Init.resx">
       <DependentUpon>201805220007263_Entities.Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805230108433_ReferenceDataAddedIndexedTitleAndDescription.resx">
+      <DependentUpon>201805230108433_ReferenceDataAddedIndexedTitleAndDescription.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

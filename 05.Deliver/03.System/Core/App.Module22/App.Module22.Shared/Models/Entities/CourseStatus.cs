@@ -6,7 +6,6 @@ namespace App.Module22.Shared.Models.Entities
 
     public class CourseStatus  : TenantFKAuditedRecordStatedTimestampedCustomIdReferenceDataEntityBase<CourseStatusType>
     {
-        public virtual string Description { get; set; }
     }
 
 

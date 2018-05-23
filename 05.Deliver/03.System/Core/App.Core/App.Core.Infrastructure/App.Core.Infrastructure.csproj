@@ -175,6 +175,10 @@
     <Compile Include="Initialization\Db\Migrations\Core\201805220014250_Entities.Init.Designer.cs">
       <DependentUpon>201805220014250_Entities.Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Initialization\Db\Migrations\Core\201805230105107_ReferenceDataAddedIndexedTitleAndDescription.cs" />
+    <Compile Include="Initialization\Db\Migrations\Core\201805230105107_ReferenceDataAddedIndexedTitleAndDescription.Designer.cs">
+      <DependentUpon>201805230105107_ReferenceDataAddedIndexedTitleAndDescription.cs</DependentUpon>
+    </Compile>
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineDataClassification.cs" />
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineExceptionRecord.cs" />
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipal2Tags.cs" />
@@ -441,6 +445,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Initialization\Db\Migrations\Core\201805220014250_Entities.Init.resx">
       <DependentUpon>201805220014250_Entities.Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Core\201805230105107_ReferenceDataAddedIndexedTitleAndDescription.resx">
+      <DependentUpon>201805230105107_ReferenceDataAddedIndexedTitleAndDescription.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

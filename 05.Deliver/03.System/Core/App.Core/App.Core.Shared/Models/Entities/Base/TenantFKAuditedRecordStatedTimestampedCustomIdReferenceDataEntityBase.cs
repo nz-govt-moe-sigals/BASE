@@ -54,9 +54,14 @@ namespace App.Core.Shared.Models.Entities.Base
         /// <summary>
         /// Gets or sets the reference data's displayed text.
         /// </summary>
-        public virtual string Text
+        public virtual string Title
         {
             get; set;
+        }
+
+        public virtual string Description
+        {
+            get;set;
         }
 
 

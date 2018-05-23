@@ -26,13 +26,6 @@
             // --------------------------------------------------
             // Model Specific Properties:
 
-            modelBuilder.Entity<CourseStatus>()
-            .Property(x => x.Description)
-            .HasColumnOrder(order++)
-            .IsMaxLength()
-            .IsOptional();
-
-
             // --------------------------------------------------
             // Entity Navigation Properties:
 

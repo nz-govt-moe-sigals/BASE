@@ -44,6 +44,7 @@
     <Compile Include="IAppModule02.cs" />
     <Compile Include="Models\Configuration\ExampleApiConfiguration.cs" />
     <Compile Include="Models\Entities\Example.cs" />
+    <Compile Include="Models\Entities\Subscription.cs" />
     <Compile Include="Models\Enums\ExampleEnum.cs" />
     <Compile Include="Models\Messages\APIs\V0100\ExampleDto.cs" />
     <Compile Include="Models\Messages\APIs\V0100\ExampleReferenceTypeDto.cs" />

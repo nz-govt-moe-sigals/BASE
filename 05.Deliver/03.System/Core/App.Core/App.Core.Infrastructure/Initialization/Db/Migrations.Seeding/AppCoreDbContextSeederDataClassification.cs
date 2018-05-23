@@ -41,50 +41,50 @@
                     new DataClassification
                     {
                         Id = NZDataClassification.Unspecified,
-                        Text = "Unspecified",
+                        Title = "Unspecified",
                         DisplayOrderHint = 1
                     },
                     new DataClassification
                     {
                         Id = NZDataClassification.Unclassified,
-                        Text = "Unclassified",
+                        Title = "Unclassified",
                         DisplayOrderHint = 2
                     },
                     new DataClassification
                     {
                         Id = NZDataClassification.InConfidence,
-                        Text = "In Confidence",
+                        Title = "In Confidence",
                         DisplayOrderHint = 3
                     },
                     new DataClassification
                     {
                         Id = NZDataClassification.Sensitive,
-                        Text = "Sensitive",
+                        Title = "Sensitive",
                         DisplayOrderHint = 4
                     },
                     //National Security:
                     new DataClassification
                     {
                         Id = NZDataClassification.Restricted,
-                        Text = "Restricted",
+                        Title = "Restricted",
                         DisplayOrderHint = 5
                     },
                     new DataClassification
                     {
                         Id = NZDataClassification.Confidential,
-                        Text = "Confidential",
+                        Title = "Confidential",
                         DisplayOrderHint = 6
                     },
                     new DataClassification
                     {
                         Id = NZDataClassification.Secret,
-                        Text = "Secret",
+                        Title = "Secret",
                         DisplayOrderHint = 7
                     },
                     new DataClassification
                     {
                         Id = NZDataClassification.TopSecret,
-                        Text = "TopSecret",
+                        Title = "TopSecret",
                         DisplayOrderHint = 8
                     }
                 };

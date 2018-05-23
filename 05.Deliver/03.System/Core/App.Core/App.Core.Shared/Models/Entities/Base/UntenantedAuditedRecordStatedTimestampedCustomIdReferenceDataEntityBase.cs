@@ -13,9 +13,10 @@ namespace App.Core.Shared.Models.Entities.Base
         UntenantedAuditedRecordStatedTimestampedCustomIdEntityBase<TId>,
         /*Enherited: IHasId<Guid>, IHasTimestamp, IHasInRecordAuditability, IHasRecordState*/
         IHasEnabled,
-        IHasText,
-        IHasDisplayOrderHint,
-        IHasDisplayStyleHint
+        IHasDisplayableReferenceData
+        //IHasTitleAndDescription,
+        //IHasDisplayOrderHint,
+        //IHasDisplayStyleHint
         where TId : struct
     {
         protected UntenantedAuditedRecordStatedTimestampedCustomIdReferenceDataEntityBase()
@@ -28,7 +29,9 @@ namespace App.Core.Shared.Models.Entities.Base
 
         public virtual bool Enabled { get; set; }
 
-        public virtual string Text { get; set; }
+        public virtual string Title { get; set; }
+
+        public virtual string Description { get; set; }
 
         /// <summary>
         /// Higher numbers are displayed at top.

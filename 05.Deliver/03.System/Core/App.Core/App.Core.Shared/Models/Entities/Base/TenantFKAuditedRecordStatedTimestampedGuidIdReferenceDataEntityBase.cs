@@ -36,7 +36,8 @@ namespace App.Core.Shared.Models.Entities.Base
     /// <seealso cref="App.Core.Shared.Models.IHasEnabled" />
     /// <seealso cref="App.Core.Shared.Models.IHasText" />
     /// <seealso cref="App.Core.Shared.Models.IHasDisplayOrderHint" />
-    public abstract class TenantFKAuditedRecordStatedTimestampedGuidIdReferenceDataEntityBase : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase,
+    public abstract class TenantFKAuditedRecordStatedTimestampedGuidIdReferenceDataEntityBase : 
+        TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase,
         IHasMutableDisplayableReferenceData
     {
 
@@ -51,11 +52,15 @@ namespace App.Core.Shared.Models.Entities.Base
         /// <summary>
         /// Gets or sets the reference data's displayed text.
         /// </summary>
-        public virtual string Text
+        public virtual string Title
         {
             get; set;
         }
 
+        public virtual string Description
+        {
+            get;set;
+        }
 
         /// <summary>
         /// Gets or sets the display order hint.
