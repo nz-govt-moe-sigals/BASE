@@ -48,8 +48,6 @@ namespace App.Host.Ux.Tests
             ("Then the response should not have an " + headerKey)
                 .x(() =>
                 {
-                    var count = result.Headers.Count();
-                    count.Should().BeGreaterThan(0);
                     foreach (var header in result.Headers)
                     {
                         header.Key.Should().NotBe(headerKey);
