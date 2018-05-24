@@ -33,6 +33,14 @@
             }
         }
 
+        /// <summary>
+        /// Seed records that are part of this Module, no matter what (Immutable).
+        /// <para>
+        /// NOT the right place for demo entries, or data that will be updated
+        /// by end users.
+        /// </para>
+        /// </summary>
+        /// <param name="context"></param>
         protected void SeedImmutableEntries(AppCoreDbContext context)
         {
         }
@@ -41,8 +49,10 @@
         {
             var records = new[]
             {
-                new TenantProperty {Id = 1.ToGuid(), OwnerFK = 1.ToGuid(), Key = "SomePropA", Value = "SomeValueA1"},
-                new TenantProperty {Id = 2.ToGuid(), OwnerFK = 1.ToGuid(), Key = "SomePropB", Value = "SomeValueB1"}
+                new TenantProperty {Id = 1.ToGuid(), OwnerFK = Constants.Demo.Tenancies.B.Id, Key = "SomePropA", Value = "SomeValueA1"},
+                new TenantProperty {Id = 2.ToGuid(), OwnerFK = Constants.Demo.Tenancies.B.Id, Key = "SomePropB", Value = "SomeValueB1"},
+                new TenantProperty {Id = 3.ToGuid(), OwnerFK = Constants.Demo.Tenancies.B.Id, Key = "SomePropC", Value = "SomeValueC1"},
+                new TenantProperty {Id = 4.ToGuid(), OwnerFK = Constants.Demo.Tenancies.B.Id, Key = "SomePropD", Value = "SomeValueD1"}
             };
             context.Set<TenantProperty>().AddOrUpdate(p => p.Id, records);
             context.SaveChanges();

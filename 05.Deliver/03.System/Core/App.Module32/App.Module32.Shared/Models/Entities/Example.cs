@@ -1,4 +1,4 @@
-﻿namespace App.Module02.Shared.Models.Entities
+﻿namespace App.Module32.Shared.Models.Entities
 {
     using App.Core.Shared.Models.Entities;
 

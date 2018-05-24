@@ -34,12 +34,20 @@
             }
         }
 
+        /// <summary>
+        /// Seed records that are part of this Module, no matter what (Immutable).
+        /// <para>
+        /// NOT the right place for demo entries, or data that will be updated
+        /// by end users.
+        /// </para>
+        /// </summary>
+        /// <param name="context"></param>
         protected void SeedImmutableEntries(AppCoreDbContext context)
         {
             var records = new[]
             {
-                new Principal {Id = 0.ToGuid(), Enabled = true, CategoryFK = 1.ToGuid(), DisplayName = "Anon"},
-                new Principal {Id = 1.ToGuid(), Enabled = true, CategoryFK = 2.ToGuid(), DisplayName = "SysDeamon"},
+                new Principal {Id = Constants.Users.Anon.Id, Enabled = true, CategoryFK = 1.ToGuid(), DisplayName = Constants.Users.Anon.Name},
+                new Principal {Id = Constants.Users.SysDaemon.Id, Enabled = true, CategoryFK = 2.ToGuid(), DisplayName = Constants.Users.SysDaemon.Name},
             };
 
             context.Set<Principal>().AddOrUpdate(p => p.Id, records);
@@ -51,8 +59,8 @@
                 var records = new[]
             {
                 //People:
-                new Principal {Id = 2.ToGuid(), Enabled = true, CategoryFK = 1.ToGuid(), DisplayName = "J Smith"},
-                new Principal {Id = 3.ToGuid(), Enabled = true, CategoryFK = 1.ToGuid(), DisplayName = "P Smith"}
+                new Principal {Id = Constants.Demo.Users.U1.Id, Enabled = true, CategoryFK = 1.ToGuid(), DisplayName = Constants.Demo.Users.U1.Name},
+                new Principal {Id = Constants.Demo.Users.U2.Id, Enabled = true, CategoryFK = 1.ToGuid(), DisplayName = Constants.Demo.Users.U2.Name}
             };
             context.Set<Principal>().AddOrUpdate(p => p.Id, records);
             context.SaveChanges();

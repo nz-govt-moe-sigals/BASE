@@ -154,20 +154,19 @@ namespace App
             if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
 
         }
-
-        public static void DefineReferenceData<T>(this DbModelBuilder modelBuilder, ref int order, Func<int, int> injectedPropertyDefs = null)
-            where T : class, IHasReferenceData
+        public static void DefineRequiredEnabled<T>(this DbModelBuilder modelBuilder, ref int order, Func<int, int> injectedPropertyDefs = null)
+    where T : class, IHasEnabled
         {
-            //12:
             modelBuilder.Entity<T>()
                 .Property(x => x.Enabled)
                 .HasColumnOrder(order++)
                 .IsRequired();
-            if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
+        }
 
-            //-- Might inject keys here...(if order == 12...)
+        public static void DefineTitleAndDescription<T>(this DbModelBuilder modelBuilder, ref int order, bool applyTitleIndex=true, bool descriptionIsMaxLength=false, Func<int, int> injectedPropertyDefs = null)
+    where T : class, IHasTitleAndDescription
+        {
 
-            //13:
             modelBuilder.Entity<T>()
                 .Property(x => x.Title)
                 .HasColumnOrder(order++)
@@ -179,16 +178,55 @@ namespace App
                     }))
                 .IsRequired()
                 ;
+
+            if (applyTitleIndex)
+            {
+                modelBuilder.Entity<T>()
+                    .Property(x => x.Title)
+                    .HasColumnAnnotation("Index",
+                        new IndexAnnotation(new IndexAttribute($"IX_{typeof(T).Name}_Title")
+                        {
+                            IsUnique = false
+                        }))
+                    .IsRequired()
+                    ;
+            }
             if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
 
-            modelBuilder.Entity<T>()
-                .Property(x => x.Description)
-                .HasColumnOrder(order++)
-                .HasMaxLength(App.Core.Infrastructure.Constants.Db.TextFieldSizes.X2048)
-                .IsOptional();
+            if (descriptionIsMaxLength)
+            {
+                modelBuilder.Entity<T>()
+                    .Property(x => x.Description)
+                    .HasColumnOrder(order++)
+                    .IsMaxLength()
+                    .IsOptional();
+            }
+            else
+            {
+                modelBuilder.Entity<T>()
+                    .Property(x => x.Description)
+                    .HasColumnOrder(order++)
+                    .HasMaxLength(App.Core.Infrastructure.Constants.Db.TextFieldSizes.X2048)
+                    .IsOptional();
+
+            }
             if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
+        }
+
+        public static void DefineReferenceData<T>(this DbModelBuilder modelBuilder, ref int order, Func<int, int> injectedPropertyDefs = null)
+            where T : class, IHasReferenceData
+        {
+            //12:
+            modelBuilder.DefineRequiredEnabled<T>(ref order);
+            if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
+
+            //-- Might inject keys here...(if order == 12...)
+
+            //13:
+            modelBuilder.DefineTitleAndDescription<T>(ref order, true, false);
 
         }
+
 
         public static void DefineDisplayableReferenceData<T>(this DbModelBuilder modelBuilder, ref int order, Func<int, int> injectedPropertyDefs = null)
             where T : class, IHasDisplayableReferenceData

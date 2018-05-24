@@ -66,7 +66,13 @@
     <Compile Include="Db\Context\AppModuleDbContextFactory.cs" />
     <Compile Include="Initialization\Db\IHasAppModuleDbContextModelBuilderInitializer.cs" />
     <Compile Include="Initialization\Db\IHasAppModuleDbContextSeedInitializer.cs" />
-    <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeederExample.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\Default\Old\AppModuleDbContextSeederAccountAccountGroupAssignment.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeederAccountRoleAccountPermissionAssignment.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\Default\Old\AppModuleDbContextSeederAccountRoleGroupAccountRoleAssignment.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeederRole.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeederAccountPermission.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeederAccountRoleGroup.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeederAccount.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeedingOrchestrator.cs" />
     <Compile Include="Initialization\Db\Migrations\AppModuleDbMigrationsConfiguration.cs" />
     <Compile Include="Initialization\Db\Migrations\Default\201805220043497_Entities.init.cs" />
@@ -77,7 +83,20 @@
     <Compile Include="Initialization\Db\Migrations\Default\201805221005441_Remove Courses.Designer.cs">
       <DependentUpon>201805221005441_Remove Courses.cs</DependentUpon>
     </Compile>
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineExample.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201805230939366_RemoveExample.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201805230939366_RemoveExample.Designer.cs">
+      <DependentUpon>201805230939366_RemoveExample.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Initialization\Db\Migrations\Default\201805230941474_AddGroupsAndRoles.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201805230941474_AddGroupsAndRoles.Designer.cs">
+      <DependentUpon>201805230941474_AddGroupsAndRoles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAccount.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAccountGroup.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAccountPermissionAssignment.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineRolePermissionAssignment.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefinePermission.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineRole.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbModelBuilderOrchestrator.cs" />
     <Compile Include="Initialization\DependencyResolution\AppModuleInfrastructureRegistry.cs" />
     <Compile Include="Initialization\Authorisation\HasOidcScopeInitializer.cs" />
@@ -123,9 +142,17 @@
   <ItemGroup>
     <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805220043497_Entities.init.resx">
       <DependentUpon>201805220043497_Entities.init.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805221005441_Remove Courses.resx">
       <DependentUpon>201805221005441_Remove Courses.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805230939366_RemoveExample.resx">
+      <DependentUpon>201805230939366_RemoveExample.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805230941474_AddGroupsAndRoles.resx">
+      <DependentUpon>201805230941474_AddGroupsAndRoles.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

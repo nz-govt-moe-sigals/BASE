@@ -1,4 +1,4 @@
-﻿namespace App.Module01.Infrastructure.Initialization.ObjectMaps.Messages.V0100
+﻿namespace App.Module22.Infrastructure.Initialization.ObjectMaps.Messages.V0100
 {
     using App.Core.Infrastructure.Initialization;
     using App.Core.Infrastructure.Initialization.ObjectMaps;

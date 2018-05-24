@@ -1,14 +1,14 @@
-﻿namespace App.Module02.Application.Services
-{
-    using System.Data.Entity;
-    using App.Module02.Shared.Models.Entities;
+﻿//namespace App.Module02.Application.Services
+//{
+//    using System.Data.Entity;
+//    using App.Module02.Shared.Models.Entities;
 
-    public interface IExampleApplicationService
-    {
-        DbSet<Example> GetQueryableSet(string contextKey);
+//    public interface IExampleApplicationService
+//    {
+//        DbSet<Example> GetQueryableSet(string contextKey);
 
-        void Add(Example example);
-        void Delete(Example example);
-    }
-}
+//        void Add(Example example);
+//        void Delete(Example example);
+//    }
+//}
 

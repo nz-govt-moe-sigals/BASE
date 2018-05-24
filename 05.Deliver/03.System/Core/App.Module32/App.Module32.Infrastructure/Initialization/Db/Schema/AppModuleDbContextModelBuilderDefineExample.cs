@@ -1,10 +1,10 @@
-﻿namespace App.Module02.Infrastructure.Db.Schema
+﻿namespace App.Module32.Infrastructure.Db.Schema
 {
     using System.Data.Entity;
     using App.Core.Infrastructure.Db.Schema.Conventions;
-    using App.Module02.Infrastructure.Initialization;
-    using App.Module02.Infrastructure.Initialization.Db;
-    using App.Module02.Shared.Models.Entities;
+    using App.Module32.Infrastructure.Initialization;
+    using App.Module32.Infrastructure.Initialization.Db;
+    using App.Module32.Shared.Models.Entities;
 
     // A single DbContext Entity model map, 
     // invoked via a Module's specific DbContext ModelBuilderOrchestrator
