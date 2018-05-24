@@ -13,6 +13,12 @@ namespace App.Module31.Ux.Tests
 
     public class UnitTest1 : IDisposable
     {
+
+        // Note regarding Selenium.WebDriver.Chrome Nuget package
+        // Install Chrome Driver into your Unit Test Project, which installs "chromedriver.exe" 
+        // "chromedriver(.exe)" is copied to bin folder from package folder when the build process.
+        // NuGet package restoring ready -- no need to commit "chromedriver(.exe)" 
+        // binary into source code control repository.
         private IWebDriver _driver;
 
         public UnitTest1()
