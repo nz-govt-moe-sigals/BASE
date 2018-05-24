@@ -127,7 +127,7 @@ function Provision-Variables {
     }
     else {
         Write-Host "Is Not Master Branch"
-        $userStoryFilter = "(/(us|id)(\d+))"
+        $userStoryFilter = "(/(us|id|sb)(\d+))"
         $userStoryId = [regex]::match($buildSourceBranchName, $userStoryFilter).Groups[3].Value
         if ([string]::IsNullOrEmpty($userStoryId)) {$userStoryId = ""; }
         $userStoryId = $userStoryId.PadLeft($countLength, "0")
@@ -143,7 +143,6 @@ function Provision-Variables {
     if ([string]::IsNullOrEmpty($defaultResourceLocation)) {$defaultResourceLocation = $env:CUSTOM_VARS_DEFAULTRESOURCELOCATION; }
     if ([string]::IsNullOrEmpty($defaultResourceLocation)) {$defaultResourceLocation = $defaultResourceLocationIdentifier; }
 
-    
 
     # Output System, Build's default and injected Variables:
     Write-Host "Script variables of potential interest:"
@@ -237,7 +236,7 @@ function Provision-Variables {
             -replace "{RT}", "" `
             -replace "--", "-").TrimEnd("-")
         
-
+	
     
 
     Write-Host "...ResourceGroupName set to $resourceGroupName"
@@ -247,7 +246,9 @@ function Provision-Variables {
     # HACK / FIX: Have to get the token back to the right case.
     $resourceNameTemplate = $resourceNameTemplate -replace "{rt}", "{RT}"
 
-    
+        # defaultUrl of the application
+	$defaultUrl = $env:CUSTOM_VARS_DEFAULTURL; 
+	if ([string]::IsNullOrEmpty($defaultUrl)) { $defaultUrl = (-join("https://" + ($resourceNameTemplate -replace "{RT}", "") + ".azurewebsites.net")) }
 
     # Saving the updated variables in the globally ENV space, 
     # TIP:
@@ -259,7 +260,9 @@ function Provision-Variables {
     Write-Host "##vso[task.setvariable variable=CUSTOM_VARS_RESOURCEGROUPNAME;]$resourceGroupName"
     Write-Host "##vso[task.setvariable variable=CUSTOM_VARS_RESOURCENAMETEMPLATE;]$resourceNameTemplate"
     Write-Host "##vso[task.setvariable variable=CUSTOM_VARS_DEFAULTRESOURCELOCATION;]$defaultResourceLocation"
-
+	Write-Host "##vso[task.setvariable variable=CUSTOM_VARS_DEFAULTURL;]$defaultUrl"
+	
+	
     Write-Host "Task Complete."  
 }
 

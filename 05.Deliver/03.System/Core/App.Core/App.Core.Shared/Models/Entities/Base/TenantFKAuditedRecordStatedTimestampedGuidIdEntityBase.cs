@@ -22,8 +22,10 @@
     /// <seealso cref="App.Core.Shared.Models.Entities.UntenantedAuditedRecordStatedTimestampedGuidIdEntityBase" />
     /// <seealso cref="App.Core.Shared.Models.IHasTenantFK" />
     public abstract class TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase :
-        UntenantedAuditedRecordStatedTimestampedGuidIdEntityBase,
-        IHasTenantFK
+        UntenantedAuditedRecordStatedTimestampedCustomIdEntityBase<Guid>,
+        IHasTenantFK,
+        IHasGuidId
+        
     {
         /// <summary>
         /// Gets or sets the FK of the Tenancy this mutable model belongs to.
