@@ -1,65 +1,56 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-
+using Xunit;
 
 
 namespace App.Module31.Ux.Tests
 {
 
     /// <summary>
-    /// EXAMPLE TODO RE-WRITE XUNIT
+    /// EXAMPLEs
     /// </summary>
-    [TestClass]
-    public class UnitTest1
+
+    public class UnitTest1 : IDisposable
     {
-        private TestContext testContextInstance;
-        private IWebDriver driver;
-        private string appURL;
-        [TestInitialize()]
-        public void SetupTest()
+        private IWebDriver _driver;
+
+        public UnitTest1()
         {
-            appURL = "http://www.bing.com/";
+
 #if DEBUG
-            driver = new ChromeDriver();
+            _driver = new ChromeDriver();
 #else
-            driver = new ChromeDriver(Environment.GetEnvironmentVariable("ChromeWebDriver"));
+            _driver = new ChromeDriver(Environment.GetEnvironmentVariable("ChromeWebDriver"));
 #endif
 
-
         }
 
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext
+        //TODO del
+        [Fact]
+        public void TestMethodExmple()
         {
-            get
+            _driver.Navigate().GoToUrl("http://www.bing.com/");
+            _driver.FindElement(By.Id("sb_form_q")).SendKeys("VSTS");
+            _driver.FindElement(By.Id("sb_form_go")).Click();
+            _driver.FindElement(By.XPath("//ol[@id='b_results']/li/h2/a/strong[3]")).Click();
+            Assert.True(_driver.Title.Contains("VSTS"), "Verified title of the page");
+        }
+
+
+        [Fact]
+        public void TestMethodMoreTargetedExample()
+        {
+            _driver.Navigate().GoToUrl(Configuration.Instance.DefaultUrl);
+            Assert.True(_driver.Title.Contains("App Foundation"), "Verified title of the page");
+        }
+
+        public void Dispose()
+        {
+            if (_driver != null)
             {
-                return testContextInstance;
+                _driver.Quit();
             }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
-
-        [TestMethod]
-        public void TestMethod1()
-        {
-            driver.Navigate().GoToUrl(appURL + "/");
-            driver.FindElement(By.Id("sb_form_q")).SendKeys("VSTS");
-            driver.FindElement(By.Id("sb_form_go")).Click();
-            driver.FindElement(By.XPath("//ol[@id='b_results']/li/h2/a/strong[3]")).Click();
-            Assert.IsTrue(driver.Title.Contains("VSTS"), "Verified title of the page");
-        }
-
-        [TestCleanup()]
-        public void MyTestCleanup()
-        {
-            driver.Quit();
         }
     }
 }
