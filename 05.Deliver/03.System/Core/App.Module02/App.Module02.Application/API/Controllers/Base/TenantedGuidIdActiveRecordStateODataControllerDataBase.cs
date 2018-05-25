@@ -1,7 +1,7 @@
-﻿namespace App.Module02.Application.ServiceFacade.API.Controllers
+﻿namespace App.Module02.Application.API.Controllers
 {
-    using App.Core.Application.ServiceFacade.API.Controllers;
-    using App.Core.Application.ServiceFacade.API.Controllers.Base.Base;
+    using App.Core.Application.API.Controllers;
+    using App.Core.Application.API.Controllers.Base.Base;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models;
     using App.Module02.Infrastructure.Constants.Db;
@@ -52,7 +52,7 @@
 
         /// <summary>
         /// Class implementers must implement this method and
-        /// set the <see cref="F:App.Core.Application.ServiceFacade.API.Controllers.Base.Base.DataCommonODataControllerBase`2._dbContextIdentifier" />
+        /// set the <see cref="F:App.Core.Application.API.Controllers.Base.Base.DataCommonODataControllerBase`2._dbContextIdentifier" />
         /// on a per Module basis -- and invoke it from the Constructor.
         /// </summary>
         protected override void Initialize()

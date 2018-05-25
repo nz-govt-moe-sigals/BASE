@@ -1,6 +1,6 @@
 ﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
 
-namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
+namespace App.Core.Application.API.Controllers.V0100
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +9,7 @@ namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
     using System.Web.OData;
     using System.Web.OData.Routing;
     using App.Core.Application.Attributes;
-    using App.Core.Application.ServiceFacade.API.Controllers.Base.Base;
+    using App.Core.Application.API.Controllers.Base.Base;
     using App.Core.Infrastructure.Initialization.Search;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Messages;

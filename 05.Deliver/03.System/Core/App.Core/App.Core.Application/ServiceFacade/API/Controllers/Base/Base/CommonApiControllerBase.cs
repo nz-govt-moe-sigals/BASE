@@ -1,4 +1,4 @@
-﻿namespace App.Core.Application.ServiceFacade.API.Controllers.Base.Base
+﻿namespace App.Core.Application.API.Controllers.Base.Base
 {
     using System.Net;
     using System.Net.Http;
