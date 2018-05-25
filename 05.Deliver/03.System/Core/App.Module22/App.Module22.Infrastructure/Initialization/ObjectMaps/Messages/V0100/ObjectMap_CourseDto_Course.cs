@@ -11,22 +11,27 @@
         {
             var mappingExpression = config.CreateMap<CourseDto, Course>()
                 .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
-
-                //
                 .ForMember(t => t.Credits, opt => opt.Ignore())
-                .ForMember(t => t.DepartmentFK, opt => opt.Ignore())
-                .ForMember(t => t.Department, opt => opt.Ignore())
                 .ForMember(t => t.Description, opt => opt.Ignore())
-                .ForMember(t => t.Enrollments, opt => opt.Ignore())
-                .ForMember(t => t.InstructorRoles, opt => opt.Ignore())
                 .ForMember(t => t.Key, opt => opt.Ignore())
                 .ForMember(t => t.Occurances, opt => opt.Ignore())
+                .ForMember(t => t.Enrollments, opt => opt.Ignore())
+                .ForMember(t => t.InstructorRoles, opt => opt.Ignore())
                 .ForMember(t => t.ResourceAssignments, opt => opt.Ignore())
-                .ForMember(t => t.Status, opt => opt.Ignore())
-                .ForMember(t => t.StatusFK, opt => opt.Ignore())
                 .ForMember(t => t.Title, opt => opt.Ignore())
                 ;
             MapBaseTenancy(mappingExpression);
+            MapForeignKeys(mappingExpression);
+        }
+
+        private void MapForeignKeys(IMappingExpression<CourseDto, Course> mappingExpression)
+        {
+            mappingExpression
+                .ForMember(t => t.DepartmentFK, opt => opt.Ignore())
+                .ForMember(t => t.Department, opt => opt.Ignore())
+                .ForMember(t => t.Status, opt => opt.Ignore())
+                .ForMember(t => t.StatusFK, opt => opt.Ignore())
+                ;
         }
 
         private void MapBaseTenancy(IMappingExpression<CourseDto, Course> mappingExpression)
