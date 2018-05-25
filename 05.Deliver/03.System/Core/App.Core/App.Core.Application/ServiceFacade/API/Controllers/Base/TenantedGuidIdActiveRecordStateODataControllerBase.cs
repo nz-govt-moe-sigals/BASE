@@ -1,8 +1,8 @@
 ﻿using App.Core.Infrastructure.Services;
 
-namespace App.Core.Application.ServiceFacade.API.Controllers.Base
+namespace App.Core.Application.API.Controllers.Base
 {
-    using App.Core.Application.ServiceFacade.API.Controllers.Base.Base;
+    using App.Core.Application.API.Controllers.Base.Base;
     using App.Core.Infrastructure.Constants.Db;
     using App.Core.Shared.Models;
 

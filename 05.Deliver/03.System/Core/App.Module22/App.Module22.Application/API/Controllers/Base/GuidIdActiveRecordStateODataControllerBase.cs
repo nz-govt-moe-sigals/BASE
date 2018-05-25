@@ -1,10 +1,10 @@
-﻿namespace App.Module22.Application.ServiceFacade.API.Controllers
+﻿namespace App.Module22.Application.API.Controllers
 {
     using System;
     using System.Linq;
     using System.Web.OData;
-    using App.Core.Application.ServiceFacade.API.Controllers;
-    using App.Core.Application.ServiceFacade.API.Controllers.Base.Base;
+    using App.Core.Application.API.Controllers;
+    using App.Core.Application.API.Controllers.Base.Base;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models;
     using App.Core.Shared.Models.Entities;
@@ -28,7 +28,7 @@
 
         /// <summary>
         /// Class implementers must implement this method and
-        /// set the <see cref="F:App.Core.Application.ServiceFacade.API.Controllers.Base.Base.DataCommonODataControllerBase`2._dbContextIdentifier" />
+        /// set the <see cref="F:App.Core.Application.API.Controllers.Base.Base.DataCommonODataControllerBase`2._dbContextIdentifier" />
         /// on a per Module basis -- and invoke it from the Constructor.
         /// </summary>
         protected override void Initialize()

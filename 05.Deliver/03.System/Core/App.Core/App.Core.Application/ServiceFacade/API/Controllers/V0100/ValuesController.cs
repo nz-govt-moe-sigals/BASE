@@ -3,7 +3,7 @@ using System.Web.Http;
 using App.Core.Shared.Models.Messages.APIs;
 using Microsoft.Web.Http;
 
-namespace App.Core.Application.ServiceFacade.API.Controllers.V0100
+namespace App.Core.Application.API.Controllers.V0100
 {
     /// <summary>
     ///     Example1 is a straight WebAPI Controller, with DI, but no backing Db (it's just an in-mem list 'db').

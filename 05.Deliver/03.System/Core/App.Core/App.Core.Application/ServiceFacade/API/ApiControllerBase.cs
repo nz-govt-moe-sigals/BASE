@@ -7,7 +7,7 @@
 //using System.Web.Http;
 //using App.Core.Infrastructure.Services;
 
-//namespace App.Core.Application.ServiceFacade.API.Controllers
+//namespace App.Core.Application.API.Controllers
 //{
 //    public abstract class ApiControllerBase : ApiController
 //    {
