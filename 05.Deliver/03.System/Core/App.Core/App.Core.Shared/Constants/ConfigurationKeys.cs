@@ -68,6 +68,11 @@ namespace App.Core.Shared.Constants
         public const string AppCoreIntegrationAzureStorageAccountDefaultResourceNameSuffix = SystemAzureIntegrationKeyPrefix + "StorageAccount-Default-ResourceName-Suffix";
         public const string AppCoreIntegrationAzureStorageAccountDefaultKey = SystemAzureIntegrationKeyPrefix + "StorageAccount-Default-Key";
         // -----
+        // Integration / Redis Cache:
+        public const string AppCoreIntegrationAzureRedisCacheResourceName = SystemAzureIntegrationKeyPrefix + "Redis-Cache-ResourceName";
+        public const string AppCoreIntegrationAzureRedisCacheDefaultAuthorizationKey = SystemAzureIntegrationKeyPrefix + "Redis-Cache-Key";
+
+        // -----
         // Integration / DocumentDb:
         public const string AppCoreIntegrationAzureDocumentDbResourceName = SystemAzureIntegrationKeyPrefix + "DocumentDb-Default-ResourceName";
         //public const string AppCoreIntegrationAzureDocumentDbResourceEndpointUrl = SystemKeyPrefix + "Integration:Azure:DocumentDb:EndpointUrl";

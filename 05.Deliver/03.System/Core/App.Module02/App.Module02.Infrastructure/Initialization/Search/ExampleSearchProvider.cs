@@ -13,7 +13,7 @@ namespace App.Core.Infrastructure.Initialization.Search.Implementations
     using App.Module02.Shared.Models.Entities;
 
     [Key("Example")]
-    public class ExampleSearchProvider : SearchProviderBase<Example>
+    public class ExampleSearchProvider : SearchProviderBase<AccountRoleGroup>
     {
         public ExampleSearchProvider(IDiagnosticsTracingService diagnosticsTracingService,
             IPrincipalService principalService, IRepositoryService repositoryService) : base(diagnosticsTracingService,
@@ -25,17 +25,17 @@ namespace App.Core.Infrastructure.Initialization.Search.Implementations
         public override IQueryable<SearchResponseItem> Search(string searchTerm)
         {
             var items =
-                    this._repositoryService.GetByFilter<Example>(AppModuleDbContextNames.Default,
-                        x => x.PublicText.Contains(searchTerm))
+                    this._repositoryService.GetByFilter<AccountRoleGroup>(AppModuleDbContextNames.Default,
+                        x => x.Title.Contains(searchTerm))
                 ;
 
             //Do it in two steps to return an IQqueryable:
             var results =
                 items.Select(x => new SearchResponseItem()
                 {
-                    TypeKey = "Example",
+                    TypeKey = "AccountGroup",
                     TypeId = x.Id.ToString(),
-                    Title = x.PublicText,
+                    Title = x.Title,
                     Description = "..."
                 });
 

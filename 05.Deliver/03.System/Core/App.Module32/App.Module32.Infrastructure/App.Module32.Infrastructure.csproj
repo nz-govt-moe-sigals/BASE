@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A2BE764A-FE08-4DFB-8BFE-8CE62C786B42}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>App.Module32.Infrastructure</RootNamespace>
+    <AssemblyName>App.Module32.Infrastructure</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.6.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\StructureMap.4.6.1\lib\net45\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Constants\AppSettingKeys\AppModuleApiScopes.cs" />
+    <Compile Include="Constants\Db\AppModuleDbContextNames.cs" />
+    <Compile Include="Constants\Module\Names.cs" />
+    <Compile Include="Db\Context\AppModuleDatabaseInitializer.cs" />
+    <Compile Include="Db\Context\AppModuleDatabaseInitializerConfigurer.cs" />
+    <Compile Include="Db\Context\AppModuleDbContext.cs" />
+    <Compile Include="Db\Context\AppModuleDbContextFactory.cs" />
+    <Compile Include="Initialization\Db\IHasAppModuleDbContextModelBuilderInitializer.cs" />
+    <Compile Include="Initialization\Db\IHasAppModuleDbContextSeedInitializer.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeederExample.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeedingOrchestrator.cs" />
+    <Compile Include="Initialization\Db\Migrations\AppModuleDbMigrationsConfiguration.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201805220043497_Entities.init.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201805220043497_Entities.init.Designer.cs">
+      <DependentUpon>201805220043497_Entities.init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Initialization\Db\Migrations\Default\201805221005441_Remove Courses.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201805221005441_Remove Courses.Designer.cs">
+      <DependentUpon>201805221005441_Remove Courses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Initialization\Db\Migrations\Default\201805230103437_ReferenceDataAddedIndexedTitleAndDescription.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201805230103437_ReferenceDataAddedIndexedTitleAndDescription.Designer.cs">
+      <DependentUpon>201805230103437_ReferenceDataAddedIndexedTitleAndDescription.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineExample.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbModelBuilderOrchestrator.cs" />
+    <Compile Include="Initialization\DependencyResolution\AppModuleInfrastructureRegistry.cs" />
+    <Compile Include="Initialization\Authorisation\HasOidcScopeInitializer.cs" />
+    <Compile Include="Initialization\Search\ExampleSearchProvider.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ExampleDto_Example.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_Example_ExampleDto.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Configuration\IModuleServiceConfigurationObject.cs" />
+    <Compile Include="Services\IHasAppModuleService.cs" />
+    <Compile Include="Services\Implementations\Base\AppModuleServiceBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\App.Core\App.Core.Infrastructure\App.Core.Infrastructure.csproj">
+      <Project>{b503ff64-e103-4ac1-8039-5012570c8770}</Project>
+      <Name>App.Core.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\App.Core\App.Core.Shared\App.Core.Shared.csproj">
+      <Project>{74aa77d2-5a81-490b-a160-c058b375524a}</Project>
+      <Name>App.Core.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\App.Module32.Shared\App.Module32.Shared.csproj">
+      <Project>{b8897ed0-1489-4176-a3e9-1631c51bd087}</Project>
+      <Name>App.Module32.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Initialization\Db\Migrations\Default\README.md" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ExtensionMethods\" />
+    <Folder Include="Factories\" />
+    <Folder Include="Initialization\OData\" />
+    <Folder Include="Services\Configuration\Base\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Initialization\Db\Migrations\MODULE.README.md" />
+    <Content Include="Db\README.txt" />
+    <Content Include="Initialization\DependencyResolution\README.txt" />
+    <Content Include="Initialization\ObjectMaps\README.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805220043497_Entities.init.resx">
+      <DependentUpon>201805220043497_Entities.init.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805221005441_Remove Courses.resx">
+      <DependentUpon>201805221005441_Remove Courses.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805230103437_ReferenceDataAddedIndexedTitleAndDescription.resx">
+      <DependentUpon>201805230103437_ReferenceDataAddedIndexedTitleAndDescription.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

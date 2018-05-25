@@ -13,10 +13,10 @@ namespace App.Core.Infrastructure.Services
         public interface IAzureBlobStorageService : IHasAppCoreService
     {
 
-        AzureBlobStorageServiceConfiguration Configuration
-        {
-            get;
-        }
+        //AzureBlobStorageServiceConfiguration Configuration
+        //{
+        //    get;
+        //}
 
         void EnsureContainer(string storageAccountContextKey, string containerName,
             BlobContainerPublicAccessType BlobContainerPublicAccessTypeIfNew = BlobContainerPublicAccessType.Blob);

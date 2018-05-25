@@ -37,6 +37,14 @@
         }
 
 
+        /// <summary>
+        /// Seed records that are part of this Module, no matter what (Immutable).
+        /// <para>
+        /// NOT the right place for demo entries, or data that will be updated
+        /// by end users.
+        /// </para>
+        /// </summary>
+        /// <param name="context"></param>
         protected void SeedImmutableEntries(AppCoreDbContext context)
         {
         }
@@ -49,7 +57,7 @@
                 new TenantClaim
                 {
                     Id = 1.ToGuid(),
-                    OwnerFK = 1.ToGuid(),
+                    OwnerFK = Constants.Demo.Tenancies.A.Id,
                     Authority = "N/A",
                     AuthoritySignature = "A",
                     Key = "SomePropA",
@@ -58,7 +66,7 @@
                 new TenantClaim
                 {
                     Id = 2.ToGuid(),
-                    OwnerFK = 1.ToGuid(),
+                    OwnerFK = Constants.Demo.Tenancies.A.Id,
                     Authority = "N/A",
                     AuthoritySignature = "A",
                     Key = "SomePropB",
@@ -68,7 +76,7 @@
                 new TenantClaim
                 {
                     Id = 3.ToGuid(),
-                    OwnerFK = 2.ToGuid(),
+                    OwnerFK = Constants.Demo.Tenancies.B.Id,
                     Authority = "N/A",
                     AuthoritySignature = "A",
                     Key = "SomePropA",
@@ -77,7 +85,7 @@
                 new TenantClaim
                 {
                     Id = 4.ToGuid(),
-                    OwnerFK = 2.ToGuid(),
+                    OwnerFK = Constants.Demo.Tenancies.B.Id,
                     Authority = "N/A",
                     AuthoritySignature = "A",
                     Key = "SomePropB",

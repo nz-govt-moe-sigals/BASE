@@ -1,10 +1,10 @@
-﻿using App.Core.Infrastructure.Initialization.ObjectMaps;
-using App.Core.Shared.Models.Messages.API.V0100;
-using App.Module22.Shared.Models.Entities;
-using AutoMapper;
-
-namespace App.Module22.Infrastructure.Initialization.ObjectMaps.Messages.V0100
+﻿namespace App.Module22.Infrastructure.Initialization.ObjectMaps.Messages.V0100
 {
+    using AutoMapper;
+    using global::App.Core.Infrastructure.Initialization.ObjectMaps;
+    using global::App.Core.Shared.Models.Messages.API.V0100;
+    using global::App.Module22.Shared.Models.Entities;
+
     public class ObjectMap_CourseDto_Course : IHasAutomapperInitializer
     {
         public void Initialize(IMapperConfigurationExpression config)

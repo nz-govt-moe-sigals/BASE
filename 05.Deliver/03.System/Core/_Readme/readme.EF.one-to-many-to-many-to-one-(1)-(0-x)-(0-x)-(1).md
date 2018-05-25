@@ -48,11 +48,14 @@ a composite Key:
         .HasColumnOrder(order++)
         .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None)
         .IsRequired();
-    // --------------------------------------------------
-	// Entity Navigation Properties
 
 
-    // --------------------------------------------------
+
+Once the Junction table is developed, you have two ways to go forward.
+
+If the Junction table is to be navigated in both directions, you may feel it
+easier to keep track of properties when they are developed on the two end
+tables:
 
 
        modelBuilder.Entity<CourseEnrollee>()
@@ -63,6 +66,8 @@ a composite Key:
             .WillCascadeOnDelete(false);
 			;
 
+and:
+            // See: https://stackoverflow.com/a/9960987
         modelBuilder.Entity<Course>()
             .HasMany(x => x.Enrollments)
             .WithRequired(x => x.Course)
@@ -71,19 +76,23 @@ a composite Key:
             .WillCascadeOnDelete(false);
 			;
 
-	...
+But if the table is to be navigated only one way (so there is a collection on only one object)
+then consider to define the relationship on the join object as follows:
 
+           // --------------------------------------------------
+            // Entity Navigtation Properties:
+            modelBuilder.Entity<RolePermissionAssignment>()
+             .HasRequired(x => x.Role)
+             .WithMany(x => x.PermissionsAssignments)
+             .HasForeignKey(x => x.RoleFK)
+             ;
 
-
-One the object is defined, you define collections on the referencing objects (eg: Course)
-referencing its appropriate FK:
-
-            // See: https://stackoverflow.com/a/9960987
-            modelBuilder.Entity<Course>()
-                .HasMany(x => x.Enrollments)
-                .WithRequired(x => x.Course)
-                .HasForeignKey(x => x.CourseFK);
-
+            modelBuilder.Entity<RolePermissionAssignment>()
+             .HasRequired(x => x.Permission)
+             // Notice how on this side we are not specifying any collection:
+			 .WithMany()
+             .HasForeignKey(x => x.PermissionFK)
+             ;
 
 
 

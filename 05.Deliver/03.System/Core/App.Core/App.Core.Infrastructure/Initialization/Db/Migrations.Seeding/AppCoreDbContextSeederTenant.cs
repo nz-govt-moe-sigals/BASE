@@ -38,6 +38,14 @@
         }
 
 
+        /// <summary>
+        /// Seed records that are part of this Module, no matter what (Immutable).
+        /// <para>
+        /// NOT the right place for demo entries, or data that will be updated
+        /// by end users.
+        /// </para>
+        /// </summary>
+        /// <param name="context"></param>
         protected void SeedImmutableEntries(AppCoreDbContext context)
         {
         }
@@ -46,25 +54,25 @@
         {
             var records = new[]
             {
-                //People:
                 new Tenant
                 {
-                    Id = 1.ToGuid(),
-                    IsDefault = true,
-                    Enabled = true,
-                    Key = "OrgA",
-                    HostName = ".A.",
-                    DisplayName = "Org A, Inc."
+                    Id = Constants.Demo.Tenancies.A.Id,
+                    IsDefault = true /*notice....*/,
+                    Enabled = true ,
+                    Key = Constants.Demo.Tenancies.A.Key,
+                    DisplayName = Constants.Demo.Tenancies.A.Name,
+                    HostName = Constants.Demo.Tenancies.A.HostName
                 },
                 new Tenant
                 {
-                    Id = 2.ToGuid(),
+                    Id = Constants.Demo.Tenancies.B.Id,
                     IsDefault = null,
-                    Enabled = false,
-                    Key = "OrgB",
-                    HostName = ".B.",
-                    DisplayName = "Org B, Inc."
-                }
+                    Enabled = true,
+                    Key = Constants.Demo.Tenancies.B.Key,
+                    DisplayName = Constants.Demo.Tenancies.B.Name,
+                    HostName = Constants.Demo.Tenancies.B.HostName 
+                },
+
                 //new Tenant {Id=3.ToGuid(),IsDefault = null, Enabled=true, Key="OrgC", HostName =".C.",DisplayName="Org C, Inc."},
             };
             context.Set<Tenant>().AddOrUpdate(p => p.Id, records);

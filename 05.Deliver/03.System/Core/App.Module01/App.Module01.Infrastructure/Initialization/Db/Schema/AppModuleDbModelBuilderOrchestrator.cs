@@ -3,6 +3,7 @@
 namespace App.Module01.Infrastructure.Db.Schema
 {
     using System.Data.Entity;
+    using App.Core.Infrastructure.Contracts;
     using App.Module01.Infrastructure.Initialization;
     using App.Module01.Infrastructure.Initialization.Db;
 
@@ -25,7 +26,7 @@ namespace App.Module01.Infrastructure.Db.Schema
             // using a combination of common interface and reflection.
 
             AppDependencyLocator.Current.GetAllInstances<IHasAppModuleDbContextModelBuilderInitializer>()
-                .ForEach(x => x.Define(modelBuilder));
+                .ForEach(x => { if (!(typeof(IHasIgnoreThis).IsAssignableFrom(x.GetType()))) { x.Define(modelBuilder); } });
         }
 
 

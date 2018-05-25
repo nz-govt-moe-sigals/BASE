@@ -27,14 +27,15 @@ namespace App.Core.Infrastructure.Services.Implementations
     public class AzureBlobStorageService : AppCoreServiceBase, IAzureBlobStorageService
     {
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
-        public AzureBlobStorageServiceConfiguration Configuration { get; private set; }
+        //public AzureBlobStorageServiceConfiguration Configuration { get; private set; }
 
-        public AzureBlobStorageService(IDiagnosticsTracingService diagnosticsTracingService,
-            AzureBlobStorageServiceConfiguration configuration)
+        public AzureBlobStorageService(IDiagnosticsTracingService diagnosticsTracingService
+            /*,AzureBlobStorageServiceConfiguration configuration*/
+            )
         {
             this._diagnosticsTracingService = diagnosticsTracingService;
             // In this case, the configuration doesn't have much/any settings (it's all in the Context objects).
-            Configuration = configuration;
+            //Configuration = configuration;
         }
 
 

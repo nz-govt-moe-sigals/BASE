@@ -34,6 +34,14 @@
             }
         }
 
+        /// <summary>
+        /// Seed records that are part of this Module, no matter what (Immutable).
+        /// <para>
+        /// NOT the right place for demo entries, or data that will be updated
+        /// by end users.
+        /// </para>
+        /// </summary>
+        /// <param name="context"></param>
         protected void SeedImmutableEntries(AppModuleDbContext context)
         {
         }

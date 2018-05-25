@@ -13,10 +13,12 @@ namespace App.Core.Infrastructure.Initialization.Integration
     public class IntegrationSpikes : IHasAppCoreInitializer
     {
         private readonly IAzureBlobStorageService _azureStorageAccountBlobStorageService;
+        private readonly IAzureRedisCacheService _azureRedisCacheService;
 
-        public IntegrationSpikes(IAzureBlobStorageService azureStorageAccountBlobStorageService)
+        public IntegrationSpikes(IAzureBlobStorageService azureStorageAccountBlobStorageService, IAzureRedisCacheService azureRedisCacheService)
         {
             this._azureStorageAccountBlobStorageService = azureStorageAccountBlobStorageService;
+            this._azureRedisCacheService = azureRedisCacheService;
         }
 
 
@@ -29,6 +31,11 @@ namespace App.Core.Infrastructure.Initialization.Integration
             this._azureStorageAccountBlobStorageService.UploadAText(null, containerName,fileName,"bar");
 
             this._azureStorageAccountBlobStorageService.DownloadAText(null, containerName, fileName);
+
+            _azureRedisCacheService.Set("keyA", "Some Message", TimeSpan.FromMinutes(1));
+
+            string result = _azureRedisCacheService.Get("keyA");
+
         }
 
     }

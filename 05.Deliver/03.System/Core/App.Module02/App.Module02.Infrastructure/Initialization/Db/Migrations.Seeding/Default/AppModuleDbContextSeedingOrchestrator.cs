@@ -55,7 +55,12 @@ namespace App.Module02.Infrastructure.Db.Migrations.Seeding
         private void SeedByHand(AppModuleDbContext dbContext)
         {
             AttachDebuggerWhenRunningUnderPowershell();
-            AppDependencyLocator.Current.GetInstance<AppModuleDbContextSeederExample>().Seed(dbContext);
+
+            //AppDependencyLocator.Current.GetInstance<AppModuleDbContextSeederAccountPermission>().Seed(dbContext);
+            //AppDependencyLocator.Current.GetInstance<AppModuleDbContextSeederAccountRole>().Seed(dbContext);
+            //AppDependencyLocator.Current.GetInstance<AppModuleDbContextSeederAccountGroup>().Seed(dbContext);
+            //AppDependencyLocator.Current.GetInstance<AppModuleDbContextSeederAccount>().Seed(dbContext);
+
         }
 
         private void AttachDebuggerWhenRunningUnderPowershell()
@@ -69,7 +74,8 @@ namespace App.Module02.Infrastructure.Db.Migrations.Seeding
                 var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 if (Debugger.IsAttached == false)
                 {
-                    //Debugger.Launch();
+                    // Don't comment this out -- there's a config file switch!
+                    Debugger.Launch();
                 }
             }
         }
