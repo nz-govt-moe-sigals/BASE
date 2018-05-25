@@ -10,8 +10,19 @@
     {
         public void Initialize(IMapperConfigurationExpression config)
         {
-            config.CreateMap<ExampleDto, Example>()
+            var mappingExpression =  config.CreateMap<ExampleDto, Example>()
                 .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
+                .ForMember(t => t.PublicText, opt => opt.MapFrom(s => s.PublicText))
+                .ForMember(t => t.SensitiveText, opt => opt.MapFrom(s => s.SensitiveText))
+                .ForMember(t => t.Owner, opt => opt.Ignore())
+                .ForMember(t => t.AppPrivateText, opt => opt.Ignore())
+                ;
+            MapBaseTenancy(mappingExpression);
+        }
+
+        private void MapBaseTenancy(IMappingExpression<ExampleDto, Example> mappingExpression)
+        {
+            mappingExpression
                 .ForMember(t => t.Timestamp, opt => opt.Ignore())
                 .ForMember(t => t.RecordState, opt => opt.Ignore())
                 .ForMember(t => t.CreatedOnUtc, opt => opt.Ignore())
@@ -20,12 +31,7 @@
                 .ForMember(t => t.LastModifiedOnUtc, opt => opt.Ignore())
                 .ForMember(t => t.DeletedByPrincipalId, opt => opt.Ignore())
                 .ForMember(t => t.DeletedOnUtc, opt => opt.Ignore())
-                .ForMember(t => t.TenantFK, opt => opt.Ignore())
-                .ForMember(t => t.PublicText, opt => opt.MapFrom(s => s.PublicText))
-                .ForMember(t => t.SensitiveText, opt => opt.MapFrom(s => s.SensitiveText))
-                .ForMember(t => t.Owner, opt => opt.Ignore())
-                .ForMember(t => t.AppPrivateText, opt => opt.Ignore())
-                ;
+                .ForMember(t => t.TenantFK, opt => opt.Ignore());
         }
     }
 }
