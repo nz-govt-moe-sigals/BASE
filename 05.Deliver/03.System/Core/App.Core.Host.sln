@@ -75,6 +75,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module31.Application", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Blanks", "_Blanks", "{EF96B243-C7AF-4471-88CE-3B1137076005}"
 	ProjectSection(SolutionItems) = preProject
+		_Readme\readme.blank - Copy (14).md = _Readme\readme.blank - Copy (14).md
+		_Readme\readme.blank - Copy (15).md = _Readme\readme.blank - Copy (15).md
 		_Readme\readme.blank - Copy (16).md = _Readme\readme.blank - Copy (16).md
 		_Readme\readme.blank - Copy (17).md = _Readme\readme.blank - Copy (17).md
 		_Readme\readme.blank - Copy (18).md = _Readme\readme.blank - Copy (18).md
@@ -94,7 +96,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DBs", "DBs", "{DC84FDAE-75F4-4F28-B5CD-506F981A9829}"
 	ProjectSection(SolutionItems) = preProject
 		Readme\readme.blank.EF Code first Relationships.md = Readme\readme.blank.EF Code first Relationships.md
-		_Readme\readme.EF.composite-key-relationships.md = _Readme\readme.EF.composite-key-relationships.md
 		_Readme\readme.EF.many-to-many-(x)-(x)-both-ways.md = _Readme\readme.EF.many-to-many-(x)-(x)-both-ways.md
 		_Readme\readme.EF.many-to-many-(x)-(x)-with-properties.md = _Readme\readme.EF.many-to-many-(x)-(x)-with-properties.md
 		_Readme\readme.EF.many-to-many-(x)-(x).md = _Readme\readme.EF.many-to-many-(x)-(x).md
@@ -126,9 +127,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module32.ATE", "Module32.ATE", "{EE52FBA1-DB51-44D2-88E0-2D9EA04412B8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_GettingStarted", "_GettingStarted", "{158E0857-D6CF-445A-988A-9F549509664C}"
-	ProjectSection(SolutionItems) = preProject
-		_Readme\readme.new-team-member.md = _Readme\readme.new-team-member.md
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module07.Readings", "Module07.Readings", "{E58ED385-C499-42B4-86BD-1F8A3864D626}"
 EndProject
@@ -160,14 +158,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{770E6538-1
 	ProjectSection(SolutionItems) = preProject
 		readme.TestNamingConventions.md = readme.TestNamingConventions.md
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module32.Shared", "App.Module32\App.Module32.Shared\App.Module32.Shared.csproj", "{B8897ED0-1489-4176-A3E9-1631C51BD087}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module32.Domain", "App.Module32\App.Module32.Domain\App.Module32.Domain.csproj", "{E41904A7-FD94-4F97-BFEA-D9E8CFEA0DFE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module32.Infrastructure", "App.Module32\App.Module32.Infrastructure\App.Module32.Infrastructure.csproj", "{A2BE764A-FE08-4DFB-8BFE-8CE62C786B42}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module32.Application", "App.Module32\App.Module32.Application\App.Module32.Application.csproj", "{C31FDD3A-6D3C-4E61-8B0D-AA5498BD7BE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -307,22 +297,6 @@ Global
 		{65CE9FE3-00D6-4E6C-8D3E-31E5EEC7C2B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65CE9FE3-00D6-4E6C-8D3E-31E5EEC7C2B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65CE9FE3-00D6-4E6C-8D3E-31E5EEC7C2B8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B8897ED0-1489-4176-A3E9-1631C51BD087}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B8897ED0-1489-4176-A3E9-1631C51BD087}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B8897ED0-1489-4176-A3E9-1631C51BD087}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B8897ED0-1489-4176-A3E9-1631C51BD087}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E41904A7-FD94-4F97-BFEA-D9E8CFEA0DFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E41904A7-FD94-4F97-BFEA-D9E8CFEA0DFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E41904A7-FD94-4F97-BFEA-D9E8CFEA0DFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E41904A7-FD94-4F97-BFEA-D9E8CFEA0DFE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A2BE764A-FE08-4DFB-8BFE-8CE62C786B42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A2BE764A-FE08-4DFB-8BFE-8CE62C786B42}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A2BE764A-FE08-4DFB-8BFE-8CE62C786B42}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A2BE764A-FE08-4DFB-8BFE-8CE62C786B42}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C31FDD3A-6D3C-4E61-8B0D-AA5498BD7BE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C31FDD3A-6D3C-4E61-8B0D-AA5498BD7BE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C31FDD3A-6D3C-4E61-8B0D-AA5498BD7BE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C31FDD3A-6D3C-4E61-8B0D-AA5498BD7BE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -369,10 +343,6 @@ Global
 		{5E86ED3D-16BF-4F75-B917-DC7070E9E211} = {B3B8DBD3-32A9-4791-8D1C-3FAFBF62A872}
 		{65CE9FE3-00D6-4E6C-8D3E-31E5EEC7C2B8} = {8A1210CD-A098-44FA-9B2F-95537024E421}
 		{770E6538-1EBD-4CB5-A85C-491AEAD75138} = {8A4F3C88-EDBB-46C4-A52B-B11A603A1F1A}
-		{B8897ED0-1489-4176-A3E9-1631C51BD087} = {EE52FBA1-DB51-44D2-88E0-2D9EA04412B8}
-		{E41904A7-FD94-4F97-BFEA-D9E8CFEA0DFE} = {EE52FBA1-DB51-44D2-88E0-2D9EA04412B8}
-		{A2BE764A-FE08-4DFB-8BFE-8CE62C786B42} = {EE52FBA1-DB51-44D2-88E0-2D9EA04412B8}
-		{C31FDD3A-6D3C-4E61-8B0D-AA5498BD7BE9} = {EE52FBA1-DB51-44D2-88E0-2D9EA04412B8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2F529A1D-CBD2-4505-88EC-746854D7FB98}
