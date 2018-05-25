@@ -172,7 +172,6 @@
     <Compile Include="Initialization\OData\Implementations\SchoolRegionalCouncilODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\SchoolTypeODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\SchoolTerritorialAuthorityWithAucklandLocalBoardODataModelBuilderConfiguration.cs" />
-    <Compile Include="Presentation\Controllers\Module1Controller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="API\Controllers\Base\GuidIdActiveRecordStateODataControllerBase.cs" />
     <Compile Include="API\Controllers\Base\TenantedGuidIdActiveRecordStateODataControllerBase.cs" />

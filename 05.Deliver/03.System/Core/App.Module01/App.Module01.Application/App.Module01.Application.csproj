@@ -170,8 +170,6 @@
     <Compile Include="Initialization\OData\IAppModuleOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\AppModuleOdataModelBuilder.cs" />
     <Compile Include="Initialization\OData\Implementations\ExampleOdataModelBuilderConfiguration.cs" />
-    <Compile Include="Presentation\Controllers\ExamplesController.cs" />
-    <Compile Include="Presentation\Controllers\Module1Controller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="API\Controllers\Base\TenantedGuidIdActiveRecordStateODataControllerDataBase.cs" />
     <Compile Include="Services\IApplicationService.cs" />
@@ -180,9 +178,6 @@
     <Compile Include="Services\Implementations\ExampleApplicationService.cs" />
     <Compile Include="Services\Implementations\TaskService.cs" />
     <Compile Include="Services\ITaskService.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Presentation\Views\Module1\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\App.Core\App.Core.Application\App.Core.Application.csproj">
@@ -219,7 +214,6 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Presentation\Views\Module1\About.cshtml" />
     <None Include="_packages.config" />
   </ItemGroup>
   <ItemGroup>
