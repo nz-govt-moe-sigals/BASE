@@ -19,7 +19,7 @@ namespace App.Core.Infrastructure.Services.Configuration.Implementations
     /// </para>
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.Configuration.ICoreServiceConfigurationObject" />
-    public class DocumentDbServiceConfiguration : ICoreServiceConfigurationObject
+    public class AzureDocumentDbServiceConfiguration : ICoreServiceConfigurationObject
     {
         public Uri EndpointUrl
         {
@@ -38,7 +38,7 @@ namespace App.Core.Infrastructure.Services.Configuration.Implementations
         /// <summary>
         /// Initializes a new instance of the <see cref="DocumentDbServiceConfiguration" /> class.
         /// </summary>
-        public DocumentDbServiceConfiguration(IAzureKeyVaultService keyVaultService)
+        public AzureDocumentDbServiceConfiguration(IAzureKeyVaultService keyVaultService)
         {
             var commonConfigurationSettings = keyVaultService.GetObject< AzureCommonConfigurationSettings>();
             var configuration = keyVaultService.GetObject<AzureDocumentDbConfigurationSettings>();

@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -56,10 +59,14 @@
     <Compile Include="ExtensionMethods\StringExtensions.cs" />
     <Compile Include="Factories\GuidFactory.cs" />
     <Compile Include="ICoreModule.cs" />
+    <Compile Include="Models\ConfigurationSettings\AzureCognitiveServicesComputerVisionConfigurationSettings.cs" />
     <Compile Include="Models\ConfigurationSettings\AzureCommonConfigurationSettings.cs" />
     <Compile Include="Models\ConfigurationSettings\AzureDocumentDbConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\AzureEnvironmentSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\AzureMapsConfigurationSettings.cs" />
     <Compile Include="Models\ConfigurationSettings\AzureRedisCacheConfigurationSettings.cs" />
     <Compile Include="Models\ConfigurationSettings\AzureStorageAccountDefaultConfigurationSettings.cs" />
+    <Compile Include="Models\ConfigurationSettings\GeolocationServiceConfigurationSettings.cs" />
     <Compile Include="Models\ConfigurationSettings\IHostSettingsBasedConfigurationObject.cs" />
     <Compile Include="Models\ConfigurationSettings\IStorageAccountConfigurationSettings.cs" />
     <Compile Include="Models\ConfigurationSettings\SmtpServiceClientConfiguration.cs" />
@@ -109,6 +116,9 @@
     <Compile Include="Models\Entities\Base\UntenantedAuditedRecordStatedTimestampedGuidIdEntityBase.cs" />
     <Compile Include="Models\Entities\Base\UntenantedAuditedRecordStatedTimestampedGuidIdReferenceDataEntityBase.cs" />
     <Compile Include="Models\Entities\Base\UntenantedAuditedRecordStatedTimestampedNoIdEntityBase.cs" />
+    <Compile Include="Models\Messages\GeoCoordinates.cs" />
+    <Compile Include="Models\Messages\GeoInformation.cs" />
+    <Compile Include="Models\Messages\AzureMapsMessages.cs" />
     <Compile Include="_HOLD\ReferenceDataBase.cs" />
     <Compile Include="_HOLD\TenantedAuditedTimestampedRecordStatedCustomIdEntityBase.cs" />
     <Compile Include="_HOLD\UntenantedCustomIdReferenceDataBase.cs" />
@@ -135,32 +145,32 @@
     <Compile Include="Models\Entities\PrincipalProperty.cs" />
     <Compile Include="Models\Entities\Enums\NZDataClassification.cs" />
     <Compile Include="Models\Entities\Enums\NotificationType.cs" />
-    <Compile Include="Models\Messages\APIs\SmokeTestItem.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\ApplicationDescriptionDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\ApplicationProviderInformationDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\DataClassificationDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\ConfigurationStepRecordDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\ExceptionRecordDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\MediaMetadataDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\NavigationRouteDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\NotificationDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\PrincipalCategoryDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\PrincipalTagDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\RoleDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\SearchResponseItemdto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\SessionDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\SessionOperationDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\TenantClaimdto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\TenantDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\TenantedNavigationRouteDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\TenantPropertyDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\PrincipalClaimdto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\PrincipalDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\PrincipalPropertyDto.cs" />
+    <Compile Include="Models\Messages\API\SmokeTestItem.cs" />
+    <Compile Include="Models\Messages\API\V0100\ApplicationDescriptionDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\ApplicationProviderInformationDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\DataClassificationDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\ConfigurationStepRecordDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\ExceptionRecordDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\MediaMetadataDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\NavigationRouteDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\NotificationDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\PrincipalCategoryDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\PrincipalTagDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\RoleDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\SearchResponseItemdto.cs" />
+    <Compile Include="Models\Messages\API\V0100\SessionDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\SessionOperationDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\TenantClaimdto.cs" />
+    <Compile Include="Models\Messages\API\V0100\TenantDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\TenantedNavigationRouteDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\TenantPropertyDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\PrincipalClaimdto.cs" />
+    <Compile Include="Models\Messages\API\V0100\PrincipalDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\PrincipalPropertyDto.cs" />
     <Compile Include="Models\Entities\ApplicationSetting.cs" />
     <Compile Include="Models\Entities\DataToken.cs" />
     <Compile Include="Models\Entities\PrincipalSetting.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\NotificationUpdateDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\NotificationUpdateDto.cs" />
     <Compile Include="Models\ConfigurationSettings\ApplicationDescriptionConfigurationSettings.cs" />
     <Compile Include="Models\Messages\BaseClasses\TenantedReferenceDtoBase.cs" />
     <Compile Include="Models\Messages\ConfigurationTestStepSummary.cs" />
@@ -203,12 +213,14 @@
     <Compile Include="Services\IHasAppService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Models\ConfigurationSettings\Implementations\" />
     <Folder Include="Models\Entities\NewFolder1\" />
-    <Folder Include="Models\Messages\APIs\V0100\Dtos\" />
-    <Folder Include="Models\Messages\APIs\V0100\Enums\" />
+    <Folder Include="Models\Messages\API\V0100\Dtos\" />
+    <Folder Include="Models\Messages\API\V0100\Enums\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Models\ConfigurationSettings\REAmdE.md" />
+    <None Include="Models\ConfigurationSettings\_readme.md" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

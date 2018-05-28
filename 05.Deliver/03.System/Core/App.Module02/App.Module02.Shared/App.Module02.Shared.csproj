@@ -53,8 +53,13 @@
     <Compile Include="Models\Entities\Enums\AssignmentType.cs" />
     <Compile Include="Models\Entities\Subscription.cs" />
     <Compile Include="Models\Enums\ExampleEnum.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\ExampleDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\ExampleReferenceTypeDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\AccountAccountPermissionAssignmentDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\AccountDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\AccountPermissionDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\AccountRoleAccountPermissionAssignmentDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\AccountRoleDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\AccountRoleGroupDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\ExampleReferenceTypeDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

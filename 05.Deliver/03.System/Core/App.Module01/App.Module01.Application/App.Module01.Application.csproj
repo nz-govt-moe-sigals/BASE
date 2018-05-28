@@ -198,6 +198,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="API\Controllers\readme.md" />
     <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
@@ -205,6 +206,7 @@
     <None Include="_packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="API\Controllers\V0100\readme.md" />
     <Content Include="assets\images\faces\face01.png" />
     <Content Include="assets\images\faces\face02.png" />
     <Content Include="assets\images\faces\face03.png" />
@@ -226,7 +228,6 @@
     <Content Include="assets\images\faces\face19.png" />
     <Content Include="assets\images\faces\face20.png" />
     <Content Include="Initialization\DependencyResolution\README.txt" />
-    <Content Include="API\Controllers\V0100\README.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ExtensionMethods\" />

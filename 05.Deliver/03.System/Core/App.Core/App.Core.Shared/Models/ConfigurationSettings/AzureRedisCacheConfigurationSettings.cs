@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace App.Core.Shared.Models.ConfigurationSettings
 {
+
     public class AzureRedisCacheConfigurationSettings
     {
 

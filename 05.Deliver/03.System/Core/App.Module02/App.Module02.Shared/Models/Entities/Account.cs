@@ -9,8 +9,10 @@ using System.Threading.Tasks;
 
 namespace App.Module02.Shared.Models.Entities
 {
-    public class Account : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase, IHasKey
+    public class AccountNew : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase, IHasKey
     {
+
+        public bool Enabled { get; set; }
 
         /// <summary>
         /// The unique key of this user (ie, the UserName).

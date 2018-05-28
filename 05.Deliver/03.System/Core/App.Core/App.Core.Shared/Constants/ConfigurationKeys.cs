@@ -42,6 +42,14 @@ namespace App.Core.Shared.Constants
         public const string AppCoreIDAAADClientSecret = SystemIntegrationKeyPrefix + "Oidc-AAD:ClientSecret";
 
         // -----
+        // Environment / Azure (pushed in by deployment engine):
+        public const string AppCoreEnvironmentSubscriptionId = SystemAzureIntegrationKeyPrefix + "SubscriptionId";
+        public const string AppCoreEnvironmentTenantId = SystemAzureIntegrationKeyPrefix + "TenantId";
+        public const string AppCoreEnvironmentResourceGroupName = SystemAzureIntegrationKeyPrefix + "resourcegroup-name";
+        public const string AppCoreEnvironmentResourceGroupLocation = SystemAzureIntegrationKeyPrefix + "resourcegroup-location";
+
+
+        // -----
         // Integration / Azure:
         // WHen reosurces are not named (eg: DocumentDbResourceName), falls back to this setting:
         public const string AppCoreIntegrationAzureCommonResourceName = SystemAzureIntegrationKeyPrefix + "Arm-Resources-DefaultName";
@@ -68,16 +76,34 @@ namespace App.Core.Shared.Constants
         public const string AppCoreIntegrationAzureStorageAccountDefaultResourceNameSuffix = SystemAzureIntegrationKeyPrefix + "StorageAccount-Default-ResourceName-Suffix";
         public const string AppCoreIntegrationAzureStorageAccountDefaultKey = SystemAzureIntegrationKeyPrefix + "StorageAccount-Default-Key";
         // -----
-        // Integration / Redis Cache:
+        // Integration / Azure / Microsoft / Redis / Cache:
         public const string AppCoreIntegrationAzureRedisCacheResourceName = SystemAzureIntegrationKeyPrefix + "Redis-Cache-ResourceName";
         public const string AppCoreIntegrationAzureRedisCacheDefaultAuthorizationKey = SystemAzureIntegrationKeyPrefix + "Redis-Cache-Key";
 
         // -----
-        // Integration / DocumentDb:
+        // Integration / Azure / Microsoft / DocumentDb:
         public const string AppCoreIntegrationAzureDocumentDbResourceName = SystemAzureIntegrationKeyPrefix + "DocumentDb-Default-ResourceName";
         //public const string AppCoreIntegrationAzureDocumentDbResourceEndpointUrl = SystemKeyPrefix + "Integration:Azure:DocumentDb:EndpointUrl";
         // The following should not be use if we are using MSI:
         public const string AppCoreIntegrationAzureDocumentDbAuthorizationKey = SystemAzureIntegrationKeyPrefix + "DocumentDb-Default-Key";
+        // -----
+        // Integration / Azure / Maps / Default:
+        public const string AppCoreIntegrationAzureMapsDefaultResourceName = SystemAzureIntegrationKeyPrefix + "Maps-Default-ResourceName";
+        public const string AppCoreIntegrationAzureMapsDefaultAuthorizationKey = SystemAzureIntegrationKeyPrefix + "Maps-Default-Key";
+        // -----
+        // Integration / Azure / Maps / CognitiveServices / Computer Vision:
+        public const string AppCoreIntegrationAzureCognitiveServicesComputerVisionDefaultResourceName = SystemAzureIntegrationKeyPrefix + "CognitiveServices-ComputerVision-Default-ResourceName";
+        public const string AppCoreIntegrationAzureCognitiveServicesComputerVisionDefaultAuthorizationKey = SystemAzureIntegrationKeyPrefix + "CognitiveServices-ComputerVision-Default-Key";
+
+        // -----
+        // Integration / [SituationSpecific] / GeoLocationService :
+        public const string AppCoreIntegrationGeolocationServiceBaseUri = SystemIntegrationKeyPrefix + "Services-Geolocation-Uri";
+        public const string AppCoreIntegrationGeolocationServiceClientId = SystemIntegrationKeyPrefix + "Services-Geolocation-Client-Id";
+        public const string AppCoreIntegrationGeolocationServiceClientSecret = SystemIntegrationKeyPrefix + "Services-Geolocation-Client-Secret";
+        public const string AppCoreIntegrationGeolocationServiceMiscConfig = SystemIntegrationKeyPrefix + "Services-Geolocation-Client-MiscConfig";
+
+
+
         // -----
         // CodeFirst (dubiously SystemAzureIntegrationKeyPrefix rather than SystemIntegrationKeyPrefix, but thinking of it as a production variable...sortof...?):
         public const string AppCoreCodeFirstAttachDebuggerToPSSeeding = SystemAzureIntegrationKeyPrefix + "SqlDatabase-CodeFirst-AttachDebuggerToPSSeeding";

@@ -255,6 +255,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="API\Moe\Controllers\V0100\readme.md" />
+    <None Include="API\readme.md" />
+    <None Include="API\Sif\Controllers\V0100\readme.md" />
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="_packages.config" />
@@ -281,7 +284,6 @@
     <Content Include="assets\images\faces\face19.png" />
     <Content Include="assets\images\faces\face20.png" />
     <None Include="Initialization\DependencyResolution\README.md" />
-    <Content Include="API\Sif\Controllers\V0100\README.txt" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

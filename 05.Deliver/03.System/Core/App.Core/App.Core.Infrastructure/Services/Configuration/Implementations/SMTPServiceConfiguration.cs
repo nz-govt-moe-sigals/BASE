@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 namespace App.Core.Infrastructure.Services.Configuration.Implementations
 {
     using App.Core.Shared.Contracts;
+    using App.Core.Shared.Models.Configuration.AppHost;
+    using App.Core.Shared.Models.ConfigurationSettings;
 
     /// <summary>
     /// Configuration object to be injected into the 
@@ -24,10 +26,17 @@ namespace App.Core.Infrastructure.Services.Configuration.Implementations
     public class SMTPServiceConfiguration : ICoreServiceConfigurationObject
     {
         // TODO: 
+        public SmtpServiceClientConfiguration Configuration { get; private set; }
 
-        public SMTPServiceConfiguration(IHostSettingsService hostSettingsService, IAzureKeyVaultService keyVaultService)
+        public SMTPServiceConfiguration(IAzureKeyVaultService keyVaultService)
         {
 
+            var commonConfigurationSettings = keyVaultService.GetObject<AzureCommonConfigurationSettings>();
+
+            Configuration = keyVaultService.GetObject<SmtpServiceClientConfiguration>();
+
+
+            
         }
     }
 }

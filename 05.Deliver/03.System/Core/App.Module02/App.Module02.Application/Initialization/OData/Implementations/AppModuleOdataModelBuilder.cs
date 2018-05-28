@@ -12,8 +12,7 @@ namespace App.Module02.Application.Initialization.OData.Implementations
 
 
     /// <summary>
-    /// Implementation invoked at Statup, when building 
-    /// OData Models.
+    /// Implementation invoked at Statup, when building OData Models.
     /// </summary>
     public class AppModuleOdataModelBuilder : IOdataModelBuilder, IHasModuleSpecificIdentifier
     {
@@ -27,11 +26,12 @@ namespace App.Module02.Application.Initialization.OData.Implementations
                 {
                     //new ApplicationDescriptionOdataModelBuilderConfiguration(),
                     //new DataClassificationOdataModelBuilderConfiguration(),
-
                 }
             };
+            // Use the helper method to find *module specific* Odata Model definition fragments:
             foreach (var item in RegisterByReflectionTheODataModelDefinitions())
             {
+                // And add them to this module's model definition:
                 modelBuilder.ModelConfigurations.Add(item);
             }
 
@@ -46,6 +46,7 @@ namespace App.Module02.Application.Initialization.OData.Implementations
 
         private IAppModuleOdataModelBuilderConfiguration[] RegisterByReflectionTheODataModelDefinitions()
         {
+            // Search for *module specific* Odata Model Builders:
             return AppDependencyLocator.Current.GetAllInstances<IAppModuleOdataModelBuilderConfiguration>().ToArray();
         }
 

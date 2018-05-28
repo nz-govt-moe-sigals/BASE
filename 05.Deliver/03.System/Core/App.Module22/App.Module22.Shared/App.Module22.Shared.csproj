@@ -63,8 +63,8 @@
     <Compile Include="Models\Entities\EducationProvider.cs" />
     <Compile Include="Models\Entities\Enums\CourseStatus.cs" />
     <Compile Include="Models\Enums\ExampleEnum.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\ExampleDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\ExampleReferenceTypeDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\ExampleDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\ExampleReferenceTypeDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -14,11 +14,17 @@ namespace App.Core.Infrastructure.Initialization.Integration
     {
         private readonly IAzureBlobStorageService _azureStorageAccountBlobStorageService;
         private readonly IAzureRedisCacheService _azureRedisCacheService;
+        private readonly IAzureMapsService _azureMapsService;
 
-        public IntegrationSpikes(IAzureBlobStorageService azureStorageAccountBlobStorageService, IAzureRedisCacheService azureRedisCacheService)
+        public IntegrationSpikes(
+            IAzureBlobStorageService azureStorageAccountBlobStorageService, 
+            IAzureRedisCacheService azureRedisCacheService,
+            IAzureMapsService azureMapsService
+            )
         {
             this._azureStorageAccountBlobStorageService = azureStorageAccountBlobStorageService;
             this._azureRedisCacheService = azureRedisCacheService;
+            this._azureMapsService = azureMapsService;
         }
 
 
@@ -35,6 +41,9 @@ namespace App.Core.Infrastructure.Initialization.Integration
             _azureRedisCacheService.Set("keyA", "Some Message", TimeSpan.FromMinutes(1));
 
             string result = _azureRedisCacheService.Get("keyA");
+
+
+            var mapresult = _azureMapsService.AddressSearch("18 Upoko Road","NZ");
 
         }
 

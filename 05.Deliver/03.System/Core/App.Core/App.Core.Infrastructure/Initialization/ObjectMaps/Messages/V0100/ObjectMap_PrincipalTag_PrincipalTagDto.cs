@@ -2,7 +2,7 @@
 {
     using App.Core.Infrastructure.Initialization;
     using App.Core.Shared.Models.Entities;
-    using App.Core.Shared.Models.Messages.APIs.V0100;
+    using App.Core.Shared.Models.Messages.API.V0100;
     using AutoMapper;
 
     public class ObjectMap_PrincipalTag_PrincipalTagDto : IHasAutomapperInitializer

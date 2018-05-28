@@ -3,7 +3,7 @@ namespace App.Core.Infrastructure.Initialization.ObjectMaps.Messages.V0100
     using App.Core.Shared.Models.Configuration;
     using App.Core.Shared.Models.Configuration.AppHost;
     using App.Core.Shared.Models.ConfigurationSettings;
-    using App.Core.Shared.Models.Messages.APIs.V0100;
+    using App.Core.Shared.Models.Messages.API.V0100;
     using AutoMapper;
 
     public class

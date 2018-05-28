@@ -3,6 +3,8 @@
     using App.Core.Shared.Attributes;
     using App.Core.Shared.Constants;
 
+
+
     /// <summary>
     /// An immutable host configuration object 
     /// describing the settings to access the 
@@ -33,4 +35,5 @@
         //    get; set;
         //}
     }
+
 }

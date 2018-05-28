@@ -182,37 +182,37 @@
     <Compile Include="Initialization\OData\Implementations\TenantPropertyOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\IOdataModelBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceFacade\API\ApiControllerBase.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\Base\Base\IdActiveRecordStateCommonODataControllerBase.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\Base\GuidIdActiveRecordStateODataControllerBase.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\Base\Base\CommonApiControllerBase.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\Base\Base\ActiveRecordStateCommonODataControllerBase.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\Base\Base\TenantedGuidIdActiveRecordStateCommonODataControllerBase.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\Base\Base\CommonODataControllerBase.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\Base\Base\GuidIdActiveRecordStateCommonODataControllerBase.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\Base\ActiveRecordStateODataControllerBase.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\Base\TenantedGuidIdActiveRecordStateODataControllerBase.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\ApplicationDescriptionController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\ConfigurationStepRecordController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\DataClassificationController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\ExceptionRecordController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\MediaMetadataController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\NavigationRouteItemController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\NotificationController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\NotificationUpdateController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\PrincipalController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\RoleController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\SearchController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\SessionController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\SessionOperationController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\SystemdeveloperController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\SystemdocumentationController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\SystemInformationController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\TenantController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\TenantedNavigationRouteItemController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0100\ValuesController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0200\ValuesController.cs" />
-    <Compile Include="ServiceFacade\API\Controllers\V0200\DataClassificationController.cs" />
+    <Compile Include="API\ApiControllerBase.cs" />
+    <Compile Include="API\Controllers\Base\Base\IdActiveRecordStateCommonODataControllerBase.cs" />
+    <Compile Include="API\Controllers\Base\GuidIdActiveRecordStateODataControllerBase.cs" />
+    <Compile Include="API\Controllers\Base\Base\CommonApiControllerBase.cs" />
+    <Compile Include="API\Controllers\Base\Base\ActiveRecordStateCommonODataControllerBase.cs" />
+    <Compile Include="API\Controllers\Base\Base\TenantedGuidIdActiveRecordStateCommonODataControllerBase.cs" />
+    <Compile Include="API\Controllers\Base\Base\CommonODataControllerBase.cs" />
+    <Compile Include="API\Controllers\Base\Base\GuidIdActiveRecordStateCommonODataControllerBase.cs" />
+    <Compile Include="API\Controllers\Base\ActiveRecordStateODataControllerBase.cs" />
+    <Compile Include="API\Controllers\Base\TenantedGuidIdActiveRecordStateODataControllerBase.cs" />
+    <Compile Include="API\Controllers\V0100\ApplicationDescriptionController.cs" />
+    <Compile Include="API\Controllers\V0100\ConfigurationStepRecordController.cs" />
+    <Compile Include="API\Controllers\V0100\DataClassificationController.cs" />
+    <Compile Include="API\Controllers\V0100\ExceptionRecordController.cs" />
+    <Compile Include="API\Controllers\V0100\MediaMetadataController.cs" />
+    <Compile Include="API\Controllers\V0100\NavigationRouteItemController.cs" />
+    <Compile Include="API\Controllers\V0100\NotificationController.cs" />
+    <Compile Include="API\Controllers\V0100\NotificationUpdateController.cs" />
+    <Compile Include="API\Controllers\V0100\PrincipalController.cs" />
+    <Compile Include="API\Controllers\V0100\RoleController.cs" />
+    <Compile Include="API\Controllers\V0100\SearchController.cs" />
+    <Compile Include="API\Controllers\V0100\SessionController.cs" />
+    <Compile Include="API\Controllers\V0100\SessionOperationController.cs" />
+    <Compile Include="API\Controllers\V0100\SystemdeveloperController.cs" />
+    <Compile Include="API\Controllers\V0100\SystemdocumentationController.cs" />
+    <Compile Include="API\Controllers\V0100\SystemInformationController.cs" />
+    <Compile Include="API\Controllers\V0100\TenantController.cs" />
+    <Compile Include="API\Controllers\V0100\TenantedNavigationRouteItemController.cs" />
+    <Compile Include="API\Controllers\V0100\ValuesController.cs" />
+    <Compile Include="API\Controllers\V0200\ValuesController.cs" />
+    <Compile Include="API\Controllers\V0200\DataClassificationController.cs" />
     <Compile Include="Services\Implementations\AppCoreApplicationServiceBase.cs" />
     <Compile Include="Services\Implementations\TaskService.cs" />
     <Compile Include="Services\ITaskService.cs" />
@@ -223,13 +223,12 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="ServiceFacade\API\Controllers\V0100\_readme.md" />
-    <None Include="ServiceFacade\API\Controllers\Base\Base\_readme.md" />
-    <None Include="ServiceFacade\API\Controllers\Base\_readme.md" />
-    <None Include="ServiceFacade\API\README.md" />
+    <Content Include="API\Controllers\V0100\_readme.md" />
+    <None Include="API\Controllers\Base\Base\_readme.md" />
+    <None Include="API\Controllers\Base\_readme.md" />
+    <None Include="API\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="APIs\" />
     <Folder Include="Initialization\OData\OData\" />
   </ItemGroup>
   <ItemGroup>

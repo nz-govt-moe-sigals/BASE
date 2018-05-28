@@ -215,6 +215,8 @@
     <Content Include="Initialization\DependencyResolution\README.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="API\Controllers\readme.md" />
+    <None Include="API\Controllers\V0100\readme.md" />
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>

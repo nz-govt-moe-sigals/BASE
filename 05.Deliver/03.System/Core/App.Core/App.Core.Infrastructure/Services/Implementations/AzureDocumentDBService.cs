@@ -21,10 +21,10 @@ namespace App.Core.Infrastructure.Services.Implementations
     public class AzureDocumentDBService : AzureDocumentDbBaseService, IAzureDocumentDBService
     {
 
-        private DocumentDbServiceConfiguration _configuration;
+        private AzureDocumentDbServiceConfiguration _configuration;
 
 
-        public DocumentDbServiceConfiguration Configuration
+        public AzureDocumentDbServiceConfiguration Configuration
         {
             get
             {
@@ -38,7 +38,7 @@ namespace App.Core.Infrastructure.Services.Implementations
         /// </summary>
         /// <param name="configuration">The configuration.</param>
         /// <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
-        public AzureDocumentDBService(DocumentDbServiceConfiguration configuration,
+        public AzureDocumentDBService(AzureDocumentDbServiceConfiguration configuration,
             IDiagnosticsTracingService diagnosticsTracingService) 
             :base(configuration.EndpointUrl, configuration.AuthorizationKey, diagnosticsTracingService)
         {

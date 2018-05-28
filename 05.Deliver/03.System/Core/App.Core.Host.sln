@@ -91,7 +91,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Core.Application", "App
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Core.Application.Tests", "App.Core\App.Core.Application.Tests\App.Core.Application.Tests.csproj", "{12E60B34-8268-46A5-AEFC-B55D57494AAF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APIs", "APIs", "{51422C55-D244-487C-B3C1-B7B5BAAEFEE2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{51422C55-D244-487C-B3C1-B7B5BAAEFEE2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DBs", "DBs", "{DC84FDAE-75F4-4F28-B5CD-506F981A9829}"
 	ProjectSection(SolutionItems) = preProject

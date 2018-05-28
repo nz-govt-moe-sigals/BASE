@@ -152,12 +152,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\Controllers\Base\GuidIdActiveRecordStateODataControllerBase.cs" />
-    <Compile Include="API\Controllers\V0100\ExampleController.cs" />
+    <Compile Include="API\Controllers\V0100\AccountController.cs" />
+    <Compile Include="API\Controllers\V0100\AccountPermissionController.cs" />
+    <Compile Include="API\Controllers\V0100\AccountRoleGroupController.cs" />
+    <Compile Include="API\Controllers\V0100\AccountRoleController.cs" />
     <Compile Include="Constants\Api\ApiControllerNames.cs" />
     <Compile Include="Initialization\DependencyResolution\AppModuleApplicationRegistry.cs" />
     <Compile Include="Initialization\OData\IAppModuleOdataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\AccountRoleDtoOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\AppModuleOdataModelBuilder.cs" />
-    <Compile Include="Initialization\OData\Implementations\ExampleOdataModelBuilderConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="API\Controllers\Base\TenantedGuidIdActiveRecordStateODataControllerDataBase.cs" />
     <Compile Include="Services\IApplicationService.cs" />
@@ -198,6 +201,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="API\Controllers\readme.md" />
     <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
@@ -226,7 +230,7 @@
     <Content Include="assets\images\faces\face19.png" />
     <Content Include="assets\images\faces\face20.png" />
     <Content Include="Initialization\DependencyResolution\README.txt" />
-    <Content Include="API\Controllers\V0100\README.txt" />
+    <None Include="API\Controllers\V0100\readme.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ExtensionMethods\" />
