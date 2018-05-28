@@ -6,7 +6,7 @@
     public class AccountAccountPermissionAssignment : TenantFKAuditedRecordStatedTimestampedNoIdEntityBase
     {
         public Guid AccountFK { get; set; }
-        public Account Account { get; set; }
+        public AccountNew Account { get; set; }
 
         public Guid PermissionFK { get; set; }
         public AccountPermission Permission { get; set; }

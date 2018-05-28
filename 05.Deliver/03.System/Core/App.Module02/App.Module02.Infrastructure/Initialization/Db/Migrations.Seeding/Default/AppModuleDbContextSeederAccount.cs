@@ -46,14 +46,14 @@
             var g = context.Set<AccountRoleGroup>().Where(x => x.TenantFK == App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id).ToArray();
             var r = context.Set<AccountRole>().Where(x => x.TenantFK == App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id).ToArray();
 
-            var records = new Account[]
+            var records = new AccountNew[]
             {
-                new Account
+                new AccountNew
                 {
                     Id = 1.ToGuid(),
                     Key = "jsmith@whatever.com",
                 },
-                new Account
+                new AccountNew
                 {
                     Id = 2.ToGuid(),
                     Key = "bboop@okifnotsameastenancy.com",
@@ -61,7 +61,7 @@
                 }
             };
 
-            var dbSet = context.Set<Account>();
+            var dbSet = context.Set<AccountNew>();
 
             dbSet.AddOrUpdate(p => p.Id, records);
 
