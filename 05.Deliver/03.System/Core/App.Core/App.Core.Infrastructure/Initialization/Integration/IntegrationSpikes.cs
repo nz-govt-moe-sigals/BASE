@@ -43,7 +43,7 @@ namespace App.Core.Infrastructure.Initialization.Integration
             string result = _azureRedisCacheService.Get("keyA");
 
 
-            var mapresult = _azureMapsService.AddressSearch("18 Upoko Road","NZ");
+            //var mapresult = _azureMapsService.AddressSearch("18 Upoko Road","NZ");
 
         }
 
