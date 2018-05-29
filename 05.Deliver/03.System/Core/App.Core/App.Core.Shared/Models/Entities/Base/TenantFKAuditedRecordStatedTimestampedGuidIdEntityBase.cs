@@ -1,4 +1,6 @@
-﻿namespace App.Core.Shared.Models.Entities
+﻿using App.Core.Shared.Factories;
+
+namespace App.Core.Shared.Models.Entities
 {
     using System;
 
@@ -27,6 +29,11 @@
         IHasGuidId
         
     {
+        protected TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase()
+        {
+            this.Id = GuidFactory.NewGuid();
+        }
+
         /// <summary>
         /// Gets or sets the FK of the Tenancy this mutable model belongs to.
         /// </summary>
