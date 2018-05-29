@@ -31,7 +31,7 @@ namespace App.Core.Shared.Models.ConfigurationSettings
 
 
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
-        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationGeoIPServiceMiscConfig)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationGeoIPServiceClientMiscConfig)]
         public string MiscConfig
         {
             get; set;
