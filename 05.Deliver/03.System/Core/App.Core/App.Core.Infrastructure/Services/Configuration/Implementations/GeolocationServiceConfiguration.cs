@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace App.Core.Infrastructure.Services.Configuration.Implementations
 {
-    public class GeolocationServiceConfiguration : ICoreServiceConfigurationObject
+    public class GeoIPServiceConfiguration : ICoreServiceConfigurationObject
     {
-        public GeolocationServiceConfiguration(IAzureKeyVaultService keyVaultService)
+        public GeoIPServiceConfiguration(IAzureKeyVaultService keyVaultService)
         {
-            var configuration = keyVaultService.GetObject<GeolocationServiceConfigurationSettings>();
+            var configuration = keyVaultService.GetObject<GeoIPServiceConfigurationSettings>();
 
         }
 

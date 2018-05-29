@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace App.Module02.Shared.Models.Entities
 {
-    public class AccountNew : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase, IHasKey
+    public class Account : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase, IHasKey
     {
 
         public bool Enabled { get; set; }

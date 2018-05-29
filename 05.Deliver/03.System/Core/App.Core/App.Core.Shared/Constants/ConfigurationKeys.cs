@@ -76,31 +76,45 @@ namespace App.Core.Shared.Constants
         public const string AppCoreIntegrationAzureStorageAccountDefaultResourceNameSuffix = SystemAzureIntegrationKeyPrefix + "StorageAccount-Default-ResourceName-Suffix";
         public const string AppCoreIntegrationAzureStorageAccountDefaultKey = SystemAzureIntegrationKeyPrefix + "StorageAccount-Default-Key";
         // -----
-        // Integration / Azure / Microsoft / Redis / Cache:
+        // Integration / Azure / Microsoft / Redis / Cache (do not name as Default):
         public const string AppCoreIntegrationAzureRedisCacheResourceName = SystemAzureIntegrationKeyPrefix + "Redis-Cache-ResourceName";
         public const string AppCoreIntegrationAzureRedisCacheDefaultAuthorizationKey = SystemAzureIntegrationKeyPrefix + "Redis-Cache-Key";
 
         // -----
-        // Integration / Azure / Microsoft / DocumentDb:
+        // Integration / Azure / Microsoft / DocumentDb / (do not name as Default):
         public const string AppCoreIntegrationAzureDocumentDbResourceName = SystemAzureIntegrationKeyPrefix + "DocumentDb-Default-ResourceName";
         //public const string AppCoreIntegrationAzureDocumentDbResourceEndpointUrl = SystemKeyPrefix + "Integration:Azure:DocumentDb:EndpointUrl";
         // The following should not be use if we are using MSI:
         public const string AppCoreIntegrationAzureDocumentDbAuthorizationKey = SystemAzureIntegrationKeyPrefix + "DocumentDb-Default-Key";
         // -----
-        // Integration / Azure / Maps / Default:
-        public const string AppCoreIntegrationAzureMapsDefaultResourceName = SystemAzureIntegrationKeyPrefix + "Maps-Default-ResourceName";
-        public const string AppCoreIntegrationAzureMapsDefaultAuthorizationKey = SystemAzureIntegrationKeyPrefix + "Maps-Default-Key";
+        // Integration / Azure / Maps / (do not name as Default) / (and keep the 'Accounts' in the name. TODO: Note the typo, and it is Singular, until deployment script is updated):
+        public const string AppCoreIntegrationAzureMapsDefaultResourceName = SystemAzureIntegrationKeyPrefix + "Maps-Account-ResourceName";
+        public const string AppCoreIntegrationAzureMapsDefaultAuthorizationKey = SystemAzureIntegrationKeyPrefix + "Maps-Account-Key";
         // -----
-        // Integration / Azure / Maps / CognitiveServices / Computer Vision:
+        // Integration / Azure / Maps / CognitiveServices / ContentModerator / Default:
+        public const string AppCoreIntegrationAzureCognitiveServicesContentModeratorDefaultResourceName = SystemAzureIntegrationKeyPrefix + "CognitiveServices-ContentModerator-Default-ResourceName";
+        public const string AppCoreIntegrationAzureCognitiveServicesContentModeratorDefaultAuthorizationKey = SystemAzureIntegrationKeyPrefix + "CognitiveServices-ContentModerator-Default-Key";
+        // -----
+        // Integration / Azure / Maps / CognitiveServices / ContentModerator / Default:
+        public const string AppCoreIntegrationAzureCognitiveServicesLanguageUnderstandingDefaultResourceName = SystemAzureIntegrationKeyPrefix + "CognitiveServices-LanguageUnderstanding-Default-ResourceName";
+        public const string AppCoreIntegrationAzureCognitiveServicesLanguageUnderstandingDefaultAuthorizationKey = SystemAzureIntegrationKeyPrefix + "CognitiveServices-LanguageUnderstanding-Default-Key";
+        // -----
+        // Integration / Azure / Maps / CognitiveServices / ComputerVision / Default:
         public const string AppCoreIntegrationAzureCognitiveServicesComputerVisionDefaultResourceName = SystemAzureIntegrationKeyPrefix + "CognitiveServices-ComputerVision-Default-ResourceName";
         public const string AppCoreIntegrationAzureCognitiveServicesComputerVisionDefaultAuthorizationKey = SystemAzureIntegrationKeyPrefix + "CognitiveServices-ComputerVision-Default-Key";
-
         // -----
-        // Integration / [SituationSpecific] / GeoLocationService :
-        public const string AppCoreIntegrationGeolocationServiceBaseUri = SystemIntegrationKeyPrefix + "Services-Geolocation-Uri";
-        public const string AppCoreIntegrationGeolocationServiceClientId = SystemIntegrationKeyPrefix + "Services-Geolocation-Client-Id";
-        public const string AppCoreIntegrationGeolocationServiceClientSecret = SystemIntegrationKeyPrefix + "Services-Geolocation-Client-Secret";
-        public const string AppCoreIntegrationGeolocationServiceMiscConfig = SystemIntegrationKeyPrefix + "Services-Geolocation-Client-MiscConfig";
+        // Integration / Azure / Maps / CognitiveServices / CustomVision / Default:
+        public const string AppCoreIntegrationAzureCognitiveServicesCustomVisionTrainingDefaultResourceName = SystemAzureIntegrationKeyPrefix + "CognitiveServices-CustomVision-Training-Default-ResourceName";
+        public const string AppCoreIntegrationAzureCognitiveServicesCustomVisionTrainingDefaultAuthorizationKey = SystemAzureIntegrationKeyPrefix + "CognitiveServices-ComputerVision-Training-Default-Key";
+
+        public const string AppCoreIntegrationAzureCognitiveServicesCustomVisionPredictionDefaultResourceName = SystemAzureIntegrationKeyPrefix + "CognitiveServices-CustomVision-Prediction-Default-ResourceName";
+        public const string AppCoreIntegrationAzureCognitiveServicesCustomVisionPredictionDefaultAuthorizationKey = SystemAzureIntegrationKeyPrefix + "CognitiveServices-ComputerVision-Prediction-Default-Key";
+        // -----
+
+
+
+
+
 
 
 
@@ -110,48 +124,57 @@ namespace App.Core.Shared.Constants
         public const string AppCoreCodeFirstSeedIncludeDemoEntries = SystemAzureIntegrationKeyPrefix + "SqlDatabase-CodeFirst-SeedIncludeDemoEntries";
 
         // -----
-        // SMTP (note that it does not prefix with Azure, as it is hosted somewhere else):
-        public const string AppCoreIntegrationSmtpServiceEnabled = SystemIntegrationKeyPrefix + "Services-SmtpService-Enabled";
-        public const string AppCoreIntegrationSmtpServiceBaseUri = SystemIntegrationKeyPrefix + "Services-SmtpService-Uri";
-        public const string AppCoreIntegrationSmtpServiceClientId = SystemIntegrationKeyPrefix + "Services-SmtpService-Client-Id";
-        public const string AppCoreIntegrationSmtpServiceClientSecret = SystemIntegrationKeyPrefix + "Services-SmtpService-Client-Secret";
-        public const string AppCoreIntegrationSmtpServiceClientMiscConfig = SystemIntegrationKeyPrefix + "Services-SmtpService-Client-MiscConfig";
+        // SMTP (note that it does not prefix with Azure, as it is hosted somewhere else) / (Do not name as Default):
+        public const string AppCoreIntegrationSmtpServiceEnabled = SystemIntegrationKeyPrefix + "SmtpService-Enabled";
+        public const string AppCoreIntegrationSmtpServiceBaseUri = SystemIntegrationKeyPrefix + "SmtpService-Uri";
+        public const string AppCoreIntegrationSmtpServiceClientId = SystemIntegrationKeyPrefix + "SmtpService-Client-Id";
+        public const string AppCoreIntegrationSmtpServiceClientSecret = SystemIntegrationKeyPrefix + "SmtpService-Client-Secret";
+        public const string AppCoreIntegrationSmtpServiceClientMiscConfig = SystemIntegrationKeyPrefix + "SmtpService-Client-MiscConfig";
 
 
         // -----
-        // Scanii (note that it does not prefix with Azure, as it is hosted somewhere else):
-        public const string AppCoreIntegrationMalwareDetectionEnabled = SystemIntegrationKeyPrefix + "Services-MalwareDetectionService-Enabled";
-        public const string AppCoreIntegrationMalwareDetectionBaseUri = SystemIntegrationKeyPrefix + "Services-MalwareDetectionService-Uri";
-        public const string AppCoreIntegrationMalwareDetectionClientId = SystemIntegrationKeyPrefix + "Services-MalwareDetectionService-Client-Id";
-        public const string AppCoreIntegrationMalwareDetectionClientSecret = SystemIntegrationKeyPrefix + "Services-MalwareDetectionService-Client-Secret";
-        public const string AppCoreIntegrationMalwareDetectionClientMiscConfig = SystemIntegrationKeyPrefix + "Services-MalwareDetectionService-Client-MiscConfig";
+        // Scanii (note that it does not prefix with Azure, as it is hosted somewhere else) / (Do not name as Default):
+        public const string AppCoreIntegrationMalwareDetectionEnabled = SystemIntegrationKeyPrefix + "MalwareDetectionService-Enabled";
+        public const string AppCoreIntegrationMalwareDetectionBaseUri = SystemIntegrationKeyPrefix + "MalwareDetectionService-Uri";
+        public const string AppCoreIntegrationMalwareDetectionClientId = SystemIntegrationKeyPrefix + "MalwareDetectionService-Client-Id";
+        public const string AppCoreIntegrationMalwareDetectionClientSecret = SystemIntegrationKeyPrefix + "MalwareDetectionService-Client-Secret";
+        public const string AppCoreIntegrationMalwareDetectionClientMiscConfig = SystemIntegrationKeyPrefix + "MalwareDetectionService-Client-MiscConfig";
+
+        // -----
+        // Integration / [SituationSpecific] / GeoLocationService  / (Do not name as Default):
+        public const string AppCoreIntegrationGeoIPServiceEnabled = SystemIntegrationKeyPrefix + "GeoIPService-Enabled";
+        public const string AppCoreIntegrationGeoIPServiceBaseUri = SystemIntegrationKeyPrefix + "GeoIPService-Uri";
+        public const string AppCoreIntegrationGeoIPServiceClientId = SystemIntegrationKeyPrefix + "GeoIPService-Client-Id";
+        public const string AppCoreIntegrationGeoIPServiceClientSecret = SystemIntegrationKeyPrefix + "GeoIPService-Client-Secret";
+        public const string AppCoreIntegrationGeoIPServiceClientMiscConfig = SystemIntegrationKeyPrefix + "GeoIPService-Client-MiscConfig";
+        // -----
 
 
         // -----
-        // Some Misc Service (note that it does not prefix with Azure, as it is hosted somewhere else):
-        public const string AppCoreIntegrationService01Name = SystemIntegrationKeyPrefix + "Services-Service01-Name";
-        public const string AppCoreIntegrationService01Enabled = SystemIntegrationKeyPrefix + "Services-Service01-Enabled";
-        public const string AppCoreIntegrationService01BaseUri = SystemIntegrationKeyPrefix + "Services-Service01-Uri";
-        public const string AppCoreIntegrationService01ClientId = SystemIntegrationKeyPrefix + "Services-Service01-Client-Id";
-        public const string AppCoreIntegrationService01ClientSecret = SystemIntegrationKeyPrefix + "Services-Service01-Client-Secret";
-        public const string AppCoreIntegrationService01MiscConfig = SystemIntegrationKeyPrefix + "Services-Service01-Client-MiscConfig";
+        // Some Misc Service (note that it does not prefix with Azure, as it is hosted somewhere else) / (Do not name as Default):
+        public const string AppCoreIntegrationService01Name = SystemIntegrationKeyPrefix + "Service01-Name";
+        public const string AppCoreIntegrationService01Enabled = SystemIntegrationKeyPrefix + "Service01-Enabled";
+        public const string AppCoreIntegrationService01BaseUri = SystemIntegrationKeyPrefix + "Service01-Uri";
+        public const string AppCoreIntegrationService01ClientId = SystemIntegrationKeyPrefix + "Service01-Client-Id";
+        public const string AppCoreIntegrationService01ClientSecret = SystemIntegrationKeyPrefix + "Service01-Client-Secret";
+        public const string AppCoreIntegrationService01MiscConfig = SystemIntegrationKeyPrefix + "Service01-Client-MiscConfig";
 
         // -----
-        // Some Misc Service (note that it does not prefix with Azure, as it is hosted somewhere else):
-        public const string AppCoreIntegrationService02Name = SystemIntegrationKeyPrefix + "Services-Service02-Name";
-        public const string AppCoreIntegrationService02Enabled = SystemIntegrationKeyPrefix + "Services-Service02-Enabled";
-        public const string AppCoreIntegrationService02BaseUri = SystemIntegrationKeyPrefix + "Services-Service02-Uri";
-        public const string AppCoreIntegrationService02ClientId = SystemIntegrationKeyPrefix + "Services-Service02-Client-Id";
-        public const string AppCoreIntegrationService02ClientSecret = SystemIntegrationKeyPrefix + "Services-Service02-Client-Secret";
-        public const string AppCoreIntegrationService02MiscConfig = SystemIntegrationKeyPrefix + "Services-Service02-Client-MiscConfig";
+        // Some Misc Service (note that it does not prefix with Azure, as it is hosted somewhere else) / (Do not name as Default):
+        public const string AppCoreIntegrationService02Name = SystemIntegrationKeyPrefix + "Service02-Name";
+        public const string AppCoreIntegrationService02Enabled = SystemIntegrationKeyPrefix + "Service02-Enabled";
+        public const string AppCoreIntegrationService02BaseUri = SystemIntegrationKeyPrefix + "Service02-Uri";
+        public const string AppCoreIntegrationService02ClientId = SystemIntegrationKeyPrefix + "Service02-Client-Id";
+        public const string AppCoreIntegrationService02ClientSecret = SystemIntegrationKeyPrefix + "Service02-Client-Secret";
+        public const string AppCoreIntegrationService02MiscConfig = SystemIntegrationKeyPrefix + "Service02-Client-MiscConfig";
 
         // -----
-        // Some Misc Service (note that it does not prefix with Azure, as it is hosted somewhere else):
-        public const string AppCoreIntegrationService03Name = SystemIntegrationKeyPrefix + "Services-Service03-Name";
-        public const string AppCoreIntegrationService03Enabled = SystemIntegrationKeyPrefix + "Services-Service03-Enabled";
-        public const string AppCoreIntegrationService03BaseUri = SystemIntegrationKeyPrefix + "Services-Service03-Uri";
-        public const string AppCoreIntegrationService03ClientId = SystemIntegrationKeyPrefix + "Services-Service03-Client-Id";
-        public const string AppCoreIntegrationService03ClientSecret = SystemIntegrationKeyPrefix + "Services-Service03-Client-Secret";
-        public const string AppCoreIntegrationService03MiscConfig = SystemIntegrationKeyPrefix + "Services-Service03-Client-MiscConfig";
+        // Some Misc Service (note that it does not prefix with Azure, as it is hosted somewhere else) / (Do not name as Default):
+        public const string AppCoreIntegrationService03Name = SystemIntegrationKeyPrefix + "Service03-Name";
+        public const string AppCoreIntegrationService03Enabled = SystemIntegrationKeyPrefix + "Service03-Enabled";
+        public const string AppCoreIntegrationService03BaseUri = SystemIntegrationKeyPrefix + "Service03-Uri";
+        public const string AppCoreIntegrationService03ClientId = SystemIntegrationKeyPrefix + "Service03-Client-Id";
+        public const string AppCoreIntegrationService03ClientSecret = SystemIntegrationKeyPrefix + "Service03-Client-Secret";
+        public const string AppCoreIntegrationService03MiscConfig = SystemIntegrationKeyPrefix + "Service03-Client-MiscConfig";
     }
 }

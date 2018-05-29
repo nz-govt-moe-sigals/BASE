@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace App.Core.Infrastructure.Services.Implementations
 {
-    public class GeolocationService : AppCoreServiceBase, IGeolocationService
+    public class GeoIPService : AppCoreServiceBase, IGeoIPService
     {
-        GeolocationServiceConfiguration _geolocationServiceConfiguration;
+        GeoIPServiceConfiguration _geolocationServiceConfiguration;
 
-        public GeolocationService(GeolocationServiceConfiguration geolocationServiceConfiguration)
+        public GeoIPService(GeoIPServiceConfiguration geolocationServiceConfiguration)
         {
             _geolocationServiceConfiguration = geolocationServiceConfiguration;
         }

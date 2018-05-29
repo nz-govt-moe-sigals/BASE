@@ -12,6 +12,7 @@ namespace App.Core.Infrastructure.Db.Migrations.Seeding
     using App.Core.Shared.Models.ConfigurationSettings;
     using App.Core.Shared.Models.Messages;
     using App.Core.Shared.Models.Entities;
+    using App.Core.Infrastructure.Contracts;
 
     // Invoked from within AppCoreDbMigrationsConfiguration.Seed method, 
     public class AppCoreDbContextSeedingOrchestrator
@@ -74,7 +75,7 @@ namespace App.Core.Infrastructure.Db.Migrations.Seeding
         private void SeedByReflection(AppCoreDbContext context)
         {
             AppDependencyLocator.Current.GetAllInstances<IHasAppCoreDbContextSeedInitializer>()
-                .ForEach(x => x.Seed(context));
+                .ForEach(x => { if (!(typeof(IHasIgnoreThis).IsAssignableFrom(x.GetType()))) { x.Seed(context); } });
         }
 
         private void SeedByHand(AppCoreDbContext dbContext)

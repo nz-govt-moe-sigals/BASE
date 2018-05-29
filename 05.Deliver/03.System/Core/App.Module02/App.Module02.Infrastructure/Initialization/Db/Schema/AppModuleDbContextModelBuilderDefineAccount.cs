@@ -16,7 +16,7 @@
             var order = 1;
             // --------------------------------------------------
             // Standard Properties:
-            new TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention().Define<AccountNew>(modelBuilder, ref order);
+            new TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention().Define<Account>(modelBuilder, ref order);
 
 
             // --------------------------------------------------
@@ -32,21 +32,21 @@
 
             // --------------------------------------------------
             // Collection Navigation Properties:
-            modelBuilder.Entity<AccountNew>()
+            modelBuilder.Entity<Account>()
                 .HasMany(s => s.AccountGroups)
                 .WithMany()
                 .Map(x =>
                 {
-                    x.ToTable(typeof(AccountNew).Name + "__" + typeof(AccountRoleGroup).Name);
+                    x.ToTable(typeof(Account).Name + "__" + typeof(AccountRoleGroup).Name);
                     x.MapLeftKey("AccountFK");
                     x.MapRightKey("AccountGroupFK");
                 });
-            modelBuilder.Entity<AccountNew>()
+            modelBuilder.Entity<Account>()
                 .HasMany(s => s.Roles)
                 .WithMany()
                 .Map(x =>
                 {
-                    x.ToTable(typeof(AccountNew).Name + "__" + typeof(AccountRole).Name);
+                    x.ToTable(typeof(Account).Name + "__" + typeof(AccountRole).Name);
                     x.MapLeftKey("AccountFK");
                     x.MapRightKey("RoleFK");
                 });
