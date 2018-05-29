@@ -3,11 +3,11 @@
 
 namespace App.Core.Shared.Models.ConfigurationSettings
 {
-    public class GeolocationServiceConfigurationSettings
+    public class GeoIPServiceConfigurationSettings
     {
         // Make sure this kind of secrets are not gotten from AppSettings.
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
-        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationGeolocationServiceClientId)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationGeoIPServiceClientId)]
         public string Key
         {
             get; set;
@@ -15,7 +15,7 @@ namespace App.Core.Shared.Models.ConfigurationSettings
 
         // Make sure this kind of secrets are not gotten from AppSettings.
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
-        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationGeolocationServiceClientSecret)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationGeoIPServiceClientSecret)]
         public string Secret
         {
             get; set;
@@ -23,7 +23,7 @@ namespace App.Core.Shared.Models.ConfigurationSettings
 
 
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
-        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationGeolocationServiceBaseUri)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationGeoIPServiceBaseUri)]
         public string BaseUri
         {
             get; set;
@@ -31,7 +31,7 @@ namespace App.Core.Shared.Models.ConfigurationSettings
 
 
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
-        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationGeolocationServiceMiscConfig)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationGeoIPServiceMiscConfig)]
         public string MiscConfig
         {
             get; set;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace App.Core.Infrastructure.Services
 {
-    public interface IGeolocationService
+    public interface IGeoIPService
     {
 
         GeoCoordinates Get(string ip);
