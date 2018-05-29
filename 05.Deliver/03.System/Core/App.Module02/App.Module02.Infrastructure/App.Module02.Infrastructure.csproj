@@ -91,6 +91,10 @@
     <Compile Include="Initialization\Db\Migrations\Default\201805230941474_AddGroupsAndRoles.Designer.cs">
       <DependentUpon>201805230941474_AddGroupsAndRoles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Initialization\Db\Migrations\Default\201805290329509_Rename Tables.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201805290329509_Rename Tables.Designer.cs">
+      <DependentUpon>201805290329509_Rename Tables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAccount.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAccountGroup.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAccountPermissionAssignment.cs" />
@@ -153,6 +157,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805230941474_AddGroupsAndRoles.resx">
       <DependentUpon>201805230941474_AddGroupsAndRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805290329509_Rename Tables.resx">
+      <DependentUpon>201805290329509_Rename Tables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

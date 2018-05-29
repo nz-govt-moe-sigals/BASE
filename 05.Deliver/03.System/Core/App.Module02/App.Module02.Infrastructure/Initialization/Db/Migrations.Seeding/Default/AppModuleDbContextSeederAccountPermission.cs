@@ -1,6 +1,7 @@
 ﻿namespace App.Module02.Infrastructure.Db.Migrations.Seeding
 {
     using System.Data.Entity.Migrations;
+    using App.Core.Infrastructure.Contracts;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Configuration;
     using App.Core.Shared.Models.Configuration.AppHost;
@@ -13,7 +14,7 @@
     // A single DbContext Entity model seeder, 
     // invoked via AppModuleModelBuilderOrchestrator
     [OrderBy(After = "Group,Role")]
-    public class AppModuleDbContextSeederAccountPermission : IHasAppModuleDbContextSeedInitializer
+    public class AppModuleDbContextSeederAccountPermission : IHasAppModuleDbContextSeedInitializer, IHasIgnoreThis
     {
         private readonly IHostSettingsService _hostSettingsService;
 

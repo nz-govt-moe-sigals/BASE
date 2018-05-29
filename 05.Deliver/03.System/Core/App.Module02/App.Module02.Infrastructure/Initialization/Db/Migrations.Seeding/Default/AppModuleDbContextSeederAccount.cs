@@ -3,6 +3,7 @@
     using System.Collections.ObjectModel;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using App.Core.Infrastructure.Contracts;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Configuration;
     using App.Core.Shared.Models.Configuration.AppHost;
@@ -15,7 +16,7 @@
     // A single DbContext Entity model seeder, 
     // invoked via AppModuleModelBuilderOrchestrator
     [OrderBy(After = "Group,Role,Permission")]
-    public class AppModuleDbContextSeederAccount : IHasAppModuleDbContextSeedInitializer
+    public class AppModuleDbContextSeederAccount : IHasAppModuleDbContextSeedInitializer, IHasIgnoreThis
     {
         private readonly IHostSettingsService _hostSettingsService;
 
@@ -46,14 +47,14 @@
             var g = context.Set<AccountRoleGroup>().Where(x => x.TenantFK == App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id).ToArray();
             var r = context.Set<AccountRole>().Where(x => x.TenantFK == App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id).ToArray();
 
-            var records = new AccountNew[]
+            var records = new Account[]
             {
-                new AccountNew
+                new Account
                 {
                     Id = 1.ToGuid(),
                     Key = "jsmith@whatever.com",
                 },
-                new AccountNew
+                new Account
                 {
                     Id = 2.ToGuid(),
                     Key = "bboop@okifnotsameastenancy.com",
@@ -61,7 +62,7 @@
                 }
             };
 
-            var dbSet = context.Set<AccountNew>();
+            var dbSet = context.Set<Account>();
 
             dbSet.AddOrUpdate(p => p.Id, records);
 

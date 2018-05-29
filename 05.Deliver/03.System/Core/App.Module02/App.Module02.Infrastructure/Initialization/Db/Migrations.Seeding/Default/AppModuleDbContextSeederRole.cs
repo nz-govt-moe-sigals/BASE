@@ -3,6 +3,7 @@
     using System.Collections.ObjectModel;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using App.Core.Infrastructure.Contracts;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Configuration;
     using App.Core.Shared.Models.Configuration.AppHost;
@@ -15,7 +16,7 @@
     // A single DbContext Entity model seeder, 
     // invoked via AppModuleModelBuilderOrchestrator
     [OrderBy(After = "Group,Role")]
-    public class AppModuleDbContextSeederAccountRole : IHasAppModuleDbContextSeedInitializer
+    public class AppModuleDbContextSeederAccountRole : IHasAppModuleDbContextSeedInitializer, IHasIgnoreThis
     {
         private readonly IHostSettingsService _hostSettingsService;
 
