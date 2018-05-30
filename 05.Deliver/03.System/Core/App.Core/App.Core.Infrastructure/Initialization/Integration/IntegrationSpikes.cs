@@ -44,6 +44,7 @@ namespace App.Core.Infrastructure.Initialization.Integration
 
 
             var mapresult = _azureMapsService.AddressSearch("18 Upoko Road","NZ");
+            var mapresult2 = _azureMapsService.AddressSearch("180 Upoko Road", "NZ");
 
         }
 

@@ -14,7 +14,8 @@ namespace App.Core.Infrastructure.Services.Implementations
     {
         public T Parse<T>(string input)
         {
-            return JsonConvert.DeserializeObject<T>(input);
+            var result = JsonConvert.DeserializeObject<T>(input);
+            return result;
         }
 
 

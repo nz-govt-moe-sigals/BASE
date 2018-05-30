@@ -36,7 +36,7 @@ namespace App.Core.Shared.Models.Messages
     {
         [JsonProperty("lat")]
         public string Latitude { get; set; }
-        [JsonProperty("long")]
+        [JsonProperty("lon")]
         public string Longitude { get; set; }
     }
 
@@ -53,14 +53,18 @@ namespace App.Core.Shared.Models.Messages
         public string StreetName { get; set; }
         [JsonProperty("streetNameAndNumber")]
         public string StreetNameAndNumber { get; set; }
+        [JsonProperty("municipalitySubDivision")]
+        public string MunicipalitySubDivision { get; set; }
         [JsonProperty("municipality")]
         public string Municipality { get; set; }
+        [JsonProperty("countrySecondarySubdivision")]
+        public string CountrySecondarySubdivision { get; set; }
         [JsonProperty("countrySubdivision")]
         public string CountrySubdivision { get; set; }
-        [JsonProperty("countrySubdivisionName")]
-        public string CountrySubdivisionName { get; set; }
         [JsonProperty("countryCodeISO3")]
         public string CountryCodeISO3 { get; set; }
+        [JsonProperty("countryCode")]
+        public string CountryCode { get; set; }
         [JsonProperty("country")]
         public string Country { get; set; }
         [JsonProperty("postalCode")]
@@ -76,7 +80,7 @@ namespace App.Core.Shared.Models.Messages
             }
         }
 
-        [JsonProperty("streetNumber")]
+        [JsonProperty("routeNumbers")]
         public string[] RouteNumbers { get; set; }
     }
 

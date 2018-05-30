@@ -48,7 +48,7 @@ namespace App.Core.Infrastructure.Services.Implementations
 
             T result = null;
             List<RestResponseHandler> handlers = new List<RestResponseHandler>();
-            handlers.Add(new RestResponseHandler(200, (x) =>  _jsonService.Parse<T>(x)));
+            handlers.Add(new RestResponseHandler(200, (x) =>  result = _jsonService.Parse<T>(x)));
             if (alternateResponseHandlers != null) { handlers.AddRange(alternateResponseHandlers); }
 
             HandleResponse(httpWebRequest, handlers);
