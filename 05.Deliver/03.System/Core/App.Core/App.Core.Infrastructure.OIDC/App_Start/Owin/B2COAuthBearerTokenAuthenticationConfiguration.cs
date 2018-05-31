@@ -6,6 +6,7 @@
     using App.Core.Infrastructure.IDA.Services;
     using App.Core.Infrastructure.Services;
     using global::Owin;
+    using Microsoft.IdentityModel.Tokens;
     using Microsoft.Owin.Security.Jwt;
     using Microsoft.Owin.Security.OAuth;
 
@@ -62,6 +63,7 @@
             var openIdConnectCachingSecurityTokenProvider =
                 new OpenIdConnectCachingSecurityTokenProvider(
                     _b2cOidcConfidentialClientConfiguration.AuthorityBearerTokenConfigurationPolicyUri);
+    
 
             var accessTokenFormat = new JwtFormat(tvps, openIdConnectCachingSecurityTokenProvider);
 

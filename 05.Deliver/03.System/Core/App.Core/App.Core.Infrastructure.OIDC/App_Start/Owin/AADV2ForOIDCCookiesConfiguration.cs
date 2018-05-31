@@ -1,4 +1,5 @@
 ﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+using Microsoft.IdentityModel.Tokens;
 
 namespace App.Core.Infrastructure.IDA.Owin
 {
@@ -11,6 +12,7 @@ namespace App.Core.Infrastructure.IDA.Owin
     using App.Core.Shared.Models.Messages;
     using global::Owin;
     using Microsoft.IdentityModel.Protocols;
+    using Microsoft.IdentityModel.Protocols.OpenIdConnect;
     using Microsoft.Owin.Security;
     using Microsoft.Owin.Security.Cookies;
     using Microsoft.Owin.Security.Notifications;
@@ -58,11 +60,11 @@ namespace App.Core.Infrastructure.IDA.Owin
                 PostLogoutRedirectUri = aadOIDCConfidentialClientConfiguration.ClientPostLogoutUri,
 
                 // Specify the scope by appending all of the scopes requested into one string (separated by a blank space)
-                Scope = OpenIdConnectScopes.OpenIdProfile,
+                Scope = OpenIdConnectScope.OpenIdProfile,
 
                 // ResponseType [IdToken|CodeIdToken] is set to request the id_token - which 
                 // contains basic information about the signed-in user
-                ResponseType = OpenIdConnectResponseTypes.IdToken,
+                ResponseType = OpenIdConnectResponseType.IdToken,
 
                 // ValidateIssuer set to false to allow personal and work accounts from any organization 
                 // to sign in to your application.
@@ -93,24 +95,24 @@ namespace App.Core.Infrastructure.IDA.Owin
         /// <summary>
         ///     Handle failed authentication requests by redirecting the user to the home page with an error in the query string
         /// </summary>
-        /// <param name="context"></param>
+        /// <param name="notification"></param>
         /// <returns></returns>
         private static Task OnAuthenticationFailed(
-            AuthenticationFailedNotification<OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> context)
+            AuthenticationFailedNotification<Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> notification)
         {
             AuthenticationErrorMessage message = new AuthenticationErrorMessage();
 
             //The reason:
-            Exception exception = context.Exception;
+            Exception exception = notification.Exception;
 
             
-            message.Error = context.ProtocolMessage.Error;
+            message.Error = notification.ProtocolMessage.Error;
 
             AppDependencyLocator.Current.GetInstance<IOIDCNotificationHandlerService>().OnAuthenticationError(message);
 
 
-            context.HandleResponse();
-            context.Response.Redirect("/?errormessage=" + context.Exception.Message);
+            notification.HandleResponse();
+            notification.Response.Redirect("/?errormessage=" + notification.Exception.Message);
             return Task.FromResult(0);
         }
     }

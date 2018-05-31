@@ -1,12 +1,14 @@
-﻿namespace App.Core.Application.Oidc
+﻿using Microsoft.IdentityModel.Protocols;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Owin.Security.Jwt;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace App.Core.Application.Oidc
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IdentityModel.Tokens;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Microsoft.IdentityModel.Protocols;
-    using Microsoft.Owin.Security.Jwt;
 
     /// <summary>
     ///     <para></para>
@@ -16,9 +18,9 @@
     ///         the OpenID Connect metadata endpoint exposed by the STS by default.
     ///     </para>
     /// </summary>
-    public class OpenIdConnectCachingSecurityTokenProvider : IIssuerSecurityTokenProvider
+    public class OpenIdConnectCachingSecurityTokenProvider : IIssuerSecurityKeyProvider
     {
-        private readonly ConfigurationManager<OpenIdConnectConfiguration> _configManager;
+        private readonly Microsoft.IdentityModel.Protocols.ConfigurationManager<Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectConfiguration> _configManager;
 
         // persisted in constructor (not used)
         private readonly string _metadataEndpoint;
@@ -28,6 +30,7 @@
 
         private string _issuer;
         private IEnumerable<SecurityToken> _securityTokens;
+        private IEnumerable<SecurityKey> _securityKeys;
 
 
         /// <summary>
@@ -36,7 +39,7 @@
         public OpenIdConnectCachingSecurityTokenProvider(string metadataEndpoint)
         {
             this._metadataEndpoint = metadataEndpoint;
-            this._configManager = new ConfigurationManager<OpenIdConnectConfiguration>(metadataEndpoint);
+            this._configManager = new ConfigurationManager<Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectConfiguration>(metadataEndpoint, new Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectConfigurationRetriever());
 
             RetrieveMetadata();
         }
@@ -65,29 +68,53 @@
             }
         }
 
+        //think Keys replaced tokens
+
+        ///// <summary>
+        /////     Gets all known security tokens.
+        ///// </summary>
+        ///// <value>
+        /////     All known security tokens.
+        ///// </value>
+        //public IEnumerable<SecurityToken> SecurityTokens
+        //{
+        //    get
+        //    {
+        //        RetrieveMetadata();
+        //        this._synclock.EnterReadLock();
+        //        try
+        //        {
+        //            return this._securityTokens;
+        //        }
+        //        finally
+        //        {
+        //            this._synclock.ExitReadLock();
+        //        }
+        //    }
+        //}
+
         /// <summary>
-        ///     Gets all known security tokens.
+        /// Gets all known security keys.
         /// </summary>
         /// <value>
-        ///     All known security tokens.
+        /// All known security keys.
         /// </value>
-        public IEnumerable<SecurityToken> SecurityTokens
+        public IEnumerable<SecurityKey> SecurityKeys
         {
             get
             {
                 RetrieveMetadata();
-                this._synclock.EnterReadLock();
+                _synclock.EnterReadLock();
                 try
                 {
-                    return this._securityTokens;
+                    return _securityKeys;
                 }
                 finally
                 {
-                    this._synclock.ExitReadLock();
+                    _synclock.ExitReadLock();
                 }
             }
         }
-
 
         private void RetrieveMetadata()
         {
@@ -140,7 +167,7 @@
 
                 var elapsed = DateTime.UtcNow.Subtract(start);
                 this._issuer = config.Issuer;
-                this._securityTokens = config.SigningTokens;
+                this._securityKeys = config.SigningKeys;
             }
             finally
             {

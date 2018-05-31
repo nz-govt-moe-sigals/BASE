@@ -14,25 +14,25 @@
         // THe following are urls to Authenticate Tokens:
         public const string AuthorityCookieConfigurationPolicyUri =
             
-            ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-PolicyBased-AuthorityCookieConfigurationPolicyUri";
+            ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-policies-AuthorityCookieConfigurationPolicyUri";
         public const string AuthorityBearerTokenConfigurationPolicyUri =
-            ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-PolicyBased-AuthorityTokenConfigurationPolicyUri";
+            ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-policies-AuthorityTokenConfigurationPolicyUri";
 
         #region General Tenant 
-        public const string Tenant = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-PolicyBased-Tenant";
-            public const string AadInstance = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-PolicyBased-AadInstance";
+        public const string Tenant = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-policies-Tenant";
+           // public const string AadInstance = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-policies-AadInstance";
 
             //Policies:
-            public const string DefaultPolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-PolicyBased-DefaultPolicyId";
-            [Obsolete]
-            public const string SignUpPolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-PolicyBased-SignUpPolicyId";
-            [Obsolete]
-            public const string SignInPolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-PolicyBased-SignInPolicyId";
+            public const string DefaultPolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-policies-DefaultPolicyId";
+            //[Obsolete]
+            //public const string SignUpPolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-policies-SignUpPolicyId";
+            //[Obsolete]
+            //public const string SignInPolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-policies-SignInPolicyId";
             //Replaced by:
-            public const string SignUpSignInPolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-PolicyBased-SignUpSignInPolicyId";
-            public const string UserProfilePolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-PolicyBased-UserProfilePolicyId";
-            public const string EditProfilePolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-PolicyBased-EditProfilePolicyId";
-            public const string ResetPasswordPolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-PolicyBased-ResetPasswordPolicyId";
+            public const string SignUpSignInPolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-policies-SignUpSignInPolicyId";
+            public const string UserProfilePolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-policies-UserProfilePolicyId";
+            public const string EditProfilePolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-policies-EditProfilePolicyId";
+            public const string ResetPasswordPolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-policies-ResetPasswordPolicyId";
         #endregion
     }
 
@@ -53,7 +53,7 @@
         /// <summary>
         /// The URI of the IdP to which the security principal is redirected.
         /// </summary>
-        public const string AuthorityUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-Client-AuthorityUri";
+        public const string AuthorityUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oauth-Client-AuthorityUri";
 
         /// <summary>
         /// The OIDC client Identifier.
@@ -61,19 +61,19 @@
         /// but not persisted in web.config code that coudlrtha.
         /// 
         /// </summary>
-        public const string ClientId = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-Client-Id";
+        public const string ClientId = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oauth-Client-Id";
         //Ensure this settings is persisted in KeyVault, and not the AppHost,
         //even if they are put there during deployment
-        public const string ClientSecret = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-Client-Secret";
+        public const string ClientSecret = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oauth-Client-Secret";
 
-        public const string ClientRedirectUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-Client-RedirectUri";
+        public const string ClientRedirectUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oauth-Client-RedirectUri";
         /// <summary>
         /// The client post logout redirect URI.
         /// If it's just '/' just it's ok to persist it in the code base. 
         /// But if it contains a domain identifier then inject it into the 
         /// AppSettings via the build pipeline. Using the KeyVault would be too heavy.
         /// </summary>
-        public const string ClientPostLogoutRedirectUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-Client-PostLogoutRedirectUri";
+        public const string ClientPostLogoutRedirectUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oauth-Client-PostLogoutRedirectUri";
 
     }
 }

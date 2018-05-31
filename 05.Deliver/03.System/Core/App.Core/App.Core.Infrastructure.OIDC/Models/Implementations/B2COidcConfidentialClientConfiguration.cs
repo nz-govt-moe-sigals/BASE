@@ -90,9 +90,9 @@
         ///     <para>Default Host Seting key is ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'System-Integration-') + 'Oidc-PolicyBased-SignUpSignInPolicyId'</para>
         /// </summary>
         [Obsolete]
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+       // [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
 #pragma warning disable CS0612 // Type or member is obsolete
-        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.B2COIDCKeys.SignInPolicyId)]
+        //[Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.B2COIDCKeys.SignInPolicyId)]
 #pragma warning restore CS0612 // Type or member is obsolete
         public string TenantSignUpPolicyId
         {
@@ -118,9 +118,9 @@
         ///     <para>Default Host Seting key is ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'System-Integration-') + 'Oidc-PolicyBased-SignInPolicyId'</para>
         /// </summary>
         [Obsolete]
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+        //[ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
 #pragma warning disable CS0612 // Type or member is obsolete
-        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.B2COIDCKeys.SignInPolicyId)]
+        //[Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.B2COIDCKeys.SignInPolicyId)]
 #pragma warning restore CS0612 // Type or member is obsolete
         public string TenantSignInPolicyId
         {

@@ -53,7 +53,7 @@
         ///     <para>eg: 00000000-0000-.....</para>
         ///     <para>Default Host Setting key is ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'System-') + 'Oidc-ClientId'</para>
         /// </summary>
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
         [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.OIDCClientKeys.ClientId)]
         public string ClientId
         {
@@ -68,7 +68,7 @@
         ///     <para>eg: SECRET</para>
         ///     <para>Default Host Setting key is ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'System-') + 'Oidc-ClientSecret'</para>
         /// </summary>
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
         [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.OIDCClientKeys.ClientSecret)]
         public string ClientSecret
         {

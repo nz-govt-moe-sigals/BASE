@@ -8,6 +8,7 @@ using Microsoft.Owin.Security;
 namespace App.Host.Presentation.Controllers
 {
     //
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private readonly IB2COidcConfidentialClientConfiguration _b2cOidcConfidentialClientConfiguration;
@@ -82,7 +83,9 @@ namespace App.Host.Presentation.Controllers
                 this.HttpContext.GetOwinContext().Authentication
                     .SignOut(authTypes.Select(t => t.AuthenticationType).ToArray());
                 this.Request.GetOwinContext().Authentication.GetAuthenticationTypes();
+                return;
             }
+            this.Response.Redirect("/");
         }
     }
 }

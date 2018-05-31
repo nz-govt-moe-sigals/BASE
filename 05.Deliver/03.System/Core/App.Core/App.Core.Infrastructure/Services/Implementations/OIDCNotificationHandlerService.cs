@@ -58,12 +58,12 @@ namespace App.Core.Infrastructure.Services.Implementations
 
         public void OnAuthorizationCodeReceived(AuthorizationCodeReceivedMessage authorizationCodeReceivedMessage)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public void OnAuthenticationError(AuthenticationErrorMessage authenticationErrorMessage)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
     }

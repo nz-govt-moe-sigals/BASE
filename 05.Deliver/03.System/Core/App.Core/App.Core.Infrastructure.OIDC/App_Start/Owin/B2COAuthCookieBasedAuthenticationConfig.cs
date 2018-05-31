@@ -13,6 +13,8 @@
     using global::Owin;
     using Microsoft.Identity.Client;
     using Microsoft.IdentityModel.Protocols;
+    using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+    using Microsoft.IdentityModel.Tokens;
     using Microsoft.Owin.Security;
     using Microsoft.Owin.Security.Cookies;
     using Microsoft.Owin.Security.Notifications;
@@ -31,7 +33,7 @@
         private static IB2COidcConfidentialClientConfiguration _b2cOidcConfidentialClientConfiguration;
 
         // The scopes of the remote api to ask for.
-        private static string[] _fullyQualifiedScopesRequiredByTargetAPI;
+        private static string[] _fullyQualifiedScopesRequiredByTargetApi;
 
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         private readonly IAzureKeyVaultService _keyHostSettingsService;
@@ -58,9 +60,10 @@
         ///     </para>
         /// </summary>
         /// <param name="app"></param>
+        /// <param name="fullyQualifiedScopesRequiredByTargetAPI"></param>
         public void Configure(IAppBuilder app, string[] fullyQualifiedScopesRequiredByTargetAPI)
         {
-            _fullyQualifiedScopesRequiredByTargetAPI = fullyQualifiedScopesRequiredByTargetAPI;
+            _fullyQualifiedScopesRequiredByTargetApi = fullyQualifiedScopesRequiredByTargetAPI;
             // Retrieve settings from web.settings (actually, web.settings.appSettings.exclude):
             _b2cOidcConfidentialClientConfiguration = this._keyHostSettingsService
                 .GetObject<B2COidcConfidentialClientConfiguration>("cookieAuth:");
@@ -115,12 +118,12 @@
 
                     // Specify the scope by appending all of the scopes requested into one string (separated by a blank space)
                     Scope =
-                        $"{OpenIdConnectScopes.OpenIdProfile} offline_access {string.Join(" ", _fullyQualifiedScopesRequiredByTargetAPI).TrimEnd()}",
+                        $"{OpenIdConnectScope.OpenIdProfile} offline_access {string.Join(" ", _fullyQualifiedScopesRequiredByTargetApi).TrimEnd()}",
 
 
                     // For AAD, ResponseType was set to OpenIdConnectResponseTypes.IdToken
                     // For B2C, left as defaul, which is OpenIdConnectResponseTypes.CodeIdToken
-                    ResponseType = OpenIdConnectResponseTypes.CodeIdToken,
+                    ResponseType = OpenIdConnectResponseType.CodeIdToken,
 
                     TokenValidationParameters = tokenValidationParameters,
 
@@ -147,7 +150,7 @@
          *  Also, don't request a code (since it won't be needed).
          */
         private static Task OnRedirectToIdentityProvider(
-            RedirectToIdentityProviderNotification<OpenIdConnectMessage, OpenIdConnectAuthenticationOptions>
+            RedirectToIdentityProviderNotification<Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectMessage, OpenIdConnectAuthenticationOptions>
                 notification)
         {
             var policy = notification.OwinContext.Get<string>("Policy");
@@ -155,9 +158,9 @@
             if (!string.IsNullOrEmpty(policy) &&
                 !policy.Equals(_b2cOidcConfidentialClientConfiguration.DefaultPolicyId))
             {
-                notification.ProtocolMessage.Scope = OpenIdConnectScopes.OpenId;
+                notification.ProtocolMessage.Scope = OpenIdConnectScope.OpenId;
                 notification.ProtocolMessage.ResponseType =
-                    OpenIdConnectResponseTypes.IdToken /*ask directly for Token, not Code*/;
+                    OpenIdConnectResponseType.IdToken /*ask directly for Token, not Code*/;
                 //Will look like: https://login.microsoftonline.com/te/{authorityTenantName}/{policyId}/oauth2/v2.0/authorize
                 notification.ProtocolMessage.IssuerAddress = notification.ProtocolMessage.IssuerAddress.ToLower()
                     .Replace(_b2cOidcConfidentialClientConfiguration.DefaultPolicyId.ToLower(), policy.ToLower());
@@ -173,7 +176,7 @@
         /// <param name="notification"></param>
         /// <returns></returns>
         private static Task OnAuthenticated(
-            SecurityTokenValidatedNotification<OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> notification)
+            SecurityTokenValidatedNotification<Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> notification)
         {
 
             var protocolMessage = notification.ProtocolMessage;
@@ -199,7 +202,7 @@
          * Catch any failures received by the authentication middleware and handle appropriately
          */
         private static Task OnAuthenticationFailed(
-            AuthenticationFailedNotification<OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> notification)
+            AuthenticationFailedNotification<Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> notification)
         {
             var protocolMessage = notification.ProtocolMessage;
 
@@ -276,7 +279,7 @@
 
             try
             {
-                result = await cca.AcquireTokenByAuthorizationCodeAsync(code, _fullyQualifiedScopesRequiredByTargetAPI);
+                result = await cca.AcquireTokenByAuthorizationCodeAsync(code, _fullyQualifiedScopesRequiredByTargetApi);
             }
 #pragma warning disable CS0168 // Variable is declared but never used
             catch (Exception ex)
