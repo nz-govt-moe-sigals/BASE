@@ -76,34 +76,37 @@ namespace App.Core.Shared.Constants
         public const string AppCoreIntegrationAzureStorageAccountDefaultResourceNameSuffix = SystemAzureIntegrationKeyPrefix + "StorageAccount-Default-ResourceName-Suffix";
         public const string AppCoreIntegrationAzureStorageAccountDefaultKey = SystemAzureIntegrationKeyPrefix + "StorageAccount-Default-Key";
         // -----
-        // Integration / Azure / Microsoft / Redis / Cache (do not name as Default):
-        public const string AppCoreIntegrationAzureRedisCacheResourceName = SystemAzureIntegrationKeyPrefix + "Redis-Cache-ResourceName";
-        public const string AppCoreIntegrationAzureRedisCacheDefaultAuthorizationKey = SystemAzureIntegrationKeyPrefix + "Redis-Cache-Key";
+        // Integration / Azure / Microsoft / Redis / Cache / Default (key has Cache before Redis):
+        public const string AppCoreIntegrationAzureRedisCacheResourceName = SystemAzureIntegrationKeyPrefix + "Cache-Redis-Default-ResourceName";
+        public const string AppCoreIntegrationAzureRedisCacheDefaultAuthorizationKey = SystemAzureIntegrationKeyPrefix + "Cache-Redis-Default-Key";
 
         // -----
-        // Integration / Azure / Microsoft / DocumentDb / (do not name as Default):
+        // Integration / Azure / Microsoft / DocumentDb / Default (do not name as Default):
         public const string AppCoreIntegrationAzureDocumentDbResourceName = SystemAzureIntegrationKeyPrefix + "DocumentDb-Default-ResourceName";
         //public const string AppCoreIntegrationAzureDocumentDbResourceEndpointUrl = SystemKeyPrefix + "Integration:Azure:DocumentDb:EndpointUrl";
         // The following should not be use if we are using MSI:
         public const string AppCoreIntegrationAzureDocumentDbAuthorizationKey = SystemAzureIntegrationKeyPrefix + "DocumentDb-Default-Key";
+        // Integration / Azure / Search / Default (key has plural name):
+        public const string AppCoreIntegrationAzureSearchDefaultResourceName = SystemAzureIntegrationKeyPrefix + "SearchServices-Default-ResourceName";
+        public const string AppCoreIntegrationAzureSearchDefaultAuthorizationKey = SystemAzureIntegrationKeyPrefix + "SearchServices-Default-Key";
         // -----
-        // Integration / Azure / Maps / (do not name as Default) / (and keep the 'Accounts' in the name. TODO: Note the typo, and it is Singular, until deployment script is updated):
-        public const string AppCoreIntegrationAzureMapsDefaultResourceName = SystemAzureIntegrationKeyPrefix + "Maps-Account-ResourceName";
-        public const string AppCoreIntegrationAzureMapsDefaultAuthorizationKey = SystemAzureIntegrationKeyPrefix + "Maps-Account-Key";
+        // Integration / Azure / Maps / Default (key has plural name):
+        public const string AppCoreIntegrationAzureMapsDefaultResourceName = SystemAzureIntegrationKeyPrefix + "MapServices-Default-ResourceName";
+        public const string AppCoreIntegrationAzureMapsDefaultAuthorizationKey = SystemAzureIntegrationKeyPrefix + "MapServices-Default-Key";
         // -----
-        // Integration / Azure / Maps / CognitiveServices / ContentModerator / Default:
+        // Integration / Azure / Maps / CognitiveServices / ContentModerator / Default  (key has plural name):
         public const string AppCoreIntegrationAzureCognitiveServicesContentModeratorDefaultResourceName = SystemAzureIntegrationKeyPrefix + "CognitiveServices-ContentModerator-Default-ResourceName";
         public const string AppCoreIntegrationAzureCognitiveServicesContentModeratorDefaultAuthorizationKey = SystemAzureIntegrationKeyPrefix + "CognitiveServices-ContentModerator-Default-Key";
         // -----
-        // Integration / Azure / Maps / CognitiveServices / ContentModerator / Default:
+        // Integration / Azure / Maps / CognitiveServices / ContentModerator / Default (key has plural name):
         public const string AppCoreIntegrationAzureCognitiveServicesLanguageUnderstandingDefaultResourceName = SystemAzureIntegrationKeyPrefix + "CognitiveServices-LanguageUnderstanding-Default-ResourceName";
         public const string AppCoreIntegrationAzureCognitiveServicesLanguageUnderstandingDefaultAuthorizationKey = SystemAzureIntegrationKeyPrefix + "CognitiveServices-LanguageUnderstanding-Default-Key";
         // -----
-        // Integration / Azure / Maps / CognitiveServices / ComputerVision / Default:
+        // Integration / Azure / Maps / CognitiveServices / ComputerVision / Default (key has plural name):
         public const string AppCoreIntegrationAzureCognitiveServicesComputerVisionDefaultResourceName = SystemAzureIntegrationKeyPrefix + "CognitiveServices-ComputerVision-Default-ResourceName";
         public const string AppCoreIntegrationAzureCognitiveServicesComputerVisionDefaultAuthorizationKey = SystemAzureIntegrationKeyPrefix + "CognitiveServices-ComputerVision-Default-Key";
         // -----
-        // Integration / Azure / Maps / CognitiveServices / CustomVision / Default:
+        // Integration / Azure / Maps / CognitiveServices / CustomVision / Default (key has plural name):
         public const string AppCoreIntegrationAzureCognitiveServicesCustomVisionTrainingDefaultResourceName = SystemAzureIntegrationKeyPrefix + "CognitiveServices-CustomVision-Training-Default-ResourceName";
         public const string AppCoreIntegrationAzureCognitiveServicesCustomVisionTrainingDefaultAuthorizationKey = SystemAzureIntegrationKeyPrefix + "CognitiveServices-ComputerVision-Training-Default-Key";
 
