@@ -1,12 +1,10 @@
-﻿using App.Module32.Shared.Models.Messages.API.V0100;
+﻿using App.Core.Infrastructure.Initialization.ObjectMaps;
+using App.Module32.Shared.Models.Entities;
+using App.Module32.Shared.Models.Messages.API.V0100;
+using AutoMapper;
 
-namespace App.Module01.Infrastructure.Initialization.ObjectMaps.Messages.V0100
+namespace App.Module32.Infrastructure.Initialization.ObjectMaps.Messages.V0100
 {
-    using App.Core.Infrastructure.Initialization;
-    using App.Core.Infrastructure.Initialization.ObjectMaps;
-    using App.Module32.Shared.Models.Entities;
-    using AutoMapper;
-
     public class ObjectMap_ExampleDto_Example : IHasAutomapperInitializer
     {
         public void Initialize(IMapperConfigurationExpression config)

@@ -1,4 +1,7 @@
-﻿namespace App.Module32.Application.Initialization.DependencyResolution
+﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+using App.Module32.Shared.Contracts;
+
+namespace App.Module32.Application.Initialization.DependencyResolution
 {
     using System.Linq;
     using App.Module32.Application.Initialization.OData;

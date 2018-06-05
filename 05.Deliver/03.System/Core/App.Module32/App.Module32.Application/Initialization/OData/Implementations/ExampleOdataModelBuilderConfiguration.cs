@@ -1,4 +1,5 @@
 ﻿using App.Module32.Application.Constants.Api;
+using App.Module32.Shared.Models.Messages.API.V0100;
 using Microsoft.Web.Http;
 
 namespace App.Module32.Application.Initialization.OData.Implementations
