@@ -1185,53 +1185,67 @@
     // OUTPUTS
     // -------------------------------------------------------
     "outputs": {
-        "identity":{
-            "type":"object",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.identity.value]"
-        },
-        "microsoftWebSiteSubscriptionId":{
+        // The Azure AD Tenant Id (in which the identityId is a member).
+        "tenantId":{
             "type":"string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.webSiteSubscriptionId.value]"
+            "value": "[reference(variables('assembly').armTemplateId).outputs.tenantId.value]"
         },
-        "microsoftWebSiteTenantId":{
+        // Get's the Id of the WebSite's service account.
+        "principalId": {
+            "type": "string",
+            "value": "[reference(variables('assembly').armTemplateId).outputs.principalId.value]"
+        },
+        // The current Azure compute subscription Id (within which the resources were created)
+        "subscriptionId":{
             "type":"string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.webSiteTenantId.value]"
+            "value": "[reference(variables('assembly').armTemplateId).outputs.subscriptionId.value]"
         },
-        "microsoftWebSitePrincipalId": {
-            "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.webSitePrincipalId.value]"
-        },
-        "microsoftWebSiteResourceName": {
-            "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.microsoftWebSiteResourceName.value]"
-        },
-        "microsoftWebSiteDefaultConnectionString": {
-            "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.webSiteDefaultConnectionString.value]"
-        },
+        // The name  of the Keyvault resource, which can be of use when applying rights using Powershell:
+        // May be required for scripting permissions (although probably won't - we've given principalId access to the whole resource group)
         "microsoftKeyVaultResourceName": {
             "type": "string",
             "value": "[reference(variables('assembly').armTemplateId).outputs.microsoftKeyVaultResourceName.value]"
         },
+        // The name of the apps sql server on which one or more databases are created
+        // May be required for scripting permissions (although probably won't - we've given principalId access to the whole resource group)
         "microsoftSqlServerResourceName": {
             "type": "string",
             "value": "[reference(variables('assembly').armTemplateId).outputs.microsoftSqlServerResourceName.value]"
         },
+        // The name of the primary default database (usually the only one). Requires backing up (see 'defaultStorageAccountResourceName').
+        // May be required for scripting permissions (although probably won't - we've given principalId access to the whole resource group)
+        "microsoftSqlServerDatabaseResourceName": {
+            "type": "string",
+            "value": "[reference(variables('assembly').armTemplateId).outputs.microsoftSqlServerDatabaseResourceName.value]"
+        },
+        // The name of one of the non-required storage accounts (can be deleted if need be)
+        // May be required for scripting permissions (although probably won't - we've given principalId access to the whole resource group)
         "diagnosticsStorageAccountResourceName": {
             "type": "string",
             "value": "[reference(variables('assembly').armTemplateId).outputs.diagnosticsStorageAccountResourceName.value]"
         },
+        // The name of one of the non-required storage accounts (can be deleted if need be)
+        // May be required for scripting permissions (although probably won't - we've given principalId access to the whole resource group)
         "tempStorageAccountResourceName": {
             "type": "string",
             "value": "[reference(variables('assembly').armTemplateId).outputs.tempStorageAccountResourceName.value]"
         },
+        // The name of the default required storage accounts. Requires backing up (see 'microsoftSqlServerDatabaseResourceName')
+        // May be required for scripting permissions (although probably won't - we've given principalId access to the whole resource group)
         "defaultStorageAccountResourceName": {
             "type": "string",
             "value": "[reference(variables('assembly').armTemplateId).outputs.defaultStorageAccountResourceName.value]"
         },
-        "defaultSqlServerDatabaseResourceName": {
+        // Name of the WebSite that uses sqlserver, storage, keyvault, etc.
+        "microsoftWebSiteResourceName": {
             "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.defaultStorageAccountResourceName.value]"
+            "value": "[reference(variables('assembly').armTemplateId).outputs.microsoftWebSiteResourceName.value]"
+        },
+        // I'm not keen on this output, as it's inherently insecure (if using the 'insecure' flag). But for now...let's wait and see
+        // if it essential.
+        "microsoftWebSiteDefaultConnectionString": {
+            "type": "string",
+            "value": "[reference(variables('assembly').armTemplateId).outputs.microsoftWebSiteDefaultConnectionString.value]"
         }
     } //~output
 }
