@@ -8,8 +8,8 @@
     "environmentOverrides": {
       "value": {
         "UT": {
-          "webSiteHostNameBindingHostName": "www.baseplatform.space",
-          "webSiteHostNameBindingHostNameAlt": "baseplatform.space"
+          "microsoftWebSiteHostNameBindingHostName": "www.baseplatform.space",
+          "microsoftWebSiteHostNameBindingHostNameAlt": "baseplatform.space"
         }
       }
     },
@@ -25,7 +25,7 @@
     "securityApproach": {
       "value": "msi"
     },
-    "cacheRedisProvision": {
+    "microsoftCacheRedisProvision": {
       "value": false
     },
     "oauthEnabled": {
@@ -58,7 +58,7 @@
     "oidcPoliciesResetPasswordPolicyId": {
       "value": ""
     },
-    "sqlServerAdministratorLogin": {
+    "microsoftSqlServerAdministratorLogin": {
       "reference": {
         "keyVault": {
           "id": "/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/MX-BASE-INFRASTRUCTURE/providers/Microsoft.KeyVault/vaults/shared-kv"
@@ -66,7 +66,7 @@
         "secretName": "moe-baseplatform-space-sql-server-admin-login-name"
       }
     },
-    "sqlServerAdministratorLoginPassword": {
+    "microsoftSqlServerAdministratorLoginPassword": {
       "reference": {
         "keyVault": {
           "id": "/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/MX-BASE-INFRASTRUCTURE/providers/Microsoft.KeyVault/vaults/shared-kv"
@@ -74,10 +74,10 @@
         "secretName": "moe-baseplatform-space-sql-server-admin-login-pwd"
       }
     },
-    "sqlServerDeveloperStatingSecretsAreNotRecordedInCode": {
+    "microsoftSqlServerDeveloperStatingSecretsAreNotRecordedInCode": {
       "value": "sigals"
     },
-    "webCertificatePfxBase64": {
+    "microsoftWebCertificatePfxBase64": {
       "value": "",
       "reference": {
         "keyVault": {
@@ -86,7 +86,7 @@
         "secretName": "moe-baseplatform-space-cert-pfx-base64"
       }
     },
-    "webCertificatePfxPassword": {
+    "microsoftWebCertificatePfxPassword": {
       "value": "",
       "reference": {
         "keyVault": {
@@ -95,21 +95,21 @@
         "secretName": "moe-baseplatform-space-sql-server-admin-login-pwd"
       }
     },
-    "webCertificateDeveloperStatingSecretsAreNotRecordedInCode": {
+    "microsoftWebCertificateDeveloperStatingSecretsAreNotRecordedInCode": {
       "value": "SSigal"
     },
-    "webServerFarmResourceSku": {
+    "microsoftWebServerFarmResourceSku": {
       "value": "S1"
     },
-    "webSiteConfigAppSettings": {
+    "microsoftWebSiteConfigAppSettings": {
       "value": {
         "AppYayFooUno": "AppYayBarUnoApp"
       }
     },
-    "webSiteConfigAppSettingsDeveloperStatingSecretsAreNotRecordedInCode": {
+    "microsoftWebSiteConfigAppSettingsDeveloperStatingSecretsAreNotRecordedInCode": {
       "value": "sigals"
     },
-    "webSiteConfigConnectionStrings": {
+    "microsoftWebSiteConfigConnectionStrings": {
       "value": {
         "ExampleConnStringAppA": {
           "value": "Server=mySuperServerAddress;Database=myDataBase;Trusted_Connection=True;",
@@ -117,13 +117,13 @@
         }
       }
     },
-    "webSiteConfigConnectionStringsDeveloperStatingSecretsAreNotRecordedInCode": {
+    "microsoftWebSiteConfigConnectionStringsDeveloperStatingSecretsAreNotRecordedInCode": {
       "value": "sigals"
     },
-    "webSiteHostNameBindingHostName":{
+    "microsoftWebSiteHostNameBindingHostName":{
       "value":""
     },
-    "webSiteHostNameBindingHostNameAlt":{
+    "microsoftWebSiteHostNameBindingHostNameAlt":{
       "value":""
     }
   }
