@@ -1216,7 +1216,7 @@
         // May be required for scripting permissions (although probably won't - we've given principalId access to the whole resource group)
         "microsoftSqlServerDatabaseResourceName": {
             "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.microsoftStorageAccountResourceName.value]"
+            "value": "[reference(variables('assembly').armTemplateId).outputs.microsoftSqlServerDatabaseResourceName.value]"
         },
         // The name of one of the non-required storage accounts (can be deleted if need be)
         // May be required for scripting permissions (although probably won't - we've given principalId access to the whole resource group)
