@@ -4,13 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C31FDD3A-6D3C-4E61-8B0D-AA5498BD7BE9}</ProjectGuid>
+    <ProjectGuid>{7FC4AE76-535F-4C07-9202-D37132CB77AF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>App.Module32.Application</RootNamespace>
     <AssemblyName>App.Module32.Application</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -99,8 +101,8 @@
     <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Net.Http.4.3.2\lib\net46\System.Net.Http.dll</HintPath>
+    <Reference Include="System.Net.Http, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
@@ -127,32 +129,14 @@
       <HintPath>..\..\packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Http, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.6\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.6\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.OData, Version=6.1.0.10907, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.OData.6.1.0\lib\net45\System.Web.OData.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -165,13 +149,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\Controllers\Base\GuidIdActiveRecordStateODataControllerBase.cs" />
+    <Compile Include="API\Controllers\V0100\ExampleController.cs" />
     <Compile Include="Constants\Api\ApiControllerNames.cs" />
     <Compile Include="Initialization\DependencyResolution\AppModuleApplicationRegistry.cs" />
     <Compile Include="Initialization\OData\IAppModuleOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\AppModuleOdataModelBuilder.cs" />
     <Compile Include="Initialization\OData\Implementations\ExampleOdataModelBuilderConfiguration.cs" />
-    <Compile Include="Presentation\Controllers\ExamplesController.cs" />
-    <Compile Include="Presentation\Controllers\Module1Controller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="API\Controllers\Base\TenantedGuidIdActiveRecordStateODataControllerDataBase.cs" />
     <Compile Include="Services\IApplicationService.cs" />
@@ -180,9 +163,6 @@
     <Compile Include="Services\Implementations\ExampleApplicationService.cs" />
     <Compile Include="Services\Implementations\TaskService.cs" />
     <Compile Include="Services\ITaskService.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Presentation\Views\Module1\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\App.Core\App.Core.Application\App.Core.Application.csproj">
@@ -202,53 +182,40 @@
       <Name>App.Core.Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\App.Module32.Domain\App.Module32.Domain.csproj">
-      <Project>{e41904a7-fd94-4f97-bfea-d9e8cfea0dfe}</Project>
+      <Project>{20d32a46-c6d4-4e9d-ba07-35b658ff10bb}</Project>
       <Name>App.Module32.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\App.Module32.Infrastructure\App.Module32.Infrastructure.csproj">
-      <Project>{a2be764a-fe08-4dfb-8bfe-8ce62c786b42}</Project>
+      <Project>{9351d857-3793-4381-bc93-4bbcca231492}</Project>
       <Name>App.Module32.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\App.Module32.Shared\App.Module32.Shared.csproj">
-      <Project>{b8897ed0-1489-4176-a3e9-1631c51bd087}</Project>
+      <Project>{c1e727b0-f6f4-4cbc-bd54-2f492e0e89b6}</Project>
       <Name>App.Module32.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="API\Controllers\readme.md" />
     <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Presentation\Views\Module1\About.cshtml" />
     <None Include="_packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\images\faces\face01.png" />
-    <Content Include="assets\images\faces\face02.png" />
-    <Content Include="assets\images\faces\face03.png" />
-    <Content Include="assets\images\faces\face04.png" />
-    <Content Include="assets\images\faces\face05.png" />
-    <Content Include="assets\images\faces\face06.png" />
-    <Content Include="assets\images\faces\face07.png" />
-    <Content Include="assets\images\faces\face08.png" />
-    <Content Include="assets\images\faces\face09.png" />
-    <Content Include="assets\images\faces\face10.png" />
-    <Content Include="assets\images\faces\face11.png" />
-    <Content Include="assets\images\faces\face12.png" />
-    <Content Include="assets\images\faces\face13.png" />
-    <Content Include="assets\images\faces\face14.png" />
-    <Content Include="assets\images\faces\face15.png" />
-    <Content Include="assets\images\faces\face16.png" />
-    <Content Include="assets\images\faces\face17.png" />
-    <Content Include="assets\images\faces\face18.png" />
-    <Content Include="assets\images\faces\face19.png" />
-    <Content Include="assets\images\faces\face20.png" />
+    <None Include="API\Controllers\V0100\readme.md" />
     <Content Include="Initialization\DependencyResolution\README.txt" />
-    <Content Include="API\Controllers\V0100\README.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ExtensionMethods\" />
     <Folder Include="Initialization\OData\Implementations\BaseClasses\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
+  </Target>
 </Project>

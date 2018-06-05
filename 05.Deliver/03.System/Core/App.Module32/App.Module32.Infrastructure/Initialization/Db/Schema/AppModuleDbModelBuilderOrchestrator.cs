@@ -1,4 +1,5 @@
 ﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+using App.Module32.Shared.Contracts;
 
 namespace App.Module32.Infrastructure.Db.Schema
 {

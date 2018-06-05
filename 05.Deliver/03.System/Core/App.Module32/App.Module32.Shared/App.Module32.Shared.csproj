@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B8897ED0-1489-4176-A3E9-1631C51BD087}</ProjectGuid>
+    <ProjectGuid>{C1E727B0-F6F4-4CBC-BD54-2F492E0E89B6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>App.Module32.Shared</RootNamespace>
@@ -40,13 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\AppModuleApiScopes.cs" />
     <Compile Include="Contracts\IHasModuleSpecificIdentifier.cs" />
     <Compile Include="IAppModule32.cs" />
-    <Compile Include="Models\Configuration\ExampleApiConfiguration.cs" />
+    <Compile Include="Models\Configuration\ApiPermissionConfig.cs" />
     <Compile Include="Models\Entities\Example.cs" />
     <Compile Include="Models\Enums\ExampleEnum.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\ExampleDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\ExampleReferenceTypeDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\ExampleDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\ExampleReferenceTypeDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

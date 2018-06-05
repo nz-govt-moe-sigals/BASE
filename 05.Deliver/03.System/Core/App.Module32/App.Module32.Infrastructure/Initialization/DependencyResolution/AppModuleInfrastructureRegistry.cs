@@ -1,4 +1,6 @@
-﻿namespace App.Module32.Infrastructure.Initialization.DependencyResolution
+﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+
+namespace App.Module32.Infrastructure.Initialization.DependencyResolution
 {
     using App.Core.Infrastructure.Db.Interception;
     using App.Module32.Infrastructure.Constants.Db;

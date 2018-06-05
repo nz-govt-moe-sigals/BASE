@@ -1,4 +1,6 @@
-﻿namespace App.Module32.Infrastructure.Db.Context
+﻿using App.Module32.Shared.Contracts;
+
+namespace App.Module32.Infrastructure.Db.Context
 {
     using System.Data.Entity;
     using System.Threading.Tasks;

@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A2BE764A-FE08-4DFB-8BFE-8CE62C786B42}</ProjectGuid>
+    <ProjectGuid>{9351D857-3793-4381-BC93-4BBCCA231492}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>App.Module32.Infrastructure</RootNamespace>
@@ -57,7 +57,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants\AppSettingKeys\AppModuleApiScopes.cs" />
     <Compile Include="Constants\Db\AppModuleDbContextNames.cs" />
     <Compile Include="Constants\Module\Names.cs" />
     <Compile Include="Db\Context\AppModuleDatabaseInitializer.cs" />
@@ -69,18 +68,6 @@
     <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeederExample.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeedingOrchestrator.cs" />
     <Compile Include="Initialization\Db\Migrations\AppModuleDbMigrationsConfiguration.cs" />
-    <Compile Include="Initialization\Db\Migrations\Default\201805220043497_Entities.init.cs" />
-    <Compile Include="Initialization\Db\Migrations\Default\201805220043497_Entities.init.Designer.cs">
-      <DependentUpon>201805220043497_Entities.init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Initialization\Db\Migrations\Default\201805221005441_Remove Courses.cs" />
-    <Compile Include="Initialization\Db\Migrations\Default\201805221005441_Remove Courses.Designer.cs">
-      <DependentUpon>201805221005441_Remove Courses.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Initialization\Db\Migrations\Default\201805230103437_ReferenceDataAddedIndexedTitleAndDescription.cs" />
-    <Compile Include="Initialization\Db\Migrations\Default\201805230103437_ReferenceDataAddedIndexedTitleAndDescription.Designer.cs">
-      <DependentUpon>201805230103437_ReferenceDataAddedIndexedTitleAndDescription.cs</DependentUpon>
-    </Compile>
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineExample.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbModelBuilderOrchestrator.cs" />
     <Compile Include="Initialization\DependencyResolution\AppModuleInfrastructureRegistry.cs" />
@@ -103,7 +90,7 @@
       <Name>App.Core.Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\App.Module32.Shared\App.Module32.Shared.csproj">
-      <Project>{b8897ed0-1489-4176-a3e9-1631c51bd087}</Project>
+      <Project>{c1e727b0-f6f4-4cbc-bd54-2f492e0e89b6}</Project>
       <Name>App.Module32.Shared</Name>
     </ProjectReference>
   </ItemGroup>
@@ -113,6 +100,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Constants\AppSettingKeys\" />
     <Folder Include="ExtensionMethods\" />
     <Folder Include="Factories\" />
     <Folder Include="Initialization\OData\" />
@@ -123,20 +111,6 @@
     <Content Include="Db\README.txt" />
     <Content Include="Initialization\DependencyResolution\README.txt" />
     <Content Include="Initialization\ObjectMaps\README.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805220043497_Entities.init.resx">
-      <DependentUpon>201805220043497_Entities.init.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805221005441_Remove Courses.resx">
-      <DependentUpon>201805221005441_Remove Courses.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805230103437_ReferenceDataAddedIndexedTitleAndDescription.resx">
-      <DependentUpon>201805230103437_ReferenceDataAddedIndexedTitleAndDescription.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

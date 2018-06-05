@@ -1,9 +1,10 @@
-﻿namespace App.Core.Shared.Models.Messages.API.V0100
-{
-    using System;
-    using App.Core.Shared.Attributes;
-    using App.Core.Shared.Factories;
+﻿using System;
+using App.Core.Shared.Attributes;
+using App.Core.Shared.Factories;
+using App.Core.Shared.Models;
 
+namespace App.Module32.Shared.Models.Messages.API.V0100
+{
     public class ExampleDto  /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ : IHasGuidId
     {
         public ExampleDto()

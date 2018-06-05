@@ -1,7 +1,8 @@
-﻿namespace App.Module32.Shared.Configuration.Models
-{
-    using App.Core.Shared.Attributes;
+﻿using App.Core.Shared.Attributes;
+using App.Module32.Shared.Constants;
 
+namespace App.Module32.Shared.Models.Configuration
+{
     /// <summary>
     ///     A Configuration object used by a Service Client
     ///     (eg: an MVC app making calls to a remote backend service)
@@ -10,7 +11,7 @@
     ///         This is not used by the WebAPI app that provides the service to others.
     ///     </para>
     /// </summary>
-    public class ExampleApiConfiguration
+    public class ApiPermissionConfig
     {
         private string _serviceIdentifier;
 
@@ -29,7 +30,7 @@
         ///         across services with the same scope name.
         ///     </para>
         /// </summary>
-        [Alias("api:ServiceIdentifier")]
+        [Alias(AppModuleApiScopes.ServiceUrl)]
         public string ServiceIdentifier
         {
             get
@@ -57,7 +58,7 @@
         ///         call.
         ///     </para>
         /// </summary>
-        [Alias("api:Example.ReadScope")]
+        [Alias(AppModuleApiScopes.ReadScope)]
         public string ExampleReadScope { get; set; }
 
 
@@ -74,7 +75,7 @@
         ///         call.
         ///     </para>
         /// </summary>
-        [Alias("api:Example.WriteScope")]
+        [Alias(AppModuleApiScopes.WriteScope)]
         public string ExampleWriteScope { get; set; }
 
 

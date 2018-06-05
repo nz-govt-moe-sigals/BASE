@@ -3,13 +3,13 @@ function Prepare-Project {
     [CmdletBinding()]
     Param (
         [string]$relativePathToProject = ".\" ,
-        [string]$moduleName = "Module32"
+        [string]$moduleName = "App.Module32"
     )
 
     $relativePathToProject = (Get-Item -Path $relativePathToProject).FullName
 
     $excludeFolders = @("bin","obj")
-    $fileFilters = @('*.cs', '*.cshtml', '*.md','*.txt','app.config', 'web.config', '*.csproj','*.csproj.user', '*.csproj.DotSettings', '*.ps1')
+    $fileFilters = @('*.cs', '*.cshtml', '*.md','*.txt', 'web.config', '*.csproj','*.csproj.user', '*.csproj.DotSettings', '*.ps1')
 
     Write-Host "=================================================="
     Write-Host "Project Provisioner"
@@ -137,6 +137,8 @@ function Replace-FileText($files, $pattern, $replace) {
 }
 
 #Prepare-Project
+
+
 
 
 
