@@ -228,7 +228,7 @@
         // -------------------------------------------------------
         // Parameters: REDIS
         // -------------------------------------------------------
-        "cacheRedisProvision": {
+        "microsoftCacheRedisProvision": {
             "defaultValue": true,
             "metadata": {
                 "description": "Optional. Cache has a minimum cost of about 20$ per month. But, more importantly, it takes ages to provision."
@@ -544,7 +544,7 @@
                 "description": "Optional. If your system needs to authenticate users, using OIDC, you have to redirect Users back from the remote IDP to this system's Homepage. This is the 'redirect_uri' value of an OAuth request. '/' won't work (that would be the IdP's home page). If not provided, will be automatically generated using 'https' and your host binding name you provided."
             }
         },
-        
+
         // Optional. If your system needs to authenticate users, using OIDC, 
         // after a user is signed off (destroying their security token), 
         // you want to redirect them to the home page or other. The default is '/'.
