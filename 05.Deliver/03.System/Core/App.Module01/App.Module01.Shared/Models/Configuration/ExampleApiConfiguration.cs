@@ -1,7 +1,7 @@
-﻿namespace App.Module01.Shared.Configuration.Models
-{
-    using App.Core.Shared.Attributes;
+﻿using App.Core.Shared.Attributes;
 
+namespace App.Module01.Shared.Models.Configuration
+{
     /// <summary>
     ///     A Configuration object used by a Service Client
     ///     (eg: an MVC app making calls to a remote backend service)

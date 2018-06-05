@@ -44,7 +44,7 @@ namespace App.Host.Filters.WebMvc
         /// <summary>Indicates whether the specified control is authorized.</summary>
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-
+            if (!httpContext.User.Identity.IsAuthenticated) return false;
 
             /*
             // The default behaviour that you are overrridding is as follows:
@@ -59,11 +59,12 @@ namespace App.Host.Filters.WebMvc
                      ((IEnumerable<string>) this._rolesSplit).Any<string>(new Func<string, bool>(principal.IsInRole))));
             */
 
+
             if (string.IsNullOrEmpty(this.Roles))
             {
-                // Just asking for authorisation, but no roles...
-                // that's not good enough.
-                return false;
+                //Whilst asking for Authorisation and not any associated roles is usually not good enough,
+                //It can be warranted
+                return true;
             }
 
             var principal = ClaimsPrincipal.Current;

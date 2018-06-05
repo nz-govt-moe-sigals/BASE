@@ -1,8 +1,9 @@
-﻿namespace App.Module02.Infrastructure.Initialization.Authorisation
+﻿using App.Module02.Shared.Models.Configuration;
+
+namespace App.Module02.Infrastructure.Initialization.Authorisation
 {
     using App.Core.Infrastructure.Initialization.Authentication;
     using App.Core.Infrastructure.Services;
-    using App.Module02.Shared.Configuration.Models;
 
     public class HasOidcScopeInitializer : IHasOidcScopeInitializer
     {

@@ -72,9 +72,9 @@ namespace App.Core.Application.Filters.WebApi
 
             if (string.IsNullOrEmpty(this.Roles))
             {
-                // Just asking for authorisation, but no roles...
-                // that's not good enough.
-                return false;
+                //Whilst asking for Authorisation and not any associated roles is usually not good enough,
+                //It can be warranted
+                return true;
             }
 
             var principal = ClaimsPrincipal.Current;

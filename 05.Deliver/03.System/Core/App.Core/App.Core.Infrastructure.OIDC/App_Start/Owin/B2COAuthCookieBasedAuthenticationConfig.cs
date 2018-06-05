@@ -1,4 +1,6 @@
-﻿namespace App.Core.Infrastructure.IDA.Owin
+﻿using System.Linq;
+
+namespace App.Core.Infrastructure.IDA.Owin
 {
     using System;
     using System.IdentityModel.Tokens;
@@ -118,7 +120,7 @@
 
                     // Specify the scope by appending all of the scopes requested into one string (separated by a blank space)
                     Scope =
-                        $"{OpenIdConnectScope.OpenIdProfile} offline_access {string.Join(" ", _fullyQualifiedScopesRequiredByTargetApi).TrimEnd()}",
+                        $"{OpenIdConnectScope.OpenIdProfile} {OpenIdConnectScope.OfflineAccess} {OpenIdConnectScope.Email}  {string.Join(" ", _fullyQualifiedScopesRequiredByTargetApi).TrimEnd()}",
 
 
                     // For AAD, ResponseType was set to OpenIdConnectResponseTypes.IdToken
@@ -275,17 +277,19 @@
                     userTokenCache,
                     appTokenCache);
 
-            AuthenticationResult result;
-
+            //var x = new [] { "blah", "blah2" };
             try
             {
-                result = await cca.AcquireTokenByAuthorizationCodeAsync(code, _fullyQualifiedScopesRequiredByTargetApi);
+                AuthenticationResult result = await cca.AcquireTokenByAuthorizationCodeAsync(code, _fullyQualifiedScopesRequiredByTargetApi);
+                if (result.Scopes != null && result.Scopes.Any())
+                {
+                    notification.AuthenticationTicket.Identity.AddClaim(new Claim(App.Core.Infrastructure.Constants.IDA.ClaimTitles.ScopeElementId, string.Join(" ", result.Scopes).TrimEnd()));
+                }
+                
             }
-#pragma warning disable CS0168 // Variable is declared but never used
             catch (Exception ex)
-#pragma warning restore CS0168 // Variable is declared but never used
             {
-                //TODO: Handle
+                Console.Write(ex.Message);
                 throw;
             }
         }
