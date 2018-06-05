@@ -1,4 +1,5 @@
 ﻿using App.Core.Shared.Attributes;
+using App.Module02.Shared.Constants;
 
 namespace App.Module02.Shared.Models.Configuration
 {
@@ -10,7 +11,7 @@ namespace App.Module02.Shared.Models.Configuration
     ///         This is not used by the WebAPI app that provides the service to others.
     ///     </para>
     /// </summary>
-    public class ExampleApiConfiguration
+    public class ApiPermissionConfig
     {
         private string _serviceIdentifier;
 
@@ -29,7 +30,7 @@ namespace App.Module02.Shared.Models.Configuration
         ///         across services with the same scope name.
         ///     </para>
         /// </summary>
-        [Alias("api:ServiceIdentifier")]
+        [Alias(AppModuleApiScopes.ServiceUrl)]
         public string ServiceIdentifier
         {
             get
@@ -57,7 +58,7 @@ namespace App.Module02.Shared.Models.Configuration
         ///         call.
         ///     </para>
         /// </summary>
-        [Alias("api:Example.ReadScope")]
+        [Alias(AppModuleApiScopes.ReadScope)]
         public string ExampleReadScope { get; set; }
 
 
@@ -74,7 +75,7 @@ namespace App.Module02.Shared.Models.Configuration
         ///         call.
         ///     </para>
         /// </summary>
-        [Alias("api:Example.WriteScope")]
+        [Alias(AppModuleApiScopes.WriteScope)]
         public string ExampleWriteScope { get; set; }
 
 

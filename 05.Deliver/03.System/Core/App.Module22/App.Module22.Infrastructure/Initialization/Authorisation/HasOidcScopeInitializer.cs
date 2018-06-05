@@ -11,7 +11,7 @@
         public HasOidcScopeInitializer(IHostSettingsService hostSettingsService)
         {
             this._hostSettingsService = hostSettingsService;
-            var apiConsumerConfiguration = hostSettingsService.GetObject<ExampleApiConfiguration>("cookieAuth:");
+            var apiConsumerConfiguration = hostSettingsService.GetObject<ApiPermissionConfig>("cookieAuth:");
             this.FullyQualifiedScopeDefinitions = new[]
             {
                 apiConsumerConfiguration.FQExampleReadScope,

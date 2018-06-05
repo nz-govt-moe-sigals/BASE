@@ -48,6 +48,7 @@
     <Compile Include="Attributes\DataClassificationAttribute.cs" />
     <Compile Include="Attributes\NamedAttribute.cs" />
     <Compile Include="Attributes\RoleSecuredDtoModelAttributeAttribute.cs" />
+    <Compile Include="Constants\AppModuleApiScopes.cs" />
     <Compile Include="Constants\ConfigurationKeys.cs" />
     <Compile Include="Contracts\IHasInitialize.cs" />
     <Compile Include="Contracts\IHasLifecycle.cs" />
