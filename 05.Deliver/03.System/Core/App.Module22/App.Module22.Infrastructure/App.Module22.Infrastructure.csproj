@@ -57,7 +57,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants\AppSettingKeys\AppModuleApiScopes.cs" />
     <Compile Include="Constants\Db\AppModuleDbContextNames.cs" />
     <Compile Include="Constants\Module\Names.cs" />
     <Compile Include="Db\Context\AppModuleDatabaseInitializer.cs" />
@@ -125,6 +124,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Constants\AppSettingKeys\" />
     <Folder Include="ExtensionMethods\" />
     <Folder Include="Factories\" />
     <Folder Include="Initialization\OData\" />

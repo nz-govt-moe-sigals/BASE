@@ -40,9 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\AppModuleApiScopes.cs" />
     <Compile Include="Contracts\IHasModuleSpecificIdentifier.cs" />
     <Compile Include="IAppModule22.cs" />
-    <Compile Include="Models\Configuration\ExampleApiConfiguration.cs" />
+    <Compile Include="Models\Configuration\ApiPermissionConfig.cs" />
     <Compile Include="Models\Entities\Course.cs" />
     <Compile Include="Models\Entities\CourseCredit.cs" />
     <Compile Include="Models\Entities\CourseDepartment.cs" />

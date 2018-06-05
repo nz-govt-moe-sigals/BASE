@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\AppModuleApiScopes.cs" />
     <Compile Include="Constants\ConfigurationKeys.cs" />
     <Compile Include="Constants\Sif\SifAddressTypeType.cs" />
     <Compile Include="Constants\Sif\SifCommunicationChannelTypeType.cs" />
@@ -52,7 +53,7 @@
     <Compile Include="Constants\Sif\SifTelephoneNumberTypeType.cs" />
     <Compile Include="Contracts\IHasModuleSpecificIdentifier.cs" />
     <Compile Include="IAppModule31.cs" />
-    <Compile Include="Models\Configuration\ExampleApiConfiguration.cs" />
+    <Compile Include="Models\Configuration\ApiPermissionConfig.cs" />
     <Compile Include="Models\Configuration\ExtractDocumentDbConfig.cs" />
     <Compile Include="Models\Contracts\IHasSifSouceDataBase.cs" />
     <Compile Include="Models\Contracts\IHasSourceSystemKey.cs" />
