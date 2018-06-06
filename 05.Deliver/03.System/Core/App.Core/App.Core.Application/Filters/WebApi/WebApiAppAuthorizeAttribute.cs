@@ -50,6 +50,12 @@ namespace App.Core.Application.Filters.WebApi
         /// <param name="actionContext">The context.</param>
         protected override bool IsAuthorized(HttpActionContext actionContext)
         {
+            var principal = ClaimsPrincipal.Current;
+            if (principal == null || !principal.Identity.IsAuthenticated)
+            {
+                return false;
+            }
+            
             var request = actionContext.Request;
 
             // There's no controller for the metadata, so have to return true this way:
@@ -77,11 +83,7 @@ namespace App.Core.Application.Filters.WebApi
                 return true;
             }
 
-            var principal = ClaimsPrincipal.Current;
-            if (principal == null)
-            {
-                return false;
-            }
+           
             var scopeElement = App.Core.Infrastructure.Constants.IDA.ClaimTitles.ScopeElementId;
             var value = principal?.FindFirst(scopeElement)?.Value;
             if (value == null)

@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B8897ED0-1489-4176-A3E9-1631C51BD087}</ProjectGuid>
+    <ProjectGuid>{C1E727B0-F6F4-4CBC-BD54-2F492E0E89B6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>App.Module32.Shared</RootNamespace>
@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,13 +43,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\AppModuleApiScopes.cs" />
     <Compile Include="Contracts\IHasModuleSpecificIdentifier.cs" />
     <Compile Include="IAppModule32.cs" />
-    <Compile Include="Models\Configuration\ExampleApiConfiguration.cs" />
-    <Compile Include="Models\Entities\Example.cs" />
-    <Compile Include="Models\Enums\ExampleEnum.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\ExampleDto.cs" />
-    <Compile Include="Models\Messages\APIs\V0100\ExampleReferenceTypeDto.cs" />
+    <Compile Include="Models\Configuration\ApiPermissionConfig.cs" />
+    <Compile Include="Models\Entities\EducationSchoolProfile.cs" />
+    <Compile Include="Models\Entities\EducationStudentProfile.cs" />
+    <Compile Include="Models\Enums\StudentExistEnum.cs" />
+    <Compile Include="Models\Messages\API\V0100\StudentDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\StudentSearchDto.cs" />
+    <Compile Include="Models\Messages\Extract\Base\BaseMessage.cs" />
+    <Compile Include="Models\Entities\ExtractWatermark.cs" />
+    <Compile Include="Models\Messages\Extract\SchoolProfile.cs" />
+    <Compile Include="Models\Messages\Extract\StudentProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +68,9 @@
     <Folder Include="Models\Contracts\" />
     <Folder Include="Models\Entities\Base\" />
     <Folder Include="Models\Entities\Enums\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

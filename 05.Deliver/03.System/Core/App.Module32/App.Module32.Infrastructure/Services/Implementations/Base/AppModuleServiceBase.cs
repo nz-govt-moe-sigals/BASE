@@ -1,4 +1,6 @@
-﻿namespace App.Module32.Infrastructure.Services.Implementations
+﻿using App.Module32.Shared.Contracts;
+
+namespace App.Module32.Infrastructure.Services.Implementations.Base
 {
     /// <summary>
     /// Abstract base classs for all Core Infrastructure Services.

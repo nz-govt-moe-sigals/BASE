@@ -1,8 +1,9 @@
-﻿namespace App.Module32.Infrastructure.Initialization.Authorisation
+﻿using App.Module32.Shared.Models.Configuration;
+
+namespace App.Module32.Infrastructure.Initialization.Authorisation
 {
     using App.Core.Infrastructure.Initialization.Authentication;
     using App.Core.Infrastructure.Services;
-    using App.Module32.Shared.Configuration.Models;
 
     public class HasOidcScopeInitializer : IHasOidcScopeInitializer
     {
@@ -11,7 +12,7 @@
         public HasOidcScopeInitializer(IHostSettingsService hostSettingsService)
         {
             this._hostSettingsService = hostSettingsService;
-            var apiConsumerConfiguration = hostSettingsService.GetObject<ExampleApiConfiguration>("cookieAuth:");
+            var apiConsumerConfiguration = hostSettingsService.GetObject<ApiPermissionConfig>("cookieAuth:");
             this.FullyQualifiedScopeDefinitions = new[]
             {
                 apiConsumerConfiguration.FQExampleReadScope,

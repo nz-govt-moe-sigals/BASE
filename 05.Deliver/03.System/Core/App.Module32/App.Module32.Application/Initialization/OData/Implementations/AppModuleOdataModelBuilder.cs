@@ -4,6 +4,7 @@ using System.Web.Http;
 using System.Web.OData.Builder;
 using App.Core.Application.Initialization.OData;
 using App.Core.Infrastructure.Initialization.DependencyResolution;
+using App.Module32.Shared.Contracts;
 using Microsoft.OData.Edm;
 using Microsoft.Web.OData.Builder;
 

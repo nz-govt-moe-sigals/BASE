@@ -1,4 +1,7 @@
-﻿namespace App.Module32.Infrastructure.Db.Context
+﻿using App.Module32.Infrastructure.Initialization.Db.Schema;
+using App.Module32.Shared.Contracts;
+
+namespace App.Module32.Infrastructure.Db.Context
 {
     using System.Data.Entity;
     using System.Threading.Tasks;
@@ -9,8 +12,6 @@
     using App.Core.Infrastructure.Initialization.DependencyResolution;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Attributes;
-    using App.Module32.Infrastructure.Db.Schema;
-    using App.Module32.Shared.Models.Entities;
 
 
     /// <summary>
@@ -54,7 +55,6 @@
     
         }
 
-        public DbSet<Example> Examples { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

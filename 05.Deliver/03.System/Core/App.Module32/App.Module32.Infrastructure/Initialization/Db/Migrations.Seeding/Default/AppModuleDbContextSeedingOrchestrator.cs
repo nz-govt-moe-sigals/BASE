@@ -1,9 +1,11 @@
 ﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+using App.Module32.Shared.Contracts;
 
 namespace App.Module32.Infrastructure.Db.Migrations.Seeding
 {
     using System;
     using System.Diagnostics;
+    using App.Core.Infrastructure.Contracts;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Configuration;
     using App.Core.Shared.Models.Configuration.AppHost;
@@ -49,7 +51,7 @@ namespace App.Module32.Infrastructure.Db.Migrations.Seeding
         private void SeedByReflection(AppModuleDbContext context)
         {
             AppDependencyLocator.Current.GetAllInstances<IHasAppModuleDbContextSeedInitializer>()
-                .ForEach(x => x.Seed(context));
+                .ForEach(x => { if (!(typeof(IHasIgnoreThis).IsAssignableFrom(x.GetType()))) { x.Seed(context); } });
         }
 
         private void SeedByHand(AppModuleDbContext dbContext)

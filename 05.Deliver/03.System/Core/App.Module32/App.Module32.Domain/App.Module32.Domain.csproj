@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E41904A7-FD94-4F97-BFEA-D9E8CFEA0DFE}</ProjectGuid>
+    <ProjectGuid>{20D32A46-C6D4-4E9D-BA07-35B658FF10BB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>App.Module32.Domain</RootNamespace>
@@ -46,10 +46,6 @@
     <ProjectReference Include="..\..\App.Core\App.Core.Shared\App.Core.Shared.csproj">
       <Project>{74aa77d2-5a81-490b-a160-c058b375524a}</Project>
       <Name>App.Core.Shared</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\App.Module32.Shared\App.Module32.Shared.csproj">
-      <Project>{b8897ed0-1489-4176-a3e9-1631c51bd087}</Project>
-      <Name>App.Module32.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

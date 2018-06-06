@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A2BE764A-FE08-4DFB-8BFE-8CE62C786B42}</ProjectGuid>
+    <ProjectGuid>{9351D857-3793-4381-BC93-4BBCCA231492}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>App.Module32.Infrastructure</RootNamespace>
@@ -57,7 +57,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants\AppSettingKeys\AppModuleApiScopes.cs" />
     <Compile Include="Constants\Db\AppModuleDbContextNames.cs" />
     <Compile Include="Constants\Module\Names.cs" />
     <Compile Include="Db\Context\AppModuleDatabaseInitializer.cs" />
@@ -69,25 +68,19 @@
     <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeederExample.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeedingOrchestrator.cs" />
     <Compile Include="Initialization\Db\Migrations\AppModuleDbMigrationsConfiguration.cs" />
-    <Compile Include="Initialization\Db\Migrations\Default\201805220043497_Entities.init.cs" />
-    <Compile Include="Initialization\Db\Migrations\Default\201805220043497_Entities.init.Designer.cs">
-      <DependentUpon>201805220043497_Entities.init.cs</DependentUpon>
+    <Compile Include="Initialization\Db\Migrations\Default\201806060408086_Entities.BaseInit.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201806060408086_Entities.BaseInit.Designer.cs">
+      <DependentUpon>201806060408086_Entities.BaseInit.cs</DependentUpon>
     </Compile>
-    <Compile Include="Initialization\Db\Migrations\Default\201805221005441_Remove Courses.cs" />
-    <Compile Include="Initialization\Db\Migrations\Default\201805221005441_Remove Courses.Designer.cs">
-      <DependentUpon>201805221005441_Remove Courses.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Initialization\Db\Migrations\Default\201805230103437_ReferenceDataAddedIndexedTitleAndDescription.cs" />
-    <Compile Include="Initialization\Db\Migrations\Default\201805230103437_ReferenceDataAddedIndexedTitleAndDescription.Designer.cs">
-      <DependentUpon>201805230103437_ReferenceDataAddedIndexedTitleAndDescription.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineExample.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineEducationSchoolProfile.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineEducationStudentProfile.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineExtractWatermark.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbModelBuilderOrchestrator.cs" />
     <Compile Include="Initialization\DependencyResolution\AppModuleInfrastructureRegistry.cs" />
     <Compile Include="Initialization\Authorisation\HasOidcScopeInitializer.cs" />
-    <Compile Include="Initialization\Search\ExampleSearchProvider.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ExampleDto_Example.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_Example_ExampleDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\Base\ObjectMap_BaseMessage_TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_SchoolProfile_EducationSchoolProfile.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_StudentProfile_EducationStudentProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Configuration\IModuleServiceConfigurationObject.cs" />
     <Compile Include="Services\IHasAppModuleService.cs" />
@@ -103,7 +96,7 @@
       <Name>App.Core.Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\App.Module32.Shared\App.Module32.Shared.csproj">
-      <Project>{b8897ed0-1489-4176-a3e9-1631c51bd087}</Project>
+      <Project>{c1e727b0-f6f4-4cbc-bd54-2f492e0e89b6}</Project>
       <Name>App.Module32.Shared</Name>
     </ProjectReference>
   </ItemGroup>
@@ -113,9 +106,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Constants\AppSettingKeys\" />
     <Folder Include="ExtensionMethods\" />
     <Folder Include="Factories\" />
+    <Folder Include="Initialization\ObjectMaps\Messages\V0100\" />
     <Folder Include="Initialization\OData\" />
+    <Folder Include="Initialization\Search\" />
     <Folder Include="Services\Configuration\Base\" />
   </ItemGroup>
   <ItemGroup>
@@ -125,17 +121,8 @@
     <Content Include="Initialization\ObjectMaps\README.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805220043497_Entities.init.resx">
-      <DependentUpon>201805220043497_Entities.init.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805221005441_Remove Courses.resx">
-      <DependentUpon>201805221005441_Remove Courses.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805230103437_ReferenceDataAddedIndexedTitleAndDescription.resx">
-      <DependentUpon>201805230103437_ReferenceDataAddedIndexedTitleAndDescription.cs</DependentUpon>
-      <SubType>Designer</SubType>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201806060408086_Entities.BaseInit.resx">
+      <DependentUpon>201806060408086_Entities.BaseInit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
