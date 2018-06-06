@@ -1,7 +1,56 @@
+// ---------- ---------- ---------- 
+// About:
+// TODO
+// Tip:
+// * ARM Templates *can* have Comments in them, bu VS Code requires configuration to stop warnings: 
+//   See: https://stackoverflow.com/a/47834826/9314395
+// * Develop based on conventions:
+//   * https://github.com/Azure/azure-quickstart-templates/blob/master/1-CONTRIBUTION-GUIDE/best-practices.md
+//   * Based on expensive experience: only use fully qualified, full-type, resource-specific, naming for 
+//     variables (eg: microsoftWebSitesResourceName, rather than abbreviaations such as siteResourceName, 
+//     siteName, etc.) so that variables are consistent here, as well as well as parent templates. 
+//     If they are the same across templates they can be cut pasted. Whereas it's *really*
+//     hard to track down bugs when everything is called by an abbreviation, such as 'resourceName'.
+// ---------- ---------- ---------- 
 {
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    // -------------------------------------------------------
+    // -------------------------------------------------------
+    // -------------------------------------------------------
+    // -------------------------------------------------------
+    // -------------------------------------------------------
+    // AFTER THE TOP COMMON PARAMS, KEEP THE RESOURCE PARAMS
+    // ALPHABETICAL TO REDUCE MAINTENANCE ERRORS LATER. THANKS
+    // -------------------------------------------------------
+    // -------------------------------------------------------
+    // -------------------------------------------------------
+    // -------------------------------------------------------
+    // -------------------------------------------------------
+    // The http based base url from which to download referenced Assembly ARM Templates. 
+    // In most cases will be an Url to a Storage Account Container Url to which 
+    // newly downloaded Source Files (just the ARM Templates) are copied to
+    "linkedAssembliesArmTemplateRootUrl": {
+      "value": "https://baseinfrastructureshared.blob.core.windows.net/public/base/infrastructure/releases/v-.-/arm-templates/commented/assemblies/"
+    },
+    // The http based base url from which to download referenced linked Resource ARM Templates. 
+    // In most cases will be an Url to a Storage Account Container Url to which 
+    // newly downloaded Source Files (just the ARM Templates) are copied to
+    "linkedResourcesArmTemplateRootUrl": {
+      "value": "https://baseinfrastructureshared.blob.core.windows.net/public/base/infrastructure/releases/v-.-/arm-templates/commented/resources/"
+    },
+    // $secureLogin = "NOTADMIN"| ConvertTo-SecureString  -AsPlainText -Force
+    // $securePassword = "N0t@P@ssword" | ConvertTo-SecureString  -AsPlainText -Force
+    // "resourceGroupName" : {
+    //   "value": "EDU-MOE-BASE-TestDev-01"
+    // },
+    "resourceNameTemplate": {
+      "value": "NZ-MOE-BASE-0000-BT-{RT}"
+    },
+    // -------------------------------------------------------
+    // PARAMETERS: ENVIRONMENT OVERRIDES
+    // -------------------------------------------------------
     "environmentId": {
       "value": "--"
     },
@@ -12,123 +61,473 @@
           "microsoftWebSiteHostNameBindingHostNameAlt": "baseplatform.space",
           "microsoftCacheRedisProvision": true,
           "microsoftDocumentDbDatabaseAccountProvision": true,
-          "microsoftSearchSearchServicesProvision": true          
+          "microsoftSearchSearchServicesProvision": true
         }
       }
     },
-    "linkedAssembliesArmTemplateRootUrl": {
-      "value": "https://baseinfrastructureshared.blob.core.windows.net/public/base/infrastructure/releases/v-.-/arm-templates/commented/assemblies/"
-    },
-    "linkedResourcesArmTemplateRootUrl": {
-      "value": "https://baseinfrastructureshared.blob.core.windows.net/public/base/infrastructure/releases/v-.-/arm-templates/commented/resources/"
-    },
-    "resourceNameTemplate": {
-      "value": "NZ-MOE-BASE-0000-BT-{RT}"
-    },
+    // -------------------------------------------------------
+    // PARAMETERS: SECURITY APPROACH (see DB CONN STRING)
+    // -------------------------------------------------------
     "securityApproach": {
       "value": "insecure"
     },
-    "oauthEnabled": {
-      "value": true
-    },
-    "oauthAuthorityUri": {
-      "value": ""
-    },
-    "oauthClientId": {
-      "value": ""
-    },
-    "oauthClientSecret": {
-      "value": ""
-    },
-    "oauthClientRedirectUri": {
-      "value": ""
-    },
-    "oauthClientPostLogoutRedirectUri": {
-      "value": ""
-    },
-    "oidcPoliciesSignUpSignInPolicyId": {
-      "value": ""
-    },
-    "oidcPoliciesUserProfilePolicyId": {
-      "value": ""
-    },
-    "oidcPoliciesEditProfilePolicyId": {
-      "value": ""
-    },
-    "oidcPoliciesResetPasswordPolicyId": {
-      "value": ""
-    },
+    // -------------------------------------------------------
+    // -------------------------------------------------------
+    // PARAMETERS: MICROSOFT / AUTHORISATION
+    // -------------------------------------------------------
+    // TBD
+    // -------------------------------------------------------
+    // PARAMETERS: MICROSOFT / CACHE / REDIS
+    // -------------------------------------------------------
+    // Off for all environments unless specified in environmentOverrides (UAT/PROD)
     "microsoftCacheRedisProvision": {
       "value": false
     },
-    "microsoftSqlServerAdministratorLogin": {
+    // ----------------------------------------------------------------------
+    // Parameters: MICROSOFT / AUTHORISATION / ROLEASSIGNMENTS
+    // ----------------------------------------------------------------------
+    // TODO
+    // ----------------------------------------------------------------------
+    // Parameters: MICROSOFT / CACHE / REDIS
+    // ----------------------------------------------------------------------
+    // TODO
+    // ----------------------------------------------------------------------
+    // Parameters: MICROSOFT / COGNITIVESERVICES / ACCOUNTS (COMPUTER VISION)
+    // ----------------------------------------------------------------------
+    // TBD
+    // ----------------------------------------------------------------------
+    // Parameters: MICROSOFT / COGNITIVESERVICES / ACCOUNTS (CUSTOM VISION)
+    // ----------------------------------------------------------------------
+    // TBD
+    // ----------------------------------------------------------------------
+    // Parameters: MICROSOFT / COGNITIVESERVICES / ACCOUNTS (CONTENT MODERATION)
+    // ----------------------------------------------------------------------
+    // TBD
+    // ----------------------------------------------------------------------
+    // Parameters: MICROSOFT / COGNITIVESERVICES / ACCOUNTS (LANGUAGE UNDERSTANDING)
+    // ----------------------------------------------------------------------
+    // TBD
+    // -------------------------------------------------------
+    // PARAMETERS: MICROSOFT / DOCUMENTDB / DATABASEACCOUNTS
+    // -------------------------------------------------------
+    // TBD
+    // -------------------------------------------------------
+    // PARAMETERS: MICROSOFT / KEYVAULT / VAULTS
+    // -------------------------------------------------------
+    // TBD
+    // -------------------------------------------------------
+    // PARAMETERS: MICROSOFT / KEYVAULT / VAULTS / SECRETS
+    // -------------------------------------------------------
+    // TBD
+    // ----------------------------------------------------------------------
+    // Parameters: MICROSOFT / INSIGHTS / COMPONENTS
+    // ----------------------------------------------------------------------
+    // TBD
+    // ----------------------------------------------------------------------
+    // Parameters: MICROSOFT / MAPS / ACCOUNTS
+    // ----------------------------------------------------------------------
+    // TBD
+    // ----------------------------------------------------------------------
+    // // Parameters: MICROSOFT / SEARCH / SEARCHSERVICES
+    // ----------------------------------------------------------------------
+    // TBD
+    // -------------------------------------------------------
+    // PARAMETERS: MICROSOFT / SQL / DATABASE
+    // -------------------------------------------------------
+    // TBD
+    // -------------------------------------------------------
+    // PARAMETERS: MICROSOFT / SQL / SERVERS
+    // -------------------------------------------------------
+    // Provide the Sql Server Administrator's Name, which an 
+    // infrastructure support specialist will have 
+    // set the provided the password in a key vault 
+    // outside of the projects resource group (and probably 
+    // in a different subscription) so use the reference approach
+    //  to get it out, and place it here.
+    // Required when creating a new Database Server. 
+    // Note that security is not perfect: a developer can develop
+    // arm templates whose output records the values it extracts
+    // from a keyvault.
+    // "reference": {
+    //   "keyVault": {
+    //     "id": "/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/MX-MOE-BASE-COMMON/providers/Microsoft.KeyVault/vaults/shared-kv"
+    //   },
+    //   "secretName": "moe-baseinfrastructure-space-sql-server-admin-login-name"
+    //   "secretversion:"..."
+    // }
+    "microsoftSqlServersAdministratorLogin": {
       "value": "NOTADMIN"
     },
-    "microsoftSqlServerAdministratorLoginPassword": {
+    // Provide the Sql Server Administrator's Password, which an 
+    // infrastructure support specialist will have 
+    // set the provided the password in a key vault 
+    // outside of the projects resource group (and probably 
+    // in a different subscription) so use the reference approach
+    //  to get it out, and place it here.
+    // Required when creating a new Database Server. 
+    // Note that security is not perfect: a developer can develop
+    // arm templates whose output records the values it extracts
+    // from a keyvault.
+    // "reference": {
+    //   "keyVault": {
+    //     "id": "/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/MX-MOE-BASE-COMMON/providers/Microsoft.KeyVault/vaults/shared-kv"
+    //   },
+    //   "secretName": "moe-baseinfrastructure-space-sql-server-admin-login-pwd"
+    //   "secretversion:"..."
+    // }
+    "microsoftSqlServersAdministratorLoginPassword": {
       "value": "N0t@P@ssword"
     },
-    "microsoftSqlServerDeveloperStatingSecretsAreNotRecordedInCode": {
-      "value": "ATotalIdiotForEmbeddingSecretsInAFileAndCheckingItIn.ButESTIHasNotProvidedCISrvAccessToSharedKV..."
+    // The Name of the ARM developer (ie *you*!) who is certifying they 
+    // understand the security risks of recording passwords in a parameter file, 
+    // or any other code, and are not doing it here (and the code base's commit history
+    //  will back them up). 
+    // Instead, the value will be retrieved from an eternal keyvault to which the 
+    // build service has been granted access. 
+    "microsoftSqlServersDeveloperStatingSecretsAreNotRecordedInCode": {
+      "value": "!SigalS"
     },
-    "microsoftWebCertificatePfxBase64": {
+    // ----------------------------------------------------------------------
+    // Parameters: MICROSOFT / SQL / SERVER / ALERTING RULES
+    // ----------------------------------------------------------------------
+    // TBD
+    // ----------------------------------------------------------------------
+    // Parameters: MICROSOFT / SQL / SERVER / AUDITING POLICIES
+    // ----------------------------------------------------------------------
+    // TBD
+    // ----------------------------------------------------------------------
+    // Parameters: MICROSOFT / SQL / SERVERS / FIREWALL RULE
+    // ----------------------------------------------------------------------
+    // TBD
+    // ----------------------------------------------------------------------
+    // Parameters: MICROSOFT / STORAGE / STORAGE ACCOUNTS (SHARED/COMMON)
+    // ----------------------------------------------------------------------
+    // TBD
+    // ----------------------------------------------------------------------
+    // Parameters: MICROSOFT/ STORAGE / STORAGEACCOUNTS (DEPLOYMENT, DIAGNOSTICS, BACKUPS, DEFAULT)
+    // ----------------------------------------------------------------------
+    // -------------------------------------------------------
+    // PARAMETERS: MICROSOFT / WEB / CERTIFICATES
+    // -------------------------------------------------------
+    // An infrastructure support specialist will have 
+    // purchased a cert
+    // and placed it in a key vault outside of the projects 
+    // resource group (and probably in a different subscription) 
+    // so use the reference approach to get it out, and place it
+    // here.
+    // Note that security is not perfect: a developer can develop
+    // arm templates whose output records the values it extracts
+    // from a keyvault.
+    // Hence why we always recommend to not use secrets and 
+    // rely on AAD RBAC'ed access, based on Service Principals and 
+    // MSI token.
+    // Example:
+    // "reference": {
+    //   "keyVault": {
+    //     "id": "/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/MX-MOE-BASE-COMMON/providers/Microsoft.KeyVault/vaults/shared-kv"
+    //   },
+    //   "secretName": "moe-baseinfrastructure-space-cert-pfx-base64"
+    //   //"secretversion:"..."
+    // }
+    "microsoftWebCertificatesPfxBase64": {
       "value": "MIIc8QIBAzCCHLcGCSqGSIb3DQEHAaCCHKgEghykMIIcoDCCF1cGCSqGSIb3DQEHBqCCF0gwghdEAgEAMIIXPQYJKoZIhvcNAQcBMBwGCiqGSIb3DQEMAQYwDgQIjIJH1HCK630CAggAgIIXEEcTsZHyuribTFzid4dV3Kb0CHaaZEYhU7Q5OrWh0PJLwWNuRkXAJ7h+HyhaQQzg1WBeGVRvkG+6Ybgw60hE0RiqxSxUBFcusw1X5OjVW1wkrjWtstCI3edqt7SqYI1qjLSQXu7iMZ+RySYs3NWvRvBMQezrj4JZFCrcOCsnCf7dYwdyHoQ7nSFjjffOqHOjhN8nlXuRoCZRcNXSYEugiB2+NFKW7JxLr3SIKBRm1Z7IpEbgKjD2TOPSmIJS7aKvMoODvO/g6uvuEu2XsFPXVB10iBcl5K36JZnh7c/7Q7QX5VZYGer3lwzIu/e/unLjJBeZZHL0pLaLZp6uditLcIC1m9D94C/c8aqDBRvVaJnbxV42f1GiZtpJG24R3V1WsvpRyKo6HEUsFFdMnQMBYQLGBBhW6r905zI7mlgOagsoh4iRHvyjHS2ojwwfUIWjJihmWVyEa1dUxnvxu5QfChJaqWUaF8uqp9czm3O6ANT3Od8m1nqWSPKRCZD7d+rUQS1lp1syScjVuwi4N0ZOQfpgW+mNiOTuWhc3jjGL75XCdq6pbYypVu+zt5Imc9dH2j1VxGxqS19PKiD9AHhBfY1fLIp09dsP+HCv+RS2vuLAvHgdFZbp2s68Z9pg5B6q3mRBN5Pojidw/0hkRF7/eOI2jbd5lMl9MJHwzfpsxT/nJFSwagaPrCLMfy0ITuLdH2aRPfIADkSFXSB9KBU++qvi2NzmiT/5G39MvlqkwCsBT6DRO+mA/5XVE45rOiYSWN0qJutX5tje0fb1p3y1zskW6in7b0bIQ9W3zOJ5cZswWlwUD6KulfEixGTC0ajrMKM6jKPPxJczRspJy2fGiZTk9LtUsCXlQyPhp/59eMdNvONhq5pEiEqkhkUHylZBe/FlEwjmPQapwQ7sWsxyp0BqV7ZjwYJQhpQz/be6OsDluzwJ8D+XJEW5JcpQq4jrF5o2rcerWQZ17jabx8pjn3K2HV2UjNPh4KfgOw3OY54L7FX0krEth6QTBTo76tyOwaAHeS3llhYfCWQRWchADmLlWyvw2IjeN6LswLaJgVYgHHZCR/hoesCNqx+44CbuITQunAVArrNn60nMr8n9L8E3B8RVOcHKezjvQKH9GRR0kwaae1bhMOzbUSWPhHBf+B0j5Uga1b/WptfwwreC6j3/r4wsmnAwPB/EKKRWRyx93KA5KX1c6KwvX0d8f5yVj8/Tp3SW5CDJfDMN8KGKOvghAXe/jON2TqDXpo0YRvV7eesQeIayIUIbrik6vlN16MGFjBzVEgW8TxygXxWwRakaWd5xto8+Uc8I6eEMwFrDjdTdZFENDuDFg0xbjUaQb7xMNWO18TCCkDd8wsrq98qP4KukkGn0+eSdSbJblEMSKlwEezPW1U/mX+YufUDunCj2FJpd83HkBYxmsYI6ofdsuqyTMCvS8LB+y8M3oYqGvJItFPYvuBeJ4kzEYZtSC44nlZLHmaFK1+LmNVOKZHU3+FlcWi0kWEwDfzYmzlFFrkJlPRosYXy+IT4NDnT5KN8HmnNdB7zQaEZINZEn75taahplgOXSmp4QMHrSplI/ijFGubTAC6SGWGFR8SZji9yywvyyyvwjl75PwMcMKk9uCYNxwP5nngMcVuRJbXtavknzxVu97Z/RFUvmlcer9SjcgSXUF2ZjB9O7YeqGCiR48RfQX/Q9E/IzIfVcCQgbWOiE5tF0VaVqvCkMqE6XzC93L5kd5JjnaacDgkxJ83uxvJ6acK/0LSn2k9GGQEl550kTnk5f8tZvFAsOdq2xT02ZrlpH3fnoIJnHdPbiUWgiW3TjubPzoh9gW3zl6zI0NtFAj03i5nwzqAEHcnF6Ur7b+L8y1zppIk8/sCzcvpfoPOmt2TrboJ9n/5v/t3Ah7h16ARS8R6QkkfSVNZdbAHncOlF7hryLSvAr3sh/IyeMNIT/pXPBbezQFpw2eSq00hTOZbbHZdxjJiwYo1jSIzKFc8JpALw+PI1wiV9ymSLeYwQR6oFsKgRUCr6H5xnN+IL1BhJfXBRolWVSA+ZO3Ia9jsbLlGzxg9i2aCADuAyfkiMFRYs4IbIv4VHkXQXrgdxQBqyJpH+wB4vunt5xWRjGXg3NZNDGbze1inBPCOzYz84/MoMGqCPVXGN0TplDvjbLiuj6CiRRGwRQMYSflCVJUjFkcrCDmqKXRQJ9SvL2Pq6IrZVom0J1QPpyZcxattkBbfoQVXn6tpubqz5rD0bvAkx110VBsT9OfPURPLsMHQlzzGH7TQS3SyFmFwc4Tc0zYu9/5j8EQzGpie3lXHYCJku5HVnELJmRFQo+DcCHj4EZm+DThLivbvaPRFvhOsPFX9owB0pkM1dCmzxCDPMhzGkq8HwVI3zJyvqk6d6pep6GiZDPSs4Ke/yGuLW/ZfA3kbiY69jDOTEPGQqoH8NkkCaXKpbjpPxOM0KJCpUuf+KjfpfJra4u0OIpyzMurBr7tZ5dL1XIGjIpr8tvfH1JFOeqmTIAPzegxKBa9hFcMnGH/TwciMX0RCfdB1E9TMWI3Q56DpGXIvVfkf3iS9gn8DOKgLzJxznZFt48c1alT5usaf9KStXAmq70eghNickz85EeoUpzPh//wTWBRQgraeN20tyMXyOOLaV9g1H60MojMwpusvVGgRn7CsBM4cxZ5eBvdkanPid/n4g6QPIYKEEybPSYLVYznI9iWwIt+RGJwjtk5uhJ1qoKSxPOvTOws5u/NBV25HelNFsyW3gkr7jhzb0h3QwqiWsW6OwduTRP34jj0f84d5bZP1wRc4Z/Ks5Z84i70IDHkM6bOH+gr7XH9fhh//GWQCIMifeacCxeA8SPIP2kSEHYmf2vGZqmr6luai85L5sscMYLS7+x6P8vjg4sxefVKf3dghFcvb452b3vtEKPlYGZ3NrF25meieG9T/Jv/HiZHCOBeH+b6frK4JJhe0oV8ymnqzgZp/6X/sKqNpMOSNL2yP42WQjZ97GD9S0OV4r8ifh2+N454Hfhip8o3lo6j/qvF/lvDaJ2tYkml4wt6+L3sOy9N+Fz225t5VcSeVEmqUz7Er5Bx9eL4M9QQ6XB1cbVCLhBs8GIa+oUHtLFXtUOT6afK6Uh1jT9ThiKeVrZVFHObw9twxATIHRFP3HlfBT77PCB9NJ8RdIHWekhXVAjXx53LMhdxwW4bPxZ3rDqc4yUJ7/n5JI+NqP+24PfTS3xk9zYLwCxh/VCm0L6y047O9/UtThxg3zx0f8zUhcmQ7H4IQzPiFS3uJLUPg3muMri/JkPknSz0blXkI/bEyBOUBB6NuK7WxMXWi3fUKBG1nEb24OW4bKGTlJYtT2Sq43kvdgSXWKUyi44+CsFIszIMIXFy8mdM/MMA3CZhwFqFv6FZbOqNB0/r0XfBYLMlIzE23/9nW4NhwU3NZZWFNIbe9/uzjeEj/oANEbBbJC0MfvMCuiMOww0e8m5Yf8ow2lzlKJ9BqOA61eAGcHKWjZajz3WMQmUWDSwm/iY4VaOyi07/8Dt0x5XrhAk0Ul9cMmgzAum4Yzb8qYnYjQNIt/REddrAWXfwVT8F7WZg8ykJOkFtWxaJ0cVlB4yjlCnbxdtRn6VR82WTZmbbdnSaNdPJpPZCPlEmMd9BNkNR8xqf0WcW9/9nm+AejxEPBnF+JQXs+vKDvU82lrnhsJ3wSfxZ0dVVg8OlF2PBYVHpoOwiXBmBThot4sNBTp2A68toqeDx31gnD/RLQQLY8W4Pxodw/CIBH8LpqLCLQbnVt4ComBFUD/PWOSpxIJeUD7n6B6keIRKEx4DxcpA7TKjlln+FNjEd1YEimgxFK8c+L0THNYBa3wZ71ykrBoSc4NfiEaVeTNeTzs+fBaYgrzT4GMQQuQrK21odSbD0IPt/gM7nbRpnz5WYDQYIuOeFPgzSEVCSMEYjaRPYkoXc9jDGH8pP8QhViqJLK/Eje8iPT7gF9upXI2kyErPESP1B57bVV8Au8Zppg8a+fAz5Rf2rET9ad0soRdGMSsov6Zly+seo519Y/tiRfdwzm1uZPpbcZ8bYjmXx1C7CynZCg8E6xdArb/F4Jv2gI/qDhSrGazT3bMPGatospxjS7u0rvxvd9401NwFzrH1bDclZMPcCBavSU1DdgUjMWybYVmYq1ycYUmHT8xqplVTj9ZhTC+n5hg6xoEzYoZ7B3kk/rs1f2ICKWfIyx3QEcdq7sbRFAzOvLfhBp3ynPcxA8M+K9C4vp7cEFdtBP/gZoihrYrSLKSALZ15IggZDXCPVU4odZHj+/0d/PyrouooIJg8GbegQhOdWSd11HJsOksYj85anULXvIAhM1gdIXMgsb0t38Mk9TGi1vsxkvcip0KEfAsZ8KssdtUImlX4Iu4DygiIrxAp6ot3NzhebmD6/tsuGGm5BxMaJ73uMNvBIaQ//iMlMqkkFPMvGdet1i0gozL2QIq14gOkEcxAwQH/4k6Ki6dDrcbRVU3InUVYv65xCF0720/zXZ8jahQMF7wgtaCQ0q53h62aqnLL+AwJwdS7d1lP5AHaoWEVs91toRfv2r7P2qqNp7/ifxLJsNFXpgjHbbF6OfVzCv9ZFWb5Wf1WIqTlQD3fZYiKdaAemg8fAwwW/A9lfqQ4TDUklOaB/Z7ykeYNQoFlgwAZJdCucPJVUVCeA/Tt0NFJnycdy9bztjkefj746g+nOM5duYjT/oL9qyvc2J3JnY3bdjIfgg6LLhKFIAWUhtIsltGNJpRKSwTT9/ab1SsU6ze4/BjUzztoo0PLSLAK7jwgWDpP4qRtLTwzDNCCypLDGNo49Wy5AzleaVTx3Ls743bBLn3AcliLl5/kpxv60qqYzOkArXah6OpjXtvmOHo2yq0ynqpMvv2u/YPNSJdi7e7pSZu40HfObNdIBusmePtNLtpZ2DOJhg8bcI2fXkbBfZo6bsR8NAHVCsA3neiDpSRWvHrc2ZqUDl78+w6+7DxcysqTxqMuli5dgNTOUeyQ7hpJDPEgRz2ok02CbYzEQt509LUcRBte3MK7foaSwLlirG3YKZbXx20jhJPWXuZQSdt93OOhszmJsC7VP5q9TVbW22GLVFhJLE0oy6sxjmgmwSQs22bqoPfhM4xsNBCuVuX7uFRnaQ3a42Hq31nIqyXwtW1nhRxOUixUQLY8HUFFoKuDOXCtOMtbvmCRXRVLYewdaZ4MTbZ9FieK4OuX4K+16nGruyNEMvAVw6O8kce/l8lzvInjKok7szvs3grtxnsvKCEkxvYls4EoICDGR32hyQq1SRh6uhKZiIR84uwx7v96I2BhrxZPKKkrn7//XZWbW0GFavm4Z8UTslMRmwUeKkqbbUR7QlqlVs4CIAQ52582V41xY04KZRd4HAn9kruJZM1W7srtMs6xR5Rnqvt9imIFqv0JDAfE9Iut6lna7WgEs7MqnGEpXZvYR59m6cxNCM59wfNoTqTXTkNf4KmlVgQijdeCT70qw8GdU4Eq+QDQdaUxCbnP7/D58qAnzXhyy4PO4C+uB7+e6053+9e35Xt24Py2B6EaMQ6w8C9G/AD8socbIu8Gna19QZFbMOew0x/3I+7z3RT6eKLCW+qjXU1tWooR+XkDrVFnokND8yx/3MA8DiyRdP/Hte0hPnZ+PE1sxLcEofSer7ITRTg4E3I6ANYbxZ/5E4CgpAYKE7zg6M7ruR+kE/2oSpFAQ+7O2GzYcAXlAhdgKsZ9Rf6GQihsVSCasZBnRVuA9eiRPdwUiPJKtPl1eoNXLu/zyna/zvvGcta64PAuhqOYMZU67tij9Em70Iha7C+oYKbZH+E8J85ShedvhiNwFLu6Y60n6yV2fB1eMpAJ0Dif6Cmi+0HEmlKTzs4Oxqnn7nK5+/GEjGLHLW1CM5wmDuI87mGepuRHNgt4GSrliQ2bZS4SEMs1d+gwP93a5PyaVCHX4Vteiz5nYkoM6Fzo5pn0P5N2z/9F8swxSAWyz+KjEspQiLXuZoKeZIAbSY3ibK0/efCum5FTFQCjX3YZVrrd3dHBisQUzc0w1Bd+gATgHKCzY/rbEzrrnCQpIHNA5UQqCrI4SU+dKf8Gd2ER6a8fugldCXaAjX1dRtCUOaC67ygoMbEWNm3o1S/uzPnvLwoTrZbz1hsWjcC/cLAWq3tO9yzfj+TGMaO8Ez5nk5oobu1BPY1qfMN0i/rJ1g3DHvyt7cE3r9yf4v1exYRiGJlxyHiL15ZfJ+SrjJZR44PeqFrSdTVt90WZHJlkSX1s+DSkAK6OByT6yoPVYI5BoNpleIZhRnPdyfF3e0gvF6SbxZeUmU+6BDRtIXTl6dnWiZXnyT+sqFbqlz52Gr/Uik8WlfEGrZP2GRp3gEz5w9fB+q/rsFTQ3ERJv/RMvNce3TKSnKsPajew3ytvstSNyEQuP9+6Jg6nVatwfIE1lDAvBj1Gqze24JrJlBrAzTpcsaB9mTwAsWJQG5efyTEACNLDwwKFljMS+DCeheyJJvnwxYK6TF3oB7V23BQNkYLDR/dDb3s547iIuHUAtpHM7Kfc9F1tDnCl+r5yIV9/nnTo9oMB2WdCrLHQ2adNDoUcy8660oEL2mH4nLl4WvatYpC/L4Is695HT+B+F/IhpCYpb1XPC/VmXVwe8sXpDgiq1Dv89r1bdrBc1HVNuAin0HYMIYwqO0QI3f0T72dxyqNLKsJ0p2pM8xqMnK1vB7jKrXWI3vQ04kv4jARpNsuTGp5XZnkwLdJ5x94tVSnR2zOOryj13k9YSIaEjeXvNkKsjBb5UMyOq45ehJA1mMcvypen9+fuWGkUL3kszF/Qv5XqMvAGBxxlOhBKJa5O2V+iTSpKVXBAt3eVpFMMyM/54jL7aH2uP8DR8y+3KUiIu8OayHip+4jL2o+OaBt0RDowhntKZ9uwH20jNVyOgc7KTdZSqjSSQtitEzdXpwjqZ7wSafBBrmyjWhvP+jKptOlYQFYRdMoYpGz5eLIGhilmz9Ft40sxNVkwsYnN46c8FX7TfWLPyVTcx+Xp9lRJf6Iwq+fUQsru/U893ss4FNGgvnZbwsN+TCfgWll1awVFPWJin2w4uCK7LsPMqddi0K3BIt6mF93ibiqKXOjpN/34H2u2FoGNICxdII0jpVAfICO5AE+5ahNRXv/o0O4YPDm2dPQVAFKrGMcMu7OLGtkuAmPyznBu4VBiu3faivIZm5HgYVbHcMy1T8odclw1CDrIxiMjxJFoXZe2CUe6ueQpVwup7/8YG9e9S8ajTTs/BKMQtNqhs+v/Cv1llSV4HUdUbF/n0iS1xmu1Xyg5XLwIbayb9w24+NlLQyju3q5Qib0rbiosO8iKe4AVEbWNIOalp0H/DnEvZXKiPUo1Eo0fKW/KctORaSIacxSuEZScuwbYkDvvQRDfNjJlfABH8oHSeMOSWO6gBM2Qr7sojKiGHZ45gHK9BifAX2ShBPvOtxBCWgLRh9k+Yo3h7Gf9M9N2HwKH1eObawe0VfNwRL+KVNL64cvyNwKY8G+hw/lOxwOI73/SST0dgybX/b3fUGmUJ9mTs9M+j9kFjn3rbIzQmfrX1Tx+N5kGarUNsDwqBJiXhcgeGHpmvjhOHsgu2C/MXhrb4gLiAruWYppXS3EacvAQKDa2C+aZnh3Yy9OfyyJm4aGLKtpCFVWlmcNtOKm3WRbZeWnG4tzH9V1LeXpL3QwEz/iPNAJsdDFfTWh+kwZ+pUIKZLfbxkyiEeKAZ7AMc9+DpHaq1wZVpFnxWdl4HsMLCWwHSPzOGf3/N6PwfcP0mnnruzXpQPxTjEutEWbvOlx/7/qlT3wQtWaAjO8Q8PlARe+sxC7X7eKIeUoNrOzQoZj6mrNaTr3auptn+Q9aULJiFM6qj+D9Dq2I2cdCTjCCBUEGCSqGSIb3DQEHAaCCBTIEggUuMIIFKjCCBSYGCyqGSIb3DQEMCgECoIIE7jCCBOowHAYKKoZIhvcNAQwBAzAOBAjaf4zR6wL90QICCAAEggTItHefCWe3Xr2IGvk6BpIkBNEMMhCW7v+bxvG1j5pGeWJMMRxTZxQEEX424Upy3K8DsPVORu/H991mD2UqT1/Zsw+ZeSOsQjYdvYJPfykAfh0a8inCr4W/4yTEVVCO3G5J9/8DrHUnBT88ZDKZderwg3O25uFrxmaCYH4BkX8KVfHJtQHLQ5r4N6/g70XNC8NxqtCWKFf5W7mc0lP4/+n94KCYEnEa3lziF9jOKHGoHsGSFq7EfUd8Zkfti409W1vdquZisFRF/uzGvcXng50uZGOur+CA4Sd+cB9KV5UcKHdMxjmgmA9Wg6No4uoAPh+01Sr4Nv65KjKAycfxGD36R1ED58n29t+UeTYRrrTfwlYPE9NmbaD2C27F2yPkBlfqw/1O4MSgMdjMABp1frDsOfqvd/i8PgB+HbI6jchGHKK89YsdpvL+wuhSJY+fFvFLZkHLITe1b6bcbCjGN6F9pRkTvIw3I37+QVwXzPQTFdiUPn0UpPB5dbsamVBn46010+FzTsJLZx1Csk3epJ3FWjUgB5NcSPZ75BpTwH3xhrOvnNRSANlsNvzCBPTvyJtKzpYJOJcSqTyG1k52zDWoLK7eg13JEgTTHunqDwG0eTquvg8pBSUtv78fYye+OvLdepLaNPgSgvrnPaKEk7TGzy/RL7qqRw6fSCtbTDf/HKSu4/rp16H3dH1OmmRapWVCBgzhLEbKLFM1p3mQKWBvYWl3VzR0eY/AUanL+aOZFBUga+GP5TXHHR4Jz+1JXHLX4FbtTkw8WJq4Gp0N0KxlXYz2LPecCdOiHEbwAAlaLVe7OXQ9PASe19LDR09+n5r6cYq0Dzr1w20cr3wLGYjcmzXihkV20yArX8UgCaByHv/XpbvIzgywz+rpMh1+FmCu/aYhFctB4Acbu6B/TAop43LK6+j/08JqVRxlCBbpoBsWffp/7R6BVxH+nn1+rGRt1ZSyohGa9X+IO0SkiWJqLIpollI87eejvHIoXDuG1lH6dyENlOeVNANoZjCo0d70J+ECTb3QPhG8gB+5nIAvgP5msCOwo4MM6e8VpCyaauXwCown6UGmFLdelhauHrYFFU7w/Bh6Pic0jIrs6IZ3OU7bbuRXR41+gZMrDYAJfs3N+pY+0sS5wE9U12qzya6HCWql9qWRPJn5aZpqzgzIC4xGXl1BprSS+YWiM+jw4wkQnpRyCDEU5D2qgmmMVIHZmnPUMPXpsiXcHztf/yS7JjVN5uzYykujQ0Lmrdu1ZdgLQTPn5elTah7O8DO0kDEJbKbSDhZzS4IG79XrZSFlQm/8Es+IHYUjnpVbzcvSKTV4A1SWJWMCgd+00O3jzrH9oKu9PSFEk9EKLULX7l9nCNawbHb+yohov3cE3QGyzXXOqlWFOrMYTJqPCBAy9AtbLrrYdvW1srAVslvSeuNk1XPL9jYyqz260lx+OkWHhqzuzReIkermhWLYEEB8C5mxSsnQ9E+8/gMIWLsp4rf6PeQYWEcBncFr8n2poYD4n4K8cqySEQ5H2cfpoyuoyftpfZKFyC7mBtPG3suoOGM1mrnnOnb2ky3jAMOIdfmBHW2DqIOBGI63p47VepH7HwxubNf0oe6Zf1wibKxocwYvBSMnhRqOP062MSUwIwYJKoZIhvcNAQkVMRYEFG4ubmKhfSDSek2TlGzkqbruVOXRMDEwITAJBgUrDgMCGgUABBRlBHFSBe1HAhUP9NSpYCdqVD+1pAQI1Rxj7pbOwvECAggA"
     },
-    "microsoftWebCertificatePfxPassword": {
+    // An infrastructure support specialist will have 
+    // set the Certficate Pfx's password in a key vault 
+    // outside of the projects resource group (and probably 
+    // in a different subscription) so use the reference approach
+    //  to get it out, and place it here.
+    // Note that security is not perfect: a developer can develop
+    // arm templates whose output records the values it extracts
+    // from a keyvault.
+    // Hence why we always recommend to not use secrets and 
+    // rely on AAD RBAC'ed access, based on Service Principals and 
+    // MSI token.
+    // Example:
+    // "reference": {
+    //   "keyVault": {
+    //     "id": "/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/MX-MOE-BASE-COMMON/providers/Microsoft.KeyVault/vaults/shared-kv"
+    //   },
+    //   "secretName": "moe-baseinfrastructure-space-sql-server-admin-login-pwd"
+    //   //"secretversion:"..."
+    // }
+    "microsoftWebCertificatesPfxPassword": {
       "value": "P@ssword1"
     },
-    "microsoftWebCertificateDeveloperStatingSecretsAreNotRecordedInCode": {
-      "value": "ATotalIdiotForEmbeddingSecretsInAFileAndCheckingItIn.ButESTIHasNotProvidedCISrvAccessToSharedKV..."
+    // The Name of the ARM developer (ie *you*!) who is certifying they 
+    // understand the security risks of recording passwords in a parameter file, 
+    // or any other code, and are not doing it here (and the code base's commit history
+    //  will back them up). 
+    // Instead, the value will be retrieved from an eternal keyvault to which the 
+    // build service has been granted access. 
+    // Example: 
+    // "value": "SSigal"
+    "microsoftWebCertificatesDeveloperStatingSecretsAreNotRecordedInCode": {
+      "value": "!SigalS"
     },
-    "microsoftWebServerFarmResourceSku": {
+    // -------------------------------------------------------
+    // PARAMETERS: MICROSOFT WEB / SERVERFARMS
+    // -------------------------------------------------------
+    // B1 (Basic Small) or higher is needed for HostBinding and SSL.
+    // B1 is about 95$/month, and S1 is about 135/month.
+    // And S1 gets backups every day. 
+    // At 1$/day more, it's worth it, for a corporation.
+    // Example:
+    // "value":"S1"
+    "microsoftWebServerFarmsResourceSku": {
       "value": "S1"
     },
-    "microsoftWebSiteConfigAppSettings": {
+    // -------------------------------------------------------
+    // PARAMETERS: MICROSOFT / WEB / SITES 
+    // -------------------------------------------------------
+    // TBD
+    // -------------------------------------------------------
+    // PARAMETERS: MICROSOFT / WEB / SITES / CONFIG / APPSETTINGS
+    // -------------------------------------------------------
+    // "Optional. The name for the WebSite. 
+    // Default is 'resourceNameTemplate'-based, automatically generated resource name, using 'web-site' for the {RT} token.
+    // "microsoftWebSitesResourceName" : {
+    //   "value": "somethingcustom!!!"
+    // },
+    // Optional. A Complex Object (ie, JSON) containing a series 
+    // of stringKey/stringValues that are added to the target site as AppSettings.
+    // Example:
+    //     "defaultValue": {
+    //         "ExampleKey": "exampleValue"
+    //     },
+    "microsoftWebSitesConfigAppSettings": {
       "value": {
-        "AppYayFooUno": "AppYayBarUnoApp"
+        "AnExample": "Foo"
       }
     },
-    "microsoftWebSiteConfigAppSettingsDeveloperStatingSecretsAreNotRecordedInCode": {
-      "value": "ATotalIdiotForEmbeddingSecretsInAFileAndCheckingItIn"
+    // The Name of the ARM developer (ie *you*!) who is certifying they 
+    // understand the security risks of recording passwords in a parameter file, 
+    // or any other code, and are not doing it here (and the code base's commit history
+    //  will back them up). 
+    // Example:
+    // "value": "SigalS"
+    "microsoftWebSitesConfigAppSettingsDeveloperStatingSecretsAreNotRecordedInCode": {
+      "value": "SigalS"
     },
-    "microsoftWebSiteConfigConnectionStrings": {
-      "value": {
-        "ExampleConnStringAppA": {
-          "value": "Server=mySuperServerAddress;Database=myDataBase;Trusted_Connection=True;",
-          "type": "SQLAzure"
-        }
-      }
+    // -------------------------------------------------------
+    // PARAMETERS: WEB / SITES / CONFIG / CONNECTIONSTRINGS
+    // -------------------------------------------------------
+    // "A Complex Object (not an array) of a set of {'name' { 'value' and 'type'}}, that are added to the site's ConnectionStrings. Type should be 2 in most cases."
+    // Type is case sensitive string, and can be MySql, SQLServer, SQLAzure, Custom, NotificationHub, ServiceBus, EventHub, ApiHub, DocDb, RedisCache, PostgreSQL. SQL 
+    // If things stop working, ensure:
+    // it's an object of complex object of name:key/values.
+    // If things stop working, tips to find the reason include:
+    // ensure you are passing an object {} and not an array
+    // ensure the name is the key to a sub object of two params, and not an array of objects containing 3 objects
+    // ensure the type is string, and case sensitive (and not a number)
+    // Example:
+    // "value": {
+    //   "ExampleConnStringAppA": {
+    //     "value": "Server=mySuperServerAddress;Database=myDataBase;Trusted_Connection=True;",
+    //     "type": "SQLAzure"
+    //   },
+    //   "ExampleConnStringAppB": {
+    //     "value": "Server=mySuperServerAddress;Database=myDataBase;Trusted_Connection=True;",
+    //     "type": "SQLAzure"
+    //   }
+    // }
+    "microsoftWebSitesConfigConnectionStrings": {
+      "value": {}
     },
-    "microsoftWebSiteConfigConnectionStringsDeveloperStatingSecretsAreNotRecordedInCode": {
-      "value": "ATotalIdiotForEmbeddingSecretsInAFileAndCheckingItIn"
+    // The Name of the ARM developer (ie *you*!) who is certifying they 
+    // understand the security risks of recording passwords in a parameter file, 
+    // or any other code, and are not doing it here (and the code base's commit history
+    //  will back them up). 
+    // Example:
+    // "value": "sigals"
+    "microsoftWebSitesConfigConnectionStringsDeveloperStatingSecretsAreNotRecordedInCode": {
+      "value": "SigalS"
     },
-
-    "servicesMalwareDetectionClientId": {
+    // -------------------------------------------------------
+    // PARAMETERS: MICROSOFT / WEB / SITES / HOSTNAMEBINDINGS
+    // -------------------------------------------------------
+    // Optional. The public DNS name of the website. Default is ''. Will require a WebServerFarm SKU of S1 of higher to be set.
+    // You have to own the name and make a record of it
+    // or you will be get a deployment error or :
+    // "A CNAME record pointing from foobarsite.com to foobar.azurewebsites.net was not found. 
+    // Alternative record awverify.foobarsite.com to awverify.foobar.azurewebsites.net was not found either."
+    // Example:
+    //"value": "foobarsite.com"
+    "microsoftWebSitesHostNameBindingsHostName": {
+      "value": ""
+    },
+    // Optional. If 'microsoftWebSitesHostNameBindingsHostName' is used 
+    // for 'www.mydomain.tld', you want to be able to 
+    // also register 'mydomain.tld' as well.
+    // Example:
+    "microsoftWebSitesHostNameBindingsHostNameAlt": {
+      "value": ""
+    },
+    // -------------------------------------------------------
+    // Parameters: MICROSOFT / WEB / SITES / SITEEXTENSIONS
+    // -------------------------------------------------------
+    // TBD
+    // -------------------------------------------------------
+    // PARAMETERS: SERVICES / GEOIPSERVICE
+    // -------------------------------------------------------
+    "servicesGeoIPServiceEnabled": {
+      "value": "TODO:REPLACE"
+    },
+    "servicesGeoIPServiceUri": {
+      "value": "TODO:REPLACE"
+    },
+    "servicesGeoIPServiceClientId": {
+      "value": "TODO:REPLACE"
+    },
+    "servicesGeoIPServiceClientSecret": {
+      "value": "TODO:REPLACE"
+    },
+    "servicesGeoIPServiceClientMiscConfiguration": {
+      "value": "TODO:REPLACE"
+    },
+    // -------------------------------------------------------
+    // PARAMETERS: SERVICES / MALWAREDETECTIONSERVICE
+    // -------------------------------------------------------
+    "servicesMalwareDetectionServiceEnabled": {
+      "value": "TODO:REPLACE"
+    },
+    "servicesMalwareDetectionServiceUri": {
+      "value": "TODO:REPLACE"
+    },
+    "servicesMalwareDetectionServiceClientId": {
       "value": "394d3e42-18e1-4758-87b2-29e22c59d64b"
     },
-    "servicesMalwareDetectionClientSecret": {
+    "servicesMalwareDetectionServiceClientSecret": {
       "value": "c841994b1"
     },
-    "servicesService01Name":{
-      "value":"External DataFactory Hydrated CosmoDb Database"
+    "servicesMalwareDetectionServiceClientMiscConfiguration": {
+      "value": "TODO:REPLACE"
     },
-    "servicesService01Uri":{
-      "value":"https://nzmoebase.documents.azure.com:443/"
+    // -------------------------------------------------------
+    // PARAMETERS: SERVICES / OATHSERVICE 
+    // -------------------------------------------------------
+    // Optional.
+    "servicesOAuthServiceEnabled": {
+      "value": true
     },
-    "servicesService01ClientId":{
-      "value":""
+    // Optional.
+    // Example:
+    "servicesOAuthServiceAuthorityUri": {
+      "value": "TODO:REPLACE"
     },
-    "servicesService01ClientSecret":{
-      "value":"wEDBI7B1MPHtNK4y2Myi1h5falYVviMuVBQHgI9hUzT4HnLxsRCJzUC4BPvXW2XEzPJHFztRzhpRK6lBI3NG6A=="
+    // Optional. 
+    // If your system needs to authenticate remote systems it will be via OAuth.
+    // If authenticating Users, it will be via OIDC. 
+    // Which is an extension of OAuth. 
+    // Both require that you have the OAuth ClientId and ClientSecret that were developed 
+    // by the remote IdP when you registered your app with it.
+    // Example:
+    "servicesOAuthServiceClientId": {
+      "value": "TODO:REPLACE"
     },
-    "servicesService01ClientMiscConfiguration":{
-      "value":"DatabaseName=dataFactory;CollectionName=syncData;"
+    // Optional. 
+    // If your system needs to authenticate remote systems it will be via OAuth.
+    // If authenticating Users, it will be via OIDC. 
+    // Both require that you have the OAuth ClientId and ClientSecret that were developed 
+    // by the remote IdP when you registered your app with it.
+    // Example:
+    "servicesOAuthServiceClientSecret": {
+      "value": "TODO:REPLACE"
     },
-
-    "microsoftWebSiteHostNameBindingHostName":{
-      "value":""
+    // Optional. If your system needs to authenticate users, using OIDC, 
+    // you have to redirect Users back from the remote IDP to this system's Homepage.
+    //  '/' won't work (that would be the IdP's home page). 
+    // If not provided, will be automatically generated using 'https' and your host binding name you provided.
+    // Example:
+    "servicesOAuthServiceClientRedirectUri": {
+      "value": "TODO:REPLACE"
     },
-    "microsoftWebSiteHostNameBindingHostNameAlt":{
-      "value":""
-    }
+    // Optional. If your system needs to authenticate users, using OIDC, 
+    // after a user is signed off (destroying their security token), 
+    // you want to redirect them to the home page or other. The default is '/'.
+    // Example:
+    "servicesOAuthServiceClientPostLogoutRedirectUri": {
+      "value": "TODO:REPLACE"
+    },
+    // -------------------------------------------------------
+    // PARAMETERS: SERVICES / OIDCSERVICE / Server
+    // TBD
+    // -------------------------------------------------------
+    // PARAMETERS: SERVICES / OIDCSERVICE 
+    "servicesOIDCServicePoliciesSignUpSignInPolicyId": {
+      "value": "TODO:REPLACE"
+    },
+    "servicesOIDCServicePoliciesUserProfilePolicyId": {
+      "value": "TODO:REPLACE"
+    },
+    "servicesOIDCServicePoliciesEditProfilePolicyId": {
+      "value": "TODO:REPLACE"
+    },
+    "servicesOIDCServicePoliciesResetPasswordPolicyId": {
+      "value": "TODO:REPLACE"
+    },
+    // -------------------------------------------------------
+    // PARAMETERS: SERVICES / OIDCSERVICE
+    // -------------------------------------------------------
+    // Example:
+    "servicesOIDCServicePoliciesSignUpSignInPolicyId": {
+      "value": "TODO:REPLACE"
+    },
+    // Example:
+    "servicesOIDCServicePoliciesUserProfilePolicyId": {
+      "value": "TODO:REPLACE"
+    },
+    // Example:
+    "servicesOIDCServicePoliciesEditProfilePolicyId": {
+      "value": "TODO:REPLACE"
+    },
+    // Example:
+    "servicesOIDCServicePoliciesResetPasswordPolicyId": {
+      "value": "TODO:REPLACE"
+    },
+    // -------------------------------------------------------
+    // PARAMETERS: SERVICES / SMTPSERVICE
+    // -------------------------------------------------------
+    "servicesSMTPServiceEnabled": {
+      "value": "TODO:REPLACE"
+    },
+    "servicesSMTPServiceUri": {
+      "value": "TODO:REPLACE"
+    },
+    "servicesSMTPServiceClientId": {
+      "value": "TODO:REPLACE"
+    },
+    "servicesSMTPServiceClientSecret": {
+      "value": "TODO:REPLACE"
+    },
+    "servicesSMTPServiceClientMiscConfiguration": {
+      "value": "TODO:REPLACE"
+    },
+    // -------------------------------------------------------
+    // PARAMETERS: SERVICES / SERVICE03
+    // -------------------------------------------------------
+    "servicesService01Uri": {
+      "value": "https://nzmoebase.documents.azure.com:443/"
+    },
+    "servicesService01ClientId": {
+      "value": ""
+    },
+    "servicesService01ClientSecret": {
+      "value": "wEDBI7B1MPHtNK4y2Myi1h5falYVviMuVBQHgI9hUzT4HnLxsRCJzUC4BPvXW2XEzPJHFztRzhpRK6lBI3NG6A=="
+    },
+    "servicesService01ClientMiscConfiguration": {
+      "value": "DatabaseName=dataFactory;CollectionName=syncData;"
+    },
+    // -------------------------------------------------------
+    // PARAMETERS: SERVICES / SERVICE02
+    // -------------------------------------------------------
+    // TBD
+    // -------------------------------------------------------
+    // PARAMETERS: SERVICES / SERVICE03
+    // -------------------------------------------------------
+    // TBD
+    // -------------------------------------------------------
+    // END (FOR NOW)
+    // -------------------------------------------------------
   }
 }

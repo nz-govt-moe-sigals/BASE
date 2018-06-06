@@ -17,7 +17,7 @@
     //   in ARM due to the poor syntax accompanied by poor debugging tools.
     //   * Each parameter is spelled out in full with the prefix of the type. So even if its obvious (ie, 
     //     we're in an arm template called 'StorageAccount.json') the parameter's name 
-    //     is 'storageAccountResourceLocation' -- and not 'resourceLocation' or worse 'location'. 
+    //     is 'microsoftStorageStorageAccountsResourceLocation' -- and not 'resourceLocation' or worse 'location'. 
     //     The rationale is that when you have a error message saying 'locaation' is not right, 
     //     and it's not even hinting as to which file it's annoyed wit...you have even a clue as 
     //     to where to start (eg: with 'location'...good luck. 
@@ -25,12 +25,7 @@
     //
     // Tricks of the trade:
     // Comments are great...but they are not valid JSON. 
-    // Consider using:
-    // npm install --global strip-json-comments-cli
-    // and then:
-    // strip-json-comments azure.arm.base.json > azure.arm.base-naked.json
-    // to check whether the json is valid (still going to have major issues anyway, but might as well 
-    // get that out of the way)
+    // Luckily, Azure and VSTS now accept though... 
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     // README:
@@ -71,11 +66,11 @@
             "type": "string"
         },
 
-        // Optional. A hash, or environmentId to microsoftWebSiteHostNameBindingHostName and microsoftWebSiteHostNameBindingHostNameAlt
+        // Optional. A hash, or environmentId to microsoftWebSitesHostNameBindingsHostName and microsoftWebSitesHostNameBindingsHostNameAlt
         //  (eg: 
         // {
-        //   'BT':{'microsoftWebSiteHostNameBindingHostName':'...', 'microsoftWebSiteHostNameBindingHostNameAlt':'...'}, 
-        //   'ST':{'microsoftWebSiteHostNameBindingHostName':'...', 'microsoftWebSiteHostNameBindingHostNameAlt':'...'}
+        //   'BT':{'microsoftWebSitesHostNameBindingsHostName':'...', 'microsoftWebSitesHostNameBindingsHostNameAlt':'...'}, 
+        //   'ST':{'microsoftWebSitesHostNameBindingsHostName':'...', 'microsoftWebSitesHostNameBindingsHostNameAlt':'...'}
         // }.
         // Note that a cert can contain muliple hostnames.
         // 
@@ -88,15 +83,15 @@
             "type": "object",
             "defaultValue": {
                 "--": {
-                    "microsoftWebSiteHostNameBindingHostName": "",
-                    "microsoftWebSiteHostNameBindingHostNameAlt": "",
+                    "microsoftWebSitesHostNameBindingsHostName": "",
+                    "microsoftWebSitesHostNameBindingsHostNameAlt": "",
                     "microsoftCacheRedisProvision": true,
-                    "microsoftDocumentDbDatabaseAccountProvision": true,
+                    "microsoftDocumentDBDatabaseAccountsProvision": true,
                     "microsoftSearchSearchServicesProvision": true
                 }
             },
             "metadata": {
-                "description": "Optional. A hash, of environmentId to microsoftWebSiteHostNameBindingHostName and microsoftWebSiteHostNameBindingHostNameAlt (eg: {'BT':{'microsoftWebSiteHostNameBindingHostName':'...', 'microsoftWebSiteHostNameBindingHostNameAlt':'...'}, {'ST':{'microsoftWebSiteHostNameBindingHostName':'...', 'microsoftWebSiteHostNameBindingHostNameAlt':'...'}, }."
+                "description": "Optional. A hash, of environmentId to microsoftWebSitesHostNameBindingsHostName and microsoftWebSitesHostNameBindingsHostNameAlt (eg: {'BT':{'microsoftWebSitesHostNameBindingsHostName':'...', 'microsoftWebSitesHostNameBindingsHostNameAlt':'...'}, {'ST':{'microsoftWebSitesHostNameBindingsHostName':'...', 'microsoftWebSitesHostNameBindingsHostNameAlt':'...'}, }."
             }
         },
 
@@ -226,7 +221,11 @@
             "type": "string"
         },
         // -------------------------------------------------------
-        // Parameters: REDIS
+        // Parameters: MICROSOFT / AUTHORISATION
+        // -------------------------------------------------------
+        // N / A
+        // -------------------------------------------------------
+        // Parameters: MICROSOFT / CACHE / REDIS
         // -------------------------------------------------------
         "microsoftCacheRedisProvision": {
             "defaultValue": true,
@@ -236,367 +235,13 @@
             "type": "bool"
         },
         // -------------------------------------------------------
-        // Parameters: SQL SERVER
+        // Parameters: MICROSOFT / KEYVAULT / VAULTS
         // -------------------------------------------------------
-        // Provide the Sql Server Administrator's name, which an 
-        // infrastructure support specialist will have 
-        // defined and set within a key vault 
-        // outside of the projects resource group (and probably 
-        // in a different subscription) so use the reference approach
-        //  to get it out, and place it here.
-        // Required when creating a new Database Server. 
-        // Note that security is not perfect: a developer can develop
-        // arm templates whose output records the values it extracts
-        // from a keyvault.
-        // "reference": {
-        //   "keyVault": {
-        //     "id": "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.KeyVault/vaults/{keyvaultName}"
-        //   },
-        //   "secretName": "{keyName}"
-        // }
-        "microsoftSqlServerAdministratorLogin": {
-            "minLength": 6,
-            "metadata": {
-                "description": "Required. Provide the Sql Server Administrator's name, which an infrastructure support specialist will have defined and set within a key vault outside of the projects resource group (and probably in a different subscription) so use the reference approach to get it out, and place it here. Required when creating a new Database Server. Note that security is not perfect: a developer can develop arm templates whose output records the values it extracts from a keyvault. Provide the Sql Server Administrator's Login. Required when creating a new Database Server. This is unfortunate as it requires risk-mitigation processes around deployment to correctly secure the secret and not leave it in the hands of stakeholders that don't absolutely need to know it. Developers don't."
-            },
-            "type": "string"
-        },
-        // Provide the Sql Server Administrator's Password, which an 
-        // infrastructure support specialist will have 
-        // set the provided the password in a key vault 
-        // outside of the projects resource group (and probably 
-        // in a different subscription) so use the reference approach
-        //  to get it out, and place it here.
-        // Required when creating a new Database Server. 
-        // Note that security is not perfect: a developer can develop
-        // arm templates whose output records the values it extracts
-        // from a keyvault.
-        // "reference": {
-        //   "keyVault": {
-        //     "id": "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.KeyVault/vaults/{keyvaultName}"
-        //   },
-        //   "secretName": "{keyName}"
-        // }
-        "microsoftSqlServerAdministratorLoginPassword": {
-            "metadata": {
-                "description": "Required. Provide the Sql Server Administrator's Password, which an infrastructure support specialist will have defined and set within a key vault outside of the projects resource group (and probably in a different subscription) so use the reference approach to get it out, and place it here.  Required when creating a new Database Server.  Note that security is not perfect: a developer can develop arm templates whose output records the values it extracts from a keyvault."
-            },
-            "type": "securestring"
-        },
-        // The Name of the ARM developer (ie *you*!) who is certifying they 
-        // understand the security risks of recording passwords in a parameter file, 
-        // or any other code, and are not doing it here (and the code base's commit history
-        //  will back them up). 
-        // Instead, the value will be retrieved from an eternal keyvault to which the 
-        // build service has been granted access. 
-        "microsoftSqlServerDeveloperStatingSecretsAreNotRecordedInCode": {
-            "minLength": 4,
-            "metadata": {
-                "description": "Required. The Name of the ARM developer (ie *you*!) who is certifying they understand the security risks of recording passwords in a parameter file, or any other code and are not doing it here (and the code base's commit history will back them up). Instead, the value will be retrieved from an eternal keyvault to which the build service has been granted access. "
-            },
-            "type": "string"
-        },
+        // N / A
         // -------------------------------------------------------
-        // Parameters: WEB / SERVERFARM
+        // Parameters: MICROSOFT / KEYVAULT / VAULTS / SECRETS
         // -------------------------------------------------------
-        // B1 (Basic Small) or higher is needed for HostBinding and SSL.
-        // B1 is about 95$/month, and S1 is about 135/month.
-        // And S1 gets backups every day. 
-        // At 1$/day more, it's worth the it, for a corporation.
-        "microsoftWebServerFarmResourceSku": {
-            "allowedValues": [
-                "F1",
-                "D1",
-                "B1",
-                "S1",
-                "S2"
-            ],
-            "defaultValue": "F1",
-            "metadata": {
-                "description": "Optional. App Service server pricing tier and capacity. Check details at https://azure.microsoft.com/en-us/pricing/details/app-service/ Default is F1 to keep prices down until you know you need Site Binding. Or AlwaysOn. Or other features that need a mininum of S1."
-            },
-            "type": "string"
-        },
-        // -------------------------------------------------------
-        // Parameters: WEB / CERTIFICATE
-        // -------------------------------------------------------
-        // Not needed, as must be same as parent Resource Location:
-        // "microsoftWebCertificateResourceLocation": 
-        // 
-        // In the parameter, retrieve the value from a remote keyvault (outside the target resource group)
-        // using code similar to the following:  
-        //   // Provide a password for this pfx
-        //   "microsoftWebCertificatePfxPassword": {
-        //     "reference": {
-        //       "keyVault": {
-        //         "id": "/subscriptions/{subscriptionId}/resourceGroups/{group-name}/providers/Microsoft.KeyVault/vaults/{vault-name}"
-        //       },
-        //     "secretName": "{keyName}"
-        //     }        
-        //   },
-        "microsoftWebCertificatePfxBase64": {
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional.   Base64 encoded PFX certificate for appService Web Site SSL. Required to match the information within appServiceWebSiteHostName."
-            },
-            "type": "string"
-        },
-        // In the parameter, retrieve the value from a remote keyvault (outside the target resource group)
-        // using code similar to the following:  
-        //   // Provide a password for this pfx
-        //   "microsoftWebCertificatePfxPassword": {
-        //     "reference": {
-        //       "keyVault": {
-        //         "id": "/subscriptions/{subscriptionId}/resourceGroups/{group-name}/providers/Microsoft.KeyVault/vaults/{vault-name}"
-        //       },
-        //       "secretName": "{keyName}"
-        //     }        
-        //   },
-        "microsoftWebCertificatePfxPassword": {
-            "metadata": {
-                "description": "Optional.   Password for the appService Web Site SSL Pfx Certificate. Only required if `sslCertificateBase64` is provided."
-            },
-            "type": "securestring"
-        },
-        // The Name of the ARM developer (ie *you*!) who is certifying they 
-        // understand the security risks of recording passwords in a parameter file, 
-        // or any other code, and are *NOT* doing it here (and the code base's commit history
-        //  will back them up). 
-        // Instead, the value will be retrieved from an eternal keyvault to which the 
-        // build service has been granted access. 
-        "microsoftWebCertificateDeveloperStatingSecretsAreNotRecordedInCode": {
-            "minLength": 4,
-            "metadata": {
-                "description": "The Name of the ARM developer (ie *you*!) who is certifying they understand the security risks of recording passwords in a parameter file, or any other code and are not doing it here (and the code base's commit history will back them up). Instead, the value will be retrieved from an eternal keyvault to which the build service has been granted access. "
-            },
-            "type": "string"
-        },
-        // -------------------------------------------------------
-        // Parameters: WEB / SITE 
-        // -------------------------------------------------------
-        // Optional. The name of the Resource.
-        // Default it ''. 
-        // If not provided, falls back to an 'resourceNameTemplate'-based, automatically generated resource name, using 'web-site' for the {RT} token."
-        // See also 'microsoftWebSiteHostNameBinding' (and 'environmentOverrides').
-        "microsoftWebSiteResourceName": {
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. The name for the Resource. Default it ''. If not provided, falls back to an 'resourceNameTemplate'-based, automatically generated resource name, using 'web-site' for the {RT} token. See also 'microsoftWebSiteHostNameBinding' (and 'environmentOverrides')."
-            },
-            "type": "string"
-        },
-        // Optional. The default is false as true requires a minimal SKU of S1.
-        "microsoftWebSiteAlwaysOn": {
-            "defaultValue": false,
-            "metadata": {
-                "description": "Optional. The default is false as true requires a minimal SKU of S1."
-            },
-            "type": "bool"
-        },
-        // -------------------------------------------------------
-        // Parameters: WEB / SITE / APPSETTINGS
-        // -------------------------------------------------------
-        // Optional. A Complex Object (ie, JSON) containing a series 
-        // of stringKey/stringValues that are added to the target site as AppSettings.
-        // An example would be:
-        //     "defaultValue": {
-        //         "ExampleKey": "exampleValue"
-        //     },
-        "microsoftWebSiteConfigAppSettings": {
-            "defaultValue": {},
-            "metadata": {
-                "description": "Optional. A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target site as AppSettings."
-            },
-            "type": "object"
-        },
-        // The Name of the ARM developer (ie *you*!) who is certifying they 
-        // understand the security risks of recording passwords in a parameter file, 
-        // or any other code, and are not doing it here (and the code base's commit history
-        //  will back them up). 
-        "microsoftWebSiteConfigAppSettingsDeveloperStatingSecretsAreNotRecordedInCode": {
-            "minLength": 4,
-            "metadata": {
-                "description": "The Name of the ARM developer (ie *you*!) who is certifying they understand the security risks of recording passwords in a parameter file, or any other code and are not doing it here (and the code base's commit history will back them up)."
-            },
-            "type": "string"
-        },
-        // -------------------------------------------------------
-        // Parameters: WEB / SITE / CONNECTIONSTRINGS
-        // -------------------------------------------------------
-        // "Optional. A Complex Object (not an array) of a set of {'name' { 'value' and 'type'}}, that are added to the site's ConnectionStrings. Type should be 2 in most cases."
-        // Type is case sensitive string, and can be MySql, SQLServer, SQLAzure, Custom, NotificationHub, ServiceBus, EventHub, ApiHub, DocDb, RedisCache, PostgreSQL. SQL 
-        // If things stop working, ensure:
-        // it's an object of complex object of name:key/values.
-        // If things stop working, tips to find the reason include:
-        // ensure you are passing an object {} and not an array
-        // ensure the name is the key to a sub object of two params, and not an array of objects containing 3 objects
-        // ensure the type is string, and case sensitive (and not a number)
-        // An example might be:
-        // "defaultValue": {
-        //     "ExampleConnString1": {
-        //         "value": "Server=myServerAddress;Database=myDataBase;Trusted_Connection=True;",
-        //         "type": "SQLAzure"
-        //     },
-        //     "ExampleConnString2": {
-        //         "value": "Server=myServerAddress;Database=myDataBase;Trusted_Connection=True;",
-        //         "type": "SQLAzure"
-        //     },
-        //     "defaultSystemConnectionString": {
-        //         "value": "Data Source={DB_SERVER}.database.windows.net,1433;Initial Catalog={DB_NAME};Connect Timeout={DB_TIMEOUT};",
-        //         "type": "SQLAzure"
-        //     }
-        // },
-        "microsoftWebSiteConfigConnectionStrings": {
-            "defaultValue": {},
-            "metadata": {
-                "description": "Optional. A Complex Object (not an array) of a set of {'name' { 'value' and 'type'}}, that are added to the site's ConnectionStrings. Type is Case Senstive. And probably should be SQLAzure in most cases."
-            },
-            "type": "object"
-        },
-        // The Name of the ARM developer (ie *you*!) who is certifying they 
-        // understand the security risks of recording passwords in a parameter file, 
-        // or any other code, and are not doing it here (and the code base's commit history
-        //  will back them up). 
-        // Instead, use the Azure equivalent to IntegratedSecurity (ie, MSI).
-        "microsoftWebSiteConfigConnectionStringsDeveloperStatingSecretsAreNotRecordedInCode": {
-            "minLength": 4,
-            "metadata": {
-                "description": "The Name of the ARM developer (ie *you*!) who is certifying they understand the security risks of recording passwords in a parameter file, or any other code and are not doing it here (and the code base's commit history will back them up). Instead, use the Azure equivalent to IntegratedSecurity (ie, MSI)."
-            },
-            "type": "string"
-        },
-        // -------------------------------------------------------
-        // Parameters: WEB / SITE / HOSTBINDINGNAME
-        // -------------------------------------------------------
-        "microsoftWebSiteHostNameBindingHostName": {
-            "type": "string",
-            "minLength": 0,
-            "metadata": {
-                "description": "Required. The public DNS name of the website. Default is ''. Will require a WebServerFarm SKU of S1 of higher to be set."
-            }
-        },
-        // Optional. If 'microsoftWebSiteHostNameBindingHostName' is used 
-        // for 'www.mydomain.tld', you want to be able to 
-        // also register 'mydomain.tld' as well.
-        "microsoftWebSiteHostNameBindingHostNameAlt": {
-            "type": "string",
-            "minLength": 0,
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. If 'microsoftWebSiteHostNameBindingHostName' is used for 'www.mydomain.tld', you want to be able to also register 'mydomain.tld' as well."
-            }
-        },
-
-        // -------------------------------------------------------
-        // Parameters: OAUTH / CLIENT / BASICS
-        // -------------------------------------------------------
-        // Optional.
-        // Hook up to an OAuth Authority (you will need 
-        // to provide the OAuth AuthorityUri, ClientId ClientKey.
-        "oauthEnabled": {
-            "type": "bool",
-            "defaultValue": true,
-            "metadata": {
-                "description": "Hook up to an OAuth Authority (you will need to provide the OAuth AuthorityUri, ClientId ClientKey."
-            }
-        },
-        // Optional. If your system needs to authenticate users, it should be via OIDC. 
-        // Which is an extension of OAuth. 
-        // If authenticating systems, it should be via OAuth.  
-        // Both require that you have the ClientId and ClientSecret that were developed 
-        // by the remote IdP when you registered your app with it.
-        "oauthClientId": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. If your system needs to authenticate users, it should be via OIDC. Which is an extension of OAuth. If authenticating systems, it should be via OAuth.  Both require that you have the ClientId and ClientSecret that were developed by the remote IdP when you registered your app with it."
-            }
-        },
-        // Optional. If your system needs to authenticate users, it should be via OIDC. 
-        // Which is an extension of OAuth. 
-        // If authenticating systems, it should be via OAuth.  
-        // Both require that you have the ClientId and ClientSecret that were developed 
-        // by the remote IdP when you registered your app with it.
-        "oauthClientSecret": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. If your system needs to authenticate users, it should be via OIDC. Which is an extension of OAuth. If authenticating systems, it should be via OAuth. Both require that you have the ClientId and ClientSecret that were developed by the remote IdP when you registered your app with it."
-            }
-        },
-        // Optional. Where the system sends authentication requests off to.
-        "oauthAuthorityUri": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. Where the system sends authentication requests off to."
-            }
-        },
-        // Optional. If your system needs to authenticate users, using OIDC, 
-        // you have to redirect Users back from the remote IDP to this system's Homepage.
-        // This is the 'redirect_uri' value of an OAuth request.
-        //  '/' won't work (that would be the IdP's home page). 
-        // If not provided, will be automatically generated using 'https' and your host binding name you provided.
-        "oauthClientRedirectUri": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. If your system needs to authenticate users, using OIDC, you have to redirect Users back from the remote IDP to this system's Homepage. This is the 'redirect_uri' value of an OAuth request. '/' won't work (that would be the IdP's home page). If not provided, will be automatically generated using 'https' and your host binding name you provided."
-            }
-        },
-
-        // Optional. If your system needs to authenticate users, using OIDC, 
-        // after a user is signed off (destroying their security token), 
-        // you want to redirect them to the home page or other. The default is '/'.
-        // It's not part of the protocol - it's just a value to that code 
-        // wrapping the prootocol can use.
-        "oauthClientPostLogoutRedirectUri": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. If your system needs to authenticate users, using OIDC, after a user is signed off (destroying their security token), you want to redirect them to the home page or other. The default is '/'."
-            }
-        },
-        // -------------------------------------------------------
-        // Parameters: OIDC / SERVER
-        // -------------------------------------------------------
-        // TODO
-        // -------------------------------------------------------
-        // Parameters: OIDC / POLICIES 
-        // (ONLY RELEVANT WITH A POLICY BASED OIDC IDP, SUCH AS AZURE B2C)
-        // -------------------------------------------------------
-        "oidcPoliciesSignUpSignInPolicyId": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. The name of the B2C's Policy/Flow to use for SignUp/SignIn."
-            }
-        },
-        "oidcPoliciesUserProfilePolicyId": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. The name of the B2C's Policy/Flow to use for retrieving the User Profile."
-            }
-        },
-        "oidcPoliciesEditProfilePolicyId": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. The name of the B2C's Policy/Flow to use for editing the User Profile."
-            }
-        },
-        "oidcPoliciesResetPasswordPolicyId": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. The name of the B2C's Policy/Flow to use for reseting the user's Password."
-            }
-        },
-        // -------------------------------------------------------
-        // Parameters: KEYVAULT
-        // -------------------------------------------------------
-        "microsoftKeyVaultVaultSecretSecrets": {
+        "microsoftKeyVaultVaultsSecretsSecrets": {
             "type": "array",
             // A surprising fact is that the pre-parser that allows
             // JSON to be added to the ARM template -- even though
@@ -628,13 +273,463 @@
                 "description": "Optional. An array of Complex of name, type, value. With no comments allowed within the array (due to bug in VSTS)."
             }
         },//~keyvault
+        // -------------------------------------------------------
+        // Parameters: MICROSOFT / SQL / SERVERS
+        // -------------------------------------------------------
+        // Provide the Sql Server Administrator's name, which an 
+        // infrastructure support specialist will have 
+        // defined and set within a key vault 
+        // outside of the projects resource group (and probably 
+        // in a different subscription) so use the reference approach
+        //  to get it out, and place it here.
+        // Required when creating a new Database Server. 
+        // Note that security is not perfect: a developer can develop
+        // arm templates whose output records the values it extracts
+        // from a keyvault.
+        // "reference": {
+        //   "keyVault": {
+        //     "id": "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.KeyVault/vaults/{keyvaultName}"
+        //   },
+        //   "secretName": "{keyName}"
+        // }
+        "microsoftSqlServersAdministratorLogin": {
+            "minLength": 6,
+            "metadata": {
+                "description": "Required. Provide the Sql Server Administrator's name, which an infrastructure support specialist will have defined and set within a key vault outside of the projects resource group (and probably in a different subscription) so use the reference approach to get it out, and place it here. Required when creating a new Database Server. Note that security is not perfect: a developer can develop arm templates whose output records the values it extracts from a keyvault. Provide the Sql Server Administrator's Login. Required when creating a new Database Server. This is unfortunate as it requires risk-mitigation processes around deployment to correctly secure the secret and not leave it in the hands of stakeholders that don't absolutely need to know it. Developers don't."
+            },
+            "type": "string"
+        },
+        // Provide the Sql Server Administrator's Password, which an 
+        // infrastructure support specialist will have 
+        // set the provided the password in a key vault 
+        // outside of the projects resource group (and probably 
+        // in a different subscription) so use the reference approach
+        //  to get it out, and place it here.
+        // Required when creating a new Database Server. 
+        // Note that security is not perfect: a developer can develop
+        // arm templates whose output records the values it extracts
+        // from a keyvault.
+        // "reference": {
+        //   "keyVault": {
+        //     "id": "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.KeyVault/vaults/{keyvaultName}"
+        //   },
+        //   "secretName": "{keyName}"
+        // }
+        "microsoftSqlServersAdministratorLoginPassword": {
+            "metadata": {
+                "description": "Required. Provide the Sql Server Administrator's Password, which an infrastructure support specialist will have defined and set within a key vault outside of the projects resource group (and probably in a different subscription) so use the reference approach to get it out, and place it here.  Required when creating a new Database Server.  Note that security is not perfect: a developer can develop arm templates whose output records the values it extracts from a keyvault."
+            },
+            "type": "securestring"
+        },
+        // The Name of the ARM developer (ie *you*!) who is certifying they 
+        // understand the security risks of recording passwords in a parameter file, 
+        // or any other code, and are not doing it here (and the code base's commit history
+        //  will back them up). 
+        // Instead, the value will be retrieved from an eternal keyvault to which the 
+        // build service has been granted access. 
+        "microsoftSqlServersDeveloperStatingSecretsAreNotRecordedInCode": {
+            "minLength": 4,
+            "metadata": {
+                "description": "Required. The Name of the ARM developer (ie *you*!) who is certifying they understand the security risks of recording passwords in a parameter file, or any other code and are not doing it here (and the code base's commit history will back them up). Instead, the value will be retrieved from an eternal keyvault to which the build service has been granted access. "
+            },
+            "type": "string"
+        },
+        // -------------------------------------------------------
+        // Parameters: MICROSOFT / WEB / CERTIFICATE
+        // -------------------------------------------------------
+        // Not needed, as must be same as parent Resource Location:
+        // "microsoftWebCertificatesResourceLocation": 
+        // 
+        // In the parameter, retrieve the value from a remote keyvault (outside the target resource group)
+        // using code similar to the following:  
+        //   // Provide a password for this pfx
+        //   "microsoftWebCertificatesPfxPassword": {
+        //     "reference": {
+        //       "keyVault": {
+        //         "id": "/subscriptions/{subscriptionId}/resourceGroups/{group-name}/providers/Microsoft.KeyVault/vaults/{vault-name}"
+        //       },
+        //     "secretName": "{keyName}"
+        //     }        
+        //   },
+        "microsoftWebCertificatesPfxBase64": {
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional.   Base64 encoded PFX certificate for appService Web Site SSL. Required to match the information within appServiceWebSiteHostName."
+            },
+            "type": "string"
+        },
+        // In the parameter, retrieve the value from a remote keyvault (outside the target resource group)
+        // using code similar to the following:  
+        //   // Provide a password for this pfx
+        //   "microsoftWebCertificatesPfxPassword": {
+        //     "reference": {
+        //       "keyVault": {
+        //         "id": "/subscriptions/{subscriptionId}/resourceGroups/{group-name}/providers/Microsoft.KeyVault/vaults/{vault-name}"
+        //       },
+        //       "secretName": "{keyName}"
+        //     }        
+        //   },
+        "microsoftWebCertificatesPfxPassword": {
+            "metadata": {
+                "description": "Optional.   Password for the appService Web Site SSL Pfx Certificate. Only required if `sslCertificateBase64` is provided."
+            },
+            "type": "securestring"
+        },
+        // The Name of the ARM developer (ie *you*!) who is certifying they 
+        // understand the security risks of recording passwords in a parameter file, 
+        // or any other code, and are *NOT* doing it here (and the code base's commit history
+        //  will back them up). 
+        // Instead, the value will be retrieved from an eternal keyvault to which the 
+        // build service has been granted access. 
+        "microsoftWebCertificatesDeveloperStatingSecretsAreNotRecordedInCode": {
+            "minLength": 4,
+            "metadata": {
+                "description": "The Name of the ARM developer (ie *you*!) who is certifying they understand the security risks of recording passwords in a parameter file, or any other code and are not doing it here (and the code base's commit history will back them up). Instead, the value will be retrieved from an eternal keyvault to which the build service has been granted access. "
+            },
+            "type": "string"
+        },
+        // -------------------------------------------------------
+        // Parameters: MICROSOFT / WEB / SERVERFARMS
+        // -------------------------------------------------------
+        // B1 (Basic Small) or higher is needed for HostBinding and SSL.
+        // B1 is about 95$/month, and S1 is about 135/month.
+        // And S1 gets backups every day. 
+        // At 1$/day more, it's worth the it, for a corporation.
+        "microsoftWebServerFarmsResourceSku": {
+            "allowedValues": [
+                "F1",
+                "D1",
+                "B1",
+                "S1",
+                "S2"
+            ],
+            "defaultValue": "F1",
+            "metadata": {
+                "description": "Optional. App Service server pricing tier and capacity. Check details at https://azure.microsoft.com/en-us/pricing/details/app-service/ Default is F1 to keep prices down until you know you need Site Binding. Or AlwaysOn. Or other features that need a mininum of S1."
+            },
+            "type": "string"
+        },
+        // -------------------------------------------------------
+        // Parameters: MICROSOFT / WEB / SITE 
+        // -------------------------------------------------------
+        // Optional. The name of the Resource.
+        // Default it ''. 
+        // If not provided, falls back to an 'resourceNameTemplate'-based, automatically generated resource name, using 'web-site' for the {RT} token."
+        // See also 'microsoftWebSitesHostNameBindings' (and 'environmentOverrides').
+        "microsoftWebSitesResourceName": {
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. The name for the Resource. Default it ''. If not provided, falls back to an 'resourceNameTemplate'-based, automatically generated resource name, using 'web-site' for the {RT} token. See also 'microsoftWebSitesHostNameBindings' (and 'environmentOverrides')."
+            },
+            "type": "string"
+        },
+        // Optional. The default is false as true requires a minimal SKU of S1.
+        "microsoftWebSitesAlwaysOn": {
+            "defaultValue": false,
+            "metadata": {
+                "description": "Optional. The default is false as true requires a minimal SKU of S1."
+            },
+            "type": "bool"
+        },
+        // -------------------------------------------------------
+        // Parameters: MICROSOFT / WEB / SITE / APPSETTINGS
+        // -------------------------------------------------------
+        // Optional. A Complex Object (ie, JSON) containing a series 
+        // of stringKey/stringValues that are added to the target site as AppSettings.
+        // An example would be:
+        //     "defaultValue": {
+        //         "ExampleKey": "exampleValue"
+        //     },
+        "microsoftWebSitesConfigAppSettings": {
+            "defaultValue": {},
+            "metadata": {
+                "description": "Optional. A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target site as AppSettings."
+            },
+            "type": "object"
+        },
+        // The Name of the ARM developer (ie *you*!) who is certifying they 
+        // understand the security risks of recording passwords in a parameter file, 
+        // or any other code, and are not doing it here (and the code base's commit history
+        //  will back them up). 
+        "microsoftWebSitesConfigAppSettingsDeveloperStatingSecretsAreNotRecordedInCode": {
+            "minLength": 4,
+            "metadata": {
+                "description": "The Name of the ARM developer (ie *you*!) who is certifying they understand the security risks of recording passwords in a parameter file, or any other code and are not doing it here (and the code base's commit history will back them up)."
+            },
+            "type": "string"
+        },
+        // -------------------------------------------------------
+        // Parameters: MICROSOFT / WEB / SITE / CONNECTIONSTRINGS
+        // -------------------------------------------------------
+        // "Optional. A Complex Object (not an array) of a set of {'name' { 'value' and 'type'}}, that are added to the site's ConnectionStrings. Type should be 2 in most cases."
+        // Type is case sensitive string, and can be MySql, SQLServer, SQLAzure, Custom, NotificationHub, ServiceBus, EventHub, ApiHub, DocDb, RedisCache, PostgreSQL. SQL 
+        // If things stop working, ensure:
+        // it's an object of complex object of name:key/values.
+        // If things stop working, tips to find the reason include:
+        // ensure you are passing an object {} and not an array
+        // ensure the name is the key to a sub object of two params, and not an array of objects containing 3 objects
+        // ensure the type is string, and case sensitive (and not a number)
+        // An example might be:
+        // "defaultValue": {
+        //     "ExampleConnString1": {
+        //         "value": "Server=myServerAddress;Database=myDataBase;Trusted_Connection=True;",
+        //         "type": "SQLAzure"
+        //     },
+        //     "ExampleConnString2": {
+        //         "value": "Server=myServerAddress;Database=myDataBase;Trusted_Connection=True;",
+        //         "type": "SQLAzure"
+        //     },
+        //     "defaultSystemConnectionString": {
+        //         "value": "Data Source={DB_SERVER}.database.windows.net,1433;Initial Catalog={DB_NAME};Connect Timeout={DB_TIMEOUT};",
+        //         "type": "SQLAzure"
+        //     }
+        // },
+        "microsoftWebSitesConfigConnectionStrings": {
+            "defaultValue": {},
+            "metadata": {
+                "description": "Optional. A Complex Object (not an array) of a set of {'name' { 'value' and 'type'}}, that are added to the site's ConnectionStrings. Type is Case Senstive. And probably should be SQLAzure in most cases."
+            },
+            "type": "object"
+        },
+        // The Name of the ARM developer (ie *you*!) who is certifying they 
+        // understand the security risks of recording passwords in a parameter file, 
+        // or any other code, and are not doing it here (and the code base's commit history
+        //  will back them up). 
+        // Instead, use the Azure equivalent to IntegratedSecurity (ie, MSI).
+        "microsoftWebSitesConfigConnectionStringsDeveloperStatingSecretsAreNotRecordedInCode": {
+            "minLength": 4,
+            "metadata": {
+                "description": "The Name of the ARM developer (ie *you*!) who is certifying they understand the security risks of recording passwords in a parameter file, or any other code and are not doing it here (and the code base's commit history will back them up). Instead, use the Azure equivalent to IntegratedSecurity (ie, MSI)."
+            },
+            "type": "string"
+        },
+        // -------------------------------------------------------
+        // Parameters: MICRSOOFT / WEB / SITE / HOSTBINDINGNAME
+        // -------------------------------------------------------
+        "microsoftWebSitesHostNameBindingsHostName": {
+            "type": "string",
+            "minLength": 0,
+            "metadata": {
+                "description": "Required. The public DNS name of the website. Default is ''. Will require a WebServerFarm SKU of S1 of higher to be set."
+            }
+        },
+        // Optional. If 'microsoftWebSitesHostNameBindingsHostName' is used 
+        // for 'www.mydomain.tld', you want to be able to 
+        // also register 'mydomain.tld' as well.
+        "microsoftWebSitesHostNameBindingsHostNameAlt": {
+            "type": "string",
+            "minLength": 0,
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. If 'microsoftWebSitesHostNameBindingsHostName' is used for 'www.mydomain.tld', you want to be able to also register 'mydomain.tld' as well."
+            }
+        },
 
         // -------------------------------------------------------
-        // Parameters: SERVICES / SMTP
+        // Parameters: SERVICES / OAUTHSERVICE / CLIENT / BASICS
+        // -------------------------------------------------------
+        // Optional.
+        // Hook up to an OAuth Authority (you will need 
+        // to provide the OAuth AuthorityUri, ClientId ClientKey.
+        "servicesOAuthServiceEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Hook up to an OAuth Authority (you will need to provide the OAuth AuthorityUri, ClientId ClientKey."
+            }
+        },
+        // Optional. If your system needs to authenticate users, it should be via OIDC. 
+        // Which is an extension of OAuth. 
+        // If authenticating systems, it should be via OAuth.  
+        // Both require that you have the ClientId and ClientSecret that were developed 
+        // by the remote IdP when you registered your app with it.
+        "servicesOAuthServiceClientId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. If your system needs to authenticate users, it should be via OIDC. Which is an extension of OAuth. If authenticating systems, it should be via OAuth.  Both require that you have the ClientId and ClientSecret that were developed by the remote IdP when you registered your app with it."
+            }
+        },
+        // Optional. If your system needs to authenticate users, it should be via OIDC. 
+        // Which is an extension of OAuth. 
+        // If authenticating systems, it should be via OAuth.  
+        // Both require that you have the ClientId and ClientSecret that were developed 
+        // by the remote IdP when you registered your app with it.
+        "servicesOAuthServiceClientSecret": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. If your system needs to authenticate users, it should be via OIDC. Which is an extension of OAuth. If authenticating systems, it should be via OAuth. Both require that you have the ClientId and ClientSecret that were developed by the remote IdP when you registered your app with it."
+            }
+        },
+        // Optional. Where the system sends authentication requests off to.
+        "servicesOAuthServiceAuthorityUri": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. Where the system sends authentication requests off to."
+            }
+        },
+        // Optional. If your system needs to authenticate users, using OIDC, 
+        // you have to redirect Users back from the remote IDP to this system's Homepage.
+        // This is the 'redirect_uri' value of an OAuth request.
+        //  '/' won't work (that would be the IdP's home page). 
+        // If not provided, will be automatically generated using 'https' and your host binding name you provided.
+        "servicesOAuthServiceClientRedirectUri": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. If your system needs to authenticate users, using OIDC, you have to redirect Users back from the remote IDP to this system's Homepage. This is the 'redirect_uri' value of an OAuth request. '/' won't work (that would be the IdP's home page). If not provided, will be automatically generated using 'https' and your host binding name you provided."
+            }
+        },
+        // Optional. If your system needs to authenticate users, using OIDC, 
+        // after a user is signed off (destroying their security token), 
+        // you want to redirect them to the home page or other. The default is '/'.
+        // It's not part of the protocol - it's just a value to that code 
+        // wrapping the prootocol can use.
+        "servicesOAuthServiceClientPostLogoutRedirectUri": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. If your system needs to authenticate users, using OIDC, after a user is signed off (destroying their security token), you want to redirect them to the home page or other. The default is '/'."
+            }
+        },
+        // -------------------------------------------------------
+        // Parameters: SERVICES / OIDCSERVICE / SERVER
+        // -------------------------------------------------------
+        // TBD
+        // -------------------------------------------------------
+        // Parameters: SERVICES / OIDCSERVICE / POLICIES 
+        // (ONLY RELEVANT WITH A POLICY BASED OIDC IDP, SUCH AS AZURE B2C)
+        // -------------------------------------------------------
+        "servicesOIDCServicePoliciesSignUpSignInPolicyId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. The name of the B2C's Policy/Flow to use for SignUp/SignIn."
+            }
+        },
+        "servicesOIDCServicePoliciesUserProfilePolicyId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. The name of the B2C's Policy/Flow to use for retrieving the User Profile."
+            }
+        },
+        "servicesOIDCServicePoliciesEditProfilePolicyId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. The name of the B2C's Policy/Flow to use for editing the User Profile."
+            }
+        },
+        "servicesOIDCServicePoliciesResetPasswordPolicyId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. The name of the B2C's Policy/Flow to use for reseting the user's Password."
+            }
+        },
+        // -------------------------------------------------------
+        // Parameters: SERVICES / GEOIP SERVICE
+        // -------------------------------------------------------
+        // Optional. To use a remote OAuth based malware detection service, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "servicesGeoIPServiceEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. To use a remote OAuth based IP-to-Coordinates translation service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // Optional. To use a remote OAuth based IP-to-Coordinates translation service, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "servicesGeoIPServiceUri": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use a remote OAuth based IP-to-Coordinates translation service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // Optional. To use a remote OAuth based IP-to-Coordinates translation service, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "servicesGeoIPServiceClientId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use a remote OAuth based IP-to-Coordinates translation service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // Optional. To use a remote OAuth based IP-to-Coordinates translation service, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "servicesGeoIPServiceClientSecret": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use a remote OAuth based IP-to-Coordinates translation service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        "servicesGeoIPServiceClientMiscConfiguration": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use a remote OAuth based IP-to-Coordinates translation service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },      
+        // -------------------------------------------------------
+        // Parameters: SERVICES / MALWARE DETECTION SERVICE
+        // -------------------------------------------------------
+        // Optional. To use a remote OAuth based malware detection service, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "servicesMalwareDetectionServiceEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // Optional. To use a remote OAuth based malware detection service, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "servicesMalwareDetectionServiceUri": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // Optional. To use a remote OAuth based malware detection service, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "servicesMalwareDetectionServiceClientId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // Optional. To use a remote OAuth based malware detection service, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "servicesMalwareDetectionServiceClientSecret": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        "servicesMalwareDetectionServiceClientMiscConfiguration": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },      
+
+
+        // -------------------------------------------------------
+        // Parameters: SERVICES / SMTPSERVICE
         // -------------------------------------------------------
         // Optional. To use the smtp service, 
         // you need to enable it then provide the uri, client id and client secret.
-        "servicesSMTPEnabled": {
+        "servicesSMTPServiceEnabled": {
             "type": "bool",
             "defaultValue": true,
             "metadata": {
@@ -643,7 +738,7 @@
         },
         // Optional. To use the smtp service, 
         // you need to enable it then provide the uri, client id and client secret.
-        "servicesSMTPUri": {
+        "servicesSMTPServiceUri": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
@@ -652,7 +747,7 @@
         },
         // Optional. To use the smtp service, 
         // you need to enable it then provide the uri, client id and client secret.
-        "servicesSMTPClientId": {
+        "servicesSMTPServiceClientId": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
@@ -661,14 +756,14 @@
         },
         // Optional. To use the smtp service, 
         // you need to enable it then provide the uri, client id and client secret.
-        "servicesSMTPClientSecret": {
+        "servicesSMTPServiceClientSecret": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
 			}
         },
-        "servicesSMTPClientMiscConfiguration": {
+        "servicesSMTPServiceClientMiscConfiguration": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
@@ -676,52 +771,7 @@
             }
         },
 
-        // -------------------------------------------------------
-        // Parameters: SERVICES / MALWARE DETECTION
-        // -------------------------------------------------------
-        // Optional. To use a remote OAuth based malware detection service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "servicesMalwareDetectionEnabled": {
-            "type": "bool",
-            "defaultValue": true,
-            "metadata": {
-                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use a remote OAuth based malware detection service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "servicesMalwareDetectionUri": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use a remote OAuth based malware detection service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "servicesMalwareDetectionClientId": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use a remote OAuth based malware detection service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "servicesMalwareDetectionClientSecret": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        "servicesMalwareDetectionClientMiscConfiguration": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },      
+
         // -------------------------------------------------------
         // Parameters: SERVICES / SERVICE01
         // -------------------------------------------------------
@@ -918,7 +968,7 @@
             "armTemplateId": "[concat(variables('resources').resourceNamePrefix, 'assembly.01')]",
             "linkedResourcesArmTemplateRootUrl": "[parameters('linkedResourcesArmTemplateRootUrl')]",
             "linkedResourcesArmTemplateRootSas": "[parameters('linkedResourcesArmTemplateRootSas')]",
-            "linkedAssembly01TemplateUrl": "[concat( parameters('linkedAssembliesArmTemplateRootUrl'), '01/azure.arm.base.assembly.json', parameters('linkedAssembliesArmTemplateRootSas'))]"
+            "linkedAssembly01TemplateUrl": "[concat( parameters('linkedAssembliesArmTemplateRootUrl'), '01/arm.assembly.json', parameters('linkedAssembliesArmTemplateRootSas'))]"
         }
         // -------------------------------------------------------
     }, //~variables
@@ -977,144 +1027,164 @@
                         "value": "[variables('securityApproach')]"
                     },
                     // -------------------------------------------------------
-                    // Passthrough Parameters: Sql Server 
-                    "microsoftSqlServerAdministratorLogin": {
-                        "value": "[parameters('microsoftSqlServerAdministratorLogin')]"
-                    },
-                    "microsoftSqlServerAdministratorLoginPassword": {
-                        "value": "[parameters('microsoftSqlServerAdministratorLoginPassword')]"
-                    },
-                    "microsoftSqlServerDeveloperStatingSecretsAreNotRecordedInCode": {
-                        "value": "[parameters('microsoftSqlServerDeveloperStatingSecretsAreNotRecordedInCode')]"
-                    },
+                    // Passthrough Parameters: MICROSOFT / AUTHORISATIONS 
                     // -------------------------------------------------------
-                    // Passthrough Parameters: Web ServerFarm 
-                    "microsoftWebServerFarmResourceSku": {
-                        "value": "[parameters('microsoftWebServerFarmResourceSku')]"
-                    },
-                    // -------------------------------------------------------
-                    // Passthrough Parameters: Web Certificate 
-         
-                    "microsoftWebCertificatePfxBase64": {
-                        "value": "[parameters('microsoftWebCertificatePfxBase64')]"
-                    },
-                    "microsoftWebCertificatePfxPassword": {
-                        "value": "[parameters('microsoftWebCertificatePfxPassword')]"
-                    },
-                    "microsoftWebCertificateDeveloperStatingSecretsAreNotRecordedInCode": {
-                        "value": "[parameters('microsoftWebCertificateDeveloperStatingSecretsAreNotRecordedInCode')]"
-                    },
-                    // -------------------------------------------------------
-                    // Passthrough Parameters: Web Site 
-                    "microsoftWebSiteResourceName": {
-                        "value": "[parameters('microsoftWebSiteResourceName')]"
-                    },
-                    "microsoftWebSiteAlwaysOn": {
-                        "value": "[parameters('microsoftWebSiteAlwaysOn')]"
-                    },
-                    // -------------------------------------------------------
-                    // Passthrough Parameters: Web Site Config AppSettings 
-                    "microsoftWebSiteConfigAppSettings": {
-                        "value": "[parameters('microsoftWebSiteConfigAppSettings')]"
-                    },
-                    "microsoftWebSiteConfigAppSettingsDeveloperStatingSecretsAreNotRecordedInCode": {
-                        "value": "[parameters('microsoftWebSiteConfigAppSettingsDeveloperStatingSecretsAreNotRecordedInCode')]"
-                    },
-                    // -------------------------------------------------------
-                    // Passthrough Parameters: Web Site Config ConnectionStrings 
-                    "microsoftWebSiteConfigConnectionStrings": {
-                        "value": "[parameters('microsoftWebSiteConfigConnectionStrings')]"
-                    },
-                    "microsoftWebSiteConfigConnectionStringsDeveloperStatingSecretsAreNotRecordedInCode": {
-                        "value": "[parameters('microsoftWebSiteConfigConnectionStringsDeveloperStatingSecretsAreNotRecordedInCode')]"
-                    },
-                    // -------------------------------------------------------
-                    // Passthrough Parameters: Web Site HostNameBinding 
-                    "microsoftWebSiteHostNameBindingHostName": {
-                        "value": "[parameters('microsoftWebSiteHostNameBindingHostName')]"
-                    },
-                    "microsoftWebSiteHostNameBindingHostNameAlt": {
-                        "value": "[parameters('microsoftWebSiteHostNameBindingHostNameAlt')]"
-                    },
-                    // -------------------------------------------------------
-                    // Passthrough Parameters: OAuth / Client
-                    "oauthEnabled": {
-                        "value": "[parameters('oauthEnabled')]"
-                    },
-                    "oauthAuthorityUri": {
-                        "value": "[parameters('oauthAuthorityUri')]"
-                    },
-                    "oauthClientId": {
-                        "value": "[parameters('oauthClientId')]"
-                    },
-                    "oauthClientSecret": {
-                        "value": "[parameters('oauthClientSecret')]"
-                    },
-                    "oauthClientRedirectUri": {
-                        "value": "[parameters('oauthClientRedirectUri')]"
-                    },
-                    "oauthClientPostLogoutRedirectUri": {
-                        "value": "[parameters('oauthClientPostLogoutRedirectUri')]"
-                    },
-                    // -------------------------------------------------------
-                    // Passthrough Parameters: Oidc / Server
                     // TODO
                     // -------------------------------------------------------
-                    // Passthrough Parameters: Oidc / Policies
-                    "oidcPoliciesSignUpSignInPolicyId": {
-                        "value": "[parameters('oidcPoliciesSignUpSignInPolicyId')]"
-                    },
-                    "oidcPoliciesUserProfilePolicyId": {
-                        "value": "[parameters('oidcPoliciesUserProfilePolicyId')]"
-                    },
-                    "oidcPoliciesEditProfilePolicyId": {
-                        "value": "[parameters('oidcPoliciesEditProfilePolicyId')]"
-                    },
-                    "oidcPoliciesResetPasswordPolicyId": {
-                        "value": "[parameters('oidcPoliciesResetPasswordPolicyId')]"
+                    // Passthrough Parameters: MICROSOFT / CACHE / REDIS 
+                    "microsoftCacheRedisProvision":{
+                        "value": "[parameters('microsoftCacheRedisProvision')]"
                     },
                     // -------------------------------------------------------
-                    // Passthrough Parameters: SMTP Service
-                    "servicesSMTPEnabled": {
-                        "value":"[parameters('servicesSMTPEnabled')]"
+                    // Passthrough Parameters: MICROSOFT / SQL / SERVERS  
+                    "microsoftSqlServersAdministratorLogin": {
+                        "value": "[parameters('microsoftSqlServersAdministratorLogin')]"
                     },
-                    "servicesSMTPUri": {
-                        "value":"[parameters('servicesSMTPUri')]"
+                    "microsoftSqlServersAdministratorLoginPassword": {
+                        "value": "[parameters('microsoftSqlServersAdministratorLoginPassword')]"
                     },
-                    "servicesSMTPClientId": {
-                        "value":"[parameters('servicesSMTPClientId')]"
+                    "microsoftSqlServersDeveloperStatingSecretsAreNotRecordedInCode": {
+                        "value": "[parameters('microsoftSqlServersDeveloperStatingSecretsAreNotRecordedInCode')]"
                     },
-                    "servicesSMTPClientSecret": {
-                        "value":"[parameters('servicesSMTPClientSecret')]"
+                    // -------------------------------------------------------
+                    // Passthrough Parameters: MICROSOFT / SQL / DATABASES
+                    // TBD  
+                    // -------------------------------------------------------
+                    // Passthrough Parameters: MICROSOFT / WEB / SERVERFARMS
+                    "microsoftWebServerFarmsResourceSku": {
+                        "value": "[parameters('microsoftWebServerFarmsResourceSku')]"
                     },
-                    "servicesSMTPClientMiscConfiguration": {
-                        "value":"[parameters('servicesSMTPClientMiscConfiguration')]"
+                    // -------------------------------------------------------
+                    // Passthrough Parameters: MICROSOFT / WEB / CERTIFICATE 
+                    "microsoftWebCertificatesPfxBase64": {
+                        "value": "[parameters('microsoftWebCertificatesPfxBase64')]"
                     },
-
-
-
+                    "microsoftWebCertificatesPfxPassword": {
+                        "value": "[parameters('microsoftWebCertificatesPfxPassword')]"
+                    },
+                    "microsoftWebCertificatesDeveloperStatingSecretsAreNotRecordedInCode": {
+                        "value": "[parameters('microsoftWebCertificatesDeveloperStatingSecretsAreNotRecordedInCode')]"
+                    },
+                    // -------------------------------------------------------
+                    // Passthrough Parameters: MICROSOFT / WEB / SITES 
+                    "microsoftWebSitesResourceName": {
+                        "value": "[parameters('microsoftWebSitesResourceName')]"
+                    },
+                    "microsoftWebSitesAlwaysOn": {
+                        "value": "[parameters('microsoftWebSitesAlwaysOn')]"
+                    },
+                    // -------------------------------------------------------
+                    // Passthrough Parameters: MICROSOFT / WEB / SITES / CONFIG / APPSETTINGS
+                    "microsoftWebSitesConfigAppSettings": {
+                        "value": "[parameters('microsoftWebSitesConfigAppSettings')]"
+                    },
+                    "microsoftWebSitesConfigAppSettingsDeveloperStatingSecretsAreNotRecordedInCode": {
+                        "value": "[parameters('microsoftWebSitesConfigAppSettingsDeveloperStatingSecretsAreNotRecordedInCode')]"
+                    },
+                    // -------------------------------------------------------
+                    // Passthrough Parameters: MICROSOFT / WEB / SITES / CONFIG / CONNECTIONSTRINGS
+                    "microsoftWebSitesConfigConnectionStrings": {
+                        "value": "[parameters('microsoftWebSitesConfigConnectionStrings')]"
+                    },
+                    "microsoftWebSitesConfigConnectionStringsDeveloperStatingSecretsAreNotRecordedInCode": {
+                        "value": "[parameters('microsoftWebSitesConfigConnectionStringsDeveloperStatingSecretsAreNotRecordedInCode')]"
+                    },
+                    // -------------------------------------------------------
+                    // Passthrough Parameters: MICROSOFT / WEB / SITES / HOSTNAMEBINDINGS
+                    "microsoftWebSitesHostNameBindingsHostName": {
+                        "value": "[parameters('microsoftWebSitesHostNameBindingsHostName')]"
+                    },
+                    "microsoftWebSitesHostNameBindingsHostNameAlt": {
+                        "value": "[parameters('microsoftWebSitesHostNameBindingsHostNameAlt')]"
+                    },
                 // -------------------------------------------------------
-                    // Passthrough Parameters: SMTP Service
-                    "servicesMalwareDetectionEnabled": {
-                        "value":"[parameters('servicesMalwareDetectionEnabled')]"
+                    // Passthrough Parameters: SERVICES / GEOIPSERVICE
+                    "servicesGeoIPServiceEnabled": {
+                        "value":"[parameters('servicesGeoIPServiceEnabled')]"
                     },
-                    "servicesMalwareDetectionUri": {
-                        "value":"[parameters('servicesMalwareDetectionUri')]"
+                    "servicesGeoIPServiceUri": {
+                        "value":"[parameters('servicesGeoIPServiceUri')]"
                     },
-                    "servicesMalwareDetectionClientId": {
-                        "value":"[parameters('servicesMalwareDetectionClientId')]"
+                    "servicesGeoIPServiceClientId": {
+                        "value":"[parameters('servicesGeoIPServiceClientId')]"
                     },
-                    "servicesMalwareDetectionClientSecret": {
-                        "value":"[parameters('servicesMalwareDetectionClientSecret')]"
+                    "servicesGeoIPServiceClientSecret": {
+                        "value":"[parameters('servicesGeoIPServiceClientSecret')]"
                     },
-                    "servicesMalwareDetectionClientMiscConfiguration": {
-                        "value":"[parameters('servicesMalwareDetectionClientMiscConfiguration')]"
+                    "servicesGeoIPServiceClientMiscConfiguration": {
+                        "value":"[parameters('servicesGeoIPServiceClientMiscConfiguration')]"
                     },
-
- 
-        
-
-
+                // -------------------------------------------------------
+                    // Passthrough Parameters: SERVICES / MALWAREDETECTIONSERVICE
+                    "servicesMalwareDetectionServiceEnabled": {
+                        "value":"[parameters('servicesMalwareDetectionServiceEnabled')]"
+                    },
+                    "servicesMalwareDetectionServiceUri": {
+                        "value":"[parameters('servicesMalwareDetectionServiceUri')]"
+                    },
+                    "servicesMalwareDetectionServiceClientId": {
+                        "value":"[parameters('servicesMalwareDetectionServiceClientId')]"
+                    },
+                    "servicesMalwareDetectionServiceClientSecret": {
+                        "value":"[parameters('servicesMalwareDetectionServiceClientSecret')]"
+                    },
+                    "servicesMalwareDetectionServiceClientMiscConfiguration": {
+                        "value":"[parameters('servicesMalwareDetectionServiceClientMiscConfiguration')]"
+                    },
+                    // -------------------------------------------------------
+                    // Passthrough Parameters: SERVICES / OAUTHSERVICE / Client
+                    "servicesOAuthServiceEnabled": {
+                        "value": "[parameters('servicesOAuthServiceEnabled')]"
+                    },
+                    "servicesOAuthServiceAuthorityUri": {
+                        "value": "[parameters('servicesOAuthServiceAuthorityUri')]"
+                    },
+                    "servicesOAuthServiceClientId": {
+                        "value": "[parameters('servicesOAuthServiceClientId')]"
+                    },
+                    "servicesOAuthServiceClientSecret": {
+                        "value": "[parameters('servicesOAuthServiceClientSecret')]"
+                    },
+                    "servicesOAuthServiceClientRedirectUri": {
+                        "value": "[parameters('servicesOAuthServiceClientRedirectUri')]"
+                    },
+                    "servicesOAuthServiceClientPostLogoutRedirectUri": {
+                        "value": "[parameters('servicesOAuthServiceClientPostLogoutRedirectUri')]"
+                    },
+                    // -------------------------------------------------------
+                    // Passthrough Parameters: SERVICES / OIDCSERVICE / Server
+                    // TBD
+                    // -------------------------------------------------------
+                    // Passthrough Parameters: Oidc / Policies
+                    "servicesOIDCServicePoliciesSignUpSignInPolicyId": {
+                        "value": "[parameters('servicesOIDCServicePoliciesSignUpSignInPolicyId')]"
+                    },
+                    "servicesOIDCServicePoliciesUserProfilePolicyId": {
+                        "value": "[parameters('servicesOIDCServicePoliciesUserProfilePolicyId')]"
+                    },
+                    "servicesOIDCServicePoliciesEditProfilePolicyId": {
+                        "value": "[parameters('servicesOIDCServicePoliciesEditProfilePolicyId')]"
+                    },
+                    "servicesOIDCServicePoliciesResetPasswordPolicyId": {
+                        "value": "[parameters('servicesOIDCServicePoliciesResetPasswordPolicyId')]"
+                    },
+                    // -------------------------------------------------------
+                    // Passthrough Parameters: SERVICES / SMTPSERVICE
+                    "servicesSMTPServiceEnabled": {
+                        "value":"[parameters('servicesSMTPServiceEnabled')]"
+                    },
+                    "servicesSMTPServiceUri": {
+                        "value":"[parameters('servicesSMTPServiceUri')]"
+                    },
+                    "servicesSMTPServiceClientId": {
+                        "value":"[parameters('servicesSMTPServiceClientId')]"
+                    },
+                    "servicesSMTPServiceClientSecret": {
+                        "value":"[parameters('servicesSMTPServiceClientSecret')]"
+                    },
+                    "servicesSMTPServiceClientMiscConfiguration": {
+                        "value":"[parameters('servicesSMTPServiceClientMiscConfiguration')]"
+                    },
                     // -------------------------------------------------------
                     // Passthrough Parameters: SERVICE 01
                     "servicesService01Name": {
@@ -1179,7 +1249,7 @@
                     // -------------------------------------------------------
                 } //~parameters
             } //~properties
-        } //~assemblies linked template
+         } //~assemblies linked template
     ],
     // -------------------------------------------------------
     // OUTPUTS
@@ -1208,15 +1278,15 @@
         },
         // The name of the apps sql server on which one or more databases are created
         // May be required for scripting permissions (although probably won't - we've given principalId access to the whole resource group)
-        "microsoftSqlServerResourceName": {
+        "microsoftSqlServersResourceName": {
             "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.microsoftSqlServerResourceName.value]"
+            "value": "[reference(variables('assembly').armTemplateId).outputs.microsoftSqlServersResourceName.value]"
         },
         // The name of the primary default database (usually the only one). Requires backing up (see 'defaultStorageAccountResourceName').
         // May be required for scripting permissions (although probably won't - we've given principalId access to the whole resource group)
-        "microsoftSqlServerDatabaseResourceName": {
+        "microsoftSqlServersDatabaseResourceName": {
             "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.microsoftSqlServerDatabaseResourceName.value]"
+            "value": "[reference(variables('assembly').armTemplateId).outputs.microsoftSqlServersDatabaseResourceName.value]"
         },
         // The name of one of the non-required storage accounts (can be deleted if need be)
         // May be required for scripting permissions (although probably won't - we've given principalId access to the whole resource group)
@@ -1230,22 +1300,22 @@
             "type": "string",
             "value": "[reference(variables('assembly').armTemplateId).outputs.tempStorageAccountResourceName.value]"
         },
-        // The name of the default required storage accounts. Requires backing up (see 'microsoftSqlServerDatabaseResourceName')
+        // The name of the default required storage accounts. Requires backing up (see 'microsoftSqlServersDatabaseResourceName')
         // May be required for scripting permissions (although probably won't - we've given principalId access to the whole resource group)
         "defaultStorageAccountResourceName": {
             "type": "string",
             "value": "[reference(variables('assembly').armTemplateId).outputs.defaultStorageAccountResourceName.value]"
         },
         // Name of the WebSite that uses sqlserver, storage, keyvault, etc.
-        "microsoftWebSiteResourceName": {
+        "microsoftWebSitesResourceName": {
             "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.microsoftWebSiteResourceName.value]"
+            "value": "[reference(variables('assembly').armTemplateId).outputs.microsoftWebSitesResourceName.value]"
         },
         // I'm not keen on this output, as it's inherently insecure (if using the 'insecure' flag). But for now...let's wait and see
         // if it essential.
-        "microsoftWebSiteDefaultConnectionString": {
+        "microsoftWebSitesDefaultConnectionString": {
             "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.microsoftWebSiteDefaultConnectionString.value]"
+            "value": "[reference(variables('assembly').armTemplateId).outputs.microsoftWebSitesDefaultConnectionString.value]"
         }
     } //~output
 }
