@@ -1,4 +1,5 @@
-﻿using App.Module32.Shared.Contracts;
+﻿using App.Module32.Infrastructure.Initialization.Db.Schema;
+using App.Module32.Shared.Contracts;
 
 namespace App.Module32.Infrastructure.Db.Context
 {
@@ -11,8 +12,6 @@ namespace App.Module32.Infrastructure.Db.Context
     using App.Core.Infrastructure.Initialization.DependencyResolution;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Attributes;
-    using App.Module32.Infrastructure.Db.Schema;
-
 
 
     /// <summary>

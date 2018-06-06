@@ -158,6 +158,7 @@
     <Compile Include="API\Controllers\Base\TenantedGuidIdActiveRecordStateODataControllerDataBase.cs" />
     <Compile Include="Services\IApplicationService.cs" />
     <Compile Include="Services\Implementations\ApplicationService.cs" />
+    <Compile Include="Services\Implementations\StudentSearchService.cs" />
     <Compile Include="Services\Implementations\TaskService.cs" />
     <Compile Include="Services\ITaskService.cs" />
   </ItemGroup>

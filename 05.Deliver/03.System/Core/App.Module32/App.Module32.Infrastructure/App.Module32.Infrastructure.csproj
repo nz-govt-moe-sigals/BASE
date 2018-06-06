@@ -68,10 +68,19 @@
     <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeederExample.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeedingOrchestrator.cs" />
     <Compile Include="Initialization\Db\Migrations\AppModuleDbMigrationsConfiguration.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineExample.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201806060408086_Entities.BaseInit.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201806060408086_Entities.BaseInit.Designer.cs">
+      <DependentUpon>201806060408086_Entities.BaseInit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineEducationSchoolProfile.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineEducationStudentProfile.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineExtractWatermark.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbModelBuilderOrchestrator.cs" />
     <Compile Include="Initialization\DependencyResolution\AppModuleInfrastructureRegistry.cs" />
     <Compile Include="Initialization\Authorisation\HasOidcScopeInitializer.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\Base\ObjectMap_BaseMessage_TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_SchoolProfile_EducationSchoolProfile.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_StudentProfile_EducationStudentProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Configuration\IModuleServiceConfigurationObject.cs" />
     <Compile Include="Services\IHasAppModuleService.cs" />
@@ -110,6 +119,11 @@
     <Content Include="Db\README.txt" />
     <Content Include="Initialization\DependencyResolution\README.txt" />
     <Content Include="Initialization\ObjectMaps\README.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201806060408086_Entities.BaseInit.resx">
+      <DependentUpon>201806060408086_Entities.BaseInit.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

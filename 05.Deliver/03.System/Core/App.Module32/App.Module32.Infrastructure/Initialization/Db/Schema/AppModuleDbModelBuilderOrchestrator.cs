@@ -1,13 +1,10 @@
-﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+﻿using System.Data.Entity;
+using App.Core.Infrastructure.Contracts;
+using App.Core.Infrastructure.Initialization.DependencyResolution;
 using App.Module32.Shared.Contracts;
 
-namespace App.Module32.Infrastructure.Db.Schema
+namespace App.Module32.Infrastructure.Initialization.Db.Schema
 {
-    using System.Data.Entity;
-    using App.Core.Infrastructure.Contracts;
-    using App.Module32.Infrastructure.Initialization;
-    using App.Module32.Infrastructure.Initialization.Db;
-
     public class AppModuleDbModelBuilderOrchestrator : IHasModuleSpecificIdentifier
     {
 

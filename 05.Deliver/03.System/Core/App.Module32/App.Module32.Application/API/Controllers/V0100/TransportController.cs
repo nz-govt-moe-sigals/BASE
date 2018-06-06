@@ -10,8 +10,9 @@ namespace App.Module32.Application.API.Controllers.V0100
 {
     public class TransportController : ApiController
     {
-
-        public StudentDto DoesStudentExist()
+        [AllowAnonymous]
+        [HttpPost]
+        public StudentDto DoesStudentExist(StudentSearchDto student)
         {
             return new StudentDto();
         }
