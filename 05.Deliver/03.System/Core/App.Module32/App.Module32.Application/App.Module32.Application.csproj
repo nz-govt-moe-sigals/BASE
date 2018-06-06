@@ -149,18 +149,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\Controllers\Base\GuidIdActiveRecordStateODataControllerBase.cs" />
-    <Compile Include="API\Controllers\V0100\ExampleController.cs" />
+    <Compile Include="API\Controllers\V0100\TransportController.cs" />
     <Compile Include="Constants\Api\ApiControllerNames.cs" />
     <Compile Include="Initialization\DependencyResolution\AppModuleApplicationRegistry.cs" />
     <Compile Include="Initialization\OData\IAppModuleOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\AppModuleOdataModelBuilder.cs" />
-    <Compile Include="Initialization\OData\Implementations\ExampleOdataModelBuilderConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="API\Controllers\Base\TenantedGuidIdActiveRecordStateODataControllerDataBase.cs" />
     <Compile Include="Services\IApplicationService.cs" />
     <Compile Include="Services\Implementations\ApplicationService.cs" />
-    <Compile Include="Services\IExampleApplicationService.cs" />
-    <Compile Include="Services\Implementations\ExampleApplicationService.cs" />
     <Compile Include="Services\Implementations\TaskService.cs" />
     <Compile Include="Services\ITaskService.cs" />
   </ItemGroup>

@@ -594,6 +594,18 @@
       <Project>{5136cc88-5043-46e7-946a-92337f74c450}</Project>
       <Name>App.Module31.Shared</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\App.Module32\App.Module32.Application\App.Module32.Application.csproj">
+      <Project>{7fc4ae76-535f-4c07-9202-d37132cb77af}</Project>
+      <Name>App.Module32.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\App.Module32\App.Module32.Infrastructure\App.Module32.Infrastructure.csproj">
+      <Project>{9351d857-3793-4381-bc93-4bbcca231492}</Project>
+      <Name>App.Module32.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\App.Module32\App.Module32.Shared\App.Module32.Shared.csproj">
+      <Project>{c1e727b0-f6f4-4cbc-bd54-2f492e0e89b6}</Project>
+      <Name>App.Module32.Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

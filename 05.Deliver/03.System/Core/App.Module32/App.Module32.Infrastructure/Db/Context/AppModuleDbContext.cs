@@ -12,7 +12,7 @@ namespace App.Module32.Infrastructure.Db.Context
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Attributes;
     using App.Module32.Infrastructure.Db.Schema;
-    using App.Module32.Shared.Models.Entities;
+
 
 
     /// <summary>
@@ -56,7 +56,6 @@ namespace App.Module32.Infrastructure.Db.Context
     
         }
 
-        public DbSet<Example> Examples { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
