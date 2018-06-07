@@ -374,7 +374,7 @@
       "value": true
     },
     "servicesGeoIPServiceUri": {
-      "value": "http://api.ipstack.com/203.118.153.94?access_key={0}"
+      "value": "http://api.ipstack.com/{1}?access_key={0}"
     },
     "servicesGeoIPServiceClientId": {
       "value": "base@ministryof.me"
