@@ -1300,7 +1300,7 @@
             "type": "string",
             "value": "[reference(variables('assembly').armTemplateId).outputs.tempStorageAccountResourceName.value]"
         },
-        // The name of the default required storage accounts. Requires backing up (see 'microsoftSqlServersDatabaseResourceName')
+        // The name of the default required storage accounts. Requires backing up (see 'microsoftSqlServersDatabasesResourceName')
         // May be required for scripting permissions (although probably won't - we've given principalId access to the whole resource group)
         "defaultStorageAccountResourceName": {
             "type": "string",
