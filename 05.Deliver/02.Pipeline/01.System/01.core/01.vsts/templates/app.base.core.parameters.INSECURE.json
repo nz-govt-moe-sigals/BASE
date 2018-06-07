@@ -371,7 +371,7 @@
     // PARAMETERS: SERVICES / GEOIPSERVICE
     // -------------------------------------------------------
     "servicesGeoIPServiceEnabled": {
-      "value": "TODO:REPLACE"
+      "value": true
     },
     "servicesGeoIPServiceUri": {
       "value": "TODO:REPLACE"
@@ -389,7 +389,7 @@
     // PARAMETERS: SERVICES / MALWAREDETECTIONSERVICE
     // -------------------------------------------------------
     "servicesMalwareDetectionServiceEnabled": {
-      "value": "TODO:REPLACE"
+      "value": true
     },
     "servicesMalwareDetectionServiceUri": {
       "value": "TODO:REPLACE"
@@ -475,7 +475,7 @@
     // PARAMETERS: SERVICES / SMTPSERVICE
     // -------------------------------------------------------
     "servicesSMTPServiceEnabled": {
-      "value": "TODO:REPLACE"
+      "value": true
     },
     "servicesSMTPServiceUri": {
       "value": "TODO:REPLACE"
