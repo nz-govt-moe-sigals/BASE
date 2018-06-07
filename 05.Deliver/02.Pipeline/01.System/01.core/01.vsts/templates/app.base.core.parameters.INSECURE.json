@@ -374,16 +374,16 @@
       "value": true
     },
     "servicesGeoIPServiceUri": {
-      "value": "TODO:REPLACE"
+      "value": "TODO:REPLACE IN ARM PARAMS FILE"
     },
     "servicesGeoIPServiceClientId": {
-      "value": "TODO:REPLACE"
+      "value": "TODO:REPLACE IN ARM PARAMS FILE"
     },
     "servicesGeoIPServiceClientSecret": {
-      "value": "TODO:REPLACE"
+      "value": "TODO:REPLACE IN ARM PARAMS FILE"
     },
     "servicesGeoIPServiceClientMiscConfiguration": {
-      "value": "TODO:REPLACE"
+      "value": "TODO:REPLACE IN ARM PARAMS FILE"
     },
     // -------------------------------------------------------
     // PARAMETERS: SERVICES / MALWAREDETECTIONSERVICE
@@ -392,7 +392,7 @@
       "value": true
     },
     "servicesMalwareDetectionServiceUri": {
-      "value": "TODO:REPLACE"
+      "value": "TODO:REPLACE IN ARM PARAMS FILE"
     },
     "servicesMalwareDetectionServiceClientId": {
       "value": "394d3e42-18e1-4758-87b2-29e22c59d64b"
@@ -401,7 +401,7 @@
       "value": "c841994b1"
     },
     "servicesMalwareDetectionServiceClientMiscConfiguration": {
-      "value": "TODO:REPLACE"
+      "value": "TODO:REPLACE IN ARM PARAMS FILE"
     },
     // -------------------------------------------------------
     // PARAMETERS: SERVICES / OATHSERVICE 
@@ -413,7 +413,7 @@
     // Optional.
     // Example:
     "servicesOAuthServiceAuthorityUri": {
-      "value": "TODO:REPLACE"
+      "value": "TODO:REPLACE IN ARM PARAMS FILE"
     },
     // Optional. 
     // If your system needs to authenticate remote systems it will be via OAuth.
@@ -423,7 +423,7 @@
     // by the remote IdP when you registered your app with it.
     // Example:
     "servicesOAuthServiceClientId": {
-      "value": "TODO:REPLACE"
+      "value": "TODO:REPLACE IN ARM PARAMS FILE"
     },
     // Optional. 
     // If your system needs to authenticate remote systems it will be via OAuth.
@@ -432,7 +432,7 @@
     // by the remote IdP when you registered your app with it.
     // Example:
     "servicesOAuthServiceClientSecret": {
-      "value": "TODO:REPLACE"
+      "value": "TODO:REPLACE IN ARM PARAMS FILE"
     },
     // Optional. If your system needs to authenticate users, using OIDC, 
     // you have to redirect Users back from the remote IDP to this system's Homepage.
@@ -440,14 +440,14 @@
     // If not provided, will be automatically generated using 'https' and your host binding name you provided.
     // Example:
     "servicesOAuthServiceClientRedirectUri": {
-      "value": "TODO:REPLACE"
+      "value": "TODO:REPLACE IN ARM PARAMS FILE"
     },
     // Optional. If your system needs to authenticate users, using OIDC, 
     // after a user is signed off (destroying their security token), 
     // you want to redirect them to the home page or other. The default is '/'.
     // Example:
     "servicesOAuthServiceClientPostLogoutRedirectUri": {
-      "value": "TODO:REPLACE"
+      "value": "TODO:REPLACE IN ARM PARAMS FILE"
     },
     // -------------------------------------------------------
     // PARAMETERS: SERVICES / OIDCSERVICE / Server
@@ -457,19 +457,19 @@
     // -------------------------------------------------------
     // Example:
     "servicesOIDCServicePoliciesSignUpSignInPolicyId": {
-      "value": "TODO:REPLACE"
+      "value": "TODO:REPLACE IN ARM PARAMS FILE"
     },
     // Example:
     "servicesOIDCServicePoliciesUserProfilePolicyId": {
-      "value": "TODO:REPLACE"
+      "value": "TODO:REPLACE IN ARM PARAMS FILE"
     },
     // Example:
     "servicesOIDCServicePoliciesEditProfilePolicyId": {
-      "value": "TODO:REPLACE"
+      "value": "TODO:REPLACE IN ARM PARAMS FILE"
     },
     // Example:
     "servicesOIDCServicePoliciesResetPasswordPolicyId": {
-      "value": "TODO:REPLACE"
+      "value": "TODO:REPLACE IN ARM PARAMS FILE"
     },
     // -------------------------------------------------------
     // PARAMETERS: SERVICES / SMTPSERVICE
@@ -478,16 +478,16 @@
       "value": true
     },
     "servicesSMTPServiceUri": {
-      "value": "TODO:REPLACE"
+      "value": "TODO:REPLACE IN ARM PARAMS FILE"
     },
     "servicesSMTPServiceClientId": {
-      "value": "TODO:REPLACE"
+      "value": "TODO:REPLACE IN ARM PARAMS FILE"
     },
     "servicesSMTPServiceClientSecret": {
-      "value": "TODO:REPLACE"
+      "value": "TODO:REPLACE IN ARM PARAMS FILE"
     },
     "servicesSMTPServiceClientMiscConfiguration": {
-      "value": "TODO:REPLACE"
+      "value": "TODO:REPLACE IN ARM PARAMS FILE"
     },
     // -------------------------------------------------------
     // PARAMETERS: SERVICES / SERVICE03
