@@ -1272,21 +1272,21 @@
         },
         // The name  of the Keyvault resource, which can be of use when applying rights using Powershell:
         // May be required for scripting permissions (although probably won't - we've given principalId access to the whole resource group)
-        "microsoftKeyVaultResourceName": {
+        "defaultKeyVaultResourceName": {
             "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.microsoftKeyVaultResourceName.value]"
+            "value": "[reference(variables('assembly').armTemplateId).outputs.defaultKeyVaultResourceName.value]"
         },
         // The name of the apps sql server on which one or more databases are created
         // May be required for scripting permissions (although probably won't - we've given principalId access to the whole resource group)
-        "microsoftSqlServersResourceName": {
+        "defaultSqlServerResourceName": {
             "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.microsoftSqlServersResourceName.value]"
+            "value": "[reference(variables('assembly').armTemplateId).outputs.defaultSqlServerResourceName.value]"
         },
         // The name of the primary default database (usually the only one). Requires backing up (see 'defaultStorageAccountResourceName').
         // May be required for scripting permissions (although probably won't - we've given principalId access to the whole resource group)
-        "microsoftSqlServersDatabaseResourceName": {
+        "defaultSqlServerDefaultDatabaseResourceName": {
             "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.microsoftSqlServersDatabaseResourceName.value]"
+            "value": "[reference(variables('assembly').armTemplateId).outputs.defaultSqlServerDefaultDatabaseResourceName.value]"
         },
         // The name of one of the non-required storage accounts (can be deleted if need be)
         // May be required for scripting permissions (although probably won't - we've given principalId access to the whole resource group)
@@ -1307,15 +1307,16 @@
             "value": "[reference(variables('assembly').armTemplateId).outputs.defaultStorageAccountResourceName.value]"
         },
         // Name of the WebSite that uses sqlserver, storage, keyvault, etc.
-        "microsoftWebSitesResourceName": {
+        "defaultWebSiteResourceName": {
             "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.microsoftWebSitesResourceName.value]"
+            "value": "[reference(variables('assembly').armTemplateId).outputs.defaultWebSiteResourceName.value]"
         },
         // I'm not keen on this output, as it's inherently insecure (if using the 'insecure' flag). But for now...let's wait and see
         // if it essential.
-        "microsoftWebSitesDefaultConnectionString": {
+        "defaultWebSitesDefaultConnectionString": {
             "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.microsoftWebSitesDefaultConnectionString.value]"
+            "value": "[reference(variables('assembly').armTemplateId).outputs.defaultWebSiteDefaultConnectionString.value]"
         }
     } //~output
+
 }
