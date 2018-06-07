@@ -1,5 +1,7 @@
 ﻿
 
+using App.Core.Infrastructure.Initialization.DependencyResolution;
+
 namespace App.Core.Application.Initialization.DependencyResolution
 {
     using App.Core.Application.Initialization.OData;

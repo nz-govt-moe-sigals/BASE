@@ -39,8 +39,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Azure.Documents.Client, Version=1.22.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap, Version=4.6.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\StructureMap.4.6.1\lib\net45\StructureMap.dll</HintPath>
@@ -79,12 +83,27 @@
     <Compile Include="Initialization\DependencyResolution\AppModuleInfrastructureRegistry.cs" />
     <Compile Include="Initialization\Authorisation\HasOidcScopeInitializer.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\Base\ObjectMap_BaseMessage_TenantFKTimestampedAuditedRecordStatedGuidIdEntityBase.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_EducationSchoolProfile_EducationSchoolProfile.cs" />
+    <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_EducationStudentProfile_EducationStudentProfile.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_SchoolProfile_EducationSchoolProfile.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_StudentProfile_EducationStudentProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Configuration\ExtractDocumentDbServiceConfiguration.cs" />
     <Compile Include="Services\Configuration\IModuleServiceConfigurationObject.cs" />
+    <Compile Include="Services\IBatchRepositoryService.cs" />
+    <Compile Include="Services\IExtractAzureDocumentDbService.cs" />
+    <Compile Include="Services\IExtractRepositoryService.cs" />
+    <Compile Include="Services\IExtractServiceController.cs" />
     <Compile Include="Services\IHasAppModuleService.cs" />
     <Compile Include="Services\Implementations\Base\AppModuleServiceBase.cs" />
+    <Compile Include="Services\Implementations\Base\BaseExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\DataServices\StudentProfilesExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\ExtractServiceController.cs" />
+    <Compile Include="Services\Implementations\Extract\ReferenceServices\SchoolProfilesExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\Repositories\BatchRepositoryService.cs" />
+    <Compile Include="Services\Implementations\Extract\Repositories\ExtractAzureDocumentDbService.cs" />
+    <Compile Include="Services\Implementations\Extract\Repositories\ExtractRepositoryService.cs" />
+    <Compile Include="Services\IBaseExtractService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\App.Core\App.Core.Infrastructure\App.Core.Infrastructure.csproj">
