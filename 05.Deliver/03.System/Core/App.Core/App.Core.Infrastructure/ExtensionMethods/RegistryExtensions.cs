@@ -22,22 +22,22 @@ namespace App
             {
                 //Register it under DbContext context, but named:
                 new CreatePluginFamilyExpression<DbContext>(registry,
-                    new HttpContextLifecycle()).Use(y => DbContextFactory.Create<TDbContext>()).Named(key);
+                    new HttpContextLifecycle()).HybridHttpOrThreadLocalScoped().Use(y => DbContextFactory.Create<TDbContext>()).Named(key);
 
                 //Register it under specific TDbContext, without name:
                 new CreatePluginFamilyExpression<TDbContext>(registry,
-                    new HttpContextLifecycle()).Use(y => DbContextFactory.Create<TDbContext>());
+                    new HttpContextLifecycle()).HybridHttpOrThreadLocalScoped().Use(y => DbContextFactory.Create<TDbContext>());
             }
             else
             {
                 //Register it under DbContext context, but named:
                 // FIX: replaced HybridLifecycle with HttpContextLifecycle
                 new CreatePluginFamilyExpression<DbContext>(registry,
-                    new HttpContextLifecycle()).Use(y => DbContextFactory.Create<TDbContext>()).Named(key);
+                    new HttpContextLifecycle()).HybridHttpOrThreadLocalScoped().Use(y => DbContextFactory.Create<TDbContext>()).Named(key);
 
                 //Register it under specific TDbContext, without name:
                 new CreatePluginFamilyExpression<TDbContext>(registry,
-                    new HttpContextLifecycle()).Use(y => DbContextFactory.Create<TDbContext>());
+                    new HttpContextLifecycle()).HybridHttpOrThreadLocalScoped().Use(y => DbContextFactory.Create<TDbContext>());
                  /*
                 registry.For<DbContext>().HybridHttpOrThreadLocalScoped().Use(y => DbContextFactory.Create<TDbContext>()).Named(key).Singleton();
                 registry.For<TDbContext>().HybridHttpOrThreadLocalScoped().Use(y => DbContextFactory.Create<TDbContext>()).Named(key).Singleton();

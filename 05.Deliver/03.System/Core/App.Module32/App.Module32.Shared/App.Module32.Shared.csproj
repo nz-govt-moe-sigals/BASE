@@ -44,14 +44,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\AppModuleApiScopes.cs" />
+    <Compile Include="Constants\ConfigurationKeys.cs" />
     <Compile Include="Contracts\IHasModuleSpecificIdentifier.cs" />
     <Compile Include="IAppModule32.cs" />
     <Compile Include="Models\Configuration\ApiPermissionConfig.cs" />
+    <Compile Include="Models\Configuration\ExtractDocumentDbConfig.cs" />
     <Compile Include="Models\Entities\EducationSchoolProfile.cs" />
     <Compile Include="Models\Entities\EducationStudentProfile.cs" />
     <Compile Include="Models\Enums\StudentExistEnum.cs" />
     <Compile Include="Models\Messages\API\V0100\StudentDto.cs" />
     <Compile Include="Models\Messages\API\V0100\StudentSearchDto.cs" />
+    <Compile Include="Models\Messages\Extract\ExtractConstants.cs" />
     <Compile Include="Models\Messages\Extract\Base\BaseMessage.cs" />
     <Compile Include="Models\Entities\ExtractWatermark.cs" />
     <Compile Include="Models\Messages\Extract\SchoolProfile.cs" />

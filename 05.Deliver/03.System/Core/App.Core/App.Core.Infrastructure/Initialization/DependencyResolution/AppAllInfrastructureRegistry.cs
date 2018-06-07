@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StructureMap.Web;
 
 namespace App.Core.Infrastructure.Initialization.DependencyResolution
 {
@@ -23,6 +24,7 @@ namespace App.Core.Infrastructure.Initialization.DependencyResolution
             Scan(
                 assemblyScanner =>
                 {
+                    
                     //Where we want to be:
                     assemblyScanner.AssembliesFromApplicationBaseDirectory();
 
@@ -105,7 +107,7 @@ namespace App.Core.Infrastructure.Initialization.DependencyResolution
                 //Register it under IAzureStorageBlobContext context, but named:
 
                 new CreatePluginFamilyExpression<IAzureStorageBlobContext>(this,
-                        new HttpContextLifecycle())
+                        new HttpContextLifecycle()).HybridHttpOrThreadLocalScoped()
                     .Use(y => (IAzureStorageBlobContext)AppDependencyLocator.Current.GetInstance(t)).Named(name);
             }
         }

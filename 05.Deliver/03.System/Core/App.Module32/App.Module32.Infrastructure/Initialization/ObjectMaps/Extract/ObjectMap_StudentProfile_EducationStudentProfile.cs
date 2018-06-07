@@ -30,7 +30,7 @@ namespace App.Module32.Infrastructure.Initialization.ObjectMaps.Extract
         private string ResolveFullName(StudentProfile src)
         {
             string middleName = " ";
-            if (string.IsNullOrWhiteSpace(src.MiddleName))
+            if (!string.IsNullOrWhiteSpace(src.MiddleName))
             {
                 middleName += src.MiddleName + " ";
             }
