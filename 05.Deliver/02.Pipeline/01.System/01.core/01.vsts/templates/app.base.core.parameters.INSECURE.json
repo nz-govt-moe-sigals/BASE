@@ -453,20 +453,6 @@
     // PARAMETERS: SERVICES / OIDCSERVICE / Server
     // TBD
     // -------------------------------------------------------
-    // PARAMETERS: SERVICES / OIDCSERVICE 
-    "servicesOIDCServicePoliciesSignUpSignInPolicyId": {
-      "value": "TODO:REPLACE"
-    },
-    "servicesOIDCServicePoliciesUserProfilePolicyId": {
-      "value": "TODO:REPLACE"
-    },
-    "servicesOIDCServicePoliciesEditProfilePolicyId": {
-      "value": "TODO:REPLACE"
-    },
-    "servicesOIDCServicePoliciesResetPasswordPolicyId": {
-      "value": "TODO:REPLACE"
-    },
-    // -------------------------------------------------------
     // PARAMETERS: SERVICES / OIDCSERVICE
     // -------------------------------------------------------
     // Example:
@@ -517,7 +503,7 @@
     },
     "servicesService01ClientMiscConfiguration": {
       "value": "DatabaseName=dataFactory;CollectionName=syncData;"
-    },
+    }
     // -------------------------------------------------------
     // PARAMETERS: SERVICES / SERVICE02
     // -------------------------------------------------------
