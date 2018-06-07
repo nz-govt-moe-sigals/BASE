@@ -374,16 +374,16 @@
       "value": true
     },
     "servicesGeoIPServiceUri": {
-      "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      "value": "http://api.ipstack.com/203.118.153.94?access_key={0}"
     },
     "servicesGeoIPServiceClientId": {
-      "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      "value": "base@ministryof.me"
     },
     "servicesGeoIPServiceClientSecret": {
-      "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      "value": "895329e483e248cd393848239bb33a7a"
     },
     "servicesGeoIPServiceClientMiscConfiguration": {
-      "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      "value": ""
     },
     // -------------------------------------------------------
     // PARAMETERS: SERVICES / MALWAREDETECTIONSERVICE
@@ -392,7 +392,7 @@
       "value": true
     },
     "servicesMalwareDetectionServiceUri": {
-      "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      "value": "https://api.scanii.com"
     },
     "servicesMalwareDetectionServiceClientId": {
       "value": "394d3e42-18e1-4758-87b2-29e22c59d64b"
