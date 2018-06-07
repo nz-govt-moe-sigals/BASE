@@ -57,11 +57,28 @@
     "environmentOverrides": {
       "value": {
         "UT": {
+          // "microsoftWebSitesHostNameBindingsHostName": "",
+          // "microsoftWebSitesHostNameBindingsHostNameAlt": "",
+          // "microsoftCacheRedisProvision":true,
+          // "microsoftDocumentDBDatabaseAccountsProvision":false,
+          // "microsoftSearchSearchServicesProvision":false,
+          // "microsoftSqlServersDatabaseResourceSku": "Basic", [Basic,S0,S1,S2] S0 (25$), S1 ($45)
+          // "microsoftStorageStorageAccountsResourceSku":"Standard_LRS",
+          // "microsoftWebServerFarmsResourceSku": "F1" [F1,S1] (S1 is about $120)
+          // "microsoftWebSitesAlwaysOn":false
+
           "microsoftWebSiteHostNameBindingHostName": "www.baseplatform.space",
           "microsoftWebSiteHostNameBindingHostNameAlt": "baseplatform.space",
+          
           "microsoftCacheRedisProvision": true,
           "microsoftDocumentDbDatabaseAccountProvision": true,
-          "microsoftSearchSearchServicesProvision": true
+          "microsoftSearchSearchServicesProvision": true,
+
+          "microsoftSqlServersDatabaseResourceSku": "S0",
+          "microsoftStorageStorageAccountsResourceSku":"Standard_LRS",
+          "microsoftWebServerFarmsResourceSku": "S1",
+          "microsoftWebSitesAlwaysOn":true
+
         }
       }
     },
