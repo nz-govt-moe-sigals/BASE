@@ -11,9 +11,14 @@ namespace App.Module32.Infrastructure.Services.Implementations.Extract.DataServi
 {
     public class StudentProfilesExtractService : BaseExtractService<StudentProfile>
     {
-        public StudentProfilesExtractService(IDiagnosticsTracingService tracingService, IExtractAzureDocumentDbService documentDbService)
-            : base(tracingService, documentDbService)
+        public StudentProfilesExtractService(IDiagnosticsTracingService tracingService, IExtractAzureDocumentDbService documentDbService, IExtractRepositoryService repositoryService) 
+            : base(tracingService, documentDbService, repositoryService)
         {
+        }
+
+        public override void UpdateLocalData(IExtractRepositoryService repositoryService, StudentProfile item)
+        {
+            //TODO
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using App.Module32.Infrastructure.Initialization.Db.Schema;
+﻿using System;
+using App.Module32.Infrastructure.Initialization.Db.Schema;
 using App.Module32.Shared.Contracts;
 
 namespace App.Module32.Infrastructure.Db.Context
@@ -31,6 +32,7 @@ namespace App.Module32.Infrastructure.Db.Context
     [Alias(Constants.Db.AppModuleDbContextNames.Default)]
     public class AppModuleDbContext : AppDbContextBase, IHasModuleSpecificIdentifier
     {
+        public Guid _id;
         // IMPORTANT: Notice that each Module DbContext
         // gets its own Schema, keeping it nice and separate
         // from other Modules, and Core:
@@ -48,11 +50,12 @@ namespace App.Module32.Infrastructure.Db.Context
         // Note use of same db, but different schema
         public AppModuleDbContext() : base(AppCoreDbConnectionStringNames.Default)
         {
+            _id = Guid.NewGuid();
         }
 
         public AppModuleDbContext(string connectionStringOrName) : base(connectionStringOrName)
         {
-    
+            _id = Guid.NewGuid();
         }
 
 
