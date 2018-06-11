@@ -12,6 +12,9 @@ namespace App.Module32.Infrastructure.Services
         IQueryable<TDocument> GetDocuments<TDocument>(string dbName, DateTime watermarkDate)
             where TDocument : BaseMessage;
 
-        Task<V> ExecuteDocumentDbWithRetries<V>(Func<Task<V>> function);
+        Task<IEnumerable<TDocument>> ExecuteGetDocumentsAsync<TDocument>(string tableName, DateTime watermarkDate)
+            where TDocument : BaseMessage;
+
+        int PageQuerySize { get; }
     }
 }

@@ -23,14 +23,16 @@ namespace App.Module32.Infrastructure.Services.Implementations.Extract.Reference
         /// </summary>
         /// <param name="watermark">Get data after this point</param>
         /// <returns></returns>
-        protected override IEnumerable<SchoolProfile> GetQueryForDataToUpdate(DateTime watermark)
+        protected override async Task<IList<SchoolProfile>> GetDataToUpdateAsync(DateTime watermark)
         {
             // connnect to document DB and retrieve data
             // timestamp should be Greater thjan the watermark gotten from  the DB
-            var queryable = base.GetQueryForDataToUpdate(watermark)
-                    .GroupBy(x => x.SchoolId)
-                    .Select(x => x.OrderByDescending(y => y.ModifiedDate).FirstOrDefault());
-            return queryable;
+            var queryable = base.GetDataQueryToUpdateAsync(watermark);
+                    
+            return (await queryable)
+                .GroupBy(x => x.SchoolId)
+                .Select(x => x.OrderByDescending(y => y.ModifiedDate).FirstOrDefault())
+                .ToList();
         }
 
         public override void UpdateLocalData(IExtractRepositoryService repositoryService, SchoolProfile item)

@@ -1,6 +1,7 @@
 ﻿using System;
 using App.Module32.Infrastructure.Initialization.Db.Schema;
 using App.Module32.Shared.Contracts;
+using App.Module32.Shared.Models.Entities;
 
 namespace App.Module32.Infrastructure.Db.Context
 {
@@ -58,6 +59,7 @@ namespace App.Module32.Infrastructure.Db.Context
             _id = Guid.NewGuid();
         }
 
+        public DbSet<EducationSchoolProfile> EducationSchoolProfiles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
