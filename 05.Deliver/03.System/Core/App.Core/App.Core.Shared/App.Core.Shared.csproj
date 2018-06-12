@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>App.Core.Shared</RootNamespace>
     <AssemblyName>App.Core.Shared</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -118,6 +119,7 @@
     <Compile Include="Models\Entities\Base\UntenantedAuditedRecordStatedTimestampedGuidIdEntityBase.cs" />
     <Compile Include="Models\Entities\Base\UntenantedAuditedRecordStatedTimestampedGuidIdReferenceDataEntityBase.cs" />
     <Compile Include="Models\Entities\Base\UntenantedAuditedRecordStatedTimestampedNoIdEntityBase.cs" />
+    <Compile Include="Models\Entities\TenantMember.cs" />
     <Compile Include="Models\Messages\GeoCoordinates.cs" />
     <Compile Include="Models\Messages\GeoInformation.cs" />
     <Compile Include="Models\Messages\AzureMapsMessages.cs" />

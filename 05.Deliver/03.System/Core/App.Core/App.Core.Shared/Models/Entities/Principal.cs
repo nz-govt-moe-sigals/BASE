@@ -20,6 +20,22 @@
         public virtual PrincipalCategory Category { get; set; }
         public virtual Guid CategoryFK { get; set; }
 
+
+        public virtual ICollection<PrincipalLogin> Logins
+        {
+            get
+            {
+                if (this._logins == null)
+                {
+                    this._logins = new Collection<PrincipalLogin>();
+                }
+                return this._logins;
+            }
+            set => this._logins = value;
+        }
+        private ICollection<PrincipalLogin> _logins;
+
+
         public virtual ICollection<PrincipalTag> Tags
         {
             get
@@ -68,19 +84,6 @@
 
 
 
-        public virtual ICollection<PrincipalLogin> Logins
-        {
-            get
-            {
-                if (this._logins == null)
-                {
-                    this._logins = new Collection<PrincipalLogin>();
-                }
-                return this._logins;
-            }
-            set => this._logins = value;
-        }
-        private ICollection<PrincipalLogin> _logins;
 
 
         public virtual ICollection<SystemRole> Roles

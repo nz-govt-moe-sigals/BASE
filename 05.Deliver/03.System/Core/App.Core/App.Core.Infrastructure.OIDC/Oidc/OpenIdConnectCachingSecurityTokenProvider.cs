@@ -29,7 +29,7 @@ namespace App.Core.Application.Oidc
         private readonly ReaderWriterLockSlim _synclock = new ReaderWriterLockSlim();
 
         private string _issuer;
-        private IEnumerable<SecurityToken> _securityTokens;
+        //private IEnumerable<SecurityToken> _securityTokens;
         private IEnumerable<SecurityKey> _securityKeys;
 
 
