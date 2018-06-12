@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using App.Core.Infrastructure.Services;
 using App.Module32.Shared.Models.Entities;
@@ -15,6 +16,7 @@ namespace App.Module32.Infrastructure.Services.Implementations.Extract.Repositor
         private string _dbKey = Constants.Db.AppModuleDbContextNames.Default;
         private IDiagnosticsTracingService _diagnosticsTracingService;
         private readonly IBatchRepositoryService _repositoryService;
+        private SemaphoreSlim _lockSemaphoreSlim;
 
         public ExtractRepositoryService(IDiagnosticsTracingService diagnosticsTracingService,
             IBatchRepositoryService repositoryService)
@@ -22,6 +24,7 @@ namespace App.Module32.Infrastructure.Services.Implementations.Extract.Repositor
             _diagnosticsTracingService = diagnosticsTracingService;
             _repositoryService = repositoryService;
             _repositoryService.ConfigureBatchProcessing();
+            _lockSemaphoreSlim = new SemaphoreSlim(1);
         }
 
         public ExtractWatermark GetWaterMarkTimestamp(string sourceTableName)
@@ -52,20 +55,61 @@ namespace App.Module32.Infrastructure.Services.Implementations.Extract.Repositor
         public void AddOrUpdateList(IList<EducationSchoolProfile> list) 
         {
             //write lock around this possibly
-            var exisitngItemsLookup = GetEducationSchoolProfiles(list).ToDictionary(x => x.SchoolId, x => x);
-            foreach (var model in list)
+            _lockSemaphoreSlim.Wait();
+            try
             {
-                if (exisitngItemsLookup.TryGetValue(model.SchoolId, out EducationSchoolProfile existingItem))
+                var exisitngItemsLookup = GetEducationSchoolProfiles(list).ToDictionary(x => x.SchoolId, x => x);
+                var updateList = new List<EducationSchoolProfile>();
+                var addList = new List<EducationSchoolProfile>();
+                foreach (var model in list)
                 {
-                    Mapper.Map<EducationSchoolProfile, EducationSchoolProfile>(model, existingItem);
-                    UpdateOnCommit(existingItem);
+                    if (exisitngItemsLookup.TryGetValue(model.SchoolId, out EducationSchoolProfile existingItem))
+                    {
+                        if (model.SourceModifiedDate >= existingItem.SourceModifiedDate) //TODO REMOVE =
+                        {
+                            Mapper.Map<EducationSchoolProfile, EducationSchoolProfile>(model, existingItem);
+                            _repositoryService.PreProcessEntity(existingItem);
+                            updateList.Add(existingItem);
+                        }
+                    }
+                    else
+                    {
+                        _repositoryService.PreProcessEntity(model);
+                        addList.Add(model);
+                    }
                 }
-                else
-                {
-                    AddOnCommit(model);
-                }
-                
+
+                CommitResults(addList, updateList);
             }
+            finally
+            {
+                _lockSemaphoreSlim.Release();
+            }
+        }
+
+        private void CommitResults(IList<EducationSchoolProfile> addList, IList<EducationSchoolProfile> updateList)
+        {
+            if (addList != null && addList.Any())
+            {
+                var removedDuplicateAddList = addList
+                    .GroupBy(x => x.SchoolId)
+                    .Select(x => x.OrderByDescending(y => y.SourceModifiedDate).FirstOrDefault());
+                _repositoryService.InsertAll(removedDuplicateAddList);
+            }
+
+            if (updateList != null && updateList.Any())
+            {
+                var removedDuplicateupdateList = updateList
+                    .GroupBy(x => x.SchoolId)
+                    .Select(x => x.OrderByDescending(y => y.SourceModifiedDate).FirstOrDefault());
+                _repositoryService.UpdateAll(removedDuplicateupdateList, x => x.ColumnsToUpdate(
+                    c => c.Name,
+                    c => c.SourceModifiedDate,
+                    c => c.LastModifiedOnUtc,
+                    c => c.LastModifiedByPrincipalId
+                   ));
+            }
+         
         }
 
         protected void AddOnCommit<TModel>(TModel model) where TModel : class

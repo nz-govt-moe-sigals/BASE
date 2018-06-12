@@ -30,8 +30,6 @@ namespace App.Module32.Infrastructure.Services.Implementations.Extract.Reference
             var queryable = base.GetDataQueryToUpdateAsync(watermark);
                     
             return (await queryable)
-                .GroupBy(x => x.SchoolId)
-                .Select(x => x.OrderByDescending(y => y.ModifiedDate).FirstOrDefault())
                 .ToList();
         }
 

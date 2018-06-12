@@ -8,7 +8,7 @@ using App.Core.Shared.Models.Entities.Base;
 
 namespace App.Module32.Shared.Models.Entities
 {
-    public class EducationStudentProfile : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase
+    public class EducationStudentProfile : ExtractDataBase
     {
         public string NSN { get; set; }
 

@@ -50,7 +50,7 @@ namespace App.Module32.Infrastructure.Initialization.DependencyResolution
             // automatically filled in)
             assemblyScanner.AddAllTypesOf<IDbCommitPreCommitProcessingStrategy>();
             this.RegisterDbContextInHttpContext<AppModuleDbContext>(AppModuleDbContextNames.Default);
-            For<IBatchRepositoryService>().Use<BatchRepositoryService>().AlwaysUnique();
+            //For<IBatchRepositoryService>().Use<BatchRepositoryService>().AlwaysUnique();
         }
     }
 }
