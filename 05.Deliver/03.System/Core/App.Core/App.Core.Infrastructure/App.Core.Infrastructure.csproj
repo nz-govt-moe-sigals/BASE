@@ -210,6 +210,11 @@
     <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederNotification.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederSession.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederPrincipal.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\SecProfile\AppModuleDbContextSeederAccount.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\SecProfile\AppModuleDbContextSeederAccountPermission.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\SecProfile\AppModuleDbContextSeederAccountRoleAccountPermissionAssignment.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\SecProfile\AppModuleDbContextSeederAccountRoleGroup.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\SecProfile\AppModuleDbContextSeederRole.cs" />
     <Compile Include="Initialization\Db\Migrations\AppCoreDbMigrationsConfiguration.cs" />
     <Compile Include="Initialization\Db\Migrations\Core\201805220014250_Entities.Init.cs" />
     <Compile Include="Initialization\Db\Migrations\Core\201805220014250_Entities.Init.Designer.cs">
@@ -222,6 +227,10 @@
     <Compile Include="Initialization\Db\Migrations\Core\201806120922539_Added TenantMember.cs" />
     <Compile Include="Initialization\Db\Migrations\Core\201806120922539_Added TenantMember.Designer.cs">
       <DependentUpon>201806120922539_Added TenantMember.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Initialization\Db\Migrations\Core\201806121007014_Add SecurityProfiles.cs" />
+    <Compile Include="Initialization\Db\Migrations\Core\201806121007014_Add SecurityProfiles.Designer.cs">
+      <DependentUpon>201806121007014_Add SecurityProfiles.cs</DependentUpon>
     </Compile>
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineDataClassification.cs" />
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineExceptionRecord.cs" />
@@ -241,6 +250,12 @@
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineTenantMemberClaim.cs" />
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineTenantMemberProperty.cs" />
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineTenantMemberTag.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAccount.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAccountGroup.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAccountPermissionAssignment.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefinePermission.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineRole.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineRolePermissionAssignment.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleModelBuilderCommonConfiguration.cs" />
     <Compile Include="Initialization\Db\Schema\Conventions\IdConvention.cs" />
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipal.cs" />
@@ -526,6 +541,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Initialization\Db\Migrations\Core\201806120922539_Added TenantMember.resx">
       <DependentUpon>201806120922539_Added TenantMember.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Core\201806121007014_Add SecurityProfiles.resx">
+      <DependentUpon>201806121007014_Add SecurityProfiles.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

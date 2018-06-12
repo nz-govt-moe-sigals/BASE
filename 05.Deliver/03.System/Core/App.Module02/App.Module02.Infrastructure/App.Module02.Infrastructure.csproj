@@ -62,14 +62,9 @@
     <Compile Include="Db\Context\AppModuleDbContextFactory.cs" />
     <Compile Include="Initialization\Db\IHasAppModuleDbContextModelBuilderInitializer.cs" />
     <Compile Include="Initialization\Db\IHasAppModuleDbContextSeedInitializer.cs" />
-    <Compile Include="Initialization\Db\Migrations.Seeding\Default\Old\AppModuleDbContextSeederAccountAccountGroupAssignment.cs" />
-    <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeederAccountRoleAccountPermissionAssignment.cs" />
-    <Compile Include="Initialization\Db\Migrations.Seeding\Default\Old\AppModuleDbContextSeederAccountRoleGroupAccountRoleAssignment.cs" />
-    <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeederRole.cs" />
-    <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeederAccountPermission.cs" />
-    <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeederAccountRoleGroup.cs" />
-    <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeederAccount.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeedingOrchestrator.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\Default\Old\AppModuleDbContextSeederAccountAccountGroupAssignment.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\Default\Old\AppModuleDbContextSeederAccountRoleGroupAccountRoleAssignment.cs" />
     <Compile Include="Initialization\Db\Migrations\AppModuleDbMigrationsConfiguration.cs" />
     <Compile Include="Initialization\Db\Migrations\Default\201805220043497_Entities.init.cs" />
     <Compile Include="Initialization\Db\Migrations\Default\201805220043497_Entities.init.Designer.cs">
@@ -115,12 +110,10 @@
     <Compile Include="Initialization\Db\Migrations\Default\201806120530430_Renamed TenancySecurityProfileRoleGroup.Designer.cs">
       <DependentUpon>201806120530430_Renamed TenancySecurityProfileRoleGroup.cs</DependentUpon>
     </Compile>
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAccount.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAccountGroup.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAccountPermissionAssignment.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineRolePermissionAssignment.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefinePermission.cs" />
-    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineRole.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201806121011196_Removing TenancySecurityProfile.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201806121011196_Removing TenancySecurityProfile.Designer.cs">
+      <DependentUpon>201806121011196_Removing TenancySecurityProfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Initialization\Db\Schema\AppModuleDbModelBuilderOrchestrator.cs" />
     <Compile Include="Initialization\DependencyResolution\AppModuleInfrastructureRegistry.cs" />
     <Compile Include="Initialization\Authorisation\HasOidcScopeInitializer.cs" />
@@ -199,6 +192,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Initialization\Db\Migrations\Default\201806120530430_Renamed TenancySecurityProfileRoleGroup.resx">
       <DependentUpon>201806120530430_Renamed TenancySecurityProfileRoleGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201806121011196_Removing TenancySecurityProfile.resx">
+      <DependentUpon>201806121011196_Removing TenancySecurityProfile.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

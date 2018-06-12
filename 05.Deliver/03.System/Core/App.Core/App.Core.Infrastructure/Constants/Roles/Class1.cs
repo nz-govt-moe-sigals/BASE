@@ -10,6 +10,6 @@ namespace App.Core.Infrastructure.Constants.Roles
     {
         // This project does not work off of Roles. It works off of OIDC Scopes.
 
-        // Refer to `App.Module01.AppModuleApiScopes`, `App.Module02.AppModuleApiScopes`, etc.
+        // Refer to `App.Module01.AppModuleApiScopes`, `App.Core.AppModuleApiScopes`, etc.
     }
 }

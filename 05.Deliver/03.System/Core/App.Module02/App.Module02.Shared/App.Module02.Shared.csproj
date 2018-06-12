@@ -43,20 +43,7 @@
     <Compile Include="Models\Entities\Old\AccountRoleGroupAccountRoleAssignment.cs" />
     <Compile Include="Models\Entities\Enums\AssignmentType.cs" />
     <Compile Include="Models\Entities\Subscription.cs" />
-    <Compile Include="Models\Entities\TenancySecurityProfile.cs" />
-    <Compile Include="Models\Entities\TenancySecurityProfileAccountRole.cs" />
-    <Compile Include="Models\Entities\TenancySecurityProfilePermission.cs" />
-    <Compile Include="Models\Entities\TenancySecurityProfileRoleGroup.cs" />
-    <Compile Include="Models\Entities\TenancySecurityProfileRoleTenancySecurityProfilePermissionAssignment.cs" />
-    <Compile Include="Models\Entities\TenancySecurityProfileTenancySecurityProfilePermissionAssignment.cs" />
     <Compile Include="Models\Enums\ExampleEnum.cs" />
-    <Compile Include="Models\Messages\API\V0100\AccountAccountPermissionAssignmentDto.cs" />
-    <Compile Include="Models\Messages\API\V0100\AccountDto.cs" />
-    <Compile Include="Models\Messages\API\V0100\AccountPermissionDto.cs" />
-    <Compile Include="Models\Messages\API\V0100\AccountRoleAccountPermissionAssignmentDto.cs" />
-    <Compile Include="Models\Messages\API\V0100\AccountRoleDto.cs" />
-    <Compile Include="Models\Messages\API\V0100\AccountRoleGroupDto.cs" />
-    <Compile Include="Models\Messages\API\V0100\ExampleReferenceTypeDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +55,7 @@
   <ItemGroup>
     <Folder Include="Models\Contracts\" />
     <Folder Include="Models\Entities\Base\" />
+    <Folder Include="Models\Messages\API\V0100\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

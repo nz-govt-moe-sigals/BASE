@@ -6,7 +6,6 @@ namespace App.Module02.Application.Initialization.OData.Implementations
     using System.Web.OData.Builder;
     using App.Core.Shared.Models.Messages.API.V0100;
     using App.Module02.Application.Initialization.OData;
-    using App.Module02.Shared.Models.Messages.API.V0100;
 
     /// <summary>
     /// <para>
@@ -24,9 +23,9 @@ namespace App.Module02.Application.Initialization.OData.Implementations
         }
 
 
-        public EntityTypeConfiguration<AccountRoleDto> Define(ODataModelBuilder builder)
+        public EntityTypeConfiguration<SecurityProfileRoleDto> Define(ODataModelBuilder builder)
         {
-            var entity = builder.EntitySet<AccountRoleDto>(ApiControllerNames.Example).EntityType;
+            var entity = builder.EntitySet<SecurityProfileRoleDto>(ApiControllerNames.Example).EntityType;
             entity.HasKey(x => x.Id);
             return entity;
         }

@@ -150,10 +150,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\Controllers\Base\GuidIdActiveRecordStateODataControllerBase.cs" />
-    <Compile Include="API\Controllers\V0100\AccountController.cs" />
-    <Compile Include="API\Controllers\V0100\AccountPermissionController.cs" />
-    <Compile Include="API\Controllers\V0100\AccountRoleGroupController.cs" />
-    <Compile Include="API\Controllers\V0100\AccountRoleController.cs" />
     <Compile Include="Constants\Api\ApiControllerNames.cs" />
     <Compile Include="Initialization\DependencyResolution\AppModuleApplicationRegistry.cs" />
     <Compile Include="Initialization\OData\IAppModuleOdataModelBuilderConfiguration.cs" />

@@ -143,6 +143,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\Controllers\V0100\SecurityProfileController.cs" />
+    <Compile Include="API\Controllers\V0100\SecurityProfilePermissionController.cs" />
+    <Compile Include="API\Controllers\V0100\SecurityProfileRoleController.cs" />
+    <Compile Include="API\Controllers\V0100\SecurityProfileRoleGroupController.cs" />
     <Compile Include="Attributes\ODataPathAttribute.cs" />
     <Compile Include="Constants\Api\ApiControllerNames.cs" />
     <Compile Include="ExtensionMethods\HttpRequestBaseExtensionMethods.cs" />
