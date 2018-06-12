@@ -219,6 +219,10 @@
     <Compile Include="Initialization\Db\Migrations\Core\201805230105107_ReferenceDataAddedIndexedTitleAndDescription.Designer.cs">
       <DependentUpon>201805230105107_ReferenceDataAddedIndexedTitleAndDescription.cs</DependentUpon>
     </Compile>
+    <Compile Include="Initialization\Db\Migrations\Core\201806120922539_Added TenantMember.cs" />
+    <Compile Include="Initialization\Db\Migrations\Core\201806120922539_Added TenantMember.Designer.cs">
+      <DependentUpon>201806120922539_Added TenantMember.cs</DependentUpon>
+    </Compile>
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineDataClassification.cs" />
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineExceptionRecord.cs" />
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipal2Tags.cs" />
@@ -231,6 +235,12 @@
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineMediaMetadata.cs" />
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalCategory.cs" />
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineTenantMember.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineTenantMember2Role.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineTenantMember2Tags.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineTenantMemberCategory.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineTenantMemberClaim.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineTenantMemberProperty.cs" />
+    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineTenantMemberTag.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleModelBuilderCommonConfiguration.cs" />
     <Compile Include="Initialization\Db\Schema\Conventions\IdConvention.cs" />
     <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipal.cs" />
@@ -513,6 +523,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Initialization\Db\Migrations\Core\201805230105107_ReferenceDataAddedIndexedTitleAndDescription.resx">
       <DependentUpon>201805230105107_ReferenceDataAddedIndexedTitleAndDescription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Core\201806120922539_Added TenantMember.resx">
+      <DependentUpon>201806120922539_Added TenantMember.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

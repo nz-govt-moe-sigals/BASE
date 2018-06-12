@@ -120,6 +120,10 @@
     <Compile Include="Models\Entities\Base\UntenantedAuditedRecordStatedTimestampedGuidIdReferenceDataEntityBase.cs" />
     <Compile Include="Models\Entities\Base\UntenantedAuditedRecordStatedTimestampedNoIdEntityBase.cs" />
     <Compile Include="Models\Entities\TenantMember.cs" />
+    <Compile Include="Models\Entities\TenantMemberCategory.cs" />
+    <Compile Include="Models\Entities\TenantMemberClaim.cs" />
+    <Compile Include="Models\Entities\TenantMemberProperty.cs" />
+    <Compile Include="Models\Entities\TenantMemberTag.cs" />
     <Compile Include="Models\Messages\GeoCoordinates.cs" />
     <Compile Include="Models\Messages\GeoInformation.cs" />
     <Compile Include="Models\Messages\AzureMapsMessages.cs" />
