@@ -16,6 +16,7 @@ namespace App.Module32.Infrastructure.Initialization.ObjectMaps.Extract
         {
             var mappingExpression = config.CreateMap<EducationSchoolProfile, EducationSchoolProfile>()
                     .ForMember(dest => dest.Id, opt => opt.Ignore())
+                    .ForMember(dest => dest.SourceModifiedDate, opt => opt.MapFrom(src => src.SourceModifiedDate))
                     .ForMember(dest => dest.SchoolId, opt => opt.MapFrom(src => src.SchoolId))
                     .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 ;

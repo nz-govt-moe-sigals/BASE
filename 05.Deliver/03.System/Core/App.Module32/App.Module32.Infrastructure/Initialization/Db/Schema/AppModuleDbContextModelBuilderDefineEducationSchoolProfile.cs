@@ -33,6 +33,11 @@ namespace App.Module32.Infrastructure.Initialization.Db.Schema
                 .IsRequired();
 
             modelBuilder.Entity<EducationSchoolProfile>()
+                .Property(x => x.SourceModifiedDate)
+                .HasColumnOrder(order++)
+                .IsRequired();
+
+            modelBuilder.Entity<EducationSchoolProfile>()
                 .Property(t => t.SchoolId)
                 .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute($"IX_{typeof(EducationSchoolProfile).Name}_SchoolId") { IsUnique = false }));
         }

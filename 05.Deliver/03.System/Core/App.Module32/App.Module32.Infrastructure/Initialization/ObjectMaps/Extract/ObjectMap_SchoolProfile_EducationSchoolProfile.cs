@@ -18,6 +18,7 @@ namespace App.Module32.Infrastructure.Initialization.ObjectMaps.Extract
         public void Initialize(IMapperConfigurationExpression config)
         {
             var mappingExpression = config.CreateMap<SchoolProfile, EducationSchoolProfile>()
+                    .ForMember(dest => dest.SourceModifiedDate, opt => opt.MapFrom(src => src.ModifiedDate))
                     .ForMember(dest => dest.SchoolId, opt => opt.MapFrom(src => src.SchoolId)) 
                     .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.OrgName)) 
                 ;

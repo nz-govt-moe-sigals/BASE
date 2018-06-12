@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace App.Module32.Shared.Models.Entities
 {
-    public class EducationSchoolProfile : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase
+    public class EducationSchoolProfile : ExtractDataBase
     {
         public int SchoolId { get; set; }
 

@@ -44,6 +44,11 @@ namespace App.Module32.Infrastructure.Initialization.Db.Schema
                 .IsRequired();
 
             modelBuilder.Entity<EducationStudentProfile>()
+                .Property(x => x.SourceModifiedDate)
+                .HasColumnOrder(order++)
+                .IsRequired();
+
+            modelBuilder.Entity<EducationStudentProfile>()
                 .HasRequired(x => x.EducationSchoolProfile)
                 .WithMany()
                 .HasForeignKey(x => x.EducationSchoolProfileFK)

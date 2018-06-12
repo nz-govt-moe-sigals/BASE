@@ -45,6 +45,7 @@
     <Compile Include="IAppModule32.cs" />
     <Compile Include="Models\Configuration\ApiPermissionConfig.cs" />
     <Compile Include="Models\Configuration\ExtractDocumentDbConfig.cs" />
+    <Compile Include="Models\Entities\Base\ExtractDataBase.cs" />
     <Compile Include="Models\Entities\EducationSchoolProfile.cs" />
     <Compile Include="Models\Entities\EducationStudentProfile.cs" />
     <Compile Include="Models\Enums\StudentExistEnum.cs" />
@@ -65,7 +66,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\Contracts\" />
-    <Folder Include="Models\Entities\Base\" />
     <Folder Include="Models\Entities\Enums\" />
   </ItemGroup>
   <ItemGroup>
