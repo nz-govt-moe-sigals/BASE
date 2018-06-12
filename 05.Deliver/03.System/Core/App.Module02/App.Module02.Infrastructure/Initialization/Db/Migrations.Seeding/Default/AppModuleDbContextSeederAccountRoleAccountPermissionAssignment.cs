@@ -41,17 +41,17 @@
 
         protected void SeedDevOnlyEntries(AppModuleDbContext context)
         {
-            var records = new AccountRoleAccountPermissionAssignment[]
+            var records = new TenancySecurityProfileRoleTenancySecurityProfilePermissionAssignment[]
             {
 // for Role 1:
-                new AccountRoleAccountPermissionAssignment
+                new TenancySecurityProfileRoleTenancySecurityProfilePermissionAssignment
                 {
                     TenantFK = App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id,
                     RoleFK = 1.ToGuid(),
                     PermissionFK = 1.ToGuid(),
                     AssignmentType = AssignmentType.Add
                 },
-                new AccountRoleAccountPermissionAssignment
+                new TenancySecurityProfileRoleTenancySecurityProfilePermissionAssignment
                 {
                     TenantFK = App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id,
                     RoleFK = 1.ToGuid(),
@@ -59,14 +59,14 @@
                     AssignmentType = AssignmentType.Add
                 },
 // for Role 2:
-                new AccountRoleAccountPermissionAssignment
+                new TenancySecurityProfileRoleTenancySecurityProfilePermissionAssignment
                 {
                     TenantFK = App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id,
                     RoleFK = 2.ToGuid(),
                     PermissionFK = 3.ToGuid(),
                     AssignmentType = AssignmentType.Add
                 },
-                new AccountRoleAccountPermissionAssignment
+                new TenancySecurityProfileRoleTenancySecurityProfilePermissionAssignment
                 {
                     TenantFK = App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id,
                     RoleFK = 2.ToGuid(),
@@ -74,21 +74,21 @@
                     AssignmentType = AssignmentType.Add
                 },
 // for Role 3:
-                new AccountRoleAccountPermissionAssignment
+                new TenancySecurityProfileRoleTenancySecurityProfilePermissionAssignment
                 {
                     TenantFK = App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id,
                     RoleFK = 3.ToGuid(),
                     PermissionFK = 5.ToGuid(),
                     AssignmentType = AssignmentType.Add
                 },
-                new AccountRoleAccountPermissionAssignment
+                new TenancySecurityProfileRoleTenancySecurityProfilePermissionAssignment
                 {
                     TenantFK = App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id,
                     RoleFK = 3.ToGuid(),
                     PermissionFK = 6.ToGuid(),
                     AssignmentType = AssignmentType.Add
                 },
-                new AccountRoleAccountPermissionAssignment
+                new TenancySecurityProfileRoleTenancySecurityProfilePermissionAssignment
                 {
                     TenantFK = App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id,
                     RoleFK = 3.ToGuid(),
@@ -97,7 +97,7 @@
                 },
             };
 
-            var dbSet = context.Set<AccountRoleAccountPermissionAssignment>();
+            var dbSet = context.Set<TenancySecurityProfileRoleTenancySecurityProfilePermissionAssignment>();
 
             dbSet.AddOrUpdate(x => new { x.RoleFK,x.PermissionFK}, records);
 

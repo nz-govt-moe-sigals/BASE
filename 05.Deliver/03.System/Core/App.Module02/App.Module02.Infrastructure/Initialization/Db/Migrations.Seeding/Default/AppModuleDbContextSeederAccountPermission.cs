@@ -42,48 +42,48 @@
 
         protected void SeedDevOnlyEntries(AppModuleDbContext context)
         {
-            var records = new AccountPermission[]
+            var records = new TenancySecurityProfilePermission[]
             {
 // for Role 1:
-                new AccountPermission
+                new TenancySecurityProfilePermission
                 {
                     TenantFK = App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id,
                     Id = 1.ToGuid(),
                     Title = "Permission 1"
                 },
-                new AccountPermission
+                new TenancySecurityProfilePermission
                 {
                     TenantFK = App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id,
                     Id = 2.ToGuid(),
                     Title = "Permission 2"
                 },
 // for Role 2:
-                new AccountPermission
+                new TenancySecurityProfilePermission
                 {
                     TenantFK = App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id,
                     Id = 3.ToGuid(),
                     Title = "Permission 3"
                 },
-                new AccountPermission
+                new TenancySecurityProfilePermission
                 {
                     TenantFK = App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id,
                     Id = 4.ToGuid(),
                     Title = "Permission 4"
                 },
 // for Role 3:
-                new AccountPermission
+                new TenancySecurityProfilePermission
                 {
                     TenantFK = App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id,
                     Id = 5.ToGuid(),
                     Title = "Permission 5"
                 },
-                new AccountPermission
+                new TenancySecurityProfilePermission
                 {
                     TenantFK = App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id,
                     Id = 6.ToGuid(),
                     Title = "Permission 6"
                 },
-                new AccountPermission
+                new TenancySecurityProfilePermission
                 {
                     TenantFK = App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id,
                     Id = 7.ToGuid(),
@@ -91,7 +91,7 @@
                 }
             };
 
-            var dbSet = context.Set<AccountPermission>();
+            var dbSet = context.Set<TenancySecurityProfilePermission>();
 
             dbSet.AddOrUpdate(p => p.Id, records);
 

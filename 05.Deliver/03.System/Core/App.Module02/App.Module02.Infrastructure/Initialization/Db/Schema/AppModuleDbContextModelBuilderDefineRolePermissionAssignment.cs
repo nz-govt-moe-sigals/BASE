@@ -18,7 +18,7 @@
             // --------------------------------------------------
             // Create Composite Index:
             // See: https://stackoverflow.com/a/9960987
-            modelBuilder.Entity<AccountRoleAccountPermissionAssignment>()
+            modelBuilder.Entity<TenancySecurityProfileRoleTenancySecurityProfilePermissionAssignment>()
                  .HasKey(x => new
                  {
                      // x.TenantFK
@@ -31,20 +31,20 @@
             // Standard Properties:
 
             // Re/Do the usual columns:
-            new UntenantedAuditedRecordStatedTimestampedNoIdDataConvention().Define<AccountRoleAccountPermissionAssignment>(modelBuilder, ref order);
+            new UntenantedAuditedRecordStatedTimestampedNoIdDataConvention().Define<TenancySecurityProfileRoleTenancySecurityProfilePermissionAssignment>(modelBuilder, ref order);
 
             // Add the tenancy:
-            modelBuilder.DefineTenantFK<AccountRoleAccountPermissionAssignment>(ref order);
+            modelBuilder.DefineTenantFK<TenancySecurityProfileRoleTenancySecurityProfilePermissionAssignment>(ref order);
 
             // --------------------------------------------------
             // FK Properties:
-            modelBuilder.Entity<AccountRoleAccountPermissionAssignment>()
+            modelBuilder.Entity<TenancySecurityProfileRoleTenancySecurityProfilePermissionAssignment>()
                 .Property(x => x.RoleFK)
                 .HasColumnOrder(order++)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None)
                 .IsRequired();
 
-            modelBuilder.Entity<AccountRoleAccountPermissionAssignment>()
+            modelBuilder.Entity<TenancySecurityProfileRoleTenancySecurityProfilePermissionAssignment>()
                     .Property(x => x.PermissionFK)
                     .HasColumnOrder(order++)
                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None)
@@ -52,13 +52,13 @@
 
             // --------------------------------------------------
             // Entity Navigtation Properties:
-            modelBuilder.Entity<AccountRoleAccountPermissionAssignment>()
+            modelBuilder.Entity<TenancySecurityProfileRoleTenancySecurityProfilePermissionAssignment>()
              .HasRequired(x => x.Role)
              .WithMany(x => x.PermissionsAssignments)
              .HasForeignKey(x => x.RoleFK)
              ;
 
-            modelBuilder.Entity<AccountRoleAccountPermissionAssignment>()
+            modelBuilder.Entity<TenancySecurityProfileRoleTenancySecurityProfilePermissionAssignment>()
              .HasRequired(x => x.Permission)
              .WithMany()
              .HasForeignKey(x => x.PermissionFK)

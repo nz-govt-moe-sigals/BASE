@@ -16,7 +16,7 @@
             var order = 1;
             // --------------------------------------------------
             // Standard Properties:
-            new TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention().Define<AccountRoleGroup>(modelBuilder, ref order);
+            new TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention().Define<TenancySecurityProfileRoleGroup>(modelBuilder, ref order);
 
 
             // --------------------------------------------------
@@ -26,21 +26,21 @@
             // Model Specific Properties:
 
 
-            modelBuilder.Entity<AccountRoleGroup>()
+            modelBuilder.Entity<TenancySecurityProfileRoleGroup>()
                 .Property(x => x.ParentFK)
                 .HasColumnOrder(order++)
                 .IsOptional();
 
 
 
-            modelBuilder.DefineTitleAndDescription<AccountRoleGroup>(ref order, true, false);
+            modelBuilder.DefineTitleAndDescription<TenancySecurityProfileRoleGroup>(ref order, true, false);
 
             // --------------------------------------------------
             // Entity Navigation Properties:
 
             // --------------------------------------------------
             // Collection Navigation Properties:
-            modelBuilder.Entity<AccountRoleGroup>()
+            modelBuilder.Entity<TenancySecurityProfileRoleGroup>()
             .HasOptional(x => x.Parent)
             .WithMany(x => x.AccountGroups)
             .HasForeignKey(x => x.ParentFK)
@@ -48,12 +48,12 @@
             // you don't delete every child, so:
             .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<AccountRoleGroup>()
+            modelBuilder.Entity<TenancySecurityProfileRoleGroup>()
                 .HasMany(s => s.Roles)
                 .WithMany()
                 .Map(x =>
                 {
-                    x.ToTable(typeof(AccountRoleGroup).Name + "__" + typeof(AccountRole).Name);
+                    x.ToTable(typeof(TenancySecurityProfileRoleGroup).Name + "__" + typeof(TenancySecurityProfileAccountRole).Name);
                     x.MapLeftKey("AccountGroupFK");
                     x.MapRightKey("RoleFK");
                 });

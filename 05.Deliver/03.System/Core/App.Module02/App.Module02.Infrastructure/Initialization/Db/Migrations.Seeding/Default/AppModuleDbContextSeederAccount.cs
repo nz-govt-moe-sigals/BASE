@@ -44,25 +44,25 @@
 
         protected void SeedDevOnlyEntries(AppModuleDbContext context)
         {
-            var g = context.Set<AccountRoleGroup>().Where(x => x.TenantFK == App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id).ToArray();
-            var r = context.Set<AccountRole>().Where(x => x.TenantFK == App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id).ToArray();
+            var g = context.Set<TenancySecurityProfileRoleGroup>().Where(x => x.TenantFK == App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id).ToArray();
+            var r = context.Set<TenancySecurityProfileAccountRole>().Where(x => x.TenantFK == App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id).ToArray();
 
-            var records = new Account[]
+            var records = new TenancySecurityProfile[]
             {
-                new Account
+                new TenancySecurityProfile
                 {
                     Id = 1.ToGuid(),
                     Key = "jsmith@whatever.com",
                 },
-                new Account
+                new TenancySecurityProfile
                 {
                     Id = 2.ToGuid(),
                     Key = "bboop@okifnotsameastenancy.com",
-                    Roles = new Collection<AccountRole>(){ r.Where(x => x.Id == 3.ToGuid()).SingleOrDefault() }
+                    Roles = new Collection<TenancySecurityProfileAccountRole>(){ r.Where(x => x.Id == 3.ToGuid()).SingleOrDefault() }
                 }
             };
 
-            var dbSet = context.Set<Account>();
+            var dbSet = context.Set<TenancySecurityProfile>();
 
             dbSet.AddOrUpdate(p => p.Id, records);
 

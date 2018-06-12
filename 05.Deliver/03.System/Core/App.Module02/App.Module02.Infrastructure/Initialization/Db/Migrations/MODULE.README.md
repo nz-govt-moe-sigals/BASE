@@ -18,7 +18,7 @@ Enable-Migrations -StartUpProjectName "App.Host" -ProjectName "App.Module02.Infr
 add-Migration "Entities.Example" -StartUpProjectName "App.Host" -ProjectName "App.Module02.Infrastructure" -Verbose                      
 
 // Run after every Db Model schema change to apply the above migration class:
-Update-Database -StartUpProjectName "App.Host" -ProjectName "App.Module02.Infrastructure" -Verbose
+Update-Database -StartUpProjectName "App.Host" -ProjectName "App.Module02.Infrastructure" -Verbose            
 
 
 // Generate SQL scripts for deployment:

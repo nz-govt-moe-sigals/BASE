@@ -14,7 +14,7 @@
 
             // --------------------------------------------------
             // Standard Properties:
-            new TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention().Define<AccountRole>(modelBuilder, ref order);
+            new TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention().Define<TenancySecurityProfileAccountRole>(modelBuilder, ref order);
 
             // --------------------------------------------------
             // FK Properties:
@@ -22,19 +22,19 @@
             // --------------------------------------------------
             // Model Specific Properties:
             // At present it is a sparse ReferenceData, with no enabled, no display information.
-            modelBuilder.DefineTitleAndDescription<AccountRole>(ref order);
+            modelBuilder.DefineTitleAndDescription<TenancySecurityProfileAccountRole>(ref order);
 
             // --------------------------------------------------
             // Entity Navigation Properties:
 
             // --------------------------------------------------
             // Collection Navigation Properties:
-            modelBuilder.Entity<AccountRole>()
+            modelBuilder.Entity<TenancySecurityProfileAccountRole>()
                 .HasMany(s => s.Permissions)
                 .WithMany()
                 .Map(x =>
                 {
-                    x.ToTable(typeof(AccountRole).Name + "__" + typeof(AccountPermission).Name);
+                    x.ToTable(typeof(TenancySecurityProfileAccountRole).Name + "__" + typeof(TenancySecurityProfilePermission).Name);
                     x.MapLeftKey("RoleFK");
                     x.MapRightKey("PermissionFK");
                 });

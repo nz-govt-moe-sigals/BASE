@@ -14,7 +14,7 @@ using System.Web.OData;
 
 namespace App.Module02.Application.API.Controllers.V0100
 {
-    public class AccountRoleGroupController : GuidIdActiveRecordStateODataControllerBase<AccountRoleGroup, AccountRoleGroupDto>
+    public class AccountRoleGroupController : GuidIdActiveRecordStateODataControllerBase<TenancySecurityProfileRoleGroup, AccountRoleGroupDto>
     {
         public AccountRoleGroupController(
             IDiagnosticsTracingService diagnosticsTracingService,

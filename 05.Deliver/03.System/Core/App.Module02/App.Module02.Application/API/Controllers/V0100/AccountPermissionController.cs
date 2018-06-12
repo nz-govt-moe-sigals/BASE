@@ -14,7 +14,7 @@ using System.Web.OData;
 
 namespace App.Module02.Application.API.Controllers.V0100
 {
-    public class AccountPermissionController : GuidIdActiveRecordStateODataControllerBase<AccountPermission, AccountPermissionDto>
+    public class AccountPermissionController : GuidIdActiveRecordStateODataControllerBase<TenancySecurityProfilePermission, AccountPermissionDto>
     {
         public AccountPermissionController(
             IDiagnosticsTracingService diagnosticsTracingService,

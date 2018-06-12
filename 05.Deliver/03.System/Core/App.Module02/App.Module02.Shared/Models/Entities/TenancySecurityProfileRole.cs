@@ -5,21 +5,21 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
-    public class AccountRole : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase, IHasTitleAndDescription
+    public class TenancySecurityProfileRole : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase, IHasTitleAndDescription
     {
         public string Title { get; set; }
         public string Description { get; set; }
 
-        public ICollection<AccountPermission> Permissions { get
+        public ICollection<TenancySecurityProfilePermission> Permissions { get
             {
-                return _permissions ?? (_permissions = new Collection<AccountPermission>());
+                return _permissions ?? (_permissions = new Collection<TenancySecurityProfilePermission>());
             }
             set
             {
                 _permissions = value;
             }
         }
-        public ICollection<AccountPermission> _permissions;
+        public ICollection<TenancySecurityProfilePermission> _permissions;
 
 
 

@@ -7,7 +7,7 @@
 //    {
 
 //        public Guid AccountGroupFK { get; set; }
-//        public AccountRoleGroup AccountGroup { get; set; }
+//        public TenancySecurityProfileRoleGroup AccountGroup { get; set; }
 
 //        public Guid RoleFK { get; set; }
 //        public AccountRole Role { get; set; }

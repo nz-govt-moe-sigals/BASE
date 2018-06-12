@@ -96,9 +96,10 @@
     <Compile Include="Models\Contracts\IHasMutableDisplayableReferenceData.cs" />
     <Compile Include="Models\Contracts\IHasMutableValuedReferenceData.cs" />
     <Compile Include="Models\Contracts\IHasName.cs" />
+    <Compile Include="Models\Contracts\IHasOptionalParentFK.cs" />
     <Compile Include="Models\Contracts\IHasParent.cs" />
-    <Compile Include="Models\Contracts\IHasParentFK1.cs" />
     <Compile Include="Models\Contracts\IHasReferenceData.cs" />
+    <Compile Include="Models\Contracts\IHasRequiredParentFK.cs" />
     <Compile Include="Models\Contracts\IHasResourceKey.cs" />
     <Compile Include="Models\Contracts\IHasTag.cs" />
     <Compile Include="Models\Contracts\IHasText.cs" />
@@ -196,7 +197,6 @@
     <Compile Include="Models\Contracts\IHasIntId.cs" />
     <Compile Include="Models\Contracts\IHasKey.cs" />
     <Compile Include="Models\Contracts\IHasOwnerFK.cs" />
-    <Compile Include="Models\Contracts\IHasParentFK.cs" />
     <Compile Include="Models\Contracts\IHasRecordState.cs" />
     <Compile Include="Models\Contracts\IHasSerializedType.cs" />
     <Compile Include="Models\Contracts\IHasTenantFK.cs" />

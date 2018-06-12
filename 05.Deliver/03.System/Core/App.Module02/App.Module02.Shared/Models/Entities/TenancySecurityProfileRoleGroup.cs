@@ -5,41 +5,41 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-
-    public class AccountRoleGroup :TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase , IHasTitle, IHasTitleAndDescription, IHasParentFK, IHasParent<AccountRoleGroup>
+    
+    public class TenancySecurityProfileRoleGroup :TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase , IHasTitle, IHasTitleAndDescription, IHasOptionalParentFK, IHasParent<TenancySecurityProfileRoleGroup>
     {
         public string Title { get; set; }
         public string Description { get; set; }
 
         public Guid? ParentFK { get; set; }
-        public AccountRoleGroup Parent { get; set; }
+        public TenancySecurityProfileRoleGroup Parent { get; set; }
 
-        public ICollection<AccountRoleGroup> AccountGroups
+        public ICollection<TenancySecurityProfileRoleGroup> AccountGroups
         {
             get
             {
-                return _accountGroups ?? (_accountGroups = new Collection<AccountRoleGroup>());
+                return _accountGroups ?? (_accountGroups = new Collection<TenancySecurityProfileRoleGroup>());
             }
             set
             {
                 _accountGroups = value;
             }
         }
-        public ICollection<AccountRoleGroup> _accountGroups;
+        public ICollection<TenancySecurityProfileRoleGroup> _accountGroups;
 
 
-        public ICollection<AccountRole> Roles
+        public ICollection<TenancySecurityProfileAccountRole> Roles
         {
             get
             {
-                return _roles ?? (_roles = new Collection<AccountRole>());
+                return _roles ?? (_roles = new Collection<TenancySecurityProfileAccountRole>());
             }
             set
             {
                 _roles = value;
             }
         }
-        public ICollection<AccountRole> _roles;
+        public ICollection<TenancySecurityProfileAccountRole> _roles;
 
         //TODO: Could get large. Do we want this? Maybe it should only be on Account.
         //public ICollection<Account> Accounts { get; set; } 

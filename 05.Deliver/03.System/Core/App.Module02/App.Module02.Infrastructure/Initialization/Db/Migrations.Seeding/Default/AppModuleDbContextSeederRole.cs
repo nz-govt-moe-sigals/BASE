@@ -44,36 +44,36 @@
 
         protected void SeedDevOnlyEntries(AppModuleDbContext context)
         {
-            var p = context.Set<AccountPermission>().Where(x => x.TenantFK == App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id).ToArray();
+            var p = context.Set<TenancySecurityProfilePermission>().Where(x => x.TenantFK == App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id).ToArray();
 
-            var records = new AccountRole[]
+            var records = new TenancySecurityProfileAccountRole[]
             {
-                new AccountRole
+                new TenancySecurityProfileAccountRole
                 {
                     TenantFK = App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id,
                     Id = 1.ToGuid(),
                     Title="Role 1",
-                    Permissions = new Collection<AccountPermission>() {
+                    Permissions = new Collection<TenancySecurityProfilePermission>() {
                         p.Single(x=>x.Id == 1.ToGuid()),
                         p.Single(x=>x.Id == 2.ToGuid())
                     }
                 },
-                new AccountRole
+                new TenancySecurityProfileAccountRole
                 {
                     TenantFK = App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id,
                     Id = 2.ToGuid(),
                     Title="Role 2",
-                    Permissions = new Collection<AccountPermission>() {
+                    Permissions = new Collection<TenancySecurityProfilePermission>() {
                         p.Single(x=>x.Id == 3.ToGuid()),
                         p.Single(x=>x.Id == 4.ToGuid())
                     }
                 },
-                new AccountRole
+                new TenancySecurityProfileAccountRole
                 {
                     TenantFK = App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id,
                     Id = 3.ToGuid(),
                     Title="Role 3",
-                    Permissions = new Collection<AccountPermission>() {
+                    Permissions = new Collection<TenancySecurityProfilePermission>() {
                         p.Single(x=>x.Id == 5.ToGuid()),
                         p.Single(x=>x.Id == 6.ToGuid()),
                         p.Single(x=>x.Id == 7.ToGuid())
@@ -81,7 +81,7 @@
                 }
             };
 
-            var dbSet = context.Set<AccountRole>();
+            var dbSet = context.Set<TenancySecurityProfileAccountRole>();
 
             dbSet.AddOrUpdate(x => x.Id, records);
 

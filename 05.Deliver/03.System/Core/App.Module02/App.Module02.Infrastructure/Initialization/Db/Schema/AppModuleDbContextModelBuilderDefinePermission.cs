@@ -14,7 +14,7 @@
 
             // --------------------------------------------------
             // Standard Properties:
-            new TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention().Define<AccountPermission>(modelBuilder, ref order);
+            new TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention().Define<TenancySecurityProfilePermission>(modelBuilder, ref order);
 
 
             // --------------------------------------------------
@@ -23,7 +23,7 @@
             // --------------------------------------------------
             // Model Specific Properties:
             // At present it is a sparse ReferenceData, with no enabled, no display information.
-            modelBuilder.DefineTitleAndDescription<AccountPermission>(ref order);
+            modelBuilder.DefineTitleAndDescription<TenancySecurityProfilePermission>(ref order);
 
 
             // --------------------------------------------------

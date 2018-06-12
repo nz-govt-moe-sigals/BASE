@@ -95,6 +95,30 @@
     <Compile Include="Initialization\Db\Migrations\Default\201805290329509_Rename Tables.Designer.cs">
       <DependentUpon>201805290329509_Rename Tables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Initialization\Db\Migrations\Default\201806120510536_Renamed TenancySecurityPermission.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201806120510536_Renamed TenancySecurityPermission.Designer.cs">
+      <DependentUpon>201806120510536_Renamed TenancySecurityPermission.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Initialization\Db\Migrations\Default\201806120513170_Renamed TenancySecurityProfileRoleTenancySecurityProfilePermissionAssignment.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201806120513170_Renamed TenancySecurityProfileRoleTenancySecurityProfilePermissionAssignment.Designer.cs">
+      <DependentUpon>201806120513170_Renamed TenancySecurityProfileRoleTenancySecurityProfilePermissionAssignment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Initialization\Db\Migrations\Default\201806120521295_Renamed TenancySecurityProfileAccountRoles.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201806120521295_Renamed TenancySecurityProfileAccountRoles.Designer.cs">
+      <DependentUpon>201806120521295_Renamed TenancySecurityProfileAccountRoles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Initialization\Db\Migrations\Default\201806120522333_Renamed TenancySecurityProfiles.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201806120522333_Renamed TenancySecurityProfiles.Designer.cs">
+      <DependentUpon>201806120522333_Renamed TenancySecurityProfiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Initialization\Db\Migrations\Default\201806120524118_Renamed TenancySecurityProfileTenancySecurityProfilePermissionAssignment.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201806120524118_Renamed TenancySecurityProfileTenancySecurityProfilePermissionAssignment.Designer.cs">
+      <DependentUpon>201806120524118_Renamed TenancySecurityProfileTenancySecurityProfilePermissionAssignment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Initialization\Db\Migrations\Default\201806120530430_Renamed TenancySecurityProfileRoleGroup.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201806120530430_Renamed TenancySecurityProfileRoleGroup.Designer.cs">
+      <DependentUpon>201806120530430_Renamed TenancySecurityProfileRoleGroup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAccount.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAccountGroup.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAccountPermissionAssignment.cs" />
@@ -160,6 +184,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805290329509_Rename Tables.resx">
       <DependentUpon>201805290329509_Rename Tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201806120510536_Renamed TenancySecurityPermission.resx">
+      <DependentUpon>201806120510536_Renamed TenancySecurityPermission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201806120513170_Renamed TenancySecurityProfileRoleTenancySecurityProfilePermissionAssignment.resx">
+      <DependentUpon>201806120513170_Renamed TenancySecurityProfileRoleTenancySecurityProfilePermissionAssignment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201806120521295_Renamed TenancySecurityProfileAccountRoles.resx">
+      <DependentUpon>201806120521295_Renamed TenancySecurityProfileAccountRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201806120522333_Renamed TenancySecurityProfiles.resx">
+      <DependentUpon>201806120522333_Renamed TenancySecurityProfiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201806120524118_Renamed TenancySecurityProfileTenancySecurityProfilePermissionAssignment.resx">
+      <DependentUpon>201806120524118_Renamed TenancySecurityProfileTenancySecurityProfilePermissionAssignment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201806120530430_Renamed TenancySecurityProfileRoleGroup.resx">
+      <DependentUpon>201806120530430_Renamed TenancySecurityProfileRoleGroup.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

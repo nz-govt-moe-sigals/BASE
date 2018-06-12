@@ -3,13 +3,13 @@
     using App.Core.Shared.Models.Entities;
     using System;
 
-    public class AccountAccountPermissionAssignment : TenantFKAuditedRecordStatedTimestampedNoIdEntityBase
+    public class TenancySecurityProfileTenancySecurityProfilePermissionAssignment : TenantFKAuditedRecordStatedTimestampedNoIdEntityBase
     {
         public Guid AccountFK { get; set; }
-        public Account Account { get; set; }
+        public TenancySecurityProfile Account { get; set; }
 
         public Guid PermissionFK { get; set; }
-        public AccountPermission Permission { get; set; }
+        public TenancySecurityProfilePermission Permission { get; set; }
 
         /// <summary>
         /// Whether the Assignment is additive, or subtractive

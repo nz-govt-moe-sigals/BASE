@@ -13,7 +13,7 @@ namespace App.Core.Infrastructure.Initialization.Search.Implementations
     using App.Module02.Shared.Models.Entities;
 
     [Key("Example")]
-    public class ExampleSearchProvider : SearchProviderBase<AccountRoleGroup>
+    public class ExampleSearchProvider : SearchProviderBase<TenancySecurityProfileRoleGroup>
     {
         public ExampleSearchProvider(IDiagnosticsTracingService diagnosticsTracingService,
             IPrincipalService principalService, IRepositoryService repositoryService) : base(diagnosticsTracingService,
@@ -25,7 +25,7 @@ namespace App.Core.Infrastructure.Initialization.Search.Implementations
         public override IQueryable<SearchResponseItem> Search(string searchTerm)
         {
             var items =
-                    this._repositoryService.GetByFilter<AccountRoleGroup>(AppModuleDbContextNames.Default,
+                    this._repositoryService.GetByFilter<TenancySecurityProfileRoleGroup>(AppModuleDbContextNames.Default,
                         x => x.Title.Contains(searchTerm))
                 ;
 

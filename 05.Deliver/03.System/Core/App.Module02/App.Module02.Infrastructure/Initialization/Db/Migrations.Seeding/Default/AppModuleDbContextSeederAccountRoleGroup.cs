@@ -42,25 +42,25 @@
 
         protected void SeedDevOnlyEntries(AppModuleDbContext context)
         {
-            var r = context.Set<AccountRole>().Where(x => x.TenantFK == App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id).ToArray();
+            var r = context.Set<TenancySecurityProfileAccountRole>().Where(x => x.TenantFK == App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id).ToArray();
 
 
-            var records = new AccountRoleGroup[]
+            var records = new TenancySecurityProfileRoleGroup[]
             {
-                new AccountRoleGroup
+                new TenancySecurityProfileRoleGroup
                 {
                     TenantFK = App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id,
                     Id = 1.ToGuid(),
                     Title = "GroupA",
                     Description = "...."
                 },
-                new AccountRoleGroup
+                new TenancySecurityProfileRoleGroup
                 {
                     TenantFK = App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id,
                     Id = 2.ToGuid(),
                     Title = "GroupB"
                 },
-                new AccountRoleGroup
+                new TenancySecurityProfileRoleGroup
                 {
                     TenantFK = App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id,
                     Id = 3.ToGuid(),
@@ -68,7 +68,7 @@
                     Title = "GroupB.1",
                     Description = "A Group nested under GroupB"
                 },
-                new AccountRoleGroup
+                new TenancySecurityProfileRoleGroup
                 {
                     TenantFK = App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id,
                     Id = 4.ToGuid(),
@@ -76,7 +76,7 @@
                     Title = "GroupB.2",
                     Description = "A Group nested under GroupB"
                 },
-                new AccountRoleGroup
+                new TenancySecurityProfileRoleGroup
                 {
                     TenantFK = App.Core.Infrastructure.Constants.Demo.Tenancies.A.Id,
                     Id = 5.ToGuid(),
@@ -87,7 +87,7 @@
             };
 
 
-            var dbSet = context.Set<AccountRoleGroup>();
+            var dbSet = context.Set<TenancySecurityProfileRoleGroup>();
             dbSet.AddOrUpdate(p => p.Id, records);
 
 
