@@ -47,12 +47,16 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RudeySH.EFUtilities, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\RudeySH.EFUtilities.1.0.3\lib\net40\RudeySH.EFUtilities.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap, Version=4.6.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\StructureMap.4.6.1\lib\net45\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
@@ -71,6 +75,10 @@
     <Compile Include="Initialization\Db\Migrations\Default\201806060408086_Entities.BaseInit.cs" />
     <Compile Include="Initialization\Db\Migrations\Default\201806060408086_Entities.BaseInit.Designer.cs">
       <DependentUpon>201806060408086_Entities.BaseInit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Initialization\Db\Migrations\Default\201806120343501_Entities.AddSourceModifiedDate.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201806120343501_Entities.AddSourceModifiedDate.Designer.cs">
+      <DependentUpon>201806120343501_Entities.AddSourceModifiedDate.cs</DependentUpon>
     </Compile>
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineEducationSchoolProfile.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineEducationStudentProfile.cs" />
@@ -138,6 +146,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Initialization\Db\Migrations\Default\201806060408086_Entities.BaseInit.resx">
       <DependentUpon>201806060408086_Entities.BaseInit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201806120343501_Entities.AddSourceModifiedDate.resx">
+      <DependentUpon>201806120343501_Entities.AddSourceModifiedDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

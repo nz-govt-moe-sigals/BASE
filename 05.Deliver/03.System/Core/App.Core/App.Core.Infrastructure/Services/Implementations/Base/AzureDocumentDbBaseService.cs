@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Azure.Documents;
+using Microsoft.Azure.Documents.Linq;
 
 namespace App.Core.Infrastructure.Services.Implementations.Base
 {
@@ -56,6 +58,43 @@ namespace App.Core.Infrastructure.Services.Implementations.Base
         }
 
 
+
+        public async Task<V> ExecuteDocumentDbWithRetries<V>(Func<Task<V>> function)
+        {
+            TimeSpan sleepTime = TimeSpan.Zero;
+
+            while (true)
+            {
+                try
+                {
+                    return await function();
+                }
+                catch (DocumentClientException de)
+                {
+                    if ((int)de.StatusCode != 429)
+                    {
+                        throw;
+                    }
+                    sleepTime = de.RetryAfter;
+                }
+                catch (AggregateException ae)
+                {
+                    if (!(ae.InnerException is DocumentClientException))
+                    {
+                        throw;
+                    }
+
+                    DocumentClientException de = (DocumentClientException)ae.InnerException;
+                    if ((int)de.StatusCode != 429)
+                    {
+                        throw;
+                    }
+                    sleepTime = de.RetryAfter;
+                }
+
+                await Task.Delay(sleepTime);
+            }
+        }
 
     }
 }
