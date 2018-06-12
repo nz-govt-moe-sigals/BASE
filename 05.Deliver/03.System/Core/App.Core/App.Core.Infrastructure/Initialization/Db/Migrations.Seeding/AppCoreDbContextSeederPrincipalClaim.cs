@@ -4,7 +4,7 @@ namespace App.Core.Infrastructure.Db.Migrations.Seeding
     using App.Core.Infrastructure.Initialization.Db;
     using App.Core.Infrastructure.Services;
 
-    public class AppCoreDbContextSeederPrincipalClaim : IHasAppCoreDbContextSeedInitializer
+    public class AppCoreDbContextSeederPrincipalClaim : IHasAppModuleDbContextSeedInitializer
     {
         private readonly IHostSettingsService _hostSettingsService;
 

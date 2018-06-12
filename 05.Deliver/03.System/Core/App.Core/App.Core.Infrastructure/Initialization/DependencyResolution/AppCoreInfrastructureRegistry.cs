@@ -57,8 +57,8 @@ namespace App.Core.Infrastructure.DependencyResolution
         private void ScanAllModulesForModuleSpecificDbContextTypes(IAssemblyScanner assemblyScanner)
         {
             // Register the Db Model definitions and seeder definitions for Core:
-            assemblyScanner.AddAllTypesOf<IHasAppCoreDbContextModelBuilderInitializer>();
-            assemblyScanner.AddAllTypesOf<IHasAppCoreDbContextSeedInitializer>();
+            assemblyScanner.AddAllTypesOf<IHasAppModuleDbContextModelBuilderInitializer>();
+            assemblyScanner.AddAllTypesOf<IHasAppModuleDbContextSeedInitializer>();
 
             this.RegisterDbContextInHttpContext<AppCoreDbContext>(AppCoreDbContextNames.Core);
         }

@@ -16,7 +16,7 @@ namespace App.Core.Shared.Contracts
     /// than just with namespaces (which does the same thing, but...easy to miss...)
     /// </para>
     /// </summary>
-    public interface IHasModuleSpecificIdentifier : ICoreModule
+    public interface IHasModuleSpecificIdentifier : IModuleCore
     {
     }
 }

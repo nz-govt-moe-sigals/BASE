@@ -12,7 +12,7 @@
     using App.Core.Shared.Models.Entities;
 
     // Seeder invoked by reflection (see: DbContextSeedingOrchestrator)
-    public class AppCoreDbContextSeederExceptionRecord : IHasAppCoreDbContextSeedInitializer
+    public class AppCoreDbContextSeederExceptionRecord : IHasAppModuleDbContextSeedInitializer
     {
         private readonly IHostSettingsService _hostSettingsService;
 

@@ -9,7 +9,7 @@ namespace App.Core.Infrastructure.Initialization.Verification
     using App.Core.Infrastructure.Initialization.Integration.Scanii;
     using App.Core.Shared.Contracts;
 
-    public class VerificationInitializer : IHasAppCoreInitializer, IHasInitialize
+    public class VerificationInitializer : IHasAppModuleInitializer, IHasInitialize
     {
         private readonly ApplicationSettingsInitializer _applicationSettingsInitializer;
         private readonly ScaniiIntegrationInitializer _scaniiIntegrationInitializer;

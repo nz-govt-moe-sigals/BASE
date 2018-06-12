@@ -2,7 +2,7 @@
 {
     using System.Data.Entity;
 
-    public interface IHasAppCoreDbContextModelBuilderInitializer : IHasInitializer
+    public interface IHasAppModuleDbContextModelBuilderInitializer : IHasInitializer
     {
         void Define(DbModelBuilder modelBuilder);
     }

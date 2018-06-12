@@ -16,7 +16,7 @@
     // A single DbContext Entity model seeder, 
     // invoked via AppModuleModelBuilderOrchestrator
     [OrderBy(After = "Group,Role,Permission")]
-    public class AppCoreDbContextSeederAccount : IHasAppCoreDbContextSeedInitializer, IHasIgnoreThis
+    public class AppCoreDbContextSeederAccount : IHasAppModuleDbContextSeedInitializer, IHasIgnoreThis
     {
         private readonly IHostSettingsService _hostSettingsService;
 

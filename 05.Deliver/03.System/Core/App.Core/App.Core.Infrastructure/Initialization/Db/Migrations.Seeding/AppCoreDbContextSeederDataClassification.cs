@@ -11,7 +11,7 @@
     using App.Core.Shared.Models.Entities;
 
     // Seeder invoked by reflection (see: DbContextSeedingOrchestrator)
-    public class AppCoreDbContextSeederDataClassification : IHasAppCoreDbContextSeedInitializer
+    public class AppCoreDbContextSeederDataClassification : IHasAppModuleDbContextSeedInitializer
     {
         private readonly IHostSettingsService _hostSettingsService;
 

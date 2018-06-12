@@ -13,7 +13,7 @@
     using App.Core.Shared.Models.Entities;
 
     // Seeder invoked by reflection (see: DbContextSeedingOrchestrator)
-    public class AppCoreDbContextSeederSystemRole : IHasAppCoreDbContextSeedInitializer
+    public class AppCoreDbContextSeederSystemRole : IHasAppModuleDbContextSeedInitializer
     {
 
 

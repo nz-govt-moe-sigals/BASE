@@ -292,6 +292,7 @@
     <Compile Include="Initialization\Db\Schema\Conventions\UntenantedAuditedRecordStatedTimestampedNoIdDataConvention.cs" />
     <Compile Include="Initialization\DependencyResolution\AppAllInfrastructureRegistry.cs" />
     <Compile Include="Initialization\DependencyResolution\AppCoreInfrastructureRegistry.cs" />
+    <Compile Include="Initialization\IHasAppModuleInitializer.cs" />
     <Compile Include="Initialization\Integration\Azure\AzureApplicationRegistrationIntegrationInitializer.cs" />
     <Compile Include="Initialization\Integration\Azure\AzureIntegrationInitializer.cs" />
     <Compile Include="Initialization\Integration\Azure\AzureKeyVaultIntegrationInitializer.cs" />
@@ -316,11 +317,8 @@
     <Compile Include="Factories\StructureMapServiceLocator.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ExceptionRecord_ExceptionRecordDto - Copy.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_TenantedNavigationRoute_TenantedNavigationRouteDto.cs" />
-    <Compile Include="Initialization\Storage\Db\IHasAppCoreDbContextModelBuilderInitializer.cs" />
-    <Compile Include="Initialization\IHasAppCoreInitializer.cs" />
     <Compile Include="Initialization\Integration\Scanii\ScaniiIntegrationInitializer.cs" />
     <Compile Include="Initialization\ObjectMaps\IHasAutomapperInitializer.cs" />
-    <Compile Include="Initialization\Storage\Db\IHasAppCoreDbContextSeedInitializer.cs" />
     <Compile Include="Initialization\Authentication\IHasOidcScopeInitializer.cs" />
     <Compile Include="Initialization\IInitializer.cs" />
     <Compile Include="Initialization\Implementations\HasOidcScopeInitializer.cs" />
@@ -341,6 +339,8 @@
     <Compile Include="Initialization\DependencyResolution\PowershellServiceLocatorConfig.cs" />
     <Compile Include="Initialization\Integration\IntegrationSpikes.cs" />
     <Compile Include="Factories\KeyVaultClientFactory.cs" />
+    <Compile Include="Initialization\Storage\Db\IHasAppModuleDbContextModelBuilderInitializer.cs" />
+    <Compile Include="Initialization\Storage\Db\IHasAppModuleDbContextSeedInitializer.cs" />
     <Compile Include="Initialization\Verification\ApplicationSettingsInitializer.cs" />
     <Compile Include="Initialization\Verification\VerificationInitializer.cs" />
     <Compile Include="Integration\Azure\Storage\AppCoreAzureStorageDefaultBlobContext.cs" />

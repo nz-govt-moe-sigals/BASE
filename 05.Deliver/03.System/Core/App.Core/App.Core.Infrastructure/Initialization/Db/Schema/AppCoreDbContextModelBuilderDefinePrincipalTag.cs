@@ -8,7 +8,7 @@
     using App.Core.Infrastructure.Initialization.Db;
     using App.Core.Shared.Models.Entities;
 
-    public class AppCoreDbContextModelBuilderDefinePrincipalTag : IHasAppCoreDbContextModelBuilderInitializer
+    public class AppCoreDbContextModelBuilderDefinePrincipalTag : IHasAppModuleDbContextModelBuilderInitializer
     {
         public void Define(DbModelBuilder modelBuilder)
         {

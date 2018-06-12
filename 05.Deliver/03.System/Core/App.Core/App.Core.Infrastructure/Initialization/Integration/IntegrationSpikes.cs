@@ -10,7 +10,7 @@ namespace App.Core.Infrastructure.Initialization.Integration
     using App.Core.Infrastructure.Constants.Storage;
     using App.Core.Infrastructure.Services;
 
-    public class IntegrationSpikes : IHasAppCoreInitializer
+    public class IntegrationSpikes : IHasAppModuleInitializer
     {
         private readonly IAzureBlobStorageService _azureStorageAccountBlobStorageService;
         private readonly IAzureRedisCacheService _azureRedisCacheService;

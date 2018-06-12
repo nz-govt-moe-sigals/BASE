@@ -4,7 +4,7 @@ namespace App.Core.Infrastructure.Db.Schema
     using App.Core.Infrastructure.Initialization.Db;
     using App.Core.Shared.Models.Entities;
 
-    public class AppCoreDbContextModelBuilderDefineTenantMember2Tags : IHasAppCoreDbContextModelBuilderInitializer
+    public class AppCoreDbContextModelBuilderDefineTenantMember2Tags : IHasAppModuleDbContextModelBuilderInitializer
     {
         public void Define(DbModelBuilder modelBuilder)
         {

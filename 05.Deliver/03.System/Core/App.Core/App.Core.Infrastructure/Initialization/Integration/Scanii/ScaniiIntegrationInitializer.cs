@@ -11,7 +11,7 @@ namespace App.Core.Infrastructure.Initialization.Integration.Scanii
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Contracts;
 
-    public class ScaniiIntegrationInitializer : IHasAppCoreInitializer, IHasInitialize
+    public class ScaniiIntegrationInitializer : IHasAppModuleInitializer, IHasInitialize
     {
         private readonly IMediaMalwareDetectionService _mediaMalwareDetectionService;
 

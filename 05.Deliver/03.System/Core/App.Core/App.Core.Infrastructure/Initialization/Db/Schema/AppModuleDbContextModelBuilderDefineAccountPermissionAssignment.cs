@@ -7,7 +7,7 @@
     using App.Core.Infrastructure.Initialization.Db;
     using App.Core.Shared.Models.Entities;
 
-    public class AppModuleDbContextModelBuilderDefineAccountPermissionAssignment : IHasAppCoreDbContextModelBuilderInitializer
+    public class AppModuleDbContextModelBuilderDefineAccountPermissionAssignment : IHasAppModuleDbContextModelBuilderInitializer
     {
         public void Define(DbModelBuilder modelBuilder)
         {

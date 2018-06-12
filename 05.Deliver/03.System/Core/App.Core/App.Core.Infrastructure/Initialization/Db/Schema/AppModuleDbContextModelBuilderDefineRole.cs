@@ -6,7 +6,7 @@
     using App.Core.Infrastructure.Initialization.Db;
     using App.Core.Shared.Models.Entities;
 
-    public class AppModuleDbContextModelBuilderDefineRole : IHasAppCoreDbContextModelBuilderInitializer
+    public class AppModuleDbContextModelBuilderDefineRole : IHasAppModuleDbContextModelBuilderInitializer
     {
         public void Define(DbModelBuilder modelBuilder)
         {

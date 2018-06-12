@@ -13,7 +13,7 @@
 
     // A single DbContext Entity model seeder, 
     // invoked via AppModuleModelBuilderOrchestrator
-    public class AppCoreDbContextSeederAccountRoleAccountPermissionAssignment : IHasAppCoreDbContextSeedInitializer, IHasIgnoreThis
+    public class AppCoreDbContextSeederAccountRoleAccountPermissionAssignment : IHasAppModuleDbContextSeedInitializer, IHasIgnoreThis
     {
         private readonly IHostSettingsService _hostSettingsService;
 

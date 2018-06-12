@@ -10,7 +10,7 @@ namespace App.Core.Infrastructure.Initialization.Verification
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Contracts;
 
-    public class ApplicationSettingsInitializer :IHasAppCoreInitializer, IHasInitialize
+    public class ApplicationSettingsInitializer :IHasAppModuleInitializer, IHasInitialize
     {
         private readonly IApplicationInformationService _applicationInformationService;
 

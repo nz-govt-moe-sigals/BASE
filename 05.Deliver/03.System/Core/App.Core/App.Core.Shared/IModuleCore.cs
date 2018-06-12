@@ -17,7 +17,7 @@ namespace App.Core
     /// anything. 
     /// </para>
     /// </summary>
-    public interface ICoreModule
+    public interface IModuleCore
     {
     }
 }

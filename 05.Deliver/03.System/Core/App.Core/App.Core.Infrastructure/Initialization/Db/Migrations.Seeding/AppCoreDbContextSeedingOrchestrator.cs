@@ -74,7 +74,7 @@ namespace App.Core.Infrastructure.Db.Migrations.Seeding
         // but for now this is ok.
         private void SeedByReflection(AppCoreDbContext context)
         {
-            AppDependencyLocator.Current.GetAllInstances<IHasAppCoreDbContextSeedInitializer>()
+            AppDependencyLocator.Current.GetAllInstances<IHasAppModuleDbContextSeedInitializer>()
                 .ForEach(x => { if (!(typeof(IHasIgnoreThis).IsAssignableFrom(x.GetType()))) { x.Seed(context); } });
         }
 

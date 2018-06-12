@@ -12,7 +12,7 @@
 
 
     // Seeder invoked by reflection (see: DbContextSeedingOrchestrator)
-        public class AppCoreDbContextSeederPrincipal : IHasAppCoreDbContextSeedInitializer
+        public class AppCoreDbContextSeederPrincipal : IHasAppModuleDbContextSeedInitializer
     {
         private readonly IHostSettingsService _hostSettingsService;
 

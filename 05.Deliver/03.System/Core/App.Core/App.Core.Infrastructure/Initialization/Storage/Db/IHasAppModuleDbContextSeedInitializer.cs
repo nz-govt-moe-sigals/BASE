@@ -5,7 +5,7 @@
     // Contract for Seeders that are invoked at the end of 
     // a Db CodeFirst Migration process.
     // Invoked 
-    public interface IHasAppCoreDbContextSeedInitializer : IHasInitializer
+    public interface IHasAppModuleDbContextSeedInitializer : IHasInitializer
     {
         void Seed(AppCoreDbContext context);
     }

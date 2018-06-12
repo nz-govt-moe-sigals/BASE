@@ -30,7 +30,7 @@
         {
             // You can initialize manually or by Convention over Configuration
             // using a combination of common interface and reflection.
-            AppDependencyLocator.Current.GetAllInstances<IHasAppCoreDbContextModelBuilderInitializer>()
+            AppDependencyLocator.Current.GetAllInstances<IHasAppModuleDbContextModelBuilderInitializer>()
                 .ForEach(x => { if (!(typeof(IHasIgnoreThis).IsAssignableFrom(x.GetType()))) { x.Define(modelBuilder); } });
         }
 

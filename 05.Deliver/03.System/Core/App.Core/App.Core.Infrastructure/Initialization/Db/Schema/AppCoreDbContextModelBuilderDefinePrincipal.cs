@@ -11,7 +11,7 @@
 
     // A single DbContext Entity model map, 
     // invoked via a Module's specific DbContext ModelBuilderOrchestrator
-    public class AppCoreDbContextModelBuilderDefinePrincipal : IHasAppCoreDbContextModelBuilderInitializer
+    public class AppCoreDbContextModelBuilderDefinePrincipal : IHasAppModuleDbContextModelBuilderInitializer
     {
         public void Define(DbModelBuilder modelBuilder)
         {

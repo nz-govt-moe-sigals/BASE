@@ -5,7 +5,7 @@ namespace App.Core.Infrastructure.Db.Schema
     using App.Core.Infrastructure.Initialization.Db;
     using App.Core.Shared.Models.Entities;
 
-    public class AppCoreDbContextModelBuilderDefinePrincipal2Role : IHasAppCoreDbContextModelBuilderInitializer
+    public class AppCoreDbContextModelBuilderDefinePrincipal2Role : IHasAppModuleDbContextModelBuilderInitializer
     {
         public void Define(DbModelBuilder modelBuilder)
         {
