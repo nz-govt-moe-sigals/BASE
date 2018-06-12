@@ -11,7 +11,7 @@ using AutoMapper;
 
 namespace App.Module32.Infrastructure.Services.Implementations.Extract.ReferenceServices
 {
-    public class SchoolProfilesExtractService :  BaseExtractService<SchoolProfile>
+    public class SchoolProfilesExtractService :  BaseExtractService<SchoolProfile, EducationSchoolProfile>
     {
         public SchoolProfilesExtractService(IDiagnosticsTracingService tracingService, IExtractAzureDocumentDbService documentDbService, IExtractRepositoryService repositoryService) 
             : base(tracingService, documentDbService, repositoryService)
@@ -35,11 +35,17 @@ namespace App.Module32.Infrastructure.Services.Implementations.Extract.Reference
                 .ToList();
         }
 
-        public override void UpdateLocalData(IExtractRepositoryService repositoryService, SchoolProfile item)
+        protected override void AddOrUpdateList(IExtractRepositoryService repositoryService, IList<EducationSchoolProfile> entityList)
+        {
+            _repositoryService.AddOrUpdateList(entityList);
+        }
+
+        public override EducationSchoolProfile MapLocalDataToEntity(SchoolProfile item)
         {
             var mappedEntity = Mapper.Map<SchoolProfile, EducationSchoolProfile>(item);
-            repositoryService.AddOrUpdate(mappedEntity);
+            return mappedEntity;
         }
+
 
 
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,23 +34,37 @@ namespace App.Module32.Infrastructure.Services.Implementations.Extract.Repositor
             _repositoryService.AddOrUpdate<ExtractWatermark>(_dbKey, x => x.SourceTableName, watermark);
         }
 
+        public IQueryable<EducationSchoolProfile> GetEducationSchoolProfiles(IList<EducationSchoolProfile> list)
+        {
+            if(list == null || !list.Any()) { return new List<EducationSchoolProfile>().AsQueryable();}
+            var idList = list.Select(x => x.SchoolId);
+            return _repositoryService.GetQueryableSet<EducationSchoolProfile>(_dbKey)
+                .Where(p => idList.Contains(p.SchoolId)).AsNoTracking();
+            ;
+        }
+
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="list"></param>
         /// TODO seperate this class to abstract and then use repo per service? Possibly some shared db cache object between them
-        public void AddOrUpdate(EducationSchoolProfile model) 
+        public void AddOrUpdateList(IList<EducationSchoolProfile> list) 
         {
             //write lock around this possibly
-            var existingItem = _repositoryService.GetSingle<EducationSchoolProfile>(_dbKey, x => x.SchoolId == model.SchoolId);
-            if (existingItem != null)
+            var exisitngItemsLookup = GetEducationSchoolProfiles(list).ToDictionary(x => x.SchoolId, x => x);
+            foreach (var model in list)
             {
-                UpdateOnCommit(existingItem);
-                Mapper.Map<EducationSchoolProfile, EducationSchoolProfile>(model, existingItem);
-            }
-            else
-            {
-                AddOnCommit(model);
+                if (exisitngItemsLookup.TryGetValue(model.SchoolId, out EducationSchoolProfile existingItem))
+                {
+                    Mapper.Map<EducationSchoolProfile, EducationSchoolProfile>(model, existingItem);
+                    UpdateOnCommit(existingItem);
+                }
+                else
+                {
+                    AddOnCommit(model);
+                }
+                
             }
         }
 
