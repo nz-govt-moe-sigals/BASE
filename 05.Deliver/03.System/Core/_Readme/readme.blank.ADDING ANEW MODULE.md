@@ -86,7 +86,7 @@
     * Do the following Pre-Run checks:
       * All Modules have the same Class names. But different Namespaces. The Fully Qualified Name (ie, the Namespace + ClassName)
 	    makes them unique from each other, so that reflection can find them in clumps of modules. 
-	  * The only file that is named differently per Molule is:
+	  * The only file that is named differently per Module is:
 	    * App.Module.Shared.IAppModuleXX <- just eyeball it to ensure the number is equal to the module name.
       * The only string that is named differently per Module is:
 	    * App.ModuleXX.Infrastructure.Constants.Module.Names.ModuleKey = "ModuleXX" <-- just eyeball it to ensure it too is unique.
@@ -98,6 +98,7 @@
       <context type="App.ModuleXX.Infrastructure.Db.Context.AppModuleXXDbContext, App.ModuleXX.Infrastructure">
         <databaseInitializer type="App.ModuleXX.Infrastructure.Db.Context.AppModuleXXDatabaseInitializer, App.ModuleXX.Infrastructure"/>
       </context>
+    * Remove all EF migrations from ModuleXX that may have been copied across from Module01, from the folder .\App.ModuleXX.Infrastructure\Initialization\Db\Migrations\Default
 
   * Build. 
 
