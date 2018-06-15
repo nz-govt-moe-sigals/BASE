@@ -11,7 +11,7 @@
             config.CreateMap<NavigationRoute, NavigationRouteDto>()
                 .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
                 .ForMember(t => t.Enabled, opt => opt.MapFrom(s => s.Enabled))
-                .ForMember(t => t.Text, opt => opt.MapFrom(s => s.Text))
+                .ForMember(t => t.Text, opt => opt.MapFrom(s => s.Title))
                 .ForMember(t => t.Description, opt => opt.MapFrom(s => s.Description))
                 .ForMember(t => t.DisplayOrderHint, opt => opt.MapFrom(s => s.DisplayOrderHint))
                 .ForMember(t => t.DisplayStyleHint, opt => opt.MapFrom(s => s.DisplayStyleHint))

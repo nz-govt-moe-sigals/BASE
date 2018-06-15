@@ -11,6 +11,7 @@ namespace App.Module32.Infrastructure.Db.Migrations.Seeding
     using App.Core.Shared.Models.Configuration.AppHost;
     using App.Core.Shared.Models.ConfigurationSettings;
     using App.Module32.Infrastructure.Db.Context;
+    using App.Module32.Infrastructure.Db.Context.Default;
     using App.Module32.Infrastructure.Initialization;
     using App.Module32.Infrastructure.Initialization.Db;
 

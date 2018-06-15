@@ -1,4 +1,5 @@
-﻿using App.Core.Shared.Models;
+﻿using App.Core.Infrastructure.Constants.Db;
+using App.Core.Shared.Models;
 using App.Core.Shared.Models.Entities;
 using Microsoft.WindowsAzure.Storage.Shared.Protocol;
 using System;
@@ -57,19 +58,34 @@ namespace App
 
 
 
-        public static void DefineKey<T>(this DbModelBuilder modelBuilder, ref int order, Func<int, int> injectedPropertyDefs = null)
+        public static void DefineUniqueKey<T>(this DbModelBuilder modelBuilder, ref int order, int size = TextFieldSizes.X64, Func<int, int> injectedPropertyDefs = null)
     where T : class, IHasKey
         {
             modelBuilder.Entity<T>()
                 .Property(x => x.Key)
                 .HasColumnOrder(order++)
+                .HasMaxLength(size)
+                .HasColumnAnnotation("Index",
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(T).Name}_Key") { IsUnique = true }))
                 .IsRequired()
                 ;
             if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
         }
 
 
-
+        public static void DefineNonUniqueKey<T>(this DbModelBuilder modelBuilder, ref int order, int size = TextFieldSizes.X64, Func<int, int> injectedPropertyDefs = null)
+where T : class, IHasKey
+        {
+            modelBuilder.Entity<T>()
+                .Property(x => x.Key)
+                .HasColumnOrder(order++)
+                .HasMaxLength(size)
+                .HasColumnAnnotation("Index",
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(T).Name}_Key") { IsUnique = false }))
+                .IsRequired()
+                ;
+            if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
+        }
 
 
         public static void DefineTimestampedAuditedRecordStated<T>(this DbModelBuilder modelBuilder, ref int order, Func<int, int> injectedPropertyDefs = null)
@@ -163,19 +179,19 @@ namespace App
                 .IsRequired();
         }
 
-        public static void DefineTitleAndDescription<T>(this DbModelBuilder modelBuilder, ref int order, bool applyTitleIndex=true, bool descriptionIsMaxLength=false, Func<int, int> injectedPropertyDefs = null)
+        public static void DefineTitleAndDescription<T>(this DbModelBuilder modelBuilder, ref int order, int fieldSize= TextFieldSizes.X64, bool applyTitleIndex=true, bool descriptionIsMaxLength=false, Func<int, int> injectedPropertyDefs = null)
     where T : class, IHasTitleAndDescription
         {
 
             modelBuilder.Entity<T>()
                 .Property(x => x.Title)
                 .HasColumnOrder(order++)
-                .HasMaxLength(App.Core.Infrastructure.Constants.Db.TextFieldSizes.X64)
-                .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(T).Name}_Title")
-                    {
-                        IsUnique = false
-                    }))
+                .HasMaxLength(fieldSize)
+                //.HasColumnAnnotation("Index",
+                //    new IndexAnnotation(new IndexAttribute($"IX_{typeof(T).Name}_Title")
+                //    {
+                //        IsUnique = false
+                //    }))
                 .IsRequired()
                 ;
 
@@ -223,7 +239,7 @@ namespace App
             //-- Might inject keys here...(if order == 12...)
 
             //13:
-            modelBuilder.DefineTitleAndDescription<T>(ref order, true, false);
+            modelBuilder.DefineTitleAndDescription<T>(ref order,fieldSize: TextFieldSizes.X64,applyTitleIndex: true, descriptionIsMaxLength: false);
 
         }
 
@@ -233,7 +249,6 @@ namespace App
         {
 
             modelBuilder.DefineReferenceData<T>(ref order, injectedPropertyDefs);
-
 
             //14:
             modelBuilder.Entity<T>()

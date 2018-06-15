@@ -10,6 +10,7 @@
     using App.Core.Infrastructure.Initialization;
     using App.Core.Infrastructure.Initialization.Db;
     using App.Core.Shared.Models.Entities;
+    using App.Core.Infrastructure.Db.Context.Default;
 
     // A single DbContext Entity model seeder, 
     // invoked via AppModuleModelBuilderOrchestrator

@@ -63,10 +63,10 @@
   <ItemGroup>
     <Compile Include="Constants\Db\AppModuleDbContextNames.cs" />
     <Compile Include="Constants\Module\Names.cs" />
-    <Compile Include="Db\Context\AppModuleDatabaseInitializer.cs" />
-    <Compile Include="Db\Context\AppModuleDatabaseInitializerConfigurer.cs" />
-    <Compile Include="Db\Context\AppModuleDbContext.cs" />
-    <Compile Include="Db\Context\AppModuleDbContextFactory.cs" />
+    <Compile Include="Db\Context\Default\AppModuleDatabaseInitializer.cs" />
+    <Compile Include="Db\Context\Default\AppModuleDatabaseInitializerConfigurer.cs" />
+    <Compile Include="Db\Context\Default\AppModuleDbContext.cs" />
+    <Compile Include="Db\Context\Default\AppModuleDbContextFactory.cs" />
     <Compile Include="ExtensionMethods\X.cs" />
     <Compile Include="ExtensionMethods\Enumerations.cs" />
     <Compile Include="Initialization\Db\IHasAppModuleDbContextModelBuilderInitializer.cs" />
@@ -227,6 +227,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Db\Context\readme.md" />
     <None Include="Initialization\Db\Migrations\Default\README.md" />
     <None Include="packages.config" />
   </ItemGroup>

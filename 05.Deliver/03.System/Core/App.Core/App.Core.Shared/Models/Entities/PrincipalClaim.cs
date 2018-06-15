@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class PrincipalClaim : UntenantedAuditedRecordStatedTimestampedGuidIdEntityBase, IHasRecordState, IHasOwnerFK
+    public class PrincipalClaim : UntenantedAuditedRecordStatedTimestampedGuidIdEntityBase, IHasRecordState, IHasOwnerFK, IHasKeyValue<string>
     {
         public virtual string Authority { get; set; }
         public virtual string AuthoritySignature { get; set; }

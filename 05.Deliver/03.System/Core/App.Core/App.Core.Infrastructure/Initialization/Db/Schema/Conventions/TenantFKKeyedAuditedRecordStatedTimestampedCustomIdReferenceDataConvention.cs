@@ -31,7 +31,7 @@ namespace App.Core.Infrastructure.Db.Schema.Conventions
 
             modelBuilder.DefineCustomId<T, TId>(ref order);
 
-            modelBuilder.DefineKey<T>(ref order);
+            modelBuilder.DefineUniqueKey<T>(ref order);
 
             modelBuilder.DefineTimestampedAuditedRecordStated<T>(ref order);
 

@@ -2,6 +2,7 @@
 {
     using System.Data.Entity.Migrations;
     using App.Core.Infrastructure.Db.Context;
+    using App.Core.Infrastructure.Db.Context.Default;
     using App.Core.Infrastructure.Initialization.Db;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Configuration;
@@ -45,8 +46,8 @@
             var records = new[]
             {
                 //People:
-                new PrincipalCategory() {Id = 1.ToGuid(), Enabled = true,Text = "Default"},
-                new PrincipalCategory() {Id = 2.ToGuid(), Enabled = true,Text = "System"},
+                new PrincipalCategory() {Id = 1.ToGuid(), Enabled = true,Title = "Default"},
+                new PrincipalCategory() {Id = 2.ToGuid(), Enabled = true,Title = "System"},
             };
             context.Set<PrincipalCategory>().AddOrUpdate(p => p.Id, records);
             context.SaveChanges();

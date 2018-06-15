@@ -16,6 +16,6 @@
         : TenantFKAuditedRecordStatedTimestampedCustomIdReferenceDataEntityBase<TId>, IHasKey
         where TId : struct
     {
-        public string Key { get; set; }
+        public virtual string Key { get; set; }
     }
 }

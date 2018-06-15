@@ -120,6 +120,10 @@
     <Compile Include="Models\Entities\Base\UntenantedAuditedRecordStatedTimestampedGuidIdReferenceDataEntityBase.cs" />
     <Compile Include="Models\Entities\Base\UntenantedAuditedRecordStatedTimestampedNoIdEntityBase.cs" />
     <Compile Include="Models\Entities\Enums\AssignmentType.cs" />
+    <Compile Include="Models\Entities\ServiceDefinition.cs" />
+    <Compile Include="Models\Entities\ServiceOfferingDefinition.cs" />
+    <Compile Include="Models\Entities\ServicePlanDefinition.cs" />
+    <Compile Include="Models\Entities\TenantServiceProfile.cs" />
     <Compile Include="Models\Entities\TenancySecurityProfile.cs" />
     <Compile Include="Models\Entities\TenancySecurityProfileAccountRole.cs" />
     <Compile Include="Models\Entities\TenancySecurityProfilePermission.cs" />
@@ -131,6 +135,8 @@
     <Compile Include="Models\Entities\TenantMemberClaim.cs" />
     <Compile Include="Models\Entities\TenantMemberProperty.cs" />
     <Compile Include="Models\Entities\TenantMemberTag.cs" />
+    <Compile Include="Models\Entities\TenantServiceProfileServiceOfferingAllocation.cs" />
+    <Compile Include="Models\Entities\TenantServiceProfileServicePlanAllocation.cs" />
     <Compile Include="Models\Messages\API\V0100\SecurityProfileDto.cs" />
     <Compile Include="Models\Messages\API\V0100\SecurityProfileRoleAccountPermissionAssignmentDto.cs" />
     <Compile Include="Models\Messages\API\V0100\ExampleReferenceTypeDto.cs" />
@@ -235,7 +241,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\ConfigurationSettings\Implementations\" />
-    <Folder Include="Models\Entities\NewFolder1\" />
     <Folder Include="Models\Messages\API\V0100\Dtos\" />
     <Folder Include="Models\Messages\API\V0100\Enums\" />
   </ItemGroup>

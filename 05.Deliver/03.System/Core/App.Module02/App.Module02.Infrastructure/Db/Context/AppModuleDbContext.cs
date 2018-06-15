@@ -1,9 +1,10 @@
-﻿namespace App.Module02.Infrastructure.Db.Context
+﻿namespace App.Module02.Infrastructure.Db.Context.Default
 {
     using System.Data.Entity;
     using System.Threading.Tasks;
     using App.Core.Infrastructure.Constants.Db;
     using App.Core.Infrastructure.Db.Context;
+    using App.Core.Infrastructure.Db.Context.Default;
     using App.Core.Infrastructure.Db.Schema;
     using App.Core.Infrastructure.Initialization;
     using App.Core.Infrastructure.Initialization.DependencyResolution;

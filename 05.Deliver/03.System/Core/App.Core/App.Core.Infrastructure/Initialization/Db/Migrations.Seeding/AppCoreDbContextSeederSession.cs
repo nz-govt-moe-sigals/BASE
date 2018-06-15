@@ -3,6 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     using App.Core.Infrastructure.Db.Context;
+    using App.Core.Infrastructure.Db.Context.Default;
     using App.Core.Infrastructure.Initialization;
     using App.Core.Infrastructure.Initialization.Db;
     using App.Core.Infrastructure.Services;

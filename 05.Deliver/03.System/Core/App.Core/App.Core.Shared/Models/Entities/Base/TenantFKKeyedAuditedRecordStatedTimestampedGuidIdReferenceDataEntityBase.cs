@@ -15,6 +15,6 @@ namespace App.Core.Shared.Models.Entities.Base
     public abstract class TenantFKKeyedAuditedRecordStatedTimestampedGuidIdReferenceDataEntityBase
         : TenantFKAuditedRecordStatedTimestampedGuidIdReferenceDataEntityBase, IHasKey
     {
-        public string Key { get; set; }
+        public virtual string Key { get; set; }
     }
 }

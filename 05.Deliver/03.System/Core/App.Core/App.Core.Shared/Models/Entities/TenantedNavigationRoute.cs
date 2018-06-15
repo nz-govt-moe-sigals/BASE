@@ -25,7 +25,7 @@ namespace App.Core.Shared.Models.Entities
 
         public Guid OwnerFK { get; set; }
 
-        public string Text { get; set; }
+        public string Title { get; set; }
         public string Description { get; set; }
         public int DisplayOrderHint { get; set; }
         public string DisplayStyleHint { get; set; }

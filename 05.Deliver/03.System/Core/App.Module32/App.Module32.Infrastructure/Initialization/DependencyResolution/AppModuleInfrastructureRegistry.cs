@@ -7,6 +7,7 @@ namespace App.Module32.Infrastructure.Initialization.DependencyResolution
     using App.Core.Infrastructure.Db.Interception;
     using App.Module32.Infrastructure.Constants.Db;
     using App.Module32.Infrastructure.Db.Context;
+    using App.Module32.Infrastructure.Db.Context.Default;
     using App.Module32.Infrastructure.Initialization.Db;
     using StructureMap;
     using StructureMap.Graph;

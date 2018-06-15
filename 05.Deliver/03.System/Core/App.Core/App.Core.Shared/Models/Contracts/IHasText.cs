@@ -2,6 +2,6 @@
 {
     public interface IHasText
     {
-        string Text { get; set; }
+        string Title { get; set; }
     }
 }

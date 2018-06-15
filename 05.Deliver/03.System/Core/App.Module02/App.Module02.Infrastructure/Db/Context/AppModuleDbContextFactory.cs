@@ -1,6 +1,6 @@
 ﻿// Unfortunately IDbContextFactory<> only becomes available within ASP.NET Core...
 
-namespace App.Module02.Infrastructure.Db.Context
+namespace App.Module02.Infrastructure.Db.Context.Default
 {
     using System.Data.Entity.Infrastructure;
 

@@ -3,6 +3,7 @@
     using App.Core.Infrastructure.Db.Interception;
     using App.Module22.Infrastructure.Constants.Db;
     using App.Module22.Infrastructure.Db.Context;
+    using App.Module22.Infrastructure.Db.Context.Default;
     using App.Module22.Infrastructure.Initialization.Db;
     using StructureMap;
     using StructureMap.Graph;

@@ -37,7 +37,7 @@ namespace App.Core.Infrastructure
         private static bool ShouldSave(DbContext dbContext, Exception exception)
         {
             return dbContext.ChangeTracker.HasChanges() &&
-                   (exception == null || dbContext.GetType() == typeof(App.Core.Infrastructure.Db.Context.AppCoreDbContext));
+                   (exception == null || dbContext.GetType() == typeof(App.Core.Infrastructure.Db.Context.Default.AppCoreDbContext));
         }
 
 

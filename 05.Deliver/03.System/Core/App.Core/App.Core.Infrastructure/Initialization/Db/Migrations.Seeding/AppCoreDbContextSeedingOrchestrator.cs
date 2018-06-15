@@ -13,6 +13,7 @@ namespace App.Core.Infrastructure.Db.Migrations.Seeding
     using App.Core.Shared.Models.Messages;
     using App.Core.Shared.Models.Entities;
     using App.Core.Infrastructure.Contracts;
+    using App.Core.Infrastructure.Db.Context.Default;
 
     // Invoked from within AppCoreDbMigrationsConfiguration.Seed method, 
     public class AppCoreDbContextSeedingOrchestrator

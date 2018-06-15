@@ -4,6 +4,7 @@ namespace App.Module32.Infrastructure.Initialization.Db
 {
     using App.Core.Infrastructure.Initialization;
     using App.Module32.Infrastructure.Db.Context;
+    using App.Module32.Infrastructure.Db.Context.Default;
 
     // Contract for Seeders that are invoked at the end of 
     // a Db CodeFirst Migration process.

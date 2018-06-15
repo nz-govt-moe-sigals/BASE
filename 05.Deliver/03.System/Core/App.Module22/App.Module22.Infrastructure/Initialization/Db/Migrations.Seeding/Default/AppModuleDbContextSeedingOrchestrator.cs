@@ -10,6 +10,7 @@ namespace App.Module22.Infrastructure.Db.Migrations.Seeding
     using App.Core.Shared.Models.Configuration.AppHost;
     using App.Core.Shared.Models.ConfigurationSettings;
     using App.Module22.Infrastructure.Db.Context;
+    using App.Module22.Infrastructure.Db.Context.Default;
     using App.Module22.Infrastructure.Initialization;
     using App.Module22.Infrastructure.Initialization.Db;
 

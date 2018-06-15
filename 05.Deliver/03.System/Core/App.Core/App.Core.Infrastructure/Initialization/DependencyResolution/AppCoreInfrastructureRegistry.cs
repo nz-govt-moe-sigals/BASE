@@ -2,6 +2,7 @@ namespace App.Core.Infrastructure.DependencyResolution
 {
     using App.Core.Infrastructure.Constants.Db;
     using App.Core.Infrastructure.Db.Context;
+    using App.Core.Infrastructure.Db.Context.Default;
     using App.Core.Infrastructure.Initialization.Db;
     //SKYOUT: using App.Core.Infrastructure.Initialization.OData;
     using StructureMap;

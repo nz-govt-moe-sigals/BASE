@@ -5,6 +5,7 @@ namespace App.Module01.Infrastructure.Initialization.DependencyResolution
     using App.Core.Infrastructure.Db.Interception;
     using App.Module01.Infrastructure.Constants.Db;
     using App.Module01.Infrastructure.Db.Context;
+    using App.Module01.Infrastructure.Db.Context.Default;
     using App.Module01.Infrastructure.Initialization.Db;
     using StructureMap;
     using StructureMap.Graph;

@@ -65,7 +65,7 @@
              ;
 
             // --------------------------------------------------
-            // Collection Navigtation Properties:
+            // Collection Navigation Properties:
 
             //// Do not define these Entity Navigation Properties here, 
             //// as the Collection Navigation Properties

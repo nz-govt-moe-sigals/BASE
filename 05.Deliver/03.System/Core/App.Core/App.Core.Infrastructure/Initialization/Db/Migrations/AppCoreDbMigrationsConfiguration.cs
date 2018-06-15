@@ -4,6 +4,7 @@ namespace App.Core.Infrastructure.Db.Migrations
 {
     using System.Data.Entity.Migrations;
     using App.Core.Infrastructure.Db.Context;
+    using App.Core.Infrastructure.Db.Context.Default;
     using App.Core.Infrastructure.Db.Migrations.Seeding;
     using App.Core.Infrastructure.Services;
 

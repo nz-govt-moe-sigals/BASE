@@ -88,5 +88,17 @@ namespace App.Core.Infrastructure.Services.Implementations
             string result = Database.Execute("CLIENT", "LIST").ToString().Replace(" id=", "\rid=");
             return result.Split('\n');
         }
+
+
+
+        //public void SubscribeToEvents()
+        //{
+        //    var subscriber = _lazyConnection.Value.GetSubscriber();
+        //    string notificationChannel = "__keyspace@" + dbId + "__:*";
+            
+        //    subscriber.Subscribe()
+
+        //    https://github.com/rustd/RedisSamples/blob/master/HelloWorld/KeySpaceNotifications.cs
+        //}
     }
 }

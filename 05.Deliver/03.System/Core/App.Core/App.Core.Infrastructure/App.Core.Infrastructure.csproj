@@ -182,12 +182,12 @@
     <Compile Include="Constants\Users\Users.cs" />
     <Compile Include="Contracts\IHasAudited.cs" />
     <Compile Include="Contracts\IHasIgnoreThis.cs" />
-    <Compile Include="Db\Context\AppCoreDbContext.cs" />
-    <Compile Include="Db\Context\AppCoreDbContextFactory.cs" />
-    <Compile Include="Db\Context\AppCoreDatabaseInitializer.cs" />
-    <Compile Include="Db\Context\AppCoreDbContextMSITokenFactory.cs" />
-    <Compile Include="Db\Context\AppDbContextBase.cs" />
-    <Compile Include="Db\Context\OpenDbConnectionBuilder.cs" />
+    <Compile Include="Db\Context\Default\AppCoreDbContext.cs" />
+    <Compile Include="Db\Context\Default\AppCoreDbContextFactory.cs" />
+    <Compile Include="Db\Context\Default\AppCoreDatabaseInitializer.cs" />
+    <Compile Include="Db\Context\Default\AppCoreDbContextMSITokenFactory.cs" />
+    <Compile Include="Db\Context\Default\AppDbContextBase.cs" />
+    <Compile Include="Db\Context\Default\OpenDbConnectionBuilder.cs" />
     <Compile Include="Db\Interception\Implementations\HasInRecordAuditabilityDbContextPreCommitStrategy.cs" />
     <Compile Include="Db\Interception\Implementations\Base\UnitOfWorkPreCommitProcessingStrategyBase.cs" />
     <Compile Include="Db\Interception\Implementations\HasTenantFKAuditabilityDbContextPreCommitStrategy.cs" />
@@ -206,7 +206,7 @@
     <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederTenantClaim.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederTenantProperty.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeedingOrchestrator.cs" />
-    <Compile Include="Db\Context\AppCoreDatabaseInitializerConfigurer.cs" />
+    <Compile Include="Db\Context\Default\AppCoreDatabaseInitializerConfigurer.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederNotification.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederSession.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\AppCoreDbContextSeederPrincipal.cs" />
@@ -232,40 +232,50 @@
     <Compile Include="Initialization\Db\Migrations\Core\201806121007014_Add SecurityProfiles.Designer.cs">
       <DependentUpon>201806121007014_Add SecurityProfiles.cs</DependentUpon>
     </Compile>
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineDataClassification.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineExceptionRecord.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipal2Tags.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalLogin.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalTag.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineSystemRole.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineSession.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineNotification.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipal2Role.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineMediaMetadata.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalCategory.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineTenantMember.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineTenantMember2Role.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineTenantMember2Tags.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineTenantMemberCategory.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineTenantMemberClaim.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineTenantMemberProperty.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineTenantMemberTag.cs" />
+    <Compile Include="Initialization\Db\Migrations\Core\201806142354053_Add ServiceProfile.cs" />
+    <Compile Include="Initialization\Db\Migrations\Core\201806142354053_Add ServiceProfile.Designer.cs">
+      <DependentUpon>201806142354053_Add ServiceProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenantServiceProfileServiceOfferingAllocation.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenantServiceProfileServicePlanAssignment.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineServicePlanDefinition.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineServiceDefinition.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineServiceOfferingDefinition.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenantServiceProfile.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenantMember2Role.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAccount.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAccountGroup.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineAccountPermissionAssignment.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineDataClasssification.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineDataToken.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineExceptionRecord.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineMediaMetadata.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineNotification.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefinePermission.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefinePrincipal.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefinePrincipal2Role.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefinePrincipal2Tags.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefinePrincipalCategory.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefinePrincipalClaim.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefinePrincipalLogin.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefinePrincipalProperty.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefinePrincipalTag.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineRole.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineRolePermissionAssignment.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineSession.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineSessionOperationLog.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineSystemRole.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenant.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenantClaim.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenantMember.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenantMember2Tags.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenantMemberCategory.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenantMemberClaim.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenantMemberProperty.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenantMemberTag.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenantProperty.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleModelBuilderCommonConfiguration.cs" />
     <Compile Include="Initialization\Db\Schema\Conventions\IdConvention.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipal.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalProperty.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineSessionOperationLog.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineTenant.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefinePrincipalClaim.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineTenantClaim.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineTenantProperty.cs" />
-    <Compile Include="Initialization\Db\Schema\AppCoreDbContextModelBuilderDefineDataToken.cs" />
     <Compile Include="Initialization\Db\Schema\AppCoreModelBuilderOrchestrator.cs" />
     <Compile Include="Exceptions\ConfigurationException.cs" />
     <Compile Include="Exceptions\ToDoException.cs" />
@@ -289,6 +299,7 @@
     <Compile Include="Initialization\Db\Schema\Conventions\UntenantedAuditedRecordStatedTimestampedCustomIdDataConvention.cs" />
     <Compile Include="Initialization\Db\Schema\Conventions\UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention.cs" />
     <Compile Include="Initialization\Db\Schema\Conventions\TenantFKAuditedRecordStatedTimestampedNoIdDataConvention.cs" />
+    <Compile Include="Initialization\Db\Schema\Conventions\UntenantedAuditedRecordStatedTimestampedGuidIdReferenceDataConvention.cs" />
     <Compile Include="Initialization\Db\Schema\Conventions\UntenantedAuditedRecordStatedTimestampedNoIdDataConvention.cs" />
     <Compile Include="Initialization\DependencyResolution\AppAllInfrastructureRegistry.cs" />
     <Compile Include="Initialization\DependencyResolution\AppCoreInfrastructureRegistry.cs" />
@@ -500,6 +511,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Db\Context\readme.md" />
     <None Include="Integration\Azure\KeyVault\README.md" />
     <None Include="packages.config" />
     <None Include="Services\Caches\Implementations\_readme.md" />
@@ -544,6 +556,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Initialization\Db\Migrations\Core\201806121007014_Add SecurityProfiles.resx">
       <DependentUpon>201806121007014_Add SecurityProfiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Core\201806142354053_Add ServiceProfile.resx">
+      <DependentUpon>201806142354053_Add ServiceProfile.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

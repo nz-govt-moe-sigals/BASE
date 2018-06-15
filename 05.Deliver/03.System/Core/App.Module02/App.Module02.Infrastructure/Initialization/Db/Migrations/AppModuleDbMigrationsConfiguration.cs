@@ -5,6 +5,7 @@ namespace App.Module02.Infrastructure.Db.Migrations
     using System.Data.Entity.Migrations;
     using App.Core.Infrastructure.Services;
     using App.Module02.Infrastructure.Db.Context;
+    using App.Module02.Infrastructure.Db.Context.Default;
     using App.Module02.Infrastructure.Db.Migrations.Seeding;
 
     /// <summary>
@@ -34,6 +35,7 @@ namespace App.Module02.Infrastructure.Db.Migrations
         {
             // Hand off to a specialized class for Seeding.
             var hostSettingsService = AppDependencyLocator.Current.GetInstance<IHostSettingsService>();
+
             new AppModuleDbContextSeedingOrchestrator(hostSettingsService).Initialize(context);
         }
     }

@@ -27,7 +27,7 @@ namespace App.Core.Shared.Models.Entities
             get; set;
         }
 
-        public string Text
+        public string Title
         {
             get; set;
         }
