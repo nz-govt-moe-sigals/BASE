@@ -13,7 +13,7 @@ namespace App.Core.Infrastructure.Db.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201806160104267_Renamed TenantMember Parts to PrincipalProfile"; }
+            get { return "201806160118258_Renamed TenantMember Parts to PrincipalProfile"; }
         }
         
         string IMigrationMetadata.Source

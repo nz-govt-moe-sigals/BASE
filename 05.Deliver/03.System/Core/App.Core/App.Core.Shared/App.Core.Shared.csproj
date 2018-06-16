@@ -128,6 +128,11 @@
     <Compile Include="Models\Entities\TenancySpecific\MediaMetadata.cs" />
     <Compile Include="Models\Entities\TenancySpecific\PersistedMedia.cs" />
     <Compile Include="Models\Entities\TenancySpecific\PersistedMediaProperty.cs" />
+    <Compile Include="Models\Entities\TenancySpecific\PrincipalProfile.cs" />
+    <Compile Include="Models\Entities\TenancySpecific\PrincipalProfileCategory.cs" />
+    <Compile Include="Models\Entities\TenancySpecific\PrincipalProfileClaim.cs" />
+    <Compile Include="Models\Entities\TenancySpecific\PrincipalProfileProperty.cs" />
+    <Compile Include="Models\Entities\TenancySpecific\PrincipalProfileTag.cs" />
     <Compile Include="Models\Entities\TenantServiceProfile.cs" />
     <Compile Include="Models\Entities\TenancySecurityProfile.cs" />
     <Compile Include="Models\Entities\TenancySecurityProfileAccountRole.cs" />
@@ -135,11 +140,6 @@
     <Compile Include="Models\Entities\TenancySecurityProfileRoleGroup.cs" />
     <Compile Include="Models\Entities\TenancySecurityProfileRoleTenancySecurityProfilePermissionAssignment.cs" />
     <Compile Include="Models\Entities\TenancySecurityProfileTenancySecurityProfilePermissionAssignment.cs" />
-    <Compile Include="Models\Entities\TenantMember.cs" />
-    <Compile Include="Models\Entities\TenantMemberCategory.cs" />
-    <Compile Include="Models\Entities\TenantMemberClaim.cs" />
-    <Compile Include="Models\Entities\TenantMemberProperty.cs" />
-    <Compile Include="Models\Entities\TenantMemberTag.cs" />
     <Compile Include="Models\Entities\TenantServiceProfileServiceOfferingAllocation.cs" />
     <Compile Include="Models\Entities\TenantServiceProfileServicePlanAllocation.cs" />
     <Compile Include="Models\Messages\API\V0100\SecurityProfileDto.cs" />
