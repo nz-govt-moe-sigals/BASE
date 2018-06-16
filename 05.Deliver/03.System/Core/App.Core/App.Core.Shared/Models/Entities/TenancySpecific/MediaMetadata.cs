@@ -1,7 +1,14 @@
-﻿namespace App.Core.Shared.Models.Entities
+﻿namespace App.Core.Shared.Models.Entities.TenancySpecific
 {
     using System;
 
+    /// <summary>
+    /// A descriptor of Media uploaded by end users (to a StorageAccount)
+    /// <para>
+    /// Note that each Tenancy's Media is kept 
+    /// seperate from every other Tenant's uploaded Media.
+    /// </para>
+    /// </summary>
     public class MediaMetadata : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase
     {
         // Use an Enum as DataClassification is shared across Bounded DbContexts

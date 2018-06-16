@@ -5,6 +5,7 @@
     using App.Core.Infrastructure.Services.Configuration.Implementations;
     using App.Core.Shared.Models.Configuration;
     using App.Core.Shared.Models.Entities;
+    using App.Core.Shared.Models.Entities.TenancySpecific;
     using App.Core.Shared.Models.Messages;
 
     /// <summary>

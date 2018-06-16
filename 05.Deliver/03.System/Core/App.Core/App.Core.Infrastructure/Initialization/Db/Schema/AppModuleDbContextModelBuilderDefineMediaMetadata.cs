@@ -8,6 +8,7 @@
     using App.Core.Infrastructure.Initialization;
     using App.Core.Infrastructure.Initialization.Db;
     using App.Core.Shared.Models.Entities;
+    using App.Core.Shared.Models.Entities.TenancySpecific;
 
     // A single DbContext Entity model map, 
     // invoked via a Module's specific DbContext ModelBuilderOrchestrator

@@ -9,6 +9,7 @@
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages.API.V0100;
     using AutoMapper.QueryableExtensions;
+    using App.Core.Shared.Models.Entities.TenancySpecific;
 
 
 

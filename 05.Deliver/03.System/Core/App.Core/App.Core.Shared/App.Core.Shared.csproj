@@ -94,6 +94,7 @@
     <Compile Include="Models\Contracts\IHasKeyedMutableReferenceData.cs" />
     <Compile Include="Models\Contracts\IHasKeyedMutableValuedReferenceData.cs" />
     <Compile Include="Models\Contracts\IHasKeyValue.cs" />
+    <Compile Include="Models\Contracts\IHasLatitudeAndLongitude.cs" />
     <Compile Include="Models\Contracts\IHasMutableDisplayableReferenceData.cs" />
     <Compile Include="Models\Contracts\IHasMutableValuedReferenceData.cs" />
     <Compile Include="Models\Contracts\IHasName.cs" />
@@ -123,6 +124,10 @@
     <Compile Include="Models\Entities\ServiceDefinition.cs" />
     <Compile Include="Models\Entities\ServiceOfferingDefinition.cs" />
     <Compile Include="Models\Entities\ServicePlanDefinition.cs" />
+    <Compile Include="Models\Entities\TenancySpecific\GeoData.cs" />
+    <Compile Include="Models\Entities\TenancySpecific\MediaMetadata.cs" />
+    <Compile Include="Models\Entities\TenancySpecific\PersistedMedia.cs" />
+    <Compile Include="Models\Entities\TenancySpecific\PersistedMediaProperty.cs" />
     <Compile Include="Models\Entities\TenantServiceProfile.cs" />
     <Compile Include="Models\Entities\TenancySecurityProfile.cs" />
     <Compile Include="Models\Entities\TenancySecurityProfileAccountRole.cs" />
@@ -155,13 +160,10 @@
     <Compile Include="Models\Entities\Enums\SubscriptionStatus.cs" />
     <Compile Include="Models\Entities\ExceptionRecord.cs" />
     <Compile Include="Models\Entities\IdentityProvider.cs" />
-    <Compile Include="Models\Entities\MediaMetadata.cs" />
     <Compile Include="Models\Entities\NavigationRouteEntry.cs" />
     <Compile Include="Models\Entities\Subscription.cs" />
     <Compile Include="Models\Entities\SubscriptionRoleMember.cs" />
     <Compile Include="Models\Entities\TenantedNavigationRoute.cs" />
-    <Compile Include="Models\Entities\PersistedMedia.cs" />
-    <Compile Include="Models\Entities\PersistedMediaProperty.cs" />
     <Compile Include="Models\Entities\PrincipalCategory.cs" />
     <Compile Include="Models\Entities\PrincipalLogin.cs" />
     <Compile Include="Models\Entities\PrincipalMembershipInfo.cs" />
@@ -231,7 +233,6 @@
     <Compile Include="Models\Contracts\IHasPrincipalFK.cs" />
     <Compile Include="Models\Contracts\IHasValue.cs" />
     <Compile Include="Models\Contracts\IInitialize.cs" />
-    <Compile Include="Models\Entities\GeoData.cs" />
     <Compile Include="Models\Entities\Notification.cs" />
     <Compile Include="Models\Messages\MediaScanResult.cs" />
     <Compile Include="Models\Messages\ODataResponse.cs" />

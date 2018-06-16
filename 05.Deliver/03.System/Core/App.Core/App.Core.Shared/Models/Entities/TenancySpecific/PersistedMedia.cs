@@ -1,4 +1,4 @@
-﻿namespace App.Core.Shared.Models.Entities
+﻿namespace App.Core.Shared.Models.Entities.TenancySpecific
 {
     using System;
 
