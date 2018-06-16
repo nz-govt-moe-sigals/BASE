@@ -21,7 +21,7 @@ namespace App.Core.Shared.Models.Entities.TenancySpecific
     /// 
     /// </para>
     /// </summary>
-    public class PrincipalServiceProfileServicePlanAllocation : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase, IHasEnabled {
+    public class PrincipalServiceProfileServicePlanAllocation : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase, IHasEnabled, IHasRequiredParentFK {
          
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace App.Core.Shared.Models.Entities.TenancySpecific
         /// Reference to the parent <see cref="PrincipalServiceProfile"/>
         /// (no updward Navigation required).
         /// </summary>
-        public virtual Guid TenantServiceProfileFK { get; set; }
+        public virtual Guid ParentFK { get; set; }
 
         /// <summary>
         /// The FK of the child <see cref="ServicePlanDefinition"/> associated to the 

@@ -6,6 +6,7 @@
     using App.Core.Infrastructure.Db.Schema.Conventions;
     using App.Core.Infrastructure.Initialization.Db;
     using App.Core.Shared.Models.Entities;
+    using App.Core.Shared.Models.Entities.TenancySpecific;
 
     public class AppModuleDbContextModelBuilderDefineTenantServiceProfileServiceOfferingAllocation : IHasAppModuleDbContextModelBuilderInitializer
     {
@@ -25,7 +26,7 @@
 
             // Create Composite Index:
             // See: https://stackoverflow.com/a/9960987
-            modelBuilder.Entity<TenantServiceProfileServiceOfferingAllocation>()
+            modelBuilder.Entity<PrincipalServiceProfileServiceOfferingAllocation>()
                  .HasKey(x => new
                  {
                      // x.TenantFK
@@ -36,18 +37,18 @@
             // Standard Properties:
 
             // Re/Do the usual columns:
-            new UntenantedAuditedRecordStatedTimestampedNoIdDataConvention().Define<TenantServiceProfileServiceOfferingAllocation>(modelBuilder, ref order);
+            new UntenantedAuditedRecordStatedTimestampedNoIdDataConvention().Define<PrincipalServiceProfileServiceOfferingAllocation>(modelBuilder, ref order);
 
 
             // --------------------------------------------------
             // FK Properties:
-            modelBuilder.Entity<TenantServiceProfileServiceOfferingAllocation>()
+            modelBuilder.Entity<PrincipalServiceProfileServiceOfferingAllocation>()
                 .Property(x => x.ServiceProfileFK)
                 .HasColumnOrder(order++)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None)
                 .IsRequired();
 
-            modelBuilder.Entity<TenantServiceProfileServiceOfferingAllocation>()
+            modelBuilder.Entity<PrincipalServiceProfileServiceOfferingAllocation>()
                     .Property(x => x.ServiceOfferingFK)
                     .HasColumnOrder(order++)
                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None)
@@ -56,17 +57,17 @@
             // --------------------------------------------------
             // Model Specific Properties:
 
-            modelBuilder.Entity<TenantServiceProfileServiceOfferingAllocation>()
+            modelBuilder.Entity<PrincipalServiceProfileServiceOfferingAllocation>()
                     .Property(x => x.Type)
                     .HasColumnOrder(order++)
                     .IsRequired();
 
-            modelBuilder.Entity<TenantServiceProfileServiceOfferingAllocation>()
+            modelBuilder.Entity<PrincipalServiceProfileServiceOfferingAllocation>()
                     .Property(x => x.CostPerMonth)
                     .HasColumnOrder(order++)
                     .IsRequired();
 
-            modelBuilder.Entity<TenantServiceProfileServiceOfferingAllocation>()
+            modelBuilder.Entity<PrincipalServiceProfileServiceOfferingAllocation>()
                     .Property(x => x.CostPerYear)
                     .HasColumnOrder(order++)
                     .IsRequired();
@@ -77,16 +78,16 @@
 
             // Navigation from parent to this 
             // IMPORTANT: (notice T = Parent object, not this object)
-            modelBuilder.Entity<TenantServiceProfile>()
+            modelBuilder.Entity<PrincipalServiceProfile>()
                 .HasMany(x => x.ServicePlans)
                 .WithRequired(/*no navigation from Join Object to Parent*/)
-                .HasForeignKey(x => x.TenantServiceProfileFK);
+                .HasForeignKey(x => x.ParentFK);
 
 
             // Navigate from here to to the child Object, 
             // without offering a means to navigate back up to this 
             // Complex, Join Object or the parent:
-            modelBuilder.Entity<TenantServiceProfileServiceOfferingAllocation>()
+            modelBuilder.Entity<PrincipalServiceProfileServiceOfferingAllocation>()
                  .HasRequired(x => x.ServiceOffering)
                  // Notice how on the other side we are not specifying any collection:
                  .WithMany()

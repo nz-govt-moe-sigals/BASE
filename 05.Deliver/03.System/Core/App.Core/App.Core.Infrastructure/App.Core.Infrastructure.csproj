@@ -240,6 +240,10 @@
     <Compile Include="Initialization\Db\Migrations\Core\201806160118258_Renamed TenantMember Parts to PrincipalProfile.Designer.cs">
       <DependentUpon>201806160118258_Renamed TenantMember Parts to PrincipalProfile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Initialization\Db\Migrations\Core\201806160153058_Renamed ServiceProfile Parts to PrincipalServiceProfile.cs" />
+    <Compile Include="Initialization\Db\Migrations\Core\201806160153058_Renamed ServiceProfile Parts to PrincipalServiceProfile.Designer.cs">
+      <DependentUpon>201806160153058_Renamed ServiceProfile Parts to PrincipalServiceProfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenantServiceProfileServiceOfferingAllocation.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenantServiceProfileServicePlanAssignment.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineServicePlanDefinition.cs" />
@@ -566,6 +570,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Initialization\Db\Migrations\Core\201806160118258_Renamed TenantMember Parts to PrincipalProfile.resx">
       <DependentUpon>201806160118258_Renamed TenantMember Parts to PrincipalProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Core\201806160153058_Renamed ServiceProfile Parts to PrincipalServiceProfile.resx">
+      <DependentUpon>201806160153058_Renamed ServiceProfile Parts to PrincipalServiceProfile.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
