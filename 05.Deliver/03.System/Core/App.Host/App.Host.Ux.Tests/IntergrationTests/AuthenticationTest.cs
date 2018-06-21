@@ -17,7 +17,7 @@ namespace App.Host.Ux.Tests.IntergrationTests
         // The Tenant is the name of the Azure AD tenant in which this application is registered.
         // The AAD Instance is the instance of Azure, for example public Azure or Azure China.
         // The Authority is the sign-in URL of the tenant.
-        //
+        // https://github.com/azure-samples/active-directory-dotnet-daemon#step-2--register-the-sample-with-your-azure-active-directory-tenant
         private static string aadInstance = "https://login.microsoftonline.com/{0}";
         private static string tenant = "BaseCommonConsumerTest.onmicrosoft.com";
         private static string clientId = "4aeeb16c-e95b-4a98-89e9-defd2d01090a";
