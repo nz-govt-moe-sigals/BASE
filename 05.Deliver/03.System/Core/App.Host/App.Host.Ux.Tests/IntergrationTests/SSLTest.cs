@@ -1,11 +1,9 @@
-﻿
-using System.Linq;
+﻿using System.Linq;
 using System.Net.Http;
-using Tasks = System.Threading.Tasks;
 using FluentAssertions;
 using Xbehave;
 
-namespace App.Host.Ux.Tests
+namespace App.Host.Ux.Tests.IntergrationTests
 {
     public class SslTest
     {
