@@ -67,9 +67,17 @@
         public void RegisterGlobalFilters(
             HttpConfiguration httpConfiguration)
         {
+
+            httpConfiguration.Formatters.JsonFormatter.MediaTypeMappings.Add(new System.Net.Http.Formatting.RequestHeaderMapping("Accept",
+                "text/html",
+                System.StringComparison.InvariantCultureIgnoreCase,
+                true,
+                "application/json"));
+
             // Since WebAPI pipeline is totally separate from WebMVC, the registrarion
             // of the WebAPI interception is done in a different way.
             // WebAPI Controllers are registered using HttpConfiguration:
+
 
             var filters = httpConfiguration.Filters;
 
@@ -150,6 +158,7 @@
 
         private static void RegisterResponseFilters(HttpFilterCollection filters)
         {
+           
         }
 
         private static void RegisterExceptionFilters(HttpFilterCollection filters)

@@ -13,6 +13,10 @@ namespace App.Module32.Application.Constants.Api
 
 
         public static string Example = "Example";
+
+        public const string Schools = "Schools";
+
+        public const string Students = "Students";
     }
 }
 

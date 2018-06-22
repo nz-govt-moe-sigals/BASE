@@ -3,23 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using App.Module32.Shared.Models.Enums;
-using Newtonsoft.Json;
 
 namespace App.Module32.Shared.Models.Messages.API.V0100
 {
     public class StudentDto
     {
+        public string StudentId { get; set; }
 
-        public StudentDto()
-        {
-            StudentExist = StudentExistEnum.Unknown;
-        }
+        public DateTime DateOfBirth { get; set; }
 
-        public string Result => StudentExist.ToString();
+        public string Gender { get; set; }
 
-        [JsonIgnore]
-        public StudentExistEnum StudentExist { get; set; }
+        public string FullName { get; set; }
 
+        public int SchoolId { get; set; }
     }
 }

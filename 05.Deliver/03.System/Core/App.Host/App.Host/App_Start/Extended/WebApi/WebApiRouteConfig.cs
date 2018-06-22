@@ -60,13 +60,13 @@ namespace App.Host.Extended.WebApi
 
             httpConfiguration.Routes.MapHttpRoute(
                 "VersionedUrl",
-                "api/v{apiVersion}/{controller}/{id}",
+                "api/v{apiVersion}/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional },
                 constraints: new { apiVersion = new ApiVersionRouteConstraint() });
 
             httpConfiguration.Routes.MapHttpRoute(
                 "DefaultWebApiRoute",
-                "api/{controller}/{id}",
+                "api/{controller}/{action}/{id}",
                 new {id = RouteParameter.Optional}
             );
         }

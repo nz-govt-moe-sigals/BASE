@@ -9,6 +9,8 @@ namespace App.Module32.Infrastructure.Constants.Module
     public static class Names
     {
         public const string ModuleKey = "Module32";
+
+        public const string ModuleRouteKey = "ATE";
     }
 }
 

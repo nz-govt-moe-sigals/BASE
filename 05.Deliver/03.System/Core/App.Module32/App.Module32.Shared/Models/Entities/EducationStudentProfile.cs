@@ -12,8 +12,6 @@ namespace App.Module32.Shared.Models.Entities
     {
         public string NSN { get; set; }
 
-        
-
         public DateTime DateOfBirth { get; set; }
 
         public string Gender { get; set; }
