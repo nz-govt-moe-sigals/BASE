@@ -74,7 +74,7 @@
           "microsoftDocumentDbDatabaseAccountProvision": true,
           "microsoftSearchSearchServicesProvision": true,
 
-          "microsoftSqlServersDatabasesResourceSku": "Basic",
+          "microsoftSqlServersDatabasesResourceSku": "S0",
           "microsoftStorageStorageAccountsResourceSku":"Standard_LRS",
           "microsoftWebServerFarmsResourceSku": "S1",
           "microsoftWebSitesAlwaysOn":true
