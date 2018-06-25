@@ -49,8 +49,10 @@
     <Compile Include="Models\Entities\EducationSchoolProfile.cs" />
     <Compile Include="Models\Entities\EducationStudentProfile.cs" />
     <Compile Include="Models\Enums\StudentExistEnum.cs" />
+    <Compile Include="Models\Messages\API\V0100\SchoolDto.cs" />
     <Compile Include="Models\Messages\API\V0100\StudentDto.cs" />
-    <Compile Include="Models\Messages\API\V0100\StudentSearchDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\StudentTransportDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\StudentTransportSearchDto.cs" />
     <Compile Include="Models\Messages\Extract\ExtractConstants.cs" />
     <Compile Include="Models\Messages\Extract\Base\BaseMessage.cs" />
     <Compile Include="Models\Entities\ExtractWatermark.cs" />

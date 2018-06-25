@@ -46,6 +46,15 @@ namespace App.Module32.Infrastructure.Services.Implementations.Extract.Repositor
             ;
         }
 
+        public IQueryable<EducationStudentProfile> GetEducationStudentProfiles(IList<EducationStudentProfile> list)
+        {
+            if (list == null || !list.Any()) { return new List<EducationStudentProfile>().AsQueryable(); }
+            var idList = list.Select(x => x.NSN);
+            return _repositoryService.GetQueryableSet<EducationStudentProfile>(_dbKey)
+                .Where(p => idList.Contains(p.NSN)).AsNoTracking();
+            ;
+        }
+
 
         /// <summary>
         /// 
@@ -87,6 +96,69 @@ namespace App.Module32.Infrastructure.Services.Implementations.Extract.Repositor
             }
         }
 
+        public void AddOrUpdateList(IList<EducationStudentProfile> list)
+        {
+            _lockSemaphoreSlim.Wait();
+            try
+            {
+                var exisitngItemsLookup = GetEducationStudentProfiles(list).ToDictionary(x => x.NSN, x => x);
+                var updateList = new List<EducationStudentProfile>();
+                var addList = new List<EducationStudentProfile>();
+                foreach (var model in list)
+                {
+                    if (exisitngItemsLookup.TryGetValue(model.NSN, out EducationStudentProfile existingItem))
+                    {
+                        if (model.SourceModifiedDate >= existingItem.SourceModifiedDate) //TODO REMOVE =
+                        {
+                            Mapper.Map<EducationStudentProfile, EducationStudentProfile>(model, existingItem);
+                            _repositoryService.PreProcessEntity(existingItem);
+                            updateList.Add(existingItem);
+                        }
+                    }
+                    else
+                    {
+                        _repositoryService.PreProcessEntity(model);
+                        addList.Add(model);
+                    }
+                }
+
+                CommitResults(addList, updateList);
+            }
+            finally
+            {
+                _lockSemaphoreSlim.Release();
+            }
+        }
+
+        private void CommitResults(IList<EducationStudentProfile> addList, IList<EducationStudentProfile> updateList)
+        {
+            if (addList != null && addList.Any())
+            {
+                var removedDuplicateAddList = addList
+                    .GroupBy(x => x.NSN)
+                    .Select(x => x.OrderByDescending(y => y.SourceModifiedDate).FirstOrDefault());
+                _repositoryService.InsertAll(removedDuplicateAddList);
+            }
+
+            if (updateList != null && updateList.Any())
+            {
+                var removedDuplicateupdateList = updateList
+                    .GroupBy(x => x.NSN)
+                    .Select(x => x.OrderByDescending(y => y.SourceModifiedDate).FirstOrDefault());
+                _repositoryService.UpdateAll(removedDuplicateupdateList, x => x.ColumnsToUpdate(
+                    c => c.FullName,
+                    c => c.Gender,
+                    c => c.EducationSchoolProfileFK,
+                    c => c.DateOfBirth,
+                    c => c.SourceModifiedDate,
+                    c => c.LastModifiedOnUtc,
+                    c => c.LastModifiedByPrincipalId
+                ));
+            }
+
+        }
+
+
         private void CommitResults(IList<EducationSchoolProfile> addList, IList<EducationSchoolProfile> updateList)
         {
             if (addList != null && addList.Any())
@@ -126,5 +198,7 @@ namespace App.Module32.Infrastructure.Services.Implementations.Extract.Repositor
         {
             _repositoryService.CommitBatch();
         }
+
+     
     }
 }

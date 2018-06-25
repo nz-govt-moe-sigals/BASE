@@ -91,6 +91,8 @@
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_EducationStudentProfile_EducationStudentProfile.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_SchoolProfile_EducationSchoolProfile.cs" />
     <Compile Include="Initialization\ObjectMaps\Extract\ObjectMap_StudentProfile_EducationStudentProfile.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\ObjectMap_SchoolDto_EducationSchoolProfile.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\ObjectMap_StudentDto_EducationStudentProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Configuration\ExtractDocumentDbServiceConfiguration.cs" />
     <Compile Include="Services\Configuration\IModuleServiceConfigurationObject.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="Services\Implementations\Extract\Repositories\ExtractAzureDocumentDbService.cs" />
     <Compile Include="Services\Implementations\Extract\Repositories\ExtractRepositoryService.cs" />
     <Compile Include="Services\IBaseExtractService.cs" />
+    <Compile Include="Utility\LevenshteinDistance.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\App.Core\App.Core.Infrastructure\App.Core.Infrastructure.csproj">

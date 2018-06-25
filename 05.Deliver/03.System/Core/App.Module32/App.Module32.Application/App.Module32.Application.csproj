@@ -149,18 +149,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\Controllers\Base\ActiveRecordStateODataControllerBase.cs" />
     <Compile Include="API\Controllers\Base\GuidIdActiveRecordStateODataControllerBase.cs" />
+    <Compile Include="API\Controllers\V0100\SchoolsController.cs" />
+    <Compile Include="API\Controllers\V0100\StudentsController.cs" />
     <Compile Include="API\Controllers\V0100\TransportController.cs" />
     <Compile Include="Constants\Api\ApiControllerNames.cs" />
     <Compile Include="Initialization\DependencyResolution\AppModuleApplicationRegistry.cs" />
     <Compile Include="Initialization\OData\IAppModuleOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\AppModuleOdataModelBuilder.cs" />
+    <Compile Include="Initialization\OData\Implementations\EducationSchoolProviderODataModelBuilderConfiguration .cs" />
+    <Compile Include="Initialization\OData\Implementations\EducationStudentProviderODataModelBuilderConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="API\Controllers\Base\TenantedGuidIdActiveRecordStateODataControllerDataBase.cs" />
     <Compile Include="Services\IApplicationService.cs" />
     <Compile Include="Services\Implementations\ApplicationService.cs" />
     <Compile Include="Services\Implementations\StudentSearchService.cs" />
     <Compile Include="Services\Implementations\TaskService.cs" />
+    <Compile Include="Services\IStudentSearchService.cs" />
     <Compile Include="Services\ITaskService.cs" />
   </ItemGroup>
   <ItemGroup>

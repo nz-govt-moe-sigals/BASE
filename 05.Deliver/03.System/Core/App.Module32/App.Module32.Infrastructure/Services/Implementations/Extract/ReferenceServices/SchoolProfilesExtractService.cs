@@ -41,6 +41,7 @@ namespace App.Module32.Infrastructure.Services.Implementations.Extract.Reference
         public override EducationSchoolProfile MapLocalDataToEntity(SchoolProfile item)
         {
             var mappedEntity = Mapper.Map<SchoolProfile, EducationSchoolProfile>(item);
+            mappedEntity.Name = mappedEntity.Name.Trim();
             return mappedEntity;
         }
 

@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace App.Module32.Shared.Models.Messages.API.V0100
 {
-    public class StudentSearchDto
+    public class StudentTransportSearchDto
     {
-        public string NSN { get; set; }
 
+        // not sure is needed, but it's in here for future proofing atm
         public int? SchoolId { get; set; }
-
-        public string Gender { get; set; }
 
         public string SchoolName { get; set; }
 
