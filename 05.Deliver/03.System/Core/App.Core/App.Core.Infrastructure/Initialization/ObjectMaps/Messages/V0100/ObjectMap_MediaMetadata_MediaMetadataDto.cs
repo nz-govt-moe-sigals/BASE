@@ -1,6 +1,7 @@
 namespace App.Core.Infrastructure.Initialization.ObjectMaps.Messages.V0100
 {
     using App.Core.Shared.Models.Entities;
+    using App.Core.Shared.Models.Entities.TenancySpecific;
     using App.Core.Shared.Models.Messages.API.V0100;
     using AutoMapper;
 

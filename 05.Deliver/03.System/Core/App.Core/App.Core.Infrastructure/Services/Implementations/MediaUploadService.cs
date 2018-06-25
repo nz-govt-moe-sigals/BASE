@@ -3,6 +3,7 @@
     using System;
     using App.Core.Infrastructure.Db.Context;
     using App.Core.Shared.Models.Entities;
+    using App.Core.Shared.Models.Entities.TenancySpecific;
     using App.Core.Shared.Models.Messages;
 
     /// <summary>

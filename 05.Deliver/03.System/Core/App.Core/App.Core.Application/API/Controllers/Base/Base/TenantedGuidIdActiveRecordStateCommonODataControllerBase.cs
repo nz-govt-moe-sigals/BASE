@@ -76,7 +76,7 @@ namespace App.Core.Application.API.Controllers.Base.Base
         protected Guid GetTenantFK()
         {
             //this._principalService.t
-            var result = this._tenantService.PrincipalTenant.Id;
+            var result = this._tenantService.CurrentTenant.Id;
             return result;
         }
 

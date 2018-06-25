@@ -4,6 +4,7 @@
     using App.Core.Infrastructure.Db.Schema.Conventions;
     using App.Core.Infrastructure.Initialization.Db;
     using App.Core.Shared.Models.Entities;
+    using App.Core.Shared.Models.Entities.TenancySpecific;
 
     public class AppModuleDbContextModelBuilderDefineTenantServiceProfile : IHasAppModuleDbContextModelBuilderInitializer
     {
@@ -13,7 +14,7 @@
 
             // --------------------------------------------------
             // Standard Properties:
-            new TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention().Define<TenantServiceProfile>(modelBuilder, ref order);
+            new TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention().Define<PrincipalServiceProfile>(modelBuilder, ref order);
             // --------------------------------------------------
             // FK Properties:
 
@@ -24,7 +25,7 @@
             //    .Property(x => x.Enabled)
             //    .IsRequired();
             // -----
-            modelBuilder.Entity<TenantServiceProfile>()
+            modelBuilder.Entity<PrincipalServiceProfile>()
                 .HasRequired(x => x.Tenant)
                 .WithMany()
                 .HasForeignKey(x => x.TenantFK);

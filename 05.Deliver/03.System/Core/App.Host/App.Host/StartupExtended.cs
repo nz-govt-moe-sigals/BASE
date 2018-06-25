@@ -84,10 +84,14 @@ namespace App.Host
             // Appears correct order is to register WebMVC, then WebAPI.
             InitializeMvc(appBuilder);
             InitializeWebApi(appBuilder);
-            
-            
 
-            // After routing is sorted out:
+
+
+            // After routing is sorted out, invoke our extension method
+            // to attach custom OWIN Middleware.
+            // One of the Midddlewares (ie Modules) 
+            // that this will attached is one that 
+            // Sets the Tenancy.
             appBuilder.UseRequestTenantMiddleware();
 
             // Up to this point we've not invoked external Services

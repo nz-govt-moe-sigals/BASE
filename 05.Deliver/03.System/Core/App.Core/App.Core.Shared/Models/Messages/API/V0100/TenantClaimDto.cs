@@ -3,6 +3,7 @@
     using System;
     using App.Core.Shared.Models.Entities;
 
+    [Serializable]
     public class TenantClaimDto /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */  : IHasGuidId, IHasTenantFK, IHasRecordState
     {
         public virtual string AuthorityKey { get; set; }

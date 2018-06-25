@@ -23,7 +23,11 @@ namespace App.Core.Infrastructure.Services.Implementations
     /// </summary>
     public class AzureRedisCacheService : IAzureRedisCacheService
     {
+
+        public AzureRedisCacheServiceConfiguration Configuration { get;private set; }
         Lazy<ConnectionMultiplexer> _lazyConnection;
+
+        internal ConfigurationOptions ConfigurationOptions { get; private set; }
 
         private ConnectionMultiplexer ConnectionMultiplexer
         {
@@ -44,17 +48,18 @@ namespace App.Core.Infrastructure.Services.Implementations
         public AzureRedisCacheService(AzureRedisCacheServiceConfiguration azureRedisCacheServiceConfiguration)
         {
 
+            Configuration = azureRedisCacheServiceConfiguration;
 
             //var conn = ConnectionMultiplexer.Connect("localhost");
-            var configurationOptions = ConfigurationOptions.Parse(azureRedisCacheServiceConfiguration.ConnectionString);
+            this.ConfigurationOptions = ConfigurationOptions.Parse(azureRedisCacheServiceConfiguration.ConnectionString);
 
-            configurationOptions.ClientName = "...";
-            configurationOptions.AllowAdmin = false;
-            configurationOptions.AllowAdmin = false;
-            configurationOptions.Ssl = true;
+            ConfigurationOptions.ClientName = "...";
+            ConfigurationOptions.AllowAdmin = false;
+            ConfigurationOptions.AllowAdmin = false;
+            ConfigurationOptions.Ssl = true;
 
 
-            _lazyConnection = new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(configurationOptions));
+            _lazyConnection = new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(this.ConfigurationOptions));
         }
 
         public void Set(string key, string value, TimeSpan? duration)
@@ -76,6 +81,12 @@ namespace App.Core.Infrastructure.Services.Implementations
             var tmp = Get(key);
             return JsonConvert.DeserializeObject<T>(tmp);
         }
+        //public IEnumerable<T> Search(string key, string pattern)
+        //{
+        //    var r = Database.SortedSetScan(key,pattern);
+        //    SortedSetEntry x;
+        //    x.
+        //}
 
         public string ExecuteCommand(string command)
         {

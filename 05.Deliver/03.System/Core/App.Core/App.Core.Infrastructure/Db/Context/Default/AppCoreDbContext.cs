@@ -9,6 +9,7 @@
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Attributes;
     using App.Core.Shared.Models.Entities;
+    using App.Core.Shared.Models.Entities.TenancySpecific;
 
     /// <summary>
     /// The Module specific DbContext (notice is has it's own Schema).

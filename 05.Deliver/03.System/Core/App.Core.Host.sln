@@ -77,7 +77,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Blanks", "_Blanks", "{EF96
 	ProjectSection(SolutionItems) = preProject
 		_Readme\readme.blank - Copy (14).md = _Readme\readme.blank - Copy (14).md
 		_Readme\readme.blank - Copy (15).md = _Readme\readme.blank - Copy (15).md
-		_Readme\readme.blank - Copy (16).md = _Readme\readme.blank - Copy (16).md
 		_Readme\readme.blank - Copy (17).md = _Readme\readme.blank - Copy (17).md
 		_Readme\readme.blank - Copy (18).md = _Readme\readme.blank - Copy (18).md
 		_Readme\readme.blank - Copy (19).md = _Readme\readme.blank - Copy (19).md
@@ -112,6 +111,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DBs", "DBs", "{DC84FDAE-75F
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{F2B0D33B-00BD-4196-841B-C36741518AA4}"
+	ProjectSection(SolutionItems) = preProject
+		_Readme\readme.insights.md = _Readme\readme.insights.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{63301A1B-FFC6-4DF7-9D6B-0CC5A5E0E035}"
 	ProjectSection(SolutionItems) = preProject

@@ -1,6 +1,7 @@
 ﻿namespace App.Core.Infrastructure.Services
 {
     using App.Core.Shared.Models.Entities;
+    using App.Core.Shared.Models.Messages.API.V0100;
     using App.Core.Shared.Services;
 
     /// <summary>
@@ -18,19 +19,19 @@
         ///         Used to set the resource' appearance (skin header/logo/footer, etc.)
         ///     </para>
         /// </summary>
-        Tenant ResourceTenant { get; }
+        TenantDto CurrentTenant { get; }
+
+        ///// <summary>
+        /////     The Tenant of the current Security Principal (ie, the Tenant Key within a Claim of the Thread current Principal)
+        /////     <para>Used to assertain permissions.</para>
+        ///// </summary>
+        //string PrincipalTenantKey { get; set; }
+
+
+        //Tenant PrincipalTenant { get; }
 
         /// <summary>
-        ///     The Tenant of the current Security Principal (ie, the Tenant Key within a Claim of the Thread current Principal)
-        ///     <para>Used to assertain permissions.</para>
-        /// </summary>
-        string PrincipalTenantKey { get; set; }
-
-
-        Tenant PrincipalTenant { get; }
-
-        /// <summary>
-        ///     Determines if given text is a valid Tenant Key
+        ///     Determines if given text is a valid Tenant Unique Key
         ///     <para>
         ///         Invoked by Routing to determine if first part of MVC/WebAPI route is a Tenant Key.
         ///     </para>
@@ -39,7 +40,7 @@
         bool IsValidTenantKey(string tenantKey, string hostName = null);
 
 
-        Tenant SetTenant(string tenantKey, string hostName = null);
+        TenantDto SetTenantFromUrl(string tenantKeyOrPath, string hostName = null);
 
         string GetDefaultTenantKey();
     }

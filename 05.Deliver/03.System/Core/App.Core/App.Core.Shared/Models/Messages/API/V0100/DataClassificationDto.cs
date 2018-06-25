@@ -3,6 +3,7 @@
     using System;
     using App.Core.Shared.Models.Entities;
 
+    [Serializable]
     public class DataClassificationDto /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ 
     {
         public virtual NZDataClassification Id { get; set; }    

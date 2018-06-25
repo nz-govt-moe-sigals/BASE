@@ -1,11 +1,11 @@
 ﻿namespace App.Core.Infrastructure.Services
 {
-    using System;
+    using App.Core.Infrastructure.Services.Enums;
     using App.Core.Shared.Services;
 
     /// <summary>
-    /// Contract for an Infrastructure Service to 
-    /// Cache information in-mem of the local Host.
+    /// Base contract for an Infrastructure Service to 
+    /// Cache information.
     /// <para>
     /// Only suitable for Immutable information.
     /// Consider Redis Cache Service for Muttable information
@@ -13,8 +13,11 @@
     /// </para>
     /// </summary>
     /// <seealso cref="App.Core.Infrastructure.Services.IHasAppCoreService" />
-    public interface ICachingService : IHasAppCoreService
+    public interface ICacheItemService : IHasAppCoreService
     {
-        void Register<T>(string key, T value, TimeSpan duration, Func<T> expiredCallback);
+        T Get<T>(string key) where T : class;
+        T Get<T>(string key, string subKey) where T : class;
+
     }
+
 }

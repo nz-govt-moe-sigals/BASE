@@ -43,7 +43,7 @@
             {
                 try
                 {
-                    entity.TenantFK = this._tenantService.PrincipalTenant.Id;
+                    entity.TenantFK = this._tenantService.CurrentTenant.Id;
                 }
                 catch
                 {

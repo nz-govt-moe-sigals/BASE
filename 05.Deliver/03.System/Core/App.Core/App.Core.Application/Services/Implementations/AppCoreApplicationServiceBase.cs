@@ -4,6 +4,6 @@
 
     public abstract class AppCoreApplicationServiceBase : AppCoreServiceBase
     {
-        protected string DefaultContextKey = "Default";
+        protected string DefaultContextKey = "default";
     }
 }

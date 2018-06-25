@@ -17,15 +17,12 @@ namespace App.Host.Middleware
             // Unfortunately, I've been unable to  update the Route and clean it up
             // before it gets there.
 
+            var tenantService = AppDependencyLocator.Current.GetInstance<ITenantService>();
 
             var hostName = context.Request.Host;
-            var parts = context.Request.Path.Value.ToUpper().Split(new char['/']);
 
-            var tenantService = AppDependencyLocator.Current.GetInstance<ITenantService>();
-            //(ITenantService) GlobalConfiguration.Configuration.DependencyResolver
-            //    .GetService(typeof(ITenantService));
+            var tenant = tenantService.SetTenantFromUrl(context.Request.Path.Value, hostName.Value);
 
-            var tenant = tenantService.SetTenant(parts[0], hostName.Value);
 
             //context.Request.Path = new PathString(string.Join("/", parts));
             //Uri uri = context.Request.Uri;

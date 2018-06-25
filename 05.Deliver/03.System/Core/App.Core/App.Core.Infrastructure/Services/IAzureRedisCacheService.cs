@@ -1,4 +1,5 @@
-﻿using System;
+﻿using App.Core.Infrastructure.Services.Configuration.Implementations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,9 @@ namespace App.Core.Infrastructure.Services
 {
     public interface IAzureRedisCacheService : IHasAppCoreService
     {
+
+        AzureRedisCacheServiceConfiguration Configuration { get; }
+
 
         void Set(string key, string message, TimeSpan? duration);
         string Get(string key);
