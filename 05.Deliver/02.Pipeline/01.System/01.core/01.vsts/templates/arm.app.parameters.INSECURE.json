@@ -61,15 +61,18 @@
     "environmentOverrides": {
       "value": {
         "UT": {
-          // "microsoftWebSitesHostNameBindingsHostName": "",
-          // "microsoftWebSitesHostNameBindingsHostNameAlt": "",
-          // "microsoftCacheRedisProvision":true,
-          // "microsoftDocumentDBDatabaseAccountsProvision":false,
-          // "microsoftSearchSearchServicesProvision":false,
-          // "microsoftSqlServersDatabasesResourceSku": "Basic", [Basic,S0,S1,S2] S0 (25$), S1 ($45)
-          // "microsoftStorageStorageAccountsResourceSku":"Standard_LRS",
-          // "microsoftWebServerFarmsResourceSku": "F1" [F1,S1] (S1 is about $120)
-          // "microsoftWebSitesAlwaysOn":false
+                    // "microsoftWebSitesHostNameBindingsHostName": "",
+                    // "microsoftWebSitesHostNameBindingsHostNameAlt": "",
+                    // "microsoftCacheRedisProvision": true,
+                    // "microsoftDocumentDBDatabaseAccountsProvision": true,
+                    // "microsoftSearchSearchServicesProvision": true,
+                    // "microsoftSqlServersDatabasesResourceSku": "Basic", [Basic,S0,S1,S2] S0 (25$), S1 ($45)
+                    // "microsoftSqlServersDatabasesEdition":"Basic", [Basic|Standard] 
+                    // "microsoftSqlServersDatabasesZoneRedundant": false,
+                    // "microsoftSqlServersDatabasesMaxSizeBytes": 2147483648,
+                    // "microsoftStorageStorageAccountsResourceSku":"Standard_LRS",
+                    // "microsoftWebServerFarmsResourceSku": "F1", [F1,S1] (S1 is about $120)
+                    // "microsoftWebSitesAlwaysOn":false
 
           "microsoftWebSiteHostNameBindingHostName": "www.baseplatform.space",
           "microsoftWebSiteHostNameBindingHostNameAlt": "baseplatform.space",
@@ -78,8 +81,11 @@
           "microsoftDocumentDbDatabaseAccountProvision": true,
           "microsoftSearchSearchServicesProvision": true,
 
-          "microsoftSqlServersDatabasesResourceSku": "Basic",
+          "microsoftSqlServersDatabasesResourceSku": "S0",
+          "microsoftSqlServersDatabasesEdition": "Standard",
+          
           "microsoftStorageStorageAccountsResourceSku":"Standard_LRS",
+
           "microsoftWebServerFarmsResourceSku": "S1",
           "microsoftWebSitesAlwaysOn":true
 
