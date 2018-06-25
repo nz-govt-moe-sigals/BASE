@@ -38,6 +38,9 @@
     <Reference Include="AutoMapper, Version=7.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\..\packages\AutoMapper.7.0.0\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="CachingFramework.Redis, Version=8.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CachingFramework.Redis.8.2.0\lib\net461\CachingFramework.Redis.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Castle.Core.4.3.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
@@ -165,6 +168,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\OrderByAttribute.cs" />
+    <Compile Include="Cache\Base\CacheItemBase.cs" />
+    <Compile Include="Cache\DefaultTenancyCacheItem.cs" />
+    <Compile Include="Constants\Cache\StaticKeys.cs" />
+    <Compile Include="Constants\Resources\DefaultDocuments\RelativePaths.cs" />
+    <Compile Include="Initialization\Caching\IAppCoreCacheItem.cs" />
     <Compile Include="Constants\Context\AppContextKeys.cs" />
     <Compile Include="Constants\Db\AppCoreDbContextNames.cs" />
     <Compile Include="Constants\Db\TextFieldSizes.cs" />
@@ -178,6 +186,7 @@
     <Compile Include="Constants\Roles\RoleNames.cs" />
     <Compile Include="Constants\Storage\BlobStorageContainers.cs" />
     <Compile Include="Constants\Storage\StorageAccountNames.cs" />
+    <Compile Include="Constants\Tenancy\Default.cs" />
     <Compile Include="Constants\Todo\Todo.cs" />
     <Compile Include="Constants\Users\Users.cs" />
     <Compile Include="Contracts\IHasAudited.cs" />
@@ -380,6 +389,10 @@
     <Compile Include="Services\Configuration\Implementations\MediaMetadataServiceConfiguration.cs" />
     <Compile Include="Services\Configuration\Implementations\SMTPServiceConfiguration.cs" />
     <Compile Include="Services\Contexts\StorageAccountContext.cs" />
+    <Compile Include="Services\ICacheItemService.cs" />
+    <Compile Include="Services\Implementations\CacheItemService.cs" />
+    <Compile Include="Services\Implementations\DependencyResolutionService.cs" />
+    <Compile Include="Services\Enums\CacheType.cs" />
     <Compile Include="Services\IAuthenticationMsiTokenService.cs" />
     <Compile Include="Services\IAzureADService.cs" />
     <Compile Include="Services\IAzureComputerVisionService.cs" />
@@ -392,9 +405,11 @@
     <Compile Include="Services\IAzureRedisCacheService.cs" />
     <Compile Include="Services\IAzureRedisPubSubService.cs" />
     <Compile Include="Services\IAzureSubscriptionService.cs" />
+    <Compile Include="Services\IDependencyResolutionService.cs" />
     <Compile Include="Services\IGeolocationService.cs" />
     <Compile Include="Services\IHasAzureDocumentDbBaseService.cs" />
     <Compile Include="Services\IJsonService.cs" />
+    <Compile Include="Services\IMemoryCachingService.cs" />
     <Compile Include="Services\Implementations\AzureADService.cs" />
     <Compile Include="Services\Implementations\AzureCognitiveServicesComputerVisionService.cs" />
     <Compile Include="Services\Implementations\AzureDeploymentEnvironmentService.cs" />
@@ -434,15 +449,17 @@
     <Compile Include="Services\Configuration\Implementations\DictionaryBasedMimeTypeServiceConfiguration.cs" />
     <Compile Include="Services\Implementations\GeolocationService.cs" />
     <Compile Include="Services\Implementations\JsonService.cs" />
+    <Compile Include="Services\Implementations\MemoryCachingService.cs" />
     <Compile Include="Services\Implementations\RestService.cs" />
     <Compile Include="Services\Implementations\SharedAzureKeyVaultService.cs" />
+    <Compile Include="Services\IRedisCacheService.cs" />
     <Compile Include="Services\IRestService.cs" />
     <Compile Include="Services\ISharedAzureKeyVaultService.cs" />
+    <Compile Include="Services\Implementations\RedisCachingService.cs" />
     <Compile Include="Startup\Spikes\msiTokenRetrievalFromdev.cs" />
     <Compile Include="TOMOVE.cs" />
     <Compile Include="_old\IDictionaryBasedMimeTypeServiceConfiguration.cs" />
     <Compile Include="Services\IApplicationSettingsService.cs" />
-    <Compile Include="Services\ICachingService.cs" />
     <Compile Include="Services\ICertSignService.cs" />
     <Compile Include="Services\IConversionService.cs" />
     <Compile Include="Services\IDiagnosticsTracingService.cs" />
@@ -456,7 +473,6 @@
     <Compile Include="Services\IMediaUploadService.cs" />
     <Compile Include="Services\Implementations\Base\AppCoreServiceBase.cs" />
     <Compile Include="Services\Implementations\ApplicationSettingsService.cs" />
-    <Compile Include="Services\Implementations\CachingService.cs" />
     <Compile Include="Services\Implementations\CertSignService.cs" />
     <Compile Include="Services\Implementations\ConversionService.cs" />
     <Compile Include="Services\Implementations\DiagnosticsTracingService.cs" />
@@ -522,6 +538,11 @@
     <None Include="Db\Context\readme.md" />
     <None Include="Integration\Azure\KeyVault\README.md" />
     <None Include="packages.config" />
+    <None Include="Resources\DefaultDocuments\licenses\licenses.md" />
+    <None Include="Resources\DefaultDocuments\privacy\privacy.md" />
+    <None Include="Resources\DefaultDocuments\tandc\tandc.md" />
+    <None Include="Resources\DefaultDocuments\tandc\tandc.en.md" />
+    <None Include="Resources\DefaultDocuments\serviceclientcorrelation\serviceclientcorrelation.md" />
     <None Include="Services\Caches\Implementations\_readme.md" />
     <None Include="Services\Configuration\Implementations\_readme.md" />
     <None Include="Services\Configuration\_readme.md" />
@@ -545,7 +566,6 @@
     <Content Include="Initialization\ObjectMaps\README.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Initialization\Caching\" />
     <Folder Include="Initialization\Db\Schema\Conventions\Fragments\" />
     <Folder Include="Initialization\Integration\Azure\AzureStorage\" />
     <Folder Include="Initialization\Interception\" />

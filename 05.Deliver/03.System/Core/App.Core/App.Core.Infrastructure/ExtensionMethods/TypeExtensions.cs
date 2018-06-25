@@ -4,6 +4,7 @@
 namespace App
 {
     using System;
+    using System.Linq;
     using System.Reflection;
     using App.Core.Shared.Attributes;
 
@@ -27,6 +28,12 @@ namespace App
             var aliasAttribute = type.GetCustomAttribute<KeyAttribute>(inherit);
 
             return aliasAttribute?.Key;
+        }
+
+        public static T GetCustomAttribute<T>(this Type type, bool inherit=true) where T:Attribute
+        {
+            T result = (T)type.GetCustomAttributes(typeof(T), inherit).FirstOrDefault();
+            return result;
         }
     }
 }

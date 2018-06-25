@@ -4,11 +4,13 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
+    [Serializable]
     public class TenantDto /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */  : IHasGuidId, IHasEnabled
     {
 
         public virtual Guid Id { get; set; }
         public virtual bool Enabled { get; set; }
+        public virtual string HostName { get; set; }
         public virtual string Key { get; set; }
         public virtual string DisplayName { get; set; }
 

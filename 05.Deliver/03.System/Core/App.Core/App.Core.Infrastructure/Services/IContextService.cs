@@ -8,8 +8,7 @@ namespace App.Core.Infrastructure.Services
 {
     public interface IContextService
     {
-
-    void Set(string key, object value);
+        void Set(string key, object value);
         object Get(string key);
     }
 }

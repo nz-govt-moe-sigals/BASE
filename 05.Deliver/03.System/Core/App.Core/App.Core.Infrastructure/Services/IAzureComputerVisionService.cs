@@ -9,7 +9,7 @@ namespace App.Core.Infrastructure.Services
     /// <summary>
     /// 
     /// </summary>
-    public interface IAzureCognitiveServicesComputerVisionService
+    public interface IAzureCognitiveServicesComputerVisionService : IHasAppCoreService
     {
         // 
     }

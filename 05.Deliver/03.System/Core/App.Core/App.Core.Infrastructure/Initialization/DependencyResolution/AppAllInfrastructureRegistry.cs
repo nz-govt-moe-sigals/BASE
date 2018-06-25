@@ -7,6 +7,7 @@ using StructureMap.Web;
 
 namespace App.Core.Infrastructure.Initialization.DependencyResolution
 {
+    using App.Core.Infrastructure.Cache;
     using App.Core.Infrastructure.Db.Interception;
     using App.Core.Infrastructure.DependencyResolution;
     using App.Core.Infrastructure.Initialization.Authentication;
@@ -24,7 +25,7 @@ namespace App.Core.Infrastructure.Initialization.DependencyResolution
             Scan(
                 assemblyScanner =>
                 {
-                    
+
                     //Where we want to be:
                     assemblyScanner.AssembliesFromApplicationBaseDirectory();
 
@@ -40,6 +41,8 @@ namespace App.Core.Infrastructure.Initialization.DependencyResolution
                     ScanAllModulesForAllModulesPrecommitStrategies(assemblyScanner);
 
                     ScanAllModulesAndRegisterNamedInstancesOfStorageAccountContexts(assemblyScanner);
+
+                    ScanAllModulesAndRegisterNamedInstancesOfNamedCacheInitializers(assemblyScanner);
 
                     // Scan across all known assemblies for Services, Factories, etc.
                     // That meet ISomething => Something naming convention:
@@ -111,6 +114,29 @@ namespace App.Core.Infrastructure.Initialization.DependencyResolution
                     .Use(y => (IAzureStorageBlobContext)AppDependencyLocator.Current.GetInstance(t)).Named(name);
             }
         }
+
+
+        private void ScanAllModulesAndRegisterNamedInstancesOfNamedCacheInitializers(IAssemblyScanner assemblyScanner)
+        {
+
+            var types = AppDomain.CurrentDomain.GetInstantiableTypesImplementing<IAppCoreCacheItem>();
+
+            foreach (Type t in types)
+            {
+                //Get the item's KeyAttribute:
+                string name = t.GetName(false);
+
+                if (name == null)
+                {
+                    throw new DevelopmentException($"Implementations of IAppCoreCacheItem (ie {t.Name}) need to be Named, using a KeyAttribute.");
+                }
+
+                new CreatePluginFamilyExpression<IAppCoreCacheItem>(this,
+                                    new StructureMap.Pipeline.SingletonLifecycle())
+                                    .Use(y => (IAppCoreCacheItem)AppDependencyLocator.Current.GetInstance(t)).Named(name);
+            }
+        }
+
 
 
     }

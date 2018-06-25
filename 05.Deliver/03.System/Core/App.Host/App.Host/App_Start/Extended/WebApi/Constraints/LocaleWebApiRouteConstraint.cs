@@ -5,6 +5,11 @@ using App.Core.Infrastructure.Services;
 
 namespace App.Host.Extended.WebApi.Constraints
 {
+    /// <summary>
+    /// 
+    /// <para>Think of it as a Predicate Check, that returns True/False.
+    /// </para>
+    /// </summary>
     public class LocaleWebApiRouteConstraint : IHttpRouteConstraint
     {
         private readonly ILocalisationService _localisationService;
