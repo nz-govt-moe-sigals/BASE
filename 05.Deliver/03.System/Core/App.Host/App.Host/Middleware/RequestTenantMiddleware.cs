@@ -21,7 +21,7 @@ namespace App.Host.Middleware
 
             var hostName = context.Request.Host;
 
-            var tenant = tenantService.SetTenantFromUrl(context.Request.Path.Value, hostName.Value);
+            //var tenant = tenantService.SetTenantFromUrl(context.Request.Path.Value, hostName.Value);
 
 
             //context.Request.Path = new PathString(string.Join("/", parts));

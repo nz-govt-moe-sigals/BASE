@@ -12,7 +12,21 @@ namespace App.Module80.Application.Constants.Api
         public static string PathRoot = Infrastructure.Constants.Module.Names.ModuleKey.ToLower();
 
 
-        public static string Example = "Example";
+        public const string LargeItem = "LargeItems";
+
+        public const string LitterItem = "LitterItems";
+
+        public const string Organisation = "Organisations";
+
+        public const string Region = "Regions";
+
+        public const string Survey = "Surveys";
+
+        public const string SurveyLocation = "SurveyLocations";
+
+        public const string SurveyLargeItem = "SurveyLargeItems";
+
+        public const string SurveyLitterItem = "SurveyLitterItems";
     }
 }
 

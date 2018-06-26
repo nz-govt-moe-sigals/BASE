@@ -149,12 +149,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\Controllers\Base\ActiveRecordStateODataControllerBase.cs" />
     <Compile Include="API\Controllers\Base\GuidIdActiveRecordStateODataControllerBase.cs" />
+    <Compile Include="API\Controllers\V0100\LargeItemsController.cs" />
+    <Compile Include="API\Controllers\V0100\LitterItemsController.cs" />
+    <Compile Include="API\Controllers\V0100\OrganisationsController.cs" />
+    <Compile Include="API\Controllers\V0100\RegionsController.cs" />
+    <Compile Include="API\Controllers\V0100\SurveyLocationsController.cs" />
+    <Compile Include="API\Controllers\V0100\SurveysController.cs" />
     <Compile Include="Constants\Api\ApiControllerNames.cs" />
     <Compile Include="Initialization\DependencyResolution\AppModuleApplicationRegistry.cs" />
     <Compile Include="Initialization\OData\IAppModuleOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\AppModuleOdataModelBuilder.cs" />
-    <Compile Include="Initialization\OData\Implementations\ExampleOdataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\LitterItemOdataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\LargeItemOdataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\OrganisationOdataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\RegionOdataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\SurveyLocationOdataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\SurveyOdataModelBuilderConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="API\Controllers\Base\TenantedGuidIdActiveRecordStateODataControllerDataBase.cs" />
     <Compile Include="Services\IApplicationService.cs" />
