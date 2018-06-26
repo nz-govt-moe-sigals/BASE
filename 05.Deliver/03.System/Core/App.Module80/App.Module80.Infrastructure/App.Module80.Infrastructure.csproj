@@ -68,9 +68,29 @@
     <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeederExample.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeedingOrchestrator.cs" />
     <Compile Include="Initialization\Db\Migrations\AppModuleDbMigrationsConfiguration.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201806260216497_Entities.Init.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201806260216497_Entities.Init.Designer.cs">
+      <DependentUpon>201806260216497_Entities.Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineBeach.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineLargeItem.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineLitterItem.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineOrganisation.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineRegion.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineSurvey.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineSurveyLargeItem.cs" />
+    <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineSurveyLitterItem.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbModelBuilderOrchestrator.cs" />
     <Compile Include="Initialization\DependencyResolution\AppModuleInfrastructureRegistry.cs" />
     <Compile Include="Initialization\Authorisation\HasOidcScopeInitializer.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\ObjectMap_SurveyLocation_SurveyLocationDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\ObjectMap_LargeItem_LargeItemDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\ObjectMap_LitterItem_LitterItemDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\ObjectMap_Organisation_OrganisationDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\ObjectMap_Region_RegionDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\ObjectMap_SurveyLitterItem_SurveyLitterItemDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\ObjectMap_SurveyLargeItem_SurveyLargeItemDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\ObjectMap_Survey_SurveyDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Configuration\IModuleServiceConfigurationObject.cs" />
     <Compile Include="Services\IHasAppModuleService.cs" />
@@ -111,6 +131,11 @@
     <Content Include="Db\README.txt" />
     <Content Include="Initialization\DependencyResolution\README.txt" />
     <Content Include="Initialization\ObjectMaps\README.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201806260216497_Entities.Init.resx">
+      <DependentUpon>201806260216497_Entities.Init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -44,7 +44,24 @@
     <Compile Include="Constants\AppModuleApiScopes.cs" />
     <Compile Include="Contracts\IHasModuleSpecificIdentifier.cs" />
     <Compile Include="IAppModule80.cs" />
+    <Compile Include="Models\Entities\Enums\LargeItemStatus.cs" />
+    <Compile Include="Models\Entities\Survey.cs" />
     <Compile Include="Models\Configuration\ApiPermissionConfig.cs" />
+    <Compile Include="Models\Entities\SurveyLocation.cs" />
+    <Compile Include="Models\Entities\LargeItem.cs" />
+    <Compile Include="Models\Entities\LitterItem.cs" />
+    <Compile Include="Models\Entities\Organisation.cs" />
+    <Compile Include="Models\Entities\Region.cs" />
+    <Compile Include="Models\Entities\SurveyLargeItem.cs" />
+    <Compile Include="Models\Entities\SurveyLitterItem.cs" />
+    <Compile Include="Models\Messages\API\SurveyLocationDto.cs" />
+    <Compile Include="Models\Messages\API\LargeItemDto.cs" />
+    <Compile Include="Models\Messages\API\LitterItemDto.cs" />
+    <Compile Include="Models\Messages\API\OrganisationDto.cs" />
+    <Compile Include="Models\Messages\API\RegionDto.cs" />
+    <Compile Include="Models\Messages\API\SurveyDto.cs" />
+    <Compile Include="Models\Messages\API\SurveyLargeItemDto.cs" />
+    <Compile Include="Models\Messages\API\SurveyLitterItemDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -56,7 +73,6 @@
   <ItemGroup>
     <Folder Include="Models\Contracts\" />
     <Folder Include="Models\Entities\Base\" />
-    <Folder Include="Models\Entities\Enums\" />
     <Folder Include="Models\Enums\" />
     <Folder Include="Models\Messages\API\V0100\" />
   </ItemGroup>
