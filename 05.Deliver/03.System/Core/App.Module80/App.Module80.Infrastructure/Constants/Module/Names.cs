@@ -9,6 +9,8 @@ namespace App.Module80.Infrastructure.Constants.Module
     public static class Names
     {
         public const string ModuleKey = "Module80";
+
+        public const string ModuleRouteKey = "Suscl";
     }
 }
 

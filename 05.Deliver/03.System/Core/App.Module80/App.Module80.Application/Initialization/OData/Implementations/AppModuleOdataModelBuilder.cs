@@ -41,7 +41,7 @@ namespace App.Module80.Application.Initialization.OData.Implementations
 
         public string GetRoutePrefix()
         {
-            return Infrastructure.Constants.Module.Names.ModuleKey.ToLower();
+            return Infrastructure.Constants.Module.Names.ModuleRouteKey.ToLower();
         }
 
 
