@@ -21,7 +21,7 @@ namespace App.Module80.Application.API.Controllers.V0100
         }
 
         [AllowAnonymous]
-        [EnableQuery()]
+        [EnableQuery(MaxExpansionDepth = 4)]
         public IQueryable<RegionDto> Get()
         {
             return InternalGet();
