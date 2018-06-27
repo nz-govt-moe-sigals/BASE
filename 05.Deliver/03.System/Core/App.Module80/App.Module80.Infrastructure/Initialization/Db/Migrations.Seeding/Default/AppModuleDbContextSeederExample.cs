@@ -1,6 +1,7 @@
 ﻿using App.Core.Infrastructure.Services;
 using App.Core.Shared.Models.ConfigurationSettings;
 using App.Module80.Infrastructure.Db.Context.Default;
+using App.Module80.Infrastructure.Initialization.Db.Migrations.Seeding.Implementations;
 
 namespace App.Module80.Infrastructure.Initialization.Db.Migrations.Seeding.Default
 {
@@ -42,7 +43,8 @@ namespace App.Module80.Infrastructure.Initialization.Db.Migrations.Seeding.Defau
 
         protected void SeedDevOnlyEntries(AppModuleDbContext context)
         {
-
+            MigrationLitterItems.SeedDevOnlyEntries(context);
+            MigrationLargeItems.SeedDevOnlyEntries(context);
         }
     }
 }

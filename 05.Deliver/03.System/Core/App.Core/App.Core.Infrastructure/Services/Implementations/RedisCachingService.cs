@@ -34,8 +34,10 @@
             configurationOptions.AllowAdmin = false;
             configurationOptions.Ssl = true;
 
+            /*
             //To make this library's context:
             _redisContext = new Lazy<RedisContext>(() => new RedisContext(configurationOptions));
+            */
 
             
         }

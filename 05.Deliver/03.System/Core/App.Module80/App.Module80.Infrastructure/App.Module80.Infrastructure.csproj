@@ -67,6 +67,9 @@
     <Compile Include="Initialization\Db\IHasAppModuleDbContextSeedInitializer.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeederExample.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeedingOrchestrator.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\Implementations\MigrationLargeItems.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\Implementations\MigrationLitterItems.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\Implementations\MigrationsOrganisation.cs" />
     <Compile Include="Initialization\Db\Migrations\AppModuleDbMigrationsConfiguration.cs" />
     <Compile Include="Initialization\Db\Migrations\Default\201806260216497_Entities.Init.cs" />
     <Compile Include="Initialization\Db\Migrations\Default\201806260216497_Entities.Init.Designer.cs">
