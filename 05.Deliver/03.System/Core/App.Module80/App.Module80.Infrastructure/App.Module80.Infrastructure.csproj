@@ -69,7 +69,12 @@
     <Compile Include="Initialization\Db\Migrations.Seeding\Default\AppModuleDbContextSeedingOrchestrator.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\Implementations\MigrationLargeItems.cs" />
     <Compile Include="Initialization\Db\Migrations.Seeding\Implementations\MigrationLitterItems.cs" />
-    <Compile Include="Initialization\Db\Migrations.Seeding\Implementations\MigrationsOrganisation.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\Implementations\MigrationsOrganisations.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\Implementations\MigrationsRegions.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\Implementations\MigrationsSurveyLargeItems.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\Implementations\MigrationsSurveys.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\Implementations\MigrationsSurveyLitterItems.cs" />
+    <Compile Include="Initialization\Db\Migrations.Seeding\Implementations\MigrationsSurveyLocations.cs" />
     <Compile Include="Initialization\Db\Migrations\AppModuleDbMigrationsConfiguration.cs" />
     <Compile Include="Initialization\Db\Migrations\Default\201806260216497_Entities.Init.cs" />
     <Compile Include="Initialization\Db\Migrations\Default\201806260216497_Entities.Init.Designer.cs">
