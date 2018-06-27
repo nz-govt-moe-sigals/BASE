@@ -38,10 +38,11 @@ namespace App.Core.Infrastructure.Initialization.Integration
 
             this._azureStorageAccountBlobStorageService.DownloadAText(null, containerName, fileName);
 
+            /*
             _azureRedisCacheService.Set("keyA", "Some Message", TimeSpan.FromMinutes(1));
 
             string result = _azureRedisCacheService.Get("keyA");
-
+            */
 
             //var mapresult = _azureMapsService.AddressSearch("18 Upoko Road", "NZ");
             //var mapresult2 = _azureMapsService.AddressSearch("180 Upoko Road", "NZ");
