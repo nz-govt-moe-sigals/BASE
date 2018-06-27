@@ -165,6 +165,8 @@
     <Compile Include="Initialization\OData\Implementations\LargeItemOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\OrganisationOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\RegionOdataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\SurveyLargeItemOdataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\SurveyLitterItemOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\SurveyLocationOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\SurveyOdataModelBuilderConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

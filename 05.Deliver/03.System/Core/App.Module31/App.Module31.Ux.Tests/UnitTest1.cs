@@ -39,6 +39,7 @@ namespace App.Module31.Ux.Tests
             _driver.Navigate().GoToUrl("http://www.bing.com/");
             _driver.FindElement(By.Id("sb_form_q")).SendKeys("VSTS");
             _driver.FindElement(By.Id("sb_form_go")).Click();
+            System.Threading.Thread.Sleep(2000);
             _driver.FindElement(By.XPath("//ol[@id='b_results']/li/h2/a/strong[3]")).Click();
             Assert.True(_driver.Title.Contains("VSTS"), "Verified title of the page");
         }

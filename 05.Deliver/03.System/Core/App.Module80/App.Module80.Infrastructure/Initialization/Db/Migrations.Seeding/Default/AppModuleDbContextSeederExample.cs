@@ -49,6 +49,8 @@ namespace App.Module80.Infrastructure.Initialization.Db.Migrations.Seeding.Defau
             MigrationsRegions.SeedDevOnlyEntries(context);
             MigrationsSurveyLocations.SeedDevOnlyEntries(context);
             MigrationsSurveys.SeedDevOnlyEntries(context);
+            MigrationsSurveyLargeItems.SeedDevOnlyEntries(context);
+            MigrationsSurveyLitterItems.SeedDevOnlyEntries(context);
         }
     }
 }

@@ -15,21 +15,67 @@ namespace App.Module80.Infrastructure.Initialization.Db.Migrations.Seeding.Imple
         {
             var records = new[]
             {
-                new Region()
+                new SurveyLitterItem()
                 {
                     Id = 1.ToGuid(),
-                    Name = "Wairarapa",
-                    RegionId = 1
+                    LitterItemFK = 1.ToGuid(),
+                    SurveyFK = 1.ToGuid(),
+                    Count = 5,
+                    Weight = 0.11m,
                 },
-                new Region
+                new SurveyLitterItem
                 {
                     Id = 2.ToGuid(),
-                    Name = "Northland",
-                    RegionId = 2
+                    LitterItemFK = 2.ToGuid(),
+                    SurveyFK = 1.ToGuid(),
+                    Count = 9,
+                    Weight = 0.187m,
+                },
+                new SurveyLitterItem
+                {
+                    Id = 3.ToGuid(),
+                    LitterItemFK = 4.ToGuid(),
+                    SurveyFK = 1.ToGuid(),
+                    Count = 1,
+                    Weight = 0.199m,
+                },
+                new SurveyLitterItem
+                {
+                    Id = 4.ToGuid(),
+                    LitterItemFK = 3.ToGuid(),
+                    SurveyFK = 1.ToGuid(),
+                    Count = 15,
+                    Weight = 0.14m,
+                },
+
+
+                new SurveyLitterItem
+                {
+                    Id = 11.ToGuid(),
+                    LitterItemFK = 1.ToGuid(),
+                    SurveyFK = 2.ToGuid(),
+                    Count = 2,
+                    Weight = 0.12m,
+                },
+                new SurveyLitterItem
+                {
+                    Id = 12.ToGuid(),
+                    LitterItemFK = 2.ToGuid(),
+                    SurveyFK = 2.ToGuid(),
+                    Count = 5,
+                    Weight = 0.91m,
+                },
+                new SurveyLitterItem
+                {
+                    Id = 13.ToGuid(),
+                    LitterItemFK = 3.ToGuid(),
+                    SurveyFK = 2.ToGuid(),
+                    Count = 5,
+                    Weight = 1.11m,
                 },
             };
 
-            var dbSet = context.Set<Region>();
+            var dbSet = context.Set<SurveyLitterItem>();
 
             dbSet.AddOrUpdate(p => p.Id, records);
 

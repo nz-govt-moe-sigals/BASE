@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using App.Module80.Infrastructure.Db.Context.Default;
 using App.Module80.Shared.Models.Entities;
+using App.Module80.Shared.Models.Entities.Enums;
 
 namespace App.Module80.Infrastructure.Initialization.Db.Migrations.Seeding.Implementations
 {
@@ -15,21 +16,36 @@ namespace App.Module80.Infrastructure.Initialization.Db.Migrations.Seeding.Imple
         {
             var records = new[]
             {
-                new Region()
+                new SurveyLargeItem()
                 {
                     Id = 1.ToGuid(),
-                    Name = "Wairarapa",
-                    RegionId = 1
+                    LargeItemFK = 2.ToGuid(),
+                    SurveyFK = 1.ToGuid(),
+                    Count = 2,
+                    Status = LargeItemStatus.Destroyed,
+                    Latitude = 0m,
+                    Longitude = 0m,
                 },
-                new Region
+                new SurveyLargeItem
                 {
                     Id = 2.ToGuid(),
-                    Name = "Northland",
-                    RegionId = 2
+                    LargeItemFK = 2.ToGuid(),
+                    SurveyFK = 1.ToGuid(),
+                    Count = 1,
+                    Status = LargeItemStatus.Repairable,
+                },
+
+                new SurveyLargeItem
+                {
+                    Id = 3.ToGuid(),
+                    LargeItemFK = 2.ToGuid(),
+                    SurveyFK = 2.ToGuid(),
+                    Count = 3,
+                    Status = LargeItemStatus.Repairable,
                 },
             };
 
-            var dbSet = context.Set<Region>();
+            var dbSet = context.Set<SurveyLargeItem>();
 
             dbSet.AddOrUpdate(p => p.Id, records);
 
