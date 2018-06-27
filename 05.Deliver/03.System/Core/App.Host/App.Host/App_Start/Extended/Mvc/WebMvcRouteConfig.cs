@@ -44,6 +44,7 @@ namespace App.Host.Extended.Mvc
 
             // Routes are evaluated in the order they are listed. 
             // MVC Controllers are mapped using '.MapRoute' and WebAPI Controllers using '.MapHttpRoute'.
+            /*
             routes.MapRoute(
                 "TenantedLangedDefaultWebMvcRoute",
                 "{tenant}/{locale}/{controller}/{action}/{id}",
@@ -89,7 +90,7 @@ namespace App.Host.Extended.Mvc
                     locale = AppDependencyLocator.Current.GetInstance(typeof(LocaleRouteConstraint))
                 }
             );
-
+            */
 
             routes.MapRoute(
                 "DefaultWebMvcRoute",
