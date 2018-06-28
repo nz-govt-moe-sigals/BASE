@@ -390,6 +390,7 @@
     <Compile Include="Services\Configuration\Implementations\SMTPServiceConfiguration.cs" />
     <Compile Include="Services\Contexts\StorageAccountContext.cs" />
     <Compile Include="Services\ICacheItemService.cs" />
+    <Compile Include="Services\Implementations\AppHostNamesService.cs" />
     <Compile Include="Services\Implementations\CacheItemService.cs" />
     <Compile Include="Services\Implementations\DependencyResolutionService.cs" />
     <Compile Include="Services\Enums\CacheType.cs" />
@@ -448,6 +449,7 @@
     <Compile Include="Services\Implementations\DictionaryBasedMimeTypeService.cs" />
     <Compile Include="Services\Configuration\Implementations\DictionaryBasedMimeTypeServiceConfiguration.cs" />
     <Compile Include="Services\Implementations\GeolocationService.cs" />
+    <Compile Include="Services\Implementations\IAppHostNamesService.cs" />
     <Compile Include="Services\Implementations\JsonService.cs" />
     <Compile Include="Services\Implementations\MemoryCachingService.cs" />
     <Compile Include="Services\Implementations\RestService.cs" />

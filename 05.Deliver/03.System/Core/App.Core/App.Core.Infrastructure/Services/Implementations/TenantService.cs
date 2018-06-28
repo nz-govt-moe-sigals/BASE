@@ -22,7 +22,6 @@ namespace App.Core.Infrastructure.Services.Implementations
     {
         private static readonly string _currentRequestCacheKey = "_CurrentTenantKey";
         private static readonly string _ResourceListCacheKey = "_TenantCache";
-        private readonly IOperationContextService _contextService;
         private readonly ICacheItemService _cacheItemService;
         private readonly IRedisCacheService _redisCacheService;
         private readonly IRepositoryService _repositoryService;
@@ -30,7 +29,15 @@ namespace App.Core.Infrastructure.Services.Implementations
         private readonly IPrincipalService _principalService;
         private TenantDto _defaultTenant;
 
-
+        public TenantService(IOperationContextService operationContextService, IPrincipalService principalService,
+           ICacheItemService cachingService, IRedisCacheService redisCacheService, IRepositoryService repositoryService)
+        {
+            this._operationContextService = operationContextService;
+            this._principalService = principalService;
+            this._cacheItemService = cachingService;
+            this._redisCacheService = redisCacheService;
+            this._repositoryService = repositoryService;
+        }
 
         /// <summary>
         /// Gets the list of cached Resources retrieved during this request:
@@ -64,16 +71,7 @@ namespace App.Core.Infrastructure.Services.Implementations
 
 
 
-        public TenantService(IOperationContextService operationContextService, IPrincipalService principalService,
-            IOperationContextService contextService, ICacheItemService cachingService, IRedisCacheService redisCacheService, IRepositoryService repositoryService)
-        {
-            this._operationContextService = operationContextService;
-            this._principalService = principalService;
-            this._contextService = contextService;
-            this._cacheItemService = cachingService;
-            this._redisCacheService = redisCacheService;
-            this._repositoryService = repositoryService;
-        }
+       
 
 
         ///// <summary>
@@ -218,6 +216,7 @@ namespace App.Core.Infrastructure.Services.Implementations
 
         private TenantSearchTokens ExtractSearchTokens(string hostName, string tenantKeyOrPath)
         {
+            //remove 
             if (!string.IsNullOrEmpty(hostName)) {
                 hostName = hostName.ToLower().Split(':').First();
             }
