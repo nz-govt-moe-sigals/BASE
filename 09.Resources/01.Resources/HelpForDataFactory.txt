@@ -90,8 +90,13 @@
 	{
         "TABLE_NAME": "Schools_Directory_API_Summary",
         "WaterMark_Column": "ModifiedDate"
+    },
+	{
+        "TABLE_NAME": "AT_Eligibility_API",
+        "WaterMark_Column": "ModifiedDate"
     }
 ]
+
 
 select t.*, '@{item().TABLE_NAME}' as table_name from @{item().TABLE_NAME} t
 where  t.@{item().WaterMark_Column} > '@{activity('LookupOldWaterMarkActivity').output.firstRow.WatermarkValue}' and t.@{item().WaterMark_Column} <= '@{activity('LookupNewWaterMarkActivity').output.firstRow.NewWatermarkvalue}' 
