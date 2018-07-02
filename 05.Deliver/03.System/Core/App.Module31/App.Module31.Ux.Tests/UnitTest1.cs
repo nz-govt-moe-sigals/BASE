@@ -40,6 +40,7 @@ namespace App.Module31.Ux.Tests
             _driver.FindElement(By.Id("sb_form_q")).SendKeys("VSTS");
             _driver.FindElement(By.Id("sb_form_go")).Click();
             _driver.FindElement(By.XPath("//ol[@id='b_results']/li/h2/a/strong[3]")).Click();
+            System.Threading.Thread.Sleep(1000); // don't do this Normally
             Assert.True(_driver.Title.Contains("VSTS"), "Verified title of the page");
         }
 
@@ -48,6 +49,7 @@ namespace App.Module31.Ux.Tests
         public void TestMethodMoreTargetedExample()
         {
             _driver.Navigate().GoToUrl(Configuration.Instance.DefaultUrl);
+            System.Threading.Thread.Sleep(1000); // don't do this Normally
             Assert.True(_driver.Title.Contains("App Foundation"), "Verified title of the page");
         }
 
