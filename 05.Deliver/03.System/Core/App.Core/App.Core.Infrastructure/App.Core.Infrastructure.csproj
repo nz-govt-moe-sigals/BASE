@@ -253,6 +253,10 @@
     <Compile Include="Initialization\Db\Migrations\Core\201806160153058_Renamed ServiceProfile Parts to PrincipalServiceProfile.Designer.cs">
       <DependentUpon>201806160153058_Renamed ServiceProfile Parts to PrincipalServiceProfile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Initialization\Db\Migrations\Core\201807020243357_Entities.UniqueNullableIndex.cs" />
+    <Compile Include="Initialization\Db\Migrations\Core\201807020243357_Entities.UniqueNullableIndex.Designer.cs">
+      <DependentUpon>201807020243357_Entities.UniqueNullableIndex.cs</DependentUpon>
+    </Compile>
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenantServiceProfileServiceOfferingAllocation.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenantServiceProfileServicePlanAssignment.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineServicePlanDefinition.cs" />
@@ -378,6 +382,12 @@
     <Compile Include="Interceptors\Class1.cs" />
     <Compile Include="Services\Caches\Implementations\KeyVaultServiceConfigurationObjectCache.cs" />
     <Compile Include="Services\Configuration\ICoreServiceConfigurationObject.cs" />
+    <Compile Include="Services\Configuration\Implementations\AppHostNames\HostElement.cs" />
+    <Compile Include="Services\Configuration\Implementations\AppHostNames\HostElementCollection.cs" />
+    <Compile Include="Services\Configuration\Implementations\AppHostNames\HostsSection.cs" />
+    <Compile Include="Services\Configuration\Implementations\AppHostNames\HostSectionConfigurationManager.cs" />
+    <Compile Include="Services\Configuration\Implementations\AppHostNames\RouteElement.cs" />
+    <Compile Include="Services\Configuration\Implementations\AppHostNames\RouteElementCollection.cs" />
     <Compile Include="Services\Configuration\Implementations\AzureCognitiveServicesComputerVisionServiceConfiguration.cs" />
     <Compile Include="Services\Configuration\Implementations\AzureDeploymentEnvironmentServiceConfiguration.cs" />
     <Compile Include="Services\Configuration\Implementations\AzureRedisCacheServiceConfiguration.cs" />
@@ -449,7 +459,7 @@
     <Compile Include="Services\Implementations\DictionaryBasedMimeTypeService.cs" />
     <Compile Include="Services\Configuration\Implementations\DictionaryBasedMimeTypeServiceConfiguration.cs" />
     <Compile Include="Services\Implementations\GeolocationService.cs" />
-    <Compile Include="Services\Implementations\IAppHostNamesService.cs" />
+    <Compile Include="Services\IAppHostNamesService.cs" />
     <Compile Include="Services\Implementations\JsonService.cs" />
     <Compile Include="Services\Implementations\MemoryCachingService.cs" />
     <Compile Include="Services\Implementations\RestService.cs" />
@@ -595,6 +605,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Initialization\Db\Migrations\Core\201806160153058_Renamed ServiceProfile Parts to PrincipalServiceProfile.resx">
       <DependentUpon>201806160153058_Renamed ServiceProfile Parts to PrincipalServiceProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Core\201807020243357_Entities.UniqueNullableIndex.resx">
+      <DependentUpon>201807020243357_Entities.UniqueNullableIndex.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

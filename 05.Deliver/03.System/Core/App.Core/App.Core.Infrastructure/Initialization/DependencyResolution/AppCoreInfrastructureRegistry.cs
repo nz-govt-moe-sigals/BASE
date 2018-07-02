@@ -1,3 +1,6 @@
+using App.Core.Infrastructure.Initialization.DependencyResolution;
+using App.Core.Infrastructure.Services.Configuration.Implementations.AppHostNames;
+
 namespace App.Core.Infrastructure.DependencyResolution
 {
     using App.Core.Infrastructure.Constants.Db;
@@ -62,6 +65,7 @@ namespace App.Core.Infrastructure.DependencyResolution
             assemblyScanner.AddAllTypesOf<IHasAppModuleDbContextSeedInitializer>();
 
             this.RegisterDbContextInHttpContext<AppCoreDbContext>(AppCoreDbContextNames.Core);
+            For<HostSectionConfigurationManager>().Use<HostSectionConfigurationManager>().Singleton();
         }
 
 

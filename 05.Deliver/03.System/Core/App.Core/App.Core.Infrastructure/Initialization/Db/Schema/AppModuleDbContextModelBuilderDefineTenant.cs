@@ -30,7 +30,7 @@
             modelBuilder.Entity<Tenant>()
                 .Property(x => x.IsDefault)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(Tenant).Name}_IsDefault") {IsUnique = true}))
+                    new IndexAnnotation(new IndexAttribute($"UX_{typeof(Tenant).Name}_IsDefault") {IsUnique = true }))
                 .HasColumnOrder(order++)
                 .IsOptional();
 

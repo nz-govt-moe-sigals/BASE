@@ -36,6 +36,8 @@
             {
                 SeedDevOnlyEntries(context);
             }
+            
+            context.SaveChanges();
         }
 
 
@@ -49,6 +51,13 @@
         /// <param name="context"></param>
         protected void SeedImmutableEntries(AppCoreDbContext context)
         {
+            //TODO : Select to see if there is one with default first
+            var records = new[]
+            {
+                App.Core.Infrastructure.Constants.Tenancy.Default.DefaultTenant
+            };
+            context.Set<Tenant>().AddOrUpdate(p => p.Id, records);
+            
         }
 
         protected void SeedDevOnlyEntries(AppCoreDbContext context)
@@ -58,7 +67,7 @@
                 new Tenant
                 {
                     Id = Constants.Demo.Tenancies.A.Id,
-                    IsDefault = true /*notice....*/,
+                    IsDefault = null,
                     Enabled = true ,
                     Key = Constants.Demo.Tenancies.A.Key,
                     DisplayName = Constants.Demo.Tenancies.A.Name,
@@ -77,7 +86,7 @@
                 //new Tenant {Id=3.ToGuid(),IsDefault = null, Enabled=true, Key="OrgC", HostName =".C.",DisplayName="Org C, Inc."},
             };
             context.Set<Tenant>().AddOrUpdate(p => p.Id, records);
-            context.SaveChanges();
+
         }
     }
 }

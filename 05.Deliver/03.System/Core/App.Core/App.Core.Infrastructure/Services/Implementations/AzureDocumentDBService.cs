@@ -12,7 +12,6 @@ namespace App.Core.Infrastructure.Services.Implementations
     using System.Collections.ObjectModel;
     using System.Reflection;
     using App.Core.Infrastructure.Services.Configuration.Implementations;
-    using App.Core.Infrastructure.Services.Implementations.Base;
     using Microsoft.Azure.Documents;
     using Microsoft.Azure.Documents.Client;
     using Microsoft.Azure.Documents.Linq;

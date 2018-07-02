@@ -8,7 +8,7 @@ namespace App.Core.Infrastructure.Constants.Demo
     {
         public static class A
         {
-            public static Guid Id = 1.ToGuid();
+            public static Guid Id = 3.ToGuid();
             public static string Key = "Demo";
             public static string HostName = ".A.";
             public static string Name = "Demo Org, Inc.";

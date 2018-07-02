@@ -1,10 +1,9 @@
-﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
-using App.Core.Infrastructure.Services.Implementations;
-using StructureMap;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using App.Core.Infrastructure.Initialization.DependencyResolution;
+using StructureMap;
 
-namespace App.Core.Infrastructure.Services
+namespace App.Core.Infrastructure.Services.Implementations
 {
     public class DependencyResolutionService: AppCoreServiceBase, IDependencyResolutionService
     {

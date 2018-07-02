@@ -1,13 +1,10 @@
-﻿using Microsoft.Azure.Documents.Client;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
-using Microsoft.Azure.Documents.Linq;
+using Microsoft.Azure.Documents.Client;
 
-namespace App.Core.Infrastructure.Services.Implementations.Base
+namespace App.Core.Infrastructure.Services.Implementations
 {
     public abstract class AzureDocumentDbBaseService : IHasAzureDocumentDbBaseService
     {

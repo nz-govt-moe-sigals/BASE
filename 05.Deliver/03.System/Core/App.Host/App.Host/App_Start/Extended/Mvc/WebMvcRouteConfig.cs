@@ -19,10 +19,13 @@ namespace App.Host.Extended.Mvc
     public class WebMvcRouteConfig
     {
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
+        private readonly ITenantRouteConstraint _tenantRouteConstraint;
 
-        public WebMvcRouteConfig(IDiagnosticsTracingService diagnosticsTracingService)
+        public WebMvcRouteConfig(IDiagnosticsTracingService diagnosticsTracingService,
+            ITenantRouteConstraint tenantRouteConstraint)
         {
             this._diagnosticsTracingService = diagnosticsTracingService;
+            _tenantRouteConstraint = tenantRouteConstraint;
         }
 
         /// <summary>
@@ -55,7 +58,7 @@ namespace App.Host.Extended.Mvc
                 },
                 new
                 {
-                    tenant = AppDependencyLocator.Current.GetInstance(typeof(TenantRouteConstraint)),
+                    tenant = _tenantRouteConstraint,
                     locale = AppDependencyLocator.Current.GetInstance(typeof(LocaleRouteConstraint))
                 }
             );
@@ -71,7 +74,7 @@ namespace App.Host.Extended.Mvc
                 },
                 new
                 {
-                    tenant = AppDependencyLocator.Current.GetInstance(typeof(TenantRouteConstraint))
+                    tenant = _tenantRouteConstraint
                 }
             );
 

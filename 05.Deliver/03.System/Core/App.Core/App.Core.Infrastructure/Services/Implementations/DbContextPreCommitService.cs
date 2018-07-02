@@ -1,14 +1,11 @@
-﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+﻿using System.Data.Entity;
+using App.Core.Infrastructure.Db.Interception;
+using App.Core.Infrastructure.Initialization.DependencyResolution;
 
-namespace App.Core.Infrastructure.Services
+namespace App.Core.Infrastructure.Services.Implementations
 {
     //using App.Core.Infrastructure.Db.DbContextFactories;
     //using App.Core.Infrastructure.Db.DbContextFactories.Implementations;
-
-    using System.Data.Entity;
-    using App.Core.Infrastructure.Db.Interception;
-    using App.Core.Infrastructure.Services.Implementations;
-
     /// <summary>
     ///     Implementation of the
     ///     <see cref="IDbContextPreCommitService" />

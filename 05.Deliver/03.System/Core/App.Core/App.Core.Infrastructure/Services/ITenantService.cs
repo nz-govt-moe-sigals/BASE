@@ -42,6 +42,6 @@
 
         TenantDto SetTenantFromUrl(string tenantKeyOrPath, string hostName = null);
 
-        string GetDefaultTenantKey();
+ 
     }
 }

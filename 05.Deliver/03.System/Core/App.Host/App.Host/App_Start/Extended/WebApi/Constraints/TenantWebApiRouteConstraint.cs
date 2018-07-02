@@ -5,6 +5,12 @@ using App.Core.Infrastructure.Services;
 
 namespace App.Host.Extended.WebApi.Constraints
 {
+
+    public interface ITenantWebApiRouteConstraint : IHttpRouteConstraint
+    {
+
+    }
+
     /// <summary>
     /// A WebApi Route Constraint 
     /// to determin if the route of the given API url 
@@ -12,10 +18,10 @@ namespace App.Host.Extended.WebApi.Constraints
     /// <para>Think of it as a Predicate Check.
     /// </para>
     /// </summary>
-    public class TenantWebApiRouteConstraint : IHttpRouteConstraint
+    public class TenantWebApiRouteConstraint : ITenantWebApiRouteConstraint
     {
         private readonly ITenantService _tenantService;
-
+        private bool? _match; // can cache because it should always be the first!
         /// <summary>
         /// COnstructor
         /// </summary>
@@ -38,17 +44,13 @@ namespace App.Host.Extended.WebApi.Constraints
             IDictionary<string, object> values,
             HttpRouteDirection routeDirection)
         {
+            if(_match.HasValue) { return _match.Value; }
             var tenantName = values[parameterName].ToString().ToLowerInvariant();
 
 
             var result = _tenantService.IsValidTenantKey(tenantName);
-#if DEBUG
-            if (result)
-            {
-                //Makes it breakpointable.
-                return true;
-            }
-#endif
+
+            _match = result;
             return result;
         }
     }

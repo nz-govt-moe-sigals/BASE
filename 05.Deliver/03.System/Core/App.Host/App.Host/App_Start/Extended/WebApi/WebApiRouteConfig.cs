@@ -7,9 +7,11 @@ namespace App.Host.Extended.WebApi
 {
     public class WebApiRouteConfig
     {
+        private ITenantWebApiRouteConstraint _tenantWebApiRouteConstraint;
 
-        public WebApiRouteConfig()
+        public WebApiRouteConfig(ITenantWebApiRouteConstraint tenantWebApiRouteConstraint)
         {
+            _tenantWebApiRouteConstraint = tenantWebApiRouteConstraint;
         }
 
         /// <summary>
@@ -35,12 +37,12 @@ namespace App.Host.Extended.WebApi
 
             httpConfiguration.Routes.MapHttpRoute(
             "VersionedTenantedLocaledDefaultWebApiRoute",
-            "api/v{apiVersion}/{tenant}/{locale}/{controller}/{id}",
+            "{tenant}/api/{locale}/v{apiVersion}/{controller}/{action}/{id}",
             defaults: new { id = RouteParameter.Optional },
             constraints: new
             {
                 apiVersion = new ApiVersionRouteConstraint(),
-                tenant = AppDependencyLocator.Current.GetInstance(typeof(TenantWebApiRouteConstraint)),
+                tenant = _tenantWebApiRouteConstraint,
                 locale = AppDependencyLocator.Current.GetInstance(typeof(LocaleWebApiRouteConstraint))
             }
             );
@@ -51,18 +53,18 @@ namespace App.Host.Extended.WebApi
             // Double arg:
             httpConfiguration.Routes.MapHttpRoute(
             "VersionedTenantedDefaultWebApiRoute",
-            "api/v{apiVersion}/{tenant}/{controller}/{id}",
+            "{tenant}/api/v{apiVersion}/{controller}/{action}/{id}",
             defaults: new { id = RouteParameter.Optional },
             constraints: new
             {
                 apiVersion = new ApiVersionRouteConstraint(),
-                tenant = AppDependencyLocator.Current.GetInstance(typeof(TenantWebApiRouteConstraint)),
+                tenant = _tenantWebApiRouteConstraint,
             }
             );
 
             httpConfiguration.Routes.MapHttpRoute(
             "VersionedLocaledDefaultWebApiRoute",
-            "api/v{apiVersion}/{locale}/{controller}/{id}",
+            "api/{locale}/v{apiVersion}/{controller}/{action}/{id}",
             defaults: new { id = RouteParameter.Optional },
             constraints: new
             {
@@ -74,11 +76,11 @@ namespace App.Host.Extended.WebApi
 
             httpConfiguration.Routes.MapHttpRoute(
                 "TenantedLocaledDefaultWebApiRoute",
-                "api/{tenant}/{locale}/{controller}/{id}",
+                "{tenant}/api/{locale}/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional },
                 constraints: new
                 {
-                    tenant = AppDependencyLocator.Current.GetInstance(typeof(TenantWebApiRouteConstraint)),
+                    tenant = _tenantWebApiRouteConstraint,
                     locale = AppDependencyLocator.Current.GetInstance(typeof(LocaleWebApiRouteConstraint))
                 }
             );
@@ -86,7 +88,7 @@ namespace App.Host.Extended.WebApi
             // Single arg:
             httpConfiguration.Routes.MapHttpRoute(
                 "TenantedDefaultWebApiRoute",
-                "api/{tenant}/{controller}/{id}",
+                "{tenant}/api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional },
                 constraints: new
                 {
@@ -95,7 +97,7 @@ namespace App.Host.Extended.WebApi
             );
             httpConfiguration.Routes.MapHttpRoute(
                 "LocaledDefaultWebApiRoute",
-                "api/{locale}/{controller}/{id}",
+                "api/{locale}/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional },
                 constraints: new
                 {
