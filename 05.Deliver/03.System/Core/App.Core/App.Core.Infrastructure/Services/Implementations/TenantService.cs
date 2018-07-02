@@ -286,7 +286,7 @@ namespace App.Core.Infrastructure.Services.Implementations
                 return result;
             }
             //Otherwise look in shared cache:
-            string redisKey = GetRedisKey() + searchKey;
+            string redisKey = GetRedisKey() + searchKey.ToLower();
 
             result = _redisCacheService.Get<TenantDto>(redisKey);
 
@@ -295,7 +295,7 @@ namespace App.Core.Infrastructure.Services.Implementations
 
         private void AddToCache(TenantDto tenant)
         {
-            string redisKey = GetRedisKey() + tenant.Key;
+            string redisKey = GetRedisKey() + tenant.Key.ToLower();
             _redisCacheService.Set(redisKey, tenant, TimeSpan.FromMinutes(5));
             // Then in local request:
             GetContextCache().Add(tenant);

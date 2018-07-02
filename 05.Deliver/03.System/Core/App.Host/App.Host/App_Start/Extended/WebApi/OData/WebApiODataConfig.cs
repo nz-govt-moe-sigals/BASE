@@ -71,10 +71,17 @@ namespace App.Host.Extended.WebApi.OData
             //but who cares for advice
 
             // WHEN VERSIONING BY: query string, header, or media type
-            configuration.MapVersionedODataRoutes("odata" + prefix, "odata/" + prefix, models, ConfigureODataServices);
+            configuration.MapVersionedODataRoutes("odata-tenancy-" + prefix, "{tenancy}/odata/" + prefix, models, ConfigureODataServices);
 
             // WHEN VERSIONING BY: url segment
-            configuration.MapVersionedODataRoutes("odata-bypath" + prefix, "odata/" + prefix + "/v{apiVersion}", models,
+            configuration.MapVersionedODataRoutes("odata-bypath-tenancy-" + prefix, "{tenancy}/odata/" + prefix + "/v{apiVersion}", models,
+                ConfigureODataServices);
+
+            // WHEN VERSIONING BY: query string, header, or media type
+            configuration.MapVersionedODataRoutes("odata-" + prefix, "odata/" + prefix, models, ConfigureODataServices);
+
+            // WHEN VERSIONING BY: url segment
+            configuration.MapVersionedODataRoutes("odata-bypath-" + prefix, "odata/" + prefix + "/v{apiVersion}", models,
                 ConfigureODataServices);
 
             return models;
