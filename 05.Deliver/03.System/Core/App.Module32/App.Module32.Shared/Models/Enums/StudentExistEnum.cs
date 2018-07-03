@@ -8,9 +8,9 @@ namespace App.Module32.Shared.Models.Enums
 {
     public enum StudentExistEnum
     {
-        True,
-        TrueButSchoolDiffers,
-        False,
-        
+        EnrolledAtSchool,
+        Enrolled,
+        NotEnrolled,
+        Unknown
     }
 }

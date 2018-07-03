@@ -8,10 +8,10 @@ namespace App.Module32.Shared.Models.Messages.API.V0100
 
         public StudentTransportDto()
         {
-            StudentExist = StudentExistEnum.TrueButSchoolDiffers;
+            StudentExist = StudentExistEnum.Enrolled;
         }
 
-        public string Result => StudentExist.ToString();
+        public string Status => StudentExist.ToString();
 
         [JsonIgnore]
         public StudentExistEnum StudentExist { get; set; }

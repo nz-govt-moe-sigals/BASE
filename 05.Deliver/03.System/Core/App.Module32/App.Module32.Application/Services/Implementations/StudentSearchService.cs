@@ -33,15 +33,15 @@ namespace App.Module32.Application.Services.Implementations
             if (!transportSearch.DateOfBirth.HasValue || string.IsNullOrWhiteSpace(transportSearch.StudentName)) { throw new ArgumentException("Student details have not been correctly filled out");}
             if (!transportSearch.SchoolId.HasValue && string.IsNullOrWhiteSpace(transportSearch.SchoolName)) { throw new ArgumentException("School details have not been correctly filled out"); }
 
-            StudentExistEnum exist = StudentExistEnum.False;
+            StudentExistEnum exist = StudentExistEnum.NotEnrolled;
 
             var listOfMatchedNames = GetNameMatchedStudentProfiles(transportSearch);
             _diagnosticsTracingService.Trace(TraceLevel.Debug, $"Students Found : {listOfMatchedNames.Count}");
             if (listOfMatchedNames.Count > 0)
             {
                 exist = DoesSchoolExist(listOfMatchedNames, transportSearch)
-                    ? StudentExistEnum.True
-                    : StudentExistEnum.TrueButSchoolDiffers;
+                    ? StudentExistEnum.EnrolledAtSchool
+                    : StudentExistEnum.Enrolled;
             }
             
             return new StudentTransportDto()
