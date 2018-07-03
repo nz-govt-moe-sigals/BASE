@@ -46,23 +46,35 @@ namespace App.Host.Extended
 
                 switch (demoType)
                 {
-                    case AuthorisationDemoType.AADUsingOIDCAndCookies:
+                    case AuthorisationDemoType.AadUsingOidcAndCookies:
                         AppDependencyLocator.Current.GetInstance<AADV2ForOIDCCookiesConfiguration>()
                             .Configure(appBuilder);
                         break;
-                    case AuthorisationDemoType.B2CUsingOIDCAndCookies:
+                    case AuthorisationDemoType.B2CUsingOidcAndCookies:
                         AppDependencyLocator.Current.GetInstance<B2COAuthCookieBasedAuthenticationConfig>()
                             .Configure(appBuilder, scopes);
                         break;
-                    case AuthorisationDemoType.B2CUsingOIDCAndBearerTokens:
+                    case AuthorisationDemoType.B2CUsingOidcAndBearerTokens:
                         AppDependencyLocator.Current.GetInstance<B2COAuthBearerTokenAuthenticationConfiguration>()
                             .Configure(appBuilder);
                         break;
-                    case AuthorisationDemoType.B2CUsingOIDCAndCookiesAndBearerTokens:
+                    case AuthorisationDemoType.B2CUsingOidcAndCookiesAndBearerTokens:
                         AppDependencyLocator.Current.GetInstance<B2COAuthBearerTokenAuthenticationConfiguration>()
                             .Configure(appBuilder);
                         AppDependencyLocator.Current.GetInstance<B2COAuthCookieBasedAuthenticationConfig>()
                             .Configure(appBuilder, scopes);
+                        break;
+                    case AuthorisationDemoType.OktaUsingOidcAndCookies:
+                        AppDependencyLocator.Current.GetInstance<OktaOAuthCookieBasedAuthenticationConfig>()
+                            .Configure(appBuilder, scopes);
+                        break;
+                    case AuthorisationDemoType.OktaUsingOidcAndBearerTokens:
+                        //AppDependencyLocator.Current.GetInstance<B2COAuthCookieBasedAuthenticationConfig>()
+                        //    .Configure(appBuilder, scopes);
+                        break;
+                    case AuthorisationDemoType.OktaUsingOidcAndCookiesAndBearerTokens:
+                        //AppDependencyLocator.Current.GetInstance<B2COAuthCookieBasedAuthenticationConfig>()
+                        //    .Configure(appBuilder, scopes);
                         break;
                 }
                 // 11.0836463 secs

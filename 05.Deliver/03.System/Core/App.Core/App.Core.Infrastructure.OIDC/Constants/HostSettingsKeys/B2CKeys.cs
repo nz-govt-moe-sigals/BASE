@@ -76,4 +76,35 @@
         public const string ClientPostLogoutRedirectUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oauth-Client-PostLogoutRedirectUri";
 
     }
+
+    public static class OktaOidcClientKeys
+    {
+        private const string OktaPrefix = "Okta-";
+
+        /// <summary>
+        /// The URI of the IdP to which the security principal is redirected.
+        /// </summary>
+        public const string AuthorityUri = ConfigurationKeys.SystemIntegrationKeyPrefix + OktaPrefix + "Oauth-Client-AuthorityUri";
+
+        /// <summary>
+        /// The OIDC client Identifier.
+        /// It's not exactly a secret, so it's ok for team members to know --- 
+        /// but not persisted in web.config code that coudlrtha.
+        /// 
+        /// </summary>
+        public const string ClientId = ConfigurationKeys.SystemIntegrationKeyPrefix + OktaPrefix + "Oauth-Client-Id";
+        //Ensure this settings is persisted in KeyVault, and not the AppHost,
+        //even if they are put there during deployment
+        public const string ClientSecret = ConfigurationKeys.SystemIntegrationKeyPrefix + OktaPrefix + "Oauth-Client-Secret";
+
+        public const string ClientRedirectUri = ConfigurationKeys.SystemIntegrationKeyPrefix + OktaPrefix + "Oauth-Client-RedirectUri";
+        /// <summary>
+        /// The client post logout redirect URI.
+        /// If it's just '/' just it's ok to persist it in the code base. 
+        /// But if it contains a domain identifier then inject it into the 
+        /// AppSettings via the build pipeline. Using the KeyVault would be too heavy.
+        /// </summary>
+        public const string ClientPostLogoutRedirectUri = ConfigurationKeys.SystemIntegrationKeyPrefix + OktaPrefix + "Oauth-Client-PostLogoutRedirectUri";
+
+    }
 }

@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="IdentityModel, Version=3.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\IdentityModel.3.3.1\lib\net461\IdentityModel.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Identity.Client, Version=1.1.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Identity.Client.1.1.0-preview\lib\net45\Microsoft.Identity.Client.dll</HintPath>
     </Reference>
@@ -102,6 +105,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\Owin\OktaOAuthCookieBasedAuthenticationConfig.cs" />
     <Compile Include="Constants\Claims.cs" />
     <Compile Include="Constants\HostSettingsKeys\B2CKeys.cs" />
     <Compile Include="Constants\Uris.cs" />
@@ -112,6 +116,7 @@
     <Compile Include="Models\IApiQueryConfiguration.cs" />
     <Compile Include="Models\Implementations\B2COidcConfidentialClientConfiguration.cs" />
     <Compile Include="Models\Implementations\OidcConfidentialClientConfiguration.cs" />
+    <Compile Include="Models\Implementations\OktaOidcConfidentialClientConfiguration.cs" />
     <Compile Include="Oidc\MSALSessionCache.cs" />
     <Compile Include="Oidc\OpenIdConnectCachingSecurityTokenProvider.cs" />
     <Compile Include="App_Start\Owin\AADV2ForOIDCCookiesConfiguration.cs" />

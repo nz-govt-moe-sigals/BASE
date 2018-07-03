@@ -167,4 +167,9 @@
         /// </summary>
         string ClientPostLogoutUri { get; set; }
     }
+
+    public interface IOktaOidcConfidentialClientConfiguration : IOIDCConfidentialClientConfiguration
+    {
+
+    }
 }

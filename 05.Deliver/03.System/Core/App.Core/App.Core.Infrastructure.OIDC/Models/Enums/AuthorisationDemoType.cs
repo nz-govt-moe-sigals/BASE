@@ -4,12 +4,16 @@
     public enum AuthorisationDemoType
     {
         Undefined = 0,
-        AADUsingOIDCAndCookies = 1,
-        AADUsingOIDCAndBearerTokens = 2,
-        AADUsingOIDCAndCookiesAndBearerTokens = 3,
+        AadUsingOidcAndCookies = 1,
+        AadUsingOidcAndBearerTokens = 2,
+        AadUsingOidcAndCookiesAndBearerTokens = 3,
 
-        B2CUsingOIDCAndCookies = 11,
-        B2CUsingOIDCAndBearerTokens = 12,
-        B2CUsingOIDCAndCookiesAndBearerTokens = 13
+        B2CUsingOidcAndCookies = 11,
+        B2CUsingOidcAndBearerTokens = 12,
+        B2CUsingOidcAndCookiesAndBearerTokens = 13,
+
+        OktaUsingOidcAndCookies = 21,
+        OktaUsingOidcAndBearerTokens = 22,
+        OktaUsingOidcAndCookiesAndBearerTokens = 23
     }
 }
