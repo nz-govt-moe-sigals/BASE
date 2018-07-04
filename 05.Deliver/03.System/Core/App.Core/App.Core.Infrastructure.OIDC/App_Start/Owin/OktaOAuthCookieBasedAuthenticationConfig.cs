@@ -30,6 +30,7 @@ namespace App.Core.Infrastructure.IDA.Owin
 
         public void Configure(IAppBuilder app, string[] fullyQualifiedScopesRequiredByTargetAPI)
         {
+            
             _oktaOidcConfidentialClientConfiguration = this._keyHostSettingsService
                 .GetObject<OktaOidcConfidentialClientConfiguration>("cookieAuth:");
 

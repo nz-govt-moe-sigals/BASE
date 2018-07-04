@@ -124,7 +124,8 @@ namespace App.Host
             // contrary to design principles, and should be
             // moved to later
             _authConfig.Configure(appBuilder);
-
+            AppDependencyLocator.Current.GetInstance<SetMinimumTLSConfig>().Configure();
+   
             //Invoke Service Initialization:
             this._initializerConfig.Configure(appBuilder);
         }

@@ -28,7 +28,7 @@ namespace App.Host.Extended.WebApi
         /// Invoked from <see cref="StartupExtended.Configure"/>.
         /// </para>
         /// </summary>
-        public void Config()
+        public void Configure()
         {
             DisableWeakTLSForIncoming();
             DisableWeakTLSForOutgoing();
@@ -71,25 +71,25 @@ namespace App.Host.Extended.WebApi
             using (var elapsedTime = new ElapsedTime())
             {
 
-                SecurityProtocolType setting;
+                //SecurityProtocolType setting;
 
-                string key = ConfigurationKeys.SystemKeyPrefix + "TLS-SecurityProtocol";
+                //string key = ConfigurationKeys.SystemKeyPrefix + "TLS-SecurityProtocol";
 
-                var tmp = this._hostSettingsService.GetObject<string>(key);
+                //var tmp = this._hostSettingsService.GetObject<string>(key);
 
-                if (!Enum.TryParse(tmp, out setting))
-                {
-                    _configurationStepService
-                        .Register(
-                            ConfigurationStepType.Security,
-                            ConfigurationStepStatus.Orange,
-                            "TLS",
-                            $"Unable to parse {key} for outbound traffic. Took {elapsedTime.ElapsedText}");
-                    return;
-                }
+                //if (!Enum.TryParse(tmp, out setting))
+                //{
+                //    _configurationStepService
+                //        .Register(
+                //            ConfigurationStepType.Security,
+                //            ConfigurationStepStatus.Orange,
+                //            "TLS",
+                //            $"Unable to parse {key} for outbound traffic. Took {elapsedTime.ElapsedText}");
+                //    return;
+                //}
                 //setting will be one of "Ssl3", "Tls", "Tls11", "Tls12"
                 //Starting with .NET4.7 the default value is set to a new value "Default"
-                ServicePointManager.SecurityProtocol = setting;
+                ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
 
                 _configurationStepService
                     .Register(
