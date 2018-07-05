@@ -968,7 +968,7 @@
             "armTemplateId": "[concat(variables('resources').resourceNamePrefix, 'assembly.01')]",
             "linkedResourcesArmTemplateRootUrl": "[parameters('linkedResourcesArmTemplateRootUrl')]",
             "linkedResourcesArmTemplateRootSas": "[parameters('linkedResourcesArmTemplateRootSas')]",
-            "linkedAssembly01TemplateUrl": "[concat( parameters('linkedAssembliesArmTemplateRootUrl'), '01/arm.assembly.json', parameters('linkedAssembliesArmTemplateRootSas'))]"
+            "linkedAssembly01TemplateUrl": "[concat( parameters('linkedAssembliesArmTemplateRootUrl'), 'arm.assembly.01.json', parameters('linkedAssembliesArmTemplateRootSas'))]"
         }
         // -------------------------------------------------------
     }, //~variables
