@@ -948,7 +948,7 @@
         // VARIABLES: RESOURCES
         // -------------------------------------------------------
         "resources": {
-            "resourceNamePrefix": "[toLower('azure.arm.base.')]",
+            "resourceNamePrefix": "[toLower('arm.start')]",
             "resourceNameTemplate": "[parameters('resourceNameTemplate')]",
             "commonResourceTags": "[parameters('commonResourceTags')]"
         },
