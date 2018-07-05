@@ -8,7 +8,7 @@ namespace App.Core.Shared.Constants
 {
     public static class ConfigurationKeys
     {
-        public const string SystemKeyPrefix = "System-";
+        public const string SystemKeyPrefix = "Service-";
         public const string SystemIntegrationKeyPrefix = SystemKeyPrefix + "Integration-";
         public const string SystemAzureIntegrationKeyPrefix = SystemIntegrationKeyPrefix + "Azure-";
 

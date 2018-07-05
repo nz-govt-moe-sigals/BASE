@@ -4,8 +4,8 @@
 //    /// <summary>
 //    /// The names of the Keystore.
 //    /// These names match the KeyStore Url AppSettings:
-//    /// ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'System-') + 'Azure-KeyVaultStore-Organisation-Url
-//    /// ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'System-') + 'Azure-KeyVaultStore-Application-Url
+//    /// ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'Service-') + 'Azure-KeyVaultStore-Organisation-Url
+//    /// ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'Service-') + 'Azure-KeyVaultStore-Application-Url
 //    /// </summary>
 //    public static class Keystores
 //    {
