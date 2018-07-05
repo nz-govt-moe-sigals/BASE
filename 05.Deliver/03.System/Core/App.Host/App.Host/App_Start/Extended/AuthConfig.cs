@@ -69,12 +69,14 @@ namespace App.Host.Extended
                             .Configure(appBuilder, scopes);
                         break;
                     case AuthorisationDemoType.OktaUsingOidcAndBearerTokens:
-                        //AppDependencyLocator.Current.GetInstance<B2COAuthCookieBasedAuthenticationConfig>()
-                        //    .Configure(appBuilder, scopes);
+                        AppDependencyLocator.Current.GetInstance<OktaOAuthBearerTokenAuthenticationConfig>()
+                            .Configure(appBuilder);
                         break;
                     case AuthorisationDemoType.OktaUsingOidcAndCookiesAndBearerTokens:
-                        //AppDependencyLocator.Current.GetInstance<B2COAuthCookieBasedAuthenticationConfig>()
-                        //    .Configure(appBuilder, scopes);
+                        AppDependencyLocator.Current.GetInstance<OktaOAuthCookieBasedAuthenticationConfig>()
+                            .Configure(appBuilder, scopes);
+                        AppDependencyLocator.Current.GetInstance<OktaOAuthBearerTokenAuthenticationConfig>()
+                            .Configure(appBuilder);
                         break;
                 }
                 // 11.0836463 secs
