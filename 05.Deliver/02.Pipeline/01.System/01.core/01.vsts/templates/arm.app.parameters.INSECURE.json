@@ -110,7 +110,7 @@
     // -------------------------------------------------------
     // Off for all environments unless specified in environmentOverrides (UAT/PROD)
     "microsoftCacheRedisProvision": {
-      "value": false
+      "value": true
     },
     // ----------------------------------------------------------------------
     // Parameters: MICROSOFT / AUTHORISATION / ROLEASSIGNMENTS

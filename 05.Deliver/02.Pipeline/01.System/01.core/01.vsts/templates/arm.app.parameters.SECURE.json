@@ -28,7 +28,7 @@
       "value": "msi"
     },
     "microsoftCacheRedisProvision": {
-      "value": false
+      "value": true
     },
     "oauthEnabled": {
       "value": true
