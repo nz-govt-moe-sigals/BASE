@@ -11,21 +11,26 @@ namespace App.Core.Infrastructure.IDA.Models.Implementations
     public class OktaOidcConfidentialClientConfiguration : IOktaOidcConfidentialClientConfiguration
     {
         private string _clientPostLogoutUri;
-        private string _authorityUri;
+        private string _baseuri;
 
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
-        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.OktaOidcClientKeys.AuthorityUri)]
+        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.OktaOidcClientKeys.BaseUri)]
+        public string OktaApiUri
+        {
+            get { return this._baseuri; }
+            set { this._baseuri = value; }
+        }
+
+
         public string AuthorityUri
         {
-            get { return this._authorityUri; }
-            set
+            get
             {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    value = null;
-                }
-                this._authorityUri = value;
+                if(string.IsNullOrWhiteSpace(this._baseuri))
+                    return null;
+                return this._baseuri + "oauth2/default";
             }
+            set { }
         }
 
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
@@ -64,6 +69,8 @@ namespace App.Core.Infrastructure.IDA.Models.Implementations
             }
         }
 
-
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.OktaOidcClientKeys.ApiKey)]
+        public string ApiKey { get; set; }
     }
 }

@@ -1,10 +1,130 @@
 ﻿@{
-    ViewBag.Title = "About";
+    ViewBag.Title = "Single Page Api Example";
     ViewBag.Subtitle = "";
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Subtitle</h3>
 
+@section headerscripts {
+    <script src="https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/2.6.0/js/okta-sign-in.min.js"
+            type="text/javascript"></script>
+    <link href="https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/2.6.0/css/okta-sign-in.min.css"
+          type="text/css"
+          rel="stylesheet" />
+    <link href="https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/2.6.0/css/okta-theme.css"
+          type="text/css"
+          rel="stylesheet" />
+}
+<div id="okta-login-container">
 
-<p>
-</p>
+</div>
+
+<h3>A Secure Api</h3>
+<div id="Response">
+
+</div>
+
+<h3>A Get All Okta Users Secure Api</h3>
+<div id="UserResponse">
+
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        @* just copy and pasted from web.config! DO NOT DO THIS NORMALLY, this is just a proof of concept though *@
+        var oktaSignIn = new OktaSignIn({
+            baseUrl: "https://dev-652391.oktapreview.com",
+            clientId: "0oafnax0ur9OdzVMy0h7",
+            authParams: {
+                issuer: "https://dev-652391.oktapreview.com/oauth2/default",
+                responseType: ['token', 'id_token'],
+                display: 'page'
+            }
+        });
+        if (oktaSignIn.token.hasTokensInUrl()) {
+            oktaSignIn.token.parseTokensFromUrl(
+                function success(res) {
+                    // The tokens are returned in the order requested by `responseType` above
+                    var accessToken = res[0];
+                    var idToken = res[1];
+
+                    // Say hello to the person who just signed in:
+                    console.log('Hello, ' + idToken.claims.email);
+
+                    // Save the tokens for later use, e.g. if the page gets refreshed:
+                    oktaSignIn.tokenManager.add('accessToken', accessToken);
+                    oktaSignIn.tokenManager.add('idToken', idToken);
+
+                    // Remove the tokens from the window location hash
+                    window.location.hash = '';
+                },
+                function error(err) {
+                    // handle errors as needed
+                    console.error(err);
+                }
+            );
+        } else {
+            oktaSignIn.session.get(function(res) {
+                // Session exists, show logged in state.
+                if (res.status === 'ACTIVE') {
+                    console.log('Welcome back, ' + res.login);
+                    return;
+                }
+                // No session, show the login form
+                oktaSignIn.renderEl(
+                    { el: '#okta-login-container' },
+                    function success(res) {
+                        // Nothing to do in this case, the widget will automatically redirect
+                        // the user to Okta for authentication, then back to this page if successful
+                    },
+                    function error(err) {
+                        // handle errors as needed
+                        console.error(err);
+                    }
+                );
+            });
+        }
+        var get = function() {
+            var accessToken = oktaSignIn.tokenManager.get("accessToken");
+            var userToken = '';
+            if (accessToken) {
+                userToken = 'Bearer ' + accessToken.accessToken;
+            }
+            
+
+            $.ajax({
+                url: "@Url.Action("Index", "About")" + "OData/core/v1/tenant",
+                type: 'GET',
+                headers: {
+                    Authorization: userToken
+                },
+                data: {},
+                success: function(data) {
+                    $('#Response').html(JSON.stringify(data));
+                },
+                error: function(xx, xxx, xxxx) {
+                    $('#Response').html("403 Forbidden");
+                },
+            });
+
+            $.ajax({
+                url: "@Url.Action("Index", "About")" + "OData/core/v1/OktaUsers",
+                type: 'GET',
+                headers: {
+                    Authorization: userToken
+                },
+                data: {},
+                success: function(data) {
+                    $('#UserResponse').html(JSON.stringify(data));
+                },
+                error: function(xx, xxx, xxxx) {
+                    $('#UserResponse').html("403 Forbidden");
+                },
+            });
+        }
+        setTimeout(function() {
+            get();
+        }, 1000);
+        
+    </script>
+}

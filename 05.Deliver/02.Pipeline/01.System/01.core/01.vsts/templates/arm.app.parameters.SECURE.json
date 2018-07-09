@@ -14,10 +14,12 @@
       }
     },
     "linkedAssembliesArmTemplateRootUrl": {
-      "value": "https://baseinfrastructureshared.blob.core.windows.net/public/base/infrastructure/releases/v-.-/arm-templates/commented/assemblies/"
+      "value": "https://nzmoestartpublic.blob.core.windows.net/public/start/dev/arm-templates/commented/assemblies/"
+      //"value": "https://nzmoestartpublic.blob.core.windows.net/public/start/releases/v0.0/arm-templates/commented/assemblies/"
     },
     "linkedResourcesArmTemplateRootUrl": {
-      "value": "https://baseinfrastructureshared.blob.core.windows.net/public/base/infrastructure/releases/v-.-/arm-templates/commented/resources/"
+      "value": "https://nzmoestartpublic.blob.core.windows.net/public/start/dev/arm-templates/commented/resources/"
+      //"value": "https://nzmoestartpublic.blob.core.windows.net/public/start/releases/v0.0/arm-templates/commented/resources/"
     },
     "resourceNameTemplate": {
       "value": "NZ-MOE-BASE-0000-BT-{RT}"
@@ -26,7 +28,7 @@
       "value": "msi"
     },
     "microsoftCacheRedisProvision": {
-      "value": false
+      "value": true
     },
     "oauthEnabled": {
       "value": true

@@ -118,6 +118,8 @@
     <Compile Include="Models\Implementations\B2COidcConfidentialClientConfiguration.cs" />
     <Compile Include="Models\Implementations\OidcConfidentialClientConfiguration.cs" />
     <Compile Include="Models\Implementations\OktaOidcConfidentialClientConfiguration.cs" />
+    <Compile Include="Models\OktaProfile.cs" />
+    <Compile Include="Models\OktaUser.cs" />
     <Compile Include="Oidc\MSALSessionCache.cs" />
     <Compile Include="Oidc\OpenIdConnectCachingSecurityTokenProvider.cs" />
     <Compile Include="App_Start\Owin\AADV2ForOIDCCookiesConfiguration.cs" />
@@ -127,6 +129,8 @@
     <Compile Include="Services\Implementations\OIDCAPIClientService.cs" />
     <Compile Include="Services\Implementations\OidcRequestHelper.cs" />
     <Compile Include="Services\IOIDCAPIClientService.cs" />
+    <Compile Include="Services\Implementations\OktaUserService.cs" />
+    <Compile Include="Services\IOktaUserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="TextFile1.txt" />

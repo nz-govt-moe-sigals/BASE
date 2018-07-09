@@ -47,7 +47,7 @@
         /// <summary>
         ///     The unique B2C Tenant Name.
         ///     <para>eg: xyz.onmicrosoft.com</para>
-        ///     <para>Default Host Setting key is ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'System-Integration-') + 'Oidc-PolicyBased-Tenant'</para>
+        ///     <para>Default Host Setting key is ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'Service-Integration-') + 'Oidc-PolicyBased-Tenant'</para>
         /// <para>
         /// Define the value using the Build Pipeline injecting the value into AppSettings.
         /// </para>
@@ -78,7 +78,7 @@
         /// {configType} =[common|organisations|consumers|{AuthorityTenantName}|{AuthorityTenantGuid}]
         /// (e.g. https://login.microsoftonline.com/{configType}/v2.0/.well-known/openid-configuration)
         /// </para><para>
-        /// ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'System-Integration-') + 'Oidc- AadInstance
+        /// ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'Service-Integration-') + 'Oidc- AadInstance
         /// eg: https://login.microsoftonline.com/{0}{1}{2}
         /// </para>
         /// <para>

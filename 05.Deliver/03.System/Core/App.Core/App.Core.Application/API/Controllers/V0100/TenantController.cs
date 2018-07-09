@@ -16,7 +16,6 @@ namespace App.Core.Application.API.Controllers.V0100
 
     //[ODataRoutePrefix("body")]
     [ODataPath(Constants.Api.ApiControllerNames.Tenant)]
-    [AllowAnonymous]
     public class TenantController : GuidIdActiveRecordStateODataControllerBase<Tenant, TenantDto>
     {
         public TenantController(

@@ -45,6 +45,11 @@ namespace App.Core.Application.Filters.WebApi
         private string _roles;
         private string[] _rolesSplit = new string[0];
 
+        protected override void HandleUnauthorizedRequest(HttpActionContext actionContext)
+        {
+            actionContext.Response = new System.Net.Http.HttpResponseMessage(System.Net.HttpStatusCode.Forbidden);
+        }
+
         /// <summary>Indicates whether the specified control is authorized.</summary>
         /// <returns>true if the control is authorized; otherwise, false.</returns>
         /// <param name="actionContext">The context.</param>
