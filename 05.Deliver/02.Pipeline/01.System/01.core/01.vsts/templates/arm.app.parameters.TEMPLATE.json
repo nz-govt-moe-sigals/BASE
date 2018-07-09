@@ -418,19 +418,19 @@
       // -------------------------------------------------------
       // PARAMETERS: SERVICES / GEOIPSERVICE
       // -------------------------------------------------------
-      "servicesGeoIPServiceEnabled": {
+      "servicesIPGeoServiceEnabled": {
         "value": true
       },
-      "servicesGeoIPServiceUri": {
+      "servicesIPGeoServiceUri": {
         "value": "http://api.ipstack.com/{1}?access_key={0}"
       },
-      "servicesGeoIPServiceClientId": {
+      "servicesIPGeoServiceClientId": {
         "value": "TODO:REPLACE IN ARM PARAMS FILE"
       },
-      "servicesGeoIPServiceClientSecret": {
+      "servicesIPGeoServiceClientSecret": {
         "value": "TODO:REPLACE IN ARM PARAMS FILE"
       },
-      "servicesGeoIPServiceClientMiscConfiguration": {
+      "servicesIPGeoServiceClientMiscConfiguration": {
         "value": "TODO:REPLACE IN ARM PARAMS FILE"
       },
       // -------------------------------------------------------

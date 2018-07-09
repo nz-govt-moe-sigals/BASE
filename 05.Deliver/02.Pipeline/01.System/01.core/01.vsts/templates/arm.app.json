@@ -635,7 +635,7 @@
         // -------------------------------------------------------
         // Optional. To use a remote OAuth based malware detection service, 
         // you need to enable it then provide the uri, client id and client secret.
-        "servicesGeoIPServiceEnabled": {
+        "servicesIPGeoServiceEnabled": {
             "type": "bool",
             "defaultValue": true,
             "metadata": {
@@ -644,7 +644,7 @@
         },
         // Optional. To use a remote OAuth based IP-to-Coordinates translation service, 
         // you need to enable it then provide the uri, client id and client secret.
-        "servicesGeoIPServiceUri": {
+        "servicesIPGeoServiceUri": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
@@ -653,7 +653,7 @@
         },
         // Optional. To use a remote OAuth based IP-to-Coordinates translation service, 
         // you need to enable it then provide the uri, client id and client secret.
-        "servicesGeoIPServiceClientId": {
+        "servicesIPGeoServiceClientId": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
@@ -662,14 +662,14 @@
         },
         // Optional. To use a remote OAuth based IP-to-Coordinates translation service, 
         // you need to enable it then provide the uri, client id and client secret.
-        "servicesGeoIPServiceClientSecret": {
+        "servicesIPGeoServiceClientSecret": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. To use a remote OAuth based IP-to-Coordinates translation service, you need to enable it then provide the uri, client id and client secret."
             }
         },
-        "servicesGeoIPServiceClientMiscConfiguration": {
+        "servicesIPGeoServiceClientMiscConfiguration": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
@@ -1099,20 +1099,20 @@
                     },
                 // -------------------------------------------------------
                     // Passthrough Parameters: SERVICES / GEOIPSERVICE
-                    "servicesGeoIPServiceEnabled": {
-                        "value":"[parameters('servicesGeoIPServiceEnabled')]"
+                    "servicesIPGeoServiceEnabled": {
+                        "value":"[parameters('servicesIPGeoServiceEnabled')]"
                     },
-                    "servicesGeoIPServiceUri": {
-                        "value":"[parameters('servicesGeoIPServiceUri')]"
+                    "servicesIPGeoServiceUri": {
+                        "value":"[parameters('servicesIPGeoServiceUri')]"
                     },
-                    "servicesGeoIPServiceClientId": {
-                        "value":"[parameters('servicesGeoIPServiceClientId')]"
+                    "servicesIPGeoServiceClientId": {
+                        "value":"[parameters('servicesIPGeoServiceClientId')]"
                     },
-                    "servicesGeoIPServiceClientSecret": {
-                        "value":"[parameters('servicesGeoIPServiceClientSecret')]"
+                    "servicesIPGeoServiceClientSecret": {
+                        "value":"[parameters('servicesIPGeoServiceClientSecret')]"
                     },
-                    "servicesGeoIPServiceClientMiscConfiguration": {
-                        "value":"[parameters('servicesGeoIPServiceClientMiscConfiguration')]"
+                    "servicesIPGeoServiceClientMiscConfiguration": {
+                        "value":"[parameters('servicesIPGeoServiceClientMiscConfiguration')]"
                     },
                 // -------------------------------------------------------
                     // Passthrough Parameters: SERVICES / MALWAREDETECTIONSERVICE
