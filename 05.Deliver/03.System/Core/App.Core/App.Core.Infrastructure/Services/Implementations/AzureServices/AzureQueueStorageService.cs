@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using App.Core.Infrastructure.Initialization.DependencyResolution;
+﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+using App.Core.Infrastructure.Integration.Azure.Storage;
 
-namespace App.Core.Infrastructure.Services.Implementations
+namespace App.Core.Infrastructure.Services.Implementations.AzureServices
 {
-    using App.Core.Infrastructure.Integration.Azure.Storage;
-    using Microsoft.WindowsAzure.Storage;
-    using Microsoft.WindowsAzure.Storage.Auth;
-    using Microsoft.WindowsAzure.Storage.Queue;
-
     /// <summary>
     ///     Implementation of the
     ///     <see cref="IAzureQueueStorageService" />

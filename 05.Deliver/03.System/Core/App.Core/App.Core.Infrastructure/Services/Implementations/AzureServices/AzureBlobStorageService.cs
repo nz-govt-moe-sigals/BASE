@@ -1,23 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
+using App.Core.Infrastructure.ExtensionMethods;
 using App.Core.Infrastructure.Initialization.DependencyResolution;
+using App.Core.Infrastructure.Integration.Azure.Storage;
+using App.Core.Shared.Models.Entities;
+using Microsoft.WindowsAzure.Storage.Blob;
 
-namespace App.Core.Infrastructure.Services.Implementations
+namespace App.Core.Infrastructure.Services.Implementations.AzureServices
 {
-    using System.IO;
-    using App.Core.Infrastructure.ExtensionMethods;
-    using App.Core.Infrastructure.Integration.Azure.Storage;
-    using App.Core.Infrastructure.Services.Configuration.Implementations;
-    using App.Core.Shared.Models.ConfigurationSettings;
-    using App.Core.Shared.Models.Entities;
-    using Microsoft.WindowsAzure.Storage;
-    using Microsoft.WindowsAzure.Storage.Blob;
-
-
-
     /// <summary>
     /// Dependencies:
     /// * Nuget Packages:   

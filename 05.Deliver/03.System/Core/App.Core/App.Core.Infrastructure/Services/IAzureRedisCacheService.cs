@@ -1,23 +1,17 @@
-﻿using App.Core.Infrastructure.Services.Configuration.Implementations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace App.Core.Infrastructure.Services
+﻿namespace App.Core.Infrastructure.Services
 {
+    using System;
+
     public interface IAzureRedisCacheService : IHasAppCoreService
     {
 
-        AzureRedisCacheServiceConfiguration Configuration { get; }
+        void Set<T>(string key, T value, TimeSpan? duration=null);
 
+        void Set<T>(string key, string subKey, T value, TimeSpan? duration=null);
 
-        void Set(string key, string message, TimeSpan? duration);
-        string Get(string key);
-
-        void Set<T>(string key, T value, TimeSpan? duration);
         T Get<T>(string key);
 
+        T Get<T>(string key, string subKey);
     }
+
 }

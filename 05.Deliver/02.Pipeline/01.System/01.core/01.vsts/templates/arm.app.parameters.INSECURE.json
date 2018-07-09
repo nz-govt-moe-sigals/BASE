@@ -399,19 +399,19 @@
     // -------------------------------------------------------
     // PARAMETERS: SERVICES / GEOIPSERVICE
     // -------------------------------------------------------
-    "servicesGeoIPServiceEnabled": {
+    "servicesIPGeoServiceEnabled": {
       "value": true
     },
-    "servicesGeoIPServiceUri": {
+    "servicesIPGeoServiceUri": {
       "value": "http://api.ipstack.com/{1}?access_key={0}"
     },
-    "servicesGeoIPServiceClientId": {
+    "servicesIPGeoServiceClientId": {
       "value": "base@ministryof.me"
     },
-    "servicesGeoIPServiceClientSecret": {
+    "servicesIPGeoServiceClientSecret": {
       "value": "895329e483e248cd393848239bb33a7a"
     },
-    "servicesGeoIPServiceClientMiscConfiguration": {
+    "servicesIPGeoServiceClientMiscConfiguration": {
       "value": ""
     },
     // -------------------------------------------------------

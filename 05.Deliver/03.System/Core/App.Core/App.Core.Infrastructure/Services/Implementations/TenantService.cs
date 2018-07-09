@@ -23,7 +23,7 @@ namespace App.Core.Infrastructure.Services.Implementations
         private static readonly string _currentRequestCacheKey = "_CurrentTenantKey";
         private static readonly string _ResourceListCacheKey = "_TenantCache";
         //private readonly ICacheItemService _cacheItemService;
-        private readonly IRedisCacheService _redisCacheService;
+        private readonly IAzureRedisCacheService _azureRedisCacheService;
         private readonly IRepositoryService _repositoryService;
         private readonly IOperationContextService _operationContextService;
         private readonly IPrincipalService _principalService;
@@ -32,13 +32,13 @@ namespace App.Core.Infrastructure.Services.Implementations
         private static string _defaultTenantString; 
 
         public TenantService(IOperationContextService operationContextService, IPrincipalService principalService,
-            IRedisCacheService redisCacheService, IRepositoryService repositoryService,
+            IAzureRedisCacheService azureRedisCacheService, IRepositoryService repositoryService,
             IAppHostNamesService appHostNamesService)
         {
             this._operationContextService = operationContextService;
             this._principalService = principalService;
 
-            this._redisCacheService = redisCacheService;
+            this._azureRedisCacheService = azureRedisCacheService;
             this._repositoryService = repositoryService;
             this._hostNamesService = appHostNamesService;
             _id = Guid.NewGuid();
@@ -288,7 +288,7 @@ namespace App.Core.Infrastructure.Services.Implementations
             //Otherwise look in shared cache:
             string redisKey = GetRedisKey() + searchKey.ToLower();
 
-            result = _redisCacheService.Get<TenantDto>(redisKey);
+            result = _azureRedisCacheService.Get<TenantDto>(redisKey);
 
             return result;
         }
@@ -296,7 +296,7 @@ namespace App.Core.Infrastructure.Services.Implementations
         private void AddToCache(TenantDto tenant)
         {
             string redisKey = GetRedisKey() + tenant.Key.ToLower();
-            _redisCacheService.Set(redisKey, tenant, TimeSpan.FromMinutes(5));
+            _azureRedisCacheService.Set(redisKey, tenant, TimeSpan.FromMinutes(5));
             // Then in local request:
             GetContextCache().Add(tenant);
         }

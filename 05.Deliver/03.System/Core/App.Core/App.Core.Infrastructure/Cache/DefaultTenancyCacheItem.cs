@@ -19,16 +19,16 @@ namespace App.Core.Infrastructure.Cache
     [Key(Constants.Cache.StaticKeys.DefaultTenant)]
     public class DefaultTenancyCacheItem : CacheItemBase, IAppCoreCacheItem
     {
-        private readonly IRedisCacheService _redisCacheService;
+        private readonly IAzureRedisCacheService _azureRedisCacheService;
         private readonly IRepositoryService _repositoryService;
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="redisCacheService"></param>
-        public DefaultTenancyCacheItem(IRedisCacheService redisCacheService, IRepositoryService repositoryService)
+        /// <param name="azureRedisCacheService"></param>
+        public DefaultTenancyCacheItem(IAzureRedisCacheService azureRedisCacheService, IRepositoryService repositoryService)
         {
-            _redisCacheService = redisCacheService;
+            _azureRedisCacheService = azureRedisCacheService;
 
             this._repositoryService = repositoryService;
 
@@ -37,7 +37,7 @@ namespace App.Core.Infrastructure.Cache
 
         public override object Get()
         {
-            TenantDto result = _redisCacheService.Get<TenantDto>(_key);
+            TenantDto result = _azureRedisCacheService.Get<TenantDto>(_key);
 
             if (result.IsDefaultOrNotInitialized())
             {
@@ -47,7 +47,7 @@ namespace App.Core.Infrastructure.Cache
                     .ProjectTo<TenantDto>((object)null, x => x.Properties)
                     .FirstOrDefault(x => true);
 
-                _redisCacheService.Set(_key, result);
+                _azureRedisCacheService.Set(_key, result);
             }
 
             return result;

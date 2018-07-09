@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace App.Core.Infrastructure.Services.Implementations
+﻿namespace App.Core.Infrastructure.Services.Implementations.AzureServices
 {
     //using ADAL:
     //using Nuget: https://www.nuget.org/packages/Microsoft.IdentityModel.Clients.ActiveDirectory/
-    using Microsoft.IdentityModel.Clients.ActiveDirectory;
-
     public class AzureADService : IAzureADService
     {
         //public string GetAccessToken(string tenantId, string clientId, string clientSecret)

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using App.Core.Infrastructure.Services;
+using App.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration;
+using App.Core.Infrastructure.Services.Implementations.AzureServices;
 using StructureMap.Web;
 
 namespace App.Core.Infrastructure.Initialization.DependencyResolution
@@ -43,7 +46,7 @@ namespace App.Core.Infrastructure.Initialization.DependencyResolution
                     ScanAllModulesAndRegisterNamedInstancesOfStorageAccountContexts(assemblyScanner);
 
                     ScanAllModulesAndRegisterNamedInstancesOfNamedCacheInitializers(assemblyScanner);
-
+                    InfrastructureCoreMappings(assemblyScanner);
                     // Scan across all known assemblies for Services, Factories, etc.
                     // That meet ISomething => Something naming convention:
                     assemblyScanner.WithDefaultConventions();
@@ -56,6 +59,12 @@ namespace App.Core.Infrastructure.Initialization.DependencyResolution
             );
 
 
+        }
+
+        private void InfrastructureCoreMappings(IAssemblyScanner assemblyScanner)
+        {
+            For<IAzureRedisConnection>().Use<AzureRedisConnection>().Singleton();
+            For<AzureRedisCacheServiceConfiguration>().Use<AzureRedisCacheServiceConfiguration>().Singleton();
         }
 
 

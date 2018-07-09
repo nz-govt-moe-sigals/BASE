@@ -1,44 +1,29 @@
-﻿namespace App.Core.Infrastructure.Services.Implementations
+﻿using System;
+using App.Core.Infrastructure.Services.Configuration.Implementations;
+using App.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration;
+using CachingFramework.Redis;
+using CachingFramework.Redis.Contracts.Providers;
+using StackExchange.Redis;
+
+namespace App.Core.Infrastructure.Services.Implementations.AzureServices
 {
-    using App.Core.Infrastructure.Initialization.DependencyResolution;
-    using CachingFramework.Redis;
-    using CachingFramework.Redis.Contracts.Providers;
-    using StackExchange.Redis;
-    using System;
-
-    public class RedisCacheService : AppCoreServiceBase, IRedisCacheService
+    public class AzureRedisCacheService : AppCoreServiceBase, IAzureRedisCacheService
     {
-        private readonly IAzureRedisCacheService _azureRedisCacheService;
         private readonly IOperationContextService _operationContextService;
-        Lazy<RedisContext> _redisContext;
+        private readonly Lazy<RedisContext> _redisContext;
 
-        ICacheProvider Cache
-        {
-            get
-            {
-                return _redisContext.Value.Cache;
-            }
-        }
 
-        public RedisCacheService (IAzureRedisCacheService azureRedisCacheService, IOperationContextService operationContextService)
+        public AzureRedisCacheService (IOperationContextService operationContextService, IAzureRedisConnection azureRedisConnection)
         {
-            // Leverage the other service's configuration
-            _azureRedisCacheService = azureRedisCacheService;
             this._operationContextService = operationContextService;
-            // to extract the configuration object:
-            var configuration = _azureRedisCacheService.Configuration;
-            // to parse a configurationOptions:
-            ConfigurationOptions configurationOptions = ConfigurationOptions.Parse(configuration.ConnectionString);
-            configurationOptions.ClientName = "...";
-            configurationOptions.AllowAdmin = false;
-            configurationOptions.AllowAdmin = false;
-            configurationOptions.Ssl = true;
 
             //To make this library's context:
-            _redisContext = new Lazy<RedisContext>(() => new RedisContext(configurationOptions));
+            _redisContext = new Lazy<RedisContext>(() => new RedisContext(azureRedisConnection.ConnectionMultiplexer));
 
             
         }
+
+        private ICacheProvider Cache => _redisContext.Value.Cache;
 
         public void Set<T>(string key, T value, TimeSpan? duration = null)
         {
@@ -55,7 +40,7 @@
             Cache.SetObject(key, value, duration);
 
             // And for faster retrieval, set it also in local context:
-            var localKey = "_redis:" + key;
+            var localKey = GetOperationKey(key);
             _operationContextService.Set<T>(localKey, value);
 
         }
@@ -74,13 +59,13 @@
                 duration = TimeSpan.FromSeconds(30);
             }
 
-            Cache.SetHashed(key,subKey, value, duration);
+            Cache.SetHashed(key, subKey, value, duration);
 
         }
 
         public T Get<T>(string key)
         {
-            var localKey = "_redis:" + key;
+            var localKey = GetOperationKey(key);
             var result = _operationContextService.Get<T>(localKey);
             if (result != null)
             {
@@ -93,11 +78,17 @@
             }
             return result;
         }
+
         public T Get<T>(string key, string subKey)
         {
             return Cache.GetHashed<T>(key,subKey);
         }
 
+
+        private string GetOperationKey(string key)
+        {
+            return "_redis:" + key;
+        }
     }
 
 }
