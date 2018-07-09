@@ -1,22 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
+using System.Reflection;
 using System.Threading.Tasks;
+using App.Core.Infrastructure.Services.Configuration.Implementations;
+using Microsoft.Azure.Documents;
+using Microsoft.Azure.Documents.Client;
+using Microsoft.Azure.Documents.Linq;
+using Newtonsoft.Json;
 
 // requires nuget: Microsoft.Azure.DocumentDB
 
 
-namespace App.Core.Infrastructure.Services.Implementations
+namespace App.Core.Infrastructure.Services.Implementations.AzureServices
 {
-    using System.Collections.ObjectModel;
-    using System.Reflection;
-    using App.Core.Infrastructure.Services.Configuration.Implementations;
-    using Microsoft.Azure.Documents;
-    using Microsoft.Azure.Documents.Client;
-    using Microsoft.Azure.Documents.Linq;
-    using Newtonsoft.Json;
-
     public class AzureDocumentDBService : AzureDocumentDbBaseService, IAzureDocumentDBService
     {
 

@@ -1,12 +1,7 @@
-﻿using App.Core.Infrastructure.Services.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using App.Core.Infrastructure.Services.Configuration.Implementations;
+﻿using App.Core.Infrastructure.Services.Configuration.Implementations;
+using App.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration;
 
-namespace App.Core.Infrastructure.Services.Implementations
+namespace App.Core.Infrastructure.Services.Implementations.AzureServices
 {
     public class AzureCognitiveServicesComputerVisionService: AppCoreServiceBase, IAzureCognitiveServicesComputerVisionService
     {

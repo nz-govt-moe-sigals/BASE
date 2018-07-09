@@ -1,37 +1,21 @@
 ﻿
-namespace App.Core.Infrastructure.Services.Implementations
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using App.Core.Infrastructure.Factories;
+using App.Core.Infrastructure.Services.Caches.Implementations;
+using App.Core.Infrastructure.Services.Configuration.Implementations;
+using App.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration;
+using App.Core.Shared.Models.Entities;
+using Microsoft.Azure.KeyVault;
+using Microsoft.Azure.KeyVault.Models;
+using Microsoft.Azure.KeyVault.WebKey;
+using Microsoft.Azure.Services.AppAuthentication;
+using Microsoft.Rest.Azure;
+
+namespace App.Core.Infrastructure.Services.Implementations.AzureServices
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Configuration;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using App;
-    using App.Core.Infrastructure.Factories;
-    using App.Core.Infrastructure.Integration.Azure.KeyVault;
-    using App.Core.Infrastructure.Services.Caches.Implementations;
-    using App.Core.Infrastructure.Services.Configuration;
-    using App.Core.Infrastructure.Services.Configuration.Implementations;
-    using App.Core.Shared.Models.Configuration;
-    using App.Core.Shared.Models.Entities;
-    using Microsoft.Azure.KeyVault;
-    using Microsoft.Azure.KeyVault.Models;
-    using Microsoft.Azure.KeyVault.WebKey;
-    using Microsoft.Azure.Services.AppAuthentication;
-    using Microsoft.IdentityModel.Clients.ActiveDirectory;
-    using Microsoft.Rest.Azure;
-    using Microsoft.WindowsAzure.Storage;
-    using Microsoft.WindowsAzure.Storage.Auth;
-    using Microsoft.WindowsAzure.Storage.Queue;
-
-
-
-  
-
-
-
-
     /// <summary>
     ///     Implementation of the
     ///     <see cref="IAzureKeyVaultService" />

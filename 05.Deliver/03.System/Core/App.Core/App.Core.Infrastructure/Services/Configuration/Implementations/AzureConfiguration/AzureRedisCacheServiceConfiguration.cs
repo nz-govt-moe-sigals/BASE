@@ -1,7 +1,7 @@
 ﻿
 using App.Core.Shared.Models.ConfigurationSettings;
 
-namespace App.Core.Infrastructure.Services.Configuration.Implementations
+namespace App.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration
 {
     public class AzureRedisCacheServiceConfiguration : ICoreServiceConfigurationObject
     {

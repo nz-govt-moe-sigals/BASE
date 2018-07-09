@@ -1,12 +1,10 @@
 ﻿
-namespace App.Core.Infrastructure.Services.Configuration.Implementations
-{
-    using App.Core.Shared.Constants;
-    using App.Core.Shared.Contracts;
-    using App.Core.Shared.Models.Configuration;
-    using App.Core.Shared.Models.Configuration.AppHost;
-    using App.Core.Shared.Models.ConfigurationSettings;
+using App.Core.Shared.Constants;
+using App.Core.Shared.Contracts;
+using App.Core.Shared.Models.ConfigurationSettings;
 
+namespace App.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration
+{
     /// <summary>
     /// Configuration object to be injected into the 
     /// implementation of <see cref="IAzureKeyVaultService"/>
