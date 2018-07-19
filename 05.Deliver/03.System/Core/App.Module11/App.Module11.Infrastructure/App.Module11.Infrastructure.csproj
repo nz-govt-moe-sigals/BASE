@@ -78,6 +78,10 @@
     <Compile Include="Initialization\Db\Migrations\Default\201805230106214_ReferenceDataAddedIndexedTitleAndDescription.Designer.cs">
       <DependentUpon>201805230106214_ReferenceDataAddedIndexedTitleAndDescription.cs</DependentUpon>
     </Compile>
+    <Compile Include="Initialization\Db\Migrations\Default\201807180447479_Entities.PrincipalLengthUpdate.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201807180447479_Entities.PrincipalLengthUpdate.Designer.cs">
+      <DependentUpon>201807180447479_Entities.PrincipalLengthUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineBody.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineBodyAlias.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineBodyCategory.cs" />
@@ -166,6 +170,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Initialization\Db\Migrations\Default\201805230106214_ReferenceDataAddedIndexedTitleAndDescription.resx">
       <DependentUpon>201805230106214_ReferenceDataAddedIndexedTitleAndDescription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201807180447479_Entities.PrincipalLengthUpdate.resx">
+      <DependentUpon>201807180447479_Entities.PrincipalLengthUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

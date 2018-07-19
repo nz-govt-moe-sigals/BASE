@@ -13,7 +13,7 @@
     public interface IOIDCAPIClientService
     {
         Task<HttpResponseMessage> MakeRequestAsync(
-            IOIDCConfidentialClientConfiguration oidcConfidentialClientConfiguration,
+            IOidcSettingsConfidentialClientConfiguration oidcSettingsConfidentialClientConfiguration,
             string authorityUriOverride,
             HttpContextBase httpContextBase,
             string[] fqScopes,
@@ -21,7 +21,7 @@
             Uri apiUri);
 
         Task<HttpResponseMessage> MakeRequestAsync(
-            IOIDCConfidentialClientConfiguration oidcConfidentialClientConfiguration,
+            IOidcSettingsConfidentialClientConfiguration oidcSettingsConfidentialClientConfiguration,
             string authorityUriOverride,
             HttpContextBase httpContextBase,
             string[] fqScopes,

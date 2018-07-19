@@ -125,7 +125,7 @@ where T : class, IHasKey
             modelBuilder.Entity<T>()
                 .Property(x => x.CreatedByPrincipalId)
                 .HasColumnOrder(order++)
-                .HasMaxLength(App.Core.Infrastructure.Constants.Db.TextFieldSizes.X32)
+                .HasMaxLength(TextFieldSizes.GuidStringLength)
                 .IsRequired();
             if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
 
@@ -145,7 +145,7 @@ where T : class, IHasKey
             modelBuilder.Entity<T>()
                 .Property(x => x.LastModifiedByPrincipalId)
                 .HasColumnOrder(order++)
-                .HasMaxLength(App.Core.Infrastructure.Constants.Db.TextFieldSizes.X32)
+                .HasMaxLength(TextFieldSizes.GuidStringLength)
                 .HasColumnAnnotation("Index",
                     new IndexAnnotation(new IndexAttribute($"IX_{typeof(T).Name}_LastModifiedByPrincipalId")
                     {
@@ -165,7 +165,7 @@ where T : class, IHasKey
             modelBuilder.Entity<T>()
                 .Property(x => x.DeletedByPrincipalId)
                 .HasColumnOrder(order++)
-                .HasMaxLength(App.Core.Infrastructure.Constants.Db.TextFieldSizes.X32)
+                .HasMaxLength(TextFieldSizes.GuidStringLength)
                 .IsOptional();
             if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
 

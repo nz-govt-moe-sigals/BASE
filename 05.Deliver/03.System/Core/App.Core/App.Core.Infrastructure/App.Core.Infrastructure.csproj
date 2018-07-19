@@ -257,6 +257,10 @@
     <Compile Include="Initialization\Db\Migrations\Core\201807020243357_Entities.UniqueNullableIndex.Designer.cs">
       <DependentUpon>201807020243357_Entities.UniqueNullableIndex.cs</DependentUpon>
     </Compile>
+    <Compile Include="Initialization\Db\Migrations\Core\201807180441055_Entities.PrincipalLengthUpdate.cs" />
+    <Compile Include="Initialization\Db\Migrations\Core\201807180441055_Entities.PrincipalLengthUpdate.Designer.cs">
+      <DependentUpon>201807180441055_Entities.PrincipalLengthUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenantServiceProfileServiceOfferingAllocation.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenantServiceProfileServicePlanAssignment.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineServicePlanDefinition.cs" />
@@ -608,6 +612,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Initialization\Db\Migrations\Core\201807020243357_Entities.UniqueNullableIndex.resx">
       <DependentUpon>201807020243357_Entities.UniqueNullableIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Core\201807180441055_Entities.PrincipalLengthUpdate.resx">
+      <DependentUpon>201807180441055_Entities.PrincipalLengthUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

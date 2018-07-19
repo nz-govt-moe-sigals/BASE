@@ -80,6 +80,10 @@
     <Compile Include="Initialization\Db\Migrations\Default\201806120343501_Entities.AddSourceModifiedDate.Designer.cs">
       <DependentUpon>201806120343501_Entities.AddSourceModifiedDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Initialization\Db\Migrations\Default\201807180450223_Entities.PrincipalLengthUpdate.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201807180450223_Entities.PrincipalLengthUpdate.Designer.cs">
+      <DependentUpon>201807180450223_Entities.PrincipalLengthUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineEducationSchoolProfile.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineEducationStudentProfile.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineExtractWatermark.cs" />
@@ -153,6 +157,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Initialization\Db\Migrations\Default\201806120343501_Entities.AddSourceModifiedDate.resx">
       <DependentUpon>201806120343501_Entities.AddSourceModifiedDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201807180450223_Entities.PrincipalLengthUpdate.resx">
+      <DependentUpon>201807180450223_Entities.PrincipalLengthUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

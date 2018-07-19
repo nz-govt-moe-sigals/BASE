@@ -2,6 +2,8 @@
 using System.Web;
 using System.Web.Mvc;
 using App.Core.Infrastructure.IDA.Models;
+using App.Core.Infrastructure.IDA.Models.Implementations;
+using App.Core.Infrastructure.IDA.Models.Implementations.WebApp;
 using App.Core.Infrastructure.Services;
 using Microsoft.Owin.Security;
 
@@ -11,14 +13,14 @@ namespace App.Host.Presentation.Controllers
     [AllowAnonymous]
     public class AccountController : Controller
     {
-        private readonly IB2COidcConfidentialClientConfiguration _b2cOidcConfidentialClientConfiguration;
+        private readonly IB2COidcConfidentialClientSettingsConfiguration _ib2COidcConfidentialClientSettingsConfiguration;
         private readonly IHostSettingsService _hostSettingsService;
 
         public AccountController(IHostSettingsService hostSettingsService)
         {
             this._hostSettingsService = hostSettingsService;
-            this._b2cOidcConfidentialClientConfiguration = this._hostSettingsService
-                .GetObject<B2COidcConfidentialClientConfiguration>("cookieAuth:");
+            this._ib2COidcConfidentialClientSettingsConfiguration = this._hostSettingsService
+                .GetObject<B2COidcConfidentialSettingsClientConfiguration>("cookieAuth:");
         }
 
         /*
@@ -45,7 +47,7 @@ namespace App.Host.Presentation.Controllers
             {
                 // Let the middleware know you are trying to use the edit profile policy (see OnRedirectToIdentityProvider in Startup.Auth.cs)
                 this.HttpContext.GetOwinContext().Set("Policy",
-                    this._b2cOidcConfidentialClientConfiguration.TenantEditProfilePolicyId);
+                    this._ib2COidcConfidentialClientSettingsConfiguration.TenantEditProfilePolicyId);
 
                 // Set the page to redirect to after editing the profile
                 var authenticationProperties = new AuthenticationProperties {RedirectUri = "/"};
@@ -64,7 +66,7 @@ namespace App.Host.Presentation.Controllers
         {
             // Let the middleware know you are trying to use the reset password policy (see OnRedirectToIdentityProvider in Startup.Auth.cs)
             this.HttpContext.GetOwinContext().Set("Policy",
-                this._b2cOidcConfidentialClientConfiguration.TenantResetPasswordPolicyId);
+                this._ib2COidcConfidentialClientSettingsConfiguration.TenantResetPasswordPolicyId);
 
             // Set the page to redirect to after changing passwords
             var authenticationProperties = new AuthenticationProperties {RedirectUri = "/"};
