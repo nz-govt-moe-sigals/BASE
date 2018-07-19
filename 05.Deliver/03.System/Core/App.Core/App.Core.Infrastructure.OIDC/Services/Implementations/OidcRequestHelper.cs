@@ -1,3 +1,5 @@
+using App.Core.Infrastructure.IDA.Oidc;
+
 namespace App.Core.Infrastructure.IDA.Services
 {
     using System;
@@ -7,7 +9,6 @@ namespace App.Core.Infrastructure.IDA.Services
     using System.Security.Claims;
     using System.Threading.Tasks;
     using System.Web;
-    using App.Core.Application.Oidc;
     using App.Core.Infrastructure.IDA.Models;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;

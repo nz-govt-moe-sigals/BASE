@@ -2,7 +2,6 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
-using App.Core.Application.Oidc;
 using App.Core.Infrastructure.IDA.Models;
 using App.Core.Infrastructure.Services;
 using App.Core.Shared.Models.Messages;
@@ -15,6 +14,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Notifications;
 using Microsoft.Owin.Security.OpenIdConnect;
 using App.Core.Infrastructure.IDA.Models.Implementations.WebApp;
+using App.Core.Infrastructure.IDA.Oidc;
 
 namespace App.Core.Infrastructure.IDA.Owin
 {

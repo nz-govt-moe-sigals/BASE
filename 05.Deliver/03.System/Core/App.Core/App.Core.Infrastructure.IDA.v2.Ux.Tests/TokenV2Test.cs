@@ -25,11 +25,11 @@ namespace App.Core.Infrastructure.IDA.v2.Ux.Tests
         //
         private static string aadInstance = "https://login.microsoftonline.com/{0}/v2.0/";
         private static string tenant = "BaseCommonTest.onmicrosoft.com";
-        private static string clientId = "208d5ab5-d958-4446-8cdd-51fea07d8bc9";
-        private static string appKey = "gxnvlrNBNL626~;pSLO76@_";
+        private static string clientId = "965b20c2-d1a1-44ad-8c5d-e426dfcddae0";
+        private static string appKey = "H6Ynryccyl7X3tuo11eZ5ycbhOfiaLVQUpGkjGqY48g=";
         
         
-        private static string redirectUri = "https://localhost:44316";
+        private static string redirectUri = "https://basecommontest.onmicrosoft.com/ADDaemon";
 
         static string authority = String.Format(CultureInfo.InvariantCulture, aadInstance, tenant);
 
@@ -37,7 +37,7 @@ namespace App.Core.Infrastructure.IDA.v2.Ux.Tests
         // To authenticate to the To Do list service, the client needs to know the service's App ID URI.
         // To contact the To Do list service we need it's URL as well.
         //
-        private static string todoListResourceId = "https://BaseCommonTest.onmicrosoft.com/BaseTestWebApiV2";
+        private static string todoListResourceId = "https://BaseCommonTest.onmicrosoft.com/ADBaseTestWebApi";
         // private static string todoListBaseAddress = ConfigurationManager.AppSettings["todo:TodoListBaseAddress"];
 
         private readonly string _baseurl;
@@ -76,7 +76,7 @@ namespace App.Core.Infrastructure.IDA.v2.Ux.Tests
                 {
                     var clientCredential = new ClientCredential(appKey);
                     ConfidentialClientApplication daemonClient = new ConfidentialClientApplication(clientId, authority, redirectUri, clientCredential, null, new TokenCache());
-                    token = await daemonClient.AcquireTokenForClientAsync(new string[] { "https://BaseCommonTest.onmicrosoft.com/BaseTestWebApiV2/.default" });
+                    token = await daemonClient.AcquireTokenForClientAsync(new string[] { todoListResourceId + "/.default" });
                 });
             "And I make a Http Request to a restricted API"
                 .x(async () =>

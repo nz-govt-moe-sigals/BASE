@@ -1,9 +1,9 @@
-﻿namespace App.Core.Application.Oidc
-{
-    using System.Threading;
-    using System.Web;
-    using Microsoft.Identity.Client;
+﻿using System.Threading;
+using System.Web;
+using Microsoft.Identity.Client;
 
+namespace App.Core.Infrastructure.IDA.Oidc
+{
     /// <summary>
     ///     File needed by Web MVC (not needed when being a WebAPI site only).
     /// </summary>

@@ -161,9 +161,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{770E6538-1
 		readme.TestNamingConventions.md = readme.TestNamingConventions.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "b2c", "b2c", "{9D7EB9E5-690F-4617-A7B6-B153E926A1C8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OAuth", "OAuth", "{9D7EB9E5-690F-4617-A7B6-B153E926A1C8}"
 	ProjectSection(SolutionItems) = preProject
-		readme.b2c.md = readme.b2c.md
+		_Readme\Oauth\readme.AzureAd.md = _Readme\Oauth\readme.AzureAd.md
+		_Readme\Oauth\readme.b2c.md = _Readme\Oauth\readme.b2c.md
+		_Readme\Oauth\readme.whatIsthis.md = _Readme\Oauth\readme.whatIsthis.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module32.Shared", "App.Module32\App.Module32.Shared\App.Module32.Shared.csproj", "{C1E727B0-F6F4-4CBC-BD54-2F492E0E89B6}"
