@@ -20,8 +20,6 @@ namespace App.Core.Infrastructure.IDA.v1.Ux.Tests
         //
         private static string aadInstance = "https://login.microsoftonline.com/{0}";
         private static string tenant = "BaseCommonTest.onmicrosoft.com";
-        //private static string clientId = "2c72f81f-d82c-4b66-9cb9-cf689a177a24";
-        //private static string appKey = "Pb&\"L6]F7588\"75]fSqieA0%";
 
         private static string clientId = "965b20c2-d1a1-44ad-8c5d-e426dfcddae0";
         private static string appKey = "H6Ynryccyl7X3tuo11eZ5ycbhOfiaLVQUpGkjGqY48g=";

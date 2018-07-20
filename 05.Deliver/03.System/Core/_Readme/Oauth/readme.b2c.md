@@ -94,12 +94,13 @@ https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory
 but wait there is more... 
 
 B2C does not seem to allow on-behalf-flow , instead they you use some crazy IUser, which I HAVE NO CLUE how the idenitifer is actually generated for
-some crazy magic which only a wizzard actually did. When using Cookie Authentication there seems to be a to have an ability to do do this, although
+some crazy magic which only leads me to believe a wizzard actually did. When using Cookie Authentication there seems to be a to have an ability to do do this, although
 App.Core.Infrastructure.IDA.Oidc.MSALSessionCache should be rectified not to use HttpContext and use either Redis or Db. (or both)
 https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/wiki/token-cache-serialization (supposedly helps)
 
 B2C also cannot talk to any of your Azure AD (v1 & v2) to supply a list of Scopes to get, Only other B2C apps when using the above. So if you are creating a backend 
-service past your front end service, you should register it as both an Azure under App Registrations and Azure B2C App Regigistrations
+service past your front end service, you should register it as both an Azure under App Registrations and Azure B2C App Regigistrations.
+(see not sure if you can hack it to talk to your backend)
 
 Currently because there are no Roles or Groups for B2C, Unless you want open APIs with no scope or Roles then Daemon (no user interaction) testing becomes nigh impossible
 another reason to register any common WebApi as both B2C app and an Azure AD app. Testing I know what a pain but still..
