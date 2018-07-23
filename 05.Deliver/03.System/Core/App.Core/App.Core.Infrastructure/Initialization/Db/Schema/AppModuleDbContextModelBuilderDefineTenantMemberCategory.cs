@@ -11,6 +11,8 @@
     { 
         public void Define(DbModelBuilder modelBuilder)
         {
+            new DefaultTableAndSchemaNamingConvention().Define<PrincipalProfileCategory>(modelBuilder);
+
             var order = 1;
 
             // --------------------------------------------------

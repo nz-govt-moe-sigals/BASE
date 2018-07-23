@@ -10,6 +10,9 @@
     {
         public void Define(DbModelBuilder modelBuilder)
         {
+            new DefaultTableAndSchemaNamingConvention().Define<ServicePlanDefinition>(modelBuilder);
+
+
             var order = 1;
 
             // --------------------------------------------------

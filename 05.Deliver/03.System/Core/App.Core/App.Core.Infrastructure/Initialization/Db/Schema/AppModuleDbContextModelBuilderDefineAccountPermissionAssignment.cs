@@ -11,6 +11,8 @@
     {
         public void Define(DbModelBuilder modelBuilder)
         {
+            new DefaultTableAndSchemaNamingConvention().Define<TenancySecurityProfileTenancySecurityProfilePermissionAssignment>(modelBuilder);
+
             var order = 1;
 
             // NO! new TenantFKAuditedTimestampedRecordStatedGuidIdDataConvention().Define<CourseInstructorRole>(modelBuilder, ref order ...no...);

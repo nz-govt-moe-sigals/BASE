@@ -14,10 +14,13 @@
     {
         public void Define(DbModelBuilder modelBuilder)
         {
+            new DefaultTableAndSchemaNamingConvention().Define<TenancySecurityProfileRoleGroup>(modelBuilder);
+
             var order = 1;
             // --------------------------------------------------
             // Standard Properties:
-            new TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention().Define<TenancySecurityProfileRoleGroup>(modelBuilder, ref order);
+            new TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention()
+                .Define<TenancySecurityProfileRoleGroup>(modelBuilder, ref order);
 
 
             // --------------------------------------------------

@@ -13,6 +13,8 @@
     {
         public void Define(DbModelBuilder modelBuilder)
         {
+            new DefaultTableAndSchemaNamingConvention().Define<DataToken>(modelBuilder);
+
             var order = 1;
                 
             new TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention().Define<DataToken>(modelBuilder, ref order);

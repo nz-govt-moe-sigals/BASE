@@ -13,6 +13,8 @@
     {
         public void Define(DbModelBuilder modelBuilder)
         {
+            new DefaultTableAndSchemaNamingConvention().Define<DataClassification>(modelBuilder);
+
             var order = 1;
 
             // Note that this Schema uses an Enum as the Id:

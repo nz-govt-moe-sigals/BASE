@@ -12,6 +12,7 @@
         {
             var order = 1;
 
+            new DefaultTableAndSchemaNamingConvention().Define<PrincipalCategory>(modelBuilder);
 
             new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<PrincipalCategory>(modelBuilder, ref order);
 

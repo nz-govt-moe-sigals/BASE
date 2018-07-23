@@ -13,6 +13,8 @@
     {
         public void Define(DbModelBuilder modelBuilder)
         {
+            new DefaultTableAndSchemaNamingConvention().Define<ExceptionRecord>(modelBuilder);
+
             var order = 1;
 
             new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<ExceptionRecord>(modelBuilder, ref order);

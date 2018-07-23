@@ -9,6 +9,7 @@
 //    {
 //        public void Define(DbModelBuilder modelBuilder)
 //        {
+//new DefaultTableAndSchemaNamingConvention().Define<TenantMember>(modelBuilder);
 //            //var order = 1;
 
 //            modelBuilder.Entity<TenantMember>()
