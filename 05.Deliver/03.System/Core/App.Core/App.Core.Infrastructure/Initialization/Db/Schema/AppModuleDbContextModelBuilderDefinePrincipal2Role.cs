@@ -1,6 +1,7 @@
 namespace App.Core.Infrastructure.Db.Schema
 {
     using System.Data.Entity;
+    using App.Core.Infrastructure.Db.Schema.Conventions;
     using App.Core.Infrastructure.Initialization;
     using App.Core.Infrastructure.Initialization.Db;
     using App.Core.Shared.Models.Entities;
@@ -9,6 +10,8 @@ namespace App.Core.Infrastructure.Db.Schema
     {
         public void Define(DbModelBuilder modelBuilder)
         {
+            new DefaultTableAndSchemaNamingConvention().Define<Principal>(modelBuilder);
+
             //var order = 1;
 
             modelBuilder.Entity<Principal>()

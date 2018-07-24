@@ -75,7 +75,7 @@ namespace App.Core.Infrastructure.IDA.Owin
                     new TokenValidationParameters
                     {
                         ValidateIssuer = false /*ValidIssuers = ...*/
-                    },
+                    }, 
 
                 // OpenIdConnectAuthenticationNotifications configures OWIN 
                 // to send notification of failed authentications 

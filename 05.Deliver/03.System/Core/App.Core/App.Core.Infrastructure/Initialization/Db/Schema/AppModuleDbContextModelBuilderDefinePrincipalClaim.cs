@@ -15,6 +15,8 @@
     {
         public void Define(DbModelBuilder modelBuilder)
         {
+            new DefaultTableAndSchemaNamingConvention().Define<PrincipalClaim>(modelBuilder);
+
             var order = 1;
 
 

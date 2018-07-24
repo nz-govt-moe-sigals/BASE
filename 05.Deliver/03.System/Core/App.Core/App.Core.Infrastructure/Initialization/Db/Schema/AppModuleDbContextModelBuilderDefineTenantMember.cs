@@ -10,6 +10,8 @@
     {
         public void Define(DbModelBuilder modelBuilder)
         {
+            new DefaultTableAndSchemaNamingConvention().Define<PrincipalProfile>(modelBuilder);
+
             var order = 1;
 
             // --------------------------------------------------

@@ -16,6 +16,8 @@
     {
         public void Define(DbModelBuilder modelBuilder)
         {
+            new DefaultTableAndSchemaNamingConvention().Define<MediaMetadata>(modelBuilder);
+
             var order = 1;
 
             new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<MediaMetadata>(modelBuilder, ref order);

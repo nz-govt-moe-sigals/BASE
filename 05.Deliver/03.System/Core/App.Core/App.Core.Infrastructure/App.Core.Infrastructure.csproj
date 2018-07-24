@@ -296,6 +296,7 @@
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenantMemberTag.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenantProperty.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleModelBuilderCommonConfiguration.cs" />
+    <Compile Include="Initialization\Db\Schema\Conventions\DefaultTableAndSchemaNamingConvention.cs" />
     <Compile Include="Initialization\Db\Schema\Conventions\IdConvention.cs" />
     <Compile Include="Initialization\Db\Schema\AppCoreModelBuilderOrchestrator.cs" />
     <Compile Include="Exceptions\ConfigurationException.cs" />

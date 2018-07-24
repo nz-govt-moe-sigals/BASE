@@ -16,6 +16,8 @@
     {
         public void Define(DbModelBuilder modelBuilder)
         {
+            new DefaultTableAndSchemaNamingConvention().Define<Tenant>(modelBuilder);
+
             var order = 1;
 
             new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<Tenant>(modelBuilder, ref order);

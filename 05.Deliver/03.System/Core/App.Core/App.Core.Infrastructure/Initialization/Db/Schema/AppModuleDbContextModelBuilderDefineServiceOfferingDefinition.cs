@@ -15,6 +15,9 @@
 
         public void Define(DbModelBuilder modelBuilder)
         {
+            new DefaultTableAndSchemaNamingConvention().Define<ServiceOfferingDefinition>(modelBuilder);
+
+
             var order = 1;
 
             // --------------------------------------------------

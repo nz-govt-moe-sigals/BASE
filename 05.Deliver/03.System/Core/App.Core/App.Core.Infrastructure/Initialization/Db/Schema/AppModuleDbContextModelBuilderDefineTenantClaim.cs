@@ -15,6 +15,8 @@
     {
         public void Define(DbModelBuilder modelBuilder)
         {
+            new DefaultTableAndSchemaNamingConvention().Define<TenantClaim>(modelBuilder);
+
             var order = 1;
 
             // --------------------------------------------------

@@ -14,6 +14,9 @@
         public void Define(DbModelBuilder modelBuilder)
         {
             var order = 1;
+
+            new DefaultTableAndSchemaNamingConvention().Define<TenancySecurityProfile>(modelBuilder);
+
             // --------------------------------------------------
             // Standard Properties:
             new TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention().Define<TenancySecurityProfile>(modelBuilder, ref order);
