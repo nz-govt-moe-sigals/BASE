@@ -1,91 +1,67 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using App.Core.Infrastructure.Services;
 using App.Module32.Infrastructure.Services.Implementations.Base;
+using App.Module32.Infrastructure.Services.Interfaces.Extract;
 using App.Module32.Shared.Models.Entities;
 using App.Module32.Shared.Models.Messages.Extract;
+using AutoMapper;
 
 namespace App.Module32.Infrastructure.Services.Implementations.Extract.DataServices
 {
     public class StudentProfilesExtractService : BaseExtractService<StudentProfile, EducationStudentProfile>
     {
-        public StudentProfilesExtractService(IDiagnosticsTracingService tracingService, IExtractAzureDocumentDbService documentDbService, IExtractRepositoryService repositoryService) 
+        private readonly ISchoolExtractRepositoryService _schoolExtractRepository;
+
+        public StudentProfilesExtractService(IDiagnosticsTracingService tracingService, IStudentExtractAzureDocumentDbService documentDbService, 
+            IStudentExtractRepositoryService repositoryService, ISchoolExtractRepositoryService schoolExtractRepository) 
             : base(tracingService, documentDbService, repositoryService)
         {
+            _schoolExtractRepository = schoolExtractRepository;
+
         }
 
-        //SERIOUS HACK UNDER PRESSURE 
-        public override void Process()
+
+
+        public override List<EducationStudentProfile> CreateEntities(IList<StudentProfile> list)
         {
-            var schools = _repositoryService.GetEducationSchoolProfiles(new List<EducationSchoolProfile>()
+            var schools = _schoolExtractRepository.GetFilteredExistingData(list.Select(x => x.SchoolId))
+                .ToDictionary(x => x.SchoolId, x => x);
+            var entityList = new List<EducationStudentProfile>();
+            foreach (var item in list) 
             {
-                new EducationSchoolProfile() {SchoolId = 1},
-                new EducationSchoolProfile(){SchoolId = 2},
-            }).ToList();
+                try
+                {
+                    var mappedItem = MapLocalDataToEntity(item);
+                    if (!schools.TryGetValue(item.SchoolId, out EducationSchoolProfile school))
+                    {
+                        //HandleConversionException("Cannot Find school", item);
+                        //continue;
+                        mappedItem.EducationSchoolProfileFK = Guid.Parse("AF91D09A-3A67-39E8-6FE3-39E7D6F1984E"); // TODO get rid of need this  
+                    }
+                    else
+                    {
+                        mappedItem.EducationSchoolProfileFK = school.Id;
+                    }
 
+                    entityList.Add(mappedItem);
+                }
+                catch (Exception e)
+                {
+                    HandleConversionException(e, item);
+                }
+            }
 
-            var list = new List<EducationStudentProfile>()
-            {
-                new EducationStudentProfile()
-                {
-                    FullName = "Robert Muldoon",
-                    DateOfBirth = new DateTime(2011,05,05),
-                    NSN = "10000",
-                    Gender = "M",
-                    EducationSchoolProfileFK = schools.First().Id
-                },
-                new EducationStudentProfile()
-                {
-                    FullName = "Radúz Casper Parris",
-                    DateOfBirth = new DateTime(2011,05,05),
-                    NSN = "10001",
-                    Gender = "M",
-                    EducationSchoolProfileFK = schools.Last().Id
-                },
-                new EducationStudentProfile()
-                {
-                    FullName = "Slava Tine Alan",
-                    DateOfBirth = new DateTime(2011,05,05),
-                    NSN = "10003",
-                    Gender = "M",
-                    EducationSchoolProfileFK = schools.First().Id
-                },
-                new EducationStudentProfile()
-                {
-                    FullName = "Shenandoah Annika Dibra",
-                    DateOfBirth = new DateTime(2011,05,05),
-                    NSN = "10004",
-                    Gender = "M",
-                    EducationSchoolProfileFK = schools.Last().Id
-                },
-                new EducationStudentProfile()
-                {
-                    FullName = "Samuil Daniel Brennan",
-                    DateOfBirth = new DateTime(2011,05,05),
-                    NSN = "10005",
-                    Gender = "M",
-                    EducationSchoolProfileFK = schools.First().Id
-                },
-                new EducationStudentProfile()
-                {
-                    FullName = "Loreto Michelle Cloet",
-                    DateOfBirth = new DateTime(2011,05,05),
-                    NSN = "10006",
-                    Gender = "F",
-                    EducationSchoolProfileFK = schools.First().Id
-                },
-            };
-
-            AddOrUpdateList(_repositoryService, list);
+            return entityList;
         }
 
-        protected override void AddOrUpdateList(IExtractRepositoryService repositoryService, IList<EducationStudentProfile> entityList)
+        public override EducationStudentProfile MapLocalDataToEntity(StudentProfile item)
         {
-            _repositoryService.AddOrUpdateList(entityList);
-            //throw new NotImplementedException();
+            return Mapper.Map<StudentProfile, EducationStudentProfile>(item);
         }
+
+
+
     }
 }

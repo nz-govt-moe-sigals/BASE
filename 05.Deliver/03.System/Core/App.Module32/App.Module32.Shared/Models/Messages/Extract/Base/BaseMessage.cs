@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace App.Module32.Shared.Models.Messages.Extract.Base
 {
-    public class BaseMessage
+    public abstract class BaseMessage 
     {
         [JsonProperty("id")]
         public Guid Id { get; set; }
@@ -15,8 +15,7 @@ namespace App.Module32.Shared.Models.Messages.Extract.Base
         [JsonProperty("ModifiedBy")]
         public string ModifiedBy { get; set; }
 
-        [JsonProperty("ModifiedDate")]
-        public DateTime ModifiedDate { get; set; }
+      
 
         [JsonProperty("SourceDataLastModified")]
         public DateTime SourceDataLastModified { get; set; }

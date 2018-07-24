@@ -53,6 +53,7 @@
     <Compile Include="Models\Messages\API\V0100\StudentDto.cs" />
     <Compile Include="Models\Messages\API\V0100\StudentTransportDto.cs" />
     <Compile Include="Models\Messages\API\V0100\StudentTransportSearchDto.cs" />
+    <Compile Include="Models\Messages\Extract\Base\IExtractMessage.cs" />
     <Compile Include="Models\Messages\Extract\ExtractConstants.cs" />
     <Compile Include="Models\Messages\Extract\Base\BaseMessage.cs" />
     <Compile Include="Models\Entities\ExtractWatermark.cs" />

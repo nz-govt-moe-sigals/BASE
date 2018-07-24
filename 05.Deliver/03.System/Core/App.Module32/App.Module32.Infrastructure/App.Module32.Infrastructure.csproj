@@ -98,6 +98,8 @@
     <Compile Include="Services\Configuration\IModuleServiceConfigurationObject.cs" />
     <Compile Include="Services\IBatchRepositoryService.cs" />
     <Compile Include="Services\IExtractAzureDocumentDbService.cs" />
+    <Compile Include="Services\Implementations\Extract\Repositories\SchoolExtractAzureDocumentDbService.cs" />
+    <Compile Include="Services\Implementations\Extract\Repositories\StudentExtractAzureDocumentDbService.cs" />
     <Compile Include="Services\IExtractRepositoryService.cs" />
     <Compile Include="Services\IExtractServiceController.cs" />
     <Compile Include="Services\IHasAppModuleService.cs" />
@@ -110,7 +112,14 @@
     <Compile Include="Services\Implementations\Extract\Repositories\ExtractAzureDocumentDbService.cs" />
     <Compile Include="Services\Implementations\Extract\Repositories\ExtractRepositoryService.cs" />
     <Compile Include="Services\IBaseExtractService.cs" />
+    <Compile Include="Services\Implementations\Extract\Repositories\SchoolExtractRepositoryService.cs" />
+    <Compile Include="Services\Implementations\Extract\Repositories\StudentExtractRepositoryService.cs" />
+    <Compile Include="Services\Interfaces\Extract\ISchoolExtractAzureDocumentDbService.cs" />
+    <Compile Include="Services\Interfaces\Extract\ISchoolExtractRepositoryService.cs" />
+    <Compile Include="Services\Interfaces\Extract\IStudentExtractAzureDocumentDbService.cs" />
+    <Compile Include="Services\Interfaces\Extract\IStudentExtractRepositoryService.cs" />
     <Compile Include="Utility\LevenshteinDistance.cs" />
+    <Compile Include="Utility\PropertyRenameAndIgnoreSerializerContractResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\App.Core\App.Core.Infrastructure\App.Core.Infrastructure.csproj">

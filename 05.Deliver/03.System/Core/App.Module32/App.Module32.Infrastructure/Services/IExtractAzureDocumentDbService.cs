@@ -4,17 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using App.Module32.Shared.Models.Messages.Extract.Base;
+using Newtonsoft.Json.Serialization;
 
 namespace App.Module32.Infrastructure.Services
 {
-    public interface IExtractAzureDocumentDbService
+    public interface IExtractAzureDocumentDbService<TDocument>
     {
-        IQueryable<TDocument> GetDocuments<TDocument>(string dbName, DateTime watermarkDate)
-            where TDocument : BaseMessage;
+        int GetDocumentCount(DateTime watermarkDate);
 
-        Task<IEnumerable<TDocument>> ExecuteGetDocumentsAsync<TDocument>(string tableName, DateTime watermarkDate)
-            where TDocument : BaseMessage;
+        Task<IEnumerable<TDocument>> ExecuteGetDocumentsAsync(DateTime watermarkDate);
 
         int PageQuerySize { get; }
+
+        string SourceTableName { get; }
+
     }
 }

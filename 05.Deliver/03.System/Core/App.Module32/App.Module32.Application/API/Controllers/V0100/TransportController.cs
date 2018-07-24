@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using System.Web.Hosting;
 using System.Web.Http;
 using App.Core.Application.API.Controllers.Base.Base;
 using App.Core.Infrastructure.Services;
@@ -45,13 +49,17 @@ namespace App.Module32.Application.API.Controllers.V0100
         [AllowAnonymous]
         [HttpGet()]
         [ActionName("Extract")]
-        public async Task<string> ExtractAsync()
+        public IHttpActionResult Extract()
         {
+            // also see StudentProfilesExtractService for what to do with Students with no schools
+            throw new NotImplementedException();
             using (var elapsedTime = new ElapsedTime())
             {
-                await _extractServiceController.ProcessAllTablesAsync();
-
-                return $"success - elapsedTime : {elapsedTime.ElapsedText}";
+                //_extractServiceController.ProcessAllTables();
+                HostingEnvironment.QueueBackgroundWorkItem(item =>
+                    _extractServiceController.ProcessAllTables()
+                    );
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Accepted, $"success - elapsedTime : {elapsedTime.ElapsedText}"));
             }
         }
 

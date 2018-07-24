@@ -1,6 +1,7 @@
 ﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
 using App.Module32.Infrastructure.Services;
 using App.Module32.Infrastructure.Services.Implementations.Extract.Repositories;
+using App.Module32.Infrastructure.Services.Interfaces.Extract;
 
 namespace App.Module32.Infrastructure.Initialization.DependencyResolution
 {
@@ -51,6 +52,9 @@ namespace App.Module32.Infrastructure.Initialization.DependencyResolution
             // automatically filled in)
             assemblyScanner.AddAllTypesOf<IDbCommitPreCommitProcessingStrategy>();
             this.RegisterDbContextInHttpContext<AppModuleDbContext>(AppModuleDbContextNames.Default);
+
+            For<IStudentExtractRepositoryService>().Use<StudentExtractRepositoryService>();
+            For<ISchoolExtractRepositoryService>().Use<SchoolExtractRepositoryService>();
             //For<IBatchRepositoryService>().Use<BatchRepositoryService>().AlwaysUnique();
         }
     }
