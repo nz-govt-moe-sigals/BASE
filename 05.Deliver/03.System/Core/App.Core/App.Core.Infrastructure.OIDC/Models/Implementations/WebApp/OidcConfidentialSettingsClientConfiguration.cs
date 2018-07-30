@@ -1,13 +1,20 @@
-﻿namespace App.Core.Infrastructure.IDA.Models
-{
-    using App.Core.Shared.Attributes;
+﻿using App.Core.Shared.Attributes;
 
+namespace App.Core.Infrastructure.IDA.Models.Implementations.WebApp
+{
     /// <summary>
     ///     Client Specific Configuration Variables.
     /// 
     /// </summary>
-    public class OidcConfidentialClientConfiguration : IOIDCConfidentialClientConfiguration
+    public abstract class OidcSettingsConfidentialSettingsClientConfiguration : IOidcSettingsConfidentialClientConfiguration
     {
+        private string _clientPostLogoutUri;
+        private string _authorityUri;
+
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.WebAppOidcKeys.Tenant)]
+        public string AuthorityTenantName { get; set; }
+
         /// <summary>
         ///     Authority is the URL for authority.
         /// <para>
@@ -34,17 +41,17 @@
         /// </summary>
         //[Alias(ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-PolicyBased-AadInstance")]
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
-        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.OIDCClientKeys.AuthorityUri)]
+        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.WebAppOidcKeys.AuthorityUri)]
         public virtual string AuthorityUri
         {
-            get { return this._authorityUri; }
+            get => this._authorityUri;
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
+                if (!string.IsNullOrWhiteSpace(value))
                 {
-                    value = null;
+                    this._authorityUri = value;
                 }
-                this._authorityUri = value;
+                
             }
         }
 
@@ -54,13 +61,8 @@
         ///     <para>Default Host Setting key is ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'Service-') + 'Oidc-ClientId'</para>
         /// </summary>
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
-        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.OIDCClientKeys.ClientId)]
-        public string ClientId
-        {
-            get; set;
-        }
-
-
+        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.WebAppOidcKeys.ClientId)]
+        public string ClientId { get; set; }
 
 
         /// <summary>
@@ -69,11 +71,9 @@
         ///     <para>Default Host Setting key is ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'Service-') + 'Oidc-ClientSecret'</para>
         /// </summary>
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
-        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.OIDCClientKeys.ClientSecret)]
-        public string ClientSecret
-        {
-            get; set;
-        }
+        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.WebAppOidcKeys.ClientSecret)]
+        public string ClientSecret { get; set; }
+
 
         /// <summary>
         ///     The Client application's callback to which the access token is delivered.
@@ -85,11 +85,9 @@
         /// </para>
         /// </summary>
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
-        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.OIDCClientKeys.ClientRedirectUri)]
-        public string ClientRedirectUri
-        {
-            get; set;
-        }
+        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.WebAppOidcKeys.ClientRedirectUri)]
+        public string ClientRedirectUri { get; set; }
+  
 
         /// <summary>
         /// After logout (ie clearing out of security token), 
@@ -108,7 +106,7 @@
         /// </para>
         /// </summary>
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
-        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.OIDCClientKeys.ClientPostLogoutRedirectUri)]
+        [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.WebAppOidcKeys.ClientPostLogoutRedirectUri)]
         public string ClientPostLogoutUri
         {
             get => this._clientPostLogoutUri ?? this.ClientRedirectUri;
@@ -121,7 +119,7 @@
                 this._clientPostLogoutUri = value;
             }
         }
-        private string _clientPostLogoutUri;
-        private string _authorityUri;
+
+
     }
 }

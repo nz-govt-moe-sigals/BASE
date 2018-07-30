@@ -11,5 +11,12 @@ namespace App.Core.Infrastructure.Constants.IDA
 
         public const string ObjectIdElementId = "http://schemas.microsoft.com/identity/claims/objectidentifier";
 
+
+        public const string UserIdentifier = "UserId";
+
+        public const string SessionIdentifier = "SessionId";
+
+        public const string UniqueSessionIdentifier = "UniqueSessionId";
+
     }
 }

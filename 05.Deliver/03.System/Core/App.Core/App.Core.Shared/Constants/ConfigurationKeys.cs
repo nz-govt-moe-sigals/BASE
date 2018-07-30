@@ -12,6 +12,8 @@ namespace App.Core.Shared.Constants
         public const string SystemIntegrationKeyPrefix = SystemKeyPrefix + "Integration-";
         public const string SystemAzureIntegrationKeyPrefix = SystemIntegrationKeyPrefix + "Azure-";
 
+        public const string SystemModuleApiScopeServiceUrl = "Oidc-Service-App-IdUri";
+
         // -----
         // Demo mode
         public const string AppCoreDemoMode = SystemKeyPrefix + "DemoMode";

@@ -6,7 +6,7 @@
     {
         // A Session Operation is bound to a Session
         // Which is bound to a Principal, but not a Tenant
-        public virtual Guid OwnerFK { get; set; }
+        public virtual Guid? SessionFK { get; set; }
 
         public virtual string ClientIp { get; set; }
         public virtual string Url { get; set; }
@@ -20,5 +20,9 @@
         public virtual string ResponseCode { get; set; }
 
 
+        public Guid GetOwnerFk()
+        {
+            return SessionFK ?? new Guid();
+        }
     }
 }

@@ -48,7 +48,7 @@
             var records = new[]
             {
                 new Principal {Id = Constants.Users.Anon.Id, Enabled = true, CategoryFK = 1.ToGuid(), DisplayName = Constants.Users.Anon.Name},
-                new Principal {Id = Constants.Users.SysDaemon.Id, Enabled = true, CategoryFK = 2.ToGuid(), DisplayName = Constants.Users.SysDaemon.Name},
+                //new Principal {Id = Constants.Users.SysDaemon.Id, Enabled = true, CategoryFK = 2.ToGuid(), DisplayName = Constants.Users.SysDaemon.Name},
             };
 
             context.Set<Principal>().AddOrUpdate(p => p.Id, records);
@@ -57,14 +57,14 @@
 
         protected void SeedDevOnlyEntries(AppCoreDbContext context)
         {
-                var records = new[]
-            {
-                //People:
-                new Principal {Id = Constants.Demo.Users.U1.Id, Enabled = true, CategoryFK = 1.ToGuid(), DisplayName = Constants.Demo.Users.U1.Name},
-                new Principal {Id = Constants.Demo.Users.U2.Id, Enabled = true, CategoryFK = 1.ToGuid(), DisplayName = Constants.Demo.Users.U2.Name}
-            };
-            context.Set<Principal>().AddOrUpdate(p => p.Id, records);
-            context.SaveChanges();
+            //    var records = new[]
+            //{
+            //    //People:
+            //    new Principal {Id = Constants.Demo.Users.U1.Id, Enabled = true, CategoryFK = 1.ToGuid(), DisplayName = Constants.Demo.Users.U1.Name},
+            //    new Principal {Id = Constants.Demo.Users.U2.Id, Enabled = true, CategoryFK = 1.ToGuid(), DisplayName = Constants.Demo.Users.U2.Name}
+            //};
+            //context.Set<Principal>().AddOrUpdate(p => p.Id, records);
+            //context.SaveChanges();
         }
 
 

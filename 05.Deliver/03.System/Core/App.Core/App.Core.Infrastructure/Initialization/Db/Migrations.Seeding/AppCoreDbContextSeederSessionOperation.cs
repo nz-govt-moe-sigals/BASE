@@ -52,25 +52,25 @@
 
         protected void SeedDevOnlyEntries(AppCoreDbContext context)
         {
-                var records = new[]
-            {
-                //People:
-                new SessionOperation
-                {
-                    Id = 1.ToGuid(),
-                    OwnerFK = 1.ToGuid(),
-                    ClientIp = "12.34.56.78",
-                    Url = "https://localhost:123/TenantA/Foo/Bar/12",
-                    ResourceTenantKey="TenantA",
-                    ControllerName = "FooController",
-                    ActionName = "BarAction",
-                    ActionArguments = "12",
-                    Duration = TimeSpan.FromMilliseconds(112),
-                    ResponseCode = "200"
-    },
-            };
-            context.Set<SessionOperation>().AddOrUpdate(p => p.Id, records);
-            context.SaveChanges();
+    //            var records = new[]
+    //        {
+    //            //People:
+    //            new SessionOperation
+    //            {
+    //                Id = 1.ToGuid(),
+    //                SessionFK = 1.ToGuid(),
+    //                ClientIp = "12.34.56.78",
+    //                Url = "https://localhost:123/TenantA/Foo/Bar/12",
+    //                ResourceTenantKey="TenantA",
+    //                ControllerName = "FooController",
+    //                ActionName = "BarAction",
+    //                ActionArguments = "12",
+    //                Duration = TimeSpan.FromMilliseconds(112),
+    //                ResponseCode = "200"
+    //},
+    //        };
+    //        context.Set<SessionOperation>().AddOrUpdate(p => p.Id, records);
+    //        context.SaveChanges();
         }
 
 

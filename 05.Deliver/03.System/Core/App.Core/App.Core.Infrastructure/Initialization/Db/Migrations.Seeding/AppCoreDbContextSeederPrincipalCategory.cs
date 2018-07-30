@@ -46,11 +46,21 @@
             var records = new[]
             {
                 //People:
-                new PrincipalCategory() {Id = 1.ToGuid(), Enabled = true,Title = "Default"},
-                new PrincipalCategory() {Id = 2.ToGuid(), Enabled = true,Title = "System"},
+                GetDefaultPrincipalCategory(),
+                GetSystemPrincipalCategory(),
             };
             context.Set<PrincipalCategory>().AddOrUpdate(p => p.Id, records);
             context.SaveChanges();
+        }
+
+        public static PrincipalCategory GetDefaultPrincipalCategory()
+        {
+            return new PrincipalCategory() {Id = 1.ToGuid(), Enabled = true, Title = "Default"};
+        }
+
+        public static PrincipalCategory GetSystemPrincipalCategory()
+        {
+            return new PrincipalCategory() { Id = 2.ToGuid(), Enabled = true, Title = "System" };
         }
 
         protected void SeedDevOnlyEntries(AppCoreDbContext context)

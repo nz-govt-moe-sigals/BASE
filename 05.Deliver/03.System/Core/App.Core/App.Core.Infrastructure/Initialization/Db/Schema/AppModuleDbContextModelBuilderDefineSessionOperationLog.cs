@@ -23,7 +23,10 @@
 
             // --------------------------------------------------
             // FK Properties:
-
+            modelBuilder.Entity<SessionOperation>()
+                .Property(x => x.SessionFK)
+                .HasColumnOrder(order++)
+                .IsOptional();
 
             // --------------------------------------------------
             // Model Specific Properties:

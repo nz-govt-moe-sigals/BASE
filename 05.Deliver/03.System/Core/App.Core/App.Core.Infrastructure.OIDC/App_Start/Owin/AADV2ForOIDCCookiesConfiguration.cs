@@ -1,29 +1,28 @@
-﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+﻿using System;
+using System.Threading.Tasks;
+using App.Core.Infrastructure.IDA.Models;
+using App.Core.Infrastructure.Services;
+using App.Core.Shared.Models.Messages;
+using global::Owin;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Notifications;
+using Microsoft.Owin.Security.OpenIdConnect;
+using App.Core.Infrastructure.IDA.Models.Implementations.WebApp;
+using App.Core.Infrastructure.Initialization.DependencyResolution;
 using Microsoft.IdentityModel.Tokens;
 
 namespace App.Core.Infrastructure.IDA.Owin
 {
-    using System;
-    using System.IdentityModel.Tokens;
-    using System.Threading.Tasks;
-    using App.Core.Infrastructure.IDA.Models;
-    using App.Core.Infrastructure.IDA.Services;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models.Messages;
-    using global::Owin;
-    using Microsoft.IdentityModel.Protocols;
-    using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-    using Microsoft.Owin.Security;
-    using Microsoft.Owin.Security.Cookies;
-    using Microsoft.Owin.Security.Notifications;
-    using Microsoft.Owin.Security.OpenIdConnect;
 
-    public class AADV2ForOIDCCookiesConfiguration
+
+    public class AadV2ForOidcCookiesConfiguration
     {
         private readonly IAzureKeyVaultService _keyVaultService;
         private readonly IOIDCNotificationHandlerService _oidcNotificationHandlerService;
 
-        public AADV2ForOIDCCookiesConfiguration(IAzureKeyVaultService keyVaultService, IOIDCNotificationHandlerService oidcNotificationHandlerService)
+        public AadV2ForOidcCookiesConfiguration(IAzureKeyVaultService keyVaultService, IOIDCNotificationHandlerService oidcNotificationHandlerService)
         {
             this._keyVaultService = keyVaultService;
             this._oidcNotificationHandlerService = oidcNotificationHandlerService;
@@ -40,8 +39,8 @@ namespace App.Core.Infrastructure.IDA.Owin
         public void Configure(IAppBuilder appBuilder)
         {
             //Get basic OIDC Config settings:
-            IAADOidcConfidentialClientConfiguration aadOIDCConfidentialClientConfiguration =
-                _keyVaultService.GetObject<AADOidcConfidentialClientConfiguration>();
+            IAadOidcSettingsConfidentialClientConfiguration aadOidcSettingsConfidentialClientConfiguration =
+                _keyVaultService.GetObject<AadOidcSettingsConfidentialSettingsClientConfiguration>();
 
             //Same for AAD as for OIDC:
             appBuilder.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);
@@ -54,10 +53,10 @@ namespace App.Core.Infrastructure.IDA.Owin
                 //MetadataAddress = ...
 
                 // Sets the ClientId, authority, RedirectUri as obtained from web.config
-                ClientId = aadOIDCConfidentialClientConfiguration.ClientId,
-                Authority = aadOIDCConfidentialClientConfiguration.AuthorityUri,
-                RedirectUri = aadOIDCConfidentialClientConfiguration.ClientRedirectUri,
-                PostLogoutRedirectUri = aadOIDCConfidentialClientConfiguration.ClientPostLogoutUri,
+                ClientId = aadOidcSettingsConfidentialClientConfiguration.ClientId,
+                Authority = aadOidcSettingsConfidentialClientConfiguration.AuthorityUri,
+                RedirectUri = aadOidcSettingsConfidentialClientConfiguration.ClientRedirectUri,
+                PostLogoutRedirectUri = aadOidcSettingsConfidentialClientConfiguration.ClientPostLogoutUri,
 
                 // Specify the scope by appending all of the scopes requested into one string (separated by a blank space)
                 Scope = OpenIdConnectScope.OpenIdProfile,

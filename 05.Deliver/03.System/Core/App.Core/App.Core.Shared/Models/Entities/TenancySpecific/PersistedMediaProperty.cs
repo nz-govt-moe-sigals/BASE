@@ -30,7 +30,7 @@
         ///     <see cref="PersistedMedia" />
         ///     attributes.
         /// </summary>
-        public virtual Guid OwnerFK { get; set; }
+        public virtual Guid PersistedMediaFK { get; set; }
 
         /// <summary>
         ///     Gets the tag of the object.
@@ -38,5 +38,10 @@
         ///     <para>Can be used to associate information -- such as an image ref -- to a SelectableItem.</para>
         /// </summary>
         public virtual string Tag { get; set; }
+
+        public Guid GetOwnerFk()
+        {
+            return PersistedMediaFK;
+        }
     }
 }

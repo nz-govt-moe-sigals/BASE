@@ -76,6 +76,10 @@
     <Compile Include="Initialization\Db\Migrations\Default\201807200347056_Entities.Example.Designer.cs">
       <DependentUpon>201807200347056_Entities.Example.cs</DependentUpon>
     </Compile>
+    <Compile Include="Initialization\Db\Migrations\Default\201807240226079_Entities.PrincipalLengthUpdate.cs" />
+    <Compile Include="Initialization\Db\Migrations\Default\201807240226079_Entities.PrincipalLengthUpdate.Designer.cs">
+      <DependentUpon>201807240226079_Entities.PrincipalLengthUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCommunity.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCoherentPathwayLearningAreaStep.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineCoherentPathwayStep.cs" />
@@ -128,6 +132,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Initialization\Db\Migrations\Default\201807200347056_Entities.Example.resx">
       <DependentUpon>201807200347056_Entities.Example.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Default\201807240226079_Entities.PrincipalLengthUpdate.resx">
+      <DependentUpon>201807240226079_Entities.PrincipalLengthUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

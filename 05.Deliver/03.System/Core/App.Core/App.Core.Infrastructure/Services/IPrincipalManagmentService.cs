@@ -18,14 +18,19 @@ namespace App.Core.Infrastructure.Services
     public interface IPrincipalManagmentService
     {
         Principal Get(Guid id);
+
         /// <summary>
         /// Gets the Principal, based on the Key/Id the 
         /// external IdP uses to reference the user (won't be the 
         /// same as the Principal record's Id).
         /// </summary>
-        /// <param name="externalIdPrincipalKey"></param>
         /// <returns></returns>
-        Principal Get(string externalIdPrincipalKey);
+        Principal Get(string idpPrincipalKey, string subPrincipalKey, string uniqueCacheId,
+            TimeSpan? timespanToCache = null);
+
+
+        Principal CreateIfNotExists(string idpPrincipalKey, string subPrincipalKey, string name,
+            string uniqueCacheId, TimeSpan? timespanToCache = null);
 
 
     }

@@ -17,7 +17,7 @@
         }
 
         public Task<HttpResponseMessage> MakeRequestAsync(
-            IOIDCConfidentialClientConfiguration oidcConfidentialClientConfiguration,
+            IOidcSettingsConfidentialClientConfiguration oidcSettingsConfidentialClientConfiguration,
             string authorityUriOverride,
             HttpContextBase httpContextBase,
             string[] fqScopes,
@@ -27,7 +27,7 @@
             var oidcRequestHelper = new OidcRequestHelper(this._diagnosticsTracingService);
 
             return oidcRequestHelper.MakeRequestAsync(
-                oidcConfidentialClientConfiguration,
+                oidcSettingsConfidentialClientConfiguration,
                 authorityUriOverride,
                 httpContextBase,
                 fqScopes,
@@ -36,7 +36,7 @@
         }
 
         public Task<HttpResponseMessage> MakeRequestAsync(
-            IOIDCConfidentialClientConfiguration oidcConfidentialClientConfiguration,
+            IOidcSettingsConfidentialClientConfiguration oidcSettingsConfidentialClientConfiguration,
             string authorityUriOverride,
             HttpContextBase httpContextBase,
             string[] fqScopes,
@@ -45,7 +45,7 @@
             var oidcRequestHelper = new OidcRequestHelper(this._diagnosticsTracingService);
 
             return oidcRequestHelper.MakeRequestAsync(
-                oidcConfidentialClientConfiguration,
+                oidcSettingsConfidentialClientConfiguration,
                 authorityUriOverride,
                 httpContextBase,
                 fqScopes,

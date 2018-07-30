@@ -171,7 +171,10 @@
     <Compile Include="Cache\Base\CacheItemBase.cs" />
     <Compile Include="Cache\DefaultTenancyCacheItem.cs" />
     <Compile Include="Constants\Cache\StaticKeys.cs" />
+    <Compile Include="Constants\IDA\TokenTitles.cs" />
     <Compile Include="Constants\Resources\DefaultDocuments\RelativePaths.cs" />
+    <Compile Include="ExtensionMethods\ClaimsIdentityExtensions.cs" />
+    <Compile Include="ExtensionMethods\StringExtensions.cs" />
     <Compile Include="Initialization\Caching\IAppCoreCacheItem.cs" />
     <Compile Include="Constants\Context\AppContextKeys.cs" />
     <Compile Include="Constants\Db\AppCoreDbContextNames.cs" />
@@ -256,6 +259,18 @@
     <Compile Include="Initialization\Db\Migrations\Core\201807020243357_Entities.UniqueNullableIndex.cs" />
     <Compile Include="Initialization\Db\Migrations\Core\201807020243357_Entities.UniqueNullableIndex.Designer.cs">
       <DependentUpon>201807020243357_Entities.UniqueNullableIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Initialization\Db\Migrations\Core\201807180441055_Entities.PrincipalLengthUpdate.cs" />
+    <Compile Include="Initialization\Db\Migrations\Core\201807180441055_Entities.PrincipalLengthUpdate.Designer.cs">
+      <DependentUpon>201807180441055_Entities.PrincipalLengthUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Initialization\Db\Migrations\Core\201807242351420_Entities.RenameOfOwnerFK.cs" />
+    <Compile Include="Initialization\Db\Migrations\Core\201807242351420_Entities.RenameOfOwnerFK.Designer.cs">
+      <DependentUpon>201807242351420_Entities.RenameOfOwnerFK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Initialization\Db\Migrations\Core\201807262320580_Entities.SessionAlteration.cs" />
+    <Compile Include="Initialization\Db\Migrations\Core\201807262320580_Entities.SessionAlteration.Designer.cs">
+      <DependentUpon>201807262320580_Entities.SessionAlteration.cs</DependentUpon>
     </Compile>
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenantServiceProfileServiceOfferingAllocation.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenantServiceProfileServicePlanAssignment.cs" />
@@ -464,9 +479,11 @@
     <Compile Include="Services\Implementations\JsonService.cs" />
     <Compile Include="Services\Implementations\MemoryCachingService.cs" />
     <Compile Include="Services\Implementations\RestService.cs" />
+    <Compile Include="Services\Implementations\SessionManagmentService.cs" />
     <Compile Include="Services\Implementations\SharedAzureKeyVaultService.cs" />
     <Compile Include="Services\IAzureRedisCacheService.cs" />
     <Compile Include="Services\IRestService.cs" />
+    <Compile Include="Services\ISessionManagmentService.cs" />
     <Compile Include="Services\ISharedAzureKeyVaultService.cs" />
     <Compile Include="Services\Implementations\AzureServices\AzureRedisCachingService.cs" />
     <Compile Include="Startup\Spikes\msiTokenRetrievalFromdev.cs" />
@@ -609,6 +626,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Initialization\Db\Migrations\Core\201807020243357_Entities.UniqueNullableIndex.resx">
       <DependentUpon>201807020243357_Entities.UniqueNullableIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Core\201807180441055_Entities.PrincipalLengthUpdate.resx">
+      <DependentUpon>201807180441055_Entities.PrincipalLengthUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Core\201807242351420_Entities.RenameOfOwnerFK.resx">
+      <DependentUpon>201807242351420_Entities.RenameOfOwnerFK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Core\201807262320580_Entities.SessionAlteration.resx">
+      <DependentUpon>201807262320580_Entities.SessionAlteration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

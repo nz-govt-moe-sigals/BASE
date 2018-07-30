@@ -52,17 +52,17 @@
             modelBuilder.Entity<Principal>()
                 .HasMany(x => x.Properties)
                 .WithOptional()
-                .HasForeignKey(x => x.OwnerFK);
+                .HasForeignKey(x => x.PrincipalFK);
 
             modelBuilder.Entity<Principal>()
                 .HasMany(x => x.Claims)
                 .WithOptional()
-                .HasForeignKey(x => x.OwnerFK);
+                .HasForeignKey(x => x.PrincipalFK);
 
             modelBuilder.Entity<Principal>()
                 .HasMany(x => x.Logins)
                 .WithOptional()
-                .HasForeignKey(x => x.OwnerFK);
+                .HasForeignKey(x => x.PrincipalFK);
         }
     }
 }

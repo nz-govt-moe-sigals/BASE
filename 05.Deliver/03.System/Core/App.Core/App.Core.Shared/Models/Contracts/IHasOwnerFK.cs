@@ -4,6 +4,6 @@
 
     public interface IHasOwnerFK
     {
-        Guid OwnerFK { get; set; }
+        Guid GetOwnerFk();
     }
 }

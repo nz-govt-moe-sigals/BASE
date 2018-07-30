@@ -30,7 +30,10 @@
         /// </value>
         string CurrentPrincipalName { get; }
 
-
+        /// <summary>
+        /// A unique Id assigned from the issuing Token
+        /// </summary>
+        string UniqueSessionIdentifier { get; }
 
         /// <summary>
         /// Gets the current thread's Principal's Object/Record Identifier (not same as NameIdentifier).
@@ -40,12 +43,15 @@
         /// </value>
         string CurrentPrincipalIdentifier { get; }
 
-        
+        Guid? CurrentPrincipalIdentifierGuid { get; }
+
         /// <summary>
         /// The FK to the current Session Record.
         /// </summary>
-        Guid CurrentSessionIdentifier { get; }
+        Guid? CurrentSessionIdentifier { get; }
 
+
+        bool IsAuthenticated { get; }
 
         string ClaimPreferredCultureCode { get; set; }
 

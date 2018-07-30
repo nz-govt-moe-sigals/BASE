@@ -1,26 +1,24 @@
-﻿using System.Linq;
+﻿using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using System.Web;
+using App.Core.Infrastructure.IDA.Models;
+using App.Core.Infrastructure.Services;
+using App.Core.Shared.Models.Messages;
+using global::Owin;
+using Microsoft.Identity.Client;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Notifications;
+using Microsoft.Owin.Security.OpenIdConnect;
+using App.Core.Infrastructure.IDA.Models.Implementations.WebApp;
+using App.Core.Infrastructure.IDA.Oidc;
+using Microsoft.Owin;
 
 namespace App.Core.Infrastructure.IDA.Owin
 {
-    using System;
-    using System.IdentityModel.Tokens;
-    using System.Security.Claims;
-    using System.Threading.Tasks;
-    using System.Web;
-    using App.Core.Application.Oidc;
-    using App.Core.Infrastructure.IDA.Models;
-    using App.Core.Infrastructure.IDA.Services;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models.Messages;
-    using global::Owin;
-    using Microsoft.Identity.Client;
-    using Microsoft.IdentityModel.Protocols;
-    using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-    using Microsoft.IdentityModel.Tokens;
-    using Microsoft.Owin.Security;
-    using Microsoft.Owin.Security.Cookies;
-    using Microsoft.Owin.Security.Notifications;
-    using Microsoft.Owin.Security.OpenIdConnect;
 
     /// <summary>
     ///     Helper class to be invoked from within Application's Startup Configuration method,
@@ -29,10 +27,10 @@ namespace App.Core.Infrastructure.IDA.Owin
     ///     For configuring for BearerTokens as is required for controlling access to API Controllers
     ///     see B2COAuthBearerTokenAuthenticationConfiguration
     /// </summary>
-    public class B2COAuthCookieBasedAuthenticationConfig
+    public class B2CAuthCookieBasedAuthenticationConfig
     {
         // These values are pulled from web.config
-        private static IB2COidcConfidentialClientConfiguration _b2cOidcConfidentialClientConfiguration;
+        private static IB2COidcConfidentialClientSettingsConfiguration _ib2COidcConfidentialClientSettingsConfiguration;
 
         // The scopes of the remote api to ask for.
         private static string[] _fullyQualifiedScopesRequiredByTargetApi;
@@ -41,7 +39,7 @@ namespace App.Core.Infrastructure.IDA.Owin
         private readonly IAzureKeyVaultService _keyHostSettingsService;
         private static IOIDCNotificationHandlerService _oidcNotificationHandlerService;
 
-        public B2COAuthCookieBasedAuthenticationConfig(IDiagnosticsTracingService diagnosticsTracingService,
+        public B2CAuthCookieBasedAuthenticationConfig(IDiagnosticsTracingService diagnosticsTracingService,
             IAzureKeyVaultService keyVaultService,
             IOIDCNotificationHandlerService oidcNotificationHandlerService)
         {
@@ -62,23 +60,34 @@ namespace App.Core.Infrastructure.IDA.Owin
         ///     </para>
         /// </summary>
         /// <param name="app"></param>
-        /// <param name="fullyQualifiedScopesRequiredByTargetAPI"></param>
-        public void Configure(IAppBuilder app, string[] fullyQualifiedScopesRequiredByTargetAPI)
+        /// <param name="fullyQualifiedScopesRequiredByTargetApi"></param>
+        public void Configure(IAppBuilder app, string[] fullyQualifiedScopesRequiredByTargetApi)
         {
-            _fullyQualifiedScopesRequiredByTargetApi = fullyQualifiedScopesRequiredByTargetAPI;
+            _fullyQualifiedScopesRequiredByTargetApi = fullyQualifiedScopesRequiredByTargetApi;
             // Retrieve settings from web.settings (actually, web.settings.appSettings.exclude):
-            _b2cOidcConfidentialClientConfiguration = this._keyHostSettingsService
-                .GetObject<B2COidcConfidentialClientConfiguration>("cookieAuth:");
+            _ib2COidcConfidentialClientSettingsConfiguration = this._keyHostSettingsService
+                .GetObject<B2COidcConfidentialSettingsClientConfiguration>("cookieAuth:");
 
 
             // IMPORTANT:
             // Differences between AAD and B2C include:
             // * differnt Uri (not AuthorityUri -- using AuthorityCookieConfigurationUri).
-
-
             app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);
 
-            app.UseCookieAuthentication(new CookieAuthenticationOptions());
+            app.UseCookieAuthentication(new CookieAuthenticationOptions()
+            {
+                Provider = new CookieAuthenticationProvider()
+                {
+                    OnApplyRedirect = ctx =>
+                    {
+                        var response = ctx.Response;
+                        if (!IsApiResponse(ctx.Response))
+                        {
+                            response.Redirect(ctx.RedirectUri);
+                        }
+                    }
+                }
+            });
 
             // Specify the claims to validate
             var tokenValidationParameters = new TokenValidationParameters
@@ -100,23 +109,15 @@ namespace App.Core.Infrastructure.IDA.Owin
                 NameClaimType = "name"
             };
 
-            //app.UseJwtBearerAuthentication(new JwtBearerOptions
-            //{
-            //    AutomaticAuthenticate = true,
-            //    AutomaticChallenge = true,
-            //    TokenValidationParameters = tokenValidationParameters
-            //});
-
-
             var openIdConnectAuthenticationOptions =
                 new OpenIdConnectAuthenticationOptions
                 {
                     // Whereas AAD V2 login does not require this, need to set for B2C.
-                    MetadataAddress = _b2cOidcConfidentialClientConfiguration.AuthorityCookieConfigurationPolicyUri,
+                    MetadataAddress = _ib2COidcConfidentialClientSettingsConfiguration.AuthorityUri,
 
-                    ClientId = _b2cOidcConfidentialClientConfiguration.ClientId,
-                    RedirectUri = _b2cOidcConfidentialClientConfiguration.ClientRedirectUri,
-                    PostLogoutRedirectUri = _b2cOidcConfidentialClientConfiguration.ClientPostLogoutUri,
+                    ClientId = _ib2COidcConfidentialClientSettingsConfiguration.ClientId,
+                    RedirectUri = _ib2COidcConfidentialClientSettingsConfiguration.ClientRedirectUri,
+                    PostLogoutRedirectUri = _ib2COidcConfidentialClientSettingsConfiguration.ClientPostLogoutUri,
 
                     // Specify the scope by appending all of the scopes requested into one string (separated by a blank space)
                     Scope =
@@ -138,12 +139,29 @@ namespace App.Core.Infrastructure.IDA.Owin
 
                         //this.MessageReceived = (Func<MessageReceivedNotification<OpenIdConnectMessage, OpenIdConnectAuthenticationOptions>, Task>)(notification => (Task)Task.FromResult<int>(0));
                         //this.SecurityTokenReceived = (Func<SecurityTokenReceivedNotification<OpenIdConnectMessage, OpenIdConnectAuthenticationOptions>, Task>)(notification => (Task)Task.FromResult<int>(0));
-                        SecurityTokenValidated = OnAuthenticated
+                        SecurityTokenValidated = OnSecurityTokenValidated
                     }
                 };
 
             app.UseOpenIdConnectAuthentication(openIdConnectAuthenticationOptions);
         }
+
+        private static bool IsApiResponse(IOwinResponse response)
+        {
+            var responseHeader = response.Headers;
+
+            if (responseHeader == null)
+                return false;
+
+            if (!responseHeader.ContainsKey("Suppress-Redirect"))
+                return false;
+
+            if (!bool.TryParse(responseHeader["Suppress-Redirect"], out bool suppressRedirect))
+                return false;
+
+            return suppressRedirect;
+        }
+
 
         /*
          *  On each call to Azure AD B2C, check if a policy (e.g. the profile edit or password reset policy) 
@@ -152,20 +170,20 @@ namespace App.Core.Infrastructure.IDA.Owin
          *  Also, don't request a code (since it won't be needed).
          */
         private static Task OnRedirectToIdentityProvider(
-            RedirectToIdentityProviderNotification<Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectMessage, OpenIdConnectAuthenticationOptions>
+            RedirectToIdentityProviderNotification<OpenIdConnectMessage, OpenIdConnectAuthenticationOptions>
                 notification)
         {
             var policy = notification.OwinContext.Get<string>("Policy");
 
             if (!string.IsNullOrEmpty(policy) &&
-                !policy.Equals(_b2cOidcConfidentialClientConfiguration.DefaultPolicyId))
+                !policy.Equals(_ib2COidcConfidentialClientSettingsConfiguration.DefaultPolicyId))
             {
                 notification.ProtocolMessage.Scope = OpenIdConnectScope.OpenId;
                 notification.ProtocolMessage.ResponseType =
                     OpenIdConnectResponseType.IdToken /*ask directly for Token, not Code*/;
                 //Will look like: https://login.microsoftonline.com/te/{authorityTenantName}/{policyId}/oauth2/v2.0/authorize
                 notification.ProtocolMessage.IssuerAddress = notification.ProtocolMessage.IssuerAddress.ToLower()
-                    .Replace(_b2cOidcConfidentialClientConfiguration.DefaultPolicyId.ToLower(), policy.ToLower());
+                    .Replace(_ib2COidcConfidentialClientSettingsConfiguration.DefaultPolicyId.ToLower(), policy.ToLower());
             }
 
             return Task.FromResult(0);
@@ -177,17 +195,11 @@ namespace App.Core.Infrastructure.IDA.Owin
         /// </summary>
         /// <param name="notification"></param>
         /// <returns></returns>
-        private static Task OnAuthenticated(
-            SecurityTokenValidatedNotification<Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> notification)
+        private static Task OnSecurityTokenValidated(
+            SecurityTokenValidatedNotification<OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> notification)
         {
 
             var protocolMessage = notification.ProtocolMessage;
-            var authenticationTicket = notification.AuthenticationTicket;
-
-            var check1 = protocolMessage.IdentityProvider;
-            var check2 = protocolMessage.Iss;
-            var check3 = protocolMessage.ClientId;
-            var check4 = protocolMessage.UserId;
 
             var authenticationSuccessMessage = new AuthenticationSuccessMessage()
             {
@@ -195,7 +207,9 @@ namespace App.Core.Infrastructure.IDA.Owin
                 Identity = notification.AuthenticationTicket.Identity
             };
 
-            _oidcNotificationHandlerService.OnAuthenticationSuccess(authenticationSuccessMessage);
+            _oidcNotificationHandlerService.SecurityTokenValidated(authenticationSuccessMessage);
+
+ 
 
             return Task.FromResult(0);
         }
@@ -203,8 +217,7 @@ namespace App.Core.Infrastructure.IDA.Owin
         /*
          * Catch any failures received by the authentication middleware and handle appropriately
          */
-        private static Task OnAuthenticationFailed(
-            AuthenticationFailedNotification<Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> notification)
+        private static Task OnAuthenticationFailed(AuthenticationFailedNotification<OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> notification)
         {
             var protocolMessage = notification.ProtocolMessage;
 
@@ -264,27 +277,26 @@ namespace App.Core.Infrastructure.IDA.Owin
                     notification.OwinContext.Environment["System.Web.HttpContextBase"] as HttpContextBase
                 ).GetMsalCacheInstance();
 
-            TokenCache appTokenCache = null;
+           // TokenCache appTokenCache = null;
 
             var cca =
                 new ConfidentialClientApplication(
-                    _b2cOidcConfidentialClientConfiguration.ClientId,
-                    // "https://login.microsoftonline.com/tfp/{tenantAuthorityName}/{defaultPolicyId}/v2.0/.well-known/openid-configuration"
-                    _b2cOidcConfidentialClientConfiguration.AuthorityCookieConfigurationPolicyUri,
-                    // eg: "https://localhost:44311"
-                    _b2cOidcConfidentialClientConfiguration.ClientRedirectUri,
-                    new ClientCredential(_b2cOidcConfidentialClientConfiguration.ClientSecret),
+                    _ib2COidcConfidentialClientSettingsConfiguration.ClientId, 
+                    _ib2COidcConfidentialClientSettingsConfiguration.AuthorityUri,// "https://login.microsoftonline.com/tfp/{tenantAuthorityName}/{defaultPolicyId}/v2.0/.well-known/openid-configuration"
+                    _ib2COidcConfidentialClientSettingsConfiguration.ClientRedirectUri,// eg: "https://localhost:44311"
+                    new ClientCredential(_ib2COidcConfidentialClientSettingsConfiguration.ClientSecret),
                     userTokenCache,
-                    appTokenCache);
+                    null);
 
-            //var x = new [] { "blah", "blah2" };
+      
             try
             {
                 AuthenticationResult result = await cca.AcquireTokenByAuthorizationCodeAsync(code, _fullyQualifiedScopesRequiredByTargetApi);
-                if (result.Scopes != null && result.Scopes.Any())
-                {
-                    notification.AuthenticationTicket.Identity.AddClaim(new Claim(App.Core.Infrastructure.Constants.IDA.ClaimTitles.ScopeElementId, string.Join(" ", result.Scopes).TrimEnd()));
-                }
+                // this is actually wrong
+                //if (result.Scopes != null && result.Scopes.Any())
+                //{
+                //    notification.AuthenticationTicket.Identity.AddClaim(new Claim(Infrastructure.Constants.IDA.ClaimTitles.ScopeElementId, string.Join(" ", result.Scopes).TrimEnd()));
+                //}
                 
             }
             catch (Exception ex)

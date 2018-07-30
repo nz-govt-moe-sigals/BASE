@@ -10,6 +10,10 @@ namespace App.Core.Infrastructure.Services
 
     public interface ISessionService
     {
-        Session CreateSession(Principal principal);
+        Session Create(Principal principal, string uniqueCacheId, TimeSpan? timespanToCache = null);
+
+        Session CreateAndSave(Principal principal, string uniqueCacheId, TimeSpan? timespanToCache = null);
+
+        Session Get(string uniqueCacheId, TimeSpan? timespanToCache = null);
     }
 }

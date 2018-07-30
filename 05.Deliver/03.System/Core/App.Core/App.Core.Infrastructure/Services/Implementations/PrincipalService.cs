@@ -50,6 +50,11 @@
             }
         }
 
+
+        public bool IsAuthenticated
+        {
+            get => CurrentIdentity.IsAuthenticated;
+        }
         /// <summary>
         /// Gets the current Thread's <see cref="ClaimsPrincipal" />.
         /// </summary>
@@ -80,29 +85,41 @@
         {
             get
             {
-                var owner = ClaimsPrincipal.Current.FindFirst(Constants.IDA.ClaimTitles.ObjectIdElementId)?.Value;
+                var owner = ClaimsPrincipal.Current.FindFirst(Constants.IDA.ClaimTitles.UserIdentifier)?.Value;
                 return owner;
             }
         }
 
-        /// <summary>
-        /// The FK to the current Session Record.
-        /// </summary>
-        public Guid CurrentSessionIdentifier
+        public Guid? CurrentPrincipalIdentifierGuid
         {
             get
             {
-                var sessionFK = ClaimsPrincipal.Current.FindFirst(Constants.IDA.ClaimTitles.ObjectIdElementId)?.Value;
+                if (Guid.TryParse(CurrentPrincipalIdentifier, out Guid result))
+                {
+                    return result;
+                }
+
+                return null;
+            }
+        }
+
+        public string UniqueSessionIdentifier => ClaimsPrincipal.Current.FindFirst(Constants.IDA.ClaimTitles.UniqueSessionIdentifier)?.Value;
+
+        /// <summary>
+        /// The FK to the current Session Record.
+        /// </summary>
+        public Guid? CurrentSessionIdentifier
+        {
+            get
+            {
+                var sessionFK = ClaimsPrincipal.Current.FindFirst(Constants.IDA.ClaimTitles.SessionIdentifier)?.Value;
 
                 if (!string.IsNullOrWhiteSpace(sessionFK))
                 {
                     Guid result = Guid.Parse(sessionFK);
                     return result;
                 }
-                else
-                {
-                    return new Guid();
-                }
+                return null;
             }
         }
 

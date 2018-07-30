@@ -11,7 +11,7 @@
         {
             config.CreateMap<TenantClaim, TenantClaimDto>()
                 .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
-                .ForMember(t => t.TenantFK, opt => opt.MapFrom(s => s.OwnerFK))
+                .ForMember(t => t.TenantFK, opt => opt.MapFrom(s => s.TenantFK))
                 .ForMember(t => t.RecordState, opt => opt.MapFrom(s => s.RecordState))
                 .ForMember(t => t.AuthorityKey, opt => opt.MapFrom(s => s.Authority))
                 .ForMember(t => t.Key, opt => opt.MapFrom(s => s.Key))

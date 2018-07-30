@@ -1,4 +1,8 @@
-﻿namespace App.Core.Infrastructure.Db.Schema
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Infrastructure.Annotations;
+using App.Core.Infrastructure.Constants.Db;
+
+namespace App.Core.Infrastructure.Db.Schema
 {
     using System.Data.Entity;
     using App.Core.Infrastructure.Db.Schema.Conventions;
@@ -30,13 +34,21 @@
             modelBuilder.Entity<Session>()
                 .HasMany(x => x.Operations)
                 .WithOptional()
-                .HasForeignKey(x => x.OwnerFK);
+                .HasForeignKey(x => x.SessionFK);
 
+            modelBuilder.Entity<Session>()
+                .Property(x => x.UniqueIdentifier)
+                .HasColumnOrder(order++)
+                .HasMaxLength(TextFieldSizes.X64)
+                .HasColumnAnnotation("Index",
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(Session).Name}_UniqueIdentifier") { IsUnique = true }))
+                .IsRequired();
 
             // --------------------------------------------------
             // Model Specific Properties:
             modelBuilder.Entity<Session>()
                 .Property(x => x.Enabled)
+                .HasColumnOrder(order++)
                 .IsRequired();
 
 

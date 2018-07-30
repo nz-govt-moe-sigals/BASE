@@ -38,7 +38,7 @@
 
                 r = new SessionOperation();
                 this._contextService.Set(AppContextKeys.SessionOperation, r);
-                this._repositoryService.AddOnCommit(AppCoreDbContextNames.Core, r);
+                
 
                 return r;
             }

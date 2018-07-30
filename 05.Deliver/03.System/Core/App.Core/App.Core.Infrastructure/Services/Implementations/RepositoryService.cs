@@ -172,6 +172,11 @@ namespace App.Core.Infrastructure.Services.Implementations
             return timestampped != null && (timestampped.Timestamp == null ? true : false);
         }
 
+        public void SaveChanges(string contextKey)
+        {
+            GetDbContext(contextKey).SaveChanges();
+        }
+
         protected virtual DbContext GetDbContext(string contextKey)
         {
             if (string.IsNullOrWhiteSpace(contextKey))

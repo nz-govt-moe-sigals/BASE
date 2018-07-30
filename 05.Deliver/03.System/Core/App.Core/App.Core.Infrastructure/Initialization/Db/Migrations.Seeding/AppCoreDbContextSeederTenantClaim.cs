@@ -58,7 +58,7 @@
                 new TenantClaim
                 {
                     Id = 1.ToGuid(),
-                    OwnerFK = Constants.Demo.Tenancies.A.Id,
+                    TenantFK = Constants.Demo.Tenancies.A.Id,
                     Authority = "N/A",
                     AuthoritySignature = "A",
                     Key = "SomePropA",
@@ -67,7 +67,7 @@
                 new TenantClaim
                 {
                     Id = 2.ToGuid(),
-                    OwnerFK = Constants.Demo.Tenancies.A.Id,
+                    TenantFK = Constants.Demo.Tenancies.A.Id,
                     Authority = "N/A",
                     AuthoritySignature = "A",
                     Key = "SomePropB",
@@ -77,7 +77,7 @@
                 new TenantClaim
                 {
                     Id = 3.ToGuid(),
-                    OwnerFK = Constants.Demo.Tenancies.B.Id,
+                    TenantFK = Constants.Demo.Tenancies.B.Id,
                     Authority = "N/A",
                     AuthoritySignature = "A",
                     Key = "SomePropA",
@@ -86,7 +86,7 @@
                 new TenantClaim
                 {
                     Id = 4.ToGuid(),
-                    OwnerFK = Constants.Demo.Tenancies.B.Id,
+                    TenantFK = Constants.Demo.Tenancies.B.Id,
                     Authority = "N/A",
                     AuthoritySignature = "A",
                     Key = "SomePropB",

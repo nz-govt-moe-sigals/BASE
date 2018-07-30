@@ -13,6 +13,8 @@
         public virtual Guid Id { get; set; }
         public virtual Principal Principal { get; set; }
 
+        
+
 
         public virtual ICollection<SessionOperationDto> Operations
         {

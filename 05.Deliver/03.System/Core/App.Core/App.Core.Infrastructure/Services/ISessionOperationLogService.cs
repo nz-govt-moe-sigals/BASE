@@ -19,10 +19,8 @@
         ///         Creates a new one if this is the first request for the OperationLog.
         ///     </para>
         /// </summary>
-        SessionOperation Current
-        {
-            get;
-        }
+        SessionOperation Current { get; }
+
         Dictionary<string,object> CurrentDetails { get; }
 
         object GetDetail(string key);

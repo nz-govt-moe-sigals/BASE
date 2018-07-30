@@ -49,12 +49,12 @@
             modelBuilder.Entity<PrincipalProfile>()
                 .HasMany(x => x.Properties)
                 .WithOptional()
-                .HasForeignKey(x => x.OwnerFK);
+                .HasForeignKey(x => x.PrincipalProfileFK);
 
             modelBuilder.Entity<PrincipalProfile>()
                 .HasMany(x => x.Claims)
                 .WithOptional()
-                .HasForeignKey(x => x.OwnerFK);
+                .HasForeignKey(x => x.PrincipalProfileFK);
             // --------------------------------------------------
             // Entity Navigtation Properties:
 

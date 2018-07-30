@@ -58,6 +58,7 @@
 
         public AppCoreDbContext(string connectionStringOrName) : base(AppDependencyLocator.Current.GetInstance<OpenDbConnectionBuilder>().CreateAsync(connectionStringOrName).Result, true)
         {
+            //this.Configuration.LazyLoadingEnabled = false;
         }
 
 

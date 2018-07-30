@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using App.Core.Infrastructure.IDA.Models;
 using App.Core.Infrastructure.IDA.Models.Enums;
+using App.Core.Infrastructure.IDA.Models.Implementations;
 using App.Core.Infrastructure.IDA.Owin;
 using App.Core.Infrastructure.Initialization.Authentication;
 using App.Core.Infrastructure.Initialization.DependencyResolution;
@@ -42,26 +43,26 @@ namespace App.Host.Extended
                 var scopes = ScanForAllModulesRequiredScopeDefinitions();
 
                 var authorisationConfiguration = this._keyVaultService.GetObject<AuthorisationConfiguration>();
-                var demoType = authorisationConfiguration.AuthorisationDemoType;
+                var demoType = authorisationConfiguration.AuthorisationType;
 
                 switch (demoType)
                 {
-                    case AuthorisationDemoType.AADUsingOIDCAndCookies:
-                        AppDependencyLocator.Current.GetInstance<AADV2ForOIDCCookiesConfiguration>()
+                    case AuthorisationType.AadUsingOidcAndCookies:
+                        AppDependencyLocator.Current.GetInstance<AadV2ForOidcCookiesConfiguration>()
                             .Configure(appBuilder);
                         break;
-                    case AuthorisationDemoType.B2CUsingOIDCAndCookies:
-                        AppDependencyLocator.Current.GetInstance<B2COAuthCookieBasedAuthenticationConfig>()
+                    case AuthorisationType.B2CUsingOidcAndCookies:
+                        AppDependencyLocator.Current.GetInstance<B2CAuthCookieBasedAuthenticationConfig>()
                             .Configure(appBuilder, scopes);
                         break;
-                    case AuthorisationDemoType.B2CUsingOIDCAndBearerTokens:
-                        AppDependencyLocator.Current.GetInstance<B2COAuthBearerTokenAuthenticationConfiguration>()
+                    case AuthorisationType.B2CUsingOidcAndBearerTokens:
+                        AppDependencyLocator.Current.GetInstance<AuthBearerTokenAuthenticationConfiguration>()
                             .Configure(appBuilder);
                         break;
-                    case AuthorisationDemoType.B2CUsingOIDCAndCookiesAndBearerTokens:
-                        AppDependencyLocator.Current.GetInstance<B2COAuthBearerTokenAuthenticationConfiguration>()
+                    case AuthorisationType.B2CUsingOidcAndCookiesAndBearerTokens:
+                        AppDependencyLocator.Current.GetInstance<AuthBearerTokenAuthenticationConfiguration>()
                             .Configure(appBuilder);
-                        AppDependencyLocator.Current.GetInstance<B2COAuthCookieBasedAuthenticationConfig>()
+                        AppDependencyLocator.Current.GetInstance<B2CAuthCookieBasedAuthenticationConfig>()
                             .Configure(appBuilder, scopes);
                         break;
                 }

@@ -15,7 +15,10 @@
         /// ie, used by CreatedBy, LastModifiedBy, DeletedBy
         /// </summary>
         public const int X32 = basic / 2;
-        
+
+
+        public const int GuidStringLength = 36;
+
         /// <summary>
         /// 64. Use for Keys, Names
         /// </summary>

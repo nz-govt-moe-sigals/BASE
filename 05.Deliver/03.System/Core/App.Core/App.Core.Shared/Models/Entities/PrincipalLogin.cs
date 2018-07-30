@@ -12,7 +12,7 @@ namespace App.Core.Shared.Models.Entities
     public class PrincipalLogin : UntenantedAuditedRecordStatedTimestampedGuidIdEntityBase, IHasEnabled , IHasOwnerFK
     {
 
-        public Guid OwnerFK { get; set; }
+        public Guid PrincipalFK { get; set; }
 
         /// <summary>
         /// Can be used to disallow an external IdP login that was previsoulsy trusted.
@@ -20,14 +20,23 @@ namespace App.Core.Shared.Models.Entities
         public bool Enabled { get; set; }
 
         /// <summary>
-        /// The Credential Name/Login the external IdP uses to distinguish users by (eg: 'joeblow', 'joeblow@google.com', etc.).
+        /// The Credential Name/Login the external IdP uses to distinguish users by (eg: google.com, sts, etc.).
         /// </summary>
         public string IdPLogin { get; set; }
+
+        /// <summary>
+        /// The Subject Identifier the external IdP uses to distinguish users by (eg: 'some guid, joeblow', 'joeblow@google.com', etc.).
+        /// </summary>
+        public string SubLogin { get; set; }
 
         /// <summary>
         /// Last datetime the user signed in via this login.
         /// </summary>
         public DateTime LastLoggedInUtc { get; set; }
 
+        public Guid GetOwnerFk()
+        {
+            return PrincipalFK;
+        }
     }
 }

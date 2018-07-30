@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using App.Core.Infrastructure.Services;
 using App.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration;
+using App.Core.Infrastructure.Services.Implementations;
 using App.Core.Infrastructure.Services.Implementations.AzureServices;
 using StructureMap.Web;
 
@@ -65,6 +66,7 @@ namespace App.Core.Infrastructure.Initialization.DependencyResolution
         {
             For<IAzureRedisConnection>().Use<AzureRedisConnection>().Singleton();
             For<AzureRedisCacheServiceConfiguration>().Use<AzureRedisCacheServiceConfiguration>().Singleton();
+            For<ISessionManagmentService>().Use<SessionManagmentService>().Singleton();
         }
 
 

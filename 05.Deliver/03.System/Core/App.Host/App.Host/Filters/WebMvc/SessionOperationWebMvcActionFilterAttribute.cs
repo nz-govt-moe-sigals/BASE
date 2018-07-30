@@ -12,14 +12,15 @@ namespace App.Host.Filters.WebMvc
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         private readonly ISessionOperationLogService _sessionOperationLogService;
         private readonly IPrincipalService _principalService;
-        private readonly IContextService _contextService;
+        private readonly ISessionManagmentService _sessionManagmentService;
 
-        public SessionOperationWebMvcActionFilterAttribute(IDiagnosticsTracingService diagnosticsTracingService, ISessionOperationLogService sessionOperationLogService, IPrincipalService principalService , IContextService contextService)
+        public SessionOperationWebMvcActionFilterAttribute(IDiagnosticsTracingService diagnosticsTracingService, ISessionManagmentService sessionManagmentService,
+            ISessionOperationLogService sessionOperationLogService, IPrincipalService principalService)
         {
             this._diagnosticsTracingService = diagnosticsTracingService;
             this._sessionOperationLogService = sessionOperationLogService;
             this._principalService = principalService;
-            this._contextService = contextService;
+            _sessionManagmentService = sessionManagmentService;
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -27,9 +28,8 @@ namespace App.Host.Filters.WebMvc
             // Filters are shared across requests, so save variables within the Request context to  pass between methods:
 
             SessionOperation sessionOperation = _sessionOperationLogService.Current;
-
+            //sessionOperation.SessionFK = this._principalService.CurrentSessionIdentifier;
             sessionOperation.BeginDateTimeUtc = DateTime.UtcNow;
-            sessionOperation.OwnerFK = this._principalService.CurrentSessionIdentifier;
             sessionOperation.ClientIp = filterContext.RequestContext.HttpContext.Request.RemoteIPChain();
             sessionOperation.Url = filterContext.RequestContext.HttpContext.Request.RawUrl;
             sessionOperation.ControllerName =
@@ -60,7 +60,7 @@ namespace App.Host.Filters.WebMvc
             base.OnResultExecuted(filterContext);
 
             SessionOperation sessionOperation = _sessionOperationLogService.Current;
-
+           
             //Record the HTTP response code (should be 200 everytime, right?)
             sessionOperation.ResponseCode = filterContext.HttpContext.Response.StatusCode.ToString();
 
@@ -70,12 +70,15 @@ namespace App.Host.Filters.WebMvc
             sessionOperation.Duration =
                 sessionOperation.EndDateTimeUtc.Subtract(sessionOperation.BeginDateTimeUtc);
 
+
+            _sessionManagmentService.SaveSessionOperationAsync(sessionOperation, _principalService);
+
             //if (sessionOperation.Duration.TotalMilliseconds > 2000)
             //{
             // this._diagnosticsTracingService.Trace(TraceLevel.Warn, $"Operation took too long: {sessionOperation.Duration}");   
             //}
 
-            
+
             //var msg = "Invoked:";
 
             //Log(msg);

@@ -50,10 +50,10 @@
         {
             var records = new[]
             {
-                new TenantProperty {Id = 1.ToGuid(), OwnerFK = Constants.Demo.Tenancies.B.Id, Key = "SomePropA", Value = "SomeValueA1"},
-                new TenantProperty {Id = 2.ToGuid(), OwnerFK = Constants.Demo.Tenancies.B.Id, Key = "SomePropB", Value = "SomeValueB1"},
-                new TenantProperty {Id = 3.ToGuid(), OwnerFK = Constants.Demo.Tenancies.B.Id, Key = "SomePropC", Value = "SomeValueC1"},
-                new TenantProperty {Id = 4.ToGuid(), OwnerFK = Constants.Demo.Tenancies.B.Id, Key = "SomePropD", Value = "SomeValueD1"}
+                new TenantProperty {Id = 1.ToGuid(), TenantFK = Constants.Demo.Tenancies.B.Id, Key = "SomePropA", Value = "SomeValueA1"},
+                new TenantProperty {Id = 2.ToGuid(), TenantFK = Constants.Demo.Tenancies.B.Id, Key = "SomePropB", Value = "SomeValueB1"},
+                new TenantProperty {Id = 3.ToGuid(), TenantFK = Constants.Demo.Tenancies.B.Id, Key = "SomePropC", Value = "SomeValueC1"},
+                new TenantProperty {Id = 4.ToGuid(), TenantFK = Constants.Demo.Tenancies.B.Id, Key = "SomePropD", Value = "SomeValueD1"}
             };
             context.Set<TenantProperty>().AddOrUpdate(p => p.Id, records);
             context.SaveChanges();

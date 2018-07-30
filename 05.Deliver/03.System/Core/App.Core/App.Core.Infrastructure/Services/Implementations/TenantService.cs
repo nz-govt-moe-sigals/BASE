@@ -88,7 +88,7 @@ namespace App.Core.Infrastructure.Services.Implementations
                 .GetQueryableSet<Tenant>(Constants.Db.AppCoreDbContextNames.Core)
                 .Where(x => (x.IsDefault == true))
                 .ProjectTo<TenantDto>((object)null, x => x.Properties)
-                .FirstOrDefault(x => true);
+                .FirstOrDefault();
             if (result != null)
             {
                 _defaultTenantString = result.Key;
@@ -186,7 +186,7 @@ namespace App.Core.Infrastructure.Services.Implementations
                     .GetQueryableSet<Tenant>(Constants.Db.AppCoreDbContextNames.Core)
                     .Where(x => (x.Key == searchKey))
                     .ProjectTo<TenantDto>((object)null, x => x.Properties)
-                    .FirstOrDefault(x => true);
+                    .FirstOrDefault();
             }
 
             if (result != null)
@@ -278,9 +278,8 @@ namespace App.Core.Infrastructure.Services.Implementations
             }
             //First, search in Request Cache:
             var list = GetContextCache();
-            TenantDto result;
-            
-            result = list.FirstOrDefault(x => StringComparer.InvariantCultureIgnoreCase.Compare(x.Key, searchKey) == 0);
+            TenantDto result = list.FirstOrDefault(x => StringComparer.InvariantCultureIgnoreCase.Compare(x.Key, searchKey) == 0) ;
+
             if (result != null)
             {
                 return result;

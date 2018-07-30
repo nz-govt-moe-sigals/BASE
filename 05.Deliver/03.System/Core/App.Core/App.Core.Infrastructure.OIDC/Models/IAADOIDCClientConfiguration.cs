@@ -2,37 +2,51 @@
 {
     using System;
 
+
+
+    public interface IAuthBearerTokenSettingsConfiguration
+    {
+        string AuthorityTenantName { get; set; }
+
+        string AuthorityUri { get; set; }
+
+        string ClientId { get; set; }
+
+        string AppIdUrl { get; set; }
+
+        string ClientIdB2C { get; set; }
+
+        string AppIdUrlB2C { get; set; }
+
+        string PolicyIdB2C { get; set; }
+    }
+
+    public interface IAadOidcSettingsConfidentialClientConfiguration : IOidcSettingsConfidentialClientConfiguration
+    {
+
+    }
+
+
     /// <summary>
     ///     Contract for a configuration object for a Confidential (as oppossed to Public)
     ///     Client which can be trusted to secure the ClientSecret issued by the remote B2C
     ///     which is a 'Tenanted IdP'.
     ///     <para>
     ///         Implements
-    ///         <see cref="IAADOidcConfidentialClientConfiguration" /> and
-    ///         <see cref="IB2CTenantPolicyConfiguration" />
+    ///         <see cref="IAadOidcSettingsConfidentialClientConfiguration" /> and
+    ///         <see cref="IB2CTenantPolicySettingsConfiguration" />
     ///     </para>
     /// </summary>
-    public interface IB2COidcConfidentialClientConfiguration : IB2CTenantPolicyConfiguration,
-        IAADOidcConfidentialClientConfiguration
+    public interface IB2COidcConfidentialClientSettingsConfiguration : IB2CTenantPolicySettingsConfiguration, IOidcSettingsConfidentialClientConfiguration
     {
-        /// <summary>
-        ///     In addition to the base Uri to the OIDC IdP (ie, AuthorityUri),
-        ///     B2C uses a more complex Uri that includes the Policy Id, in order to
-        ///     to retrieve Config
-        ///     <para>
-        ///         "https://login.microsoftonline.com/tfp/{tenant}/{defaultPolicyId}/v2.0/.well-known/openid-configuration"
-        ///     </para>
-        /// </summary>
-        string AuthorityCookieConfigurationPolicyUri { get; set; }
 
-        string AuthorityBearerTokenConfigurationPolicyUri { get; set; }
     }
 
 
     /// <summary>
     // As far as I know B2C is unique in their use of 'Policies' to control flow. 
     /// </summary>
-    public interface IB2CTenantPolicyConfiguration
+    public interface IB2CTenantPolicySettingsConfiguration
     {
         /// <summary>
         ///     Default behaviour is to wrap and return the SignUpSignInPolicyId
@@ -91,28 +105,7 @@
         string TenantResetPasswordPolicyId { get; set; }
     }
 
-    /// <summary>
-    ///     Contract for a configuration object for AAD (and B2C).
-    /// </summary>
-    public interface IAADOidcConfidentialClientConfiguration : ITenantedOidcConfidentialClientConfiguration
-    {
-    }
-
-    /// <summary>
-    ///     Contract for a configuration object for OIDC IdPs that are divided by Tenants (like AAD and B2C. There are others).
-    /// </summary>
-    public interface ITenantedOidcConfidentialClientConfiguration : IOIDCConfidentialClientConfiguration
-    {
-        /// <summary>
-        ///     Name of individual AAD/B2C Tenant, that is then combined with AD V2 endpoint to make AuthorityUri
-        ///     <para>
-        ///         Note that this is not the Uri (see AuthorityUri, and in the case B2C, AuthorityConfigurationPolicyUri ).
-        ///     </para>
-        /// </summary>
-        string AuthorityTenantName { get; set; }
-    }
-
-
+ 
     /// <summary>
     ///     Confidential (as oppossed to Public) Clients can be trusted
     ///     to secure the ClientSecret issued by the remote IdP.
@@ -120,13 +113,26 @@
     ///         Suitable for default OAuth flow, and classic Server-side rendered web applications.
     ///     </para>
     /// </summary>
-    public interface IOIDCConfidentialClientConfiguration : IOidcClientConfiguration
+    public interface IOidcSettingsConfidentialClientConfiguration : IOidcSettingsClientConfiguration
     {
         /// <summary>
         ///     The ClientSecret established when then Client
         ///     was registered with the IdP.
         /// </summary>
         string ClientSecret { get; set; }
+
+        /// <summary>
+        ///     The uri to return to redirect the user agent to, in order to deliver
+        ///     the auth_token or other payload.
+        /// </summary>
+        string ClientRedirectUri { get; set; }
+
+        /// <summary>
+        ///     After logout, where do we redirect to? (eg: home page at '/')
+        /// </summary>
+        string ClientPostLogoutUri { get; set; }
+
+
     }
 
 
@@ -136,7 +142,7 @@
     ///         It is not Confidential (ie, no Secret), so can be used for ImplicitFlow.
     ///     </para>
     /// </summary>
-    public interface IOidcClientConfiguration
+    public interface IOidcSettingsClientConfiguration
     {
         /// <summary>
         ///     Authority is the URL for authority.
@@ -157,14 +163,11 @@
         string ClientId { get; set; }
 
         /// <summary>
-        ///     The uri to return to redirect the user agent to, in order to deliver
-        ///     the auth_token or other payload.
+        ///     Name of individual AAD/B2C Tenant, that is then combined with AD V2 endpoint to make AuthorityUri
+        ///     <para>
+        ///         Note that this is not the Uri (see AuthorityUri, and in the case B2C, AuthorityConfigurationPolicyUri ).
+        ///     </para>
         /// </summary>
-        string ClientRedirectUri { get; set; }
-
-        /// <summary>
-        ///     After logout, where do we redirect to? (eg: home page at '/')
-        /// </summary>
-        string ClientPostLogoutUri { get; set; }
+        string AuthorityTenantName { get; set; }
     }
 }

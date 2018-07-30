@@ -28,7 +28,7 @@
             // --------------------------------------------------
             // FK Properties:
             modelBuilder.Entity<PrincipalProfileProperty>()
-                .Property(x => x.OwnerFK)
+                .Property(x => x.PrincipalProfileFK)
                 .HasColumnOrder(order++)
                 .IsRequired();
 

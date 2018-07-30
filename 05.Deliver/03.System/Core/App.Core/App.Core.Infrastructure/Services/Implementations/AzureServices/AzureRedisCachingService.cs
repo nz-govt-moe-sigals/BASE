@@ -27,7 +27,7 @@ namespace App.Core.Infrastructure.Services.Implementations.AzureServices
 
         public void Set<T>(string key, T value, TimeSpan? duration = null)
         {
-            if ((duration == null) || (!duration.HasValue))
+            if (!duration.HasValue)
             {
                 duration = TimeSpan.FromSeconds(60);
             }

@@ -12,12 +12,14 @@
     /// </summary>
     public class Session : UntenantedAuditedRecordStatedTimestampedGuidIdEntityBase, IHasEnabled, IHasPrincipalFK
     {
+        private string _uniqueId;
         public Session():base()
         {
             // By default, until overridden 
             // when hydrated by EF from a db
             // record:
             Enabled = true;
+            
         }
 
         /// <summary>
@@ -28,6 +30,15 @@
         /// </para>
         /// </summary>
         public virtual bool Enabled { get; set; }
+
+        /// <summary>
+        /// A unique Id so that It can be identified
+        /// </summary>
+        public virtual string UniqueIdentifier
+        {
+            get => !string.IsNullOrWhiteSpace(_uniqueId) ? _uniqueId : this.Id.ToString();
+            set => _uniqueId = value;
+        }
 
         /// <summary>
         /// Gets or sets the FK of the Principal 

@@ -45,6 +45,27 @@ namespace App.Core.Application.Filters.WebApi
         private string _roles;
         private string[] _rolesSplit = new string[0];
 
+        protected override void HandleUnauthorizedRequest(HttpActionContext actionContext)
+        {
+            //TODO FIX THE BELOW, keeps redirecting
+            //var principal = ClaimsPrincipal.Current;
+            //if (principal == null || !principal.Identity.IsAuthenticated)
+            //{
+                
+            //    // 401 who are you? go login and then try again
+            //    actionContext.Response = new System.Net.Http.HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized);
+            //    actionContext.Response.Headers.Add("Suppress-Redirect", "True");
+            //}
+            //else
+            //{
+            //    // 403 we know who you are, but you haven't been granted access
+            //    actionContext.Response = new System.Net.Http.HttpResponseMessage(System.Net.HttpStatusCode.Forbidden);
+            //}
+            actionContext.Response = new System.Net.Http.HttpResponseMessage(System.Net.HttpStatusCode.Forbidden);
+        }
+
+
+
         /// <summary>Indicates whether the specified control is authorized.</summary>
         /// <returns>true if the control is authorized; otherwise, false.</returns>
         /// <param name="actionContext">The context.</param>

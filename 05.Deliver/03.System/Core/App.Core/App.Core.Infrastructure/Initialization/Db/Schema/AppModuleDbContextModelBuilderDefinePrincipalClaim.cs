@@ -23,7 +23,7 @@
             new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<PrincipalClaim>(modelBuilder, ref order);
 
             modelBuilder.Entity<PrincipalClaim>()
-                .Property(x => x.OwnerFK)
+                .Property(x => x.PrincipalFK)
                 .HasColumnOrder(order++)
                 .IsRequired();
 

@@ -33,6 +33,7 @@
         private readonly IConfigurationStepService _configurationStepService;
         private readonly IContextService _contextService;
 
+        private readonly ISessionManagmentService _sessionManagmentService;
         /// <summary>
         /// Initializes a new instance of the <see cref="WebApiFilterConfig"/> class.
         /// <para>
@@ -43,6 +44,7 @@
         /// <param name="principalService">The principal service.</param>
         /// <param name="configurationStepService">The configuration step service.</param>
         public WebApiFilterConfig(
+            ISessionManagmentService sessionManagmentService,
             IDiagnosticsTracingService diagnosticsTracingService,
             ISessionOperationLogService sessionOperationLogService,
             IPrincipalService principalService,
@@ -53,7 +55,8 @@
             this._sessionOperationLogService = sessionOperationLogService;
             this._principalService = principalService;
             this._configurationStepService = configurationStepService;
-            this._contextService = contextService;
+            _contextService = contextService;
+            _sessionManagmentService = sessionManagmentService;
         }
 
         /// <summary>
@@ -109,9 +112,9 @@
                 filters.Add(
                     new SessionOperationWebApiActionFilterAttribute(
                         this._principalService,
+                        _sessionManagmentService,
                         this._sessionOperationLogService,
-                        this._diagnosticsTracingService,
-                        _contextService
+                        this._diagnosticsTracingService
                     ));
                 _configurationStepService
                     .Register(

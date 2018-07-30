@@ -34,8 +34,8 @@ namespace App.Host.Extended.Mvc
         private readonly IPrincipalService _principalService;
         private readonly IConfigurationStepService _configurationStepService;
         private readonly DbContextCommittWebMvcActionFilterAttribute _dbContexCommenttWebMvcActionFilterAttribute;
+        private readonly ISessionManagmentService _sessionManagmentService;
         private readonly IContextService _contextService;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="WebMvcFilterConfig"/> class.
         /// <para>
@@ -54,6 +54,7 @@ namespace App.Host.Extended.Mvc
         /// <param name="dbContexCommenttWebMvcActionFilterAttribute">The database contex commentt web MVC action filter attribute.</param>
         /// <param name="contextService"></param>
         public WebMvcFilterConfig(
+            ISessionManagmentService sessionManagmentService,
             IDiagnosticsTracingService diagnosticsTracingService,
             ISessionOperationLogService sessionOperationLogService,
             IPrincipalService principalService,
@@ -66,7 +67,8 @@ namespace App.Host.Extended.Mvc
             this._principalService = principalService;
             this._configurationStepService = configurationStepService;
             this._dbContexCommenttWebMvcActionFilterAttribute = dbContexCommenttWebMvcActionFilterAttribute;
-            this._contextService = contextService;
+            _contextService = contextService;
+            _sessionManagmentService = sessionManagmentService;
         }
 
         /// <summary>
@@ -127,9 +129,10 @@ namespace App.Host.Extended.Mvc
                 filters.Add(
                     new SessionOperationWebMvcActionFilterAttribute(
                         this._diagnosticsTracingService,
+                        _sessionManagmentService,
                         this._sessionOperationLogService,
-                        this._principalService,
-                        _contextService), 
+                        this._principalService
+                        ), 
                     order:2);
 
                 this._configurationStepService

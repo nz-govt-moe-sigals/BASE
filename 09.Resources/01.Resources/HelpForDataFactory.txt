@@ -93,19 +93,30 @@
     },
 	{
         "TABLE_NAME": "AT_Eligibility_API",
-        "WaterMark_Column": "ModifiedDate"
+        "WaterMark_Column": "ModifiedDateTime"
     }
 ]
 
+// had some problems of datetime vs datetime2
 
+// GET DATA WHERE DATA IS GREATER THAN OLD DATETIME (avoid old imports) and LESS THAN WHAT we Just Selected as our new DATETIME
 select t.*, '@{item().TABLE_NAME}' as table_name from @{item().TABLE_NAME} t
 where  t.@{item().WaterMark_Column} > '@{activity('LookupOldWaterMarkActivity').output.firstRow.WatermarkValue}' and t.@{item().WaterMark_Column} <= '@{activity('LookupNewWaterMarkActivity').output.firstRow.NewWatermarkvalue}' 
 
-select DATEADD(s, 1, WatermarkValue) as WatermarkValue,
+// SELECT THE EXISTING WATERMARK
+// Added 1 second to prevent it from being selected again, Potentially a 1 second Problem of data going missing....
+// should probably Work on this
+select cast(DATEADD(s, 1, WatermarkValue) as datetime) as WatermarkValue,
 '@{item().TABLE_NAME}' as TableName
  from watermarktable where TableName  =  '@{item().TABLE_NAME}'
 UNION ALL
 select  CONVERT(DATETIME,'2016-01-01') as WatermarkValue,'@{item().TABLE_NAME}' as TableName,
 
+// SELECT THE MAX TIME of the New 
 select MAX(@{item().WaterMark_Column}) as NewWatermarkvalue from @{item().TABLE_NAME}
+
+
+/// errr not sure
 select DATEADD(ms, -DATEPART(ms, MAX(@{item().WaterMark_Column})), MAX(@{item().WaterMark_Column})) as NewWatermarkvalue from @{item().TABLE_NAME}
+
+

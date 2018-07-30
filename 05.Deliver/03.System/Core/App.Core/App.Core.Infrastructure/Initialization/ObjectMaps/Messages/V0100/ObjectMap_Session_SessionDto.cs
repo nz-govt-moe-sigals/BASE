@@ -9,12 +9,47 @@
     {
         public void Initialize(IMapperConfigurationExpression config)
         {
-            config.CreateMap<Session, SessionDto>()
-                .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
-                .ForMember(t => t.Enabled, opt => opt.MapFrom(s => s.Enabled))
-                .ForMember(t => t.StartDateTimeUtc, opt => opt.MapFrom(s => s.CreatedOnUtc))
-                .ForMember(t => t.Principal, opt => opt.MapFrom(s => s.Principal))
-                .ForMember(t => t.Operations, opt => { opt.ExplicitExpansion(); opt.MapFrom(s => s.Operations);})
+            Map_Session_SessionDto(config);
+            Map_SessionDto_Session(config);
+        }
+
+        public void Map_Session_SessionDto(IMapperConfigurationExpression config)
+        {
+            var x = config.CreateMap<Session, SessionDto>()
+                    .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
+                    .ForMember(t => t.Enabled, opt => opt.MapFrom(s => s.Enabled))
+                    .ForMember(t => t.StartDateTimeUtc, opt => opt.MapFrom(s => s.CreatedOnUtc))
+                    .ForMember(t => t.Principal, opt => opt.MapFrom(s => s.Principal))
+                    .ForMember(t => t.Operations, opt => { opt.ExplicitExpansion(); opt.MapFrom(s => s.Operations); })
+                    
+                ;
+        }
+
+        public void Map_SessionDto_Session(IMapperConfigurationExpression config)
+        {
+            var x = config.CreateMap<SessionDto, Session>()
+                    .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
+                    .ForMember(t => t.Enabled, opt => opt.MapFrom(s => s.Enabled))
+                    .ForMember(t => t.CreatedOnUtc, opt => opt.MapFrom(s => s.StartDateTimeUtc))
+                    .ForMember(t => t.Principal, opt => opt.MapFrom(s => s.Principal))
+                    .ForMember(t => t.Operations, opt => opt.Ignore())
+                    .ForMember(t => t.PrincipalFK, opt => opt.Ignore())
+                    .ForMember(t => t.UniqueIdentifier, opt => opt.Ignore())
+                ;
+            Mapbase(x);
+        }
+
+        private void Mapbase(IMappingExpression<SessionDto, Session> mappingExpression)
+        {
+            mappingExpression
+                .ForMember(dest => dest.CreatedByPrincipalId, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedOnUtc, opt => opt.Ignore())
+                .ForMember(dest => dest.DeletedByPrincipalId, opt => opt.Ignore())
+                .ForMember(dest => dest.DeletedOnUtc, opt => opt.Ignore())
+                .ForMember(dest => dest.LastModifiedByPrincipalId, opt => opt.Ignore())
+                .ForMember(dest => dest.LastModifiedOnUtc, opt => opt.Ignore())
+                .ForMember(dest => dest.RecordState, opt => opt.Ignore())
+                .ForMember(dest => dest.Timestamp, opt => opt.Ignore())
                 ;
         }
     }

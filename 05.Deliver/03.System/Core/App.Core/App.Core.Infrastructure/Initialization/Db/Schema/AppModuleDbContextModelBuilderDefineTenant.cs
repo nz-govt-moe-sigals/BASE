@@ -72,12 +72,12 @@
             modelBuilder.Entity<Tenant>()
                 .HasMany(x => x.Properties)
                 .WithOptional()
-                .HasForeignKey(x => x.OwnerFK);
+                .HasForeignKey(x => x.TenantFK);
 
             modelBuilder.Entity<Tenant>()
                 .HasMany(x => x.Claims)
                 .WithOptional()
-                .HasForeignKey(x => x.OwnerFK);
+                .HasForeignKey(x => x.TenantFK);
 
             // --------------------------------------------------
             // Entity Navigtation Properties:

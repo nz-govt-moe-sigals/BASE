@@ -52,33 +52,33 @@
 
         protected void SeedDevOnlyEntries(AppCoreDbContext context)
         {
-                var records = new[]
-            {
-                new Session
-                {
-                    Id = 0.ToGuid(),
-                    Enabled = false,
-                    CreatedOnUtc = DateTime.UtcNow,
-                    PrincipalFK = 0.ToGuid()
-                },
+            //    var records = new[]
+            //{
+            //    new Session
+            //    {
+            //        Id = 0.ToGuid(),
+            //        Enabled = false,
+            //        CreatedOnUtc = DateTime.UtcNow,
+            //        PrincipalFK = 0.ToGuid()
+            //    },
 
-                    new Session
-                {
-                    Id = 1.ToGuid(),
-                    Enabled = false,
-                    CreatedOnUtc = DateTime.UtcNow.AddDays(-3),
-                    PrincipalFK = 1.ToGuid()
-                },
-                new Session
-                {
-                    Id = 2.ToGuid(),
-                    Enabled = false,
-                    CreatedOnUtc = DateTime.UtcNow.AddDays(-6),
-                    PrincipalFK = 1.ToGuid()
-                }
-            };
-            context.Set<Session>().AddOrUpdate(p => p.Id, records);
-            context.SaveChanges();
+            //        new Session
+            //    {
+            //        Id = 1.ToGuid(),
+            //        Enabled = false,
+            //        CreatedOnUtc = DateTime.UtcNow.AddDays(-3),
+            //        PrincipalFK = 1.ToGuid()
+            //    },
+            //    new Session
+            //    {
+            //        Id = 2.ToGuid(),
+            //        Enabled = false,
+            //        CreatedOnUtc = DateTime.UtcNow.AddDays(-6),
+            //        PrincipalFK = 1.ToGuid()
+            //    }
+            //};
+            //context.Set<Session>().AddOrUpdate(p => p.Id, records);
+            //context.SaveChanges();
         }
 
 

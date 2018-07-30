@@ -29,7 +29,15 @@
                 .HasColumnOrder(order++)
                 .HasMaxLength(TextFieldSizes.X1024)
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(PrincipalLogin).Name}_IdpLogin") { IsUnique = false }))
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(PrincipalLogin).Name}_IdpSubLogin") { IsUnique = true, Order = 1}))
+                .IsRequired();
+
+            modelBuilder.Entity<PrincipalLogin>()
+                .Property(x => x.SubLogin)
+                .HasColumnOrder(order++)
+                .HasMaxLength(TextFieldSizes.X256)
+                .HasColumnAnnotation("Index",
+                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(PrincipalLogin).Name}_IdpSubLogin") { IsUnique = true, Order = 2}))
                 .IsRequired();
 
             modelBuilder.Entity<PrincipalLogin>()

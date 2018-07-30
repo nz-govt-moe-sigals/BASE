@@ -86,5 +86,11 @@
         void Detach<TModel>(string contextKey, TModel model) where TModel : class;
 
         bool IsNew<T>(T model) where T : IHasTimestamp;
+
+        /// <summary>
+        /// IT will save automatically be sure you want to do this!
+        /// </summary>
+        /// <param name="contextKey"></param>
+        void SaveChanges(string contextKey);
     }
 }

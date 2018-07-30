@@ -23,14 +23,15 @@ namespace App.Core.Application.Filters.WebApi
         private readonly IPrincipalService _principalService;
         private readonly ISessionOperationLogService _sessionOperationLogService;
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
-        private readonly IContextService _contextService;
+        private readonly ISessionManagmentService _sessionManagmentService;
 
-        public SessionOperationWebApiActionFilterAttribute(IPrincipalService principalService, ISessionOperationLogService sessionOperationLogService, IDiagnosticsTracingService diagnosticsTracingService, IContextService contextService)
+        public SessionOperationWebApiActionFilterAttribute(IPrincipalService principalService, ISessionManagmentService sessionManagmentService,
+            ISessionOperationLogService sessionOperationLogService, IDiagnosticsTracingService diagnosticsTracingService)
         {
             this._principalService = principalService;
             this._sessionOperationLogService = sessionOperationLogService;
             this._diagnosticsTracingService = diagnosticsTracingService;
-            this._contextService = contextService;
+            _sessionManagmentService = sessionManagmentService;
         }
 
         public override void OnActionExecuting(HttpActionContext actionContext)
@@ -42,11 +43,12 @@ namespace App.Core.Application.Filters.WebApi
             
             sessionOperationLog.BeginDateTimeUtc = DateTime.UtcNow;
             sessionOperationLog.ClientIp = actionContext.Request.RemoteIPChain();
-            sessionOperationLog.OwnerFK = this._principalService.CurrentSessionIdentifier;
+            //sessionOperationLog.SessionFK = this._principalService.CurrentSessionIdentifier;
             sessionOperationLog.Url = actionContext.Request.RequestUri.OriginalString;
             sessionOperationLog.ControllerName = actionContext.ActionDescriptor.ControllerDescriptor.ControllerName;
             sessionOperationLog.ActionName = actionContext.ActionDescriptor.ActionName;
             sessionOperationLog.ActionArguments = "{}"; //todo: FIX this up
+            //actionContext.Request.Content.
             /*
             sessionOperationLog.ActionArguments = JsonConvert.SerializeObject(actionContext.ActionArguments,
                 Formatting.Indented, new JsonSerializerSettings {ReferenceLoopHandling = ReferenceLoopHandling.Ignore});
@@ -82,6 +84,8 @@ namespace App.Core.Application.Filters.WebApi
             {
                 this._diagnosticsTracingService.Trace(TraceLevel.Warn, $"Operation took too long: {sessionOperation.Duration}");
             }
+
+            _sessionManagmentService.SaveSessionOperationAsync(sessionOperation, _principalService);
         }
     }
 }

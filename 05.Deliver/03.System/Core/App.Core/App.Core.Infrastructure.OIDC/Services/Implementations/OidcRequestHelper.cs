@@ -1,3 +1,5 @@
+using App.Core.Infrastructure.IDA.Oidc;
+
 namespace App.Core.Infrastructure.IDA.Services
 {
     using System;
@@ -7,7 +9,6 @@ namespace App.Core.Infrastructure.IDA.Services
     using System.Security.Claims;
     using System.Threading.Tasks;
     using System.Web;
-    using App.Core.Application.Oidc;
     using App.Core.Infrastructure.IDA.Models;
     using App.Core.Infrastructure.Services;
     using App.Core.Shared.Models.Entities;
@@ -22,26 +23,26 @@ namespace App.Core.Infrastructure.IDA.Services
             this._diagnosticsTracingService = diagnosticsTracingService;
         }
         public async Task<HttpResponseMessage> MakeRequestAsync(
-            IOIDCConfidentialClientConfiguration oidcConfidentialClientConfiguration,
+            IOidcSettingsConfidentialClientConfiguration oidcSettingsConfidentialClientConfiguration,
             string authorityUriOverride, HttpContextBase httpContextBase, string[] fqScopes, HttpMethod verb,
             Uri apiUri)
         {
             var httpRequestMessage = new HttpRequestMessage(verb, apiUri);
 
-            return await MakeRequestAsync(oidcConfidentialClientConfiguration, authorityUriOverride, httpContextBase,
+            return await MakeRequestAsync(oidcSettingsConfidentialClientConfiguration, authorityUriOverride, httpContextBase,
                 fqScopes,
                 httpRequestMessage);
         }
 
         public async Task<HttpResponseMessage> MakeRequestAsync(
-            IOIDCConfidentialClientConfiguration oidcConfidentialClientConfiguration, string authorityUriOverride,
+            IOidcSettingsConfidentialClientConfiguration oidcSettingsConfidentialClientConfiguration, string authorityUriOverride,
             HttpContextBase httpContextBase, string[] fqScopes, HttpRequestMessage httpRequestMessage)
         {
-            var authorityUri = authorityUriOverride ?? oidcConfidentialClientConfiguration.AuthorityUri;
+            var authorityUri = authorityUriOverride ?? oidcSettingsConfidentialClientConfiguration.AuthorityUri;
 
             var confidentialClientApplication =
                 CreateConfidentialClientApplication(httpContextBase, authorityUriOverride,
-                    oidcConfidentialClientConfiguration);
+                    oidcSettingsConfidentialClientConfiguration);
 
             var accessToken = await AcquireTokenSilently(confidentialClientApplication, authorityUri, fqScopes);
 
@@ -64,22 +65,22 @@ namespace App.Core.Infrastructure.IDA.Services
         public ConfidentialClientApplication CreateConfidentialClientApplication(
             HttpContextBase httpContextBase,
             string authorityUriOverride,
-            IOIDCConfidentialClientConfiguration oidcConfidentialClientConfiguration,
+            IOidcSettingsConfidentialClientConfiguration oidcSettingsConfidentialClientConfiguration,
             params string[] fqScopes)
         {
             // ** IMPORTANT**
             // The calls to AAD and B2C are mostly the same bar the following:
             // For AAD, use .AuthorityUri
-            var authorityUri = authorityUriOverride ?? oidcConfidentialClientConfiguration.AuthorityUri;
+            var authorityUri = authorityUriOverride ?? oidcSettingsConfidentialClientConfiguration.AuthorityUri;
             var signedInUserIdentifier = ClaimsPrincipal.Current.FindFirst(ClaimTypes.NameIdentifier).Value;
             var userTokenCache = new MSALSessionCache(signedInUserIdentifier, httpContextBase).GetMsalCacheInstance();
             TokenCache appTokenCache = null;
 
             var confidentialClientApplication = new ConfidentialClientApplication(
-                oidcConfidentialClientConfiguration.ClientId,
+                oidcSettingsConfidentialClientConfiguration.ClientId,
                 authorityUri /*note...*/,
-                oidcConfidentialClientConfiguration.ClientRedirectUri,
-                new ClientCredential(oidcConfidentialClientConfiguration.ClientSecret),
+                oidcSettingsConfidentialClientConfiguration.ClientRedirectUri,
+                new ClientCredential(oidcSettingsConfidentialClientConfiguration.ClientSecret),
                 userTokenCache,
                 appTokenCache);
 

@@ -27,7 +27,7 @@
             // FK Properties:
 
             modelBuilder.Entity<TenantClaim>()
-                .Property(x => x.OwnerFK)
+                .Property(x => x.TenantFK)
                 .HasColumnOrder(order++)
                 .IsRequired();
 

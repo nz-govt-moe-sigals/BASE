@@ -47,9 +47,9 @@
                     (object)null,
                     x => x.DataClassification,
                     x => x.Category,
-                    x=>x.Tags,
-                    x=>x.Properties,
-                    x=>x.Claims
+                    x => x.Tags,
+                    x => x.Properties,
+                    x => x.Claims
                 );
 
             //results = QueryableExtensions.Include(

@@ -161,9 +161,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{770E6538-1
 		readme.TestNamingConventions.md = readme.TestNamingConventions.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "b2c", "b2c", "{9D7EB9E5-690F-4617-A7B6-B153E926A1C8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OAuth", "OAuth", "{9D7EB9E5-690F-4617-A7B6-B153E926A1C8}"
 	ProjectSection(SolutionItems) = preProject
-		readme.b2c.md = readme.b2c.md
+		_Readme\Oauth\readme.AzureAd.md = _Readme\Oauth\readme.AzureAd.md
+		_Readme\Oauth\readme.b2c.md = _Readme\Oauth\readme.b2c.md
+		_Readme\Oauth\readme.whatIsthis.md = _Readme\Oauth\readme.whatIsthis.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module32.Shared", "App.Module32\App.Module32.Shared\App.Module32.Shared.csproj", "{C1E727B0-F6F4-4CBC-BD54-2F492E0E89B6}"
@@ -185,6 +187,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module33.Infrastructure", "App.Module33\App.Module33.Infrastructure\App.Module33.Infrastructure.csproj", "{F71234EA-E81B-46C2-821E-ED98064A64FE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module33.Application", "App.Module33\App.Module33.Application\App.Module33.Application.csproj", "{57FB1AB1-3C07-4007-8493-C31DA5E9CAB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Core.Infrastructure.IDA.v1.Ux.Tests", "App.Core\App.Core.Infrastructure.IDA.v1.Ux.Tests\App.Core.Infrastructure.IDA.v1.Ux.Tests.csproj", "{D9CA7F08-303F-44FF-94D1-9FDEB66CC886}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Core.Infrastructure.IDA.v2.Ux.Tests", "App.Core\App.Core.Infrastructure.IDA.v2.Ux.Tests\App.Core.Infrastructure.IDA.v2.Ux.Tests.csproj", "{65317135-9B63-4E7E-AC49-656872E89FF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module32.Ux.Tests", "App.Module32\App.Module32.Ux.Tests\App.Module32.Ux.Tests.csproj", "{6FD99B16-CD59-4AD6-A83F-A5C17DD1E52C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -360,6 +368,18 @@ Global
 		{57FB1AB1-3C07-4007-8493-C31DA5E9CAB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57FB1AB1-3C07-4007-8493-C31DA5E9CAB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57FB1AB1-3C07-4007-8493-C31DA5E9CAB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9CA7F08-303F-44FF-94D1-9FDEB66CC886}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9CA7F08-303F-44FF-94D1-9FDEB66CC886}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9CA7F08-303F-44FF-94D1-9FDEB66CC886}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9CA7F08-303F-44FF-94D1-9FDEB66CC886}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65317135-9B63-4E7E-AC49-656872E89FF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65317135-9B63-4E7E-AC49-656872E89FF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65317135-9B63-4E7E-AC49-656872E89FF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65317135-9B63-4E7E-AC49-656872E89FF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FD99B16-CD59-4AD6-A83F-A5C17DD1E52C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FD99B16-CD59-4AD6-A83F-A5C17DD1E52C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FD99B16-CD59-4AD6-A83F-A5C17DD1E52C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FD99B16-CD59-4AD6-A83F-A5C17DD1E52C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -417,6 +437,9 @@ Global
 		{15C2B8AB-F020-405E-AC47-93AD2AF1AC31} = {1849FA87-4CA6-4387-92C9-5AB5A0CC455C}
 		{F71234EA-E81B-46C2-821E-ED98064A64FE} = {1849FA87-4CA6-4387-92C9-5AB5A0CC455C}
 		{57FB1AB1-3C07-4007-8493-C31DA5E9CAB1} = {1849FA87-4CA6-4387-92C9-5AB5A0CC455C}
+		{D9CA7F08-303F-44FF-94D1-9FDEB66CC886} = {BF5BE208-7B53-484F-857B-F8F17289D5C8}
+		{65317135-9B63-4E7E-AC49-656872E89FF7} = {BF5BE208-7B53-484F-857B-F8F17289D5C8}
+		{6FD99B16-CD59-4AD6-A83F-A5C17DD1E52C} = {EE52FBA1-DB51-44D2-88E0-2D9EA04412B8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2F529A1D-CBD2-4505-88EC-746854D7FB98}

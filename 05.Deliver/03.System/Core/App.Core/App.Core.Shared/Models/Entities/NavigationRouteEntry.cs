@@ -17,6 +17,7 @@ namespace App.Core.Shared.Models.Entities
     /// <seealso cref="App.Core.Shared.Models.IHasDisplayStyleHint" />
     public class NavigationRoute : UntenantedAuditedRecordStatedTimestampedGuidIdEntityBase, IHasGuidId, IHasOwnerFK, IHasText, IHasDescription, IHasDisplayOrderHint, IHasDisplayStyleHint
     {
+        // Class Not even used not sure what this was supposed to be
         public Guid OwnerFK
         {
             get; set;
@@ -53,5 +54,11 @@ namespace App.Core.Shared.Models.Entities
         }
 
         private ICollection<NavigationRoute> _children;
+
+
+        public Guid GetOwnerFk()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
