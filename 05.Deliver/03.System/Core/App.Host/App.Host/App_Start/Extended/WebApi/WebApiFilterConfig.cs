@@ -134,7 +134,7 @@
                         "WebAPI Filter installed to redirect HTTP requests to HTTPS.");
 
 
-                filters.Add(new WebApiAppAuthorizeAttribute());
+                filters.Add(new AuthorizeAttribute());
 
                 _configurationStepService.Register(
                     ConfigurationStepType.Security,

@@ -83,7 +83,7 @@ namespace App.Core.Infrastructure.IDA.v2.Ux.Tests
                 {
                     HttpClient client = new HttpClient();
                     HttpRequestMessage request =
-                        new HttpRequestMessage(HttpMethod.Get, "https://localhost:44311/OData/core/v1/tenant");
+                        new HttpRequestMessage(HttpMethod.Get, _baseurl + "api/Transport/DoesStudentExist?SchoolName=Te%20Kao%20School&StudentName=Robrt%20Muldon&DateOfBirth=2011-05-05");
                                                                                               //_baseurl + "OData/core/v1/tenant");
 
                     // Add token to the Authorization header and make the request

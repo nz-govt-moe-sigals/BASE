@@ -25,7 +25,12 @@ namespace App.Core.Infrastructure.IDA.v2.Ux.Tests
             get
             {
                 var e = Environment.GetEnvironmentVariable("custom_vars_defaultUrl");
-                if (e != null) { return e; }
+                if (e != null)
+                {
+                    if(!e.EndsWith("/")) { e += "/" ;}
+                    return e; 
+
+                }
                 return "https://localhost:44311/";
             }
         }

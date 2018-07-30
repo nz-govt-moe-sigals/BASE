@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using App.Core.Application.Filters.WebApi;
 
 namespace App.Core.Application.API.Controllers.V0100
 {

@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Hosting;
 using System.Web.Http;
 using App.Core.Application.API.Controllers.Base.Base;
+using App.Core.Application.Filters.WebApi;
 using App.Core.Infrastructure.Services;
 using App.Module32.Application.Services;
 using App.Module32.Infrastructure.Services;
@@ -16,6 +17,7 @@ using App.Module32.Shared.Models.Messages.API.V0100;
 
 namespace App.Module32.Application.API.Controllers.V0100
 {
+    [WebApiAppAuthorize(Roles = "core_read")]
     public class TransportController : ApiControllerCommonBase
     {
         private readonly IExtractServiceController _extractServiceController;
@@ -29,7 +31,7 @@ namespace App.Module32.Application.API.Controllers.V0100
             _studentSearchService = studentSearchService;
         }
 
-        [AllowAnonymous]
+        
         [HttpGet]
         [ActionName("DoesStudentExist")]
         //public StudentTransportDto DoesStudentExist(string SchoolName, string StudentName, DateTime? DateOfBirth)

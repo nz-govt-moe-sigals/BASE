@@ -77,11 +77,8 @@ namespace App.Core.Infrastructure.IDA.v1.Ux.Tests
                 .x(async () =>
                 {
                     HttpClient client = new HttpClient();
-                    HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get,
-                        "https://localhost:44311/OData/core/v1/tenant");
-                    //"https://localhost:44324/api/todolist");
-                    //"https://localhost:44321/api/todolist");
-                    //"https://localhost:44332" + "/api/tasks");
+                    HttpRequestMessage request =
+                        new HttpRequestMessage(HttpMethod.Get, _baseurl + "OData/core/v1/tenant");
 
                     // Add token to the Authorization header and make the request
                     request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);

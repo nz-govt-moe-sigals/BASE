@@ -1,4 +1,5 @@
-﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+﻿using System;
+using App.Core.Infrastructure.Initialization.DependencyResolution;
 
 namespace App.Core.Application.Filters.WebApi
 {
@@ -105,15 +106,24 @@ namespace App.Core.Application.Filters.WebApi
             }
 
            
-            var scopeElement = App.Core.Infrastructure.Constants.IDA.ClaimTitles.ScopeElementId;
-            var value = principal?.FindFirst(scopeElement)?.Value;
-            if (value == null)
+            var scopeValues = principal?.FindFirst(App.Core.Infrastructure.Constants.IDA.ClaimTitles.ScopeElementId)?.Value;
+            var roleValues = principal?.FindFirst(App.Core.Infrastructure.Constants.IDA.ClaimTitles.RoleElementId)?.Value;
+            if (scopeValues == null && roleValues == null)
             {
                 return false;
             }
 
-            // Ensure a role in the attribute is found within the Principal's scopes:
-            return this._rolesSplit.Any(role => value.Contains(role));
+            // Ensure EACH role in the attribute is found within the Principal's scopes:
+            foreach (var role in this._rolesSplit)
+            {
+                if (!scopeValues.Contains(role, StringComparison.InvariantCultureIgnoreCase) &&
+                    !roleValues.Contains(role, StringComparison.InvariantCultureIgnoreCase) && 
+                    !roleValues.Contains(role, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private static bool IsAnODataMetadataRequests(HttpRequestMessage request)
