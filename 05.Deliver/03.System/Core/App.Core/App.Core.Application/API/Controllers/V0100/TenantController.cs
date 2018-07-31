@@ -16,6 +16,7 @@ namespace App.Core.Application.API.Controllers.V0100
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     //[ODataRoutePrefix("body")]
+    [WebApiAppAuthorize(Roles = "core_read")]
     [ODataPath(Constants.Api.ApiControllerNames.Tenant)]
     public class TenantController : GuidIdActiveRecordStateODataControllerBase<Tenant, TenantDto>
     {
@@ -39,6 +40,7 @@ namespace App.Core.Application.API.Controllers.V0100
         //[ApplyProxyDataContractResolverAttribute]
         //[ODataRoute()]
         [EnableQuery(PageSize = 100)]
+        [WebApiAppAuthorize(Roles = "core_read")]
         public IQueryable<TenantDto> Get()
         {
             var results = InternalGetDbSet()

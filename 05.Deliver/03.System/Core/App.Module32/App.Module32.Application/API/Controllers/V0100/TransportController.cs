@@ -17,7 +17,7 @@ using App.Module32.Shared.Models.Messages.API.V0100;
 
 namespace App.Module32.Application.API.Controllers.V0100
 {
-    [WebApiAppAuthorize(Roles = "core_read")]
+   
     public class TransportController : ApiControllerCommonBase
     {
         private readonly IExtractServiceController _extractServiceController;
