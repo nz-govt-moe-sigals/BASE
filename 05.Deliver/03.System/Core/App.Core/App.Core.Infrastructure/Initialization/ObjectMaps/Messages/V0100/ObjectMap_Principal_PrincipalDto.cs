@@ -36,17 +36,24 @@
                     .ForMember(t => t.DisplayName, opt => opt.MapFrom(s => s.DisplayName))
                     .ForMember(t => t.DataClassification, opt => opt.Ignore())
                     .ForMember(t => t.Category, opt => opt.Ignore())
-                    .ForMember(t => t.Tags, opt => opt.Ignore())
-                    .ForMember(t => t.Properties, opt => opt.Ignore())
-                    .ForMember(t => t.Claims, opt => opt.Ignore())
                     .ForMember(t => t.EnabledBeginningUtc, opt => opt.Ignore())
                     .ForMember(t => t.EnabledEndingUtc, opt => opt.Ignore())
                     .ForMember(t => t.DataClassificationFK, opt => opt.Ignore())
                     .ForMember(t => t.CategoryFK, opt => opt.Ignore())
-                    .ForMember(t => t.Logins, opt => opt.Ignore())
-                    .ForMember(t => t.Roles, opt => opt.Ignore())
+                    
                 ;
             Mapbase(x);
+            MapCollections(x);
+        }
+
+        private void MapCollections(IMappingExpression<PrincipalDto, Principal> mappingExpression)
+        {
+            mappingExpression
+                .ForMember(t => t.Logins, opt => opt.Ignore())
+                .ForMember(t => t.Roles, opt => opt.Ignore())
+                .ForMember(t => t.Tags, opt => opt.Ignore())
+                .ForMember(t => t.Properties, opt => opt.Ignore())
+                .ForMember(t => t.Claims, opt => opt.Ignore());
         }
 
         private void Mapbase(IMappingExpression<PrincipalDto, Principal> mappingExpression)
