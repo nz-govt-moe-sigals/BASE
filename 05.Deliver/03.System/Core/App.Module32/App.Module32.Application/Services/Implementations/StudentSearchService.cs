@@ -81,7 +81,7 @@ namespace App.Module32.Application.Services.Implementations
                 var array = new HashSet<int>();
                 foreach (var studentName in studentNameSplit)
                 {
-                    array.Add(LevenshteinDistance.Compute(studentName, searchName));
+                    array.Add(LevenshteinDistance.Compute(studentName.ToLowerInvariant(), searchName.ToLowerInvariant()));
                 }
 
                 countDifferences += array.Min();

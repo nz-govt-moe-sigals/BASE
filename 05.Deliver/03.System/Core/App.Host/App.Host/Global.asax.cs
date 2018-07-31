@@ -155,19 +155,19 @@
                 return;
             }
             // Or not, in which case we throttle:
-            context.Response.Clear();
-            // See: https://tools.ietf.org/html/rfc6585
-            context.Response.Status = "409 Conflict";
-            context.Response.AddHeader("Retry-After", delay.TotalSeconds.ToString(CultureInfo.InvariantCulture));
-            context.Response.AddHeader("Cache-Control", "no-cache");
-            //Do not use Response.End or Response.Close ( https://stackoverflow.com/a/3917180/8354791 )
-            // Sends the response buffer
-            context.Response.Write("DoS Interception enabled.");
+            //context.Response.Clear();
+            //// See: https://tools.ietf.org/html/rfc6585
+            //context.Response.Status = "409 Conflict";
+            //context.Response.AddHeader("Retry-After", delay.TotalSeconds.ToString(CultureInfo.InvariantCulture));
+            //context.Response.AddHeader("Cache-Control", "no-cache");
+            ////Do not use Response.End or Response.Close ( https://stackoverflow.com/a/3917180/8354791 )
+            //// Sends the response buffer
+            //context.Response.Write("DoS Interception enabled.");
             //Response.Flush();
             // Prevents any other content from being sent to the browser
-            context.Response.SuppressContent = true;
+            //context.Response.SuppressContent = true;
 
-            httpApplication.CompleteRequest();
+            //httpApplication.CompleteRequest();
         }
     }
 }

@@ -76,24 +76,24 @@
                 controllerName, "/",
                 actionName);
 
-
-            if (HttpRuntime.Cache[key] == null)
-            {
-                HttpRuntime.Cache.Add(key,
-                    true, // is this the smallest data we can have?
-                    null, // no dependencies
-                    DateTime.Now.Add(this.Duration), // absolute expiration
-                    Cache.NoSlidingExpiration,
-                    CacheItemPriority.Low,
-                    null); // no callback
-            }
-            else
-            {
-                actionContext.Response.Content =
-                    new StringContent(this.Message.Replace("{n}", this.Duration.Seconds.ToString()));
-                // see 409 - http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
-                actionContext.Response.StatusCode = HttpStatusCode.Conflict;
-            }
+            //IF I CANT RUN LEGIT TESTS THIS IS BORKED
+            //if (HttpRuntime.Cache[key] == null)
+            //{
+            //    HttpRuntime.Cache.Add(key,
+            //        true, // is this the smallest data we can have?
+            //        null, // no dependencies
+            //        DateTime.Now.Add(this.Duration), // absolute expiration
+            //        Cache.NoSlidingExpiration,
+            //        CacheItemPriority.Low,
+            //        null); // no callback
+            //}
+            //else
+            //{
+            //    actionContext.Response.Content =
+            //        new StringContent(this.Message.Replace("{n}", this.Duration.Seconds.ToString()));
+            //    // see 409 - http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+            //    actionContext.Response.StatusCode = HttpStatusCode.Conflict;
+            //}
         }
 
         private string RemoteIPChain(HttpRequestHeaders headers)

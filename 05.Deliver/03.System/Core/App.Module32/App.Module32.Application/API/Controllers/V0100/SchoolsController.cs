@@ -30,10 +30,11 @@ namespace App.Module32.Application.API.Controllers.V0100
         public void Post(SchoolDto dto)
         {
             _diagnosticsTracingService.Trace(TraceLevel.Info, "Test School data being inserted");
+            var newProperty = AutoMapper.Mapper.Map<SchoolDto, EducationSchoolProfile>(dto);
             //TODO : MOVE All repo logic out
             var exisitng = _repositoryService.GetQueryableSingle<EducationSchoolProfile>(_dbContextIdentifier,
-                x => x.SchoolId == dto.SchoolId).FirstOrDefault();
-            var newProperty = AutoMapper.Mapper.Map<SchoolDto, EducationSchoolProfile>(dto);
+                x => x.SchoolId == newProperty.SchoolId).FirstOrDefault();
+            
             if (exisitng == null)
             {
                 _repositoryService.AddOnCommit(_dbContextIdentifier, newProperty);

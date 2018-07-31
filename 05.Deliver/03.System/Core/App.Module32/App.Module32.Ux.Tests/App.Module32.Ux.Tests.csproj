@@ -83,6 +83,8 @@
     <Compile Include="DoesStudentExistApiTests.cs" />
     <Compile Include="ForbiddenApiTests.cs" />
     <Compile Include="Models\ResponseWrapper.cs" />
+    <Compile Include="Models\Data\SchoolData.cs" />
+    <Compile Include="Models\StudentDoesExistResult.cs" />
     <Compile Include="Utility\Configuration.cs" />
     <Compile Include="Models\SchoolDto.cs" />
     <Compile Include="Models\StudentDto.cs" />

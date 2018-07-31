@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using App.Module32.Ux.Tests.Fixture;
 using App.Module32.Ux.Tests.Models;
+using App.Module32.Ux.Tests.Models.Data;
 using App.Module32.Ux.Tests.Utility;
 using FluentAssertions;
 using Xbehave;
@@ -41,7 +42,7 @@ namespace App.Module32.Ux.Tests
                         DateOfBirth = new DateTime(2011, 11, 01),
                         FullName = "Test User MumboNo5",
                         Gender = "M",
-                        SchoolId = 999999
+                        SchoolId = SchoolData.GetSchoolData_999999().SchoolId
                     }.ToQueryString();
                     var url = Configuration.Instance.DefaultUrl + "api/Transport/DoesStudentExist" + queryparam;
                     HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url);
@@ -69,7 +70,7 @@ namespace App.Module32.Ux.Tests
                         DateOfBirth = new DateTime(2011, 11, 01),
                         FullName = "Test User MumboNo5",
                         Gender = "M",
-                        SchoolId = 999999
+                        SchoolId = SchoolData.GetSchoolData_999999().SchoolId
                     };
                     var url = Configuration.Instance.DefaultUrl + "odata/ate/v1/students";
                     var json = Newtonsoft.Json.JsonConvert.SerializeObject(dto);
@@ -93,11 +94,7 @@ namespace App.Module32.Ux.Tests
             "When I make a Http Request to a restricted DoesStudentExist API"
                 .x(async () =>
                 {
-                    var dto = new SchoolDto()
-                    {
-                        SchoolId = 999999,
-                        Name = "Test School 999999"
-                    };
+                    var dto = SchoolData.GetSchoolData_999999();
                     var url = Configuration.Instance.DefaultUrl + "odata/ate/v1/schools";
                     var json = Newtonsoft.Json.JsonConvert.SerializeObject(dto);
                     // Add token to the Authorization header and make the request

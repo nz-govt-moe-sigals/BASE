@@ -10,7 +10,7 @@ namespace App.Module32.Shared.Models.Messages.API.V0100
     {
         public string StudentId { get; set; }
 
-        public DateTime DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; }
 
         public string Gender { get; set; }
 

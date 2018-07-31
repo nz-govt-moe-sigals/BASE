@@ -34,5 +34,33 @@ namespace App.Module32.Ux.Tests.Utility
                 return value;
             }
         }
+
+        public string AadInstance
+        {
+            get { return ConfigurationManager.AppSettings["AadInstance"]; }
+        }
+
+        public string Tenant
+        {
+            get { return ConfigurationManager.AppSettings["Tenant"]; }
+        }
+
+        public string ClientId
+        {
+            get { return ConfigurationManager.AppSettings["ClientId"]; }
+        }
+
+        public string Appkey
+        {
+            get { return ConfigurationManager.AppSettings["Appkey"]; }
+        }
+
+        public string RedirectUri
+        {
+            get { return ConfigurationManager.AppSettings["RedirectUri"]; }
+        }
+
+
+
     }
 }
