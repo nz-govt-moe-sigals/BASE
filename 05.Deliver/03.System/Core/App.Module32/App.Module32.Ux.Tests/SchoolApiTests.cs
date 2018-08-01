@@ -1,6 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using App.Module32.Ux.Tests.Fixture;
@@ -19,6 +20,7 @@ namespace App.Module32.Ux.Tests
 
         public SchoolApiTests(TokenFixture fixture)
         {
+            
             _fixture = fixture;
             _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

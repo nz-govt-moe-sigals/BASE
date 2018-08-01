@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -44,7 +45,10 @@ namespace App.Module32.Ux.Tests.Fixture
         {
             _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            authority= String.Format(CultureInfo.InvariantCulture, aadInstance, tenant);;
+            authority= String.Format(CultureInfo.InvariantCulture, aadInstance, tenant);
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls |
+                                                   SecurityProtocolType.Tls11 |
+                                                   SecurityProtocolType.Tls12;
         }
 
         public string GetAuthToken()

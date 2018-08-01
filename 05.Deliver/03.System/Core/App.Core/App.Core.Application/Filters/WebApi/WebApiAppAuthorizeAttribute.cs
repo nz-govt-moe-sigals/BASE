@@ -107,23 +107,27 @@ namespace App.Core.Application.Filters.WebApi
 
            
             var scopeValues = principal?.FindFirst(App.Core.Infrastructure.Constants.IDA.ClaimTitles.ScopeElementId)?.Value;
-            var roleValues = principal?.FindFirst(App.Core.Infrastructure.Constants.IDA.ClaimTitles.RoleElementId)?.Value;
-            if (scopeValues == null && roleValues == null)
+            var roleValues = principal?.Claims.Where(x => x.Type == App.Core.Infrastructure.Constants.IDA.ClaimTitles.RoleElementId)
+                .Select(x => x.Value.ToLowerInvariant()).ToArray();
+
+            if (scopeValues == null && roleValues.Length == 0)
             {
                 return false;
             }
+            
 
-            // Ensure EACH role in the attribute is found within the Principal's scopes:
+            // Ensure that a role in the attribute is found within the Principal's scopes:
             foreach (var role in this._rolesSplit)
             {
-                if (!scopeValues.Contains(role, StringComparison.InvariantCultureIgnoreCase) &&
-                    !roleValues.Contains(role, StringComparison.InvariantCultureIgnoreCase) && 
-                    !roleValues.Contains(role, StringComparison.InvariantCultureIgnoreCase))
+
+                if (scopeValues.Contains(role, StringComparison.InvariantCultureIgnoreCase) ||
+                    roleValues.Contains(role.ToLowerInvariant()) ||
+                    roleValues.Contains((role + "_role").ToLowerInvariant()))
                 {
-                    return false;
+                    return true;
                 }
             }
-            return true;
+            return false;
         }
 
         private static bool IsAnODataMetadataRequests(HttpRequestMessage request)

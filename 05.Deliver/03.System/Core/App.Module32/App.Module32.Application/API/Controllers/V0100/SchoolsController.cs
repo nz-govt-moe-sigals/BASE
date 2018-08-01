@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Http;
 using System.Web.OData;
+using App.Core.Application.Filters.WebApi;
 using App.Core.Infrastructure.Services;
 using App.Core.Shared.Models.Entities;
 using App.Module32.Application.API.Controllers.Base;
@@ -10,6 +11,7 @@ using App.Module32.Shared.Models.Messages.API.V0100;
 
 namespace App.Module32.Application.API.Controllers.V0100
 {
+    [WebApiAppAuthorize(Roles = "module32_read")]
     public class SchoolsController : ActiveRecordStateODataControllerBase
         <EducationSchoolProfile,SchoolDto>
     {
@@ -27,6 +29,7 @@ namespace App.Module32.Application.API.Controllers.V0100
             return InternalGet();
         }
 
+        [WebApiAppAuthorize(Roles = "module32_write")]
         public void Post(SchoolDto dto)
         {
             _diagnosticsTracingService.Trace(TraceLevel.Info, "Test School data being inserted");

@@ -34,21 +34,14 @@ namespace App.Module32.Application.API.Controllers.V0100
         
         [HttpGet]
         [ActionName("DoesStudentExist")]
+        [WebApiAppAuthorize(Roles = "module32_read")]
         //public StudentTransportDto DoesStudentExist(string SchoolName, string StudentName, DateTime? DateOfBirth)
         public StudentTransportDto DoesStudentExist([FromUri] StudentTransportSearchDto studentTransport)
         {
-            //StudentTransportSearchDto studentTransport = new StudentTransportSearchDto()
-            //{
-            //    DateOfBirth = DateOfBirth,
-            //    SchoolId = null,
-            //    SchoolName = SchoolName,
-            //    StudentName = StudentName
-            //};
             return _studentSearchService.FindStudent(studentTransport);
         }
 
 
-        [AllowAnonymous]
         [HttpGet()]
         [ActionName("Extract")]
         public IHttpActionResult Extract()
