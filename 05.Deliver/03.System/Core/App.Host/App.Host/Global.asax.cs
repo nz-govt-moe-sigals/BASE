@@ -120,10 +120,10 @@
 
             var url = httpApplication.Context.Request.RawUrl.ToLower();
 
-            // The default MaxAllowed /Interval is not a lot (eg: 4) but 
+            // The default MaxAllowed /Interval is not a lot (eg: 10) but 
             // if maybe some files (eg: 'static/images/default.png') may have a higher
             // count (eg: 20)
-            var m = 4;
+            var m = 10; //originally 4 but upped to 10, because 4 was so tiny
             var maxCount = _knownUrlMaxAllowed.ContainsKey(url) ? _knownUrlMaxAllowed[url] : m;
             if (maxCount < 0)
             {
@@ -149,25 +149,25 @@
                 CacheItemPriority.Low,
                 null); // no callback
 
-            // If still hit our 4 (or 20), we're ok:
+            // If still hit our defined count  we're ok:
             if (counter <= maxCount)
             {
                 return;
             }
             // Or not, in which case we throttle:
-            //context.Response.Clear();
-            //// See: https://tools.ietf.org/html/rfc6585
-            //context.Response.Status = "409 Conflict";
-            //context.Response.AddHeader("Retry-After", delay.TotalSeconds.ToString(CultureInfo.InvariantCulture));
-            //context.Response.AddHeader("Cache-Control", "no-cache");
+            context.Response.Clear();
+            // See: https://tools.ietf.org/html/rfc6585
+            context.Response.Status = "409 Conflict";
+            context.Response.AddHeader("Retry-After", delay.TotalSeconds.ToString(CultureInfo.InvariantCulture));
+            context.Response.AddHeader("Cache-Control", "no-cache");
             ////Do not use Response.End or Response.Close ( https://stackoverflow.com/a/3917180/8354791 )
             //// Sends the response buffer
-            //context.Response.Write("DoS Interception enabled.");
+            context.Response.Write("DoS Interception enabled.");
             //Response.Flush();
             // Prevents any other content from being sent to the browser
-            //context.Response.SuppressContent = true;
+            context.Response.SuppressContent = true;
 
-            //httpApplication.CompleteRequest();
+            httpApplication.CompleteRequest();
         }
     }
 }
