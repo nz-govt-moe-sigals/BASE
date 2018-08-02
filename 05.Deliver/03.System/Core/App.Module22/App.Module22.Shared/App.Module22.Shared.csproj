@@ -39,7 +39,6 @@
     <Compile Include="Constants\AppModuleApiScopes.cs" />
     <Compile Include="Contracts\IHasModuleSpecificIdentifier.cs" />
     <Compile Include="IAppModule22.cs" />
-    <Compile Include="Models\Configuration\ApiPermissionConfig.cs" />
     <Compile Include="Models\Entities\Course.cs" />
     <Compile Include="Models\Entities\CourseCredit.cs" />
     <Compile Include="Models\Entities\CourseDepartment.cs" />
@@ -71,6 +70,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Models\Configuration\" />
     <Folder Include="Models\Contracts\" />
     <Folder Include="Models\Entities\Base\" />
   </ItemGroup>

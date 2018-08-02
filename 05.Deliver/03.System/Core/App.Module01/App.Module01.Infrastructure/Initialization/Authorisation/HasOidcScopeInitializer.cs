@@ -1,4 +1,4 @@
-﻿using App.Module01.Shared.Models.Configuration;
+﻿using App.Module01.Shared.Constants;
 
 namespace App.Module01.Infrastructure.Initialization.Authorisation
 {
@@ -12,11 +12,12 @@ namespace App.Module01.Infrastructure.Initialization.Authorisation
         public HasOidcScopeInitializer(IHostSettingsService hostSettingsService)
         {
             this._hostSettingsService = hostSettingsService;
-            var apiConsumerConfiguration = hostSettingsService.GetObject<ApiPermissionConfig>("cookieAuth:");
+            var apiConsumerConfiguration = hostSettingsService.GetObject<App.Core.Shared.Models.ConfigurationSettings.ApiPermissionConfiguration>();
+            var serviceIdentifer = apiConsumerConfiguration.ServiceIdentifier;
             this.FullyQualifiedScopeDefinitions = new[]
             {
-                apiConsumerConfiguration.FQExampleReadScope,
-                apiConsumerConfiguration.FQExampleWriteScope
+                serviceIdentifer + AppModuleApiScopes.ReadScope,
+                serviceIdentifer + AppModuleApiScopes.WriteScope
             };
         }
 

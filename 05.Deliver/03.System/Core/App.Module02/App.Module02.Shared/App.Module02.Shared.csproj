@@ -39,7 +39,6 @@
     <Compile Include="Constants\AppModuleApiScopes.cs" />
     <Compile Include="Contracts\IHasModuleSpecificIdentifier.cs" />
     <Compile Include="IAppModule02.cs" />
-    <Compile Include="Models\Configuration\ApiPermissionConfig.cs" />
     <Compile Include="Models\Entities\Old\AccountRoleGroupAccountRoleAssignment.cs" />
     <Compile Include="Models\Entities\Enums\AssignmentType.cs" />
     <Compile Include="Models\Entities\Subscription.cs" />
@@ -53,6 +52,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Models\Configuration\" />
     <Folder Include="Models\Contracts\" />
     <Folder Include="Models\Entities\Base\" />
     <Folder Include="Models\Messages\API\V0100\" />

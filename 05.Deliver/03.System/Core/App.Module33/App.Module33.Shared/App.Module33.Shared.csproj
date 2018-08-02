@@ -44,7 +44,6 @@
     <Compile Include="Constants\AppModuleApiScopes.cs" />
     <Compile Include="Contracts\IHasModuleSpecificIdentifier.cs" />
     <Compile Include="IAppModule33.cs" />
-    <Compile Include="Models\Configuration\ApiPermissionConfig.cs" />
     <Compile Include="Models\Entities\CommunityColourScheme.cs" />
     <Compile Include="Models\Entities\Community.cs" />
     <Compile Include="Models\Entities\CoherentPathwayLearningAreaStep.cs" />
@@ -70,6 +69,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Models\Configuration\" />
     <Folder Include="Models\Contracts\" />
     <Folder Include="Models\Entities\Base\" />
     <Folder Include="Models\Entities\Enums\" />

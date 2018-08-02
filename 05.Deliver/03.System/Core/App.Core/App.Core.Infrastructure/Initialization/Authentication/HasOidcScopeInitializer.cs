@@ -1,10 +1,8 @@
-﻿using App.Module22.Shared.Constants;
-using App.Core.Infrastructure.Initialization.Authentication;
-using App.Core.Infrastructure.Services;
+﻿using App.Core.Infrastructure.Services;
+using App.Core.Shared.Constants;
 
-namespace App.Module22.Infrastructure.Initialization.Authorisation
+namespace App.Core.Infrastructure.Initialization.Authentication
 {
- 
     public class HasOidcScopeInitializer : IHasOidcScopeInitializer
     {
         private readonly IHostSettingsService _hostSettingsService;
@@ -25,4 +23,3 @@ namespace App.Module22.Infrastructure.Initialization.Authorisation
         public string[] FullyQualifiedScopeDefinitions { get; }
     }
 }
-

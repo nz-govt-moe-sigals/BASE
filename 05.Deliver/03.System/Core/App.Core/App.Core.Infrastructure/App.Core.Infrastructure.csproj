@@ -175,6 +175,7 @@
     <Compile Include="Constants\Resources\DefaultDocuments\RelativePaths.cs" />
     <Compile Include="ExtensionMethods\ClaimsIdentityExtensions.cs" />
     <Compile Include="ExtensionMethods\StringExtensions.cs" />
+    <Compile Include="Initialization\Authentication\HasOidcScopeInitializer.cs" />
     <Compile Include="Initialization\Caching\IAppCoreCacheItem.cs" />
     <Compile Include="Constants\Context\AppContextKeys.cs" />
     <Compile Include="Constants\Db\AppCoreDbContextNames.cs" />

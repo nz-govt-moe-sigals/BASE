@@ -61,6 +61,7 @@
     <Compile Include="ExtensionMethods\StringExtensions.cs" />
     <Compile Include="Factories\GuidFactory.cs" />
     <Compile Include="IModuleCore.cs" />
+    <Compile Include="Models\ConfigurationSettings\ApiPermissionConfiguration.cs" />
     <Compile Include="Models\ConfigurationSettings\AzureCognitiveServicesComputerVisionConfigurationSettings.cs" />
     <Compile Include="Models\ConfigurationSettings\AzureCommonConfigurationSettings.cs" />
     <Compile Include="Models\ConfigurationSettings\AzureDocumentDbConfigurationSettings.cs" />
