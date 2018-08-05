@@ -143,6 +143,7 @@
     <Compile Include="Models\Entities\TenancySpecific\PrincipalServiceProfile.cs" />
     <Compile Include="Models\Entities\TenancySpecific\PrincipalServiceProfile_ServiceOffering_Allocation.cs" />
     <Compile Include="Models\Entities\TenancySpecific\PrincipalServiceProfile_ServicePlan_Allocation.cs" />
+    <Compile Include="Models\Messages\API\V0100\PrincipalLoginDto.cs" />
     <Compile Include="Models\Messages\API\V0100\SecurityProfileDto.cs" />
     <Compile Include="Models\Messages\API\V0100\SecurityProfileRoleAccountPermissionAssignmentDto.cs" />
     <Compile Include="Models\Messages\API\V0100\ExampleReferenceTypeDto.cs" />

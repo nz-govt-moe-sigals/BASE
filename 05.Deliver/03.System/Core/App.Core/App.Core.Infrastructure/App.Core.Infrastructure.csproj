@@ -364,7 +364,9 @@
     <Compile Include="ExtensionMethods\TypeExtensions.cs" />
     <Compile Include="Factories\AppSettingsConfigurationObjectFactory.cs" />
     <Compile Include="Factories\StructureMapServiceLocator.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ExceptionRecord_ExceptionRecordDto - Copy.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\Base\MapUntenantedAuditedRecordStateBase.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_NavigationRoute_NavigationRouteDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_PrincipalLogin_PrincipalLoginDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_TenantedNavigationRoute_TenantedNavigationRouteDto.cs" />
     <Compile Include="Initialization\Integration\Scanii\ScaniiIntegrationInitializer.cs" />
     <Compile Include="Initialization\ObjectMaps\IHasAutomapperInitializer.cs" />
@@ -377,7 +379,7 @@
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ApplicationDescription_ApplicationDescriptionDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_ConfigurationStepRecord_ConfigurationStepRecordDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_DataClassification_DataClassificationDto.cs" />
-    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_Role_RoleDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_SystemRole_RoleDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_MediaMetadata_MediaMetadataDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_PrincipalTag_PrincipalTagDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_PrincipalCategory_PrincipalCategoryDto.cs" />

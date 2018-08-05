@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\Controllers\Base\ActiveRecordStateODataControllerBase.cs" />
+    <Compile Include="API\Controllers\Base\ApiModuleControllerBase.cs" />
     <Compile Include="API\Controllers\Base\GuidIdActiveRecordStateODataControllerBase.cs" />
     <Compile Include="API\Controllers\V0100\SchoolsController.cs" />
     <Compile Include="API\Controllers\V0100\StudentsController.cs" />

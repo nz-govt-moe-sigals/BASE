@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using App.Core.Application.API.Controllers.Base.Base;
+using App.Core.Application.Filters.WebApi;
 using App.Core.Infrastructure.Services;
 using App.Core.Shared.Models;
 using App.Module32.Infrastructure.Constants.Db;
+using App.Module32.Shared.Constants;
 
 namespace App.Module32.Application.API.Controllers.Base
 {
+    [WebApiAppAuthorize(Roles = AppModuleApiScopes.ReadScope)]
     public abstract class ActiveRecordStateODataControllerBase<TEntity, TDto> : ActiveRecordStateCommonODataControllerBase<TEntity, TDto> /*NO:IHasInitialize as it makes the method public wihich is not needed*/
         where TEntity : class, IHasRecordState, new()
         where TDto : class, new()

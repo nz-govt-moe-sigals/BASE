@@ -10,6 +10,8 @@
 
         public virtual string Text { get; set; }
 
+        public string Description { get; set; }
+
         public virtual int DisplayOrderHint { get; set; }
 
         public virtual string DisplayStyleHint { get; set; }

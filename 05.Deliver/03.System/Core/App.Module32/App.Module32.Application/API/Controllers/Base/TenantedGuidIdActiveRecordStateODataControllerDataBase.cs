@@ -1,11 +1,10 @@
-﻿namespace App.Module32.Application.API.Controllers
-{
-    using App.Core.Application.API.Controllers;
-    using App.Core.Application.API.Controllers.Base.Base;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Models;
-    using App.Module32.Infrastructure.Constants.Db;
+﻿using App.Core.Application.API.Controllers.Base.Base;
+using App.Core.Infrastructure.Services;
+using App.Core.Shared.Models;
+using App.Module32.Infrastructure.Constants.Db;
 
+namespace App.Module32.Application.API.Controllers.Base
+{
     /// <summary>
     /// Abstract Base class for OData Controllers within this specific Module.
     /// <para>

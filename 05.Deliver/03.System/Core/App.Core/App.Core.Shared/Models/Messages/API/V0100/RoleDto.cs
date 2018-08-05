@@ -9,6 +9,9 @@ namespace App.Core.Shared.Models.Messages.API.V0100
         {
             get; set;
         }
+
+        public string ModuleKey { get; set; }
+
         public virtual RecordPersistenceState RecordState
         {
             get; set;

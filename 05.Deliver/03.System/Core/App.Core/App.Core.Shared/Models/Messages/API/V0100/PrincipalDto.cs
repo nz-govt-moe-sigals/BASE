@@ -8,11 +8,44 @@
 
     public class PrincipalDto  /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ : IHasGuidId, IHasEnabled
     {
+        private ICollection<PrincipalClaimDto> _claims;
+        private ICollection<PrincipalPropertyDto> _properties;
+        private ICollection<PrincipalTagDto> _tags;
+        private ICollection<PrincipalLoginDto> _logins;
+        private ICollection<RoleDto> _roles;
+
         public virtual string DisplayName { get; set; }
 
         public DataClassificationDto DataClassification { get; set; }
 
         public PrincipalCategoryDto Category { get; set; }
+
+
+        public ICollection<RoleDto> Roles
+        {
+            get
+            {
+                if (this._roles == null)
+                {
+                    this._roles = new Collection<RoleDto>();
+                }
+                return this._roles;
+            }
+            set => this._roles = value;
+        }
+
+        public ICollection<PrincipalLoginDto> Logins
+        {
+            get
+            {
+                if (this._logins == null)
+                {
+                    this._logins = new Collection<PrincipalLoginDto>();
+                }
+                return this._logins;
+            }
+            set => this._logins = value;
+        }
 
         public virtual ICollection<PrincipalTagDto> Tags
         {
@@ -26,10 +59,7 @@
             }
             set => this._tags = value;
         }
-        private ICollection<PrincipalTagDto> _tags;
-
-
-
+        
         public virtual ICollection<PrincipalPropertyDto> Properties
         {
             get
@@ -42,7 +72,7 @@
             }
             set => this._properties = value;
         }
-        private ICollection<PrincipalPropertyDto> _properties;
+        
 
         public virtual ICollection<PrincipalClaimDto> Claims
         {
@@ -56,7 +86,7 @@
             }
             set => this._claims = value;
         }
-        private ICollection<PrincipalClaimDto> _claims;
+      
 
         public virtual bool Enabled { get; set; }
         public virtual Guid Id { get; set; }

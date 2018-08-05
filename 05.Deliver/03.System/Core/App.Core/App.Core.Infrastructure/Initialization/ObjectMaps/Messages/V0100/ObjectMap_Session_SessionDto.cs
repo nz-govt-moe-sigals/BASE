@@ -1,11 +1,15 @@
-﻿namespace App.Core.Infrastructure.Initialization.ObjectMaps.Messages.V0100
+﻿using App.Core.Infrastructure.Initialization.ObjectMaps.Messages.V0100.Base;
+
+namespace App.Core.Infrastructure.Initialization.ObjectMaps.Messages.V0100
 {
     using App.Core.Infrastructure.Initialization;
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages.API.V0100;
     using AutoMapper;
 
-    public class ObjectMap_Session_SessionDto : IHasAutomapperInitializer
+    public class ObjectMap_Session_SessionDto
+        : MapUntenantedAuditedRecordStateBase<SessionDto, Session>,
+            IHasAutomapperInitializer
     {
         public void Initialize(IMapperConfigurationExpression config)
         {
@@ -36,21 +40,8 @@
                     .ForMember(t => t.PrincipalFK, opt => opt.Ignore())
                     .ForMember(t => t.UniqueIdentifier, opt => opt.Ignore())
                 ;
-            Mapbase(x);
+            MapBase(x);
         }
 
-        private void Mapbase(IMappingExpression<SessionDto, Session> mappingExpression)
-        {
-            mappingExpression
-                .ForMember(dest => dest.CreatedByPrincipalId, opt => opt.Ignore())
-                .ForMember(dest => dest.CreatedOnUtc, opt => opt.Ignore())
-                .ForMember(dest => dest.DeletedByPrincipalId, opt => opt.Ignore())
-                .ForMember(dest => dest.DeletedOnUtc, opt => opt.Ignore())
-                .ForMember(dest => dest.LastModifiedByPrincipalId, opt => opt.Ignore())
-                .ForMember(dest => dest.LastModifiedOnUtc, opt => opt.Ignore())
-                .ForMember(dest => dest.RecordState, opt => opt.Ignore())
-                .ForMember(dest => dest.Timestamp, opt => opt.Ignore())
-                ;
-        }
     }
 }

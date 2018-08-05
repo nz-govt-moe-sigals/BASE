@@ -1,11 +1,15 @@
-﻿namespace App.Core.Infrastructure.Initialization.ObjectMaps.Messages.V0100
+﻿using App.Core.Infrastructure.Initialization.ObjectMaps.Messages.V0100.Base;
+
+namespace App.Core.Infrastructure.Initialization.ObjectMaps.Messages.V0100
 {
     using App.Core.Infrastructure.Initialization;
     using App.Core.Shared.Models.Entities;
     using App.Core.Shared.Models.Messages.API.V0100;
     using AutoMapper;
 
-    public class ObjectMap_Principal_PrincipalDto : IHasAutomapperInitializer
+    public class ObjectMap_Principal_PrincipalDto 
+        : MapUntenantedAuditedRecordStateBase<PrincipalDto, Principal>,
+        IHasAutomapperInitializer
     {
         public void Initialize(IMapperConfigurationExpression config)
         {
@@ -42,32 +46,19 @@
                     .ForMember(t => t.CategoryFK, opt => opt.Ignore())
                     
                 ;
-            Mapbase(x);
+            MapBase(x);
             MapCollections(x);
         }
 
         private void MapCollections(IMappingExpression<PrincipalDto, Principal> mappingExpression)
         {
             mappingExpression
-                .ForMember(t => t.Logins, opt => opt.Ignore())
-                .ForMember(t => t.Roles, opt => opt.Ignore())
-                .ForMember(t => t.Tags, opt => opt.Ignore())
-                .ForMember(t => t.Properties, opt => opt.Ignore())
-                .ForMember(t => t.Claims, opt => opt.Ignore());
+                .ForMember(t => t.Logins, opt => opt.MapFrom(s => s.Logins))
+                .ForMember(t => t.Roles, opt => opt.MapFrom(s => s.Roles))
+                .ForMember(t => t.Tags, opt => opt.MapFrom(s => s.Tags))
+                .ForMember(t => t.Properties, opt => opt.MapFrom(s => s.Properties))
+                .ForMember(t => t.Claims, opt => opt.MapFrom(s => s.Claims));
         }
 
-        private void Mapbase(IMappingExpression<PrincipalDto, Principal> mappingExpression)
-        {
-            mappingExpression
-                .ForMember(dest => dest.CreatedByPrincipalId, opt => opt.Ignore())
-                .ForMember(dest => dest.CreatedOnUtc, opt => opt.Ignore())
-                .ForMember(dest => dest.DeletedByPrincipalId, opt => opt.Ignore())
-                .ForMember(dest => dest.DeletedOnUtc, opt => opt.Ignore())
-                .ForMember(dest => dest.LastModifiedByPrincipalId, opt => opt.Ignore())
-                .ForMember(dest => dest.LastModifiedOnUtc, opt => opt.Ignore())
-                .ForMember(dest => dest.RecordState, opt => opt.Ignore())
-                .ForMember(dest => dest.Timestamp, opt => opt.Ignore())
-                ;
-        }
     }
 }

@@ -20,6 +20,7 @@ namespace App.Core.Application.Filters.WebApi
     //     the current Principals Roles.
     // * So you want to override this method, and replace it with logic to check
     //   the current OIDC Scope.
+    [AttributeUsageAttribute(AttributeTargets.Class | AttributeTargets.Method)]
     public class WebApiAppAuthorizeAttribute : AuthorizeAttribute
     {
 

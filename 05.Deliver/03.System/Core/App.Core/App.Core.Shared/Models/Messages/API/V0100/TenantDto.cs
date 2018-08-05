@@ -13,6 +13,7 @@
         public virtual string HostName { get; set; }
         public virtual string Key { get; set; }
         public virtual string DisplayName { get; set; }
+        public bool IsDefault { get; set; }
 
         public DataClassificationDto DataClassification { get; set; }
 
