@@ -45,7 +45,6 @@ namespace App.Core.Infrastructure.Initialization.ObjectMaps.Messages.V0100
                 .ForMember(t => t.ContentSize, opt => opt.MapFrom(s => s.ContentSize))
                 .ForMember(t => t.ContentHash, opt => opt.MapFrom(s => s.ContentHash))
                 .ForMember(t => t.LocalName, opt => opt.MapFrom(s => s.LocalName))
-               
                 .ForMember(t => t.MimeType, opt => opt.MapFrom(s => s.MimeType))
                 .ForMember(t => t.SourceFileName, opt => opt.MapFrom(s => s.SourceFileName))
                 .ForMember(t => t.TenantFK, opt => opt.MapFrom(s => s.TenantFK))
