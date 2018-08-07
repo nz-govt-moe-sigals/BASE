@@ -16,7 +16,7 @@ namespace App.Module32.WebJob.Transfer
         // on an Azure Queue called queue.
         public static void ProcessQueueMessage([QueueTrigger("queue")] string message, TextWriter log)
         {
-            
+            log.WriteLine($"{DateTime.UtcNow} - Executing message");
 
             //var container = Container.For<AppAllInfrastructureRegistry>();
             //var app = AppDependencyLocator.Current.GetInstance<IExtractServiceController>();
