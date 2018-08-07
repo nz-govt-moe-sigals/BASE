@@ -23,7 +23,7 @@ namespace App.Module32.WebJob.Transfer
             PowershellServiceLocatorConfig.Initialize();
             var connectionString = GetConnectionString();
             var config = new JobHostConfiguration(connectionString);
-            config.DashboardConnectionString = "";
+            //config.DashboardConnectionString = "";
             var loggerFactory = new LoggerFactory();
             config.LoggerFactory = loggerFactory
                 .AddConsole();
