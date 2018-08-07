@@ -194,6 +194,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Core.Infrastructure.IDA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module32.Ux.Tests", "App.Module32\App.Module32.Ux.Tests\App.Module32.Ux.Tests.csproj", "{6FD99B16-CD59-4AD6-A83F-A5C17DD1E52C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module32.WebJob.Transfer", "App.Module32\App.Module32.WebJob.Transfer\App.Module32.WebJob.Transfer.csproj", "{68D61601-90D3-4815-B9EA-CBE77C401507}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -380,6 +382,10 @@ Global
 		{6FD99B16-CD59-4AD6-A83F-A5C17DD1E52C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FD99B16-CD59-4AD6-A83F-A5C17DD1E52C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FD99B16-CD59-4AD6-A83F-A5C17DD1E52C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68D61601-90D3-4815-B9EA-CBE77C401507}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68D61601-90D3-4815-B9EA-CBE77C401507}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68D61601-90D3-4815-B9EA-CBE77C401507}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68D61601-90D3-4815-B9EA-CBE77C401507}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -440,6 +446,7 @@ Global
 		{D9CA7F08-303F-44FF-94D1-9FDEB66CC886} = {BF5BE208-7B53-484F-857B-F8F17289D5C8}
 		{65317135-9B63-4E7E-AC49-656872E89FF7} = {BF5BE208-7B53-484F-857B-F8F17289D5C8}
 		{6FD99B16-CD59-4AD6-A83F-A5C17DD1E52C} = {EE52FBA1-DB51-44D2-88E0-2D9EA04412B8}
+		{68D61601-90D3-4815-B9EA-CBE77C401507} = {EE52FBA1-DB51-44D2-88E0-2D9EA04412B8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2F529A1D-CBD2-4505-88EC-746854D7FB98}

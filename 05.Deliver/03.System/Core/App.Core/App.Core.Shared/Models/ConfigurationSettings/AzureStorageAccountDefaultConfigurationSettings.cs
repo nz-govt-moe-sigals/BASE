@@ -33,6 +33,16 @@ namespace App.Core.Shared.Models.ConfigurationSettings
         }
 
 
+
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationAzureCommonResourceName)]
+        public string DefaultResourceName
+        {
+            get; set;
+        }
+        
+
+
         /// <summary>
         /// Gets or sets (from AppSettings)
         /// the ResourceName Suffix of this StorageAccount.

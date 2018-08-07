@@ -78,15 +78,14 @@ namespace App.Core.Infrastructure.Services.Configuration.Implementations.AzureCo
             KeyStandardNameComponentDivider = "-";
             KeyIllegalCharacters = new[] {":", "."};
 
-
-            // Get the configuration for this service:
-            var commonConfiguration = hostSettingsService.GetObject<AzureCommonConfigurationSettings>();
             var configuration = hostSettingsService.GetObject<AzureKeyVaultConfigurationSettings>();
 
             //Get the resourceName for the KeyVault
             this.ResourceName = configuration.ResourceName;
             if (string.IsNullOrEmpty(ResourceName))
             {
+                // Get the configuration for this service:
+                var commonConfiguration = hostSettingsService.GetObject<AzureCommonConfigurationSettings>();
                 ResourceName = commonConfiguration.RootResourceName;
             }
 

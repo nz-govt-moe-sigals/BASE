@@ -136,10 +136,12 @@
                 if (!set)
                 {
                     var tmp = hostKey;
+
                     if (DoesKeyExist(tmp))
                     {
                         s = GetAppSetting(tmp);
                     }
+
                 }
 
                 // Set the typed value from th string
