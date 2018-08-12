@@ -21,8 +21,12 @@ namespace App.Module32.WebJob.Transfer
         static void Main()
         {
             PowershellServiceLocatorConfig.Initialize();
-            var connectionString = GetConnectionString();
+            var connectionString = GetStorageConnectionString();
             var config = new JobHostConfiguration(connectionString);
+
+            //This code makes the following changes:
+            //Disables dashboard logging.The dashboard is a legacy monitoring tool, and dashboard logging is not recommended for high - throughput production scenarios.
+            // Adds the console provider with default filtering.
             //config.DashboardConnectionString = "";
             var loggerFactory = new LoggerFactory();
             config.LoggerFactory = loggerFactory
@@ -40,13 +44,17 @@ namespace App.Module32.WebJob.Transfer
             // host.RunAndBlock();
         }
 
+        /// <summary>
+        /// Create the views for entity framework because otherwise it's a bit slow. 
+        /// </summary>
         static void WarmUpDatabase()
         {
             var repo = AppDependencyLocator.Current.GetInstance<IRepositoryService>();
-            repo.Count<EducationSchoolProfile>(AppModuleDbContextNames.Default);
+            var count = repo.Count<EducationSchoolProfile>(AppModuleDbContextNames.Default);
+
         }
 
-        static string GetConnectionString()
+        static string GetStorageConnectionString()
         {
             var keyVaultService = AppDependencyLocator.Current.GetInstance<IAzureKeyVaultService>();
             var configuration =
