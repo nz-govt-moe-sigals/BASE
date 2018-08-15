@@ -41,10 +41,10 @@ namespace App.Host.Extended
                 var analyticsConfiguration = this._keyVaultService
                     .GetObject<ApplicationInsightsConfigurationSettings>();
 
-
+                //Seriously WTF?
                 TelemetryConfiguration.Active.DisableTelemetry = !analyticsConfiguration.Enabled;
 
-                if (analyticsConfiguration.Enabled)
+                if (!TelemetryConfiguration.Active.DisableTelemetry)
                 {
                     if (string.IsNullOrWhiteSpace(analyticsConfiguration.Key))
                     {
