@@ -273,6 +273,10 @@
     <Compile Include="Initialization\Db\Migrations\Core\201807262320580_Entities.SessionAlteration.Designer.cs">
       <DependentUpon>201807262320580_Entities.SessionAlteration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Initialization\Db\Migrations\Core\201808140143319_Entities.Example.cs" />
+    <Compile Include="Initialization\Db\Migrations\Core\201808140143319_Entities.Example.Designer.cs">
+      <DependentUpon>201808140143319_Entities.Example.cs</DependentUpon>
+    </Compile>
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenantServiceProfileServiceOfferingAllocation.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineTenantServiceProfileServicePlanAssignment.cs" />
     <Compile Include="Initialization\Db\Schema\AppModuleDbContextModelBuilderDefineServicePlanDefinition.cs" />
@@ -364,9 +368,11 @@
     <Compile Include="ExtensionMethods\TypeExtensions.cs" />
     <Compile Include="Factories\AppSettingsConfigurationObjectFactory.cs" />
     <Compile Include="Factories\StructureMapServiceLocator.cs" />
+    <Compile Include="Initialization\ObjectMaps\Entities\ObjectMap_Principal.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\Base\MapUntenantedAuditedRecordStateBase.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_NavigationRoute_NavigationRouteDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_PrincipalLogin_PrincipalLoginDto.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_Principal_UserProfileDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_TenantedNavigationRoute_TenantedNavigationRouteDto.cs" />
     <Compile Include="Initialization\Integration\Scanii\ScaniiIntegrationInitializer.cs" />
     <Compile Include="Initialization\ObjectMaps\IHasAutomapperInitializer.cs" />
@@ -638,6 +644,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Initialization\Db\Migrations\Core\201807262320580_Entities.SessionAlteration.resx">
       <DependentUpon>201807262320580_Entities.SessionAlteration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Initialization\Db\Migrations\Core\201808140143319_Entities.Example.resx">
+      <DependentUpon>201808140143319_Entities.Example.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

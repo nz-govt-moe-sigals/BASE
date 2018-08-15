@@ -14,6 +14,8 @@
         private ICollection<PrincipalLoginDto> _logins;
         private ICollection<RoleDto> _roles;
 
+        public string FullName { get; set; }
+
         public virtual string DisplayName { get; set; }
 
         public DataClassificationDto DataClassification { get; set; }

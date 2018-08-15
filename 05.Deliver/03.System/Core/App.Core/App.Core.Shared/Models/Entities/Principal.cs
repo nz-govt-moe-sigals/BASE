@@ -11,7 +11,11 @@
         public DateTime? EnabledEndingUtc { get; set; }
         public virtual bool Enabled { get; set; }
 
+        public virtual string FullName { get; set; }
 
+        /// <summary>
+        /// This is there Name that they set
+        /// </summary>
         public virtual string DisplayName { get; set; }
 
         public virtual NZDataClassification? DataClassificationFK { get; set; }

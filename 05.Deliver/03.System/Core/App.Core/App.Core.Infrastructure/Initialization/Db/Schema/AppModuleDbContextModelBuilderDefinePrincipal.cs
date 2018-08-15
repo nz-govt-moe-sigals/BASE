@@ -33,14 +33,19 @@
                 .WithMany()
                 .HasForeignKey(x => x.DataClassificationFK);
 
+            modelBuilder.Entity<Principal>()
+                .Property(x => x.FullName)
+                .HasColumnOrder(order++)
+                .HasMaxLength(TextFieldSizes.X128)
+                .IsOptional();
 
             modelBuilder.Entity<Principal>()
                 .Property(x => x.DisplayName)
                 .HasColumnOrder(order++)
-                .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute($"IX_{typeof(Principal).Name}_DisplayName") { IsUnique = false }))
-                .HasMaxLength(TextFieldSizes.X64)
-                .IsRequired();
+                //.HasColumnAnnotation("Index",
+                //    new IndexAnnotation(new IndexAttribute($"IX_{typeof(Principal).Name}_DisplayName") { IsUnique = false }))
+                .HasMaxLength(TextFieldSizes.X128)
+                .IsOptional();
 
             modelBuilder.Entity<Principal>()
                 .HasRequired(x => x.Category)

@@ -22,7 +22,9 @@
         /// <summary>
         /// 64. Use for Keys, Names
         /// </summary>
-        public const int X64 = basic; 
+        public const int X64 = basic;
+
+        public const int X128 = basic*2;
 
         /// <summary>
         /// 246. Use for FileNames (can be up to 1024, but Indexes must be less than 900 total, so start with this).

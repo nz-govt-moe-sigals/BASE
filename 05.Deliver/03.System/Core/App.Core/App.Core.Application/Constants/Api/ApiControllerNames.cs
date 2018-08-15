@@ -100,7 +100,9 @@
         /// metadata about media uploaded by users.
         /// </summary>
         public const string MediaMetadata = "MediaMetadata" + DtoSuffix;
-  
+
+
+        public const string UserProfile = "UserProfile" + DtoSuffix;
 
         public const string TenantedNavigationRouteItem = "TenantedNavigationRouteItem" + DtoSuffix;
 

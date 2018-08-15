@@ -151,6 +151,7 @@
     <Compile Include="Models\Messages\API\V0100\SecurityProfileRoleDto.cs" />
     <Compile Include="Models\Messages\API\V0100\SecurityProfileRoleGroupDto.cs" />
     <Compile Include="Models\Messages\API\V0100\SecurityProfileSecurityProfilePermissionAssignmentDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\UserProfileDto.cs" />
     <Compile Include="Models\Messages\GeoCoordinates.cs" />
     <Compile Include="Models\Messages\GeoInformation.cs" />
     <Compile Include="Models\Messages\AzureMapsMessages.cs" />

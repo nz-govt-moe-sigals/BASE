@@ -98,9 +98,18 @@ namespace App.Core.Infrastructure.IDA.Oidc
             this._synclock.EnterWriteLock();
             try
             {
-                var config = Task.Run(this._configManager.GetConfigurationAsync).Result;
+                var configTask = Task.Run(this._configManager.GetConfigurationAsync);
+                var securityKeys = new List<SecurityKey>();
+                if (_policyConfigurationManager != null)
+                {
+                    var policyConfig = Task.Run(this._policyConfigurationManager.GetConfigurationAsync).Result;
+                    securityKeys.AddRange(policyConfig.SigningKeys);
+                }
+
+                var config = configTask.Result;
                 this._issuer = config.Issuer;
-                this._securityKeys = config.SigningKeys;
+                securityKeys.AddRange(config.SigningKeys);
+                this._securityKeys = securityKeys;
             }
             finally
             {

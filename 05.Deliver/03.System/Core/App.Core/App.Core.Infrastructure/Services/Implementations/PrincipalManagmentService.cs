@@ -63,7 +63,7 @@ namespace App.Core.Infrastructure.Services.Implementations
             currentPrincipal = new Principal
             {
                 CategoryFK = AppCoreDbContextSeederPrincipalCategory.GetDefaultPrincipalCategory().Id,
-                DisplayName = name,
+                FullName = name,
                 Enabled = true,
                 EnabledBeginningUtc = DateTime.UtcNow
             };

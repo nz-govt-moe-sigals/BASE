@@ -5,6 +5,7 @@ using App.Core.Application.Initialization;
 using App.Core.Infrastructure.Services;
 using App.Host.Extended.WebApi.OData;
 using App.Host.Extended.WebApi.Swagger;
+using Microsoft.Owin.Cors;
 using Microsoft.Web.Http.Routing;
 using Newtonsoft.Json.Serialization;
 using Owin;
@@ -53,6 +54,7 @@ namespace App.Host.Extended.WebApi
             //{ 
             StaticFileHandlingConfig.Configure(httpConfiguration);
             WebApiCorsConfig.Configure(httpConfiguration);
+            appBuilder.UseCors(CorsOptions.AllowAll);
             WebApiJsonSerializerConfig.Configure(httpConfiguration);
             // Note:
             // WebAPI enablement is done after WebMvc routes and filters 
