@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using App.Core.Shared.Models.Entities;
 
 namespace App.Core.Infrastructure.Integration.Azure.Storage
 {
@@ -25,6 +26,7 @@ namespace App.Core.Infrastructure.Integration.Azure.Storage
         private static object _lock = new Object();
         private static Dictionary<string, CloudBlobContainer> ContainersCache = new Dictionary<string, CloudBlobContainer>();
         private static bool ContainersInitialized;
+        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
 
         public CloudBlobClient Client
         {
@@ -40,9 +42,9 @@ namespace App.Core.Infrastructure.Integration.Azure.Storage
         /// Initializes a new instance of the <see cref="AppCoreAzureStorageDefaultBlobContext"/> class.
         /// </summary>
         /// <param name="keyVaultService">The key vault service.</param>
-        public AppCoreAzureStorageDefaultBlobContext(IAzureKeyVaultService keyVaultService)
+        public AppCoreAzureStorageDefaultBlobContext(IAzureKeyVaultService keyVaultService, IDiagnosticsTracingService diagnosticsTracingService)
         {
-
+            _diagnosticsTracingService = diagnosticsTracingService;
             var configuration =
                 keyVaultService.GetObject<AzureStorageAccountDefaultConfigurationSettings>();
 
@@ -84,10 +86,12 @@ namespace App.Core.Infrastructure.Integration.Azure.Storage
                     EnsureContainer(GetContainer(Constants.Storage.BlobStorageContainers.Testing),
                         BlobContainerPublicAccessType.Blob);
                 }
-#pragma warning disable CS0168 // Variable is declared but never used
-                catch (System.Exception e)
-#pragma warning restore CS0168 // Variable is declared but never used
+                catch (System.Exception ex)
+
                 {
+                    _diagnosticsTracingService.Trace(TraceLevel.Error, ConnectionString); //dont do this normally but am really 
+                    _diagnosticsTracingService.Trace(TraceLevel.Error, ex.Message);
+                    _diagnosticsTracingService.Trace(TraceLevel.Error, ex.StackTrace);
                     throw;
                 }
 
