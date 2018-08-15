@@ -12,10 +12,25 @@ namespace App.Core.Infrastructure.Initialization.ObjectMaps.Entities
     {
         public void Initialize(IMapperConfigurationExpression config)
         {
-            config.CreateMap<Principal, Principal>()
-            .ForMember(dest => dest.Id, opt => opt.UseDestinationValue())
-            .ForAllOtherMembers(opt => opt.Condition((src, dest, srcVal, destVal, c) => srcVal != null));
+            var mapping = config.CreateMap<Principal, Principal>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.CategoryFK, opt => opt.Ignore())
+                .ForMember(dest => dest.Category, opt => opt.Ignore())
+                .ForMember(dest => dest.DataClassificationFK, opt => opt.Ignore())
+                .ForMember(dest => dest.DataClassification, opt => opt.Ignore());
+            MapCollections(mapping);
+            mapping
+                .ForAllOtherMembers(opt => opt.Condition((src, dest, srcVal, destVal, c) => srcVal != null));
         }
 
+        private void MapCollections(IMappingExpression<Principal, Principal> mappingExpression)
+        {
+            mappingExpression
+                .ForMember(t => t.Logins, opt => opt.Ignore())
+                .ForMember(t => t.Roles, opt => opt.Ignore())
+                .ForMember(t => t.Tags, opt => opt.Ignore())
+                .ForMember(t => t.Properties, opt => opt.Ignore())
+                .ForMember(t => t.Claims, opt => opt.Ignore());
+        }
     }
 }

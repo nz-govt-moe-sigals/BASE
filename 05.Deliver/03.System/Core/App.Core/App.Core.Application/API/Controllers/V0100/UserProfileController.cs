@@ -26,8 +26,8 @@ namespace App.Core.Application.API.Controllers.V0100
             return _userProfileService.GetUserProfile();
         }
 
-
-        public void Put([FromBody] UserProfileDto dto)
+        [AcceptVerbs("POST", "PUT")]
+        public void Post([FromBody] UserProfileDto dto)
         {
             _userProfileService.UpdateUserProfile(dto);
         }
