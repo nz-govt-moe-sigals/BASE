@@ -1,9 +1,11 @@
 ﻿using System.Configuration;
+using System.Diagnostics;
 using App.Core.Infrastructure.Initialization.DependencyResolution;
 using App.Core.Infrastructure.Services;
 using App.Core.Shared.Models.ConfigurationSettings;
 using App.Core.Shared.Models.Messages;
 using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.ApplicationInsights.TraceListener;
 using Owin;
 
 namespace App.Host.Extended
@@ -52,8 +54,11 @@ namespace App.Host.Extended
                             $"Missing app setting '{App.Core.Shared.Constants.ConfigurationKeys.AppCoreIntegrationAzureApplicationInsightsInstrumentationKey}' used for Application Insights.");
                     }
                     TelemetryConfiguration.Active.InstrumentationKey = analyticsConfiguration.Key;
+                    Trace.Listeners.Add(new ApplicationInsightsTraceListener(analyticsConfiguration.Key));
+                    Trace.TraceError("WOOOOOOKIIEEEEEEEE");
                 }
 
+                
                 var color = ConfigurationStepStatus.White;
                 if (elapsedTime.Elapsed.TotalMilliseconds > 5000)
                 {
