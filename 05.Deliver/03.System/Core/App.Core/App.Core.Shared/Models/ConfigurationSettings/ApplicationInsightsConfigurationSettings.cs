@@ -10,7 +10,7 @@
     public class ApplicationInsightsConfigurationSettings: IKeyVaultBasedConfigurationObject
     {
 
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
         [Alias(Constants.ConfigurationKeys.AppCoreIntegrationAzureApplicationInsightsInstrumentationKey)]
         public string Key { get; set; }
 
