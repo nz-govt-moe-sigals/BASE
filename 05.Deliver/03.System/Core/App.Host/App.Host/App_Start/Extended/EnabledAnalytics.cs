@@ -55,7 +55,6 @@ namespace App.Host.Extended
                     }
                     TelemetryConfiguration.Active.InstrumentationKey = analyticsConfiguration.Key;
                     Trace.Listeners.Add(new ApplicationInsightsTraceListener(analyticsConfiguration.Key));
-                    Trace.TraceError("WOOOOOOKIIEEEEEEEE");
                 }
 
                 
