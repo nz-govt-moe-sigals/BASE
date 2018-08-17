@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<package  xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>App.Core.Application</id>
+    <version></version>
+    <title>App.Core.Application the webcore</title>
+    <authors>Sky Sigal</authors>
+    <owners>Sky Sigal</owners>
+    <licenseUrl></licenseUrl>
+    <projectUrl></projectUrl>
+    <iconUrl></iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The Application Core</description>
+    <releaseNotes></releaseNotes>
+    <copyright></copyright>
+    <tags></tags>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="11.0.2"  />
+    </dependencies>
+    <summary>App.Core.Application this is the web.core</summary>
+  </metadata>
+</package>
