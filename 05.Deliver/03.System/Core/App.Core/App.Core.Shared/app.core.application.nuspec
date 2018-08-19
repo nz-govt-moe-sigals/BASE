@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<package  xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>App.Core.Shared</id>
+    <version>$version$</version>
+    <title>App.Core.Shared The Models</title>
+    <authors>Sky Sigal</authors>
+    <owners>Sky Sigal</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The Application Shared Models</description>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="11.0.2"  />
+    </dependencies>
+    <summary>App.Core.Shared this is where Models and such are kept</summary>
+  </metadata>
+</package>

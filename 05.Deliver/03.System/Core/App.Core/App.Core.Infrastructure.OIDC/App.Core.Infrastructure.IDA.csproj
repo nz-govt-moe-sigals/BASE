@@ -129,6 +129,7 @@
     <Content Include="TextFile1.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.core.application.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

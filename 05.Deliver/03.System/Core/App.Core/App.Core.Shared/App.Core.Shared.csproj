@@ -249,6 +249,7 @@
     <Folder Include="Models\Messages\API\V0100\Enums\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.core.application.nuspec" />
     <None Include="Models\ConfigurationSettings\_readme.md" />
     <None Include="packages.config" />
   </ItemGroup>

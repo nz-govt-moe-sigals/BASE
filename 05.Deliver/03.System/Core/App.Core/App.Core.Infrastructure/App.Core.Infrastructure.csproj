@@ -574,6 +574,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="app.core.application.nuspec" />
     <None Include="Db\Context\readme.md" />
     <None Include="Integration\Azure\KeyVault\README.md" />
     <None Include="packages.config" />

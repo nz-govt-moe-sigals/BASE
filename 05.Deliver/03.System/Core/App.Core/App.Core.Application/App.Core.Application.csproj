@@ -230,6 +230,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <Content Include="Filters\WebApi\readme.md" />
+    <None Include="app.core.application.nuspec" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
