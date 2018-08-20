@@ -10,6 +10,9 @@
     <description>The Application Core</description>
     <dependencies>
       <dependency id="Newtonsoft.Json" version="11.0.2"  />
+      <dependency id="App.Core.Infrastructure" version="1.*"  />
+      <dependency id="App.Core.Shared" version="1.*"  />
+      <dependency id="App.Core.Domain" version="1.*"  />
     </dependencies>
     <summary>App.Core.Application this is the web.core</summary>
   </metadata>

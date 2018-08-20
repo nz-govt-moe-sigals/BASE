@@ -1,17 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <package  xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
-    <id>App.Core.Infrastructure</id>
+    <id>App.Core.Domain</id>
     <version>$version$</version>
-    <title>App.Core.Infrastructure the application bit </title>
+    <title>App.Core.Domain the Domain</title>
     <authors>Sky Sigal</authors>
     <owners>Sky Sigal</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>The Application Infrastructure</description>
+    <description>The Application Domain</description>
     <dependencies>
-      <dependency id="Newtonsoft.Json" version="11.0.2"  />
       <dependency id="App.Core.Shared" version="1.*"  />
     </dependencies>
-    <summary>App.Core.Infrastructure this is the main bit of the application</summary>
+    <summary>App.Core.Domain this is the Domain</summary>
   </metadata>
 </package>

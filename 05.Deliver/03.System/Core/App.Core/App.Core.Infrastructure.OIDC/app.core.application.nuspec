@@ -10,6 +10,8 @@
     <description>The Application Authentication Module</description>
     <dependencies>
       <dependency id="Newtonsoft.Json" version="11.0.2"  />
+      <dependency id="App.Core.Infrastructure" version="1.*"  />
+      <dependency id="App.Core.Shared" version="1.*"  />
     </dependencies>
     <summary>App.Core.Infrastructure.IDA this is the where the Authentication happens</summary>
   </metadata>
