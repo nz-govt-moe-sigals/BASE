@@ -13,7 +13,7 @@ namespace App.Core.Infrastructure.Services.Configuration.Implementations.AzureCo
         {
             var commonConfigurationSettings = keyVaultService.GetObject<AzureCommonConfigurationSettings>();
             var configuration = keyVaultService.GetObject<AzureRedisCacheConfigurationSettings>();
-
+  
             if (string.IsNullOrEmpty(configuration.ResourceName))
             {
                 configuration.ResourceName = commonConfigurationSettings.RootResourceName;

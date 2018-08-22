@@ -246,6 +246,12 @@
             {
                 this._diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Did not find an KeyVault Secret with id '{key}'.");
                 this._diagnosticsTracingService.Trace(TraceLevel.Verbose, e.Message);
+                this._diagnosticsTracingService.Trace(TraceLevel.Verbose, e.StackTrace);
+                if (e.InnerException != null)
+                {
+                    this._diagnosticsTracingService.Trace(TraceLevel.Verbose, e.InnerException.Message);
+                    this._diagnosticsTracingService.Trace(TraceLevel.Verbose, e.InnerException.StackTrace);
+                }
                 throw;
             }
         }
