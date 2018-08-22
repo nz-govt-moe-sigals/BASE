@@ -244,13 +244,13 @@
             }
             catch (System.Exception e)
             {
-                this._diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Did not find an KeyVault Secret with id '{key}'.");
-                this._diagnosticsTracingService.Trace(TraceLevel.Verbose, e.Message);
-                this._diagnosticsTracingService.Trace(TraceLevel.Verbose, e.StackTrace);
+                this._diagnosticsTracingService.Trace(TraceLevel.Info, $"Did not find an KeyVault Secret with id '{key}'.");
+                this._diagnosticsTracingService.Trace(TraceLevel.Debug, e.Message);
+                this._diagnosticsTracingService.Trace(TraceLevel.Debug, e.StackTrace);
                 if (e.InnerException != null)
                 {
-                    this._diagnosticsTracingService.Trace(TraceLevel.Verbose, e.InnerException.Message);
-                    this._diagnosticsTracingService.Trace(TraceLevel.Verbose, e.InnerException.StackTrace);
+                    this._diagnosticsTracingService.Trace(TraceLevel.Debug, e.InnerException.Message);
+                    this._diagnosticsTracingService.Trace(TraceLevel.Debug, e.InnerException.StackTrace);
                 }
                 throw;
             }

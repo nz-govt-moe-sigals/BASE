@@ -104,6 +104,10 @@
                     // System.Diagnostics.Trace.WriteLine($"DEBUG...: {message}");
                     System.Diagnostics.Trace.Write($"DEBUG: {threadId}: {message}{lineEnding}");
                     break;
+                case TraceLevel.Verbose:
+                    // System.Diagnostics.Trace.WriteLine($"DEBUG...: {message}");
+                    System.Diagnostics.Trace.Write($"VERBOSE: {threadId}: {message}{lineEnding}");
+                    break;
             }
 
         }
