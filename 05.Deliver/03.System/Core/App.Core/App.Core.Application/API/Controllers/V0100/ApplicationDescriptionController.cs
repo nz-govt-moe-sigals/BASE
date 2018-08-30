@@ -21,7 +21,6 @@ namespace App.Core.Application.API.Controllers.V0100
     /// </summary>
     /// <seealso cref="CommonODataControllerBase" />
     [ODataPath(Constants.Api.ApiControllerNames.ApplicationDescription)]
-    [AllowAnonymous]
     public class ApplicationDescriptionController : CommonODataControllerBase
 
     {

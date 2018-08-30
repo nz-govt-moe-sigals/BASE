@@ -1,5 +1,7 @@
 ﻿using System.Web.Http;
+using App.Core.Application.API.Controllers.Base.CoreModule;
 using App.Core.Application.Filters.WebApi;
+using App.Core.Shared.Constants;
 
 namespace App.Core.Application.API.Controllers.V0100
 {
@@ -18,7 +20,7 @@ namespace App.Core.Application.API.Controllers.V0100
     //[ODataRoutePrefix("body")]
     [WebApiAppAuthorize(Roles = "core_read")]
     [ODataPath(Constants.Api.ApiControllerNames.Tenant)]
-    public class TenantController : GuidIdActiveRecordStateODataControllerBase<Tenant, TenantDto>
+    public class TenantController : GuidIdActiveRecordStateCoreODataControllerBase<Tenant, TenantDto>
     {
         public TenantController(
             IDiagnosticsTracingService diagnosticsTracingService, 
@@ -40,7 +42,6 @@ namespace App.Core.Application.API.Controllers.V0100
         //[ApplyProxyDataContractResolverAttribute]
         //[ODataRoute()]
         [EnableQuery(PageSize = 100)]
-        [WebApiAppAuthorize(Roles = "core_read")]
         public IQueryable<TenantDto> Get()
         {
             var results = InternalGetDbSet()
@@ -72,12 +73,14 @@ namespace App.Core.Application.API.Controllers.V0100
                 ).SingleOrDefault(x => x.Id == key);
         }
 
+        [WebApiAppAuthorize(Roles = AppModuleApiScopes.WriteScope)]
         //// POST api/values 
         public void Post(TenantDto value)
         {
             InternalPost(value);
         }
 
+        [WebApiAppAuthorize(Roles = AppModuleApiScopes.WriteScope)]
         //// PUT api/values/5 
         public void Put(TenantDto value)
         {

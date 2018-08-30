@@ -1,3 +1,5 @@
+using App.Core.Application.API.Controllers.Base.CoreModule;
+
 namespace App.Core.Application.API.Controllers.V0100
 {
     using App.Core.Application.Attributes;
@@ -13,7 +15,7 @@ namespace App.Core.Application.API.Controllers.V0100
     /// </summary>
     //[ODataRoutePrefix("body")]
     [ODataPath(Constants.Api.ApiControllerNames.NavigationRouteItem)]
-    public class NavigationRouteItemController : GuidIdActiveRecordStateODataControllerBase<NavigationRoute, NavigationRouteDto>
+    public class NavigationRouteItemController : GuidIdActiveRecordStateCoreODataControllerBase<NavigationRoute, NavigationRouteDto>
     {
         public NavigationRouteItemController(IDiagnosticsTracingService diagnosticsTracingService, IPrincipalService principalService, IRepositoryService repositoryService, IObjectMappingService objectMappingService, ISecureAPIMessageAttributeService secureApiMessageAttribute) : base(diagnosticsTracingService, principalService, repositoryService, objectMappingService, secureApiMessageAttribute)
         {

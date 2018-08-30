@@ -1,4 +1,6 @@
-﻿namespace App.Core.Application.API.Controllers.V0100
+﻿using App.Core.Application.API.Controllers.Base.CoreModule;
+
+namespace App.Core.Application.API.Controllers.V0100
 {
     using System;
     using System.Linq;
@@ -20,7 +22,7 @@
     /// </summary>
     //[ODataRoutePrefix("body")]
     [ODataPath(Constants.Api.ApiControllerNames.ExceptionRecord)]
-    public class ExceptionRecordController : GuidIdActiveRecordStateODataControllerBase<ExceptionRecord, ExceptionRecordDto>
+    public class ExceptionRecordController : GuidIdActiveRecordStateCoreODataControllerBase<ExceptionRecord, ExceptionRecordDto>
     {
         public ExceptionRecordController(
             IDiagnosticsTracingService diagnosticsTracingService, 

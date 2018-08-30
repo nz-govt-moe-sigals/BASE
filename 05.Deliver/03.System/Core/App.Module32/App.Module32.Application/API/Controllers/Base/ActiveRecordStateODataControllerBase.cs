@@ -13,7 +13,8 @@ using App.Module32.Shared.Constants;
 namespace App.Module32.Application.API.Controllers.Base
 {
     [WebApiAppAuthorize(Roles = AppModuleApiScopes.ReadScope)]
-    public abstract class ActiveRecordStateODataControllerBase<TEntity, TDto> : ActiveRecordStateCommonODataControllerBase<TEntity, TDto> /*NO:IHasInitialize as it makes the method public wihich is not needed*/
+    public abstract class ActiveRecordStateODataControllerBase<TEntity, TDto> 
+        : ActiveRecordStateCommonODataControllerBase<TEntity, TDto> /*NO:IHasInitialize as it makes the method public wihich is not needed*/
         where TEntity : class, IHasRecordState, new()
         where TDto : class, new()
     {

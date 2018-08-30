@@ -10,10 +10,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.OData;
 using App.Core.Application.API.Controllers.Base;
+using App.Core.Application.API.Controllers.Base.CoreModule;
+using App.Core.Application.Filters.WebApi;
+using App.Core.Shared.Constants;
 
 namespace App.Core.Application.API.Controllers.V0100
 {
-    public class SecurityProfilePermissionController : GuidIdActiveRecordStateODataControllerBase<TenancySecurityProfilePermission, SecurityProfilePermissionDto>
+    public class SecurityProfilePermissionController : GuidIdActiveRecordStateCoreODataControllerBase<TenancySecurityProfilePermission, SecurityProfilePermissionDto>
     {
         public SecurityProfilePermissionController(
             IDiagnosticsTracingService diagnosticsTracingService,
@@ -82,12 +85,14 @@ namespace App.Core.Application.API.Controllers.V0100
             return result;
         }
 
+        [WebApiAppAuthorize(Roles = AppModuleApiScopes.WriteScope)]
         //// POST api/values 
         public void Post(SecurityProfilePermissionDto value)
         {
             InternalPost(value);
         }
 
+        [WebApiAppAuthorize(Roles = AppModuleApiScopes.WriteScope)]
         //// PUT api/values/5 
         public void Put(SecurityProfilePermissionDto value)
         {

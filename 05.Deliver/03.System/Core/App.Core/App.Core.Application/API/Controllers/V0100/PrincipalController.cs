@@ -1,4 +1,6 @@
-﻿namespace App.Core.Application.API.Controllers.V0100
+﻿using App.Core.Application.API.Controllers.Base.CoreModule;
+
+namespace App.Core.Application.API.Controllers.V0100
 {
     using System;
     using System.Linq;
@@ -15,7 +17,7 @@
 
     //[ODataRoutePrefix("body")]
     [ODataPath(Constants.Api.ApiControllerNames.Principal)]
-    public class PrincipalController : GuidIdActiveRecordStateODataControllerBase<Principal, PrincipalDto>
+    public class PrincipalController : GuidIdActiveRecordStateCoreODataControllerBase<Principal, PrincipalDto>
     {
         public PrincipalController(
             IDiagnosticsTracingService diagnosticsTracingService, 

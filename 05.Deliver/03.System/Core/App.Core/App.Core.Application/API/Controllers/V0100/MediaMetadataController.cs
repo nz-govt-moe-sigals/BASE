@@ -1,4 +1,6 @@
-﻿namespace App.Core.Application.API.Controllers.V0100
+﻿using App.Core.Application.API.Controllers.Base.CoreModule;
+
+namespace App.Core.Application.API.Controllers.V0100
 {
     using System;
     using System.Linq;
@@ -23,7 +25,7 @@
     /// </summary>
     //[ODataRoutePrefix("body")]
     [ODataPath(Constants.Api.ApiControllerNames.MediaMetadata)]
-    public class MediaMetadataController : GuidIdActiveRecordStateODataControllerBase<MediaMetadata, MediaMetadataDto>
+    public class MediaMetadataController : GuidIdActiveRecordStateCoreODataControllerBase<MediaMetadata, MediaMetadataDto>
     {
         public MediaMetadataController(
             IDiagnosticsTracingService diagnosticsTracingService, 

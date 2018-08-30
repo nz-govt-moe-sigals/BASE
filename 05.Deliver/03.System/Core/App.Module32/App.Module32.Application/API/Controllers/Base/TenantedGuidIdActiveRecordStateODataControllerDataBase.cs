@@ -1,7 +1,9 @@
 ﻿using App.Core.Application.API.Controllers.Base.Base;
+using App.Core.Application.Filters.WebApi;
 using App.Core.Infrastructure.Services;
 using App.Core.Shared.Models;
 using App.Module32.Infrastructure.Constants.Db;
+using App.Module32.Shared.Constants;
 
 namespace App.Module32.Application.API.Controllers.Base
 {
@@ -26,8 +28,9 @@ namespace App.Module32.Application.API.Controllers.Base
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TDto"></typeparam>
-    public abstract class
-        TenantedGuidIdActiveRecordStateODataControllerDataBase<TEntity, TDto> : TenantedGuidIdActiveRecordStateCommonODataControllerBase<TEntity, TDto>
+    [WebApiAppAuthorize(Roles = AppModuleApiScopes.ReadScope)]
+    public abstract class TenantedGuidIdActiveRecordStateODataControllerDataBase<TEntity, TDto> 
+        : TenantedGuidIdActiveRecordStateCommonODataControllerBase<TEntity, TDto>
         where TEntity : class, IHasGuidId, IHasRecordState, IHasTenantFK, new()
         where TDto : class, IHasGuidId, new()
     {

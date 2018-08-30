@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using App.Core.Application.API.Controllers.Base.CoreModule;
 
 namespace App.Core.Application.API.Controllers.V0100
 {
@@ -16,7 +17,7 @@ namespace App.Core.Application.API.Controllers.V0100
     /// * Data Usage Document
     /// </summary>
     [ODataPath(Constants.Api.ApiControllerNames.SystemDocumentation)]
-    public class SystemDocumentationController : CommonODataControllerBase
+    public class SystemDocumentationController : CoreODataControllerBase
     {
         public SystemDocumentationController(IDiagnosticsTracingService diagnosticsTracingService, IPrincipalService principalService) : base(diagnosticsTracingService, principalService)
         {

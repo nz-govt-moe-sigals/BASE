@@ -1,15 +1,12 @@
-namespace App.Core.Application.API.Controllers.Base
-{
-    using System.Linq;
-    using System.Web.OData;
-    using App.Core.Application.API.Controllers.Base.Base;
-    using App.Core.Infrastructure.Constants.Db;
-    using App.Core.Infrastructure.Services;
-    using App.Core.Shared.Contracts;
-    using App.Core.Shared.Models;
-    using App.Core.Shared.Models.Entities;
-    using AutoMapper.QueryableExtensions;
+using App.Core.Application.API.Controllers.Base.Base;
+using App.Core.Application.Filters.WebApi;
+using App.Core.Infrastructure.Constants.Db;
+using App.Core.Infrastructure.Services;
+using App.Core.Shared.Constants;
+using App.Core.Shared.Models;
 
+namespace App.Core.Application.API.Controllers.Base.CoreModule
+{
     /// <summary>
     /// Just about every controller, whatever module,  *should* inherit in one way or another
     /// from this base controller.
@@ -28,23 +25,25 @@ namespace App.Core.Application.API.Controllers.Base
     /// </para>
     /// </summary>
     /// <seealso cref="System.Web.OData.ODataController" />
-    public abstract class ActiveRecordStateODataControllerBase<TEntity,TDto> : ActiveRecordStateCommonODataControllerBase<TEntity, TDto>  /*NO:IHasInitialize as it makes the method public wihich is not needed*/
+    [WebApiAppAuthorize(Roles = AppModuleApiScopes.ReadScope)]
+    public abstract class ActiveRecordStateCoreODataControllerBase<TEntity, TDto> 
+        : ActiveRecordStateCommonODataControllerBase<TEntity, TDto>  /*NO:IHasInitialize as it makes the method public wihich is not needed*/
         where TEntity : class, IHasRecordState, new()
-        where TDto: class, new()
+        where TDto : class, new()
     {
 
 
 
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ActiveRecordStateODataControllerBase{TEntity,TDto}"/> class.
+        /// Initializes a new instance of the <see cref="ActiveRecordStateCoreODataControllerBase{TEntity,TDto}"/> class.
         /// </summary>
         /// <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
         /// <param name="principalService">The principal service.</param>
         /// <param name="repositoryService">The repository service.</param>
         /// <param name="objectMappingService">The object mapping service.</param>
         /// <param name="secureApiMessageAttribute">The secure API message attribute.</param>
-        protected ActiveRecordStateODataControllerBase(IDiagnosticsTracingService diagnosticsTracingService, IPrincipalService principalService, IRepositoryService repositoryService, IObjectMappingService objectMappingService, ISecureAPIMessageAttributeService secureApiMessageAttribute) : base(diagnosticsTracingService, principalService, repositoryService, objectMappingService, secureApiMessageAttribute)
+        protected ActiveRecordStateCoreODataControllerBase(IDiagnosticsTracingService diagnosticsTracingService, IPrincipalService principalService, IRepositoryService repositoryService, IObjectMappingService objectMappingService, ISecureAPIMessageAttributeService secureApiMessageAttribute) : base(diagnosticsTracingService, principalService, repositoryService, objectMappingService, secureApiMessageAttribute)
         {
             // Base will invoke Initialize() to set base._dbContextIdentifier
 

@@ -1,4 +1,5 @@
-﻿using App.Core.Infrastructure.Initialization.DependencyResolution;
+﻿using App.Core.Application.API.Controllers.Base.CoreModule;
+using App.Core.Infrastructure.Initialization.DependencyResolution;
 
 namespace App.Core.Application.API.Controllers.V0100
 {
@@ -19,7 +20,7 @@ namespace App.Core.Application.API.Controllers.V0100
 
     [ODataRoutePrefix("search")]
     [ODataPath(Constants.Api.ApiControllerNames.Search)]
-    public class SearchController : CommonODataControllerBase
+    public class SearchController : CoreODataControllerBase
     {
         private readonly IObjectMappingService _objectMappingService;
 

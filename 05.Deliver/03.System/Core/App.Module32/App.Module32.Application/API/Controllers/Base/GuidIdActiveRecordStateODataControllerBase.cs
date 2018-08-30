@@ -1,12 +1,15 @@
 ﻿using App.Core.Application.API.Controllers.Base.Base;
+using App.Core.Application.Filters.WebApi;
 using App.Core.Infrastructure.Services;
 using App.Core.Shared.Models;
 using App.Module32.Infrastructure.Constants.Db;
+using App.Module32.Shared.Constants;
 
 namespace App.Module32.Application.API.Controllers.Base
 {
-    public abstract class
-        GuidIdActiveRecordStateODataControllerBase<TEntity, TDto> : GuidIdActiveRecordStateCommonODataControllerBase<TEntity, TDto>
+    [WebApiAppAuthorize(Roles = AppModuleApiScopes.ReadScope)]
+    public abstract class GuidIdActiveRecordStateODataControllerBase<TEntity, TDto> 
+        : GuidIdActiveRecordStateCommonODataControllerBase<TEntity, TDto>
         where TEntity : class, IHasGuidId, IHasRecordState, new()
         where TDto : class, IHasGuidId, new()
     {

@@ -10,11 +10,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.OData;
 using App.Core.Application.API.Controllers.Base;
+using App.Core.Application.API.Controllers.Base.CoreModule;
+using App.Core.Application.Filters.WebApi;
+using App.Core.Shared.Constants;
 
 namespace App.Core.Application.API.Controllers.V0100
 {
     
-    public class SecurityProfileRoleGroupController : GuidIdActiveRecordStateODataControllerBase<TenancySecurityProfileRoleGroup, SecurityProfileRoleGroupDto>
+    public class SecurityProfileRoleGroupController : GuidIdActiveRecordStateCoreODataControllerBase<TenancySecurityProfileRoleGroup, SecurityProfileRoleGroupDto>
     {
         public SecurityProfileRoleGroupController(
             IDiagnosticsTracingService diagnosticsTracingService,
@@ -83,12 +86,14 @@ namespace App.Core.Application.API.Controllers.V0100
             return result;
         }
 
+        [WebApiAppAuthorize(Roles = AppModuleApiScopes.WriteScope)]
         //// POST api/values 
         public void Post(SecurityProfileRoleGroupDto value)
         {
             InternalPost(value);
         }
 
+        [WebApiAppAuthorize(Roles = AppModuleApiScopes.WriteScope)]
         //// PUT api/values/5 
         public void Put(SecurityProfileRoleGroupDto value)
         {

@@ -10,7 +10,6 @@
 
 //namespace App.Core.Application.API.Controllers.V0100
 //{
-//    [AllowAnonymous]
 //    public class HostNameController : ApiControllerCommonBase
 //    {
 //        private IAppHostNamesService _hostNamesService;

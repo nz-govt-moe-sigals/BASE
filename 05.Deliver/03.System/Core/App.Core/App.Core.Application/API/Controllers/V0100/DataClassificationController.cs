@@ -22,7 +22,6 @@ namespace App.Core.Application.API.Controllers.V0100
     /// for User Agents to cache as reference data.
     /// </summary>
     //[ODataRoutePrefix("body")]
-    [AllowAnonymous]
     [ApiVersion("1.0")]
     //[ODataPath(Constants.Api.ApiControllerNames.DataClassification)]
     public class DataClassificationController : CommonODataControllerBase // ODataControllerStandardDataBase<DataClassification,DataClassificationDto>

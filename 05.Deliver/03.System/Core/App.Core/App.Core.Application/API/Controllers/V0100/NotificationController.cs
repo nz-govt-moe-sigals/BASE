@@ -1,4 +1,8 @@
-﻿namespace App.Core.Application.API.Controllers.V0100
+﻿using App.Core.Application.API.Controllers.Base.CoreModule;
+using App.Core.Application.Filters.WebApi;
+using App.Core.Shared.Constants;
+
+namespace App.Core.Application.API.Controllers.V0100
 {
     using System;
     using System.Linq;
@@ -14,7 +18,7 @@
 
     //[ODataRoutePrefix("body")]
     [ODataPath(Constants.Api.ApiControllerNames.Notification)]
-    public class NotificationController : GuidIdActiveRecordStateODataControllerBase<Notification, NotificationDto>
+    public class NotificationController : GuidIdActiveRecordStateCoreODataControllerBase<Notification, NotificationDto>
     {
         public NotificationController(
             IDiagnosticsTracingService diagnosticsTracingService, 
@@ -43,12 +47,14 @@
             return InternalGet(key);
         }
 
+        [WebApiAppAuthorize(Roles = AppModuleApiScopes.WriteScope)]
         //// POST api/values 
         public void Post(NotificationDto value)
         {
             InternalPost(value);
         }
 
+        [WebApiAppAuthorize(Roles = AppModuleApiScopes.WriteScope)]
         //// PUT api/values/5 
         public void Put(NotificationDto value)
         {

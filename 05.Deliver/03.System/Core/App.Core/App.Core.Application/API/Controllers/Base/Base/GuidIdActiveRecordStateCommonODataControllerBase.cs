@@ -36,7 +36,8 @@ namespace App.Core.Application.API.Controllers.Base.Base
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TDto">The type of the dto.</typeparam>
     /// <seealso cref="ActiveRecordStateCommonODataControllerBase{TEntity,TDto}" />
-    public abstract class GuidIdActiveRecordStateCommonODataControllerBase<TEntity, TDto> : ActiveRecordStateCommonODataControllerBase<TEntity,TDto>
+    public abstract class GuidIdActiveRecordStateCommonODataControllerBase<TEntity, TDto> 
+        : ActiveRecordStateCommonODataControllerBase<TEntity,TDto>
         where TEntity : class, IHasGuidId, IHasRecordState, new()
         where TDto : class, IHasGuidId, new()
     {

@@ -1,4 +1,6 @@
-﻿namespace App.Core.Application.API.Controllers.V0100
+﻿using App.Core.Application.API.Controllers.Base.CoreModule;
+
+namespace App.Core.Application.API.Controllers.V0100
 {
     using System;
     using System.Linq;
@@ -14,7 +16,7 @@
 
     //[ODataRoutePrefix("body")]
     [ODataPath(Constants.Api.ApiControllerNames.Session)]
-    public class SessionController : GuidIdActiveRecordStateODataControllerBase<Session, SessionDto>
+    public class SessionController : GuidIdActiveRecordStateCoreODataControllerBase<Session, SessionDto>
     {
         public SessionController(
             IDiagnosticsTracingService diagnosticsTracingService, 

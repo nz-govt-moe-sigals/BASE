@@ -31,7 +31,8 @@ namespace App.Core.Application.API.Controllers.Base.Base
     /// </para>
     /// </summary>
     /// <seealso cref="System.Web.OData.ODataController" />
-    public abstract class ActiveRecordStateCommonODataControllerBase<TEntity,TDto> : CommonODataControllerBase /*NO:IHasInitialize as it makes the method public wihich is not needed*/
+    public abstract class ActiveRecordStateCommonODataControllerBase<TEntity,TDto> 
+        : CommonODataControllerBase 
         where TEntity : class, IHasRecordState, new()
         where TDto: class, new()
     {
