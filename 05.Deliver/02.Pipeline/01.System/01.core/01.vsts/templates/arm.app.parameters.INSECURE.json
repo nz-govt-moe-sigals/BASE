@@ -13,6 +13,7 @@
 //     hard to track down bugs when everything is called by an abbreviation, such as 'resourceName'.
 // ---------- ---------- ---------- 
 {
+
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
@@ -101,71 +102,10 @@
       "value": "insecure"
     },
     // -------------------------------------------------------
-    // -------------------------------------------------------
-    // PARAMETERS: MICROSOFT / AUTHORISATION
-    // -------------------------------------------------------
-    // TBD
-    // -------------------------------------------------------
-    // PARAMETERS: MICROSOFT / CACHE / REDIS
-    // -------------------------------------------------------
     // Off for all environments unless specified in environmentOverrides (UAT/PROD)
     "microsoftCacheRedisProvision": {
       "value": true
     },
-    // ----------------------------------------------------------------------
-    // Parameters: MICROSOFT / AUTHORISATION / ROLEASSIGNMENTS
-    // ----------------------------------------------------------------------
-    // TODO
-    // ----------------------------------------------------------------------
-    // Parameters: MICROSOFT / CACHE / REDIS
-    // ----------------------------------------------------------------------
-    // TODO
-    // ----------------------------------------------------------------------
-    // Parameters: MICROSOFT / COGNITIVESERVICES / ACCOUNTS (COMPUTER VISION)
-    // ----------------------------------------------------------------------
-    // TBD
-    // ----------------------------------------------------------------------
-    // Parameters: MICROSOFT / COGNITIVESERVICES / ACCOUNTS (CUSTOM VISION)
-    // ----------------------------------------------------------------------
-    // TBD
-    // ----------------------------------------------------------------------
-    // Parameters: MICROSOFT / COGNITIVESERVICES / ACCOUNTS (CONTENT MODERATION)
-    // ----------------------------------------------------------------------
-    // TBD
-    // ----------------------------------------------------------------------
-    // Parameters: MICROSOFT / COGNITIVESERVICES / ACCOUNTS (LANGUAGE UNDERSTANDING)
-    // ----------------------------------------------------------------------
-    // TBD
-    // -------------------------------------------------------
-    // PARAMETERS: MICROSOFT / DOCUMENTDB / DATABASEACCOUNTS
-    // -------------------------------------------------------
-    // TBD
-    // -------------------------------------------------------
-    // PARAMETERS: MICROSOFT / KEYVAULT / VAULTS
-    // -------------------------------------------------------
-    // TBD
-    // -------------------------------------------------------
-    // PARAMETERS: MICROSOFT / KEYVAULT / VAULTS / SECRETS
-    // -------------------------------------------------------
-    // TBD
-    // ----------------------------------------------------------------------
-    // Parameters: MICROSOFT / INSIGHTS / COMPONENTS
-    // ----------------------------------------------------------------------
-    // TBD
-    // ----------------------------------------------------------------------
-    // Parameters: MICROSOFT / MAPS / ACCOUNTS
-    // ----------------------------------------------------------------------
-    // TBD
-    // ----------------------------------------------------------------------
-    // // Parameters: MICROSOFT / SEARCH / SEARCHSERVICES
-    // ----------------------------------------------------------------------
-    // TBD
-    // -------------------------------------------------------
-    // PARAMETERS: MICROSOFT / SQL / DATABASE
-    // -------------------------------------------------------
-    // TBD
-    // -------------------------------------------------------
-    // PARAMETERS: MICROSOFT / SQL / SERVERS
     // -------------------------------------------------------
     // Provide the Sql Server Administrator's Name, which an 
     // infrastructure support specialist will have 
@@ -216,25 +156,6 @@
     "microsoftSqlServersDeveloperStatingSecretsAreNotRecordedInCode": {
       "value": "!SigalS"
     },
-    // ----------------------------------------------------------------------
-    // Parameters: MICROSOFT / SQL / SERVER / ALERTING RULES
-    // ----------------------------------------------------------------------
-    // TBD
-    // ----------------------------------------------------------------------
-    // Parameters: MICROSOFT / SQL / SERVER / AUDITING POLICIES
-    // ----------------------------------------------------------------------
-    // TBD
-    // ----------------------------------------------------------------------
-    // Parameters: MICROSOFT / SQL / SERVERS / FIREWALL RULE
-    // ----------------------------------------------------------------------
-    // TBD
-    // ----------------------------------------------------------------------
-    // Parameters: MICROSOFT / STORAGE / STORAGE ACCOUNTS (SHARED/COMMON)
-    // ----------------------------------------------------------------------
-    // TBD
-    // ----------------------------------------------------------------------
-    // Parameters: MICROSOFT/ STORAGE / STORAGEACCOUNTS (DEPLOYMENT, DIAGNOSTICS, BACKUPS, DEFAULT)
-    // ----------------------------------------------------------------------
     // -------------------------------------------------------
     // PARAMETERS: MICROSOFT / WEB / CERTIFICATES
     // -------------------------------------------------------
@@ -313,11 +234,6 @@
     // -------------------------------------------------------
     // PARAMETERS: MICROSOFT / WEB / SITES / CONFIG / APPSETTINGS
     // -------------------------------------------------------
-    // "Optional. The name for the WebSite. 
-    // Default is 'resourceNameTemplate'-based, automatically generated resource name, using 'web-site' for the {RT} token.
-    // "microsoftWebSitesResourceName" : {
-    //   "value": "somethingcustom!!!"
-    // },
     // Optional. A Complex Object (ie, JSON) containing a series 
     // of stringKey/stringValues that are added to the target site as AppSettings.
     // Example:

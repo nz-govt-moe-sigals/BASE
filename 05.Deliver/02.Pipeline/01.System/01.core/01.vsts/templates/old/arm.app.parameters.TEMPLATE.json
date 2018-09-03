@@ -1,0 +1,554 @@
+// ---------- ---------- ---------- 
+// About:
+// TODO
+// Tip:
+// * ARM Templates *can* have Comments in them, bu VS Code requires configuration to stop warnings: 
+//   See: https://stackoverflow.com/a/47834826/9314395
+// * Develop based on conventions:
+//   * https://github.com/Azure/azure-quickstart-templates/blob/master/1-CONTRIBUTION-GUIDE/best-practices.md
+//   * Based on expensive experience: only use fully qualified, full-type, resource-specific, naming for 
+//     variables (eg: microsoftWebSitesResourceName, rather than abbreviaations such as siteResourceName, 
+//     siteName, etc.) so that variables are consistent here, as well as well as parent templates. 
+//     If they are the same across templates they can be cut pasted. Whereas it's *really*
+//     hard to track down bugs when everything is called by an abbreviation, such as 'resourceName'.
+// ---------- ---------- ---------- 
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      // -------------------------------------------------------
+      // -------------------------------------------------------
+      // -------------------------------------------------------
+      // -------------------------------------------------------
+      // -------------------------------------------------------
+      // AFTER THE TOP COMMON PARAMS, KEEP THE RESOURCE PARAMS
+      // ALPHABETICAL TO REDUCE MAINTENANCE ERRORS LATER. THANKS
+      // -------------------------------------------------------
+      // -------------------------------------------------------
+      // -------------------------------------------------------
+      // -------------------------------------------------------
+      // -------------------------------------------------------
+      // The http based base url from which to download referenced Assembly ARM Templates. 
+      // In most cases will be an Url to a Storage Account Container Url to which 
+      // newly downloaded Source Files (just the ARM Templates) are copied to
+      "linkedAssembliesArmTemplateRootUrl": {
+        "value": "https://nzmoestartpublic.blob.core.windows.net/public/start/dev/arm-templates/commented/assemblies/"
+      //"value": "https://nzmoestartpublic.blob.core.windows.net/public/start/releases/v0.0/arm-templates/commented/assemblies/"
+      },
+      // The http based base url from which to download referenced linked Resource ARM Templates. 
+      // In most cases will be an Url to a Storage Account Container Url to which 
+      // newly downloaded Source Files (just the ARM Templates) are copied to
+      "linkedResourcesArmTemplateRootUrl": {
+        "value": "https://nzmoestartpublic.blob.core.windows.net/public/start/dev/arm-templates/commented/resources/"
+        //"value": "https://nzmoestartpublic.blob.core.windows.net/public/start/releases/v0.0/arm-templates/commented/resources/"
+      },
+      // $secureLogin = "NOTADMIN"| ConvertTo-SecureString  -AsPlainText -Force
+      // $securePassword = "N0t@P@ssword" | ConvertTo-SecureString  -AsPlainText -Force
+      // "resourceGroupName" : {
+      //   "value": "EDU-MOE-BASE-TestDev-01"
+      // },
+      "resourceNameTemplate": {
+        "value": "ORG-APP-{BRANCHID}-{ENVID}-{RT}"
+      },
+      // ---------- ---------- ---------- 
+      // "environmentId": {
+      //   "value": "--"
+      // },
+      // -------------------------------------------------------
+      // Optional. A hash, or environmentId to microsoftWebSitesHostNameBindingsHostName and microsoftWebSitesHostNameBindingsHostNameAlt
+      //  (eg: 
+      // {
+      //   'BT':{'microsoftWebSitesHostNameBindingsHostName':'...', 'microsoftWebSitesHostNameBindingsHostNameAlt':'...'}, 
+      //   'ST':{'microsoftWebSitesHostNameBindingsHostName':'...', 'microsoftWebSitesHostNameBindingsHostNameAlt':'...'}
+      // }.
+      // Note that a cert can contain muliple hostnames.
+      // 
+      // Also, you have to own the name and make a CNAME record of it or you will be get a deployment error or :
+      // "A CNAME record pointing from foobarsite.com to foobar.azurewebsites.net was not found. 
+      // Alternative record awverify.foobarsite.com to awverify.foobar.azurewebsites.net was not found either."
+      // 
+      // The alt record is optional. But if the primary hostname is for 'www.foobar.com', use alt for 'foobar.com' 
+      // "environmentOverrides": {
+      //   "value": {
+      //     "--": {
+                      // "microsoftWebSitesHostNameBindingsHostName": "",
+                      // "microsoftWebSitesHostNameBindingsHostNameAlt": "",
+                      // "microsoftCacheRedisProvision": true,
+                      // "microsoftDocumentDBDatabaseAccountsProvision": true,
+                      // "microsoftSearchSearchServicesProvision": true,
+                      // "microsoftSqlServersDatabasesResourceSku": "Basic",
+                      // "microsoftSqlServersDatabasesEdition":"Basic",
+                      // "microsoftSqlServersDatabasesZoneRedundant": false,
+                      // "microsoftSqlServersDatabasesMaxSizeBytes": 2147483648,
+                      // "microsoftStorageStorageAccountsResourceSku":"Standard_LRS",
+                      // "microsoftWebServerFarmsResourceSku": "F1",
+                      // "microsoftWebSitesAlwaysOn":false
+      //     }
+      //   }
+      // }
+      // ---------- ---------- ---------- 
+      "securityApproach": {
+        "value": "msi"
+      },
+      // -------------------------------------------------------
+      // -------------------------------------------------------
+      // -------------------------------------------------------
+      // -------------------------------------------------------
+      // PARAMETERS: MICROSOFT / AUTHORISATION
+      // -------------------------------------------------------
+      // TBD
+      // -------------------------------------------------------
+      // PARAMETERS: MICROSOFT / CACHE / REDIS
+      // -------------------------------------------------------
+      // Turn off if you can for deployment demos, as it takes too long.
+      "microsoftCacheRedisProvision": {
+        "value": true
+      },
+          // ----------------------------------------------------------------------
+          // Parameters: MICROSOFT / AUTHORISATION / ROLEASSIGNMENTS
+          // ----------------------------------------------------------------------
+          // TODO
+          // ----------------------------------------------------------------------
+          // Parameters: MICROSOFT / CACHE / REDIS
+          // ----------------------------------------------------------------------
+          // TODO
+          // ----------------------------------------------------------------------
+          // Parameters: MICROSOFT / COGNITIVESERVICES / ACCOUNTS (COMPUTER VISION)
+          // ----------------------------------------------------------------------
+          // TBD
+          // ----------------------------------------------------------------------
+          // Parameters: MICROSOFT / COGNITIVESERVICES / ACCOUNTS (CUSTOM VISION)
+          // ----------------------------------------------------------------------
+          // TBD
+          // ----------------------------------------------------------------------
+          // Parameters: MICROSOFT / COGNITIVESERVICES / ACCOUNTS (CONTENT MODERATION)
+          // ----------------------------------------------------------------------
+          // TBD
+          // ----------------------------------------------------------------------
+          // Parameters: MICROSOFT / COGNITIVESERVICES / ACCOUNTS (LANGUAGE UNDERSTANDING)
+          // ----------------------------------------------------------------------
+          // TBD
+      // -------------------------------------------------------
+      // PARAMETERS: MICROSOFT / DOCUMENTDB / DATABASEACCOUNTS
+      // -------------------------------------------------------
+      // TBD
+      // -------------------------------------------------------
+      // PARAMETERS: MICROSOFT / KEYVAULT / VAULTS
+      // -------------------------------------------------------
+      // TBD
+      // -------------------------------------------------------
+      // PARAMETERS: MICROSOFT / KEYVAULT / VAULTS / SECRETS
+      // -------------------------------------------------------
+      // TBD
+          // ----------------------------------------------------------------------
+          // Parameters: MICROSOFT / INSIGHTS / COMPONENTS
+          // ----------------------------------------------------------------------
+      // TBD
+          // ----------------------------------------------------------------------
+          // Parameters: MICROSOFT / MAPS / ACCOUNTS
+          // ----------------------------------------------------------------------
+      // TBD
+          // ----------------------------------------------------------------------
+          // // Parameters: MICROSOFT / SEARCH / SEARCHSERVICES
+                  // ----------------------------------------------------------------------
+      // TBD
+      // -------------------------------------------------------
+      // PARAMETERS: MICROSOFT / SQL / DATABASE
+      // -------------------------------------------------------
+      // TBD
+      // -------------------------------------------------------
+      // PARAMETERS: MICROSOFT / SQL / SERVERS
+      // -------------------------------------------------------
+      // Provide the Sql Server Administrator's Name, which an 
+      // infrastructure support specialist will have 
+      // set the provided the password in a key vault 
+      // outside of the projects resource group (and probably 
+      // in a different subscription) so use the reference approach
+      //  to get it out, and place it here.
+      // Required when creating a new Database Server. 
+      // Note that security is not perfect: a developer can develop
+      // arm templates whose output records the values it extracts
+      // from a keyvault.
+      // "reference": {
+      //   "keyVault": {
+      //     "id": "/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/MX-MOE-BASE-COMMON/providers/Microsoft.KeyVault/vaults/shared-kv"
+      //   },
+      //   "secretName": "moe-baseinfrastructure-space-sql-server-admin-login-name"
+      //   "secretversion:"..."
+      // }
+      "microsoftSqlServersAdministratorLogin": {
+        "reference": {
+          "keyVault": {
+            "id": "TODO:REPLACE IN ARM PARAMS FILE"
+          },
+          "secretName": "TODO:REPLACE IN ARM PARAMS FILE"
+        }
+      },
+      // Provide the Sql Server Administrator's Password, which an 
+      // infrastructure support specialist will have 
+      // set the provided the password in a key vault 
+      // outside of the projects resource group (and probably 
+      // in a different subscription) so use the reference approach
+      //  to get it out, and place it here.
+      // Required when creating a new Database Server. 
+      // Note that security is not perfect: a developer can develop
+      // arm templates whose output records the values it extracts
+      // from a keyvault.
+      // "reference": {
+      //   "keyVault": {
+      //     "id": "/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/MX-MOE-BASE-COMMON/providers/Microsoft.KeyVault/vaults/shared-kv"
+      //   },
+      //   "secretName": "moe-baseinfrastructure-space-sql-server-admin-login-pwd"
+      //   "secretversion:"..."
+      // }
+      "microsoftSqlServersAdministratorLoginPassword": {
+        "reference": {
+          "keyVault": {
+            "id": "TODO:REPLACE IN ARM PARAMS FILE"
+          },
+          "secretName": "TODO:REPLACE IN ARM PARAMS FILE"
+          //"secretversion:"..."
+        }
+      },
+      // The Name of the ARM developer (ie *you*!) who is certifying they 
+      // understand the security risks of recording passwords in a parameter file, 
+      // or any other code, and are not doing it here (and the code base's commit history
+      //  will back them up). 
+      // Instead, the value will be retrieved from an eternal keyvault to which the 
+      // build service has been granted access. 
+      "microsoftSqlServersDeveloperStatingSecretsAreNotRecordedInCode": {
+        "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      },
+          // ----------------------------------------------------------------------
+          // Parameters: MICROSOFT / SQL / SERVER / ALERTING RULES
+          // ----------------------------------------------------------------------
+      // TBD
+  
+          // ----------------------------------------------------------------------
+          // Parameters: MICROSOFT / SQL / SERVER / AUDITING POLICIES
+          // ----------------------------------------------------------------------
+      // TBD
+  
+  
+          // ----------------------------------------------------------------------
+          // Parameters: MICROSOFT / SQL / SERVERS / FIREWALL RULE
+          // ----------------------------------------------------------------------
+      // TBD
+  
+      // ----------------------------------------------------------------------
+          // Parameters: MICROSOFT / STORAGE / STORAGE ACCOUNTS (SHARED/COMMON)
+          // ----------------------------------------------------------------------
+      // TBD
+          // ----------------------------------------------------------------------
+          // Parameters: MICROSOFT/ STORAGE / STORAGEACCOUNTS (DEPLOYMENT, DIAGNOSTICS, BACKUPS, DEFAULT)
+          // ----------------------------------------------------------------------
+      
+      // -------------------------------------------------------
+      // PARAMETERS: MICROSOFT / WEB / CERTIFICATES
+      // -------------------------------------------------------
+      // An infrastructure support specialist will have 
+      // purchased a cert
+      // and placed it in a key vault outside of the projects 
+      // resource group (and probably in a different subscription) 
+      // so use the reference approach to get it out, and place it
+      // here.
+      // Note that security is not perfect: a developer can develop
+      // arm templates whose output records the values it extracts
+      // from a keyvault.
+      // Hence why we always recommend to not use secrets and 
+      // rely on AAD RBAC'ed access, based on Service Principals and 
+      // MSI token.
+      // Example:
+      // "reference": {
+      //   "keyVault": {
+      //     "id": "/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/MX-MOE-BASE-COMMON/providers/Microsoft.KeyVault/vaults/shared-kv"
+      //   },
+      //   "secretName": "moe-baseinfrastructure-space-cert-pfx-base64"
+      //   //"secretversion:"..."
+      // }
+      "microsoftWebCertificatesPfxBase64": {
+        "value": "",
+        "reference": {
+          "keyVault": {
+            "id": "TODO:REPLACE IN ARM PARAMS FILE"
+          },
+          "secretName": "TODO:REPLACE IN ARM PARAMS FILE"
+        }
+      },
+      // An infrastructure support specialist will have 
+      // set the Certficate Pfx's password in a key vault 
+      // outside of the projects resource group (and probably 
+      // in a different subscription) so use the reference approach
+      //  to get it out, and place it here.
+      // Note that security is not perfect: a developer can develop
+      // arm templates whose output records the values it extracts
+      // from a keyvault.
+      // Hence why we always recommend to not use secrets and 
+      // rely on AAD RBAC'ed access, based on Service Principals and 
+      // MSI token.
+      // Example:
+      // "reference": {
+      //   "keyVault": {
+      //     "id": "/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/MX-MOE-BASE-COMMON/providers/Microsoft.KeyVault/vaults/shared-kv"
+      //   },
+      //   "secretName": "moe-baseinfrastructure-space-sql-server-admin-login-pwd"
+      //   //"secretversion:"..."
+      // }
+      "microsoftWebCertificatesPfxPassword": {
+        "value": "",
+        "reference": {
+          "keyVault": {
+            "id": "TODO:REPLACE IN ARM PARAMS FILE"
+          },
+          "secretName": "TODO:REPLACE IN ARM PARAMS FILE"
+        }
+      },
+      // The Name of the ARM developer (ie *you*!) who is certifying they 
+      // understand the security risks of recording passwords in a parameter file, 
+      // or any other code, and are not doing it here (and the code base's commit history
+      //  will back them up). 
+      // Instead, the value will be retrieved from an eternal keyvault to which the 
+      // build service has been granted access. 
+      // Example: 
+      // "value": "SSigal"
+      "microsoftWebCertificatesDeveloperStatingSecretsAreNotRecordedInCode": {
+        "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      },
+      // -------------------------------------------------------
+      // PARAMETERS: MICROSOFT WEB / SERVERFARMS
+      // -------------------------------------------------------
+      // B1 (Basic Small) or higher is needed for HostBinding and SSL.
+      // B1 is about 95$/month, and S1 is about 135/month.
+      // And S1 gets backups every day. 
+      // At 1$/day more, it's worth it, for a corporation.
+      // Example:
+      // "value":"S1"
+      "microsoftWebServerFarmsResourceSku": {
+        "value": "S1"
+      },
+      // -------------------------------------------------------
+      // PARAMETERS: MICROSOFT / WEB / SITES 
+      // -------------------------------------------------------
+      // TBD
+      // -------------------------------------------------------
+      // PARAMETERS: MICROSOFT / WEB / SITES / CONFIG / APPSETTINGS
+      // -------------------------------------------------------
+      // "Optional. The name for the WebSite. 
+      // Default is 'resourceNameTemplate'-based, automatically generated resource name, using 'web-site' for the {RT} token.
+      // "microsoftWebSitesResourceName" : {
+      //   "value": "somethingcustom!!!"
+      // },
+      // Optional. A Complex Object (ie, JSON) containing a series 
+      // of stringKey/stringValues that are added to the target site as AppSettings.
+      // Example:
+      //     "defaultValue": {
+      //         "ExampleKey": "exampleValue"
+      //     },
+      "microsoftWebSitesConfigAppSettings": {
+        "value": {}
+      },
+      // The Name of the ARM developer (ie *you*!) who is certifying they 
+      // understand the security risks of recording passwords in a parameter file, 
+      // or any other code, and are not doing it here (and the code base's commit history
+      //  will back them up). 
+      // Example:
+      // "value": "SigalS"
+      "microsoftWebSitesConfigAppSettingsDeveloperStatingSecretsAreNotRecordedInCode": {
+        "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      },
+      // -------------------------------------------------------
+      // PARAMETERS: WEB / SITES / CONFIG / CONNECTIONSTRINGS
+      // -------------------------------------------------------
+      // "A Complex Object (not an array) of a set of {'name' { 'value' and 'type'}}, that are added to the site's ConnectionStrings. Type should be 2 in most cases."
+      // Type is case sensitive string, and can be MySql, SQLServer, SQLAzure, Custom, NotificationHub, ServiceBus, EventHub, ApiHub, DocDb, RedisCache, PostgreSQL. SQL 
+      // If things stop working, ensure:
+      // it's an object of complex object of name:key/values.
+      // If things stop working, tips to find the reason include:
+      // ensure you are passing an object {} and not an array
+      // ensure the name is the key to a sub object of two params, and not an array of objects containing 3 objects
+      // ensure the type is string, and case sensitive (and not a number)
+      // Example:
+      // "value": {
+      //   "ExampleConnStringAppA": {
+      //     "value": "Server=mySuperServerAddress;Database=myDataBase;Trusted_Connection=True;",
+      //     "type": "SQLAzure"
+      //   },
+      //   "ExampleConnStringAppB": {
+      //     "value": "Server=mySuperServerAddress;Database=myDataBase;Trusted_Connection=True;",
+      //     "type": "SQLAzure"
+      //   }
+      // }
+      "microsoftWebSitesConfigConnectionStrings": {
+        "value": {}
+      },
+      // The Name of the ARM developer (ie *you*!) who is certifying they 
+      // understand the security risks of recording passwords in a parameter file, 
+      // or any other code, and are not doing it here (and the code base's commit history
+      //  will back them up). 
+      // Example:
+      // "value": "sigals"
+      "microsoftWebSitesConfigConnectionStringsDeveloperStatingSecretsAreNotRecordedInCode": {
+        "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      },
+      // -------------------------------------------------------
+      // PARAMETERS: MICROSOFT / WEB / SITES / HOSTNAMEBINDINGS
+      // -------------------------------------------------------
+      // Optional. The public DNS name of the website. Default is ''. Will require a WebServerFarm SKU of S1 of higher to be set.
+      // You have to own the name and make a record of it
+      // or you will be get a deployment error or :
+      // "A CNAME record pointing from foobarsite.com to foobar.azurewebsites.net was not found. 
+      // Alternative record awverify.foobarsite.com to awverify.foobar.azurewebsites.net was not found either."
+      // Example:
+      //"value": "foobarsite.com"
+      "microsoftWebSitesHostNameBindingsHostName": {
+        "value": ""
+      },
+      // Optional. If 'microsoftWebSitesHostNameBindingsHostName' is used 
+      // for 'www.mydomain.tld', you want to be able to 
+      // also register 'mydomain.tld' as well.
+      // Example:
+      "microsoftWebSitesHostNameBindingsHostNameAlt": {
+        "value": ""
+      },
+  
+      // -------------------------------------------------------
+          // Parameters: MICROSOFT / WEB / SITES / SITEEXTENSIONS
+      // -------------------------------------------------------
+      // TBD
+      // -------------------------------------------------------
+      // PARAMETERS: SERVICES / GEOIPSERVICE
+      // -------------------------------------------------------
+      "servicesIPGeoServiceEnabled": {
+        "value": true
+      },
+      "servicesIPGeoServiceUri": {
+        "value": "http://api.ipstack.com/{1}?access_key={0}"
+      },
+      "servicesIPGeoServiceClientId": {
+        "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      },
+      "servicesIPGeoServiceClientSecret": {
+        "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      },
+      "servicesIPGeoServiceClientMiscConfiguration": {
+        "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      },
+      // -------------------------------------------------------
+      // PARAMETERS: SERVICES / MALWAREDETECTIONSERVICE
+      // -------------------------------------------------------
+      "servicesMalwareDetectionServiceEnabled": {
+        "value": true
+      },
+      "servicesMalwareDetectionServiceUri": {
+        "value": "https://api.scanii.com"
+      },
+      "servicesMalwareDetectionServiceClientId": {
+        "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      },
+      "servicesMalwareDetectionServiceClientSecret": {
+        "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      },
+      "servicesMalwareDetectionServiceClientMiscConfiguration": {
+        "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      },
+  
+        // -------------------------------------------------------
+      // PARAMETERS: SERVICES / OATHSERVICE 
+      // -------------------------------------------------------
+      // Optional.
+      "servicesOAuthServiceEnabled": {
+        "value": true
+      },
+      // Optional.
+      // Example:
+      "servicesOAuthServiceAuthorityUri": {
+        "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      },
+      // Optional. 
+      // If your system needs to authenticate remote systems it will be via OAuth.
+      // If authenticating Users, it will be via OIDC. 
+      // Which is an extension of OAuth. 
+      // Both require that you have the OAuth ClientId and ClientSecret that were developed 
+      // by the remote IdP when you registered your app with it.
+      // Example:
+      "servicesOAuthServiceClientId": {
+        "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      },
+      // Optional. 
+      // If your system needs to authenticate remote systems it will be via OAuth.
+      // If authenticating Users, it will be via OIDC. 
+      // Both require that you have the OAuth ClientId and ClientSecret that were developed 
+      // by the remote IdP when you registered your app with it.
+      // Example:
+      "servicesOAuthServiceClientSecret": {
+        "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      },
+      // Optional. If your system needs to authenticate users, using OIDC, 
+      // you have to redirect Users back from the remote IDP to this system's Homepage.
+      //  '/' won't work (that would be the IdP's home page). 
+      // If not provided, will be automatically generated using 'https' and your host binding name you provided.
+      // Example:
+      "servicesOAuthServiceClientRedirectUri": {
+        "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      },
+      // Optional. If your system needs to authenticate users, using OIDC, 
+      // after a user is signed off (destroying their security token), 
+      // you want to redirect them to the home page or other. The default is '/'.
+      // Example:
+      "servicesOAuthServiceClientPostLogoutRedirectUri": {
+        "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      },
+      // -------------------------------------------------------
+      // PARAMETERS: SERVICES / OIDCSERVICE
+      // -------------------------------------------------------
+      // Example:
+      "servicesOIDCServicePoliciesSignUpSignInPolicyId": {
+        "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      },
+      // Example:
+      "servicesOIDCServicePoliciesUserProfilePolicyId": {
+        "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      },
+      // Example:
+      "servicesOIDCServicePoliciesEditProfilePolicyId": {
+        "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      },
+      // Example:
+      "servicesOIDCServicePoliciesResetPasswordPolicyId": {
+        "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      },
+      // -------------------------------------------------------
+      // PARAMETERS: SERVICES / SMTPSERVICE
+      // -------------------------------------------------------
+      "servicesSMTPServiceEnabled": {
+        "value": true
+      },
+      "servicesSMTPServiceUri": {
+        "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      },
+      "servicesSMTPServiceClientId": {
+        "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      },
+      "servicesSMTPServiceClientSecret": {
+        "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      },
+      "servicesSMTPServiceClientMiscConfiguration": {
+        "value": "TODO:REPLACE IN ARM PARAMS FILE"
+      }
+      // -------------------------------------------------------
+      // PARAMETERS: SERVICES / SERVICE03
+      // -------------------------------------------------------
+      // TBD
+      // -------------------------------------------------------
+      // PARAMETERS: SERVICES / SERVICE02
+      // -------------------------------------------------------
+      // TBD
+      // -------------------------------------------------------
+      // PARAMETERS: SERVICES / SERVICE03
+      // -------------------------------------------------------
+      // TBD
+      // -------------------------------------------------------
+      // END (FOR NOW)
+      // -------------------------------------------------------
+    }
+  }
