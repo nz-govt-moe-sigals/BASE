@@ -333,11 +333,6 @@
       // -------------------------------------------------------
       // PARAMETERS: MICROSOFT / WEB / SITES / CONFIG / APPSETTINGS
       // -------------------------------------------------------
-      // "Optional. The name for the WebSite. 
-      // Default is 'resourceNameTemplate'-based, automatically generated resource name, using 'web-site' for the {RT} token.
-      // "microsoftWebSitesResourceName" : {
-      //   "value": "somethingcustom!!!"
-      // },
       // Optional. A Complex Object (ie, JSON) containing a series 
       // of stringKey/stringValues that are added to the target site as AppSettings.
       // Example:

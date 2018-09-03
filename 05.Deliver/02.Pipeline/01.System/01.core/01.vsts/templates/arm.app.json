@@ -412,17 +412,6 @@
         // -------------------------------------------------------
         // Parameters: MICROSOFT / WEB / SITE 
         // -------------------------------------------------------
-        // Optional. The name of the Resource.
-        // Default it ''. 
-        // If not provided, falls back to an 'resourceNameTemplate'-based, automatically generated resource name, using 'web-site' for the {RT} token."
-        // See also 'microsoftWebSitesHostNameBindings' (and 'environmentOverrides').
-        "microsoftWebSitesResourceName": {
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. The name for the Resource. Default it ''. If not provided, falls back to an 'resourceNameTemplate'-based, automatically generated resource name, using 'web-site' for the {RT} token. See also 'microsoftWebSitesHostNameBindings' (and 'environmentOverrides')."
-            },
-            "type": "string"
-        },
         // Optional. The default is false as true requires a minimal SKU of S1.
         "microsoftWebSitesAlwaysOn": {
             "defaultValue": false,
@@ -1067,9 +1056,6 @@
                     },
                     // -------------------------------------------------------
                     // Passthrough Parameters: MICROSOFT / WEB / SITES 
-                    "microsoftWebSitesResourceName": {
-                        "value": "[parameters('microsoftWebSitesResourceName')]"
-                    },
                     "microsoftWebSitesAlwaysOn": {
                         "value": "[parameters('microsoftWebSitesAlwaysOn')]"
                     },
