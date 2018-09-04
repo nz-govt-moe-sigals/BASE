@@ -98,6 +98,14 @@
         // -------------------------------------------------------
         // Parameters: TEMPLATES
         // -------------------------------------------------------
+		// Required. The templates release version of the remote templates. eg: 0.0 (without any prefix 'v')
+        "templatesRelease":{
+			"defaultValue":"",
+            "metadata": {
+                "description": "Required. The templates release version of the remote templates. eg: 0.0 (without any prefix 'v')"
+            },
+            "type": "string"
+        },
         // The http based base url from which to download referenced Assembly ARM Templates. 
         // In most cases will be an Url to a Storage Account Container Url to which 
         // newly downloaded Source Files (just the ARM Templates) are copied to
@@ -955,9 +963,9 @@
         // -------------------------------------------------------
         "assembly": {
             "armTemplateId": "[concat(variables('resources').resourceNamePrefix, 'assembly.01')]",
-            "linkedResourcesArmTemplateRootUrl": "[parameters('linkedResourcesArmTemplateRootUrl')]",
-            "linkedResourcesArmTemplateRootSas": "[parameters('linkedResourcesArmTemplateRootSas')]",
-            "linkedAssembly01TemplateUrl": "[concat( parameters('linkedAssembliesArmTemplateRootUrl'), 'arm.assembly.01.json', parameters('linkedAssembliesArmTemplateRootSas'))]"
+            "linkedAssembly01TemplateUrl": "[concat( replace( parameters('linkedAssembliesArmTemplateRootUrl'),'{TEMPLATESRELEASE}', parameters('templatesRelease')), 'arm.assembly.01.json', parameters('linkedAssembliesArmTemplateRootSas'))]",
+            "linkedResourcesArmTemplateRootUrl": "[replace( parameters('linkedResourcesArmTemplateRootUrl'),'{TEMPLATESRELEASE}', parameters('templatesRelease'))]",
+            "linkedResourcesArmTemplateRootSas": "[parameters('linkedResourcesArmTemplateRootSas')]"
         }
         // -------------------------------------------------------
     }, //~variables
