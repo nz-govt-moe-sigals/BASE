@@ -24,7 +24,7 @@ namespace App.Core.Infrastructure.IDA.v1.Ux.Tests
         {
             get
             {
-                var e = Environment.GetEnvironmentVariable("custom_vars_default_website_Url");
+                var e = Environment.GetEnvironmentVariable("custom_vars_defaultUrl");
                 if (e != null)
                 {
                     if (!e.EndsWith("/")) { e += "/"; }
