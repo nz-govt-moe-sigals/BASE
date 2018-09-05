@@ -20,6 +20,7 @@ namespace App.Core.Application.API.Controllers.V0100
     /// for use by User Agents to render in Header Views as they see fit.
     /// </summary>
     /// <seealso cref="CommonODataControllerBase" />
+    [AllowAnonymous] // yes i want this open
     [ODataPath(Constants.Api.ApiControllerNames.ApplicationDescription)]
     public class ApplicationDescriptionController : CommonODataControllerBase
 
@@ -40,7 +41,7 @@ namespace App.Core.Application.API.Controllers.V0100
 
             this._diagnosticsTracingService.Trace(TraceLevel.Debug, "ApplicationDescriptionController created.");
         }
-
+       
         public IQueryable<ApplicationDescriptionDto> Get()
         {
             this._diagnosticsTracingService.Trace(TraceLevel.Debug, "ApplicationDescriptionController.Get");
