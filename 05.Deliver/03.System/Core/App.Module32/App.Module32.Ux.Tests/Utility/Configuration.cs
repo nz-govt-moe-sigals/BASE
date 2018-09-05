@@ -25,10 +25,10 @@ namespace App.Module32.Ux.Tests.Utility
         {
             get
             {
-                var value = Environment.GetEnvironmentVariable("custom_vars_defaultUrl");
+                var value = Environment.GetEnvironmentVariable("custom_vars_default_website_Url");
                 if (value == null)
                 {
-                    value = ConfigurationManager.AppSettings["custom_vars_defaultUrl"];
+                    value = ConfigurationManager.AppSettings["custom_vars_default_website_Url"];
                 }
                 if (!value.EndsWith("/")) { value += "/"; }
                 return value;

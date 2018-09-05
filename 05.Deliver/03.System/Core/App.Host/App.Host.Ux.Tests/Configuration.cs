@@ -28,7 +28,7 @@ namespace App.Host.Ux.Tests
         {
             get
             {
-                var e = Environment.GetEnvironmentVariable("custom_vars_defaultUrl");
+                var e = Environment.GetEnvironmentVariable("custom_vars_default_website_Url");
                 if (e != null) { return e; }
                 return "https://localhost:44311/";
             }
