@@ -33,14 +33,14 @@
     // In most cases will be an Url to a Storage Account Container Url to which 
     // newly downloaded Source Files (just the ARM Templates) are copied to
     "linkedAssembliesArmTemplateRootUrl": {
-      "value": "https://nzmoestartpublic.blob.core.windows.net/public/start/release/{TEMPLATESRELEASE}/arm-templates/commented/assemblies/"
+      "value": "https://nzmoestartpublic.blob.core.windows.net/public/start/releases/{TEMPLATESRELEASE}/arm-templates/commented/assemblies/"
         //"value": "https://nzmoestartpublic.blob.core.windows.net/public/start/releases/v0.0/arm-templates/commented/assemblies/"
     },
     // The http based base url from which to download referenced linked Resource ARM Templates. 
     // In most cases will be an Url to a Storage Account Container Url to which 
     // newly downloaded Source Files (just the ARM Templates) are copied to
     "linkedResourcesArmTemplateRootUrl": {
-      "value": "https://nzmoestartpublic.blob.core.windows.net/public/start/release/{TEMPLATESRELEASE}/arm-templates/commented/resources/"
+      "value": "https://nzmoestartpublic.blob.core.windows.net/public/start/releases/{TEMPLATESRELEASE}/arm-templates/commented/resources/"
       //"value": "https://nzmoestartpublic.blob.core.windows.net/public/start/releases/v0.0/arm-templates/commented/resources/"
     },
     // $secureLogin = "NOTADMIN"| ConvertTo-SecureString  -AsPlainText -Force
