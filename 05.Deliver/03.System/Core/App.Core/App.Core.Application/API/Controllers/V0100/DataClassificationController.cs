@@ -1,4 +1,5 @@
-﻿using Microsoft.Web.Http;
+﻿using App.Core.Application.API.Controllers.Base.CoreModule;
+using Microsoft.Web.Http;
 
 namespace App.Core.Application.API.Controllers.V0100
 {
@@ -24,7 +25,7 @@ namespace App.Core.Application.API.Controllers.V0100
     //[ODataRoutePrefix("body")]
     [ApiVersion("1.0")]
     //[ODataPath(Constants.Api.ApiControllerNames.DataClassification)]
-    public class DataClassificationController : CommonODataControllerBase // ODataControllerStandardDataBase<DataClassification,DataClassificationDto>
+    public class DataClassificationController : CoreODataControllerBase // ODataControllerStandardDataBase<DataClassification,DataClassificationDto>
     {
         private readonly IRepositoryService _repositoryService;
         private readonly ISecureAPIMessageAttributeService _secureApiMessageAttribute;

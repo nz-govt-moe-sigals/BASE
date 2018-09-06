@@ -24,7 +24,7 @@
     /// ensures its migration capabilities work from the commandline.
     /// </para>
     /// </summary>
-    /// <seealso cref="App.Core.Infrastructure.Db.Context.AppDbContextBase" />
+    /// <seealso cref="AppDbContextBase" />
 
     [Alias(Constants.Db.AppCoreDbContextNames.Core)]
     public class AppCoreDbContext : AppDbContextBase

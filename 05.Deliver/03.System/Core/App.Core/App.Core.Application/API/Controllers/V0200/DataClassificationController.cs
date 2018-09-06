@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using App.Core.Application.API.Controllers.Base.CoreModule;
 using Microsoft.Web.Http;
 
 namespace App.Core.Application.API.Controllers.V0200
