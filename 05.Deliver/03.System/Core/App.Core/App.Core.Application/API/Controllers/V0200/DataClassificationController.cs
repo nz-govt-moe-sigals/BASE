@@ -29,7 +29,7 @@ namespace App.Core.Application.API.Controllers.V0200
     //[ODataRoutePrefix("body")]
     //[ODataPath(Constants.Api.ApiControllerNames.DataClassification)]
     [ApiVersion("2.0")]
-    public class DataClassificationController : CommonODataControllerBase // ODataControllerStandardDataBase<DataClassification,DataClassificationDto>
+    public class DataClassificationController : CoreODataControllerBase // ODataControllerStandardDataBase<DataClassification,DataClassificationDto>
     {
         private readonly IRepositoryService _repositoryService;
         private readonly ISecureAPIMessageAttributeService _secureApiMessageAttribute;
