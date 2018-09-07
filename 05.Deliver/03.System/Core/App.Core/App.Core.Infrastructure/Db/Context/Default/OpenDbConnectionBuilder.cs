@@ -58,25 +58,24 @@ namespace App.Core.Infrastructure.Db.Context.Default
                 return;
             }
 
-            return;
             // To get around:
             // "Cannot set the AccessToken property if 'UserID', 'UID', 'Password', or 'PWD' has been specified in connection string."
-            //var terms = new[] {"UserID","Password","PWD=","UID=", "(localdb)\\mssqllocaldb" };
-            //foreach (var term in terms)
-            //{
-            //    if (connectionString.Contains(term, StringComparison.InvariantCultureIgnoreCase))
-            //    {
-            //        _diagnosticsTracingService.Trace(TraceLevel.Info, "OpenDbConnectionBuilder.AttachAccessTokenToDbConnection: Contains UserName or Password");
-            //        return;
-            //    }
-            //}
+            var terms = new[] {"UserID","Password","PWD=","UID=", "(localdb)\\mssqllocaldb" };
+            foreach (var term in terms)
+            {
+                if (connectionString.Contains(term, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    _diagnosticsTracingService.Trace(TraceLevel.Info, "OpenDbConnectionBuilder.AttachAccessTokenToDbConnection: Contains UserName or Password");
+                    return;
+                }
+            }
 
-            //_diagnosticsTracingService.Trace(TraceLevel.Info, "OpenDbConnectionBuilder.AttachAccessTokenToDbConnection: Attempting to retrieve Token.");
-            //string accessToken = AppCoreDbContextMSITokenFactory.GetAzureSqlResourceToken();
+            _diagnosticsTracingService.Trace(TraceLevel.Info, "OpenDbConnectionBuilder.AttachAccessTokenToDbConnection: Attempting to retrieve Token.");
+            string accessToken = AppCoreDbContextMSITokenFactory.GetAzureSqlResourceToken();
 
-            //_diagnosticsTracingService.Trace(TraceLevel.Info, "OpenDbConnectionBuilder.AttachAccessTokenToDbConnection: AccessToken: {0}", accessToken);
+            _diagnosticsTracingService.Trace(TraceLevel.Info, "OpenDbConnectionBuilder.AttachAccessTokenToDbConnection: AccessToken: {0}", accessToken);
 
-            //sqlConnection.AccessToken = accessToken;
+            sqlConnection.AccessToken = accessToken;
 
         }
     }
