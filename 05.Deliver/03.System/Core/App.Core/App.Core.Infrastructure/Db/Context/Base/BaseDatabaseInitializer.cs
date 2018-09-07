@@ -16,6 +16,7 @@ namespace App.Core.Infrastructure.Db.Context.Base
         where TMigrationsConfiguration : System.Data.Entity.Migrations.DbMigrationsConfiguration<TContext>, new()
 
     {
+
         public BaseDatabaseInitializer() : base(useSuppliedContext: true)
         {
 
