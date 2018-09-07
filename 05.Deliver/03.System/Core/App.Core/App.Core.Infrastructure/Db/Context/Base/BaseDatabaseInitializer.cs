@@ -17,7 +17,7 @@ namespace App.Core.Infrastructure.Db.Context.Base
 
     {
 
-        public BaseDatabaseInitializer() : base(useSuppliedContext: true)
+        public BaseDatabaseInitializer() : base(/*useSuppliedContext: true*/)
         {
 
         }

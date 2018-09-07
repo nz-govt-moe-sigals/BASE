@@ -57,9 +57,10 @@ namespace App.Core.Infrastructure.Db.Context.Default
             {
                 return;
             }
+
             return;
-            //// To get around:
-            //// "Cannot set the AccessToken property if 'UserID', 'UID', 'Password', or 'PWD' has been specified in connection string."
+            // To get around:
+            // "Cannot set the AccessToken property if 'UserID', 'UID', 'Password', or 'PWD' has been specified in connection string."
             //var terms = new[] {"UserID","Password","PWD=","UID=", "(localdb)\\mssqllocaldb" };
             //foreach (var term in terms)
             //{

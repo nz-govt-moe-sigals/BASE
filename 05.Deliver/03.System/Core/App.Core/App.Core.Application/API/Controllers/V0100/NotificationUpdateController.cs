@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using App.Core.Application.API.Controllers.Base.CoreModule;
+using App.Core.Application.Filters.WebApi;
+using App.Core.Shared.Constants;
 
 namespace App.Core.Application.API.Controllers.V0100
 {
@@ -35,6 +37,7 @@ namespace App.Core.Application.API.Controllers.V0100
         }
 
         // POST api/values 
+        [WebApiAppAuthorize(Roles = AppModuleApiScopes.WriteScope)]
         public void Post([FromBody]NotificationUpdateDto value)
         {
 
