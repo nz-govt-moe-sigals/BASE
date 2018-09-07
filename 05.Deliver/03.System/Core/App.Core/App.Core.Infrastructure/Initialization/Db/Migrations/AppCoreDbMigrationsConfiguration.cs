@@ -26,6 +26,7 @@ namespace App.Core.Infrastructure.Db.Migrations
     {
         public AppCoreDbMigrationsConfiguration()
         {
+            
             this.AutomaticMigrationsEnabled = false;
             //Where to save Migrations (keep schemas distinct in their own folder):
             this.MigrationsDirectory = @"Initialization\Db\Migrations\" + Constants.Module.Names.ModuleKey;

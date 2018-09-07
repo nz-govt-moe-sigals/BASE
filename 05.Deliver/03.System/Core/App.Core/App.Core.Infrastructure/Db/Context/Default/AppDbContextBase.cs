@@ -35,6 +35,7 @@ namespace App.Core.Infrastructure.Db.Context.Default
 
         protected AppDbContextBase(DbConnection dbConnection, bool contextOwnsConnection) : base(dbConnection, contextOwnsConnection)
         {
+           
             Database.CommandTimeout = System.Math.Max(dbConnection.ConnectionTimeout,30);
 
 

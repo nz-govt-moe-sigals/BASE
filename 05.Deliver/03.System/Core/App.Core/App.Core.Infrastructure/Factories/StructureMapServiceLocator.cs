@@ -8,24 +8,24 @@
 
     public class StructureMapServiceLocator : ServiceLocatorImplBase
     {
-        private readonly IContainer container;
+        private readonly IContainer _container;
 
         public StructureMapServiceLocator(IContainer container)
         {
-            this.container = container;
+            this._container = container;
         }
 
         protected override object DoGetInstance(Type serviceType, string key)
         {
             return string.IsNullOrEmpty(key)
-                ? this.container.GetInstance(serviceType)
-                : this.container.GetInstance(serviceType, key);
+                ? this._container.GetInstance(serviceType)
+                : this._container.GetInstance(serviceType, key);
         }
 
 
         protected override IEnumerable<object> DoGetAllInstances(Type serviceType)
         {
-            return this.container.GetAllInstances(serviceType).Cast<object>();
+            return this._container.GetAllInstances(serviceType).Cast<object>();
         }
     }
 }

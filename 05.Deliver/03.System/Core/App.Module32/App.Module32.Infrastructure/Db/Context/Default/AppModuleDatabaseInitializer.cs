@@ -1,4 +1,5 @@
-﻿using App.Module32.Shared.Contracts;
+﻿using App.Core.Infrastructure.Db.Context.Base;
+using App.Module32.Shared.Contracts;
 
 namespace App.Module32.Infrastructure.Db.Context.Default
 {
@@ -7,7 +8,7 @@ namespace App.Module32.Infrastructure.Db.Context.Default
 
     // Do NOT carelessly rename as this is referenced
     // via web.config, under the EF section.
-    public class AppModuleDatabaseInitializer : MigrateDatabaseToLatestVersion<AppModuleDbContext,
+    public class AppModuleDatabaseInitializer : BaseDatabaseInitializer<AppModuleDbContext,
         AppModuleDefaultDbMigrationsConfiguration>, IHasModuleSpecificIdentifier
     {
         //MigrateDatabaseToLatestVersion is an implementation of IDatabaseInitializer

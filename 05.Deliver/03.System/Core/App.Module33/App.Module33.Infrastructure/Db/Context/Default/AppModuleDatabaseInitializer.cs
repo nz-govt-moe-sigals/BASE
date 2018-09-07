@@ -1,4 +1,5 @@
-﻿using App.Module33.Infrastructure.Initialization.Db.Migrations;
+﻿using App.Core.Infrastructure.Db.Context.Base;
+using App.Module33.Infrastructure.Initialization.Db.Migrations;
 
 namespace App.Module33.Infrastructure.Db.Context.Default
 {
@@ -6,7 +7,7 @@ namespace App.Module33.Infrastructure.Db.Context.Default
 
     // Do NOT carelessly rename as this is referenced
     // via web.config, under the EF section.
-    public class AppModuleDatabaseInitializer : MigrateDatabaseToLatestVersion<AppModuleDbContext,
+    public class AppModuleDatabaseInitializer : BaseDatabaseInitializer<AppModuleDbContext,
         AppModuleDefaultDbMigrationsConfiguration>, IHasModuleSpecificIdentifier
     {
         //MigrateDatabaseToLatestVersion is an implementation of IDatabaseInitializer

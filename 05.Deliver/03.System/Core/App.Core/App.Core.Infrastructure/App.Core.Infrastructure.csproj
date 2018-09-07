@@ -173,6 +173,7 @@
     <Compile Include="Constants\Cache\StaticKeys.cs" />
     <Compile Include="Constants\IDA\TokenTitles.cs" />
     <Compile Include="Constants\Resources\DefaultDocuments\RelativePaths.cs" />
+    <Compile Include="Db\Context\Base\BaseDatabaseInitializer.cs" />
     <Compile Include="ExtensionMethods\ClaimsIdentityExtensions.cs" />
     <Compile Include="ExtensionMethods\StringExtensions.cs" />
     <Compile Include="Initialization\Authentication\HasOidcScopeInitializer.cs" />
@@ -495,7 +496,6 @@
     <Compile Include="Services\ISessionManagmentService.cs" />
     <Compile Include="Services\ISharedAzureKeyVaultService.cs" />
     <Compile Include="Services\Implementations\AzureServices\AzureRedisCachingService.cs" />
-    <Compile Include="Startup\Spikes\msiTokenRetrievalFromdev.cs" />
     <Compile Include="TOMOVE.cs" />
     <Compile Include="_old\IDictionaryBasedMimeTypeServiceConfiguration.cs" />
     <Compile Include="Services\IApplicationSettingsService.cs" />
@@ -611,6 +611,7 @@
     <Folder Include="Initialization\Interception\" />
     <Folder Include="Initialization\Storage\AzureStorageAccount\" />
     <Folder Include="Services\Configuration\Implementations\Base\" />
+    <Folder Include="Startup\Spikes\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Initialization\Db\Migrations\Core\201805220014250_Entities.Init.resx">
