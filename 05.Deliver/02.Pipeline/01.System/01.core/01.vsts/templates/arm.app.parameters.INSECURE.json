@@ -227,6 +227,9 @@
     "microsoftWebServerFarmsResourceSku": {
       "value": "S1"
     },
+	"microsoftWebSitesAlwaysOn": {
+      "value": true
+	}
     // -------------------------------------------------------
     // PARAMETERS: MICROSOFT / WEB / SITES 
     // -------------------------------------------------------

@@ -411,7 +411,7 @@
                 "S1",
                 "S2"
             ],
-            "defaultValue": "S1",
+            "defaultValue": "F1",
             "metadata": {
                 "description": "Optional. App Service server pricing tier and capacity. Check details at https://azure.microsoft.com/en-us/pricing/details/app-service/ Default is F1 to keep prices down until you know you need Site Binding. Or AlwaysOn. Or other features that need a mininum of S1."
             },
@@ -422,7 +422,7 @@
         // -------------------------------------------------------
         // Optional. The default is false as true requires a minimal SKU of S1.
         "microsoftWebSitesAlwaysOn": {
-            "defaultValue": true,
+            "defaultValue": false,
             "metadata": {
                 "description": "Optional. The default is false as true requires a minimal SKU of S1."
             },
