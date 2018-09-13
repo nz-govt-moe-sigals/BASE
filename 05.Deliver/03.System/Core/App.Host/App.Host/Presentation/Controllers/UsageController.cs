@@ -5,7 +5,7 @@ using App.Core.Infrastructure.Services;
 using App.Core.Shared.Models.Entities;
 using App.Core.Shared.Models.Messages;
 using App.Host.Models;
-using App.Module11.Infrastructure.Services;
+
 
 namespace App.Host.Presentation.Controllers
 {
@@ -16,12 +16,12 @@ namespace App.Host.Presentation.Controllers
     public partial class UsageController : Controller
     {
         private readonly IMediaUploadService _mediaUploadService;
-        private readonly IStudentRawImportService _studentRawImportService;
 
-        public UsageController(IDiagnosticsTracingService diagnosticsTracingService, IMediaUploadService mediaUploadService, IStudentRawImportService studentRawImportService)
+
+        public UsageController(IDiagnosticsTracingService diagnosticsTracingService, IMediaUploadService mediaUploadService)
         {
             this._mediaUploadService = mediaUploadService;
-            this._studentRawImportService = studentRawImportService;
+
             // Tip: Being a template, it is preferable that the HomeController/Default Route does not get injected with a
             // DbContext, as that implies a correct Connection string and/or Authentication, that may fail the first
             // time deployed to Azure.
@@ -119,7 +119,7 @@ namespace App.Host.Presentation.Controllers
                             long check = file.InputStream.Position;
                             //Rewind:
                             file.InputStream.Position = 0;
-                            _studentRawImportService.Do(file.InputStream);
+                            //_studentRawImportService.Do(file.InputStream);
                         }
                         //Place Using outside of Do, as it will close the underlying Stream (not good)
                     }
