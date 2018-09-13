@@ -1,8 +1,0 @@
-﻿{
-  "$schema": "http://schemastore.org/schemas/json/webjobs-list.json",
-  "WebJobs": [
-    {
-      "filePath": "../../App.Module32/App.Module32.WebJob.Transfer/App.Module32.WebJob.Transfer.csproj"
-    }
-  ]
-}
