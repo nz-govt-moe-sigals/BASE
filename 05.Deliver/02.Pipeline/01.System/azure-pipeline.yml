@@ -47,7 +47,7 @@ variables:
   custom_vars_TemplatesBaseUrl : 'https://nzmoestartpublic.blob.core.windows.net/public/start/releases/$($ENV:custom_vars_TemplatesRelease)'
   azureSubscriptionIdentifier : 'EDU-MOE-BASE-TestDev-01 (b81bf4a6-b746-41c2-ac29-9466c74f2b57)'
 
-  steps:
+steps:
 - task: AzurePowerShell@3
   displayName: 'START: Initilize Environment Variables'
   inputs:
