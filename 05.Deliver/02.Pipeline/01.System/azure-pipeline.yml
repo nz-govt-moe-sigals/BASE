@@ -1,0 +1,314 @@
+resources:
+- repo: self
+  clean: true
+queue:
+  name: Hosted VS2017
+  demands: 
+  - azureps
+  - msbuild
+  - visualstudio
+
+#Your build pipeline references an undefined variable named ‘$ENV:custom_vars_TemplatesRelease’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘$ENV:custom_vars_TemplatesRelease’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘custom_vars_envidentifier’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘custom_vars_defaultResourceLocation’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘custom_vars_resourceGroupName’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘custom_vars_defaultResourceName’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘custom_vars_default_website_Url’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘custom_vars_default_website_url’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘custom_vars_default_website_url’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘custom_vars_default_website_url’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘custom_vars_default_website_url’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘Parameters.solution’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘Parameters.solution’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘custom_vars_resourceGroupName’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘custom_vars_defaultResourceLocation’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references the ‘custom_vars_envIdentifier’ variable, which you’ve selected to be settable at queue time. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab, and then select the option to make it settable at queue time. See https://go.microsoft.com/fwlink/?linkid=865971
+#Your build pipeline references an undefined variable named ‘$ENV:custom_vars_TemplatesRelease’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘$ENV:custom_vars_TemplatesRelease’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘$ENV:custom_vars_TemplatesRelease’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘custom_vars_resourceGroupName’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘$ENV:custom_vars_subscriptionId’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘$ENV:CUSTOM_VARS_RESOURCEGROUPNAME’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘$ENV:custom_vars_defaultStorageAccountResourceName’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘$ENV:custom_vars_principalId’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘Parameters.connectedServiceName’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘custom_vars_defaultWebSiteResourceName’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘custom_vars_default_website_Url’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘custom_vars_resourceGroupName’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+variables:
+  custom_vars_TemplatesRelease: '0.3'
+  custom_vars_resourceNameTemplate: 'NZ-MOE-{APPID}-{BRANCHNAME}-{ENVID}'
+  BuildConfiguration: 'release'
+  BuildPlatform: 'any cpu'
+  custom_vars_envIdentifier: 'BT'
+  misc: $(Build.SourcesDirectory)
+  system.debug: 'false'
+  custom_vars_TemplatesBaseUrl : 'https://nzmoestartpublic.blob.core.windows.net/public/start/releases/$($ENV:custom_vars_TemplatesRelease)'
+  azureSubscriptionIdentifier : 'EDU-MOE-BASE-TestDev-01 (b81bf4a6-b746-41c2-ac29-9466c74f2b57)'
+
+  steps:
+- task: AzurePowerShell@3
+  displayName: 'START: Initilize Environment Variables'
+  inputs:
+    azureSubscription: '$(azureSubscriptionIdentifier)'
+
+    ScriptType: InlineScript
+
+    Inline: |
+     # Run shared Script (CaseSensitive):
+     $remotePSDirectory = "$(custom_vars_TemplatesBaseUrl)/arm-scripts/"
+     
+     $remotePSUrl = $remotePSDirectory + "pre.provision.environment.configure.variables.ps1"
+     
+     Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString($remotePSUrl))
+     
+
+    azurePowerShellVersion: LatestVersion
+
+
+- powershell: |
+   #Inputs:
+   write-host "custom_vars_TemplatesRelease: $(custom_vars_TemplatesRelease)"
+   write-host "custom_vars_envidentifier: $(custom_vars_envidentifier)"
+   write-host "custom_vars_resourceNameTemplate: $(custom_vars_resourceNameTemplate)"
+   write-host "custom_vars_defaultResourceLocation: $(custom_vars_defaultResourceLocation)"
+   #Outputs:
+   write-host "custom_vars_resourceGroupName: $(custom_vars_resourceGroupName)"
+   write-host "custom_vars_defaultResourceName: $(custom_vars_defaultResourceName)"
+   write-host "custom_vars_defaultUrl: $(custom_vars_default_website_Url)"
+   
+    
+  displayName: 'START:Display Env Variables'
+  enabled: false
+
+- powershell: |
+   Write-Host "##vso[task.setvariable variable=Service-Integration-Oauth-Client-RedirectUri]$(custom_vars_default_website_url)"
+   Write-Host "##vso[task.setvariable variable=Service-Integration-Oauth-Client-PostLogoutRedirectUri]$(custom_vars_default_website_url)"
+   Write-Host "##vso[task.setvariable variable=Service-Integration-Okta-Oauth-Client-RedirectUri]$(custom_vars_default_website_url)"
+   Write-Host "##vso[task.setvariable variable=Service-Integration-Okta-Oauth-Client-PostLogoutRedirectUri]$(custom_vars_default_website_url)" 
+  displayName: 'Write Additional/Custom Environment Variables'
+
+- task: NuGetCommand@2
+  displayName: 'NuGet restore'
+  inputs:
+    restoreSolution: '$(Parameters.solution)'
+
+
+- task: VSBuild@1
+  displayName: 'Build solution'
+  inputs:
+    solution: '$(Parameters.solution)'
+
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true  /p:PackageLocation="$(build.artifactstagingdirectory)\publish\base\\" /p:nowarn=3030 /p:WarningsNotAsErrors=3030 /p:RunCodeAnalysis=true /p:CodeAnalysisRuleSet="$(build.sourcesdirectory)/05.Deliver/02.Pipeline/02.CodeAnalysisRulesets/StandardMinistryRules.ruleset" /p:AutoParameterizationWebConfigConnectionStrings=False'
+
+    platform: '$(BuildPlatform)'
+
+    configuration: '$(BuildConfiguration)'
+
+
+- task: VisualStudioTestPlatformInstaller@1
+  displayName: 'VsTest Platform Installer'
+
+
+- task: VSTest@2
+  displayName: 'VsTest - Unit Tests (without needing environment yet)'
+  inputs:
+    testAssemblyVer2: |
+     **\$(BuildConfiguration)\*test*.dll
+     !**\$(BuildConfiguration)\*ux.test*.dll
+     !**\obj\**
+
+    vsTestVersion: toolsInstaller
+
+    codeCoverageEnabled: true
+
+    platform: '$(BuildPlatform)'
+
+    configuration: '$(BuildConfiguration)'
+
+
+- task: AzureResourceGroupDeployment@2
+  displayName: 'START: Create/Update Resource Group and Resources'
+  inputs:
+    azureSubscription: '$(azureSubscriptionIdentifier)
+
+    resourceGroupName: '$(custom_vars_resourceGroupName)'
+
+    location: '$(custom_vars_defaultResourceLocation)'
+
+    csmFile: 05.Deliver/02.Pipeline/01.System/01.core/01.vsts/templates/arm.app.json
+
+    csmParametersFile: 05.Deliver/02.Pipeline/01.System/01.core/01.vsts/templates/arm.app.parameters.INSECURE.json
+
+    overrideParameters: '-templatesRelease "$(custom_vars_TemplatesRelease)" -environmentId "$(custom_vars_envIdentifier)" -resourceNameTemplate "$(custom_vars_resourceNameTemplate)"'
+
+
+- task: AzurePowerShell@3
+  displayName: 'START: Complete'
+  inputs:
+    azureSubscription: '$(azureSubscriptionIdentifier)'
+
+    ScriptType: InlineScript
+
+    Inline: |
+     # Run shared Script (CaseSensitive):
+     $remotePSDirectory = "$(custom_vars_TemplatesBaseUrl)/arm-scripts/"
+     
+     $remotePSUrl = $remotePSDirectory + "post.provision.environment.ps1"
+     
+     Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString($remotePSUrl))
+     
+
+    azurePowerShellVersion: LatestVersion
+
+
+- powershell: |
+   $ENV:CUSTOM_VARS_DISPENSATIONS = ConvertTo-Json (@(
+       "https://nzmoestartpublic.blob.core.windows.net/private/base/*/d9f625e0-36eb-cc6f-8be0-b7f36eeb4a31.txt?sp=r&st=2018-09-10T02:30:50Z&se=2019-01-01T09:30:50Z&spr=https&sv=2017-11-09&sig=Kepv2UpzeafN4EvvJzhL3%2BuomO%2FlkCZ1eXhGktkiYYs%3D&sr=b", "https://nzmoestartpublic.blob.core.windows.net/private/base/*/2d76381d-6f45-d120-0bf1-f2a5f5074a18.txt?sp=r&st=2018-09-10T02:49:29Z&se=2019-01-01T09:49:29Z&spr=https&sv=2017-11-09&sig=90DN0gTqFL42v9OqOvMr0YigoaeN%2B%2FSki7VPZoyhMGM%3D&sr=b", "https://nzmoestartpublic.blob.core.windows.net/private/base/*/b57b7d54-393c-a952-8b4c-36a25d8bce0e.txt?sp=r&st=2018-09-10T02:50:18Z&se=2019-01-01T09:50:18Z&spr=https&sv=2017-11-09&sig=MSDUnCJnr6GdLfwl9A8x2OCuwKZJ9iQjecceo9HTy2g%3D&sr=b", "https://nzmoestartpublic.blob.core.windows.net/private/base/*/f8344a5a-395c-c88e-330d-e3902cc653e9.txt?sp=r&st=2018-09-10T02:51:05Z&se=2019-01-01T09:51:05Z&spr=https&sv=2017-11-09&sig=VSRWO9bE5a9JM9AE4TyqtWxJKmbE1qKAMbhv3pz1UVE%3D&sr=b"
+   )) -Compress
+   
+   Write-Host "##vso[task.setvariable variable=custom_vars_dispensations]"$ENV:CUSTOM_VARS_DISPENSATIONS 
+  displayName: 'START: Set Dispensations'
+
+- powershell: |
+   # Write your powershell commands here.
+   
+   Write-Host $ENV:CUSTOM_VARS_DISPENSATIONS 
+  displayName: 'START: Check Dispensations'
+
+- task: AzurePowerShell@3
+  displayName: 'START: Invoke SCANR'
+  inputs:
+    azureSubscription: '$(azureSubscriptionIdentifier)'
+
+    ScriptType: InlineScript
+
+    Inline: |
+     $url = "$(custom_vars_TemplatesBaseUrl)/arm-scripts/shared/scanr.ps1"
+     Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString($url));
+     
+     SCANR-UnitTest -subscriptionId:(Get-AzureRmContext).Subscription -resourceGroupName:$ENV:CUSTOM_VARS_RESOURCEGROUPNAME -projectIdentifier:$(system.teamProject) -dispensations:(convertfrom-json $ENV:CUSTOM_VARS_DISPENSATIONS)
+
+    azurePowerShellVersion: LatestVersion
+
+
+- task: DeleteFiles@1
+  displayName: 'Delete Resharper'
+  inputs:
+    SourceFolder: '$(Build.ArtifactStagingDirectory)'
+
+    Contents: 'JetBrains.ReSharper*'
+
+  enabled: false
+
+- task: keesschollaart.arm-outputs.arm-outputs.ARM Outputs@3
+  displayName: 'Build Custom Vars from ARM Outputs'
+  inputs:
+    ConnectedServiceNameARM: '$(azureSubscriptionIdentifier)'
+
+    resourceGroupName: '$(custom_vars_resourceGroupName)'
+
+    prefix: 'custom_vars_'
+
+    outputNames: 'tenantId,subscriptionId,principalId,defaultWebSiteResourceName,defaultStorageAccountResourceName,defaultSqlServerResourceName'
+
+
+- task: AzurePowerShell@3
+  displayName: 'Assign Rights to Default StorageAccount'
+  inputs:
+    azureSubscription: '$(azureSubscriptionIdentifier)'
+
+    ScriptType: InlineScript
+
+    Inline: |
+     try {
+     $scope = "/subscriptions/$($ENV:custom_vars_subscriptionId)/resourceGroups/$($ENV:CUSTOM_VARS_RESOURCEGROUPNAME)/providers/Microsoft.Storage/storageAccounts/$($ENV:custom_vars_defaultStorageAccountResourceName)"
+     Write-host "$($ENV:custom_vars_principalId) : $scope"
+       
+     New-AzureRmRoleAssignment -ObjectId $ENV:custom_vars_principalId -RoleDefinitionName "Contributor" -Scope $scope
+     }
+     catch {
+       Write-Host "***************************** WARNING:" $_.Exception.Message
+     }
+     
+
+    azurePowerShellVersion: LatestVersion
+
+
+- task: AzureRmWebAppDeployment@3
+  displayName: 'Deploy Website to target environment'
+  inputs:
+    azureSubscription: '$(Parameters.connectedServiceName)'
+
+    WebAppName: '$(custom_vars_defaultWebSiteResourceName)'
+
+    Package: '$(build.artifactstagingdirectory)/publish/base/**/App.Host.zip'
+
+    UseWebDeploy: true
+
+    enableXmlVariableSubstitution: true
+
+- task: PowerShell@2
+  displayName: 'Wake up Website'
+  inputs:
+    targetType: filePath
+    filePath: "./05.Deliver/02.Pipeline/01.System/01.core/01.vsts/scripts/initialise.paas.codedeployment.ps1"
+    arguments: '$(custom_vars_default_website_Url)'
+#- powershell: ./ 05.Deliver/02.Pipeline/01.System/01.core/01.vsts/scripts/initialise.paas.codedeployment.ps1 
+#  arguments: '$(custom_vars_default_website_Url)'
+
+#  displayName: 'Wake up Website'
+
+- task: VSTest@2
+  displayName: 'Run Integration / Acceptance Tests'
+  inputs:
+    testAssemblyVer2: |
+     **\*ux.test*.dll
+     !**\*TestAdapter.dll
+     !**\obj\**
+
+    uiTests: true
+
+    vsTestVersion: toolsInstaller
+
+    rerunFailedTests: false
+
+  timeoutInMinutes: 120
+
+- task: CopyFiles@2
+  displayName: 'Copy ARM Templates'
+  inputs:
+    SourceFolder: 05.Deliver/02.Pipeline/
+
+    TargetFolder: '$(build.artifactstagingdirectory)\ARM'
+
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+
+
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results **/TEST-*.xml'
+  inputs:
+    testRunner: NUnit
+
+    testRunTitle: 'Infrastructure Tests'
+
+  condition: succeededOrFailed()
+
+- task: AzureResourceGroupDeployment@2
+  displayName: 'Azure Deployment:Delete Resource Group'
+  inputs:
+    azureSubscription: '$(azureSubscriptionIdentifier)'
+
+    action: DeleteRG
+
+    resourceGroupName: '$(custom_vars_resourceGroupName)'
+
+  enabled: false
+  continueOnError: true
+  condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
+
