@@ -130,7 +130,7 @@ steps:
 - task: AzureResourceGroupDeployment@2
   displayName: 'START: Create/Update Resource Group and Resources'
   inputs:
-    azureSubscription: '$(azureSubscriptionIdentifier)
+    azureSubscription: '$(azureSubscriptionIdentifier)'
 
     resourceGroupName: '$(custom_vars_resourceGroupName)'
 
