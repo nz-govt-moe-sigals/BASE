@@ -5,81 +5,81 @@
 
     public static class AuthorisationSetup
     {
-        public const string AuthorisationType = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-ApproachType";
+        public const string AuthorisationType = ConfigurationKeys.SystemIntegrationKeyPrefix + "OAuth-ApproachType";
     }
 
     public static class ApiOidcKeys
     {
-        private const string ApiPrefix = "Api-Oidc-";
 
-        public const string Tenant = ConfigurationKeys.SystemIntegrationKeyPrefix + ApiPrefix + "Client-Tenant";
+
+        public const string Tenant = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauth-client-tenant";
 
         /// <summary>
         /// The OIDC client Identifier.
         /// It's not exactly a secret, so it's ok for team members to know ---  but not persisted in web.config code that coudlrtha.
         /// </summary>
-        public const string ClientId = ConfigurationKeys.SystemIntegrationKeyPrefix + ApiPrefix + "Client-Id";
+        public const string ClientId = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauth-client-id";
 
         /// <summary>
         /// The OIDC client Identifier.
         /// It should be the API that you 
         /// </summary>
-        public const string AppIdUri = ConfigurationKeys.SystemIntegrationKeyPrefix + ApiPrefix + "Client-App-IdUri";
+        public const string AppIdUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauth-uri";
         
         /// <summary>
         /// The URI of the IdP to which the security principal is redirected.
         /// OPTIONAL
         /// </summary>
-        public const string AuthorityUri = ConfigurationKeys.SystemIntegrationKeyPrefix + ApiPrefix + "Client-AuthorityUri";
+        public const string AuthorityUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauth-client-authorityuri";
 
         /// <summary>
         /// The OIDC client Identifier.
         /// It's not exactly a secret, so it's ok for team members to know ---  but not persisted in web.config code that coudlrtha.
         /// </summary>
-        public const string ClientIdB2C = ConfigurationKeys.SystemIntegrationKeyPrefix + ApiPrefix + "Client-IdB2C";
+        public const string ClientIdB2C = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauth-client-id-b2c";
 
 
         /// <summary>
         /// used when B2C is being used
         /// </summary>
-        public const string AppIdUrlB2C = ConfigurationKeys.SystemIntegrationKeyPrefix + ApiPrefix + "Client-App-IdUriB2C";
+        public const string AppIdUrlB2C = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauth-uri-b2c";
 
         //Policies:
         /// <summary>
         /// used when B2C is being used
         /// </summary>
-        public const string PolicyIdB2C = ConfigurationKeys.SystemIntegrationKeyPrefix + ApiPrefix + "Policies-PolicyIdB2C";
+        public const string PolicyIdB2C = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauth-uri-policies-policyid-b2c";
     }
 
 
     public static class WebAppOidcKeys
     {
-        private const string WebAppPrefix = "WebApp-Oidc-";
 
 
-        public const string Tenant = ConfigurationKeys.SystemIntegrationKeyPrefix + WebAppPrefix + "Client-Tenant";
+
+        public const string Tenant = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauthservice-client-tenant";
         // public const string AadInstance = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-policies-AadInstance";
 
         /// <summary>
         /// The URI of the IdP to which the security principal is redirected.
         /// OPTIONAL
         /// </summary>
-        public const string AuthorityUri = ConfigurationKeys.SystemIntegrationKeyPrefix + WebAppPrefix + "Client-AuthorityUri";
+        public const string AuthorityUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauthservice-client-authorityuri";
 
         /// <summary>
         /// The OIDC client Identifier.
         /// It's not exactly a secret, so it's ok for team members to know ---  but not persisted in web.config code that coudlrtha.
         /// </summary>
-        public const string ClientId = ConfigurationKeys.SystemIntegrationKeyPrefix + WebAppPrefix + "Client-Id";
+        public const string ClientId = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauthservice-client-id";
 
         /// <summary>
         //Ensure this settings is persisted in KeyVault, and not the AppHost,
         //even if they are put there during deployment
         /// </summary>
-        public const string ClientSecret = ConfigurationKeys.SystemIntegrationKeyPrefix + WebAppPrefix + "Client-Secret";
+        public const string ClientSecret = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauthservice-client-secret";
 
 
-        public const string ClientRedirectUri = ConfigurationKeys.SystemIntegrationKeyPrefix + WebAppPrefix + "Client-RedirectUri";
+        public const string ClientRedirectUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauthservice-client-redirecturi";
 
         /// <summary>
         /// The client post logout redirect URI.
@@ -87,19 +87,19 @@
         /// But if it contains a domain identifier then inject it into the 
         /// AppSettings via the build pipeline. Using the KeyVault would be too heavy.
         /// </summary>
-        public const string ClientPostLogoutRedirectUri = ConfigurationKeys.SystemIntegrationKeyPrefix + WebAppPrefix + "Client-PostLogoutRedirectUri";
+        public const string ClientPostLogoutRedirectUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauthservice-client-postlogoutredirecturi";
 
 
         //Policies:
-        public const string DefaultPolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + WebAppPrefix + "Policies-DefaultPolicyId";
-        public const string SignUpSignInPolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + WebAppPrefix + "Policies-SignUpSignInPolicyId";
-        public const string UserProfilePolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + WebAppPrefix + "Policies-UserProfilePolicyId";
-        public const string EditProfilePolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + WebAppPrefix + "Policies-EditProfilePolicyId";
-        public const string ResetPasswordPolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + WebAppPrefix + "Policies-ResetPasswordPolicyId";
+        public const string DefaultPolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + "oidcservice-policies-default-policyid";
+        public const string SignUpSignInPolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + "oidcservice-policies-signupsignin-policyid";
+        public const string UserProfilePolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + "oidcservice-policies-userprofile-policyid";
+        public const string EditProfilePolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + "oidcservice-policies-editprofile-policyid";
+        public const string ResetPasswordPolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + "oidcservice-policies-resetpassword-policyid";
         //[Obsolete]
-        public const string SignUpPolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + WebAppPrefix + "Policies-SignUpnPolicyId";
+        public const string SignUpPolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + "oidcservice-policies-signup-policyid";
         //[Obsolete]
-        public const string SignInPolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + WebAppPrefix + "Policies-SignInPolicyId";
+        public const string SignInPolicyId = ConfigurationKeys.SystemIntegrationKeyPrefix + "oidcservice-policies-signin-policyid";
     }
 
 

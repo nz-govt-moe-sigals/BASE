@@ -12,5 +12,7 @@ namespace App.Core.Infrastructure.Services
         ConnectionMultiplexer ConnectionMultiplexer { get; }
 
         IDatabase Database { get; }
+
+        bool Enabled { get; }
     }
 }

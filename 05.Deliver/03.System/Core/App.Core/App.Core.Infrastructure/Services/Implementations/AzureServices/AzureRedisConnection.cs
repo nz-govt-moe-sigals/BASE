@@ -13,6 +13,8 @@ namespace App.Core.Infrastructure.Services.Implementations.AzureServices
     {
         private readonly ConnectionMultiplexer _lazyConnection;
         private Guid _id;
+        
+
 
         public AzureRedisConnection(AzureRedisCacheServiceConfiguration azureRedisCacheServiceConfiguration)
         {
@@ -22,9 +24,15 @@ namespace App.Core.Infrastructure.Services.Implementations.AzureServices
             configurationOptions.AllowAdmin = false;
             configurationOptions.Ssl = true;
             _id = Guid.NewGuid();
-            _lazyConnection = ConnectionMultiplexer.Connect(configurationOptions);
+            Enabled = azureRedisCacheServiceConfiguration.Enabled;
+            if (Enabled)
+            {
+                _lazyConnection = ConnectionMultiplexer.Connect(configurationOptions);
+            }
+            
         }
 
+        public bool Enabled { get; }
 
         public ConnectionMultiplexer ConnectionMultiplexer => _lazyConnection;
 

@@ -38,5 +38,12 @@ namespace App.Core.Shared.Models.ConfigurationSettings
         {
             get;set;
         }
+
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationAzureRedisEnabled)]
+        public string Enabled
+        {
+            get; set;
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿
+using System;
 using App.Core.Shared.Models.ConfigurationSettings;
 
 namespace App.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration
@@ -6,7 +7,9 @@ namespace App.Core.Infrastructure.Services.Configuration.Implementations.AzureCo
     public class AzureRedisCacheServiceConfiguration : ICoreServiceConfigurationObject
     {
 
-        public string ConnectionString { get; set; }
+        public string ConnectionString { get;  }
+
+        public bool Enabled { get;  }
 
 
         public AzureRedisCacheServiceConfiguration(IAzureKeyVaultService keyVaultService)
@@ -19,9 +22,14 @@ namespace App.Core.Infrastructure.Services.Configuration.Implementations.AzureCo
                 configuration.ResourceName = commonConfigurationSettings.RootResourceName;
             }
 
-            string authKey = configuration.Key;
+            if (!Boolean.TryParse(configuration.Enabled, out bool enabled))
+            {
+                enabled = true;
+            }
 
+            Enabled = enabled;
             ConnectionString = $"{configuration.ResourceName}.redis.cache.windows.net, ssl = true, password = {configuration.Key}";
+            
         }
     }
 }

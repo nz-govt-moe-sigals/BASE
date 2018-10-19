@@ -12,7 +12,7 @@ namespace App.Core.Shared.Constants
         public const string SystemIntegrationKeyPrefix = SystemKeyPrefix + "Integration-";
         public const string SystemAzureIntegrationKeyPrefix = SystemIntegrationKeyPrefix + "Azure-";
 
-        public const string SystemModuleApiScopeServiceUrl = "Oidc-Service-App-IdUri";
+        public const string SystemModuleApiScopeServiceUrl = "oidcservice-app-id-url";
 
         // -----
         // Demo mode
@@ -81,6 +81,7 @@ namespace App.Core.Shared.Constants
         // Integration / Azure / Microsoft / Redis / Cache / Default (key has Cache before Redis):
         public const string AppCoreIntegrationAzureRedisCacheResourceName = SystemAzureIntegrationKeyPrefix + "Cache-Redis-Default-ResourceName";
         public const string AppCoreIntegrationAzureRedisCacheDefaultAuthorizationKey = SystemAzureIntegrationKeyPrefix + "Cache-Redis-Default-Key";
+        public const string AppCoreIntegrationAzureRedisEnabled = SystemAzureIntegrationKeyPrefix + "Cache-Redis-Enabled";
 
         // -----
         // Integration / Azure / Microsoft / DocumentDb / Default (do not name as Default):
@@ -134,7 +135,7 @@ namespace App.Core.Shared.Constants
         public const string AppCoreIntegrationSmtpServiceBaseUri = SystemIntegrationKeyPrefix + "SmtpService-Uri";
         public const string AppCoreIntegrationSmtpServiceClientId = SystemIntegrationKeyPrefix + "SmtpService-Client-Id";
         public const string AppCoreIntegrationSmtpServiceClientSecret = SystemIntegrationKeyPrefix + "SmtpService-Client-Secret";
-        public const string AppCoreIntegrationSmtpServiceClientMiscConfig = SystemIntegrationKeyPrefix + "SmtpService-Client-MiscConfig";
+        public const string AppCoreIntegrationSmtpServiceClientMiscConfig = SystemIntegrationKeyPrefix + "SmtpService-Client-Misc";
 
 
         // -----
@@ -143,7 +144,7 @@ namespace App.Core.Shared.Constants
         public const string AppCoreIntegrationMalwareDetectionBaseUri = SystemIntegrationKeyPrefix + "MalwareDetectionService-Uri";
         public const string AppCoreIntegrationMalwareDetectionClientId = SystemIntegrationKeyPrefix + "MalwareDetectionService-Client-Id";
         public const string AppCoreIntegrationMalwareDetectionClientSecret = SystemIntegrationKeyPrefix + "MalwareDetectionService-Client-Secret";
-        public const string AppCoreIntegrationMalwareDetectionClientMiscConfig = SystemIntegrationKeyPrefix + "MalwareDetectionService-Client-MiscConfig";
+        public const string AppCoreIntegrationMalwareDetectionClientMiscConfig = SystemIntegrationKeyPrefix + "MalwareDetectionService-Client-Misc";
 
         // -----
         // Integration / [SituationSpecific] / GeoLocationService  / (Do not name as Default):
@@ -151,7 +152,7 @@ namespace App.Core.Shared.Constants
         public const string AppCoreIntegrationGeoIPServiceBaseUri = SystemIntegrationKeyPrefix + "GeoIPService-Uri";
         public const string AppCoreIntegrationGeoIPServiceClientId = SystemIntegrationKeyPrefix + "GeoIPService-Client-Id";
         public const string AppCoreIntegrationGeoIPServiceClientSecret = SystemIntegrationKeyPrefix + "GeoIPService-Client-Secret";
-        public const string AppCoreIntegrationGeoIPServiceClientMiscConfig = SystemIntegrationKeyPrefix + "GeoIPService-Client-MiscConfig";
+        public const string AppCoreIntegrationGeoIPServiceClientMiscConfig = SystemIntegrationKeyPrefix + "GeoIPService-Client-Misc";
         // -----
 
 
