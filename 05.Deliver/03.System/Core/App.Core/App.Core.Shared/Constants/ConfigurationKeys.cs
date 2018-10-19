@@ -12,7 +12,7 @@ namespace App.Core.Shared.Constants
         public const string SystemIntegrationKeyPrefix = SystemKeyPrefix + "Integration-";
         public const string SystemAzureIntegrationKeyPrefix = SystemIntegrationKeyPrefix + "Azure-";
 
-        public const string SystemModuleApiScopeServiceUrl = "oidcservice-app-id-url";
+        public const string SystemModuleApiScopeServiceUrl = "connecting-to-oauthservice-app-id-url";
 
         // -----
         // Demo mode
