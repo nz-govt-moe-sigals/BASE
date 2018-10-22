@@ -1,117 +1,65 @@
 {
-    // Using nested templates one can become more organised with templates and start re-using
-    // common templates as library building blocks through different projects.
-    // Refer to  reading Microsoft’s best practice guidance on designing complex templates.
-    // README:
-    // Templates are a set of sequential parameters, variables, resources, output sections for a reason.
-    // Parameters are the raw, unvalidated inputs -- whereas Variables are for staging, validating, 
-    // cleaning up the raw inputs into variables safe enough to be used, within resources. 
-    // 
-    // Conventions:
-    // * Resources should not reference parameters directly. It's quick and dirty to get 
-    //   up and running and fine (sortof) for a poc, demo, tutorial, etc. But this is a library intended
-    //   for reuse by different stakeholders, of varying ability -- and therefore
-    //   held up to a higher standard of development. Use the damn variables!
-    // * Parameters and Variables are named by convention to decrease inadvertent mistypings and 
-    //   hours lost debugging (which is expontially harder
-    //   in ARM due to the poor syntax accompanied by poor debugging tools.
-    //   * Each parameter is spelled out in full with the prefix of the type. So even if its obvious (ie, 
-    //     we're in an arm template called 'StorageAccount.json') the parameter's name 
-    //     is 'microsoftStorageStorageAccountsResourceLocation' -- and not 'resourceLocation' or worse 'location'. 
-    //     The rationale is that when you have a error message saying 'locaation' is not right, 
-    //     and it's not even hinting as to which file it's annoyed wit...you have even a clue as 
-    //     to where to start (eg: with 'location'...good luck. 
-    //     You probably have 100 places to get yourself lost in.) 
-    //
-    // Tricks of the trade:
-    // Comments are great...but they are not valid JSON. 
-    // Luckily, Azure and VSTS now accept though... 
+    // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+    // INSTRUCTIONS
+    // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+    // * This template is not much more a system specific (ie, in the system's source code)
+    //   simplified wrapper of a remote, much more complex, 'assembly'.
+    // * For the most part, leave it alone, concentrating on filling in the associated parameters file
+    //   within which you'll have to at consider providing the
+    // * Some Template vars are not provided by the Parameters file, but are provided
+    //   via the Build Agent, including:
+    //   * PrincipalId
+    // * Some params can be provided either in Params, or via Build Agent:
+    //   * environmentId
+    //   * templatesRelease
+    // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    // README:
-    // Parameters are to be considered raw/unvalidated/untrustable inputs.
-    // * Parameter Types: can be 'int','bool','string','object','array'.
-    // * Parameter Default Value: if null, will prompt and pause. Making it an empty string is a way to define
-    //   that it's the default nothing...and then use [empty(...)]
-    // * Parameter Allowed Values: prefer to use them, even if there is only one option to choose 
-    //   from (improves validation, and understandablity of any valiation errors raised) 
-    // * Location: ... is a difficult subject. 
-    //   By convention, you want everything near each other (ie db closest to server, which is closest to use)
-    //   But that's not always possible. For example. I might want all my servers in Australia....but 
-    //   database servers can't be created there 
-    //   (they're not offered). The closest accreditable 'nearshore' place I can find is 'southeastasia'.
-    //   So we can't go off and blindly use '[resourceGroup().location]' (mirroring the 
-    //   parent location, up to the resource group's location).
-    //   It will work in most cases -- but not all:  
-    //   * `resourceAltLocation`: ...hence the need for the `resourceAltLocation` parameter -- which 
-    //     is used where needed. For example, when the sqlServerLocation is determined, it first looks to see if it 
-    //     provided as a parameter. And if not, falls back to `resourceAltLocation`
-    //   * And as for all child resources  (eg, sql firewall rules, database, etc.) they *have* to be match
-    //     the same location as the parent (sql server) resource. So they don't get much of a
-    //      say here -- we just reuse [variables('sql').server.resourceLocation] for them as well.
-    //   * Choice: I'm not going to give much choice as to where you build resources. 
-    //     These templates only allow Australia and southeastasia. Because
-    //     I prefer to not be sorry about this later.
-    //
-    // Tips:
-    // https://stackoverflow.com/questions/47834825/in-vs-code-disable-error-comments-are-not-permitted-in-json
     "parameters": {
         // -------------------------------------------------------
-        // Parameters: ENVIRONMENT
+        // PARAMETERS: PRINCIPAL
         // -------------------------------------------------------
-        "environmentId": {
+        "principalId": {
+            "defaultValue": "",
             "metadata": {
-                "description": "Required. The http based base url from which to download referenced linked Assembly ARM Templates. In most cases will be an Url to a Storage Account Container Url to which newly downloaded Source Files (just the ARM Templates) are copied to."
+                "description": "Required. The AAD object Id of the Principal deploying the environment (the VSTS Service Account Id, or the manual user's Id will do)."
             },
             "type": "string"
         },
-
-        // Optional. A hash, or environmentId to microsoftWebSitesHostNameBindingsHostName and microsoftWebSitesHostNameBindingsHostNameAlt
-        //  (eg: 
-        // {
-        //   'BT':{'microsoftWebSitesHostNameBindingsHostName':'...', 'microsoftWebSitesHostNameBindingsHostNameAlt':'...'}, 
-        //   'ST':{'microsoftWebSitesHostNameBindingsHostName':'...', 'microsoftWebSitesHostNameBindingsHostNameAlt':'...'}
-        // }.
-        // Note that a cert can contain muliple hostnames.
-        // 
-        // Also, you have to own the name and make a CNAME record of it or you will be get a deployment error or :
-        // "A CNAME record pointing from foobarsite.com to foobar.azurewebsites.net was not found. 
-        // Alternative record awverify.foobarsite.com to awverify.foobar.azurewebsites.net was not found either."
-        // 
-        // The alt record is optional. But if the primary hostname is for 'www.foobar.com', use alt for 'foobar.com' 
-        "environmentOverrides" : {
-            "type": "object",
-            "defaultValue": {
-                "--": {
-                    "microsoftWebSitesHostNameBindingsHostName": "",
-                    "microsoftWebSitesHostNameBindingsHostNameAlt": "",
-                    "microsoftCacheRedisProvision": true,
-                    "microsoftDocumentDBDatabaseAccountsProvision": true,
-                    "microsoftSearchSearchServicesProvision": true
-                }
+        // -------------------------------------------------------
+        // PARAMETERS: ENVIRONMENT
+        // -------------------------------------------------------
+        "environmentId": {
+            "defaultValue": "--",
+            "metadata": {
+                "description": "Required. The http based root url from which to download referenced linked Assembly ARM Templates. In most cases will be an Url to a Storage Account Container Url to which newly downloaded Source Files (just the ARM Templates) are copied to."
             },
+            "type": "string"
+        },
+        "environmentOverrides": {
+            "type": "object",
+            "defaultValue": {},
             "metadata": {
                 "description": "Optional. A hash, of environmentId to microsoftWebSitesHostNameBindingsHostName and microsoftWebSitesHostNameBindingsHostNameAlt (eg: {'BT':{'microsoftWebSitesHostNameBindingsHostName':'...', 'microsoftWebSitesHostNameBindingsHostNameAlt':'...'}, {'ST':{'microsoftWebSitesHostNameBindingsHostName':'...', 'microsoftWebSitesHostNameBindingsHostNameAlt':'...'}, }."
             }
         },
-
         // -------------------------------------------------------
-        // Parameters: TEMPLATES
+        // PARAMETERS: TEMPLATES
         // -------------------------------------------------------
-		// Required. The templates release version of the remote templates. eg: 0.0 (without any prefix 'v')
-        "templatesRelease":{
-			"defaultValue":"",
+        "templatesRelease": {
+            "defaultValue": "-.-",
             "metadata": {
-                "description": "Required. The templates release version of the remote templates. eg: 0.0 (without any prefix 'v')"
+                "description": "Optional. The templates release version of the remote templates. eg: 0.0 (without any prefix 'v'). The default will be ('-.-'), which is the dev release."
             },
             "type": "string"
         },
-        // The http based base url from which to download referenced Assembly ARM Templates. 
+        // The http based root url from which to download referenced Assembly ARM Templates. 
         // In most cases will be an Url to a Storage Account Container Url to which 
         // newly downloaded Source Files (just the ARM Templates) are copied to
         "linkedAssembliesArmTemplateRootUrl": {
+            "defaultValue": "https://nzmoestartpublic.blob.core.windows.net/public/start/releases/{TEMPLATESRELEASE}/arm-templates/assemblies/",
             "metadata": {
-                "description": "Required. The http based base url from which to download referenced linked Assembly ARM Templates. In most cases will be an Url to a Storage Account Container Url to which newly downloaded Source Files (just the ARM Templates) are copied to."
+                "description": "Required. The http based root url from which to download referenced linked Assembly ARM Templates. In most cases will be an Url to a Storage Account Container Url to which newly downloaded Source Files (just the ARM Templates) are copied to."
             },
             "type": "string"
         },
@@ -124,12 +72,13 @@
             },
             "type": "string"
         },
-        // The http based base url from which to download referenced linked Resource ARM Templates. 
+        // The http based root url from which to download referenced linked Resource ARM Templates. 
         // In most cases will be an Url to a Storage Account Container Url to which 
         // newly downloaded Source Files (just the ARM Templates) are copied to
         "linkedResourcesArmTemplateRootUrl": {
-            "metadata": {
-                "description": "Required. The http based base url from which to download referenced linked Resource ARM Templates. In most cases will be an Url to a Storage Account Container Url to which newly downloaded Source Files (just the ARM Templates) are copied to."
+          "defaultValue": "https://nzmoestartpublic.blob.core.windows.net/public/start/releases/{TEMPLATESRELEASE}/arm-templates/resources/",
+          "metadata": {
+                "description": "Required. The http based root url from which to download referenced linked Resource ARM Templates. In most cases will be an Url to a Storage Account Container Url to which newly downloaded Source Files (just the ARM Templates) are copied to."
             },
             "type": "string"
         },
@@ -142,55 +91,21 @@
             },
             "type": "string"
         },
-        "resourceAltLocation": {
-            "defaultValue": "southeastasia",
-            "allowedValues": [
-                "southeastasia"
-            ],
-            "metadata": {
-                "description": "Optional. The alt resource location, used for Databases, and any other resources that can't be location in the primary resourceLocation."
-            },
-            "type": "string"
-        },
-        // There should be absolutely no need to provide custom names for each resoource...
-        // Prefer Convention over Convention. 
-        // That said, you'll need some kind common template for the names of the resources.
-        // For example:
-        // MYORG-MYAPP-{ENVID}-{BRANCHID}-{RESOURCETYPE}
-        // or better yet:
-        // MYORG-MYAPP-{ENVID}-{BRANCHID}-{RT}
-        // where {RT} is automatically replaced as needed with a token to represent the final
-        // resource name. 
-        // An example output might be:
-        // MYORG-MYAPP-BT-US1023-SQL-SERVER
-        // Limitations to think about:
-        // KeyVault names: Length:[3-24], alphanumeric, with dashes, lowercase and uppercase allowed
-        // Storage Account names: Length [3-24], alphanumeric, no dashes, lowercase only
-        // Database name: length: [1-?], alphanumeric, dashes allowed
-        // Database server: length: [1-63], alphanumeric, dashes, allowed, lowercase only
-        // DocumentDb: length: [1-24-31], alphanumeric, no dashes, lowercase only
-        // Resource Group: length [1-...], alphanumeric, dashes, lowercase and uppercase allowed
-        // App Insights: length [1-...], alphanumeric, dashes, lowercase and uppercase
-        // App Site: length [1-...], alphanumeric, dashes, lowercase and uppercase allowed
-        // BASICALLY:
-        // * Only practical solution to keep naming consistent is to work within the minimum constraint
-        //   of all lowercase, no dashes, limited to 24 chars. 
-        // * Maybe end sections with numbers to be dividers:
-        //   * eg: 123456789012345678901234 <- length
-        //   * eg: edu0moe0app0branch00resourcetype00
+        // -------------------------------------------------------
+        // PARAMETERS: COMMON
+        // -------------------------------------------------------
+        // Name of the resources within the resourcegroup.
         "resourceNameTemplate": {
+            "defaultValue": "[resourceGroup().name]",
             "metadata": {
-                "description": "Required. The default name template to use when developing the names of newly created Resources (eg: 'MYORG-MYAPP-{ENVID}-{BRANCHID}-{RESOURCETYPE}')'."
+                "description": "Required. The default name template to use when developing the names of newly created Resources (eg: 'COUNTRYCODE-MYORG-MYAPP-{ENVID}-{BRANCHID}-{RESOURCETYPE}')'."
             },
             "minLength": 6,
             "maxLength": 50,
             "type": "string"
         },
-        // -------------------------------------------------------
-        // Parameters: COMMON
-        // -------------------------------------------------------
         // Tags that are common to all resources.
-        "commonResourceTags": {
+        "resourceCommonTags": {
             "defaultValue": {},
             "metadata": {
                 "description": "Optional. An Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
@@ -198,7 +113,7 @@
             "type": "object"
         },
         // -------------------------------------------------------
-        // Parameters: SECURITY
+        // PARAMETERS: SECURITY
         // -------------------------------------------------------
         "securityApproach": {
             "allowedValues": [
@@ -206,7 +121,7 @@
                 // Rely on storage keys.
                 // The deployment process saves DB Admin Name/Password to the Resource Group's KeyVault.
                 // The deployment process saves Storage Keys to the Resource Group's KeyVault.
-                "insecure",
+                "classic",
                 // Rely on Azure Role assignment to an OAuth Service Pricipal
                 // note this still is highly insecure as it 
                 // involves the web.config committing to source code the client id and secret
@@ -222,84 +137,15 @@
                 // The deployment process saves Storage Keys to the Resource Group's KeyVault.
                 "msi"
             ],
-            "defaultValue": "msi",
+            "defaultValue": "classic",
             "metadata": {
                 "description": "Optional. An flag specifying if the vault is enabled for VM or Service Fabric deployment"
             },
             "type": "string"
         },
         // -------------------------------------------------------
-        // Parameters: MICROSOFT / AUTHORISATION
+        // PARAMETERS: MICROSOFT / SQL / SERVERS
         // -------------------------------------------------------
-        // N / A
-        // -------------------------------------------------------
-        // Parameters: MICROSOFT / CACHE / REDIS
-        // -------------------------------------------------------
-        "microsoftCacheRedisProvision": {
-            "defaultValue": true,
-            "metadata": {
-                "description": "Optional. Cache has a minimum cost of about 20$ per month. But, more importantly, it takes ages to provision."
-            },
-            "type": "bool"
-        },
-        // -------------------------------------------------------
-        // Parameters: MICROSOFT / KEYVAULT / VAULTS
-        // -------------------------------------------------------
-        // N / A
-        // -------------------------------------------------------
-        // Parameters: MICROSOFT / KEYVAULT / VAULTS / SECRETS
-        // -------------------------------------------------------
-        "microsoftKeyVaultVaultsSecretsSecrets": {
-            "type": "array",
-            // A surprising fact is that the pre-parser that allows
-            // JSON to be added to the ARM template -- even though
-            // JSON does not support comments -- does not work within
-            // Arrays. So Do NOT comment within the array!
-            // **************************************************
-            // it is *IMPERATIVE* that no comments are added *within* the 
-            // dynamic array. 
-            // Or you will get an error saying 
-            // Invalid array passed in, ',' expected. (76956)
-            // It's just that JSON does not allow Comments. And even though
-            // the pre-parser strips out comments in between objects, it doesn't 
-            // in this case.
-            // I know...right?!?!? What's up with that??!?? Grrrrr!!!
-            // **************************************************
-            "defaultValue": [
-                {
-                    "name": "system-integration-scanii-malwaredetection-oauth-clientid",
-                    "type": "text/plain",
-                    "value": "todo:how to get this from vault?"
-                },
-                {
-                    "name": "system-integration-scanii-malwaredetection-oauth-clientsecret",
-                    "type": "text/plain",
-                    "value": "todo:how to get this from vault?"
-                }
-            ],
-            "metadata": {
-                "description": "Optional. An array of Complex of name, type, value. With no comments allowed within the array (due to bug in VSTS)."
-            }
-        },//~keyvault
-        // -------------------------------------------------------
-        // Parameters: MICROSOFT / SQL / SERVERS
-        // -------------------------------------------------------
-        // Provide the Sql Server Administrator's name, which an 
-        // infrastructure support specialist will have 
-        // defined and set within a key vault 
-        // outside of the projects resource group (and probably 
-        // in a different subscription) so use the reference approach
-        //  to get it out, and place it here.
-        // Required when creating a new Database Server. 
-        // Note that security is not perfect: a developer can develop
-        // arm templates whose output records the values it extracts
-        // from a keyvault.
-        // "reference": {
-        //   "keyVault": {
-        //     "id": "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.KeyVault/vaults/{keyvaultName}"
-        //   },
-        //   "secretName": "{keyName}"
-        // }
         "microsoftSqlServersAdministratorLogin": {
             "minLength": 6,
             "metadata": {
@@ -307,58 +153,15 @@
             },
             "type": "string"
         },
-        // Provide the Sql Server Administrator's Password, which an 
-        // infrastructure support specialist will have 
-        // set the provided the password in a key vault 
-        // outside of the projects resource group (and probably 
-        // in a different subscription) so use the reference approach
-        //  to get it out, and place it here.
-        // Required when creating a new Database Server. 
-        // Note that security is not perfect: a developer can develop
-        // arm templates whose output records the values it extracts
-        // from a keyvault.
-        // "reference": {
-        //   "keyVault": {
-        //     "id": "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.KeyVault/vaults/{keyvaultName}"
-        //   },
-        //   "secretName": "{keyName}"
-        // }
         "microsoftSqlServersAdministratorLoginPassword": {
             "metadata": {
                 "description": "Required. Provide the Sql Server Administrator's Password, which an infrastructure support specialist will have defined and set within a key vault outside of the projects resource group (and probably in a different subscription) so use the reference approach to get it out, and place it here.  Required when creating a new Database Server.  Note that security is not perfect: a developer can develop arm templates whose output records the values it extracts from a keyvault."
             },
             "type": "securestring"
         },
-        // The Name of the ARM developer (ie *you*!) who is certifying they 
-        // understand the security risks of recording passwords in a parameter file, 
-        // or any other code, and are not doing it here (and the code base's commit history
-        //  will back them up). 
-        // Instead, the value will be retrieved from an eternal keyvault to which the 
-        // build service has been granted access. 
-        "microsoftSqlServersDeveloperStatingSecretsAreNotRecordedInCode": {
-            "minLength": 4,
-            "metadata": {
-                "description": "Required. The Name of the ARM developer (ie *you*!) who is certifying they understand the security risks of recording passwords in a parameter file, or any other code and are not doing it here (and the code base's commit history will back them up). Instead, the value will be retrieved from an eternal keyvault to which the build service has been granted access. "
-            },
-            "type": "string"
-        },
         // -------------------------------------------------------
-        // Parameters: MICROSOFT / WEB / CERTIFICATE
+        // PARAMETERS: MICROSOFT / WEB / CERTIFICATE
         // -------------------------------------------------------
-        // Not needed, as must be same as parent Resource Location:
-        // "microsoftWebCertificatesResourceLocation": 
-        // 
-        // In the parameter, retrieve the value from a remote keyvault (outside the target resource group)
-        // using code similar to the following:  
-        //   // Provide a password for this pfx
-        //   "microsoftWebCertificatesPfxPassword": {
-        //     "reference": {
-        //       "keyVault": {
-        //         "id": "/subscriptions/{subscriptionId}/resourceGroups/{group-name}/providers/Microsoft.KeyVault/vaults/{vault-name}"
-        //       },
-        //     "secretName": "{keyName}"
-        //     }        
-        //   },
         "microsoftWebCertificatesPfxBase64": {
             "defaultValue": "",
             "metadata": {
@@ -366,98 +169,17 @@
             },
             "type": "string"
         },
-        // In the parameter, retrieve the value from a remote keyvault (outside the target resource group)
-        // using code similar to the following:  
-        //   // Provide a password for this pfx
-        //   "microsoftWebCertificatesPfxPassword": {
-        //     "reference": {
-        //       "keyVault": {
-        //         "id": "/subscriptions/{subscriptionId}/resourceGroups/{group-name}/providers/Microsoft.KeyVault/vaults/{vault-name}"
-        //       },
-        //       "secretName": "{keyName}"
-        //     }        
-        //   },
         "microsoftWebCertificatesPfxPassword": {
+            "defaultValue": "",
             "metadata": {
                 "description": "Optional.   Password for the appService Web Site SSL Pfx Certificate. Only required if `sslCertificateBase64` is provided."
             },
             "type": "securestring"
         },
-        // The Name of the ARM developer (ie *you*!) who is certifying they 
-        // understand the security risks of recording passwords in a parameter file, 
-        // or any other code, and are *NOT* doing it here (and the code base's commit history
-        //  will back them up). 
-        // Instead, the value will be retrieved from an eternal keyvault to which the 
-        // build service has been granted access. 
-        "microsoftWebCertificatesDeveloperStatingSecretsAreNotRecordedInCode": {
-            "minLength": 4,
-            "metadata": {
-                "description": "The Name of the ARM developer (ie *you*!) who is certifying they understand the security risks of recording passwords in a parameter file, or any other code and are not doing it here (and the code base's commit history will back them up). Instead, the value will be retrieved from an eternal keyvault to which the build service has been granted access. "
-            },
-            "type": "string"
-        },
-        // -------------------------------------------------------
-        // Parameters: MICROSOFT / WEB / SERVERFARMS
-        // -------------------------------------------------------
-        // B1 (Basic Small) or higher is needed for HostBinding and SSL.
-        // B1 is about 95$/month, and S1 is about 135/month.
-        // And S1 gets backups every day. 
-        // At 1$/day more, it's worth the it, for a corporation.
-        "microsoftWebServerFarmsResourceSku": {
-            "allowedValues": [
-                "F1",
-                "D1",
-                "B1",
-                "S1",
-                "S2"
-            ],
-            "defaultValue": "F1",
-            "metadata": {
-                "description": "Optional. App Service server pricing tier and capacity. Check details at https://azure.microsoft.com/en-us/pricing/details/app-service/ Default is F1 to keep prices down until you know you need Site Binding. Or AlwaysOn. Or other features that need a mininum of S1."
-            },
-            "type": "string"
-        },
-        // -------------------------------------------------------
-        // Parameters: MICROSOFT / WEB / SITE 
-        // -------------------------------------------------------
-        // Optional. The default is false as true requires a minimal SKU of S1.
-        "microsoftWebSitesAlwaysOn": {
-            "defaultValue": false,
-            "metadata": {
-                "description": "Optional. The default is false as true requires a minimal SKU of S1."
-            },
-            "type": "bool"
-        },
-        // -------------------------------------------------------
-        // Parameters: MICROSOFT / WEB / SITE / APPSETTINGS
-        // -------------------------------------------------------
-        // Optional. A Complex Object (ie, JSON) containing a series 
-        // of stringKey/stringValues that are added to the target site as AppSettings.
-        // An example would be:
-        //     "defaultValue": {
-        //         "ExampleKey": "exampleValue"
-        //     },
-        "microsoftWebSitesConfigAppSettings": {
-            "defaultValue": {},
-            "metadata": {
-                "description": "Optional. A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target site as AppSettings."
-            },
-            "type": "object"
-        },
-        // The Name of the ARM developer (ie *you*!) who is certifying they 
-        // understand the security risks of recording passwords in a parameter file, 
-        // or any other code, and are not doing it here (and the code base's commit history
-        //  will back them up). 
-        "microsoftWebSitesConfigAppSettingsDeveloperStatingSecretsAreNotRecordedInCode": {
-            "minLength": 4,
-            "metadata": {
-                "description": "The Name of the ARM developer (ie *you*!) who is certifying they understand the security risks of recording passwords in a parameter file, or any other code and are not doing it here (and the code base's commit history will back them up)."
-            },
-            "type": "string"
-        },
-        // -------------------------------------------------------
-        // Parameters: MICROSOFT / WEB / SITE / CONNECTIONSTRINGS
-        // -------------------------------------------------------
+
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / WEB / SITES / CONFIG / CONNECTIONSTRINGS
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
         // "Optional. A Complex Object (not an array) of a set of {'name' { 'value' and 'type'}}, that are added to the site's ConnectionStrings. Type should be 2 in most cases."
         // Type is case sensitive string, and can be MySql, SQLServer, SQLAzure, Custom, NotificationHub, ServiceBus, EventHub, ApiHub, DocDb, RedisCache, PostgreSQL. SQL 
         // If things stop working, ensure:
@@ -466,7 +188,7 @@
         // ensure you are passing an object {} and not an array
         // ensure the name is the key to a sub object of two params, and not an array of objects containing 3 objects
         // ensure the type is string, and case sensitive (and not a number)
-        // An example might be:
+        // An example would be:
         // "defaultValue": {
         //     "ExampleConnString1": {
         //         "value": "Server=myServerAddress;Database=myDataBase;Trusted_Connection=True;",
@@ -477,62 +199,197 @@
         //         "type": "SQLAzure"
         //     },
         //     "defaultSystemConnectionString": {
-        //         "value": "Data Source={DB_SERVER}.database.windows.net,1433;Initial Catalog={DB_NAME};Connect Timeout={DB_TIMEOUT};",
+        //         "value": "Data Source=tcp:{DB_SERVER}.database.windows.net,1433; Initial Catalog={DB_NAME};Connect Timeout={DB_TIMEOUT};",
         //         "type": "SQLAzure"
         //     }
         // },
         "microsoftWebSitesConfigConnectionStrings": {
+            "type": "object",
             "defaultValue": {},
             "metadata": {
                 "description": "Optional. A Complex Object (not an array) of a set of {'name' { 'value' and 'type'}}, that are added to the site's ConnectionStrings. Type is Case Senstive. And probably should be SQLAzure in most cases."
-            },
-            "type": "object"
-        },
-        // The Name of the ARM developer (ie *you*!) who is certifying they 
-        // understand the security risks of recording passwords in a parameter file, 
-        // or any other code, and are not doing it here (and the code base's commit history
-        //  will back them up). 
-        // Instead, use the Azure equivalent to IntegratedSecurity (ie, MSI).
-        "microsoftWebSitesConfigConnectionStringsDeveloperStatingSecretsAreNotRecordedInCode": {
-            "minLength": 4,
-            "metadata": {
-                "description": "The Name of the ARM developer (ie *you*!) who is certifying they understand the security risks of recording passwords in a parameter file, or any other code and are not doing it here (and the code base's commit history will back them up). Instead, use the Azure equivalent to IntegratedSecurity (ie, MSI)."
-            },
-            "type": "string"
-        },
-        // -------------------------------------------------------
-        // Parameters: MICRSOOFT / WEB / SITE / HOSTBINDINGNAME
-        // -------------------------------------------------------
-        "microsoftWebSitesHostNameBindingsHostName": {
-            "type": "string",
-            "minLength": 0,
-            "metadata": {
-                "description": "Required. The public DNS name of the website. Default is ''. Will require a WebServerFarm SKU of S1 of higher to be set."
-            }
-        },
-        // Optional. If 'microsoftWebSitesHostNameBindingsHostName' is used 
-        // for 'www.mydomain.tld', you want to be able to 
-        // also register 'mydomain.tld' as well.
-        "microsoftWebSitesHostNameBindingsHostNameAlt": {
-            "type": "string",
-            "minLength": 0,
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. If 'microsoftWebSitesHostNameBindingsHostName' is used for 'www.mydomain.tld', you want to be able to also register 'mydomain.tld' as well."
             }
         },
 
-        // -------------------------------------------------------
-        // Parameters: SERVICES / OAUTHSERVICE / CLIENT / BASICS
-        // -------------------------------------------------------
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // Parameters SERVICE INTEGRATION / COMMON / CACHING
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "serviceIntegrationCachingServiceName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. Provide a name to recognize what these settings are for."
+            }
+        },
+        // Optional. To use a common Mem Caching service, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationCachingServiceEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. To use service a common Mem Caching service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // Optional. To use a common Mem Caching service, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationCachingServiceUri": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use service a common Mem Caching service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // Optional. To use a common Mem Caching service, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationCachingServiceClientId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use a common Mem Caching service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // Optional. To use a common Mem Caching service, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationCachingServiceClientSecret": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use a common Mem Caching service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        "serviceIntegrationCachingServiceClientMisc": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use a common Mem Caching service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // Parameters SERVICE INTEGRATION / COMMON DB
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "serviceIntegrationCommonDbName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. Provide a name to recognize what these settings are for."
+            }
+        },
+        // Optional. To use CommonDb, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationCommonDbEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. To use CommonDb, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // Optional. To use CommonDb, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationCommonDbUri": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use CommonDb, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // Optional. To use CommonDb, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationCommonDbClientId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use CommonDb, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // Optional. To use CommonDb, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationCommonDbClientSecret": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use CommonDb, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        "serviceIntegrationCommonDbClientMisc": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use CommonDb, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // Parameters SERVICE INTEGRATION / COMMON / STAGING DB
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "serviceIntegrationStagingDbName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. Provide a name to recognize what these settings are for."
+            }
+        },
+        // Optional. To use service 02 (whatever it is),you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationStagingDbEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationStagingDbUri": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationStagingDbClientId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationStagingDbClientSecret": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        "serviceIntegrationStagingDbClientMisc": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // Parameters SERVICE INTEGRATION / OAUTHSERVICE / CLIENT / BASICS
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "serviceIntegrationOAuthServiceName": {
+            "type": "string",
+            "defaultValue": ""
+        },
         // Optional.
         // Hook up to an OAuth Authority (you will need 
         // to provide the OAuth AuthorityUri, ClientId ClientKey.
-        "servicesOAuthServiceEnabled": {
+        "serviceIntegrationOAuthServiceEnabled": {
             "type": "bool",
             "defaultValue": true,
             "metadata": {
                 "description": "Hook up to an OAuth Authority (you will need to provide the OAuth AuthorityUri, ClientId ClientKey."
+            }
+        },
+        // Optional. Where the system sends authentication requests off to (the Authority Uri).
+        "serviceIntegrationOAuthServiceUri": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. Where the system sends authentication requests off to  (the Authority Uri)."
             }
         },
         // Optional. If your system needs to authenticate users, it should be via OIDC. 
@@ -540,7 +397,7 @@
         // If authenticating systems, it should be via OAuth.  
         // Both require that you have the ClientId and ClientSecret that were developed 
         // by the remote IdP when you registered your app with it.
-        "servicesOAuthServiceClientId": {
+        "serviceIntegrationOAuthServiceClientId": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
@@ -552,19 +409,18 @@
         // If authenticating systems, it should be via OAuth.  
         // Both require that you have the ClientId and ClientSecret that were developed 
         // by the remote IdP when you registered your app with it.
-        "servicesOAuthServiceClientSecret": {
+        "serviceIntegrationOAuthServiceClientSecret": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. If your system needs to authenticate users, it should be via OIDC. Which is an extension of OAuth. If authenticating systems, it should be via OAuth. Both require that you have the ClientId and ClientSecret that were developed by the remote IdP when you registered your app with it."
             }
         },
-        // Optional. Where the system sends authentication requests off to.
-        "servicesOAuthServiceAuthorityUri": {
+        "serviceIntegrationOAuthServiceClientMisc": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
-                "description": "Optional. Where the system sends authentication requests off to."
+                "description": "Optional."
             }
         },
         // Optional. If your system needs to authenticate users, using OIDC, 
@@ -572,7 +428,7 @@
         // This is the 'redirect_uri' value of an OAuth request.
         //  '/' won't work (that would be the IdP's home page). 
         // If not provided, will be automatically generated using 'https' and your host binding name you provided.
-        "servicesOAuthServiceClientRedirectUri": {
+        "serviceIntegrationOAuthServiceClientRedirectUri": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
@@ -584,411 +440,288 @@
         // you want to redirect them to the home page or other. The default is '/'.
         // It's not part of the protocol - it's just a value to that code 
         // wrapping the prootocol can use.
-        "servicesOAuthServiceClientPostLogoutRedirectUri": {
+        "serviceIntegrationOAuthServiceClientPostLogoutRedirectUri": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. If your system needs to authenticate users, using OIDC, after a user is signed off (destroying their security token), you want to redirect them to the home page or other. The default is '/'."
             }
         },
-        // -------------------------------------------------------
-        // Parameters: SERVICES / OIDCSERVICE / SERVER
-        // -------------------------------------------------------
-        // TBD
-        // -------------------------------------------------------
-        // Parameters: SERVICES / OIDCSERVICE / POLICIES 
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // Parameters SERVICE INTEGRATION / OIDCSERVICE / POLICIES 
         // (ONLY RELEVANT WITH A POLICY BASED OIDC IDP, SUCH AS AZURE B2C)
-        // -------------------------------------------------------
-        "servicesOIDCServicePoliciesSignUpSignInPolicyId": {
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "serviceIntegrationOIDCServicePoliciesSignUpSignInPolicyId": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. The name of the B2C's Policy/Flow to use for SignUp/SignIn."
             }
         },
-        "servicesOIDCServicePoliciesUserProfilePolicyId": {
+        "serviceIntegrationOIDCServicePoliciesUserProfilePolicyId": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. The name of the B2C's Policy/Flow to use for retrieving the User Profile."
             }
         },
-        "servicesOIDCServicePoliciesEditProfilePolicyId": {
+        "serviceIntegrationOIDCServicePoliciesEditProfilePolicyId": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. The name of the B2C's Policy/Flow to use for editing the User Profile."
             }
         },
-        "servicesOIDCServicePoliciesResetPasswordPolicyId": {
+        "serviceIntegrationOIDCServicePoliciesResetPasswordPolicyId": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. The name of the B2C's Policy/Flow to use for reseting the user's Password."
             }
         },
-        // -------------------------------------------------------
-        // Parameters: SERVICES / GEOIP SERVICE
-        // -------------------------------------------------------
-        // Optional. To use a remote OAuth based malware detection service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "servicesIPGeoServiceEnabled": {
-            "type": "bool",
-            "defaultValue": true,
-            "metadata": {
-                "description": "Optional. To use a remote OAuth based IP-to-Coordinates translation service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use a remote OAuth based IP-to-Coordinates translation service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "servicesIPGeoServiceUri": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use a remote OAuth based IP-to-Coordinates translation service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use a remote OAuth based IP-to-Coordinates translation service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "servicesIPGeoServiceClientId": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use a remote OAuth based IP-to-Coordinates translation service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use a remote OAuth based IP-to-Coordinates translation service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "servicesIPGeoServiceClientSecret": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use a remote OAuth based IP-to-Coordinates translation service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        "servicesIPGeoServiceClientMiscConfiguration": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use a remote OAuth based IP-to-Coordinates translation service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },      
-        // -------------------------------------------------------
-        // Parameters: SERVICES / MALWARE DETECTION SERVICE
-        // -------------------------------------------------------
-        // Optional. To use a remote OAuth based malware detection service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "servicesMalwareDetectionServiceEnabled": {
-            "type": "bool",
-            "defaultValue": true,
-            "metadata": {
-                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use a remote OAuth based malware detection service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "servicesMalwareDetectionServiceUri": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use a remote OAuth based malware detection service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "servicesMalwareDetectionServiceClientId": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use a remote OAuth based malware detection service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "servicesMalwareDetectionServiceClientSecret": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        "servicesMalwareDetectionServiceClientMiscConfiguration": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },      
-
-
-        // -------------------------------------------------------
-        // Parameters: SERVICES / SMTPSERVICE
-        // -------------------------------------------------------
-        // Optional. To use the smtp service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "servicesSMTPServiceEnabled": {
-            "type": "bool",
-            "defaultValue": true,
-            "metadata": {
-                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use the smtp service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "servicesSMTPServiceUri": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
-			}
-        },
-        // Optional. To use the smtp service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "servicesSMTPServiceClientId": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                 "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use the smtp service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "servicesSMTPServiceClientSecret": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
-			}
-        },
-        "servicesSMTPServiceClientMiscConfiguration": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-
-
-        // -------------------------------------------------------
-        // Parameters: SERVICES / SERVICE01
-        // -------------------------------------------------------
-        "servicesService01Name": {
+        // ----------------------------------------------------------------------
+        // Parameters SERVICE INTEGRATION / SMTPSERVICE
+        // ----------------------------------------------------------------------
+        "serviceIntegrationSMTPServiceName": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. Provide a name to recognize what these settings are for."
             }
         },
-        // Optional. To use service 01 (whatever it is), 
+        // Optional. To use the smtp service, 
         // you need to enable it then provide the uri, client id and client secret.
-        "servicesService01Enabled": {
+        "serviceIntegrationSMTPServiceEnabled": {
             "type": "bool",
             "defaultValue": true,
             "metadata": {
-                "description": "Optional. To use service 01 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
             }
         },
-        // Optional. To use service 01 (whatever it is), 
+        // Optional. To use the smtp service, 
         // you need to enable it then provide the uri, client id and client secret.
-        "servicesService01Uri": {
+        "serviceIntegrationSMTPServiceUri": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
-                "description": "Optional. To use service 01 (whatever it is), you need to enable it then provide the uri, client id and client secret."
-			}
-        },
-        // Optional. To use service 01 (whatever it is), 
-        // you need to enable it then provide the uri, client id and client secret.
-        "servicesService01ClientId": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                 "description": "Optional. To use service 01 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
             }
         },
-        // Optional. To use service 01 (whatever it is), 
+        // Optional. To use the smtp service, 
         // you need to enable it then provide the uri, client id and client secret.
-        "servicesService01ClientSecret": {
+        "serviceIntegrationSMTPServiceClientId": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
-                "description": "Optional. To use service 01 (whatever it is), you need to enable it then provide the uri, client id and client secret."
-			}
-        },
-        "servicesService01ClientMiscConfiguration": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use service 01 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
             }
         },
-        // -------------------------------------------------------
-        // Parameters: SERVICES / SERVICE02
-        // -------------------------------------------------------
-        "servicesService02Name": {
+        // Optional. To use the smtp service, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationSMTPServiceClientSecret": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
-                "description": "Optional. Provide a name to recognize what these settings are for."
+                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
             }
         },
-        // Optional. To use service 02 (whatever it is), 
+        "serviceIntegrationSMTPServiceClientMisc": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // ----------------------------------------------------------------------
+        // Parameters SERVICE INTEGRATION / MALWAREDETECTIONSERVICE
+        // ----------------------------------------------------------------------
+        "serviceIntegrationMalwareDetectionServiceName": {
+            "type": "string",
+            "defaultValue": "scanii"
+        },
+        // Optional. To use a remote OAuth based malware detection service, 
         // you need to enable it then provide the uri, client id and client secret.
-        "servicesService02Enabled": {
+        "serviceIntegrationMalwareDetectionServiceEnabled": {
             "type": "bool",
             "defaultValue": true,
             "metadata": {
-                "description": "Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
             }
         },
-        // Optional. To use service 02 (whatever it is), 
+        // Optional. To use a remote OAuth based malware detection service, 
         // you need to enable it then provide the uri, client id and client secret.
-        "servicesService02Uri": {
+        "serviceIntegrationMalwareDetectionServiceUri": {
             "type": "string",
-            "defaultValue": "",
+            "defaultValue": "https://api.scanii.com",
             "metadata": {
-                "description": "Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret."
-			}
-        },
-        // Optional. To use service 02 (whatever it is), 
-        // you need to enable it then provide the uri, client id and client secret.
-        "servicesService02ClientId": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                 "description": "Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
             }
         },
-        // Optional. To use service 02 (whatever it is), 
+        // Optional. To use a remote OAuth based malware detection service, 
         // you need to enable it then provide the uri, client id and client secret.
-        "servicesService02ClientSecret": {
+        "serviceIntegrationMalwareDetectionServiceClientId": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
-                "description": "Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret."
-			}
-        },
-        "servicesService02ClientMiscConfiguration": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret."
-            }
-        },        
-        // -------------------------------------------------------
-        // Parameters: SERVICES / SERVICE03
-        // -------------------------------------------------------
-        "servicesService03Name": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. Provide a name to recognize what these settings are for."
+                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
             }
         },
-        // Optional. To use service 03 (whatever it is), 
+        // Optional. To use a remote OAuth based malware detection service, 
         // you need to enable it then provide the uri, client id and client secret.
-        "servicesService03Enabled": {
+        "serviceIntegrationMalwareDetectionServiceClientSecret": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        "serviceIntegrationMalwareDetectionServiceClientMisc": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // ----------------------------------------------------------------------
+        // Parameters SERVICE INTEGRATION / GEOIPSERVICE
+        // ----------------------------------------------------------------------
+        "serviceIntegrationIPGeoConversionServiceName": {
+            "type": "string",
+            "defaultValue": "ipstack"
+        },
+
+
+
+        // Optional. To use service 01 (whatever it is), 
+        // you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationIPGeoConversionServiceEnabled": {
             "type": "bool",
             "defaultValue": true,
             "metadata": {
-                "description": "Optional. To use service 03 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+                "description": "Optional. To use Geo IP Service, you need to enable it then provide the uri, client id and client secret."
             }
         },
-        // Optional. To use service 03 (whatever it is), 
+        // Optional. To use service 01 (whatever it is), 
         // you need to enable it then provide the uri, client id and client secret.
-        "servicesService03Uri": {
+        "serviceIntegrationIPGeoConversionServiceUri": {
             "type": "string",
-            "defaultValue": "",
+            "defaultValue": "http://api.ipstack.com/{1}?access_key={0}",
             "metadata": {
-                "description": "Optional. To use service 03 (whatever it is), you need to enable it then provide the uri, client id and client secret."
-			}
-        },
-        // Optional. To use service 03 (whatever it is), 
-        // you need to enable it then provide the uri, client id and client secret.
-        "servicesService03ClientId": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                 "description": "Optional. To use service 03 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+                "description": "Optional. To use Geo IP Service, you need to enable it then provide the uri, client id and client secret."
             }
         },
-        // Optional. To use service 03 (whatever it is), 
+        // Optional. To use service 01 (whatever it is), 
         // you need to enable it then provide the uri, client id and client secret.
-        "servicesService03ClientSecret": {
+        "serviceIntegrationIPGeoConversionServiceClientId": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
-                "description": "Optional. To use service 03 (whatever it is), you need to enable it then provide the uri, client id and client secret."
-			}
-        },
-        "servicesService03ClientMiscConfiguration": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use service 03 (whatever it is), you need to enable it then provide the uri, client id and client secret."
+                "description": "Optional. To use Geo IP Service, you need to enable it then provide the uri, client id and client secret."
             }
+        },
+        // Optional. To use service 01 (whatever it is), 
+        // you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationIPGeoConversionServiceClientSecret": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use Geo IP Service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        "serviceIntegrationIPGeoConversionServiceClientMisc": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use a Geo IP Service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+		// -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / SQL SERVER / DATABASE
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "microsoftSqlServersDatabasesProvision": {
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. All but the smallest (or incorrectly architected) systems will have a Relational database."
+            },
+            "type": "bool"
+        },
+        // Pricing is 
+        // S0 (25$), S1 ($45)
+        "microsoftSqlServersDatabasesResourceSku": {
+            "type": "string",
+            "defaultValue": "Basic",
+            "allowedValues": [
+                "Basic",
+                "S0",
+                "S1",
+                "S2"
+            ],
+            "metadata": {
+                "description": "Describes the performance level of the Database. Default is Basic ($8/m, 5 DTU, sufficient for 2GB). S0 is plenty at 25$/m. 10 DTUs, 250Gb. "
+            }
+        },
+        "microsoftSqlServersDatabasesEdition": {
+            "type": "string",
+            "defaultValue": "Basic",
+            "allowedValues": [
+                "Basic",
+                "Standard",
+                "Premium"
+            ],
+            "metadata": {
+                "description": "TODO"
+            }
+        },
+		
+		"microsoftStorageStorageAccountsDefaultProvision": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional."
+            }
+        },
+		"microsoftCacheRedisProvision": {
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. Cache has a minimum cost of about 20$ per month. But, more importantly, it takes ages to provision."
+            },
+            "type": "bool"
         }
 
 
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: END (REMOVE LAST COMMA)
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8        
     },
     "variables": {
         // -------------------------------------------------------
-        // VARIABLES: RESOURCES
+        // VARIABLES: TEMPLATES
         // -------------------------------------------------------
-        "environmentId": "[parameters('environmentId')]",
-        "environmentOverrides": "[parameters('environmentOverrides')]",
-       // -------------------------------------------------------
-        // VARIABLES: RESOURCES
-        // -------------------------------------------------------
-        "securityApproach": "[parameters('securityApproach')]",
-        // -------------------------------------------------------
-        // VARIABLES: RESOURCES
-        // -------------------------------------------------------
-        "resources": {
-            "resourceNamePrefix": "[toLower('arm.start')]",
-            "resourceNameTemplate": "[parameters('resourceNameTemplate')]",
-            "commonResourceTags": "[parameters('commonResourceTags')]"
-        },
-        // -------------------------------------------------------
-        // VARIABLES: LOCATIONS
-        // -------------------------------------------------------
-        "locations": {
-            // Nearshore, closest:
-            "resourceLocation": "[resourceGroup().location]",
-            // When a resource cannot be developed in the primary data center, fall back to secondary Nearshore:
-            "resourceAltLocation": "[parameters('resourceAltLocation')]"
-        },
-        // -------------------------------------------------------
-        // VARIABLES: ASSEMBLY
-        // -------------------------------------------------------
-        "assembly": {
-            "armTemplateId": "[concat(variables('resources').resourceNamePrefix, 'assembly.01')]",
-            "linkedAssembly01TemplateUrl": "[concat( replace( parameters('linkedAssembliesArmTemplateRootUrl'),'{TEMPLATESRELEASE}', parameters('templatesRelease')), 'arm.assembly.01.json', parameters('linkedAssembliesArmTemplateRootSas'))]",
-            "linkedResourcesArmTemplateRootUrl": "[replace( parameters('linkedResourcesArmTemplateRootUrl'),'{TEMPLATESRELEASE}', parameters('templatesRelease'))]",
-            "linkedResourcesArmTemplateRootSas": "[parameters('linkedResourcesArmTemplateRootSas')]"
-        }
+        // Local name of the invoked template:
+        "resourceNamePrefix": "[toLower('arm.start.')]",
+        "appTemplateId": "[concat(variables('resourceNamePrefix'), 'app')]"
         // -------------------------------------------------------
     }, //~variables
-    // ----------------------------------------------------------------------
-    // ----------------------------------------------------------------------
+    // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
     // Resources
-    // ----------------------------------------------------------------------
-    // ----------------------------------------------------------------------
+    // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
     "resources": [
         // -------------------------------------------------------
         // RESOURCES: COMMON `ASSEMBLIES` LINKED TEMPLATE
         // -------------------------------------------------------
         {
-            "name": "[variables('assembly').armTemplateId]",
-            "apiVersion": "2017-05-10",
+            "name": "[variables('appTemplateId')]",
+            "apiVersion": "2016-02-01",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[variables('assembly').linkedAssembly01TemplateUrl]",
+                    "uri": "[concat( replace( parameters('linkedAssembliesArmTemplateRootUrl'),'{TEMPLATESRELEASE}', parameters('templatesRelease')), '30/arm.assembly.env.json', parameters('linkedAssembliesArmTemplateRootSas'))]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
+                    // -------------------------------------------------------
+                    "principalId": {"value": "[parameters('principalId')]"},
                     // -------------------------------------------------------
                     // Pass through the above parameters to the parameters
                     // of the linked Assemblies ARM Template. 
@@ -998,319 +731,157 @@
                     // project specific ARM template as light/simple/maintainable
                     // as possible.
                     // -------------------------------------------------------
-                    "environmentId": {
-                        "value": "[variables('environmentId')]"
-                    },
-                    "environmentOverrides": {
-                        "value": "[variables('environmentOverrides')]"
-                    },
+                    "environmentId": {"value": "[parameters('environmentId')]"},
+                    "environmentOverrides": {"value": "[parameters('environmentOverrides')]"},
                     // -------------------------------------------------------
-                    "linkedResourcesArmTemplateRootUrl": {
-                        "value": "[variables('assembly').linkedResourcesArmTemplateRootUrl]"
-                    },
-                    "linkedResourcesArmTemplateRootSas": {
-                        "value": "[variables('assembly').linkedResourcesArmTemplateRootSas]"
-                    },
-                    "resourceAltLocation": {
-                        "value": "[variables('locations').resourceAltLocation]"
-                    },
-                    "resourceNameTemplate": {
-                        "value": "[variables('resources').resourceNameTemplate]"
-                    },
-                    "commonResourceTags": {
-                        "value": "[variables('resources').commonResourceTags]"
-                    },
-                    "securityApproach": {
-                        "value": "[variables('securityApproach')]"
-                    },
+                    "linkedResourcesArmTemplateRootUrl": {"value": "[replace( parameters('linkedResourcesArmTemplateRootUrl'),'{TEMPLATESRELEASE}', parameters('templatesRelease'))]"},
+                    "linkedResourcesArmTemplateRootSas": {"value": "[parameters('linkedResourcesArmTemplateRootSas')]"},
+                    "resourceNameTemplate": {"value": "[parameters('resourceNameTemplate')]"},
                     // -------------------------------------------------------
-                    // Passthrough Parameters: MICROSOFT / AUTHORISATIONS 
-                    // -------------------------------------------------------
-                    // TODO
-                    // -------------------------------------------------------
-                    // Passthrough Parameters: MICROSOFT / CACHE / REDIS 
-                    "microsoftCacheRedisProvision":{
-                        "value": "[parameters('microsoftCacheRedisProvision')]"
-                    },
+                    //"resourceLocationAlt"
+                    "resourceCommonTags": {"value": "[parameters('resourceCommonTags')]"},
+                    "securityApproach": {"value": "[parameters('securityApproach')]"},
                     // -------------------------------------------------------
                     // Passthrough Parameters: MICROSOFT / SQL / SERVERS  
-                    "microsoftSqlServersAdministratorLogin": {
-                        "value": "[parameters('microsoftSqlServersAdministratorLogin')]"
-                    },
-                    "microsoftSqlServersAdministratorLoginPassword": {
-                        "value": "[parameters('microsoftSqlServersAdministratorLoginPassword')]"
-                    },
-                    "microsoftSqlServersDeveloperStatingSecretsAreNotRecordedInCode": {
-                        "value": "[parameters('microsoftSqlServersDeveloperStatingSecretsAreNotRecordedInCode')]"
-                    },
-                    // -------------------------------------------------------
-                    // Passthrough Parameters: MICROSOFT / SQL / DATABASES
-                    // TBD  
-                    // -------------------------------------------------------
-                    // Passthrough Parameters: MICROSOFT / WEB / SERVERFARMS
-                    "microsoftWebServerFarmsResourceSku": {
-                        "value": "[parameters('microsoftWebServerFarmsResourceSku')]"
-                    },
+                    "microsoftSqlServersAdministratorLogin": {"value": "[parameters('microsoftSqlServersAdministratorLogin')]"},
+                    "microsoftSqlServersAdministratorLoginPassword": {"value": "[parameters('microsoftSqlServersAdministratorLoginPassword')]"},
                     // -------------------------------------------------------
                     // Passthrough Parameters: MICROSOFT / WEB / CERTIFICATE 
-                    "microsoftWebCertificatesPfxBase64": {
-                        "value": "[parameters('microsoftWebCertificatesPfxBase64')]"
-                    },
-                    "microsoftWebCertificatesPfxPassword": {
-                        "value": "[parameters('microsoftWebCertificatesPfxPassword')]"
-                    },
-                    "microsoftWebCertificatesDeveloperStatingSecretsAreNotRecordedInCode": {
-                        "value": "[parameters('microsoftWebCertificatesDeveloperStatingSecretsAreNotRecordedInCode')]"
-                    },
-                    // -------------------------------------------------------
-                    // Passthrough Parameters: MICROSOFT / WEB / SITES 
-                    "microsoftWebSitesAlwaysOn": {
-                        "value": "[parameters('microsoftWebSitesAlwaysOn')]"
-                    },
-                    // -------------------------------------------------------
-                    // Passthrough Parameters: MICROSOFT / WEB / SITES / CONFIG / APPSETTINGS
-                    "microsoftWebSitesConfigAppSettings": {
-                        "value": "[parameters('microsoftWebSitesConfigAppSettings')]"
-                    },
-                    "microsoftWebSitesConfigAppSettingsDeveloperStatingSecretsAreNotRecordedInCode": {
-                        "value": "[parameters('microsoftWebSitesConfigAppSettingsDeveloperStatingSecretsAreNotRecordedInCode')]"
-                    },
-                    // -------------------------------------------------------
-                    // Passthrough Parameters: MICROSOFT / WEB / SITES / CONFIG / CONNECTIONSTRINGS
-                    "microsoftWebSitesConfigConnectionStrings": {
-                        "value": "[parameters('microsoftWebSitesConfigConnectionStrings')]"
-                    },
-                    "microsoftWebSitesConfigConnectionStringsDeveloperStatingSecretsAreNotRecordedInCode": {
-                        "value": "[parameters('microsoftWebSitesConfigConnectionStringsDeveloperStatingSecretsAreNotRecordedInCode')]"
-                    },
+                    "microsoftWebCertificatesPfxBase64": {"value": "[parameters('microsoftWebCertificatesPfxBase64')]"},
+                    "microsoftWebCertificatesPfxPassword": {"value": "[parameters('microsoftWebCertificatesPfxPassword')]"},
                     // -------------------------------------------------------
                     // Passthrough Parameters: MICROSOFT / WEB / SITES / HOSTNAMEBINDINGS
-                    "microsoftWebSitesHostNameBindingsHostName": {
-                        "value": "[parameters('microsoftWebSitesHostNameBindingsHostName')]"
-                    },
-                    "microsoftWebSitesHostNameBindingsHostNameAlt": {
-                        "value": "[parameters('microsoftWebSitesHostNameBindingsHostNameAlt')]"
-                    },
-                // -------------------------------------------------------
-                    // Passthrough Parameters: SERVICES / GEOIPSERVICE
-                    "servicesIPGeoServiceEnabled": {
-                        "value":"[parameters('servicesIPGeoServiceEnabled')]"
-                    },
-                    "servicesIPGeoServiceUri": {
-                        "value":"[parameters('servicesIPGeoServiceUri')]"
-                    },
-                    "servicesIPGeoServiceClientId": {
-                        "value":"[parameters('servicesIPGeoServiceClientId')]"
-                    },
-                    "servicesIPGeoServiceClientSecret": {
-                        "value":"[parameters('servicesIPGeoServiceClientSecret')]"
-                    },
-                    "servicesIPGeoServiceClientMiscConfiguration": {
-                        "value":"[parameters('servicesIPGeoServiceClientMiscConfiguration')]"
-                    },
-                // -------------------------------------------------------
-                    // Passthrough Parameters: SERVICES / MALWAREDETECTIONSERVICE
-                    "servicesMalwareDetectionServiceEnabled": {
-                        "value":"[parameters('servicesMalwareDetectionServiceEnabled')]"
-                    },
-                    "servicesMalwareDetectionServiceUri": {
-                        "value":"[parameters('servicesMalwareDetectionServiceUri')]"
-                    },
-                    "servicesMalwareDetectionServiceClientId": {
-                        "value":"[parameters('servicesMalwareDetectionServiceClientId')]"
-                    },
-                    "servicesMalwareDetectionServiceClientSecret": {
-                        "value":"[parameters('servicesMalwareDetectionServiceClientSecret')]"
-                    },
-                    "servicesMalwareDetectionServiceClientMiscConfiguration": {
-                        "value":"[parameters('servicesMalwareDetectionServiceClientMiscConfiguration')]"
-                    },
+                    //"microsoftWebSitesHostNameBindingsHostName"
+                    //"microsoftWebSitesHostNameBindingsHostNameAlt"
                     // -------------------------------------------------------
-                    // Passthrough Parameters: SERVICES / OAUTHSERVICE / Client
-                    "servicesOAuthServiceEnabled": {
-                        "value": "[parameters('servicesOAuthServiceEnabled')]"
-                    },
-                    "servicesOAuthServiceAuthorityUri": {
-                        "value": "[parameters('servicesOAuthServiceAuthorityUri')]"
-                    },
-                    "servicesOAuthServiceClientId": {
-                        "value": "[parameters('servicesOAuthServiceClientId')]"
-                    },
-                    "servicesOAuthServiceClientSecret": {
-                        "value": "[parameters('servicesOAuthServiceClientSecret')]"
-                    },
-                    "servicesOAuthServiceClientRedirectUri": {
-                        "value": "[parameters('servicesOAuthServiceClientRedirectUri')]"
-                    },
-                    "servicesOAuthServiceClientPostLogoutRedirectUri": {
-                        "value": "[parameters('servicesOAuthServiceClientPostLogoutRedirectUri')]"
-                    },
+                    "microsoftWebSitesConfigConnectionStrings":{"value":"[parameters('microsoftWebSitesConfigConnectionStrings')]"},
                     // -------------------------------------------------------
-                    // Passthrough Parameters: SERVICES / OIDCSERVICE / Server
-                    // TBD
+                    "serviceIntegrationCachingServiceEnabled":{"value":"[parameters('serviceIntegrationCachingServiceEnabled')]"},
+                    "serviceIntegrationCachingServiceName":{"value":"[parameters('serviceIntegrationCachingServiceName')]"},
+                    "serviceIntegrationCachingServiceUri":{"value":"[parameters('serviceIntegrationCachingServiceUri')]"},
+                    "serviceIntegrationCachingServiceClientId":{"value":"[parameters('serviceIntegrationCachingServiceClientId')]"},
+                    "serviceIntegrationCachingServiceClientSecret":{"value":"[parameters('serviceIntegrationCachingServiceClientSecret')]"},
+                    "serviceIntegrationCachingServiceClientMisc":{"value":"[parameters('serviceIntegrationCachingServiceClientMisc')]"},
                     // -------------------------------------------------------
-                    // Passthrough Parameters: Oidc / Policies
-                    "servicesOIDCServicePoliciesSignUpSignInPolicyId": {
-                        "value": "[parameters('servicesOIDCServicePoliciesSignUpSignInPolicyId')]"
-                    },
-                    "servicesOIDCServicePoliciesUserProfilePolicyId": {
-                        "value": "[parameters('servicesOIDCServicePoliciesUserProfilePolicyId')]"
-                    },
-                    "servicesOIDCServicePoliciesEditProfilePolicyId": {
-                        "value": "[parameters('servicesOIDCServicePoliciesEditProfilePolicyId')]"
-                    },
-                    "servicesOIDCServicePoliciesResetPasswordPolicyId": {
-                        "value": "[parameters('servicesOIDCServicePoliciesResetPasswordPolicyId')]"
-                    },
+                    "serviceIntegrationCommonDbEnabled":{"value":"[parameters('serviceIntegrationCommonDbEnabled')]"},
+                    "serviceIntegrationCommonDbName":{"value":"[parameters('serviceIntegrationCommonDbName')]"},
+                    "serviceIntegrationCommonDbUri":{"value":"[parameters('serviceIntegrationCommonDbUri')]"},
+                    "serviceIntegrationCommonDbClientId":{"value":"[parameters('serviceIntegrationCommonDbClientId')]"},
+                    "serviceIntegrationCommonDbClientSecret":{"value":"[parameters('serviceIntegrationCommonDbClientSecret')]"},
+                    "serviceIntegrationCommonDbClientMisc":{"value":"[parameters('serviceIntegrationCommonDbClientMisc')]"},
                     // -------------------------------------------------------
-                    // Passthrough Parameters: SERVICES / SMTPSERVICE
-                    "servicesSMTPServiceEnabled": {
-                        "value":"[parameters('servicesSMTPServiceEnabled')]"
-                    },
-                    "servicesSMTPServiceUri": {
-                        "value":"[parameters('servicesSMTPServiceUri')]"
-                    },
-                    "servicesSMTPServiceClientId": {
-                        "value":"[parameters('servicesSMTPServiceClientId')]"
-                    },
-                    "servicesSMTPServiceClientSecret": {
-                        "value":"[parameters('servicesSMTPServiceClientSecret')]"
-                    },
-                    "servicesSMTPServiceClientMiscConfiguration": {
-                        "value":"[parameters('servicesSMTPServiceClientMiscConfiguration')]"
-                    },
+                    "serviceIntegrationStagingDbEnabled":{"value":"[parameters('serviceIntegrationStagingDbEnabled')]"},
+                    "serviceIntegrationStagingDbName":{"value":"[parameters('serviceIntegrationStagingDbName')]"},
+                    "serviceIntegrationStagingDbUri":{"value":"[parameters('serviceIntegrationStagingDbUri')]"},
+                    "serviceIntegrationStagingDbClientId":{"value":"[parameters('serviceIntegrationStagingDbClientId')]"},
+                    "serviceIntegrationStagingDbClientSecret":{"value":"[parameters('serviceIntegrationStagingDbClientSecret')]"},
+                    "serviceIntegrationStagingDbClientMisc":{"value":"[parameters('serviceIntegrationStagingDbClientMisc')]"},
                     // -------------------------------------------------------
-                    // Passthrough Parameters: SERVICE 01
-                    "servicesService01Name": {
-                        "value":"[parameters('servicesService01Name')]"
-                    },
-                    "servicesService01Enabled": {
-                        "value":"[parameters('servicesService01Enabled')]"
-                    },
-                    "servicesService01Uri": {
-                        "value":"[parameters('servicesService01Uri')]"
-                    },
-                    "servicesService01ClientId": {
-                        "value":"[parameters('servicesService01ClientId')]"
-                    },
-                    "servicesService01ClientSecret": {
-                        "value":"[parameters('servicesService01ClientSecret')]"
-                    },
-                    "servicesService01ClientMiscConfiguration": {
-                        "value":"[parameters('servicesService01ClientMiscConfiguration')]"
-                    },
-
+                    "serviceIntegrationOAuthServiceEnabled":{"value":"[parameters('serviceIntegrationOAuthServiceEnabled')]"},
+                    "serviceIntegrationOAuthServiceName":{"value":"[parameters('serviceIntegrationOAuthServiceName')]"},
+                    "serviceIntegrationOAuthServiceUri":{"value":"[parameters('serviceIntegrationOAuthServiceUri')]"},
+                    "serviceIntegrationOAuthServiceClientId":{"value":"[parameters('serviceIntegrationOAuthServiceClientId')]"},
+                    "serviceIntegrationOAuthServiceClientSecret":{"value":"[parameters('serviceIntegrationOAuthServiceClientSecret')]"},
+                    "serviceIntegrationOAuthServiceClientMisc":{"value":"[parameters('serviceIntegrationOAuthServiceClientMisc')]"},
+                    // // + 2 specific to OAuth
+                    "serviceIntegrationOAuthServiceClientRedirectUri":{"value":"[parameters('serviceIntegrationOAuthServiceClientRedirectUri')]"},
+                    "serviceIntegrationOAuthServiceClientPostLogoutRedirectUri":{"value":"[parameters('serviceIntegrationOAuthServiceClientPostLogoutRedirectUri')]"},
+                    // // + 4 specific to OIDC
+                    "serviceIntegrationOIDCServicePoliciesSignUpSignInPolicyId":{"value":"[parameters('serviceIntegrationOIDCServicePoliciesSignUpSignInPolicyId')]"},
+                    "serviceIntegrationOIDCServicePoliciesUserProfilePolicyId":{"value":"[parameters('serviceIntegrationOIDCServicePoliciesUserProfilePolicyId')]"},
+                    "serviceIntegrationOIDCServicePoliciesEditProfilePolicyId":{"value":"[parameters('serviceIntegrationOIDCServicePoliciesEditProfilePolicyId')]"},
+                    "serviceIntegrationOIDCServicePoliciesResetPasswordPolicyId":{"value":"[parameters('serviceIntegrationOIDCServicePoliciesResetPasswordPolicyId')]"},
                     // -------------------------------------------------------
-                    // Passthrough Parameters: SERVICE 02
-                    "servicesService02Name": {
-                        "value":"[parameters('servicesService02Name')]"
-                    },
-                    "servicesService02Enabled": {
-                        "value":"[parameters('servicesService02Enabled')]"
-                    },
-                    "servicesService02Uri": {
-                        "value":"[parameters('servicesService02Uri')]"
-                    },
-                    "servicesService02ClientId": {
-                        "value":"[parameters('servicesService02ClientId')]"
-                    },
-                    "servicesService02ClientSecret": {
-                        "value":"[parameters('servicesService02ClientSecret')]"
-                    },
-                    "servicesService02ClientMiscConfiguration": {
-                        "value":"[parameters('servicesService02ClientMiscConfiguration')]"
-                    },
+                    "serviceIntegrationSMTPServiceEnabled":{"value":"[parameters('serviceIntegrationSMTPServiceEnabled')]"},
+                    "serviceIntegrationSMTPServiceName":{"value":"[parameters('serviceIntegrationSMTPServiceName')]"},
+                    "serviceIntegrationSMTPServiceUri":{"value":"[parameters('serviceIntegrationSMTPServiceUri')]"},
+                    "serviceIntegrationSMTPServiceClientId":{"value":"[parameters('serviceIntegrationSMTPServiceClientId')]"},
+                    "serviceIntegrationSMTPServiceClientSecret":{"value":"[parameters('serviceIntegrationSMTPServiceClientSecret')]"},
+                    "serviceIntegrationSMTPServiceClientMisc":{"value":"[parameters('serviceIntegrationSMTPServiceClientMisc')]"},
                     // -------------------------------------------------------
-                    // Passthrough Parameters: SERVICE 03
-                    "servicesService03Name": {
-                        "value":"[parameters('servicesService03Name')]"
-                    },
-                    "servicesService03Enabled": {
-                        "value":"[parameters('servicesService03Enabled')]"
-                    },
-                    "servicesService03Uri": {
-                        "value":"[parameters('servicesService03Uri')]"
-                    },
-                    "servicesService03ClientId": {
-                        "value":"[parameters('servicesService03ClientId')]"
-                    },
-                    "servicesService03ClientSecret": {
-                        "value":"[parameters('servicesService03ClientSecret')]"
-                    },
-                    "servicesService03ClientMiscConfiguration": {
-                        "value":"[parameters('servicesService03ClientMiscConfiguration')]"
-                    }
+                    "serviceIntegrationMalwareDetectionServiceEnabled":{"value":"[parameters('serviceIntegrationMalwareDetectionServiceEnabled')]"},
+                    "serviceIntegrationMalwareDetectionServiceName":{"value":"[parameters('serviceIntegrationMalwareDetectionServiceName')]"},
+                    "serviceIntegrationMalwareDetectionServiceUri":{"value":"[parameters('serviceIntegrationMalwareDetectionServiceUri')]"},
+                    "serviceIntegrationMalwareDetectionServiceClientId":{"value":"[parameters('serviceIntegrationMalwareDetectionServiceClientId')]"},
+                    "serviceIntegrationMalwareDetectionServiceClientSecret":{"value":"[parameters('serviceIntegrationMalwareDetectionServiceClientSecret')]"},
+                    "serviceIntegrationMalwareDetectionServiceClientMisc":{"value":"[parameters('serviceIntegrationMalwareDetectionServiceClientMisc')]"},
                     // -------------------------------------------------------
-                } //~parameters
+                    "serviceIntegrationIPGeoConversionServiceEnabled":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceEnabled')]"},
+                    "serviceIntegrationIPGeoConversionServiceName":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceName')]"},
+                    "serviceIntegrationIPGeoConversionServiceUri":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceUri')]"},
+                    "serviceIntegrationIPGeoConversionServiceClientId":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceClientId')]"},
+                    "serviceIntegrationIPGeoConversionServiceClientSecret":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceClientSecret')]"},
+                    "serviceIntegrationIPGeoConversionServiceClientMisc":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceClientMisc')]"},
+                    // -------------------------------------------------------
+					"microsoftSqlServersDatabasesProvision":{"value":"[parameters('microsoftSqlServersDatabasesProvision')]"},
+					"microsoftSqlServersDatabasesEdition":{"value":"[parameters('microsoftSqlServersDatabasesEdition')]"},
+					"microsoftSqlServersDatabasesResourceSku":{"value":"[parameters('microsoftSqlServersDatabasesResourceSku')]"},
+					
+					"microsoftStorageStorageAccountsDefaultProvision":{"value":"[parameters('microsoftStorageStorageAccountsDefaultProvision')]"},
+					"microsoftCacheRedisProvision": {"value":"[parameters('microsoftCacheRedisProvision')]"}
+                    } //~parameters
             } //~properties
-         } //~assemblies linked template
+        } //~assemblies linked template
     ],
     // -------------------------------------------------------
     // OUTPUTS
     // -------------------------------------------------------
     "outputs": {
         // The Azure AD Tenant Id (in which the identityId is a member).
-        "tenantId":{
-            "type":"string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.tenantId.value]"
+        "tenantId": {
+            "type": "string",
+            "value": "[reference(variables('appTemplateId')).outputs.tenantId.value]"
         },
         // Get's the Id of the WebSite's service account.
         "principalId": {
             "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.principalId.value]"
+            "value": "[reference(variables('appTemplateId')).outputs.principalId.value]"
         },
         // The current Azure compute subscription Id (within which the resources were created)
-        "subscriptionId":{
-            "type":"string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.subscriptionId.value]"
+        "subscriptionId": {
+            "type": "string",
+            "value": "[reference(variables('appTemplateId')).outputs.subscriptionId.value]"
         },
         // The name  of the Keyvault resource, which can be of use when applying rights using Powershell:
         // May be required for scripting permissions (although probably won't - we've given principalId access to the whole resource group)
         "defaultKeyVaultResourceName": {
             "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.defaultKeyVaultResourceName.value]"
+            "value": "[reference(variables('appTemplateId')).outputs.defaultKeyVaultResourceName.value]"
         },
         // The name of the apps sql server on which one or more databases are created
         // May be required for scripting permissions (although probably won't - we've given principalId access to the whole resource group)
         "defaultSqlServerResourceName": {
             "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.defaultSqlServerResourceName.value]"
+            "value": "[reference(variables('appTemplateId')).outputs.defaultSqlServerResourceName.value]"
         },
         // The name of the primary default database (usually the only one). Requires backing up (see 'defaultStorageAccountResourceName').
         // May be required for scripting permissions (although probably won't - we've given principalId access to the whole resource group)
         "defaultSqlServerDefaultDatabaseResourceName": {
             "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.defaultSqlServerDefaultDatabaseResourceName.value]"
+            "value": "[reference(variables('appTemplateId')).outputs.defaultSqlServerDefaultDatabaseResourceName.value]"
         },
         // The name of one of the non-required storage accounts (can be deleted if need be)
         // May be required for scripting permissions (although probably won't - we've given principalId access to the whole resource group)
         "diagnosticsStorageAccountResourceName": {
             "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.diagnosticsStorageAccountResourceName.value]"
-        },
-        // The name of one of the non-required storage accounts (can be deleted if need be)
-        // May be required for scripting permissions (although probably won't - we've given principalId access to the whole resource group)
-        "tempStorageAccountResourceName": {
-            "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.tempStorageAccountResourceName.value]"
+            "value": "[reference(variables('appTemplateId')).outputs.diagnosticsStorageAccountResourceName.value]"
         },
         // The name of the default required storage accounts. Requires backing up (see 'microsoftSqlServersDatabasesResourceName')
         // May be required for scripting permissions (although probably won't - we've given principalId access to the whole resource group)
         "defaultStorageAccountResourceName": {
             "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.defaultStorageAccountResourceName.value]"
+            "value": "[reference(variables('appTemplateId')).outputs.defaultStorageAccountResourceName.value]"
         },
         // Name of the WebSite that uses sqlserver, storage, keyvault, etc.
         "defaultWebSiteResourceName": {
             "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.defaultWebSiteResourceName.value]"
+            "value": "[reference(variables('appTemplateId')).outputs.defaultWebSiteResourceName.value]"
         },
-        // I'm not keen on this output, as it's inherently insecure (if using the 'insecure' flag). But for now...let's wait and see
+        // I'm not keen on this output, as it's inherently insecure (if using the 'classic' flag). But for now...let's wait and see
         // if it essential.
         "defaultWebSitesDefaultConnectionString": {
             "type": "string",
-            "value": "[reference(variables('assembly').armTemplateId).outputs.defaultWebSiteDefaultConnectionString.value]"
+            "value": "[reference(variables('appTemplateId')).outputs.defaultWebSiteDefaultConnectionString.value]"
         }
     } //~output
-
 }

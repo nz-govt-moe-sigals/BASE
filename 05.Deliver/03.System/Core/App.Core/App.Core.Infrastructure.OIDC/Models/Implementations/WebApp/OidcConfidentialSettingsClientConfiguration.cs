@@ -70,7 +70,7 @@ namespace App.Core.Infrastructure.IDA.Models.Implementations.WebApp
         ///     <para>eg: SECRET</para>
         ///     <para>Default Host Setting key is ConfigurationKeys.SystemIntegrationKeyPrefix (ie 'Service-') + 'Oidc-ClientSecret'</para>
         /// </summary>
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
         [Alias(App.Core.Infrastructure.IDA.Constants.HostSettingsKeys.WebAppOidcKeys.ClientSecret)]
         public string ClientSecret { get; set; }
 
