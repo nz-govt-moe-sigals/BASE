@@ -73,6 +73,30 @@
 	},
 	"microsoftWebCertificatesPfxPassword": {
 	  "value": ""
-	}
+	},
+	
+	"serviceIntegrationOIDCServiceEnabled":{"value":"true"},
+	"serviceIntegrationOIDCClientServiceTenant":{"value":"BaseCommonTest.onmicrosoft.com"},
+	"serviceIntegrationOIDCServiceName":{"value":""},
+	"serviceIntegrationOIDCServiceUri":{"value":""},
+	"serviceIntegrationOIDCServiceClientId":{"value":"7ab78d6c-ab3f-40e2-9914-b624ee721a0d"},
+	"serviceIntegrationOIDCServiceClientSecret":{"value":"kKN);5ls5}D*1qUJIQ;D8`]1"},
+	"serviceIntegrationOIDCServiceClientMisc":{"value":""},
+	// // + 2 specific to OAuth
+	"serviceIntegrationOIDCServiceClientRedirectUri":{"value":"https://nzmoebase0000bt.azurewebsites.net/"},
+	"serviceIntegrationOIDCServiceClientPostLogoutRedirectUri":{"value":"https://nzmoebase0000bt.azurewebsites.net/"},
+	// // + 4 specific to OIDC
+	"serviceIntegrationOIDCServicePoliciesSignUpSignInPolicyId":{"value":"B2C_1_B2C_Default_Policy"},
+	"serviceIntegrationOIDCServicePoliciesUserProfilePolicyId":{"value":"B2C_1_B2C_Default_Policy"},
+	"serviceIntegrationOIDCServicePoliciesEditProfilePolicyId":{"value":"B2C_1_B2C_Default_Edit_Policy"},
+	"serviceIntegrationOIDCServicePoliciesResetPasswordPolicyId":{"value":"B2C_1_B2C_Default_Reset_Policy"},
+	// -------------------------------------------------------
+	"serviceIntegrationOAuthServiceClientTenant": {"value":"BaseCommonTest.onmicrosoft.com""},
+	"serviceIntegrationOAuthServiceUri": {"value":"https://BaseCommonTest.onmicrosoft.com/ADBaseTestWebApi"},
+	"serviceIntegrationOAuthServiceClientId": {"value":"cb8b69cd-9020-4860-b043-782d21888cac"},
+
+	"serviceIntegrationOAuthServiceClientIdB2C": {"value":"36f35e49-1b75-4942-ae4b-53b011abdd32"},
+	"serviceIntegrationOAuthServiceUriB2C": {"value":"https://BaseCommonTest.onmicrosoft.com/BaseTestWebApi"},
+	"serviceIntegrationOAuthServicePolicyIdB2C": {"value":"B2C_1_B2C_Default_Policy"},
   }
 }
