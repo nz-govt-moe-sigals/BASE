@@ -538,9 +538,53 @@
         },
 
 
-           // ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
         // Parameters OAUTH API 
         // ----------------------------------------------------------------------
+
+        "serviceIntegrationOAuthServiceClientTenant": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. Tenant"
+            }
+        },
+        "serviceIntegrationOAuthServiceUri": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. Oauth "
+            }
+        },
+        "serviceIntegrationOAuthServiceClientId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. Client Id of the oAuth"
+            }
+        },
+
+        "serviceIntegrationOAuthServiceClientIdB2C": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. only use this when using a b2c"
+            }
+        },
+        "serviceIntegrationOAuthServiceUriB2C": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. only use this when using a b2c"
+            }
+        },
+        "serviceIntegrationOAuthServicePolicyIdB2C": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. The name of the B2C's Policy/Flow to use only use this when using a b2c"
+            }
+        },
 
         // ----------------------------------------------------------------------
         // Parameters SERVICE INTEGRATION / MALWAREDETECTIONSERVICE
