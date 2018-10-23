@@ -735,7 +735,7 @@
             }
         },
 		"microsoftCacheRedisProvision": {
-            "defaultValue": false,
+            "defaultValue": true,
             "metadata": {
                 "description": "Optional. Cache has a minimum cost of about 20$ per month. But, more importantly, it takes ages to provision."
             },
@@ -874,8 +874,14 @@
                     "serviceIntegrationIPGeoConversionServiceUri":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceUri')]"},
                     "serviceIntegrationIPGeoConversionServiceClientId":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceClientId')]"},
                     "serviceIntegrationIPGeoConversionServiceClientSecret":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceClientSecret')]"},
-                    "serviceIntegrationIPGeoConversionServiceClientMisc":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceClientMisc')]"}
+                    "serviceIntegrationIPGeoConversionServiceClientMisc":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceClientMisc')]"},
                     // -------------------------------------------------------
+					"microsoftSqlServersDatabasesProvision":{"value":"[parameters('microsoftSqlServersDatabasesProvision')]"},
+					"microsoftSqlServersDatabasesEdition":{"value":"[parameters('microsoftSqlServersDatabasesEdition')]"},
+					"microsoftSqlServersDatabasesResourceSku":{"value":"[parameters('microsoftSqlServersDatabasesResourceSku')]"},
+					
+					"microsoftStorageStorageAccountsDefaultProvision":{"value":"[parameters('microsoftStorageStorageAccountsDefaultProvision')]"},
+					"microsoftCacheRedisProvision": {"value":"[parameters('microsoftCacheRedisProvision')]"}
                 } //~parameters
             } //~properties
         } //~assemblies linked template
