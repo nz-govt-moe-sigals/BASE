@@ -75,7 +75,7 @@
 	  "value": ""
 	},
 	
-	"serviceIntegrationOIDCServiceEnabled":{"value":"true"},
+	"serviceIntegrationOIDCServiceEnabled":{"value":true},
 	"serviceIntegrationOIDCClientServiceTenant":{"value":"BaseCommonTest.onmicrosoft.com"},
 	"serviceIntegrationOIDCServiceName":{"value":""},
 	"serviceIntegrationOIDCServiceUri":{"value":""},
