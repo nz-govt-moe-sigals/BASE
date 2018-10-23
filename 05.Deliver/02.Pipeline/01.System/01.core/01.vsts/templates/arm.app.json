@@ -370,14 +370,18 @@
         // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
         // Parameters SERVICE INTEGRATION / OAUTHSERVICE / CLIENT / BASICS
         // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
-        "serviceIntegrationOAuthServiceName": {
+        "serviceIntegrationOIDCClientServiceTenant": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "serviceIntegrationOIDCServiceName": {
             "type": "string",
             "defaultValue": ""
         },
         // Optional.
         // Hook up to an OAuth Authority (you will need 
         // to provide the OAuth AuthorityUri, ClientId ClientKey.
-        "serviceIntegrationOAuthServiceEnabled": {
+        "serviceIntegrationOIDCServiceEnabled": {
             "type": "bool",
             "defaultValue": true,
             "metadata": {
@@ -385,7 +389,7 @@
             }
         },
         // Optional. Where the system sends authentication requests off to (the Authority Uri).
-        "serviceIntegrationOAuthServiceUri": {
+        "serviceIntegrationOIDCServiceUri": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
@@ -397,7 +401,7 @@
         // If authenticating systems, it should be via OAuth.  
         // Both require that you have the ClientId and ClientSecret that were developed 
         // by the remote IdP when you registered your app with it.
-        "serviceIntegrationOAuthServiceClientId": {
+        "serviceIntegrationOIDCServiceClientId": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
@@ -409,14 +413,14 @@
         // If authenticating systems, it should be via OAuth.  
         // Both require that you have the ClientId and ClientSecret that were developed 
         // by the remote IdP when you registered your app with it.
-        "serviceIntegrationOAuthServiceClientSecret": {
+        "serviceIntegrationOIDCServiceClientSecret": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. If your system needs to authenticate users, it should be via OIDC. Which is an extension of OAuth. If authenticating systems, it should be via OAuth. Both require that you have the ClientId and ClientSecret that were developed by the remote IdP when you registered your app with it."
             }
         },
-        "serviceIntegrationOAuthServiceClientMisc": {
+        "serviceIntegrationOIDCServiceClientMisc": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
@@ -428,7 +432,7 @@
         // This is the 'redirect_uri' value of an OAuth request.
         //  '/' won't work (that would be the IdP's home page). 
         // If not provided, will be automatically generated using 'https' and your host binding name you provided.
-        "serviceIntegrationOAuthServiceClientRedirectUri": {
+        "serviceIntegrationOIDCServiceClientRedirectUri": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
@@ -440,7 +444,7 @@
         // you want to redirect them to the home page or other. The default is '/'.
         // It's not part of the protocol - it's just a value to that code 
         // wrapping the prootocol can use.
-        "serviceIntegrationOAuthServiceClientPostLogoutRedirectUri": {
+        "serviceIntegrationOIDCServiceClientPostLogoutRedirectUri": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
@@ -530,6 +534,55 @@
             "defaultValue": "",
             "metadata": {
                 "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+
+
+           // ----------------------------------------------------------------------
+        // Parameters OAUTH API 
+        // ----------------------------------------------------------------------
+
+        "serviceIntegrationOAuthServiceClientTenant": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. Tenant"
+            }
+        },
+        "serviceIntegrationOAuthServiceUri": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. Oauth "
+            }
+        },
+        "serviceIntegrationOAuthServiceClientId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. Client Id of the oAuth"
+            }
+        },
+
+        "serviceIntegrationOAuthServiceClientIdB2C": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. only use this when using a b2c"
+            }
+        },
+        "serviceIntegrationOAuthServiceUriB2C": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. only use this when using a b2c"
+            }
+        },
+        "serviceIntegrationOAuthServicePolicyIdB2C": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. The name of the B2C's Policy/Flow to use only use this when using a b2c"
             }
         },
         // ----------------------------------------------------------------------
@@ -635,7 +688,8 @@
                 "description": "Optional. To use a Geo IP Service, you need to enable it then provide the uri, client id and client secret."
             }
         },
-		// -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+		
+				// -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
         // PARAMETERS: MICROSOFT / SQL SERVER / DATABASE
         // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
         "microsoftSqlServersDatabasesProvision": {
@@ -681,7 +735,7 @@
             }
         },
 		"microsoftCacheRedisProvision": {
-            "defaultValue": true,
+            "defaultValue": false,
             "metadata": {
                 "description": "Optional. Cache has a minimum cost of about 20$ per month. But, more importantly, it takes ages to provision."
             },
@@ -777,20 +831,29 @@
                     "serviceIntegrationStagingDbClientSecret":{"value":"[parameters('serviceIntegrationStagingDbClientSecret')]"},
                     "serviceIntegrationStagingDbClientMisc":{"value":"[parameters('serviceIntegrationStagingDbClientMisc')]"},
                     // -------------------------------------------------------
-                    "serviceIntegrationOAuthServiceEnabled":{"value":"[parameters('serviceIntegrationOAuthServiceEnabled')]"},
-                    "serviceIntegrationOAuthServiceName":{"value":"[parameters('serviceIntegrationOAuthServiceName')]"},
-                    "serviceIntegrationOAuthServiceUri":{"value":"[parameters('serviceIntegrationOAuthServiceUri')]"},
-                    "serviceIntegrationOAuthServiceClientId":{"value":"[parameters('serviceIntegrationOAuthServiceClientId')]"},
-                    "serviceIntegrationOAuthServiceClientSecret":{"value":"[parameters('serviceIntegrationOAuthServiceClientSecret')]"},
-                    "serviceIntegrationOAuthServiceClientMisc":{"value":"[parameters('serviceIntegrationOAuthServiceClientMisc')]"},
+                    "serviceIntegrationOIDCServiceEnabled":{"value":"[parameters('serviceIntegrationOIDCServiceEnabled')]"},
+                    "serviceIntegrationOIDCClientServiceTenant":{"value":"[parameters('serviceIntegrationOIDCClientServiceTenant')]"},
+                    "serviceIntegrationOIDCServiceName":{"value":"[parameters('serviceIntegrationOIDCServiceName')]"},
+                    "serviceIntegrationOIDCServiceUri":{"value":"[parameters('serviceIntegrationOIDCServiceUri')]"},
+                    "serviceIntegrationOIDCServiceClientId":{"value":"[parameters('serviceIntegrationOIDCServiceClientId')]"},
+                    "serviceIntegrationOIDCServiceClientSecret":{"value":"[parameters('serviceIntegrationOIDCServiceClientSecret')]"},
+                    "serviceIntegrationOIDCServiceClientMisc":{"value":"[parameters('serviceIntegrationOIDCServiceClientMisc')]"},
                     // // + 2 specific to OAuth
-                    "serviceIntegrationOAuthServiceClientRedirectUri":{"value":"[parameters('serviceIntegrationOAuthServiceClientRedirectUri')]"},
-                    "serviceIntegrationOAuthServiceClientPostLogoutRedirectUri":{"value":"[parameters('serviceIntegrationOAuthServiceClientPostLogoutRedirectUri')]"},
+                    "serviceIntegrationOIDCServiceClientRedirectUri":{"value":"[parameters('serviceIntegrationOIDCServiceClientRedirectUri')]"},
+                    "serviceIntegrationOIDCServiceClientPostLogoutRedirectUri":{"value":"[parameters('serviceIntegrationOIDCServiceClientPostLogoutRedirectUri')]"},
                     // // + 4 specific to OIDC
                     "serviceIntegrationOIDCServicePoliciesSignUpSignInPolicyId":{"value":"[parameters('serviceIntegrationOIDCServicePoliciesSignUpSignInPolicyId')]"},
                     "serviceIntegrationOIDCServicePoliciesUserProfilePolicyId":{"value":"[parameters('serviceIntegrationOIDCServicePoliciesUserProfilePolicyId')]"},
                     "serviceIntegrationOIDCServicePoliciesEditProfilePolicyId":{"value":"[parameters('serviceIntegrationOIDCServicePoliciesEditProfilePolicyId')]"},
                     "serviceIntegrationOIDCServicePoliciesResetPasswordPolicyId":{"value":"[parameters('serviceIntegrationOIDCServicePoliciesResetPasswordPolicyId')]"},
+                    // -------------------------------------------------------
+                    "serviceIntegrationOAuthServiceClientTenant": "[parameters('serviceIntegrationOAuthServiceClientTenant')]",
+                    "serviceIntegrationOAuthServiceUri": "[parameters('serviceIntegrationOAuthServiceUri')]",
+                    "serviceIntegrationOAuthServiceClientId": "[parameters('serviceIntegrationOAuthServiceClientId')]",
+
+                    "serviceIntegrationOAuthServiceClientIdB2C": "[parameters('serviceIntegrationOAuthServiceClientIdB2C')]",
+                    "serviceIntegrationOAuthServiceUriB2C": "[parameters('serviceIntegrationOAuthServiceUriB2C')]",
+                    "serviceIntegrationOAuthServicePolicyIdB2C": "[parameters('serviceIntegrationOAuthServicePolicyIdB2C')]",
                     // -------------------------------------------------------
                     "serviceIntegrationSMTPServiceEnabled":{"value":"[parameters('serviceIntegrationSMTPServiceEnabled')]"},
                     "serviceIntegrationSMTPServiceName":{"value":"[parameters('serviceIntegrationSMTPServiceName')]"},
@@ -811,14 +874,8 @@
                     "serviceIntegrationIPGeoConversionServiceUri":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceUri')]"},
                     "serviceIntegrationIPGeoConversionServiceClientId":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceClientId')]"},
                     "serviceIntegrationIPGeoConversionServiceClientSecret":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceClientSecret')]"},
-                    "serviceIntegrationIPGeoConversionServiceClientMisc":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceClientMisc')]"},
+                    "serviceIntegrationIPGeoConversionServiceClientMisc":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceClientMisc')]"}
                     // -------------------------------------------------------
-					"microsoftSqlServersDatabasesProvision":{"value":"[parameters('microsoftSqlServersDatabasesProvision')]"},
-					"microsoftSqlServersDatabasesEdition":{"value":"[parameters('microsoftSqlServersDatabasesEdition')]"},
-					"microsoftSqlServersDatabasesResourceSku":{"value":"[parameters('microsoftSqlServersDatabasesResourceSku')]"},
-					
-					"microsoftStorageStorageAccountsDefaultProvision":{"value":"[parameters('microsoftStorageStorageAccountsDefaultProvision')]"},
-					"microsoftCacheRedisProvision": {"value":"[parameters('microsoftCacheRedisProvision')]"}
                     } //~parameters
             } //~properties
         } //~assemblies linked template
