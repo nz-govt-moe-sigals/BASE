@@ -91,7 +91,7 @@
 	"serviceIntegrationOIDCServicePoliciesEditProfilePolicyId":{"value":"B2C_1_B2C_Default_Edit_Policy"},
 	"serviceIntegrationOIDCServicePoliciesResetPasswordPolicyId":{"value":"B2C_1_B2C_Default_Reset_Policy"},
 	// -------------------------------------------------------
-	"serviceIntegrationOAuthServiceClientTenant": {"value":"BaseCommonTest.onmicrosoft.com""},
+	"serviceIntegrationOAuthServiceClientTenant": {"value":"BaseCommonTest.onmicrosoft.com"},
 	"serviceIntegrationOAuthServiceUri": {"value":"https://BaseCommonTest.onmicrosoft.com/ADBaseTestWebApi"},
 	"serviceIntegrationOAuthServiceClientId": {"value":"cb8b69cd-9020-4860-b043-782d21888cac"},
 
