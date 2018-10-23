@@ -848,7 +848,13 @@
                     "serviceIntegrationOIDCServicePoliciesEditProfilePolicyId":{"value":"[parameters('serviceIntegrationOIDCServicePoliciesEditProfilePolicyId')]"},
                     "serviceIntegrationOIDCServicePoliciesResetPasswordPolicyId":{"value":"[parameters('serviceIntegrationOIDCServicePoliciesResetPasswordPolicyId')]"},
                     // -------------------------------------------------------
-                   
+                    "serviceIntegrationOAuthServiceClientTenant": {"value":"[parameters('serviceIntegrationOAuthServiceClientTenant')]"},
+					"serviceIntegrationOAuthServiceUri": {"value":"[parameters('serviceIntegrationOAuthServiceUri')]"},
+					"serviceIntegrationOAuthServiceClientId": {"value":"[parameters('serviceIntegrationOAuthServiceClientId')]"},
+
+					"serviceIntegrationOAuthServiceClientIdB2C": {"value":"[parameters('serviceIntegrationOAuthServiceClientIdB2C')]"},
+					"serviceIntegrationOAuthServiceUriB2C": {"value":"[parameters('serviceIntegrationOAuthServiceUriB2C')]"},
+					"serviceIntegrationOAuthServicePolicyIdB2C": {"value":"[parameters('serviceIntegrationOAuthServicePolicyIdB2C')]"},
                     // -------------------------------------------------------
                     "serviceIntegrationSMTPServiceEnabled":{"value":"[parameters('serviceIntegrationSMTPServiceEnabled')]"},
                     "serviceIntegrationSMTPServiceName":{"value":"[parameters('serviceIntegrationSMTPServiceName')]"},
