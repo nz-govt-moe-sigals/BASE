@@ -19,6 +19,9 @@
         /// set of DataClassifications (for User Agent to cache as it sees best)
         /// </summary>
         public const string DataClassification = "DataClassification" + DtoSuffix;
+
+        public const string Email = "Email" + DtoSuffix;
+
         /// <summary>
         /// Path to Appropriately Accessible (ie RBAC'ed) Queryable API returning 
         /// set of last Records of Exception 

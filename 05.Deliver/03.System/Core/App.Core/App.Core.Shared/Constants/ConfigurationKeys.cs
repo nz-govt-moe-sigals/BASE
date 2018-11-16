@@ -133,6 +133,8 @@ namespace App.Core.Shared.Constants
         // SMTP (note that it does not prefix with Azure, as it is hosted somewhere else) / (Do not name as Default):
         public const string AppCoreIntegrationSmtpServiceEnabled = SystemIntegrationKeyPrefix + "SmtpService-Enabled";
         public const string AppCoreIntegrationSmtpServiceBaseUri = SystemIntegrationKeyPrefix + "SmtpService-Uri";
+        public const string AppCoreIntegrationSmtpServicePort = SystemIntegrationKeyPrefix + "SmtpService-Port";
+        public const string AppCoreIntegrationSmtpServiceFrom = SystemIntegrationKeyPrefix + "SmtpService-From";
         public const string AppCoreIntegrationSmtpServiceClientId = SystemIntegrationKeyPrefix + "SmtpService-Client-Id";
         public const string AppCoreIntegrationSmtpServiceClientSecret = SystemIntegrationKeyPrefix + "SmtpService-Client-Secret";
         public const string AppCoreIntegrationSmtpServiceClientMiscConfig = SystemIntegrationKeyPrefix + "SmtpService-Client-Misc";

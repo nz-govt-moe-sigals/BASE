@@ -9,7 +9,7 @@ namespace App.Core.Shared.Models.Configuration.AppHost
     {
 
         // Make sure this kind of secrets are not gotten from AppSettings.
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
         [Alias(Constants.ConfigurationKeys.AppCoreIntegrationSmtpServiceClientId)]
         public string Key
         {
@@ -28,6 +28,20 @@ namespace App.Core.Shared.Models.Configuration.AppHost
         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
         [Alias(Constants.ConfigurationKeys.AppCoreIntegrationSmtpServiceBaseUri)]
         public string BaseUri
+        {
+            get; set;
+        }
+
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationSmtpServicePort)]
+        public int? Port
+        {
+            get; set;
+        }
+
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+        [Alias(Constants.ConfigurationKeys.AppCoreIntegrationSmtpServiceFrom)]
+        public string From
         {
             get; set;
         }

@@ -97,6 +97,11 @@
 
 	"serviceIntegrationOAuthServiceClientIdB2C": {"value":"36f35e49-1b75-4942-ae4b-53b011abdd32"},
 	"serviceIntegrationOAuthServiceUriB2C": {"value":"https://BaseCommonTest.onmicrosoft.com/BaseTestWebApi"},
-	"serviceIntegrationOAuthServicePolicyIdB2C": {"value":"B2C_1_B2C_Default_Policy"}
+	"serviceIntegrationOAuthServicePolicyIdB2C": {"value":"B2C_1_B2C_Default_Policy"},
+	
+	"serviceIntegrationSMTPServiceClientId" : {"value":"apikey"},
+	//Todo make keyVault reference from another keyVault
+	"serviceIntegrationSMTPServiceClientSecret" : {"value":"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"},
+	"serviceIntegrationSMTPServiceUri" : {"value":"smtp.sendgrid.net"}
   }
 }

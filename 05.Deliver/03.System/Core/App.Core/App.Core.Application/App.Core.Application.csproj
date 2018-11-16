@@ -144,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\Controllers\Base\CoreModule\CoreODataControllerBase.cs" />
+    <Compile Include="API\Controllers\V0100\EmailController.cs" />
     <Compile Include="API\Controllers\V0100\HostNameController.cs" />
     <Compile Include="API\Controllers\V0100\SecurityProfileController.cs" />
     <Compile Include="API\Controllers\V0100\SecurityProfilePermissionController.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Initialization\OData\Implementations\Base\AppCoreODataModelBuilderConfigurationBase.cs" />
     <Compile Include="Initialization\OData\Implementations\ConfigurationStepRecordOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\DataClassificationOdataModelBuilderConfiguration.cs" />
+    <Compile Include="Initialization\OData\Implementations\EmailODataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\ExceptionRecordOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\MediaMetadataOdataModelBuilderConfiguration.cs" />
     <Compile Include="Initialization\OData\Implementations\NotificationOdataModelBuilderConfiguration.cs" />

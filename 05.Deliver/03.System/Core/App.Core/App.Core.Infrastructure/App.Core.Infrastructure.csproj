@@ -537,7 +537,7 @@
     <Compile Include="Services\Implementations\SecureDataTokenService.cs" />
     <Compile Include="Services\Implementations\SessionOperationLogService.cs" />
     <Compile Include="Services\Implementations\SessionService.cs" />
-    <Compile Include="Services\Implementations\SMTPService.cs" />
+    <Compile Include="Services\Implementations\SmtpService.cs" />
     <Compile Include="Services\Implementations\StorageService.cs" />
     <Compile Include="Services\Implementations\TelemetrySevice.cs" />
     <Compile Include="Services\Implementations\TenantService.cs" />
@@ -556,7 +556,7 @@
     <Compile Include="Services\ISecureDataTokenService.cs" />
     <Compile Include="Services\ISessionOperationLogService.cs" />
     <Compile Include="Services\ISessionService.cs" />
-    <Compile Include="Services\ISMTPService.cs" />
+    <Compile Include="Services\ISmtpService.cs" />
     <Compile Include="Services\IStorageService.cs" />
     <Compile Include="Services\ITelemetryService.cs" />
     <Compile Include="Services\ITenantService.cs" />
