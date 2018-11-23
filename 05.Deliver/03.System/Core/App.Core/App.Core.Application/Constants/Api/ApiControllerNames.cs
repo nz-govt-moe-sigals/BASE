@@ -107,6 +107,8 @@
 
         public const string UserProfile = "UserProfile" + DtoSuffix;
 
+        public const string GeoInformation = "GeoInformation" + DtoSuffix;
+
         public const string TenantedNavigationRouteItem = "TenantedNavigationRouteItem" + DtoSuffix;
 
         public const string NavigationRouteItem = "NavigationRouteItem" + DtoSuffix;

@@ -102,6 +102,9 @@
 	"serviceIntegrationSMTPServiceClientId" : {"value":"apikey"},
 	//Todo make keyVault reference from another keyVault
 	"serviceIntegrationSMTPServiceClientSecret" : {"value":"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"},
-	"serviceIntegrationSMTPServiceUri" : {"value":"smtp.sendgrid.net"}
+	"serviceIntegrationSMTPServiceUri" : {"value":"smtp.sendgrid.net"},
+	//Todo make keyVault reference from another keyVault, or from the actual create GeoIP service, seems weird
+	"serviceIntegrationIPGeoConversionServiceUri" : {"value":"https://atlas.microsoft.com/geolocation/ip/json"},
+	"serviceIntegrationIPGeoConversionServiceClientSecret" : {"value":"2R4g-tc2ryRIRk1I2z6PQkffBd9_KdVk5wdbtLQdzzc"}
   }
 }

@@ -13,17 +13,17 @@ using Xunit;
 
 namespace App.Host.Ux.Tests
 {
-    public class EmailTest : IClassFixture<TokenFixture>
+    public class GeoInformationTest : IClassFixture<TokenFixture>
     {
         protected readonly TokenFixture Fixture;
 
-        public EmailTest(TokenFixture fixture)
+        public GeoInformationTest(TokenFixture fixture)
         {
             Fixture = fixture;
         }
 
-        [Scenario(DisplayName = "Test Email ")]
-        public void EmailRequest()
+        [Scenario(DisplayName = "GeoInfromationRequest")]
+        public void GeoInfromationRequest()
         {
             HttpResponseMessage response = null;
             string token = null;
@@ -32,25 +32,19 @@ namespace App.Host.Ux.Tests
                 {
                     token = Fixture.GetAuthToken();
                 });
-            "Act - When I make a Http Request to a restricted email API"
+            "Act - When I make a Http Request to a restricted GeoInfomration API"
                 .x(() =>
                 {
                     using (HttpClient client = new HttpClient())
                     {
                         client.DefaultRequestHeaders.Accept.Add(
                             new MediaTypeWithQualityHeaderValue("application/json"));
-                        var url = Configuration.Instance.DefaultUrl + "/odata/core/v1/email";
-                        var dto = Newtonsoft.Json.JsonConvert.SerializeObject(new EmailDto()
-                        {
-                            To = "peter.williamson@education.govt.nz",
-                            Body = "Hello this is a test",
-                            Subject = "Automated Test"
-                        });
+                        var url = Configuration.Instance.DefaultUrl + "/odata/core/v1/GeoInformation";
                         client.DefaultRequestHeaders.Authorization =
                             new AuthenticationHeaderValue("Bearer", token);
                         // Add token to the Authorization header and make the request
-                        var content = new StringContent(dto, Encoding.UTF8, "application/json");
-                        response = client.PostAsync(new Uri(url), content).Result;
+
+                        response = client.GetAsync(new Uri(url)).Result;
                     }
                 });
             $"Assert - Then the response should be successful"

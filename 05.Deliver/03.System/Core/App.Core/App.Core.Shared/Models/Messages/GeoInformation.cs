@@ -12,10 +12,11 @@ namespace App.Core.Shared.Models.Messages
     /// Used as a Query object by the IGeoLocationService. Or part of the Response.
     /// </para>
     /// </summary>
-    public class GeoCoordinate
+    public class GeoInformation
     {
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
+        public GeoInformationCountryRegion CountryRegion { get; set; }
+
+        public string IPAddress { get; set; }
     }
 
 }

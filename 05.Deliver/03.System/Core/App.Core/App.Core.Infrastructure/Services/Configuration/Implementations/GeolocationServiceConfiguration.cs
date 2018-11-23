@@ -11,9 +11,11 @@ namespace App.Core.Infrastructure.Services.Configuration.Implementations
     {
         public GeoIPServiceConfiguration(IAzureKeyVaultService keyVaultService)
         {
-            var configuration = keyVaultService.GetObject<GeoIPServiceConfigurationSettings>();
+            Configuration = keyVaultService.GetObject<GeoIPServiceConfigurationSettings>();
 
         }
+
+        public GeoIPServiceConfigurationSettings Configuration { get; }
 
     }
 }

@@ -6,9 +6,9 @@ namespace App.Core.Shared.Models.ConfigurationSettings
     public class GeoIPServiceConfigurationSettings
     {
         // Make sure this kind of secrets are not gotten from AppSettings.
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
         [Alias(Constants.ConfigurationKeys.AppCoreIntegrationGeoIPServiceClientId)]
-        public string Key
+        public string ClientId
         {
             get; set;
         }

@@ -371,6 +371,7 @@
     <Compile Include="Factories\StructureMapServiceLocator.cs" />
     <Compile Include="Initialization\ObjectMaps\Entities\ObjectMap_Principal.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\Base\MapUntenantedAuditedRecordStateBase.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_GeoInformation_GeoInfromationDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_NavigationRoute_NavigationRouteDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_PrincipalLogin_PrincipalLoginDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_Principal_UserProfileDto.cs" />

@@ -144,6 +144,7 @@
     <Compile Include="Models\Entities\TenancySpecific\PrincipalServiceProfile_ServiceOffering_Allocation.cs" />
     <Compile Include="Models\Entities\TenancySpecific\PrincipalServiceProfile_ServicePlan_Allocation.cs" />
     <Compile Include="Models\Messages\API\V0100\EmailDto.cs" />
+    <Compile Include="Models\Messages\API\V0100\GeoInformationDto.cs" />
     <Compile Include="Models\Messages\API\V0100\PrincipalLoginDto.cs" />
     <Compile Include="Models\Messages\API\V0100\SecurityProfileDto.cs" />
     <Compile Include="Models\Messages\API\V0100\SecurityProfileRoleAccountPermissionAssignmentDto.cs" />
@@ -156,6 +157,7 @@
     <Compile Include="Models\Messages\GeoCoordinates.cs" />
     <Compile Include="Models\Messages\GeoInformation.cs" />
     <Compile Include="Models\Messages\AzureMapsMessages.cs" />
+    <Compile Include="Models\Messages\GeoInformationCountryRegion.cs" />
     <Compile Include="_HOLD\ReferenceDataBase.cs" />
     <Compile Include="_HOLD\TenantedAuditedTimestampedRecordStatedCustomIdEntityBase.cs" />
     <Compile Include="_HOLD\UntenantedCustomIdReferenceDataBase.cs" />

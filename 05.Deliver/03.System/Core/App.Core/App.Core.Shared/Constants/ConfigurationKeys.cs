@@ -150,11 +150,11 @@ namespace App.Core.Shared.Constants
 
         // -----
         // Integration / [SituationSpecific] / GeoLocationService  / (Do not name as Default):
-        public const string AppCoreIntegrationGeoIPServiceEnabled = SystemIntegrationKeyPrefix + "GeoIPService-Enabled";
-        public const string AppCoreIntegrationGeoIPServiceBaseUri = SystemIntegrationKeyPrefix + "GeoIPService-Uri";
-        public const string AppCoreIntegrationGeoIPServiceClientId = SystemIntegrationKeyPrefix + "GeoIPService-Client-Id";
-        public const string AppCoreIntegrationGeoIPServiceClientSecret = SystemIntegrationKeyPrefix + "GeoIPService-Client-Secret";
-        public const string AppCoreIntegrationGeoIPServiceClientMiscConfig = SystemIntegrationKeyPrefix + "GeoIPService-Client-Misc";
+        public const string AppCoreIntegrationGeoIPServiceEnabled = SystemIntegrationKeyPrefix + "ipgeoconversionservice-Enabled";
+        public const string AppCoreIntegrationGeoIPServiceBaseUri = SystemIntegrationKeyPrefix + "ipgeoconversionservice-Uri";
+        public const string AppCoreIntegrationGeoIPServiceClientId = SystemIntegrationKeyPrefix + "ipgeoconversionservice-Client-Id";
+        public const string AppCoreIntegrationGeoIPServiceClientSecret = SystemIntegrationKeyPrefix + "ipgeoconversionservice-Client-Secret";
+        public const string AppCoreIntegrationGeoIPServiceClientMiscConfig = SystemIntegrationKeyPrefix + "ipgeoconversionservice-Client-Misc";
         // -----
 
 

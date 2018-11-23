@@ -83,7 +83,9 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="EmailTest.cs" />
     <Compile Include="Fixture\TokenFixture.cs" />
+    <Compile Include="GeoInformationTest.cs" />
     <Compile Include="IISExpressTestBase.cs" />
+    <Compile Include="MediaUploadTest.cs" />
     <Compile Include="Models\EmailDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SslTest.cs" />
