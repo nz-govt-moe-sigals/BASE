@@ -371,6 +371,7 @@
     <Compile Include="Factories\StructureMapServiceLocator.cs" />
     <Compile Include="Initialization\ObjectMaps\Entities\ObjectMap_Principal.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\Base\MapUntenantedAuditedRecordStateBase.cs" />
+    <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_GeoInformation_GeoInfromationDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_NavigationRoute_NavigationRouteDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_PrincipalLogin_PrincipalLoginDto.cs" />
     <Compile Include="Initialization\ObjectMaps\Messages\V0100\ObjectMap_Principal_UserProfileDto.cs" />
@@ -537,7 +538,7 @@
     <Compile Include="Services\Implementations\SecureDataTokenService.cs" />
     <Compile Include="Services\Implementations\SessionOperationLogService.cs" />
     <Compile Include="Services\Implementations\SessionService.cs" />
-    <Compile Include="Services\Implementations\SMTPService.cs" />
+    <Compile Include="Services\Implementations\SmtpService.cs" />
     <Compile Include="Services\Implementations\StorageService.cs" />
     <Compile Include="Services\Implementations\TelemetrySevice.cs" />
     <Compile Include="Services\Implementations\TenantService.cs" />
@@ -556,7 +557,7 @@
     <Compile Include="Services\ISecureDataTokenService.cs" />
     <Compile Include="Services\ISessionOperationLogService.cs" />
     <Compile Include="Services\ISessionService.cs" />
-    <Compile Include="Services\ISMTPService.cs" />
+    <Compile Include="Services\ISmtpService.cs" />
     <Compile Include="Services\IStorageService.cs" />
     <Compile Include="Services\ITelemetryService.cs" />
     <Compile Include="Services\ITenantService.cs" />

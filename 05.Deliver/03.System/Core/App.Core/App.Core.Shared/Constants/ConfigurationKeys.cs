@@ -133,6 +133,8 @@ namespace App.Core.Shared.Constants
         // SMTP (note that it does not prefix with Azure, as it is hosted somewhere else) / (Do not name as Default):
         public const string AppCoreIntegrationSmtpServiceEnabled = SystemIntegrationKeyPrefix + "SmtpService-Enabled";
         public const string AppCoreIntegrationSmtpServiceBaseUri = SystemIntegrationKeyPrefix + "SmtpService-Uri";
+        public const string AppCoreIntegrationSmtpServicePort = SystemIntegrationKeyPrefix + "SmtpService-Port";
+        public const string AppCoreIntegrationSmtpServiceFrom = SystemIntegrationKeyPrefix + "SmtpService-From";
         public const string AppCoreIntegrationSmtpServiceClientId = SystemIntegrationKeyPrefix + "SmtpService-ClientId";
         public const string AppCoreIntegrationSmtpServiceClientSecret = SystemIntegrationKeyPrefix + "SmtpService-ClientSecret";
         public const string AppCoreIntegrationSmtpServiceClientMiscConfig = SystemIntegrationKeyPrefix + "SmtpService-ClientMisc";
@@ -148,11 +150,11 @@ namespace App.Core.Shared.Constants
 
         // -----
         // Integration / [SituationSpecific] / GeoLocationService  / (Do not name as Default):
-        public const string AppCoreIntegrationGeoIPServiceEnabled = SystemIntegrationKeyPrefix + "GeoIPService-Enabled";
-        public const string AppCoreIntegrationGeoIPServiceBaseUri = SystemIntegrationKeyPrefix + "GeoIPService-Uri";
-        public const string AppCoreIntegrationGeoIPServiceClientId = SystemIntegrationKeyPrefix + "GeoIPService-ClientId";
-        public const string AppCoreIntegrationGeoIPServiceClientSecret = SystemIntegrationKeyPrefix + "GeoIPService-ClientSecret";
-        public const string AppCoreIntegrationGeoIPServiceClientMiscConfig = SystemIntegrationKeyPrefix + "GeoIPService-ClientMisc";
+        public const string AppCoreIntegrationGeoIPServiceEnabled = SystemIntegrationKeyPrefix + "ipgeoconversionservice-Enabled";
+        public const string AppCoreIntegrationGeoIPServiceBaseUri = SystemIntegrationKeyPrefix + "ipgeoconversionservice-Uri";
+        public const string AppCoreIntegrationGeoIPServiceClientId = SystemIntegrationKeyPrefix + "ipgeoconversionservice-ClientId";
+        public const string AppCoreIntegrationGeoIPServiceClientSecret = SystemIntegrationKeyPrefix + "ipgeoconversionservice-ClientSecret";
+        public const string AppCoreIntegrationGeoIPServiceClientMiscConfig = SystemIntegrationKeyPrefix + "ipgeoconversionservice-ClientMisc";
         // -----
 
 

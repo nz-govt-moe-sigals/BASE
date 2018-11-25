@@ -12,7 +12,7 @@ namespace App.Core.Infrastructure.Services.Configuration.Implementations
 
     /// <summary>
     /// Configuration object to be injected into the 
-    /// implementation of <see cref="ISMTPService"/>
+    /// implementation of <see cref="ISmtpService"/>
     /// <para>
     /// Inherits from <see cref="ICoreServiceConfigurationObject"/>
     /// whic inherits from <see cref="IHasSingletonLifecycle"/>

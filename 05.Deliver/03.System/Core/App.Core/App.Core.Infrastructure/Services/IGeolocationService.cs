@@ -10,7 +10,7 @@ namespace App.Core.Infrastructure.Services
     public interface IGeoIPService
     {
 
-        GeoCoordinates Get(string ip);
+        GeoInformation Get(string ip);
 
     }
 }
