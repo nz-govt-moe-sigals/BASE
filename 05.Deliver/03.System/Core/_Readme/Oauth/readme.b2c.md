@@ -52,16 +52,16 @@ add this web.config also if you need to know why things aren't be validated
 ## MVC Web Application ##
 
 will default to  $"https://login.microsoftonline.com/tfp/{this.AuthorityTenantName}/{this.DefaultPolicyId}/v2.0/.well-known/openid-configuration"
-    <!--add key="Service-Integration-WebApp-Oidc-Client-AuthorityUri" value="" / --><!-- can override if you need a good reason-->
+    <!--add key="Service-Integration-WebApp-Oidc-ClientAuthorityUri" value="" / --><!-- can override if you need a good reason-->
 Our client Id Front end
-    <add key="Service-Integration-WebApp-Oidc-Client-Id" value="7ab78d6c-***-****-****-***721a0d" />
+    <add key="Service-Integration-WebApp-Oidc-ClientId" value="7ab78d6c-***-****-****-***721a0d" />
 Secret Generated, (not sure this is 100% needed if you aren't planning on talking other services to but anyways)
-    <add key="Service-Integration-WebApp-Oidc-Client-Secret" value="kKN)******IQ;D8`]1" />
+    <add key="Service-Integration-WebApp-Oidc-ClientSecret" value="kKN)******IQ;D8`]1" />
 The b2c Tenant you created
-    <add key="Service-Integration-WebApp-Oidc-Client-Tenant" value="BaseCommonTest.onmicrosoft.com" />
+    <add key="Service-Integration-WebApp-Oidc-ClientTenant" value="BaseCommonTest.onmicrosoft.com" />
 Self explaintory
-    <add key="Service-Integration-WebApp-Oidc-Client-RedirectUri" value="https://localhost:44311/" />
-    <add key="Service-Integration-WebApp-Oidc-Client-PostLogoutRedirectUri" value="https://localhost:44311/" />
+    <add key="Service-Integration-WebApp-Oidc-ClientRedirectUri" value="https://localhost:44311/" />
+    <add key="Service-Integration-WebApp-Oidc-ClientPostLogoutRedirectUri" value="https://localhost:44311/" />
 
     <add key="Service-Integration-WebApp-Oidc-Policies-DefaultPolicyId" value="B2C_1_B2C_Default_Policy" />
     <add key="Service-Integration-WebApp-Oidc-Policies-SignUpSignInPolicyId" value="B2C_1_B2C_Default_Policy" />
@@ -74,15 +74,15 @@ Self explaintory
 ## Web Api Application ##
 
 will default to $"https://login.microsoftonline.com/{this.AuthorityTenantName}/v2.0/.well-known/openid-configuration";
-   <!--add key="Service-Integration-Api-Oidc-Client-AuthorityUri" value="" /--><!-- can override if you need a good reason-->
+   <!--add key="Service-Integration-Api-Oidc-ClientAuthorityUri" value="" /--><!-- can override if you need a good reason-->
 AD instance of the client ID and corresponding URL you set
-    <add key="Service-Integration-Api-Oidc-Client-Id" value="cb8b69cd-9020-4860-b043-782d21888cac" />
-    <add key="Service-Integration-Api-Oidc-Client-App-IdUri" value="https://BaseCommonTest.onmicrosoft.com/ADBaseTestWebApi" />
+    <add key="Service-Integration-Api-Oidc-ClientId" value="cb8b69cd-9020-4860-b043-782d21888cac" />
+    <add key="Service-Integration-Api-Oidc-ClientApp-IdUri" value="https://BaseCommonTest.onmicrosoft.com/ADBaseTestWebApi" />
 The b2c Tenant you created
-    <add key="Service-Integration-Api-Oidc-Client-Tenant" value="BaseCommonTest.onmicrosoft.com" />
+    <add key="Service-Integration-Api-Oidc-ClientTenant" value="BaseCommonTest.onmicrosoft.com" />
 API instance of the client ID and corresponding URL you set in b2c, if you are creting a webapp and API then these SHOULD DIFFER
-    <add key="Service-Integration-Api-Oidc-Client-IdB2C" value="36f35e49-1b75-4942-ae4b-53b011abdd32" /> <!-- if app is b2c configured/required set -->
-    <add key="Service-Integration-Api-Oidc-Client-App-IdUriB2C" value="https://BaseCommonTest.onmicrosoft.com/BaseTestWebApi" /> <!-- if app is b2c configured/required  set-->
+    <add key="Service-Integration-Api-Oidc-ClientIdB2C" value="36f35e49-1b75-4942-ae4b-53b011abdd32" /> <!-- if app is b2c configured/required set -->
+    <add key="Service-Integration-Api-Oidc-ClientApp-IdUriB2C" value="https://BaseCommonTest.onmicrosoft.com/BaseTestWebApi" /> <!-- if app is b2c configured/required  set-->
 The Policy ID That the web App will be signing in as, same as your front end
     <add key="Service-Integration-Api-Oidc-Policies-PolicyIdB2C" value="B2C_1_B2C_Default_Policy" /> <!-- if app is b2c configured/required  set-->
 

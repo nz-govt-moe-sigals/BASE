@@ -150,24 +150,24 @@ add this web.config also if you need to know why things aren't be validated
 ## MVC Web Application ##
 
 will default to  $"https://login.microsoftonline.com/{AuthorityTenantName}/v2.0/.well-known/openid-configuration"
-    <!--add key="Service-Integration-WebApp-Oidc-Client-AuthorityUri" value="" / --><!-- can override if you need a good reason-->
+    <!--add key="Service-Integration-WebApp-Oidc-ClientAuthorityUri" value="" / --><!-- can override if you need a good reason-->
 Our client Id Front end
-    <add key="Service-Integration-WebApp-Oidc-Client-Id" value="7ab78d6c-***-****-****-***721a0d" />
+    <add key="Service-Integration-WebApp-Oidc-ClientId" value="7ab78d6c-***-****-****-***721a0d" />
 Secret Generated, (not sure this is 100% needed if you aren't planning on talking other services to but anyways)
-    <add key="Service-Integration-WebApp-Oidc-Client-Secret" value="kKN)******IQ;D8`]1" />
+    <add key="Service-Integration-WebApp-Oidc-ClientSecret" value="kKN)******IQ;D8`]1" />
 Your AD where you get created the apps, (Note it can actually be in a b2c itself!) if using v2 they will appear in the b2c blade if v1 Ad App registrations
-    <add key="Service-Integration-WebApp-Oidc-Client-Tenant" value="BaseCommonTest.onmicrosoft.com" />
+    <add key="Service-Integration-WebApp-Oidc-ClientTenant" value="BaseCommonTest.onmicrosoft.com" />
 Self explaintory
-    <add key="Service-Integration-WebApp-Oidc-Client-RedirectUri" value="https://localhost:44311/" />
-    <add key="Service-Integration-WebApp-Oidc-Client-PostLogoutRedirectUri" value="https://localhost:44311/" />
+    <add key="Service-Integration-WebApp-Oidc-ClientRedirectUri" value="https://localhost:44311/" />
+    <add key="Service-Integration-WebApp-Oidc-ClientPostLogoutRedirectUri" value="https://localhost:44311/" />
 
 ## Web Api Application ##
 
 will default to $"https://login.microsoftonline.com/{this.AuthorityTenantName}/v2.0/.well-known/openid-configuration";
-   <!--add key="Service-Integration-Api-Oidc-Client-AuthorityUri" value="" /--><!-- can override if you need a good reason-->
+   <!--add key="Service-Integration-Api-Oidc-ClientAuthorityUri" value="" /--><!-- can override if you need a good reason-->
 AD instance of the client ID and corresponding URL you set
-    <add key="Service-Integration-Api-Oidc-Client-Id" value="cb8b69cd-9020-4860-b043-782d21888cac" />
-    <add key="Service-Integration-Api-Oidc-Client-App-IdUri" value="https://BaseCommonTest.onmicrosoft.com/ADBaseTestWebApi" />
+    <add key="Service-Integration-Api-Oidc-ClientId" value="cb8b69cd-9020-4860-b043-782d21888cac" />
+    <add key="Service-Integration-Api-Oidc-ClientApp-IdUri" value="https://BaseCommonTest.onmicrosoft.com/ADBaseTestWebApi" />
 
 
 

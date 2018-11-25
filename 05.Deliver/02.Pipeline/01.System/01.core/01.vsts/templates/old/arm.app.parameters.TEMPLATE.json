@@ -87,7 +87,7 @@
       //   }
       // }
       // ---------- ---------- ---------- 
-      "securityApproach": {
+      "microsoftSqlServerConnectionStringType": {
         "value": "msi"
       },
       // -------------------------------------------------------
@@ -405,49 +405,7 @@
       "microsoftWebSitesHostNameBindingsHostNameAlt": {
         "value": ""
       },
-  
       // -------------------------------------------------------
-          // Parameters: MICROSOFT / WEB / SITES / SITEEXTENSIONS
-      // -------------------------------------------------------
-      // TBD
-      // -------------------------------------------------------
-      // PARAMETERS: SERVICES / GEOIPSERVICE
-      // -------------------------------------------------------
-      "servicesIPGeoServiceEnabled": {
-        "value": true
-      },
-      "servicesIPGeoServiceUri": {
-        "value": "http://api.ipstack.com/{1}?access_key={0}"
-      },
-      "servicesIPGeoServiceClientId": {
-        "value": "TODO:REPLACE IN ARM PARAMS FILE"
-      },
-      "servicesIPGeoServiceClientSecret": {
-        "value": "TODO:REPLACE IN ARM PARAMS FILE"
-      },
-      "servicesIPGeoServiceClientMiscConfiguration": {
-        "value": "TODO:REPLACE IN ARM PARAMS FILE"
-      },
-      // -------------------------------------------------------
-      // PARAMETERS: SERVICES / MALWAREDETECTIONSERVICE
-      // -------------------------------------------------------
-      "servicesMalwareDetectionServiceEnabled": {
-        "value": true
-      },
-      "servicesMalwareDetectionServiceUri": {
-        "value": "https://api.scanii.com"
-      },
-      "servicesMalwareDetectionServiceClientId": {
-        "value": "TODO:REPLACE IN ARM PARAMS FILE"
-      },
-      "servicesMalwareDetectionServiceClientSecret": {
-        "value": "TODO:REPLACE IN ARM PARAMS FILE"
-      },
-      "servicesMalwareDetectionServiceClientMiscConfiguration": {
-        "value": "TODO:REPLACE IN ARM PARAMS FILE"
-      },
-  
-        // -------------------------------------------------------
       // PARAMETERS: SERVICES / OATHSERVICE 
       // -------------------------------------------------------
       // Optional.
@@ -511,37 +469,7 @@
       // Example:
       "servicesOIDCServicePoliciesResetPasswordPolicyId": {
         "value": "TODO:REPLACE IN ARM PARAMS FILE"
-      },
-      // -------------------------------------------------------
-      // PARAMETERS: SERVICES / SMTPSERVICE
-      // -------------------------------------------------------
-      "servicesSMTPServiceEnabled": {
-        "value": true
-      },
-      "servicesSMTPServiceUri": {
-        "value": "TODO:REPLACE IN ARM PARAMS FILE"
-      },
-      "servicesSMTPServiceClientId": {
-        "value": "TODO:REPLACE IN ARM PARAMS FILE"
-      },
-      "servicesSMTPServiceClientSecret": {
-        "value": "TODO:REPLACE IN ARM PARAMS FILE"
-      },
-      "servicesSMTPServiceClientMiscConfiguration": {
-        "value": "TODO:REPLACE IN ARM PARAMS FILE"
       }
-      // -------------------------------------------------------
-      // PARAMETERS: SERVICES / SERVICE03
-      // -------------------------------------------------------
-      // TBD
-      // -------------------------------------------------------
-      // PARAMETERS: SERVICES / SERVICE02
-      // -------------------------------------------------------
-      // TBD
-      // -------------------------------------------------------
-      // PARAMETERS: SERVICES / SERVICE03
-      // -------------------------------------------------------
-      // TBD
       // -------------------------------------------------------
       // END (FOR NOW)
       // -------------------------------------------------------

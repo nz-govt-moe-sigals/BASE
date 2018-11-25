@@ -24,7 +24,7 @@
     "resourceNameTemplate": {
       "value": "NZ-MOE-BASE-0000-BT-{RT}"
     },
-    "securityApproach": {
+    "microsoftSqlServerConnectionStringType": {
       "value": "msi"
     },
     "microsoftCacheRedisProvision": {
