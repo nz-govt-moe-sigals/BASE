@@ -115,7 +115,7 @@
         // -------------------------------------------------------
         // PARAMETERS: SECURITY
         // -------------------------------------------------------
-        "securityApproach": {
+        "microsoftSqlServerConnectionStringType": {
             "allowedValues": [
                 // Rely on database admin name/pwd
                 // Rely on storage keys.
@@ -211,162 +211,6 @@
             }
         },
 
-        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
-        // Parameters SERVICE INTEGRATION / COMMON / CACHING
-        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
-        "serviceIntegrationCachingServiceName": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. Provide a name to recognize what these settings are for."
-            }
-        },
-        // Optional. To use a common Mem Caching service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationCachingServiceEnabled": {
-            "type": "bool",
-            "defaultValue": true,
-            "metadata": {
-                "description": "Optional. To use service a common Mem Caching service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use a common Mem Caching service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationCachingServiceUri": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use service a common Mem Caching service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use a common Mem Caching service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationCachingServiceClientId": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use a common Mem Caching service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use a common Mem Caching service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationCachingServiceClientSecret": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use a common Mem Caching service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        "serviceIntegrationCachingServiceClientMisc": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use a common Mem Caching service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-
-        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
-        // Parameters SERVICE INTEGRATION / COMMON DB
-        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
-        "serviceIntegrationCommonDbName": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. Provide a name to recognize what these settings are for."
-            }
-        },
-        // Optional. To use CommonDb, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationCommonDbEnabled": {
-            "type": "bool",
-            "defaultValue": true,
-            "metadata": {
-                "description": "Optional. To use CommonDb, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use CommonDb, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationCommonDbUri": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use CommonDb, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use CommonDb, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationCommonDbClientId": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use CommonDb, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use CommonDb, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationCommonDbClientSecret": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use CommonDb, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        "serviceIntegrationCommonDbClientMisc": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use CommonDb, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
-        // Parameters SERVICE INTEGRATION / COMMON / STAGING DB
-        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
-        "serviceIntegrationStagingDbName": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. Provide a name to recognize what these settings are for."
-            }
-        },
-        // Optional. To use service 02 (whatever it is),you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationStagingDbEnabled": {
-            "type": "bool",
-            "defaultValue": true,
-            "metadata": {
-                "description": "Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationStagingDbUri": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationStagingDbClientId": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationStagingDbClientSecret": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        "serviceIntegrationStagingDbClientMisc": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use service 02 (whatever it is), you need to enable it then provide the uri, client id and client secret."
-            }
-        },
         // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
         // Parameters SERVICE INTEGRATION / OAUTHSERVICE / CLIENT / BASICS
         // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
@@ -484,61 +328,6 @@
             }
         },
         // ----------------------------------------------------------------------
-        // Parameters SERVICE INTEGRATION / SMTPSERVICE
-        // ----------------------------------------------------------------------
-        "serviceIntegrationSMTPServiceName": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. Provide a name to recognize what these settings are for."
-            }
-        },
-        // Optional. To use the smtp service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationSMTPServiceEnabled": {
-            "type": "bool",
-            "defaultValue": true,
-            "metadata": {
-                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use the smtp service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationSMTPServiceUri": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use the smtp service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationSMTPServiceClientId": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use the smtp service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationSMTPServiceClientSecret": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        "serviceIntegrationSMTPServiceClientMisc": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-
-
-        // ----------------------------------------------------------------------
         // Parameters OAUTH API 
         // ----------------------------------------------------------------------
 
@@ -586,111 +375,8 @@
             }
         },
 
-        // ----------------------------------------------------------------------
-        // Parameters SERVICE INTEGRATION / MALWAREDETECTIONSERVICE
-        // ----------------------------------------------------------------------
-        "serviceIntegrationMalwareDetectionServiceName": {
-            "type": "string",
-            "defaultValue": "scanii"
-        },
-        // Optional. To use a remote OAuth based malware detection service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationMalwareDetectionServiceEnabled": {
-            "type": "bool",
-            "defaultValue": true,
-            "metadata": {
-                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use a remote OAuth based malware detection service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationMalwareDetectionServiceUri": {
-            "type": "string",
-            "defaultValue": "https://api.scanii.com",
-            "metadata": {
-                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use a remote OAuth based malware detection service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationMalwareDetectionServiceClientId": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use a remote OAuth based malware detection service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationMalwareDetectionServiceClientSecret": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        "serviceIntegrationMalwareDetectionServiceClientMisc": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // ----------------------------------------------------------------------
-        // Parameters SERVICE INTEGRATION / GEOIPSERVICE
-        // ----------------------------------------------------------------------
-        "serviceIntegrationIPGeoConversionServiceName": {
-            "type": "string",
-            "defaultValue": "ipstack"
-        },
-
-
-
-        // Optional. To use service 01 (whatever it is), 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationIPGeoConversionServiceEnabled": {
-            "type": "bool",
-            "defaultValue": true,
-            "metadata": {
-                "description": "Optional. To use Geo IP Service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use service 01 (whatever it is), 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationIPGeoConversionServiceUri": {
-            "type": "string",
-            "defaultValue": "http://api.ipstack.com/{1}?access_key={0}",
-            "metadata": {
-                "description": "Optional. To use Geo IP Service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use service 01 (whatever it is), 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationIPGeoConversionServiceClientId": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use Geo IP Service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use service 01 (whatever it is), 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationIPGeoConversionServiceClientSecret": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use Geo IP Service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        "serviceIntegrationIPGeoConversionServiceClientMisc": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use a Geo IP Service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
 		
-				// -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
         // PARAMETERS: MICROSOFT / SQL SERVER / DATABASE
         // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
         "microsoftSqlServersDatabasesProvision": {
@@ -795,7 +481,7 @@
                     // -------------------------------------------------------
                     //"resourceLocationAlt"
                     "resourceCommonTags": {"value": "[parameters('resourceCommonTags')]"},
-                    "securityApproach": {"value": "[parameters('securityApproach')]"},
+                    "microsoftSqlServerConnectionStringType": {"value": "[parameters('microsoftSqlServerConnectionStringType')]"},
                     // -------------------------------------------------------
                     // Passthrough Parameters: MICROSOFT / SQL / SERVERS  
                     "microsoftSqlServersAdministratorLogin": {"value": "[parameters('microsoftSqlServersAdministratorLogin')]"},
@@ -810,27 +496,6 @@
                     //"microsoftWebSitesHostNameBindingsHostNameAlt"
                     // -------------------------------------------------------
                     "microsoftWebSitesConfigConnectionStrings":{"value":"[parameters('microsoftWebSitesConfigConnectionStrings')]"},
-                    // -------------------------------------------------------
-                    "serviceIntegrationCachingServiceEnabled":{"value":"[parameters('serviceIntegrationCachingServiceEnabled')]"},
-                    "serviceIntegrationCachingServiceName":{"value":"[parameters('serviceIntegrationCachingServiceName')]"},
-                    "serviceIntegrationCachingServiceUri":{"value":"[parameters('serviceIntegrationCachingServiceUri')]"},
-                    "serviceIntegrationCachingServiceClientId":{"value":"[parameters('serviceIntegrationCachingServiceClientId')]"},
-                    "serviceIntegrationCachingServiceClientSecret":{"value":"[parameters('serviceIntegrationCachingServiceClientSecret')]"},
-                    "serviceIntegrationCachingServiceClientMisc":{"value":"[parameters('serviceIntegrationCachingServiceClientMisc')]"},
-                    // -------------------------------------------------------
-                    "serviceIntegrationCommonDbEnabled":{"value":"[parameters('serviceIntegrationCommonDbEnabled')]"},
-                    "serviceIntegrationCommonDbName":{"value":"[parameters('serviceIntegrationCommonDbName')]"},
-                    "serviceIntegrationCommonDbUri":{"value":"[parameters('serviceIntegrationCommonDbUri')]"},
-                    "serviceIntegrationCommonDbClientId":{"value":"[parameters('serviceIntegrationCommonDbClientId')]"},
-                    "serviceIntegrationCommonDbClientSecret":{"value":"[parameters('serviceIntegrationCommonDbClientSecret')]"},
-                    "serviceIntegrationCommonDbClientMisc":{"value":"[parameters('serviceIntegrationCommonDbClientMisc')]"},
-                    // -------------------------------------------------------
-                    "serviceIntegrationStagingDbEnabled":{"value":"[parameters('serviceIntegrationStagingDbEnabled')]"},
-                    "serviceIntegrationStagingDbName":{"value":"[parameters('serviceIntegrationStagingDbName')]"},
-                    "serviceIntegrationStagingDbUri":{"value":"[parameters('serviceIntegrationStagingDbUri')]"},
-                    "serviceIntegrationStagingDbClientId":{"value":"[parameters('serviceIntegrationStagingDbClientId')]"},
-                    "serviceIntegrationStagingDbClientSecret":{"value":"[parameters('serviceIntegrationStagingDbClientSecret')]"},
-                    "serviceIntegrationStagingDbClientMisc":{"value":"[parameters('serviceIntegrationStagingDbClientMisc')]"},
                     // -------------------------------------------------------
                     "serviceIntegrationOIDCServiceEnabled":{"value":"[parameters('serviceIntegrationOIDCServiceEnabled')]"},
                     "serviceIntegrationOIDCClientServiceTenant":{"value":"[parameters('serviceIntegrationOIDCClientServiceTenant')]"},
@@ -855,27 +520,6 @@
 					"serviceIntegrationOAuthServiceClientIdB2C": {"value":"[parameters('serviceIntegrationOAuthServiceClientIdB2C')]"},
 					"serviceIntegrationOAuthServiceUriB2C": {"value":"[parameters('serviceIntegrationOAuthServiceUriB2C')]"},
 					"serviceIntegrationOAuthServicePolicyIdB2C": {"value":"[parameters('serviceIntegrationOAuthServicePolicyIdB2C')]"},
-                    // -------------------------------------------------------
-                    "serviceIntegrationSMTPServiceEnabled":{"value":"[parameters('serviceIntegrationSMTPServiceEnabled')]"},
-                    "serviceIntegrationSMTPServiceName":{"value":"[parameters('serviceIntegrationSMTPServiceName')]"},
-                    "serviceIntegrationSMTPServiceUri":{"value":"[parameters('serviceIntegrationSMTPServiceUri')]"},
-                    "serviceIntegrationSMTPServiceClientId":{"value":"[parameters('serviceIntegrationSMTPServiceClientId')]"},
-                    "serviceIntegrationSMTPServiceClientSecret":{"value":"[parameters('serviceIntegrationSMTPServiceClientSecret')]"},
-                    "serviceIntegrationSMTPServiceClientMisc":{"value":"[parameters('serviceIntegrationSMTPServiceClientMisc')]"},
-                    // -------------------------------------------------------
-                    "serviceIntegrationMalwareDetectionServiceEnabled":{"value":"[parameters('serviceIntegrationMalwareDetectionServiceEnabled')]"},
-                    "serviceIntegrationMalwareDetectionServiceName":{"value":"[parameters('serviceIntegrationMalwareDetectionServiceName')]"},
-                    "serviceIntegrationMalwareDetectionServiceUri":{"value":"[parameters('serviceIntegrationMalwareDetectionServiceUri')]"},
-                    "serviceIntegrationMalwareDetectionServiceClientId":{"value":"[parameters('serviceIntegrationMalwareDetectionServiceClientId')]"},
-                    "serviceIntegrationMalwareDetectionServiceClientSecret":{"value":"[parameters('serviceIntegrationMalwareDetectionServiceClientSecret')]"},
-                    "serviceIntegrationMalwareDetectionServiceClientMisc":{"value":"[parameters('serviceIntegrationMalwareDetectionServiceClientMisc')]"},
-                    // -------------------------------------------------------
-                    "serviceIntegrationIPGeoConversionServiceEnabled":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceEnabled')]"},
-                    "serviceIntegrationIPGeoConversionServiceName":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceName')]"},
-                    "serviceIntegrationIPGeoConversionServiceUri":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceUri')]"},
-                    "serviceIntegrationIPGeoConversionServiceClientId":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceClientId')]"},
-                    "serviceIntegrationIPGeoConversionServiceClientSecret":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceClientSecret')]"},
-                    "serviceIntegrationIPGeoConversionServiceClientMisc":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceClientMisc')]"},
                     // -------------------------------------------------------
 					"microsoftSqlServersDatabasesProvision":{"value":"[parameters('microsoftSqlServersDatabasesProvision')]"},
 					"microsoftSqlServersDatabasesEdition":{"value":"[parameters('microsoftSqlServersDatabasesEdition')]"},
