@@ -64,6 +64,19 @@ namespace App.Host.Ux.Tests
             get { return ConfigurationManager.AppSettings["RedirectUri"]; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path">back slashes</param>
+        /// <returns></returns>
+        public string GetExecutingAssemblyLocation(string path)
+        {
+            var baseLoc = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+            if (!baseLoc.EndsWith("\\")) baseLoc += "\\";
+            if (string.IsNullOrWhiteSpace(path)) return baseLoc;
+            if (path.StartsWith("\\")) path = path.Substring(1);
+            return baseLoc + path;
+        }
 
 
     }

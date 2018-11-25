@@ -39,7 +39,7 @@ namespace App.Host.Ux.Tests
                     {
                         client.DefaultRequestHeaders.Accept.Add(
                             new MediaTypeWithQualityHeaderValue("application/json"));
-                        var url = Configuration.Instance.DefaultUrl + "/odata/core/v1/GeoInformation";
+                        var url = Configuration.Instance.DefaultUrl + "odata/core/v1/GeoInformation";
                         client.DefaultRequestHeaders.Authorization =
                             new AuthenticationHeaderValue("Bearer", token);
                         // Add token to the Authorization header and make the request

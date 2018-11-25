@@ -39,7 +39,7 @@ namespace App.Host.Ux.Tests
                     {
                         client.DefaultRequestHeaders.Accept.Add(
                             new MediaTypeWithQualityHeaderValue("application/json"));
-                        var url = Configuration.Instance.DefaultUrl + "/odata/core/v1/email";
+                        var url = Configuration.Instance.DefaultUrl + "odata/core/v1/email";
                         var dto = Newtonsoft.Json.JsonConvert.SerializeObject(new EmailDto()
                         {
                             To = "peter.williamson@education.govt.nz",

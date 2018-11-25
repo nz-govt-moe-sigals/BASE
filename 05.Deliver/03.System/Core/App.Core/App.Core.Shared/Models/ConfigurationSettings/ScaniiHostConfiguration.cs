@@ -9,7 +9,7 @@ namespace App.Core.Shared.Models.Configuration.AppHost
     {
 
         // Make sure this kind of secrets are not gotten from AppSettings.
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
+        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
         [Alias(Constants.ConfigurationKeys.AppCoreIntegrationMalwareDetectionClientId)]
         public string Key
         {

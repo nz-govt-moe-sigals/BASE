@@ -1,0 +1,4 @@
+﻿Hi
+I am a fake virus (not really),
+
+Use me to test the the Media Upload service or something else maybe.

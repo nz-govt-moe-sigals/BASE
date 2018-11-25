@@ -105,6 +105,10 @@
 	"serviceIntegrationSMTPServiceUri" : {"value":"smtp.sendgrid.net"},
 	//Todo make keyVault reference from another keyVault, or from the actual create GeoIP service, seems weird
 	"serviceIntegrationIPGeoConversionServiceUri" : {"value":"https://atlas.microsoft.com/geolocation/ip/json"},
-	"serviceIntegrationIPGeoConversionServiceClientSecret" : {"value":"2R4g-tc2ryRIRk1I2z6PQkffBd9_KdVk5wdbtLQdzzc"}
+	"serviceIntegrationIPGeoConversionServiceClientSecret" : {"value":"2R4g-tc2ryRIRk1I2z6PQkffBd9_KdVk5wdbtLQdzzc"},
+	//Todo make keyVault reference from another keyVault
+	"serviceIntegrationMalwareDetectionServiceUri" : {"value":"https://api.scanii.com/v2.1"},
+	"serviceIntegrationMalwareDetectionServiceClientId" : {"value":"aa56c96e819e0406ca70805853d05f45"},
+	"serviceIntegrationMalwareDetectionServiceClientSecret" : {"value":"f83c0d9b9"}
   }
 }

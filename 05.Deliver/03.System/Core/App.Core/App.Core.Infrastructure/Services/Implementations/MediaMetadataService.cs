@@ -37,7 +37,7 @@
             result.SourceFileName = uploadedMedia.FileName;
             result.DataClassificationFK = dataClassification;
             result.ContentHash = uploadedMedia.Stream.GetHashAsString(this._metadataServiceConfiguration.MediaManagementConfiguration.HashType);
-            result.MimeType = uploadedMedia.ContentType;
+            result.MimeType = uploadedMedia.ContentType ?? "Unknown";
 
             result.UploadedDateTimeUtc = this._universalDateTimeService.NowUtc().UtcDateTime;
 
