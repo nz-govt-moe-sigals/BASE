@@ -12,43 +12,43 @@
     {
 
 
-        public const string Tenant = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauthservice-clienttenant";
+        public const string Tenant = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauthservice-client-tenant";
 
         /// <summary>
         /// The OIDC client Identifier.
         /// It's not exactly a secret, so it's ok for team members to know ---  but not persisted in web.config code that coudlrtha.
         /// </summary>
-        public const string ClientId = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauthservice-clientid";
+        public const string ClientId = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauthservice-client-id";
 
         /// <summary>
         /// The OIDC client Identifier.
         /// It should be the API that you 
         /// </summary>
-        public const string AppIdUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauthservice-clienturi";
+        public const string AppIdUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauthservice-client-uri";
         
         /// <summary>
         /// The URI of the IdP to which the security principal is redirected.
         /// OPTIONAL
         /// </summary>
-        public const string AuthorityUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauthservice-clientauthorityuri";
+        public const string AuthorityUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauthservice-client-authorityuri";
 
         /// <summary>
         /// The OIDC client Identifier.
         /// It's not exactly a secret, so it's ok for team members to know ---  but not persisted in web.config code that coudlrtha.
         /// </summary>
-        public const string ClientIdB2C = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauthservice-clientid-b2c";
+        public const string ClientIdB2C = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauthservice-client-id-b2c";
 
 
         /// <summary>
         /// used when B2C is being used
         /// </summary>
-        public const string AppIdUrlB2C = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauthservice-clienturi-b2c";
+        public const string AppIdUrlB2C = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauthservice-client-uri-b2c";
 
         //Policies:
         /// <summary>
         /// used when B2C is being used
         /// </summary>
-        public const string PolicyIdB2C = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauthservice-clienturi-policies-policyid-b2c";
+        public const string PolicyIdB2C = ConfigurationKeys.SystemIntegrationKeyPrefix + "oauthservice-client-uri-policies-policyid-b2c";
     }
 
 
@@ -57,29 +57,29 @@
 
 
 
-        public const string Tenant = ConfigurationKeys.SystemIntegrationKeyPrefix + "oidcservice-clienttenant";
+        public const string Tenant = ConfigurationKeys.SystemIntegrationKeyPrefix + "oidcservice-client-tenant";
         // public const string AadInstance = ConfigurationKeys.SystemIntegrationKeyPrefix + "Oidc-policies-AadInstance";
 
         /// <summary>
         /// The URI of the IdP to which the security principal is redirected.
         /// OPTIONAL
         /// </summary>
-        public const string AuthorityUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "oidcservice-clientauthorityuri";
+        public const string AuthorityUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "oidcservice-client-authorityuri";
 
         /// <summary>
         /// The OIDC client Identifier.
         /// It's not exactly a secret, so it's ok for team members to know ---  but not persisted in web.config code that coudlrtha.
         /// </summary>
-        public const string ClientId = ConfigurationKeys.SystemIntegrationKeyPrefix + "oidcservice-clientid";
+        public const string ClientId = ConfigurationKeys.SystemIntegrationKeyPrefix + "oidcservice-client-id";
 
         /// <summary>
         //Ensure this settings is persisted in KeyVault, and not the AppHost,
         //even if they are put there during deployment
         /// </summary>
-        public const string ClientSecret = ConfigurationKeys.SystemIntegrationKeyPrefix + "oidcservice-clientsecret";
+        public const string ClientSecret = ConfigurationKeys.SystemIntegrationKeyPrefix + "oidcservice-client-secret";
 
 
-        public const string ClientRedirectUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "oidcservice-clientredirecturi";
+        public const string ClientRedirectUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "oidcservice-client-redirecturi";
 
         /// <summary>
         /// The client post logout redirect URI.
@@ -87,7 +87,7 @@
         /// But if it contains a domain identifier then inject it into the 
         /// AppSettings via the build pipeline. Using the KeyVault would be too heavy.
         /// </summary>
-        public const string ClientPostLogoutRedirectUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "oidcservice-clientpostlogoutredirecturi";
+        public const string ClientPostLogoutRedirectUri = ConfigurationKeys.SystemIntegrationKeyPrefix + "oidcservice-client-postlogoutredirecturi";
 
 
         //Policies:
