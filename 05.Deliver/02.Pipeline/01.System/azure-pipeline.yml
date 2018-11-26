@@ -34,11 +34,11 @@ queue:
 #Your build pipeline references an undefined variable named ‘custom_vars_default_website_Url’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
 #Your build pipeline references an undefined variable named ‘custom_vars_resourceGroupName’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
 variables:
-  custom_vars_TemplatesRelease: '2.5'
+  custom_vars_TemplatesRelease: '4.0'
   custom_vars_resourceNameTemplate: 'NZ-MOE-{APPID}-{BRANCHNAME}-{ENVID}'
   BuildConfiguration: 'release'
   BuildPlatform: 'any cpu'
-  custom_vars_envIdentifier: 'BT'
+  custom_vars_envIdentifier: 'DT'
   misc: $(Build.SourcesDirectory)
   system.debug: 'false'
   custom_vars_TemplatesBaseUrl : 'https://nzmoestartpublic.blob.core.windows.net/public/start/releases/$($ENV:custom_vars_TemplatesRelease)'

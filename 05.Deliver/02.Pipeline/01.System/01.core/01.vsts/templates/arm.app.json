@@ -16,68 +16,8 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        // -------------------------------------------------------
-        // PARAMETERS: PRINCIPAL
-        // -------------------------------------------------------
-        "principalId": {
-            "defaultValue": "",
-            "metadata": {
-                "description": "Required. The AAD object Id of the Principal deploying the environment (the VSTS Service Account Id, or the manual user's Id will do)."
-            },
-            "type": "string"
-        },
-        // -------------------------------------------------------
-        // PARAMETERS: ENVIRONMENT
-        // -------------------------------------------------------
-        "environmentId": {
-            "defaultValue": "--",
-            "metadata": {
-                "description": "Required. The http based root url from which to download referenced linked Assembly ARM Templates. In most cases will be an Url to a Storage Account Container Url to which newly downloaded Source Files (just the ARM Templates) are copied to."
-            },
-            "type": "string"
-        },
-        "environmentOverrides": {
-            "type": "object",
-            "defaultValue": {},
-            "metadata": {
-                "description": "Optional. A hash, of environmentId to microsoftWebSitesHostNameBindingsHostName and microsoftWebSitesHostNameBindingsHostNameAlt (eg: {'BT':{'microsoftWebSitesHostNameBindingsHostName':'...', 'microsoftWebSitesHostNameBindingsHostNameAlt':'...'}, {'ST':{'microsoftWebSitesHostNameBindingsHostName':'...', 'microsoftWebSitesHostNameBindingsHostNameAlt':'...'}, }."
-            }
-        },
-        // -------------------------------------------------------
-        // PARAMETERS: TEMPLATES
-        // -------------------------------------------------------
-        "templatesRelease": {
-            "defaultValue": "-.-",
-            "metadata": {
-                "description": "Optional. The templates release version of the remote templates. eg: 0.0 (without any prefix 'v'). The default will be ('-.-'), which is the dev release."
-            },
-            "type": "string"
-        },
-        // The http based root url from which to download referenced Assembly ARM Templates. 
-        // In most cases will be an Url to a Storage Account Container Url to which 
-        // newly downloaded Source Files (just the ARM Templates) are copied to
-        "linkedAssembliesArmTemplateRootUrl": {
-            "defaultValue": "https://nzmoestartpublic.blob.core.windows.net/public/start/releases/{TEMPLATESRELEASE}/arm-templates/assemblies/",
-            "metadata": {
-                "description": "Required. The http based root url from which to download referenced linked Assembly ARM Templates. In most cases will be an Url to a Storage Account Container Url to which newly downloaded Source Files (just the ARM Templates) are copied to."
-            },
-            "type": "string"
-        },
-        // Optional. The Single Access Signature (SAS) required to append to Assembly ARM Template 
-        // Uris in order to get them out of a secured Storage Account Container.
-        "linkedAssembliesArmTemplateRootSas": {
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. The Single Access Signature (SAS) required to append to linked Assembly ARM Template Uris in order to get them out of a secured Storage Account Container."
-            },
-            "type": "string"
-        },
-        // The http based root url from which to download referenced linked Resource ARM Templates. 
-        // In most cases will be an Url to a Storage Account Container Url to which 
-        // newly downloaded Source Files (just the ARM Templates) are copied to
         "linkedResourcesArmTemplateRootUrl": {
-          "defaultValue": "https://nzmoestartpublic.blob.core.windows.net/public/start/releases/{TEMPLATESRELEASE}/arm-templates/resources/",
-          "metadata": {
+            "metadata": {
                 "description": "Required. The http based root url from which to download referenced linked Resource ARM Templates. In most cases will be an Url to a Storage Account Container Url to which newly downloaded Source Files (just the ARM Templates) are copied to."
             },
             "type": "string"
@@ -91,12 +31,94 @@
             },
             "type": "string"
         },
-        // -------------------------------------------------------
-        // PARAMETERS: COMMON
-        // -------------------------------------------------------
-        // Name of the resources within the resourcegroup.
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS / ALL RESOURCES:
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "childTemplateIdPrefix": {
+            "defaultValue": "arm.res.",
+            "metadata": {
+                "description": "Optional. The Single Access Signature (SAS) required to append to linked Resource ARM Template Uris in order to get them out of a secured Storage Account Container."
+            },
+            "type": "string"
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // Control of loops. Can aid in debugging but otherwise leave alone.
+        "microsoftWebSitesAssemblySetArrayBatchMode": {
+            "type": "string",
+            "defaultValue": "parallel",
+            "allowedValues": [
+                "parallel",
+                "serial"
+            ]
+        },
+        "microsoftWebSitesAssemblySetArrayBatchSize": {
+            "type": "int",
+            "defaultValue": 1
+        },
+        "microsoftSqlServerDatabasesResourceSetBatchMode": {
+            "type": "string",
+            "defaultValue": "parallel",
+            "allowedValues": [
+                "parallel",
+                "serial"
+            ]
+        },
+        "microsoftSqlServerDatabasesResourceSetBatchSize": {
+            "type": "int",
+            "defaultValue": 1
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS / ALL RESOURCES:
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "resourceMode": {
+            "metadata": {
+                "description": "Incremental..."
+            },
+            "allowedValues": [
+                "Incremental"
+            ],
+            "defaultValue": "Incremental",
+            "type": "string"
+        },
+        //Whereas a lot of different resource types can be developed in 'resourceLocation',
+        // not everything can. Specifically, microsoftSql server... Since we are limited as to where
+        // we are allowed to persist data to...you're free to choose any one of the following
+        // list of ....one:
+        "resourceLocationAlt": {
+            "defaultValue": "southeastasia",
+            "allowedValues": [
+                "southeastasia"
+            ],
+            "metadata": {
+                "description": "Optional. The alt resource location, used for Databases, and any other resources that can't be location in the primary resourceLocation."
+            },
+            "type": "string"
+        },
+        // There should be absolutely no need to provide custom names for each resoource...
+        // Prefer Convention over Convention. 
+        // That said, you'll need some kind common template for the names of the resources.
+        // For example:
+        // COUNTRYCODE-MYORG-MYAPP-{ENVID}-{BRANCHID}
+        // An example output might be:
+        // MYORG-MYAPP-BT-US1023-SQL-SERVER
+        // Limitations to think about:
+        // See: https://docs.microsoft.com/en-us/azure/architecture/best-practices/naming-conventions
+        // KeyVault names: Length:[3-24], alphanumeric, with dashes, lowercase and uppercase allowed
+        // Storage Account names: Length [3-24], alphanumeric, no dashes, lowercase only
+        // Database name: length: [1-?], alphanumeric, dashes allowed
+        // Database server: length: [1-63], alphanumeric, dashes, allowed, lowercase only
+        // DocumentDb: length: [1-24-31], alphanumeric, no dashes, lowercase only
+        // Resource Group: length [1-...], alphanumeric, dashes, lowercase and uppercase allowed
+        // App Insights: length [1-...], alphanumeric, dashes, lowercase and uppercase
+        // App Site: length [1-...], alphanumeric, dashes, lowercase and uppercase allowed
+        // BASICALLY:
+        // * Only practical solution to keep namign consistent is to work within the minimum constraint
+        //   of all lowercase, no dashes, limited to 24 chars. 
+        // * Maybe end sections with numbers to be dividers:
+        //   * eg: 123456789012345678901234 <- length
+        //   * eg: edu0moe0app0branch00resourcetype00
         "resourceNameTemplate": {
-            "defaultValue": "[resourceGroup().name]",
+            "defaultValue": "[take( toLower( replace( replace( resourceGroup().name,'_',''),'-','') ), 24)]",
             "metadata": {
                 "description": "Required. The default name template to use when developing the names of newly created Resources (eg: 'COUNTRYCODE-MYORG-MYAPP-{ENVID}-{BRANCHID}-{RESOURCETYPE}')'."
             },
@@ -106,15 +128,13 @@
         },
         // Tags that are common to all resources.
         "resourceCommonTags": {
-            "defaultValue": {},
+            "defaultValue": {}, // Doesn't work unless there ARE tags: "[resourceGroup().tags]",
             "metadata": {
                 "description": "Optional. An Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target resource as Tags."
             },
             "type": "object"
         },
-        // -------------------------------------------------------
-        // PARAMETERS: SECURITY
-        // -------------------------------------------------------
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
         "microsoftSqlServerConnectionStringType": {
             "allowedValues": [
                 // Rely on database admin name/pwd
@@ -137,46 +157,1398 @@
                 // The deployment process saves Storage Keys to the Resource Group's KeyVault.
                 "msi"
             ],
-            "defaultValue": "classic",
+            "defaultValue": "msi",
             "metadata": {
-                "description": "Optional. An flag specifying if the vault is enabled for VM or Service Fabric deployment"
+                "description": "Optional. An flag specifying if the vaults is enabled for VM or Service Fabric deployment"
             },
             "type": "string"
         },
-        // -------------------------------------------------------
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: GENERAL CONFIG 
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // Optional. Prefix for all settings dynamically developed during this
+        // deployment  (eg: Storageaccount keys, DocumentDb keys, etc.) 
+        // injected in KeyVault Keys and AppSettings.
+        // Known values (they could be many more) include:
+        // * AppSettings:
+        //   * service-integration-azure-subscriptionid
+        //   * service-integration-azure-tenantid
+        //   * service-integration-azure-principalid
+        //   * service-integration-azure-applicationinsight-instrumentationkey
+        // * KeyVault:
+        //   * Keys:
+        //   * Secrets:
+        //     * service-integration-azure-subscriptionid
+        //     * service-integration-azure-tenantid
+        //     * service-integration-azure-principalid
+        //     * service-integration-azure-applicationinsights-instrumentationkey
+        //     * service-integration-azure-sqlserver-administrator-login
+        //     * service-integration-azure-sqlserver-administrator-login-password
+        //     * service-integration-azure-documentdb-default-db
+        //     * service-integration-azure-storageaccount-default-key
+        //     * service-integration-azure-storageaccount-diagnostics-key
+        "miscServiceIntegrationSettingsPrefix": {
+            "type": "string",
+            "defaultValue": "service-integration-",
+            "metadata": {
+                "description": "Optional. Prefix for all settings dynamically developed during this deployment  (eg: Storageaccount keys, DocumentDb keys, etc.) injected in KeyVault Keys and AppSettings."
+            }
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: ENVIRONMENT
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "environmentId": {
+            "type": "string",
+            "defaultValue": "--"
+        },
+        // Optional. A hash, or environmentId to microsoftWebSitesHostNameBindingsHostName and microsoftWebSitesHostNameBindingsHostNameAlt
+        //  (eg: 
+        // {
+        //   'BT':{'microsoftWebSitesHostNameBindingsHostName':'...', 'microsoftWebSitesHostNameBindingsHostNameAlt':'...'}, 
+        //   'ST':{'microsoftWebSitesHostNameBindingsHostName':'...', 'microsoftWebSitesHostNameBindingsHostNameAlt':'...'}
+        // }.
+        // Note that a cert can contain muliple hostnames.
+        // 
+        // Also, you have to own the name and make a CNAME record of it or you will be get a deployment error or :
+        // "A CNAME record pointing from foobarsite.com to foobar.azurewebsites.net was not found. 
+        // Alternative record awverify.foobarsite.com to awverify.foobar.azurewebsites.net was not found either."
+        // 
+        // The alt record is optional. But if the primary hostname is for 'www.foobar.com', use alt for 'foobar.com' 
+        "environmentOverrides": {
+            "type": "object",
+            "defaultValue": {
+                //   "--": {
+                //     "microsoftAuthorisationRoleAssignmentsProvision" : false
+                //     "microsoftWebSitesHostNameBindingsHostName": "",
+                //     "microsoftWebSitesHostNameBindingsHostNameAlt": "",
+                //     "microsoftCacheRedisProvision": false, //About $30/month for smallest sku. So it adds up...but is needed in many cases.
+                //     "microsoftCognitiveServicesAccountsComputerVisionProvision": false,
+                //     "microsoftCognitiveServicesAccountsCustomVisionProvision": false,
+                //     "microsoftCognitiveServicesAccountsContentModeratorProvision": false,
+                //     "microsoftCognitiveServicesAccountsLanguageUnderstandingProvision": false,
+                //     "microsoftDataFactoryProvision": false,
+                //      // Example: [ {"name": "keya", "type": "text/plain", "value": "som var..."}, {"name": "keyb", "type": "text/plain", "value": "somevar..."} ]
+                //      "microsoftInsightsComponentsProvision" : false,
+                //     "microsoftKeyVaultVaultsProvision": false, 
+                //     "microsoftKeyVaultVaultsSecretsSecrets": [],
+                //     "microsoftDocumentDBDatabaseAccountsProvision": false,// Min $45/month. So it adds up...
+                //     "microsoftLogicWorkflowsProvision": false, 
+                //     "microsoftMapsAccountsProvision": false,
+                //     "microsoftSearchSearchServicesProvision": false,//About $130/month, so be careful.
+                //     "microsoftSqlServersDatabasesProvision": false,
+                //     "microsoftSqlServersDatabasesArray": [],
+                //     "microsoftSqlServersDatabasesResourceSku": "Basic", // [Basic,S0,S1,S2] (Basic:7$,S0:25$,S1:$45) 
+                //     "microsoftSqlServersDatabasesEdition": "Basic",
+                //     "microsoftSqlServersDatabasesZoneRedundant": false,
+                //     "microsoftSqlServersDatabasesMaxSizeBytes": 2147483648,
+                //     "microsoftStorageStorageAccountsResourceSku": "Standard_LRS",
+                //     "microsoftWebServerFarmsResourceSku": "S1", //[F1,S1] (S1 is about $120)
+                //     "microsoftWebSitesProvision": "false",
+                //     "microsoftWebSitesArray": [],
+                //     "microsoftWebSitesAlwaysOn": true //Needs S1, to be able to be true
+                //     // AppSettings example: { "ExampleKey": "exampleValue" },
+                //     "microsoftWebSitesConfigAppSettings": {},
+                //     "ConnectionString example: {  "ExampleConnStringAppA": {"type": "SQLAzure", "value": "Server=mySuperServerAddress;Database=myDataBase;Trusted_Connection=True;"},     "ExampleConnStringAppB": {"type": "SQLAzure", "value": "Server=mySuperServerAddress;Database=myDataBase;Trusted_Connection=True;"}}
+                //     "microsoftWebSitesConfigConnectionStrings": {}
+                // }
+            },
+            "metadata": {
+                "description": "Optional. A hash, or environmentId to microsoftWebSitesHostNameBindingsHostName and microsoftWebSitesHostNameBindingsHostNameAlt (eg: {'BT':{'microsoftWebSitesHostNameBindingsHostName':'...', 'microsoftWebSitesHostNameBindingsHostNameAlt':'...'}, {'ST':{'microsoftWebSitesHostNameBindingsHostName':'...', 'microsoftWebSitesHostNameBindingsHostNameAlt':'...'}, }."
+            }
+        },
+        // // // Sites : [
+        //     // {
+        //         "sku",
+        //         "certificate",
+        //         "certificateThumbprint",
+        //         "hostNameBindingName",
+        //         "hostNameBidningNameAlt",
+        //         "databaseName"
+        // //     }
+        // // ]
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / AUTHORISATION / ROLEASSIGNMENTS
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "microsoftAuthorisationRoleAssignmentsProvision": {
+            "defaultValue": false,
+            "metadata": {
+                "description": "Optional."
+            },
+            "type": "bool"
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / CACHE / REDIS
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "microsoftCacheRedisProvision": {
+            "defaultValue": false,
+            "metadata": {
+                "description": "Optional. Cache has a minimum cost of about 20$ per month. But, more importantly, it takes ages to provision."
+            },
+            "type": "bool"
+        },
+        // The pricing tier of the Cache Redis. The default is Basic.
+        "microsoftCacheRedisResourceSku": {
+            "allowedValues": [
+                "Basic",
+                "Standard",
+                "Premium"
+            ],
+            "defaultValue": "Basic",
+            "metadata": {
+                "description": "Optional. The pricing tier of the Cache Redis. The default is Basic."
+            },
+            "type": "string"
+        },
+        // The family for the Cache/Redis Resource Sku. Default is C.
+        "microsoftCacheRedisResourceSkuFamily": {
+            "allowedValues": [
+                "C",
+                "P"
+            ],
+            "defaultValue": "C",
+            "metadata": {
+                "description": "Optional. The family for the Resource Sku. Default is C."
+            },
+            "type": "string"
+        },
+        //  0 = 250 MB, 1 = 1 GB, 2 = 2.5 GB, 3 = 6 GB, 4 = 13 GB, 5 = 26 GB, 6 = 53 GB. 0 is the default (you really don't need more!)
+        "microsoftCacheRedisResourceSkuCapacity": {
+            "allowedValues": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+            ],
+            "defaultValue": 0,
+            "metadata": {
+                "description": "Optional.  0 = 250 MB, 1 = 1 GB, 2 = 2.5 GB, 3 = 6 GB, 4 = 13 GB, 5 = 26 GB, 6 = 53 GB. 0 is the default (you really don't need more!)"
+            },
+            "type": "int"
+        },
+        // "microsoftCacheRedisDiagnosticsStorageAccount": {
+        //   "type": "string",
+        //   "defaultValue": ""
+        // }
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / COGNITIVESERVICES / ACCOUNTS (COMPUTER VISION)
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "microsoftCognitiveServicesAccountsComputerVisionProvision": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Optional."
+            }
+        },
+        "microsoftCognitiveServicesAccountsComputerVisionResourceSku": {
+            "type": "string",
+            "allowedValues": [
+                //"F0",
+                "S1"
+            ],
+            "defaultValue": "S1"
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / AUTHORISATION / ROLEASSIGNMENTS
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // TODO
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / COGNITIVESERVICES / ACCOUNTS (COMPUTER VISION)
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "microsoftCognitiveServicesAccountsCustomVisionProvision": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Optional."
+            }
+        },
+        // See: https://github.com/Azure/azure-sdk-for-python/issues/2385 
+        // as to why 
+        // You can change this when this changes:
+        // https://azure.microsoft.com/en-in/pricing/details/cognitive-services/custom-vision-service/
+        "microsoftCognitiveServicesAccountsCustomVisionResourceLocation": {
+            "type": "string",
+            "defaultValue": "southcentralus",
+            "allowedValues": [
+                "southcentralus"
+            ],
+            "metadata": {
+                "description": "Optional. The region where the read/write database is located. Should be closest to the app's region. "
+            }
+        },
+        "microsoftCognitiveServicesAccountsCustomVisionTrainingResourceSku": {
+            "type": "string",
+            // Note that S1 is not permitted: "The SKU name 'S1' in account type 'CustomVision.Training' is invalid."
+            "allowedValues": [
+                //"F0",
+                "S0"
+            ],
+            "defaultValue": "S0"
+        },
+        // Note that S1 is not permitted: "The SKU name 'S1' in account type 'CustomVision.Prediction' is invalid."
+        "microsoftCognitiveServicesAccountsCustomVisionPredictionResourceSku": {
+            "type": "string",
+            "allowedValues": [
+                //"F0",
+                "S0"
+            ],
+            "defaultValue": "S0"
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: COGNITIVESERVICES / ACCOUNTS (LUIS)
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "microsoftCognitiveServicesAccountsLanguageUnderstandingProvision": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Optional."
+            }
+        },
+        "microsoftCognitiveServicesAccountsLanguageUnderstandingResourceSku": {
+            "type": "string",
+            // LUIS is not available at every price point.
+            "allowedValues": [
+                //"F0",
+                "S0"
+            ],
+            "defaultValue": "S0"
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: COGNITIVESERVICES / ACCOUNTS (CONTENT MODERATION)
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "microsoftCognitiveServicesAccountsContentModeratorProvision": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Optional."
+            }
+        },
+        "microsoftCognitiveServicesAccountsContentModeratorResourceSku": {
+            "type": "string",
+            // CM is not available at every price point.
+            "allowedValues": [
+                //"F0",
+                "S0"
+            ],
+            "defaultValue": "S0"
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / DATAFACTORY / FACTORY
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "microsoftDataFactoryProvision": {
+            "defaultValue": false,
+            "metadata": {
+                "description": "Optional. DataFactory doesn't cost till you have workflows. But it may be better being a COMMON Resource."
+            },
+            "type": "bool"
+        },
+        "microsoftDataFactoryFactoriesResourceLocation": {
+            "type": "string",
+            "defaultValue": "southeastasia",
+            "allowedValues": [
+                //Not available: "australiaeast",
+                //Not available: "australiasoutheast",
+                "southeastasia"
+            ],
+            "metadata": {
+                "description": "Optional. The location for the SQL service. This is parameterised because SQL servers cannot be deployed in all regions for subscription types."
+            }
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / DOCUMENTDB / DATABASEACCOUNTS
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // If blank, uses the default resourceNameTemplate parameter.
+        // This becomes the subdomain for the 'documents.azure.com' dns namespace.
+        // Optional. DocumentDb currently has a minimum of 400 units per month...which is roughly 40 NZD...Per Environment...
+        // so there is an argument that if you don't need it, save some money.
+        // But there is also the argument that if you are *not* using it, your 
+        // system design is probably not taking advantage of modern development
+        // patterns, and that is much more costly. 
+        // Hence the default value is true.
+        "microsoftDocumentDBDatabaseAccountsProvision": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Optional. DocumentDb currently has a minimum of 400 units per month...which is roughly 40 NZD...Per Environment...so if you don't need it, save some money."
+            }
+        },
+        "microsoftDocumentDBDatabaseAccountsResourceSku": {
+            "type": "string",
+            "defaultValue": "X",
+            "allowedValues": [
+                "X"
+            ],
+            "metadata": {
+                "description": "Optional. Describes the performance level of the Database. Default is Basic ($8/m, 5 DTU, sufficient for 2GB). S0 is plenty at 25$/m. 10 DTUs, 250Gb. "
+            }
+        },
+        "microsoftDocumentDBDatabaseAccountsConsistencyPolicyLevel": {
+            "type": "string",
+            "defaultValue": "Session",
+            "allowedValues": [
+                "Eventual",
+                "Session",
+                "BoundedStaleness",
+                "Strong",
+                "ConsistentPrefix"
+            ],
+            "metadata": {
+                "description": "Optional. Describes the performance level of the Database. Default is Basic ($8/m, 5 DTU, sufficient for 2GB). S0 is plenty at 25$/m. 10 DTUs, 250Gb. "
+            }
+        },
+        "microsoftDocumentDBDatabaseAccountsConsistencyMaxStalenessPrefix": {
+            "type": "int",
+            "minValue": 10,
+            "maxValue": 1000,
+            "defaultValue": 10,
+            "metadata": {
+                "description": "Optional. When consistencyLevel is set to BoundedStaleness, then this value is required, else it can be ignored."
+            }
+        },
+        "microsoftDocumentDBDatabaseAccountsConsistencyMaxIntervalInSeconds": {
+            "type": "int",
+            "minValue": 5,
+            "maxValue": 600,
+            "defaultValue": 10,
+            "metadata": {
+                "description": "Optional. When consistencyLevel is set to BoundedStaleness, then this value is required, else it can be ignored."
+            }
+        },
+        "microsoftDocumentDBDatabaseAccountsKind": {
+            "type": "string",
+            "defaultValue": "GlobalDocumentDB",
+            "allowedValues": [
+                "MongoDB",
+                "GlobalDocumentDB",
+                "Parse"
+            ],
+            "metadata": {
+                "description": "The kind of Document Db needed. Default is MongoDB"
+            }
+        },
+        "microsoftDocumentDBDatabaseAccountsDefaultExperience": {
+            "type": "string",
+            "defaultValue": "Graph",
+            "allowedValues": [
+                "Graph"
+            ],
+            "metadata": {
+                "description": "The kind of API to offer (Graph)"
+            }
+        },
+        "microsoftDocumentDBDatabaseAccountsOfferType": {
+            "type": "string",
+            "defaultValue": "Standard",
+            "allowedValues": [
+                "Standard"
+            ],
+            "metadata": {
+                "description": "Only choice is Standard"
+            }
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / INSIGHTS / COMPONENTS
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "microsoftInsightsComponentsProvision": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Optional."
+            }
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT/ KEYVAULT / VAULTS
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "microsoftKeyVaultVaultsProvision": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Optional. "
+            }
+        },
+        "microsoftKeyVaultVaultsAccessPoliciesProvision": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. Debugging flag to turn off application of Access Policies in."
+            }
+        },
+        // Optional. The resource's sku (which determines service cost...which is trivial in this case).
+        "microsoftKeyVaultVaultsResourceSku": {
+            "defaultValue": "Standard",
+            "allowedValues": [
+                "Standard",
+                "Premium"
+            ],
+            "metadata": {
+                "description": "Optional. The resource's sku (which determines service cost...which is trivial in this case)."
+            },
+            "type": "string"
+        },
+        "microsoftKeyVaultVaultsTenantId": {
+            "defaultValue": "[subscription().tenantId]",
+            "metadata": {
+                "description": "Optional. The current tenant."
+            },
+            "type": "string"
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: KEYVAULT
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "microsoftKeyVaultVaultsEnabledForDeployment": {
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. An flag specifying if the vaults is enabled for VM or Service Fabric deployment"
+            },
+            "type": "bool"
+        },
+        // This flag is important to be default to true, so that
+        // ARM templates can access the KeyVault to retrieve Secrets (eg: DB password,pwd, etc.)
+        "microsoftKeyVaultVaultsEnabledForTemplateDeployment": {
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. An flag specifying if the vaults is enabled for ARM template deployment. This flag defaults to true as it allows ARM templates to access the KeyVault to retrieve secrets (eg: DB admin name and pwd)."
+            },
+            "type": "bool"
+        },
+        "microsoftKeyVaultVaultsEnabledForDiskEncryption": {
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. An flag Specifying if the vaults is enabled for volume encryption"
+            },
+            "type": "bool"
+        },
+        "microsoftKeyVaultVaultsEnableSoftDelete": {
+            "defaultValue": false,
+            "metadata": {
+                "description": "Optional. An flag specififying if the vaults is enabled for volume encryption"
+            },
+            "type": "bool"
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / KEYVAULT / VAULTS / SECRETS
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // 
+        "microsoftKeyVaultVaultsSecretsSecrets": {
+            "type": "array",
+            // A surprising fact is that the pre-parser that allows
+            // JSON to be added to the ARM template -- even though
+            // JSON does not support comments -- does not work within
+            // Arrays. So Do NOT comment within the array!
+            // **************************************************
+            // it is *IMPERATIVE* that no comments are added *within* the 
+            // dynamic array. 
+            // Or you will get an error saying 
+            // Invalid array passed in, ',' expected. (76956)
+            // It's just that JSON does not allow Comments. And even though
+            // the pre-parser strips out comments in between objects, it doesn't 
+            // in this case.
+            // I know...right?!?!? What's up with that??!?? Grrrrr!!!
+            // **************************************************
+            "defaultValue": [],
+            "metadata": {
+                "description": "Optional. An array of Complex of name, type, value. With no comments allowed within the array (due to bug in VSTS)."
+            }
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT /LOGIC / WORKFLOWS
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "microsoftLogicWorkflowsProvision": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Optional."
+            }
+        },
+        // "microsoftLogicWorkflowsResourceName": {
+        //     "defaultValue": "[take( toLower( replace( replace( resourceGroup().name,'_',''),'-','') ), 24)]",
+        //     "type": "string",
+        //     "minLength": 3,
+        //     "maxLength": 32,
+        //     "metadata": {
+        //         "description": "The resource name."
+        //     }
+        // },
+        "microsoftLogicWorkflowsSchema": {
+            "type": "string",
+            "defaultValue": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+            "metadata": {
+                "description": "Optional."
+            }
+        },
+        "microsoftLogicWorkflowsAppState": {
+            "type": "string",
+            "defaultValue": "Enabled",
+            "metadata": {
+                "description": "Optional."
+            }
+        },
+        "microsoftLogicWorkflowsDefinition": {
+            "type": "string",
+            "defaultValue": "[concat('{\"contentVersion\":\"1.0.0.0\",\"parameters\":{},\"actions\":{},\"triggers\":{},\"outputs\":{},\"$schema\":\"', parameters('microsoftLogicWorkflowsSchema'), '\"}')]",
+            "metadata": {
+                "description": "Optional."
+            }
+        },
+        "microsoftLogicWorkflowsParameters": {
+            "type": "object",
+            "defaultValue": {},
+            "metadata": {
+                "description": "Optional."
+            }
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / MAPS / ACCOUNTS
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "microsoftMapsAccountsProvision": {
+            "defaultValue": false,
+            "metadata": {
+                "description": "Optional."
+            },
+            "type": "bool"
+        },
+        "microsoftMapsAccountsResourceSku": {
+            "type": "string",
+            "allowedValues": [
+                "S0"
+            ],
+            "defaultValue": "S0"
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // // PARAMETERS: MICROSOFT / SEARCH / SEARCHSERVICES
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // Search Services is relatively expensive at 150$/month. 
+        // If you don't yet need it...turn it off in some environments
+        "microsoftSearchSearchServicesProvision": {
+            "type": "bool",
+            "defaultValue": false
+        }, // Basic starts at 130NZ$/month (not exactly free)
+        // So 
+        "microsoftSearchSearchServicesResourceSku": {
+            "type": "string",
+            "allowedValues": [
+                "free",
+                "basic",
+                "standard"
+            ],
+            "defaultValue": "basic"
+        },
+        "microsoftSearchSearchServicesReplicaCount": {
+            "type": "int",
+            "defaultValue": 1,
+            "allowedValues": [
+                1,
+                2,
+                3
+            ],
+            "metadata": {
+                "description": "Optional."
+            }
+        },
+        "microsoftSearchSearchServicesPartitionCount": {
+            "type": "int",
+            "defaultValue": 1,
+            "allowedValues": [
+                1,
+                2,
+                3,
+                4,
+                6,
+                12
+            ],
+            "metadata": {
+                "description": "Optional."
+            }
+        },
+        "microsoftSearchSearchServicesHostingMode": {
+            "type": "string",
+            "defaultValue": "default",
+            "allowedValues": [
+                "default",
+                "highDensity"
+            ],
+            "metadata": {
+                "description": "Optional."
+            }
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / SERVICEBUS / NAMESPACES
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "microsoftServiceBusNamespacesProvision": {
+            "defaultValue": false,
+            "metadata": {
+                "description": "Optional."
+            },
+            "type": "bool"
+        },
+        "microsoftServiceBusNamespacesResourceSku": {
+            "type": "string",
+            "defaultValue": "Standard",
+            "allowedValues": [
+                //"Basic",// Only allows Queues, so too limiting.
+                "Standard",
+                "Premium"
+            ],
+            "metadata": {
+                "description": "Optional. TODO."
+            }
+        },
+        "microsoftServiceBusNamespacesResourceSkuTier": {
+            "type": "string",
+            "defaultValue": "Standard",
+            "allowedValues": [
+                //"Basic",// Only allows Queues, so too limiting.
+                "Standard",
+                "Premium"
+            ],
+            "metadata": {
+                "description": "Optional. TODO."
+            }
+        },
+        "microsoftServiceBusNamespacesResourceSkuCapacity": {
+            "type": "int",
+            "defaultValue": 1,
+            "allowedValues": [
+                1,
+                2,
+                4
+            ],
+            "metadata": {
+                "description": "Optional. TODO."
+            }
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / SERVICEBUS / NAMESPACES / QUEUE (DEFAULT)
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "microsoftServiceBusNamespacesQueuesDefaultProvision": {
+            "defaultValue": false,
+            "metadata": {
+                "description": "Optional."
+            },
+            "type": "bool"
+        },
+        "microsoftServiceBusNamespacesQueuesStatus": {
+            "type": "string",
+            "defaultValue": "Active",
+            "allowedValues": [
+                "Active",
+                "Disabled",
+                "Restoring",
+                "SendDisabled",
+                "ReceiveDisabled",
+                "Creating",
+                "Deleting",
+                "Renaming",
+                "Unknown"
+            ],
+            "metadata": {
+                "description": "Enable or disable the service (note, pricing will still apply)."
+            }
+        },
+        "microsoftServiceBusNamespacesQueuesMaxSizeInMegaBytes": {
+            "type": "int",
+            "defaultValue": 1024, //Default size is 1GB
+            "metadata": {
+                "description": "Max Size of the Queue to allow reaching before clearing out messages."
+            }
+        },
+        // The default amount of time is 31 days.
+        "microsoftServiceBusNamespacesQueuesTimeToLive": {
+            "type": "string",
+            "defaultValue": "P31D",
+            "metadata": {
+                "description": "ISO 8601 Compliant Duration. The default is 31 days."
+            }
+        },
+        "microsoftServiceBusNamespacesQueuesOrderingEnabled": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Value that indicates whether the topic supports ordering."
+            }
+        },
+        "microsoftServiceBusNamespacesQueuesBatchOperationsEnabled": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Value that indicates whether server-side batched operations are enabled."
+            }
+        },
+        "microsoftServiceBusNamespacesQueuesDuplicationDetectionDurationEnabled": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Check to see if a message has already been queued (slows things down)."
+            }
+        },
+        "microsoftServiceBusNamespacesQueuesDuplicationDetectionDurationWindow": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "metadata": {
+                "description": "If 'microsoftServiceBusNamespacesQueuesEnableDuplicationDetection' has been enabled, for how long do we check?"
+            }
+        },
+        "microsoftServiceBusNamespacesQueuesPartitioningEnabled": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Value that indicates whether the topic to be partitioned across multiple message brokers is enabled."
+            }
+        },
+        "microsoftServiceBusNamespacesQueuesExpressEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "An express topic holds a message in memory temporarily before writing it to persistent storage."
+            }
+        },
+        "microsoftServiceBusNamespacesQueuesDeadLetteringEnabled": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Move undelivered/unpicked-up messages to a Dead letter queue."
+            }
+        },
+        "microsoftServiceBusNamespacesQueuesAutoDeleteOnIdle": {
+            "type": "string",
+            "defaultValue": "P5Y",
+            "metadata": {
+                "description": "ISO 8601 Compliant Duration until unused queues are deleted. Default is ...a long time (5Years)"
+            }
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / SERVICEBUS / NAMESPACES / TOPICS (DEFAULT)
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "microsoftServiceBusNamespacesTopicsDefaultProvision": {
+            "defaultValue": false,
+            "metadata": {
+                "description": "Optional."
+            },
+            "type": "bool"
+        },
+        "microsoftServiceBusNamespacesTopicsStatus": {
+            "type": "string",
+            "defaultValue": "Active",
+            "allowedValues": [
+                "Active",
+                "Disabled",
+                "Restoring",
+                "SendDisabled",
+                "ReceiveDisabled",
+                "Creating",
+                "Deleting",
+                "Renaming",
+                "Unknown"
+            ],
+            "metadata": {
+                "description": "Enable or disable the service (note, pricing will still apply)."
+            }
+        },
+        "microsoftServiceBusNamespacesTopicsMaxSizeInMegaBytes": {
+            "type": "int",
+            "defaultValue": 1024, //Default size is 1GB
+            "metadata": {
+                "description": "Max Size of the Queue to allow reaching before clearing out messages."
+            }
+        },
+        // The default amount of time is 31 days.
+        "microsoftServiceBusNamespacesTopicsTimeToLive": {
+            "type": "string",
+            "defaultValue": "P31D",
+            "metadata": {
+                "description": "ISO 8601 Compliant Duration. The default is 31 days."
+            }
+        },
+        "microsoftServiceBusNamespacesTopicsOrderingEnabled": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Value that indicates whether the topic supports ordering."
+            }
+        },
+        "microsoftServiceBusNamespacesTopicsBatchOperationsEnabled": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Value that indicates whether server-side batched operations are enabled."
+            }
+        },
+        "microsoftServiceBusNamespacesTopicsDuplicationDetectionDurationEnabled": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Check to see if a message has already been queued (slows things down)."
+            }
+        },
+        "microsoftServiceBusNamespacesTopicsDuplicationDetectionDurationWindow": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "metadata": {
+                "description": "If 'microsoftServiceBusNamespacesTopicsEnableDuplicationDetection' has been enabled, for how long do we check?"
+            }
+        },
+        "microsoftServiceBusNamespacesTopicsPartitioningEnabled": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Value that indicates whether the topic to be partitioned across multiple message brokers is enabled."
+            }
+        },
+        "microsoftServiceBusNamespacesTopicsExpressEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "An express topic holds a message in memory temporarily before writing it to persistent storage."
+            }
+        },
+        "microsoftServiceBusNamespacesTopicsAutoDeleteOnIdle": {
+            "type": "string",
+            "defaultValue": "P5Y",
+            "metadata": {
+                "description": "ISO 8601 Compliant Duration until unused queues are deleted. Default is ...a long time (5Years)"
+            }
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / SQL SERVER / DATABASE
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "microsoftSqlServersDatabasesProvision": {
+            "defaultValue": false,
+            "metadata": {
+                "description": "Optional. All but the smallest (or incorrectly architected) systems will have a Relational database."
+            },
+            "type": "bool"
+        },
+        "microsoftSqlServersDatabasesArray": {
+            "defaultValue": [],
+            "metadata": {
+                "description": "Optional. An array of definitions of databases to create -- each object specifies resourceName, resourceNameSuffix, sku, edition, maxBytesSize."
+            },
+            "type": "array"
+        },
+        // Pricing is 
+        // S0 (25$), S1 ($45)
+        "microsoftSqlServersDatabasesResourceSku": {
+            "type": "string",
+            "defaultValue": "Basic",
+            "allowedValues": [
+                "Basic",
+                "S0",
+                "S1",
+                "S2"
+            ],
+            "metadata": {
+                "description": "Describes the performance level of the Database. Default is Basic ($8/m, 5 DTU, sufficient for 2GB). S0 is plenty at 25$/m. 10 DTUs, 250Gb. "
+            }
+        },
+        "microsoftSqlServersDatabasesZoneRedundant": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "TODO"
+            }
+        },
+        "microsoftSqlServersDatabasesEdition": {
+            "type": "string",
+            "defaultValue": "Basic",
+            "allowedValues": [
+                "Basic",
+                "Standard",
+                "Premium"
+            ],
+            "metadata": {
+                "description": "TODO"
+            }
+        },
+        "microsoftSqlServersDatabasesCollation": {
+            "type": "string",
+            "minLength": 1,
+            "defaultValue": "SQL_Latin1_General_CP1_CI_AS",
+            "allowedValues": [
+                "SQL_Latin1_General_CP1_CI_AS"
+            ],
+            "metadata": {
+                "description": "TODO"
+            }
+        },
+        "microsoftSqlServersDatabasesMaxSizeBytes": {
+            "type": "string",
+            "allowedValues": [
+                "104857600",
+                "524288000",
+                "1073741824",
+                "2147483648",
+                "5368709120",
+                "10737418240",
+                "21474836480",
+                "32212254720",
+                "42949672960",
+                "53687091200",
+                "107374182400",
+                "161061273600",
+                "214748364800",
+                "268435456000",
+                "322122547200",
+                "429496729600",
+                "536870912000"
+            ],
+            "defaultValue": "2147483648",
+            "metadata": {
+                "description": "TODO"
+            }
+        },
+        "microsoftSqlServersDatabasesStorageRetentionPolicyDays": {
+            "type": "int",
+            "defaultValue": 356,
+            "metadata": {
+                "description": "How long you want to the Storage account to keep The SQL Server Diagnostic Logs"
+            }
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
         // PARAMETERS: MICROSOFT / SQL / SERVERS
-        // -------------------------------------------------------
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // Provide the Sql Server Administrator's name, which an 
+        // infrastructure support specialist will have 
+        // defined and set within a key vaults 
+        // outside of the projects resource group (and probably 
+        // in a different subscription) so use the reference approach
+        //  to get it out, and place it here.
+        // Required when creating a new Database Server. 
+        // Note that security is not perfect: a developer can develop
+        // arm templates whose output records the values it extracts
+        // from a keyvault.
+        // "reference": {
+        //   "keyVault": {
+        //     "id": "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.KeyVault/vaults/{keyvaultName}"
+        //   },
+        //   "secretName": "{keyName}"
+        // }
         "microsoftSqlServersAdministratorLogin": {
-            "minLength": 6,
+            "defaultValue": "",
             "metadata": {
-                "description": "Required. Provide the Sql Server Administrator's name, which an infrastructure support specialist will have defined and set within a key vault outside of the projects resource group (and probably in a different subscription) so use the reference approach to get it out, and place it here. Required when creating a new Database Server. Note that security is not perfect: a developer can develop arm templates whose output records the values it extracts from a keyvault. Provide the Sql Server Administrator's Login. Required when creating a new Database Server. This is unfortunate as it requires risk-mitigation processes around deployment to correctly secure the secret and not leave it in the hands of stakeholders that don't absolutely need to know it. Developers don't."
+                "description": "Required. Provide the Sql Server Administrator's name, which an infrastructure support specialist will have defined and set within a key vaults outside of the projects resource group (and probably in a different subscription) so use the reference approach to get it out, and place it here. Required when creating a new Database Server. Note that security is not perfect: a developer can develop arm templates whose output records the values it extracts from a keyvault. Provide the Sql Server Administrator's Login. Required when creating a new Database Server. This is unfortunate as it requires risk-mitigation processes around deployment to correctly secure the secret and not leave it in the hands of stakeholders that don't absolutely need to know it. Developers don't."
             },
             "type": "string"
         },
+        // Provide the Sql Server Administrator's Password, which an 
+        // infrastructure support specialist will have 
+        // set the provided the password in a key vaults 
+        // outside of the projects resource group (and probably 
+        // in a different subscription) so use the reference approach
+        //  to get it out, and place it here.
+        // Required when creating a new Database Server. 
+        // Note that security is not perfect: a developer can develop
+        // arm templates whose output records the values it extracts
+        // from a keyvault.
+        // "reference": {
+        //   "keyVault": {
+        //     "id": "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.KeyVault/vaults/{keyvaultName}"
+        //   },
+        //   "secretName": "{keyName}"
+        // }
         "microsoftSqlServersAdministratorLoginPassword": {
-            "metadata": {
-                "description": "Required. Provide the Sql Server Administrator's Password, which an infrastructure support specialist will have defined and set within a key vault outside of the projects resource group (and probably in a different subscription) so use the reference approach to get it out, and place it here.  Required when creating a new Database Server.  Note that security is not perfect: a developer can develop arm templates whose output records the values it extracts from a keyvault."
-            },
-            "type": "securestring"
-        },
-        // -------------------------------------------------------
-        // PARAMETERS: MICROSOFT / WEB / CERTIFICATE
-        // -------------------------------------------------------
-        "microsoftWebCertificatesPfxBase64": {
+            "type": "securestring",
             "defaultValue": "",
             "metadata": {
-                "description": "Optional.   Base64 encoded PFX certificate for appService Web Site SSL. Required to match the information within appServiceWebSiteHostName."
+                "description": "Required. Provide the Sql Server Administrator's Password, which an infrastructure support specialist will have defined and set within a key vaults outside of the projects resource group (and probably in a different subscription) so use the reference approach to get it out, and place it here.  Required when creating a new Database Server.  Note that security is not perfect: a developer can develop arm templates whose output records the values it extracts from a keyvault."
+            }
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / SQL SERVER / ALERT POLICIES
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "microsoftSqlServersSecurityAlertPoliciesEnabled": {
+            "type": "string",
+            "minLength": 1,
+            "defaultValue": "Enabled",
+            "allowedValues": [
+                "Enabled"
+            ],
+            "metadata": {
+                "description": "TODO"
+            }
+        },
+        "microsoftSqlServersSecurityAlertPoliciesEmailAddress": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "If microsoftSqlServersSecurityAlertPoliciesEnabled=Enabled, suspicious activity on the server is reported to the provided email address."
+            }
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / SQL / SERVER / AUDITING POLICIES
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        //
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / SQL / SERVERS / AUDITING SETTINGS
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "microsoftSqlServersAuditingSettingsEnabled": {
+            "type": "string",
+            "defaultValue": "Enabled",
+            "allowedValues": [
+                "Enabled"
+            ]
+        },
+        "microsoftSqlServersAuditingSettingsAuditActionsAndGroups": {
+            "type": "array",
+            // A surprising fact is that the pre-parser that allows
+            // JSON to be added to the ARM template -- even though
+            // JSON does not support comments -- does not work within
+            // Arrays. So Do NOT comment within the array!
+            "defaultValue": [
+                "BATCH_STARTED_GROUP",
+                "BATCH_COMPLETED_GROUP",
+                "APPLICATION_ROLE_CHANGE_PASSWORD_GROUP",
+                "BACKUP_RESTORE_GROUP",
+                "DATABASE_LOGOUT_GROUP",
+                "DATABASE_OBJECT_CHANGE_GROUP",
+                "DATABASE_OBJECT_OWNERSHIP_CHANGE_GROUP",
+                "DATABASE_OBJECT_PERMISSION_CHANGE_GROUP",
+                "DATABASE_OPERATION_GROUP",
+                "DATABASE_PERMISSION_CHANGE_GROUP",
+                "DATABASE_PRINCIPAL_CHANGE_GROUP",
+                "DATABASE_PRINCIPAL_IMPERSONATION_GROUP",
+                "DATABASE_ROLE_MEMBER_CHANGE_GROUP",
+                "SCHEMA_OBJECT_ACCESS_GROUP",
+                "SCHEMA_OBJECT_CHANGE_GROUP",
+                "SCHEMA_OBJECT_OWNERSHIP_CHANGE_GROUP",
+                "SCHEMA_OBJECT_PERMISSION_CHANGE_GROUP",
+                "SUCCESSFUL_DATABASE_AUTHENTICATION_GROUP",
+                "FAILED_DATABASE_AUTHENTICATION_GROUP",
+                "USER_CHANGE_PASSWORD_GROUP"
+            ]
+        },
+        "microsoftSqlServersAuditingSettingsStorageAccountName": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "microsoftSqlServersAuditingSettingsRetentionDays": {
+            "type": "int",
+            "defaultValue": 90
+        },
+        "microsoftSqlServersAuditingSettingsStorageAccountResourceGroupName": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().name]" // LEAVE AS IS
+        },
+        "microsoftSqlServersAuditingSettingsStorageAccountSubscriptionId": {
+            "type": "string",
+            "defaultValue": "[subscription().subscriptionId]"
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / SQL / SERVERS / FIREWALL RULE
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // Optional. An array of objects containing 'name', 'startIpAddress' and 'endIpAddress' (eg [{\"name\":\"foo\", \"startIpAddress\":\"0.0.0.0\", \"endIpAddress\":\"0.0.0.0\"}]) 
+        "microsoftSqlServersFirewallRulesRules": {
+            "type": "array",
+            // A surprising fact is that the pre-parser that allows
+            // JSON to be added to the ARM template -- even though
+            // JSON does not support comments -- does not work within
+            // Arrays. So Do NOT comment within the array!
+            "defaultValue": [],
+            "metadata": {
+                "description": "Optional. An array of objects containing 'name', 'startIpAddress' and 'endIpAddress' (eg [{\"name\":\"foo\", \"startIpAddress\":\"0.0.0.0\", \"endIpAddress\":\"0.0.0.0\"}]) "
+            }
+        },
+        // Optional. A boolean flag allowing for access to the server from all Azure Resources. Default is true.
+        "microsoftSqlServersFirewallRulesAllowAllWindowsAzureIps": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Optional. A boolean flag allowing for access to the server from all Azure Resources. Default is true."
+            }
+        },
+        // Optional. A CSV string of IPs.
+        "microsoftSqlServersFirewallRulesRulesString": {
+            "type": "string",
+            "defaultValue": "5.4.3.2",
+            "metadata": {
+                "description": "Optional. A CSV string of IPs."
+            }
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / STORAGE / STORAGE ACCOUNTS (SHARED/COMMON)
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "microsoftStorageStorageAccountsDiagnosticsProvision": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Optional."
+            }
+        },
+        "microsoftStorageStorageAccountsDiagnosticsResourceSku": {
+            "allowedValues": [
+                "Premium_LRS",
+                "Standard_GRS",
+                "Standard_LRS",
+                "Standard_RAGRS",
+                "Standard_ZRS"
+            ],
+            "defaultValue": "Standard_LRS",
+            "metadata": {
+                "description": "TODO"
             },
             "type": "string"
         },
-        "microsoftWebCertificatesPfxPassword": {
+        "microsoftStorageStorageAccountsDefaultProvision": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Optional."
+            }
+        },
+        "microsoftStorageStorageAccountsResourceSku": {
+            "allowedValues": [
+                "Premium_LRS",
+                "Standard_GRS",
+                "Standard_LRS",
+                "Standard_RAGRS",
+                "Standard_ZRS"
+            ],
+            "defaultValue": "Standard_LRS",
+            "metadata": {
+                "description": "TODO"
+            },
+            "type": "string"
+        },
+        "microsoftStorageStorageAccountsKind": {
+            "allowedValues": [
+                "Storage",
+                "StorageV2",
+                "BlobStorage"
+            ],
+            "defaultValue": "StorageV2",
+            "metadata": {
+                "description": "TODO"
+            },
+            "type": "string"
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / WEB / CERTIFICATES
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        //
+        // Not needed, as must be same as parent Resource Location:
+        // "microsoftWebCertificatesResourceLocation": 
+        // 
+        // In the parameter, retrieve the value from a remote keyvault (outside the target resource group)
+        // using code similar to the following:  
+        //   // Provide a password for this pfx
+        //   "microsoftWebCertificatesPfxBase64": {
+        //     "reference": {
+        //       "keyVault": {
+        //         "id": "/subscriptions/{subscriptionId}/resourceGroups/{group-name}/providers/Microsoft.KeyVault/vaults/{vaults-name}"
+        //       },
+        //     "secretName": "{keyName}"
+        //     }        
+        //   },
+        "microsoftWebCertificatesPfxBase64": {
+            "type": "string",
             "defaultValue": "",
             "metadata": {
-                "description": "Optional.   Password for the appService Web Site SSL Pfx Certificate. Only required if `sslCertificateBase64` is provided."
-            },
-            "type": "securestring"
+                "description": "Optional.  Base64 encoded PFX certificate for appService Web Site SSL. Required to match the information within appServiceWebSiteHostName."
+            }
         },
-
+        // In the parameter, retrieve the value from a remote keyvault (outside the target resource group)
+        // using code similar to the following:  
+        //   // Provide a password for this pfx
+        //   "microsoftWebCertificatesPfxPassword": {
+        //     "reference": {
+        //       "keyVault": {
+        //         "id": "/subscriptions/{subscriptionId}/resourceGroups/{group-name}/providers/Microsoft.KeyVault/vaults/{vaults-name}"
+        //       },
+        //       "secretName": "{keyName}"
+        //     }        
+        //   },
+        "microsoftWebCertificatesPfxPassword": {
+            "type": "securestring",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional.  Password for the appService Web Site SSL Pfx Certificate. Only required if `sslCertificateBase64` is provided."
+            }
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / WEB / SERVERFARMS
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // Optional. App Service server pricing tier and capacity. 
+        // Check details at https://azure.microsoft.com/en-us/pricing/details/app-service/ 
+        // Default is F1 to keep prices down until you know you need Site Binding. 
+        // Or AlwaysOn. Or other features that need a mininum of S1.     
+        // S1 is about $120/month   
+        "microsoftWebServerFarmsResourceSku": {
+            "type": "string",
+            "defaultValue": "S1",
+            "allowedValues": [
+                "F1",
+                "D1",
+                "B1",
+                "S1",
+                "S2"
+            ],
+            "metadata": {
+                "description": "Optional. App Service server pricing tier and capacity. Check details at https://azure.microsoft.com/en-us/pricing/details/app-service/ Default is F1 to keep prices down until you know you need Site Binding. Or AlwaysOn. Or other features that need a mininum of S1."
+            }
+        },
+        "microsoftWebServerFarmsNumberOfWorkers": {
+            "type": "int",
+            "minValue": 1,
+            "maxValue": 3,
+            "defaultValue": 1,
+            "metadata": {
+                "description": "Optional. TODO"
+            }
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / WEB / SITES
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "microsoftWebSitesProvision": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Optional."
+            }
+        },
+        "microsoftWebSitesResourceName": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "microsoftWebSitesKind": {
+            "type": "string",
+            "defaultValue": "",
+            "allowedValues": [
+                "",
+                "functionapp"
+            ],
+            "metadata": {
+                "description": "Optional. The kind of website use functionApp to develop  a function"
+            }
+        },
+        // Optional.
+        "microsoftWebSitesEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional."
+            }
+        },
+        "microsoftWebSitesArray": {
+            "type": "array",
+            "defaultValue": [],
+            "metadata": {
+                "description": "Optional. An array of WebSite description objects (resourceName, resourceNameSuffix,kind,hostName,databaseResourceName,appSettings)."
+            }
+        },
+        // Optional. The default is false as true requires a minimal SKU of S1.
+        "microsoftWebSitesAlwaysOn": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. The default is false as true requires a minimal SKU of S1."
+            }
+        },
+        // Optional. The default is true. You can always optimize later.
+        "microsoftWebSitesDetailedErrorLoggingEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. The default is true. You can always optimize later."
+            }
+        },
+        // Optional. The size limit of the logs directory. MB, I Assume.
+        "microsoftWebSitesLogsDirectorySizeLimit": {
+            "type": "int",
+            "defaultValue": 35,
+            "metadata": {
+                "description": "Optional. The size limit of the logs directory. MB, I Assume."
+            }
+        },
+        // Optional. Gets or sets whether HTTP error logging is enabled.
+        "microsoftWebSitesHttpLoggingEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. Gets or sets whether HTTP error logging is enabled."
+            }
+        },
+        // Does not affect performance until used.
+        // As per https://docs.microsoft.com/en-us/azure/vs-azure-tools-debugging-cloud-services-overview
+        // These services - such as msvsmon.exe - do not affect performance or result in extra costs. For more information, see Debug a cloud service in Azure.
+        "microsoftWebSitesRemoteDebuggingEnabled": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "TODO."
+            }
+        },
+        // Optional. The remote debugging version. The default at this point in time is VS2017 (and should be periodically updated).
+        "microsoftWebSitesRemoteDebuggingVersion": {
+            "type": "string",
+            "defaultValue": "VS2017",
+            "allowedValues": [
+                "VS2012",
+                "VS2013",
+                "VS2015",
+                "VS2017"
+            ],
+            "metadata": {
+                "description": "Optional. The remote debugging version. The default at this point in time is VS2017 (and should be periodically updated)."
+            }
+        },
+        // Optional. Gets or sets whether request tracing is enabled. Default is true.
+        "microsoftWebSitesRequestTracingEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. Gets or sets whether request tracing is enabled. Default is true."
+            }
+        },
+        // Optional. Indicates if Web Sockets are enabled. Default is true.
+        "microsoftWebSitesWebSocketsEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. Indicates if Web Sockets are enabled. Default is true."
+            }
+        },
+        "microsoftWebSitesHttp20Enabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "TODO."
+            }
+        },
+        "microsoftWebSitesMinTlsVersion": {
+            "type": "string",
+            "allowedValues": [
+                "1.1",
+                "1.2"
+            ],
+            "defaultValue": "1.2"
+        },
+        "microsoftWebSitesFtpsState": {
+            "type": "string",
+            "allowedValues": [
+                "Disabled",
+                "FtpsOnly",
+                "AllAllowed"
+            ],
+            "defaultValue": "Disabled"
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / WEB / SITES / CONFIG / APPSETTINGS
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: Web Site Config App Settings
+        //
+        // Optional. A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target site as AppSettings.
+        // An example would be:
+        //     "defaultValue": {
+        //         "ExampleKey": "exampleValue"
+        //     },
+        "microsoftWebSitesConfigAppSettings": {
+            "type": "object",
+            "defaultValue": {},
+            "metadata": {
+                "description": "Optional. A Complex Object (ie, JSON) containing a series of stringKey/stringValues that are added to the target site as AppSettings."
+            }
+        },
         // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
         // PARAMETERS: MICROSOFT / WEB / SITES / CONFIG / CONNECTIONSTRINGS
         // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
@@ -210,6 +1582,160 @@
                 "description": "Optional. A Complex Object (not an array) of a set of {'name' { 'value' and 'type'}}, that are added to the site's ConnectionStrings. Type is Case Senstive. And probably should be SQLAzure in most cases."
             }
         },
+        // The name of the default Database ConnectionString. 
+        // Used, along with the variable developed from 'microsoftSqlServersDatabasesResourceName', to develop a default ConnectionString.
+        // The default ConnectionString can be overridden with a similarly named connectionstring provided within `microsoftWebSitesConfigConnectionStrings`.
+        "microsoftWebSitesConfigConnectionStringsDefaultConnectionStringName": {
+            "type": "string",
+            "defaultValue": "Default",
+            "metadata": {
+                "description": "Optional. The name of the default Database ConnectionString. Used, along with the variable developed from 'microsoftSqlServersDatabasesResourceName', to develop a default ConnectionString (which can be overridden with a similar connectionstring provided within . "
+            }
+        },
+        //Optional. The timeout to use for developing the default Connectionstring. 
+        // The default is 300. 
+        // The timeout is intentionally large to handle CodeFirst Schema Migrations, which can take some 
+        // time (eg: if the tables are large, and/or the migration involves reindexing).
+        "microsoftWebSitesConfigConnectionStringsDefaultConnectionTimeout": {
+            "type": "int",
+            "minValue": 30,
+            "defaultValue": 300,
+            "maxValue": 600,
+            "metadata": {
+                "description": "Optional. The timeout to use for developing the default Connectionstring. The default is 300. The timeout is intentionally large to handle CodeFirst Schema Migrations, which can take some time (eg: if the tables are large, and/or the migration involves reindexing)."
+            }
+        },
+        // The default connectionString associated to 'microsoftWebSitesConfigConnectionStringsDefaultConnectionStringName'.
+        "microsoftWebSitesConfigConnectionStringsDefaultConnectionString": {
+            "type": "string",
+            "defaultValue": "Data Source=tcp:{DB_SERVER}.database.windows.net,1433; Initial Catalog={DB_NAME};Connect Timeout={DB_TIMEOUT};Persist Security Info=False;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;",
+            "metadata": {
+                "description": "Optional. The default connectionString associated to 'microsoftWebSitesConfigConnectionStringsDefaultConnectionStringName'."
+            }
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // PARAMETERS: MICROSOFT / WEB / SITES HOSTBINDINGS
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "microsoftWebSitesHostNameBindingsAzureResourceType": {
+            "type": "string",
+            "allowedValues": [
+                "Website",
+                "TrafficManager"
+            ],
+            "defaultValue": "Website",
+            "metadata": {
+                "description": "Optional. Resource Type. Default is 'Website'"
+            }
+        },
+        // Optional. HostName Type.
+        "microsoftWebSitesHostNameBindingsHostNameDnsRecordType": {
+            "type": "string",
+            "allowedValues": [
+                "CName",
+                "A"
+            ],
+            "defaultValue": "A",
+            "metadata": {
+                "description": "Optional. DNS Record Type. Default is 'A'"
+            }
+        },
+        // Optional. The public DNS name of the website. Default is ''. Will require a WebServerFarm SKU of S1 of higher to be set.
+        // You have to own the name and make a record of it
+        // or you will be get a deployment error or :
+        // "A CNAME record pointing from foobarsite.com to foobar.azurewebsites.net was not found. 
+        // Alternative record awverify.foobarsite.com to awverify.foobar.azurewebsites.net was not found either."
+        //"value": "foobarsite.com"
+        "microsoftWebSitesHostNameBindingsHostName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Required. The public DNS name of the website. Default is ''. Will require a WebServerFarm SKU of S1 of higher to be set."
+            }
+        },
+        // Optional. If 'microsoftWebSitesHostNameBindingsHostName' is used 
+        // for 'www.mydomain.tld', you want to be able to 
+        // also register 'mydomain.tld' as well.
+        "microsoftWebSitesHostNameBindingsHostNameAlt": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. If 'microsoftWebSitesHostNameBindingsHostName' is used for 'www.mydomain.tld', you want to be able to also register 'mydomain.tld' as well."
+            }
+        },
+        // Optional. HostName Type.
+        "microsoftWebSitesHostNameBindingsHostNameType": {
+            "type": "string",
+            "allowedValues": [
+                "Verified",
+                "Managed"
+            ],
+            "defaultValue": "Verified",
+            "metadata": {
+                "description": "Optional. HostName Type. Default is 'Verified'"
+            }
+        },
+        // Optional. SSL Type. Default is 'Disabled'
+        "microsoftWebSitesHostNameBindingsSSLState": {
+            "type": "string",
+            "allowedValues": [
+                "Disabled",
+                "SniEnabled",
+                "IpBasedEnabled"
+            ],
+            "defaultValue": "IpBasedEnabled",
+            "metadata": {
+                "description": "Optional. SSL Type. Default is 'Disabled'"
+            }
+        },
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // Parameters WebTests
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "microsoftInsightsWebTestsEnabled": { 
+            "type": "bool",
+            "defaultValue": false
+        },
+        "microsoftInsightsWebTestsName": { 
+            "type": "string" ,
+            "defaultValue": "AvailabilityTest"
+        },
+        "microsoftInsightsWebTestsPingURL": { 
+            "type": "string",
+            "defaultValue": "https://google.com"
+        },
+        "microsoftInsightsWebTestsPingFrequency": {
+            "type": "int" , 
+            "defaultValue": 300
+        },
+        "microsoftInsightsWebTestsPingTimeout": {
+            "type": "int" , 
+            "defaultValue": 120
+        },
+        "microsoftInsightsWebTestsWebTest": {
+            "type": "string",
+            "defaultValue": ""
+        },
+
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        // Parameters SERVICE INTEGRATION / ARRAY
+        // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+        "serviceIntegrationsArrayKeyVaultResourceId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional/Required. The ResourceId of the keyvault to read secrets from (required if the integrationServicesArray has more than 0 entries)."
+            }
+        },
+        //[
+        // {"name":"", "description":"", "uri":"", "tenantId":"", "clientId":"", "clientSecret":"", "clientMiscConfig":"", "keyVaultResourceId":""}
+        //]
+        // WARNING: if an array is provided, a KeyVaultId is required.
+        "serviceIntegrationsArray": {
+            "type":"array",
+            "defaultValue": [],
+            "metadata": {
+                "description": "Optional. Array of objects [name, description, uri, clientId, clientSecret, clientMisc] describing services used by the environment."
+            }
+        },
 
         // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
         // Parameters SERVICE INTEGRATION / OAUTHSERVICE / CLIENT / BASICS
@@ -227,7 +1753,7 @@
         // to provide the OAuth AuthorityUri, ClientId ClientKey.
         "serviceIntegrationOIDCServiceEnabled": {
             "type": "bool",
-            "defaultValue": true,
+            "defaultValue": false,
             "metadata": {
                 "description": "Hook up to an OAuth Authority (you will need to provide the OAuth AuthorityUri, ClientId ClientKey."
             }
@@ -330,7 +1856,6 @@
         // ----------------------------------------------------------------------
         // Parameters OAUTH API 
         // ----------------------------------------------------------------------
-
         "serviceIntegrationOAuthServiceClientTenant": {
             "type": "string",
             "defaultValue": "",
@@ -352,7 +1877,6 @@
                 "description": "Optional. Client Id of the oAuth"
             }
         },
-
         "serviceIntegrationOAuthServiceClientIdB2C": {
             "type": "string",
             "defaultValue": "",
@@ -374,219 +1898,14 @@
                 "description": "Optional. The name of the B2C's Policy/Flow to use only use this when using a b2c"
             }
         },
-
-		
         // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
-        // PARAMETERS: MICROSOFT / SQL SERVER / DATABASE
+        // PARAMETERS: END (REMOVE LAST COMMA)
         // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
-        "microsoftSqlServersDatabasesProvision": {
-            "defaultValue": true,
-            "metadata": {
-                "description": "Optional. All but the smallest (or incorrectly architected) systems will have a Relational database."
-            },
-            "type": "bool"
-        },
-        // Pricing is 
-        // S0 (25$), S1 ($45)
-        "microsoftSqlServersDatabasesResourceSku": {
-            "type": "string",
-            "defaultValue": "Basic",
-            "allowedValues": [
-                "Basic",
-                "S0",
-                "S1",
-                "S2"
-            ],
-            "metadata": {
-                "description": "Describes the performance level of the Database. Default is Basic ($8/m, 5 DTU, sufficient for 2GB). S0 is plenty at 25$/m. 10 DTUs, 250Gb. "
-            }
-        },
-        "microsoftSqlServersDatabasesEdition": {
-            "type": "string",
-            "defaultValue": "Basic",
-            "allowedValues": [
-                "Basic",
-                "Standard",
-                "Premium"
-            ],
-            "metadata": {
-                "description": "TODO"
-            }
-        },
-		
-		"microsoftStorageStorageAccountsDefaultProvision": {
-            "type": "bool",
-            "defaultValue": true,
-            "metadata": {
-                "description": "Optional."
-            }
-        },
-		"microsoftCacheRedisProvision": {
-            "defaultValue": true,
-            "metadata": {
-                "description": "Optional. Cache has a minimum cost of about 20$ per month. But, more importantly, it takes ages to provision."
-            },
-            "type": "bool"
-        },
-		
-		
-		
-		
-		       // ----------------------------------------------------------------------
-        // Parameters SERVICE INTEGRATION / MALWAREDETECTIONSERVICE
-        // ----------------------------------------------------------------------
-        "serviceIntegrationMalwareDetectionServiceName": {
-            "type": "string",
-            "defaultValue": "scanii"
-        },
-        // Optional. To use a remote OAuth based malware detection service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationMalwareDetectionServiceEnabled": {
-            "type": "bool",
-            "defaultValue": true,
-            "metadata": {
-                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use a remote OAuth based malware detection service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationMalwareDetectionServiceUri": {
-            "type": "string",
-            "defaultValue": "https://api.scanii.com",
-            "metadata": {
-                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use a remote OAuth based malware detection service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationMalwareDetectionServiceClientId": {
+        "lastEntry": { //Not used (frustated hack to counter non-compliant json from forgotten trailing commas)
             "type": "string",
             "defaultValue": "",
             "metadata": {
-                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use a remote OAuth based malware detection service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationMalwareDetectionServiceClientSecret": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        "serviceIntegrationMalwareDetectionServiceClientMisc": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // ----------------------------------------------------------------------
-        // Parameters SERVICE INTEGRATION / GEOIPSERVICE
-        // ----------------------------------------------------------------------
-        "serviceIntegrationIPGeoConversionServiceName": {
-            "type": "string",
-            "defaultValue": "ipstack"
-        },
-
-
-
-        // Optional. To use service 01 (whatever it is), 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationIPGeoConversionServiceEnabled": {
-            "type": "bool",
-            "defaultValue": true,
-            "metadata": {
-                "description": "Optional. To use Geo IP Service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use service 01 (whatever it is), 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationIPGeoConversionServiceUri": {
-            "type": "string",
-            "defaultValue": "http://api.ipstack.com/{1}?access_key={0}",
-            "metadata": {
-                "description": "Optional. To use Geo IP Service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use service 01 (whatever it is), 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationIPGeoConversionServiceClientId": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use Geo IP Service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use service 01 (whatever it is), 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationIPGeoConversionServiceClientSecret": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use Geo IP Service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        "serviceIntegrationIPGeoConversionServiceClientMisc": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use a Geo IP Service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-		
-		        // ----------------------------------------------------------------------
-        // Parameters SERVICE INTEGRATION / SMTPSERVICE
-        // ----------------------------------------------------------------------
-        "serviceIntegrationSMTPServiceName": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. Provide a name to recognize what these settings are for."
-            }
-        },
-        // Optional. To use the smtp service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationSMTPServiceEnabled": {
-            "type": "bool",
-            "defaultValue": true,
-            "metadata": {
-                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use the smtp service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationSMTPServiceUri": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use the smtp service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationSMTPServiceClientId": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        // Optional. To use the smtp service, 
-        // you need to enable it then provide the uri, client id and client secret.
-        "serviceIntegrationSMTPServiceClientSecret": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
-            }
-        },
-        "serviceIntegrationSMTPServiceClientMisc": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
+                "description": "Sounds silly, have spent so much time chasing down trailing commas in json...that I've resorted to this hack."
             }
         }
 
@@ -623,6 +1942,10 @@
                 "parameters": {
                     // -------------------------------------------------------
                     "principalId": {"value": "[parameters('principalId')]"},
+                      // -------------------------------------------------------
+                    "linkedResourcesArmTemplateRootUrl": {"value": "[replace( parameters('linkedResourcesArmTemplateRootUrl'),'{TEMPLATESRELEASE}', parameters('templatesRelease'))]"},
+                    "linkedResourcesArmTemplateRootSas": {"value": "[parameters('linkedResourcesArmTemplateRootSas')]"},
+                    "resourceNameTemplate": {"value": "[parameters('resourceNameTemplate')]"},
                     // -------------------------------------------------------
                     // Pass through the above parameters to the parameters
                     // of the linked Assemblies ARM Template. 
@@ -634,22 +1957,24 @@
                     // -------------------------------------------------------
                     "environmentId": {"value": "[parameters('environmentId')]"},
                     "environmentOverrides": {"value": "[parameters('environmentOverrides')]"},
-                    // -------------------------------------------------------
-                    "linkedResourcesArmTemplateRootUrl": {"value": "[replace( parameters('linkedResourcesArmTemplateRootUrl'),'{TEMPLATESRELEASE}', parameters('templatesRelease'))]"},
-                    "linkedResourcesArmTemplateRootSas": {"value": "[parameters('linkedResourcesArmTemplateRootSas')]"},
-                    "resourceNameTemplate": {"value": "[parameters('resourceNameTemplate')]"},
+                    
+                    
+
                     // -------------------------------------------------------
                     //"resourceLocationAlt"
                     "resourceCommonTags": {"value": "[parameters('resourceCommonTags')]"},
-                    "securityApproach": {"value": "[parameters('microsoftSqlServerConnectionStringType')]"},
+                    "microsoftSqlServerConnectionStringType": {"value": "[parameters('microsoftSqlServerConnectionStringType')]"},
                     // -------------------------------------------------------
                     // Passthrough Parameters: MICROSOFT / SQL / SERVERS  
                     "microsoftSqlServersAdministratorLogin": {"value": "[parameters('microsoftSqlServersAdministratorLogin')]"},
                     "microsoftSqlServersAdministratorLoginPassword": {"value": "[parameters('microsoftSqlServersAdministratorLoginPassword')]"},
+
+                    "microsoftWebSitesArray": {"value": "[parameters('microsoftWebSitesArray')]"},
+                    "microsoftSqlServersDatabasesArray" : {"value": "[parameters('microsoftWebSitesArray')]"},
+                    "serviceIntegrationsArray" : {"value": "[parameters('serviceIntegrationsArray')]"},
                     // -------------------------------------------------------
                     // Passthrough Parameters: MICROSOFT / WEB / CERTIFICATE 
-                    "microsoftWebCertificatesPfxBase64": {"value": "[parameters('microsoftWebCertificatesPfxBase64')]"},
-                    "microsoftWebCertificatesPfxPassword": {"value": "[parameters('microsoftWebCertificatesPfxPassword')]"},
+
                     // -------------------------------------------------------
                     // Passthrough Parameters: MICROSOFT / WEB / SITES / HOSTNAMEBINDINGS
                     //"microsoftWebSitesHostNameBindingsHostName"
@@ -679,36 +2004,10 @@
 
 					"serviceIntegrationOAuthServiceClientIdB2C": {"value":"[parameters('serviceIntegrationOAuthServiceClientIdB2C')]"},
 					"serviceIntegrationOAuthServiceUriB2C": {"value":"[parameters('serviceIntegrationOAuthServiceUriB2C')]"},
-					"serviceIntegrationOAuthServicePolicyIdB2C": {"value":"[parameters('serviceIntegrationOAuthServicePolicyIdB2C')]"},
+					"serviceIntegrationOAuthServicePolicyIdB2C": {"value":"[parameters('serviceIntegrationOAuthServicePolicyIdB2C')]"}
                     // -------------------------------------------------------
 					
-					"serviceIntegrationSMTPServiceEnabled":{"value":"[parameters('serviceIntegrationSMTPServiceEnabled')]"},
-                    "serviceIntegrationSMTPServiceName":{"value":"[parameters('serviceIntegrationSMTPServiceName')]"},
-                    "serviceIntegrationSMTPServiceUri":{"value":"[parameters('serviceIntegrationSMTPServiceUri')]"},
-                    "serviceIntegrationSMTPServiceClientId":{"value":"[parameters('serviceIntegrationSMTPServiceClientId')]"},
-                    "serviceIntegrationSMTPServiceClientSecret":{"value":"[parameters('serviceIntegrationSMTPServiceClientSecret')]"},
-                    "serviceIntegrationSMTPServiceClientMisc":{"value":"[parameters('serviceIntegrationSMTPServiceClientMisc')]"},
-                    // -------------------------------------------------------
-                    "serviceIntegrationMalwareDetectionServiceEnabled":{"value":"[parameters('serviceIntegrationMalwareDetectionServiceEnabled')]"},
-                    "serviceIntegrationMalwareDetectionServiceName":{"value":"[parameters('serviceIntegrationMalwareDetectionServiceName')]"},
-                    "serviceIntegrationMalwareDetectionServiceUri":{"value":"[parameters('serviceIntegrationMalwareDetectionServiceUri')]"},
-                    "serviceIntegrationMalwareDetectionServiceClientId":{"value":"[parameters('serviceIntegrationMalwareDetectionServiceClientId')]"},
-                    "serviceIntegrationMalwareDetectionServiceClientSecret":{"value":"[parameters('serviceIntegrationMalwareDetectionServiceClientSecret')]"},
-                    "serviceIntegrationMalwareDetectionServiceClientMisc":{"value":"[parameters('serviceIntegrationMalwareDetectionServiceClientMisc')]"},
-                    // -------------------------------------------------------
-                    "serviceIntegrationIPGeoConversionServiceEnabled":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceEnabled')]"},
-                    "serviceIntegrationIPGeoConversionServiceName":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceName')]"},
-                    "serviceIntegrationIPGeoConversionServiceUri":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceUri')]"},
-                    "serviceIntegrationIPGeoConversionServiceClientId":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceClientId')]"},
-                    "serviceIntegrationIPGeoConversionServiceClientSecret":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceClientSecret')]"},
-                    "serviceIntegrationIPGeoConversionServiceClientMisc":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceClientMisc')]"},
 					
-					"microsoftSqlServersDatabasesProvision":{"value":"[parameters('microsoftSqlServersDatabasesProvision')]"},
-					"microsoftSqlServersDatabasesEdition":{"value":"[parameters('microsoftSqlServersDatabasesEdition')]"},
-					"microsoftSqlServersDatabasesResourceSku":{"value":"[parameters('microsoftSqlServersDatabasesResourceSku')]"},
-					
-					"microsoftStorageStorageAccountsDefaultProvision":{"value":"[parameters('microsoftStorageStorageAccountsDefaultProvision')]"},
-					"microsoftCacheRedisProvision": {"value":"[parameters('microsoftCacheRedisProvision')]"}
                 } //~parameters
             } //~properties
         } //~assemblies linked template

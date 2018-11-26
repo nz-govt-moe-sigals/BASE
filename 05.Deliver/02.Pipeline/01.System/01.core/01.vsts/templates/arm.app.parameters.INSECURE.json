@@ -48,13 +48,91 @@
 	// -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
 	// PARAMETERS: ENVIRONMENT
 	// -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
-	"environmentId": {"value": ""},
+	"environmentId": {"value": "BT"},
 	// See Accompanying documentation for what flags can be used here:
 	"environmentOverrides": {
 	  "value": {
-		"--": {},
-		"default": {}
+			"--": {},
+			"default": {
+				"microsoftCacheRedisProvision": true,
+				"microsoftCognitiveServicesAccountsComputerVisionProvision": false,
+				"microsoftCognitiveServicesAccountsCustomVisionProvision": false,
+				"microsoftCognitiveServicesAccountsContentModeratorProvision": false,
+				"microsoftCognitiveServicesAccountsLanguageUnderstandingProvision": false,
+				"microsoftDataFactoryProvision": false,
+				"microsoftDocumentDBDatabaseAccountsProvision": false,
+				// Secrets Example: [ {"name": "keya", "type": "text/plain", "value": "som var..."}, {"name": "keyb", "type": "text/plain", "value": "somevar..."} ]
+				"microsoftInsightsComponentsProvision": true,
+				"microsoftKeyVaultVaultsProvision": true, 
+				"microsoftKeyVaultVaultsAccessPoliciesProvision": true, 
+				"microsoftLogicWorkflowsProvision":false,
+				"microsoftMapsAccountsProvision": true,
+				"microsoftServiceBusNamespacesProvision": false,
+				"microsoftServiceBusNamespacesQueuesDefaultProvision": false,
+				"microsoftServiceBusNamespacesTopicsDefaultProvision": false,
+				"microsoftSqlServersDatabasesProvision": true,
+				"microsoftStorageStorageAccountsDefaultProvision": true,
+				"microsoftWebSitesProvision": true
+			},
+			"BT" : {
+
+			},
+			"DT": {
+
+			}
 	  }
+	},
+
+	
+	"microsoftWebSitesArray": {
+		// Tip: Do NOT put comments within arrays (creates really difficult to diagnose useless error messages).
+		// Tip: Each array item requires *all* the following attributes -- even if they contain just an empty string:
+		// resourceName
+		// resourceNameSuffix
+		// kind
+		// appSettings
+		"value": [
+				{"resourceName":"", "resourceNameSuffix":"", "kind":"", "databaseResourceName": "", "hostName":"", "appSettings":{"akey":"foo!"} }
+		]
+		// {"resourceName":"", "resourceNameSuffix":"cc", "kind":"", "databaseResourceName": "", "appSettings":{"cfriggin":"specific"} },
+		// {"resourceName":"", "resourceNameSuffix":"dd", "kind":"", "databaseResourceName": "", "appSettings":{} },
+		// {"resourceName":"", "resourceNameSuffix":"ee", "kind":"", "databaseResourceName": "", "appSettings":{} },
+		// {"resourceName":"", "resourceNameSuffix":"ff", "kind":"", "databaseResourceName": "", "appSettings":{} },
+		// {"resourceName":"", "resourceNameSuffix":"gg", "kind":"", "databaseResourceName": "", "appSettings":{} },
+		// {"resourceName":"", "resourceNameSuffix":"hh", "kind":"", "databaseResourceName": "", "appSettings":{} },
+		// {"resourceName":"", "resourceNameSuffix":"ii", "kind": "functionapp", "databaseResourceName": "", "appSettings":{} }
+	},
+	"microsoftSqlServersDatabasesArray": {
+		"value": 
+				// Tip: Do NOT put comments within arrays (creates really difficult to diagnose useless error messages).
+				// Tip: Each array item requires *all* the following attributes -- even if they contain just an empty string:
+				// resourceName
+				// resourceNameSuffix
+				// sku: [Basic|S0|S1|s2]
+				// edition: [Basic|Standard]
+				// maxSizeBytes: "104857600", "524288000", "1073741824", "2147483648", "5368709120", "10737418240",...etc... getting expensive.
+			[
+				{"resourceName":"", "resourceNameSuffix":"", "sku":"Basic", "edition":"Basic", "maxSizeBytes": "104857600"}
+			]
+	},
+
+	"serviceIntegrationsArray": {
+		// [
+		// {"name":"", "description":"", "uri":"", "tenantId":"", "clientId":"", "clientSecret":"", "clientMiscConfig":"", "keyVaultResourceId":""}
+		// ]
+		// REALLY IMPORTANT: 
+		// I KEEP ON FORGETTING THIS -- BUT IF 
+		// YOU COMMENT OUT SOMETHING
+		// HAVE TO REMOVE FROM ARRAY (COMMENTS IN ARRAYS CAUSE BUGS)
+			"value": [
+				{ "name":"SmtpService",             "description":"sendgrid-based.", "uri": "smtp.sendgrid.net", "tenantId":"", "clientId": "apikey", "clientSecret":"service-integration-smtpservice-clientsecret", "clientMiscConfig":"", "keyVaultResourceId": "/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/NZ-MOE-BASE-000000-DT/providers/Microsoft.KeyVault/vaults/nzmoebase000000dt"},
+				{ "name":"malwareDetectionService", "description":"scanii-based.",   "uri": "https://api.scanii.com/v2.1",                       "tenantId":"",  "clientId": "Some Value",  "clientSecret":"service-integration-malwaredetectionservice-clientsecret", "clientMiscConfig":"", "keyVaultResourceId": "/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/NZ-MOE-BASE-000000-DT/providers/Microsoft.KeyVault/vaults/nzmoebase000000dt"},
+				{ "name":"ipGeoConversionService",  "description":"ipstack-based.",  "uri": "https://atlas.microsoft.com/geolocation/ip/json",    "tenantId":"", "clientId": "aa56c96e819e0406ca70805853d05f45",   "clientSecret":"service-integration-ipgeoconversionservice-clientsecret", "clientMiscConfig":"", "keyVaultResourceId": "/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/NZ-MOE-BASE-000000-DT/providers/Microsoft.KeyVault/vaults/nzmoebase000000dt"}
+			]
+			// { "name":"NewOAuthService",         "description":"AAD-based.",  "uri": "...uri...",    "tenantId":"...tenantId...", "clientId": "...clientId...",   "clientSecret":"...clientsecret...", "clientMiscConfig":"", "keyVaultResourceId":""},
+			// { "name":"NewOAuthB2CService",      "description":"B2C-specific-Entensions.",  "uri": "...uri...",    "tenantId":"...tenantId...", "clientId": "...clientId...",   "clientSecret":"...clientsecret...", "clientMiscConfig":"...policy?...", "keyVaultResourceId":""},
+			// { "name":"NewOidcService",          "description":"B2C-based.",  "uri": "...uri...",    "tenantId":"...tenantId...", "clientId": "...clientId...",   "clientSecret":"...clientsecret...", "clientMiscConfig":"", "keyVaultResourceId":""}
+
 	},
 	// -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
 	// PARAMETERS: MICROSOFT / SQL / SERVERS
@@ -65,15 +143,15 @@
 	"microsoftSqlServersAdministratorLoginPassword": {
 	  "value": "N0t@P@ssword"
 	},
-	// -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
-	// PARAMETERS: MICROSOFT / WEB / CERTIFICATES
-	// -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
-	"microsoftWebCertificatesPfxBase64": {
-	  "value": ""
+	"microsoftWebSitesConfigConnectionStrings": {
+		"value": {
+			"Default": {
+				"value": "Server=mySuperServerAddress;Database=myDataBase;Trusted_Connection=True;",
+				"type": "SQLAzure"
+			}
+		}
 	},
-	"microsoftWebCertificatesPfxPassword": {
-	  "value": ""
-	},
+
 	
 	"serviceIntegrationOIDCServiceEnabled":{"value":true},
 	"serviceIntegrationOIDCClientServiceTenant":{"value":"BaseCommonTest.onmicrosoft.com"},
@@ -97,18 +175,18 @@
 
 	"serviceIntegrationOAuthServiceClientIdB2C": {"value":"36f35e49-1b75-4942-ae4b-53b011abdd32"},
 	"serviceIntegrationOAuthServiceUriB2C": {"value":"https://BaseCommonTest.onmicrosoft.com/BaseTestWebApi"},
-	"serviceIntegrationOAuthServicePolicyIdB2C": {"value":"B2C_1_B2C_Default_Policy"},
+	"serviceIntegrationOAuthServicePolicyIdB2C": {"value":"B2C_1_B2C_Default_Policy"}
 	
-	"serviceIntegrationSMTPServiceClientId" : {"value":"apikey"},
-	//Todo make keyVault reference from another keyVault
-	"serviceIntegrationSMTPServiceClientSecret" : {"value":"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"},
-	"serviceIntegrationSMTPServiceUri" : {"value":"smtp.sendgrid.net"},
-	//Todo make keyVault reference from another keyVault, or from the actual create GeoIP service, seems weird
-	"serviceIntegrationIPGeoConversionServiceUri" : {"value":"https://atlas.microsoft.com/geolocation/ip/json"},
-	"serviceIntegrationIPGeoConversionServiceClientSecret" : {"value":"2R4g-tc2ryRIRk1I2z6PQkffBd9_KdVk5wdbtLQdzzc"},
-	//Todo make keyVault reference from another keyVault
-	"serviceIntegrationMalwareDetectionServiceUri" : {"value":"https://api.scanii.com/v2.1"},
-	"serviceIntegrationMalwareDetectionServiceClientId" : {"value":"aa56c96e819e0406ca70805853d05f45"},
-	"serviceIntegrationMalwareDetectionServiceClientSecret" : {"value":"f83c0d9b9"}
+	// "serviceIntegrationSMTPServiceClientId" : {"value":"apikey"},
+	// //Todo make keyVault reference from another keyVault
+	// "serviceIntegrationSMTPServiceClientSecret" : {"value":"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"},
+	// "serviceIntegrationSMTPServiceUri" : {"value":"smtp.sendgrid.net"},
+	// //Todo make keyVault reference from another keyVault, or from the actual create GeoIP service, seems weird
+	// "serviceIntegrationIPGeoConversionServiceUri" : {"value":"https://atlas.microsoft.com/geolocation/ip/json"},
+	// "serviceIntegrationIPGeoConversionServiceClientSecret" : {"value":"2R4g-tc2ryRIRk1I2z6PQkffBd9_KdVk5wdbtLQdzzc"},
+	// //Todo make keyVault reference from another keyVault
+	// "serviceIntegrationMalwareDetectionServiceUri" : {"value":"https://api.scanii.com/v2.1"},
+	// "serviceIntegrationMalwareDetectionServiceClientId" : {"value":"aa56c96e819e0406ca70805853d05f45"},
+	// "serviceIntegrationMalwareDetectionServiceClientSecret" : {"value":"f83c0d9b9"}
   }
 }
