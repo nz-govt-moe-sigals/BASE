@@ -427,8 +427,168 @@
                 "description": "Optional. Cache has a minimum cost of about 20$ per month. But, more importantly, it takes ages to provision."
             },
             "type": "bool"
-        }
+        },
+		
+		
+		
+		
+		       // ----------------------------------------------------------------------
+        // Parameters SERVICE INTEGRATION / MALWAREDETECTIONSERVICE
+        // ----------------------------------------------------------------------
+        "serviceIntegrationMalwareDetectionServiceName": {
+            "type": "string",
+            "defaultValue": "scanii"
+        },
+        // Optional. To use a remote OAuth based malware detection service, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationMalwareDetectionServiceEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // Optional. To use a remote OAuth based malware detection service, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationMalwareDetectionServiceUri": {
+            "type": "string",
+            "defaultValue": "https://api.scanii.com",
+            "metadata": {
+                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // Optional. To use a remote OAuth based malware detection service, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationMalwareDetectionServiceClientId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // Optional. To use a remote OAuth based malware detection service, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationMalwareDetectionServiceClientSecret": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        "serviceIntegrationMalwareDetectionServiceClientMisc": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use a remote OAuth based malware detection service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // ----------------------------------------------------------------------
+        // Parameters SERVICE INTEGRATION / GEOIPSERVICE
+        // ----------------------------------------------------------------------
+        "serviceIntegrationIPGeoConversionServiceName": {
+            "type": "string",
+            "defaultValue": "ipstack"
+        },
 
+
+
+        // Optional. To use service 01 (whatever it is), 
+        // you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationIPGeoConversionServiceEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. To use Geo IP Service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // Optional. To use service 01 (whatever it is), 
+        // you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationIPGeoConversionServiceUri": {
+            "type": "string",
+            "defaultValue": "http://api.ipstack.com/{1}?access_key={0}",
+            "metadata": {
+                "description": "Optional. To use Geo IP Service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // Optional. To use service 01 (whatever it is), 
+        // you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationIPGeoConversionServiceClientId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use Geo IP Service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // Optional. To use service 01 (whatever it is), 
+        // you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationIPGeoConversionServiceClientSecret": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use Geo IP Service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        "serviceIntegrationIPGeoConversionServiceClientMisc": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use a Geo IP Service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+		
+		        // ----------------------------------------------------------------------
+        // Parameters SERVICE INTEGRATION / SMTPSERVICE
+        // ----------------------------------------------------------------------
+        "serviceIntegrationSMTPServiceName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. Provide a name to recognize what these settings are for."
+            }
+        },
+        // Optional. To use the smtp service, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationSMTPServiceEnabled": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // Optional. To use the smtp service, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationSMTPServiceUri": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // Optional. To use the smtp service, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationSMTPServiceClientId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        // Optional. To use the smtp service, 
+        // you need to enable it then provide the uri, client id and client secret.
+        "serviceIntegrationSMTPServiceClientSecret": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
+            }
+        },
+        "serviceIntegrationSMTPServiceClientMisc": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. To use the smtp service, you need to enable it then provide the uri, client id and client secret."
+            }
+        }
 
         // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
         // PARAMETERS: END (REMOVE LAST COMMA)
@@ -481,7 +641,7 @@
                     // -------------------------------------------------------
                     //"resourceLocationAlt"
                     "resourceCommonTags": {"value": "[parameters('resourceCommonTags')]"},
-                    "microsoftSqlServerConnectionStringType": {"value": "[parameters('microsoftSqlServerConnectionStringType')]"},
+                    "securityApproach": {"value": "[parameters('microsoftSqlServerConnectionStringType')]"},
                     // -------------------------------------------------------
                     // Passthrough Parameters: MICROSOFT / SQL / SERVERS  
                     "microsoftSqlServersAdministratorLogin": {"value": "[parameters('microsoftSqlServersAdministratorLogin')]"},
@@ -521,6 +681,28 @@
 					"serviceIntegrationOAuthServiceUriB2C": {"value":"[parameters('serviceIntegrationOAuthServiceUriB2C')]"},
 					"serviceIntegrationOAuthServicePolicyIdB2C": {"value":"[parameters('serviceIntegrationOAuthServicePolicyIdB2C')]"},
                     // -------------------------------------------------------
+					
+					"serviceIntegrationSMTPServiceEnabled":{"value":"[parameters('serviceIntegrationSMTPServiceEnabled')]"},
+                    "serviceIntegrationSMTPServiceName":{"value":"[parameters('serviceIntegrationSMTPServiceName')]"},
+                    "serviceIntegrationSMTPServiceUri":{"value":"[parameters('serviceIntegrationSMTPServiceUri')]"},
+                    "serviceIntegrationSMTPServiceClientId":{"value":"[parameters('serviceIntegrationSMTPServiceClientId')]"},
+                    "serviceIntegrationSMTPServiceClientSecret":{"value":"[parameters('serviceIntegrationSMTPServiceClientSecret')]"},
+                    "serviceIntegrationSMTPServiceClientMisc":{"value":"[parameters('serviceIntegrationSMTPServiceClientMisc')]"},
+                    // -------------------------------------------------------
+                    "serviceIntegrationMalwareDetectionServiceEnabled":{"value":"[parameters('serviceIntegrationMalwareDetectionServiceEnabled')]"},
+                    "serviceIntegrationMalwareDetectionServiceName":{"value":"[parameters('serviceIntegrationMalwareDetectionServiceName')]"},
+                    "serviceIntegrationMalwareDetectionServiceUri":{"value":"[parameters('serviceIntegrationMalwareDetectionServiceUri')]"},
+                    "serviceIntegrationMalwareDetectionServiceClientId":{"value":"[parameters('serviceIntegrationMalwareDetectionServiceClientId')]"},
+                    "serviceIntegrationMalwareDetectionServiceClientSecret":{"value":"[parameters('serviceIntegrationMalwareDetectionServiceClientSecret')]"},
+                    "serviceIntegrationMalwareDetectionServiceClientMisc":{"value":"[parameters('serviceIntegrationMalwareDetectionServiceClientMisc')]"},
+                    // -------------------------------------------------------
+                    "serviceIntegrationIPGeoConversionServiceEnabled":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceEnabled')]"},
+                    "serviceIntegrationIPGeoConversionServiceName":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceName')]"},
+                    "serviceIntegrationIPGeoConversionServiceUri":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceUri')]"},
+                    "serviceIntegrationIPGeoConversionServiceClientId":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceClientId')]"},
+                    "serviceIntegrationIPGeoConversionServiceClientSecret":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceClientSecret')]"},
+                    "serviceIntegrationIPGeoConversionServiceClientMisc":{"value":"[parameters('serviceIntegrationIPGeoConversionServiceClientMisc')]"},
+					
 					"microsoftSqlServersDatabasesProvision":{"value":"[parameters('microsoftSqlServersDatabasesProvision')]"},
 					"microsoftSqlServersDatabasesEdition":{"value":"[parameters('microsoftSqlServersDatabasesEdition')]"},
 					"microsoftSqlServersDatabasesResourceSku":{"value":"[parameters('microsoftSqlServersDatabasesResourceSku')]"},
