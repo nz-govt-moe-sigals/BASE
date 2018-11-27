@@ -16,6 +16,14 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+
+        "principalId": {
+            "defaultValue": "",
+            "metadata": {
+                "description": "The Id of the Build Agent (or person deploying manually)."
+            },
+            "type": "string"
+        },
         "linkedAssembliesArmTemplateRootUrl": {
             "metadata": {
                 "description": "Required. The http based root url from which to download referenced linked Resource ARM Templates. In most cases will be an Url to a Storage Account Container Url to which newly downloaded Source Files (just the ARM Templates) are copied to."
