@@ -22,6 +22,13 @@
             },
             "type": "string"
         },
+        "linkedAssembliesArmTemplateRootSas": {
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. The Single Access Signature (SAS) required to append to linked Resource ARM Template Uris in order to get them out of a secured Storage Account Container."
+            },
+            "type": "string"
+        },
         "templatesRelease": {
             "defaultValue": "-.-",
             "metadata": {
