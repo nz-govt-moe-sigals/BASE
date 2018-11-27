@@ -1998,7 +1998,7 @@
                     "microsoftSqlServersAdministratorLoginPassword": {"value": "[parameters('microsoftSqlServersAdministratorLoginPassword')]"},
 
                     "microsoftWebSitesArray": {"value": "[parameters('microsoftWebSitesArray')]"},
-                    "microsoftSqlServersDatabasesArray" : {"value": "[parameters('microsoftWebSitesArray')]"},
+                    "microsoftSqlServersDatabasesArray" : {"value": "[parameters('microsoftSqlServersDatabasesArray')]"},
                     "serviceIntegrationsArray" : {"value": "[parameters('serviceIntegrationsArray')]"},
                     // -------------------------------------------------------
                     // Passthrough Parameters: MICROSOFT / WEB / CERTIFICATE 
