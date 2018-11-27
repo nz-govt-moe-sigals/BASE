@@ -88,37 +88,37 @@
 	},
 
 	
-	"microsoftWebSitesArray": {
-		// Tip: Do NOT put comments within arrays (creates really difficult to diagnose useless error messages).
-		// Tip: Each array item requires *all* the following attributes -- even if they contain just an empty string:
-		// resourceName
-		// resourceNameSuffix
-		// kind
-		// appSettings
-		"value": [
-				{"resourceName":"", "resourceNameSuffix":"1", "kind":"", "databaseResourceName": "", "hostName":"", "appSettings":{"akey":"foo!"} }
-		]
-		// {"resourceName":"", "resourceNameSuffix":"cc", "kind":"", "databaseResourceName": "", "appSettings":{"cfriggin":"specific"} },
-		// {"resourceName":"", "resourceNameSuffix":"dd", "kind":"", "databaseResourceName": "", "appSettings":{} },
-		// {"resourceName":"", "resourceNameSuffix":"ee", "kind":"", "databaseResourceName": "", "appSettings":{} },
-		// {"resourceName":"", "resourceNameSuffix":"ff", "kind":"", "databaseResourceName": "", "appSettings":{} },
-		// {"resourceName":"", "resourceNameSuffix":"gg", "kind":"", "databaseResourceName": "", "appSettings":{} },
-		// {"resourceName":"", "resourceNameSuffix":"hh", "kind":"", "databaseResourceName": "", "appSettings":{} },
-		// {"resourceName":"", "resourceNameSuffix":"ii", "kind": "functionapp", "databaseResourceName": "", "appSettings":{} }
-	},
-	"microsoftSqlServersDatabasesArray": {
-		"value": 
-				// Tip: Do NOT put comments within arrays (creates really difficult to diagnose useless error messages).
-				// Tip: Each array item requires *all* the following attributes -- even if they contain just an empty string:
-				// resourceName
-				// resourceNameSuffix
-				// sku: [Basic|S0|S1|s2]
-				// edition: [Basic|Standard]
-				// maxSizeBytes: "104857600", "524288000", "1073741824", "2147483648", "5368709120", "10737418240",...etc... getting expensive.
-			[
-				{"resourceName":"", "resourceNameSuffix":"1", "sku":"Basic", "edition":"Basic", "maxSizeBytes": "104857600"}
-			]
-	},
+	// "microsoftWebSitesArray": {
+	// 	// Tip: Do NOT put comments within arrays (creates really difficult to diagnose useless error messages).
+	// 	// Tip: Each array item requires *all* the following attributes -- even if they contain just an empty string:
+	// 	// resourceName
+	// 	// resourceNameSuffix
+	// 	// kind
+	// 	// appSettings
+	// 	"value": [
+	// 			{"resourceName":"", "resourceNameSuffix":"1", "kind":"", "databaseResourceName": "", "hostName":"", "appSettings":{"akey":"foo!"} }
+	// 	]
+	// 	// {"resourceName":"", "resourceNameSuffix":"cc", "kind":"", "databaseResourceName": "", "appSettings":{"cfriggin":"specific"} },
+	// 	// {"resourceName":"", "resourceNameSuffix":"dd", "kind":"", "databaseResourceName": "", "appSettings":{} },
+	// 	// {"resourceName":"", "resourceNameSuffix":"ee", "kind":"", "databaseResourceName": "", "appSettings":{} },
+	// 	// {"resourceName":"", "resourceNameSuffix":"ff", "kind":"", "databaseResourceName": "", "appSettings":{} },
+	// 	// {"resourceName":"", "resourceNameSuffix":"gg", "kind":"", "databaseResourceName": "", "appSettings":{} },
+	// 	// {"resourceName":"", "resourceNameSuffix":"hh", "kind":"", "databaseResourceName": "", "appSettings":{} },
+	// 	// {"resourceName":"", "resourceNameSuffix":"ii", "kind": "functionapp", "databaseResourceName": "", "appSettings":{} }
+	// },
+	// "microsoftSqlServersDatabasesArray": {
+	// 	"value": 
+	// 			// Tip: Do NOT put comments within arrays (creates really difficult to diagnose useless error messages).
+	// 			// Tip: Each array item requires *all* the following attributes -- even if they contain just an empty string:
+	// 			// resourceName
+	// 			// resourceNameSuffix
+	// 			// sku: [Basic|S0|S1|s2]
+	// 			// edition: [Basic|Standard]
+	// 			// maxSizeBytes: "104857600", "524288000", "1073741824", "2147483648", "5368709120", "10737418240",...etc... getting expensive.
+	// 		[
+	// 			{"resourceName":"", "resourceNameSuffix":"1", "sku":"Basic", "edition":"Basic", "maxSizeBytes": "104857600"}
+	// 		]
+	// },
 
 	"serviceIntegrationsArray": {
 		// [

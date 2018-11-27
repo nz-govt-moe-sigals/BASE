@@ -36,7 +36,6 @@ queue:
 variables:
   custom_vars_TemplatesRelease: '4.0'
   custom_vars_resourceNameTemplate: 'NZ-MOE-{APPID}-{BRANCHNAME}-{ENVID}'
-  custom_vars_resourceNameSuffix: '1'
   BuildConfiguration: 'release'
   BuildPlatform: 'any cpu'
   custom_vars_envIdentifier: 'DT'
@@ -73,13 +72,18 @@ steps:
    #Outputs:
    write-host "custom_vars_resourceGroupName: $(custom_vars_resourceGroupName)"
    write-host "custom_vars_defaultResourceName: $(custom_vars_defaultResourceName)"
-   
-   
    write-host "custom_vars_defaultUrl: $(custom_vars_default_website_Url)"
    
     
   displayName: 'START:Display Env Variables'
   enabled: false
+
+- powershell: |
+   Write-Host "##vso[task.setvariable variable=Service-Integration-Oauth-Client-RedirectUri]$(custom_vars_default_website_url)"
+   Write-Host "##vso[task.setvariable variable=Service-Integration-Oauth-Client-PostLogoutRedirectUri]$(custom_vars_default_website_url)"
+   Write-Host "##vso[task.setvariable variable=Service-Integration-Okta-Oauth-Client-RedirectUri]$(custom_vars_default_website_url)"
+   Write-Host "##vso[task.setvariable variable=Service-Integration-Okta-Oauth-Client-PostLogoutRedirectUri]$(custom_vars_default_website_url)" 
+  displayName: 'Write Additional/Custom Environment Variables'
 
 - task: NuGetCommand@2
   displayName: 'NuGet restore'
@@ -205,13 +209,6 @@ steps:
 
     outputNames: 'tenantId,subscriptionId,principalId,defaultWebSiteResourceName,defaultStorageAccountResourceName,defaultSqlServerResourceName'
 
-- powershell: |
-   Write-Host "##vso[task.setvariable variable=custom_vars_defaultUrl]https://$(custom_vars_defaultWebSiteResourceName)$(custom_vars_resourceNameSuffix).azurewebsites.net"
-   Write-Host "##vso[task.setvariable variable=Service-Integration-Oauth-Client-RedirectUri]$(custom_vars_default_website_url)"
-   Write-Host "##vso[task.setvariable variable=Service-Integration-Oauth-Client-PostLogoutRedirectUri]$(custom_vars_default_website_url)"
-   Write-Host "##vso[task.setvariable variable=Service-Integration-Okta-Oauth-Client-RedirectUri]$(custom_vars_default_website_url)"
-   Write-Host "##vso[task.setvariable variable=Service-Integration-Okta-Oauth-Client-PostLogoutRedirectUri]$(custom_vars_default_website_url)" 
-  displayName: 'Write Additional/Custom Environment Variables'
 
 - task: AzurePowerShell@3
   displayName: 'Assign Rights to Default StorageAccount'
@@ -240,7 +237,7 @@ steps:
   inputs:
     azureSubscription: '$(azureSubscriptionIdentifier)'
 
-    WebAppName: '$(custom_vars_defaultWebSiteResourceName)$(custom_vars_resourceNameSuffix)'
+    WebAppName: '$(custom_vars_defaultWebSiteResourceName)'
 
     Package: '$(build.artifactstagingdirectory)/publish/base/**/App.Host.zip'
 
