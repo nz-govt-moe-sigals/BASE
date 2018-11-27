@@ -96,7 +96,7 @@
 		// kind
 		// appSettings
 		"value": [
-				{"resourceName":"", "resourceNameSuffix":"", "kind":"", "databaseResourceName": "", "hostName":"", "appSettings":{"akey":"foo!"} }
+				{"resourceName":"", "resourceNameSuffix":"1", "kind":"", "databaseResourceName": "", "hostName":"", "appSettings":{"akey":"foo!"} }
 		]
 		// {"resourceName":"", "resourceNameSuffix":"cc", "kind":"", "databaseResourceName": "", "appSettings":{"cfriggin":"specific"} },
 		// {"resourceName":"", "resourceNameSuffix":"dd", "kind":"", "databaseResourceName": "", "appSettings":{} },
@@ -116,7 +116,7 @@
 				// edition: [Basic|Standard]
 				// maxSizeBytes: "104857600", "524288000", "1073741824", "2147483648", "5368709120", "10737418240",...etc... getting expensive.
 			[
-				{"resourceName":"", "resourceNameSuffix":"", "sku":"Basic", "edition":"Basic", "maxSizeBytes": "104857600"}
+				{"resourceName":"", "resourceNameSuffix":"1", "sku":"Basic", "edition":"Basic", "maxSizeBytes": "104857600"}
 			]
 	},
 
