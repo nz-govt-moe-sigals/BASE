@@ -147,6 +147,9 @@
 	"microsoftSqlServersAdministratorLoginPassword": {
 	  "value": "N0t@P@ssword"
 	},
+	"microsoftSqlServerConnectionStringType": {
+		"value": "classic"
+	},
 	//"microsoftWebSitesConfigConnectionStrings": {
 	//	"value": {
 	//		"Default": {
