@@ -147,14 +147,14 @@
 	"microsoftSqlServersAdministratorLoginPassword": {
 	  "value": "N0t@P@ssword"
 	},
-	"microsoftWebSitesConfigConnectionStrings": {
-		"value": {
-			"Default": {
-				"value": "Server=mySuperServerAddress;Database=myDataBase;Trusted_Connection=True;",
-				"type": "SQLAzure"
-			}
-		}
-	},
+	//"microsoftWebSitesConfigConnectionStrings": {
+	//	"value": {
+	//		"Default": {
+	//			"value": "Server=mySuperServerAddress;Database=myDataBase;Trusted_Connection=True;",
+	//			"type": "SQLAzure"
+	//		}
+	//	}
+	//},
 
 	
 	"serviceIntegrationOIDCServiceEnabled":{"value":true},
