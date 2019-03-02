@@ -1,4 +1,3 @@
-
   # ----------------------------------------
   # ABOUT:
   # Each Build/Deploy pipeline in Azure DevOps points to a YAML.
@@ -100,6 +99,34 @@
   #   - *have an expiration date*.
   #
   # ----------------------------------------
+  # RUNTIME TROUBLESHOOTING:
+  # - SCANR works by dispensation codes, which 
+  #   - *are specific to a project name (must match the custom_vars_ProjectId)*,
+  #   - *have an expiration date*.
+  #   If you don't do the above, deployment error messages are not clear (something mentioning 'conflict' in terms 
+  #   of keyvault, and then when you really drill down, you'll find some mention of 
+  #   "does not have permission to perform action 'MICROSOFT.KEYVAULT/VAULTS/DEPLOY/ACTION'")
+  # - When you copy arrays (eg: serviceIntegrationsArray) between projects param files (COMMON or ENV), 
+  #   you actually have to pay attention, and change/ensure correct the subscription/keyvault 
+  #   being pointed to:
+  #   - The subscription Guid has to be updated/changed (.... to ....)
+  #   - The resourcegroup has to be updated (eg: MATA-RAMP-0-0-INIT to MATA-ERS-0-0-INIT)
+  #   - The keyvault name has to be updated/changed (eg: mataramp00init to mataers00init)
+  #   If you don't do the above, deployment error messages are not clear (something mentioning 'conflict' in terms 
+  #   of keyvault, and then when you really drill down, you'll find some mention of 
+  #   "does not have permission to perform action 'MICROSOFT.KEYVAULT/VAULTS/DEPLOY/ACTION'")  # - More importantly...if you use the serviceIntegrationsArray, and it's pointing at a KeyVault
+  #   you *actually* have to put the keys (eg: ) in the source keyvault (eg: the INIT keyvault)
+  #   or it won't work.
+  # - More importantly...if you use the serviceIntegrationsArray, and it's pointing at a KeyVault
+  #   you *actually* have to put the keys (eg: ) in the source keyvault (eg: the INIT keyvault)
+  #   or it won't work.
+  # - This YAML Pipeline was originally designed to deploy a single system, and are currently not able to handle
+  #   multiple websites. So if you are using an array of websites, you'll (for now) have to disable tasks related to:
+  #   - Deploy Build to Website
+  #   - Wake website
+  #   - Functional Tests
+  #
+  # ----------------------------------------
   # DESIGN DECISIONS:
   # - Regarding use of ARM templates versus Puppet, etc.:
   #   Other solutions are certainly easier. But there is 
@@ -123,6 +150,7 @@
   # - And a distinction between SHARED (Redis, ServiceBus, etc.) and INTEGRATION (for Data Factory)
   # - But I fear the horse has bolted in this org.
   #
+  # ----------------------------------------
   # ----------------------------------------
 
 resources:
@@ -219,7 +247,7 @@ variables:
   # 
   # CUSTOMIZE AS NEEDED: 
   # Specify the location to the organisation's RuleSet to use when compiling the Solution
-  # TODO. BASE specific as it was First. Note difference from default 05.Deliver/02.Pipeline 
+  # TODO. BASE specific as it was First. Note difference from default 06.Deliver/01.Pipeline 
   pipelineVar_RelativePathToDeploymentFiles: '05.Deliver/02.Pipeline'
   # CUSTOMIZE AS NEEDED: 
   # Note: MSBuild will need the full path, not just the relative path:
@@ -294,10 +322,7 @@ variables:
 
 
 
-
 steps:
-
-
 
 # ----------------------------------------
 # START: Develop Array of Dispensation codes
