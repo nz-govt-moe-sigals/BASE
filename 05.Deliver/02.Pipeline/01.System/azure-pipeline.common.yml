@@ -187,7 +187,7 @@ variables:
   # Project Resource Identifiers:
   # These vars contribute to the final name of the ResourceGroup and its Resources.
   # Whereas Org vars don't change, these need to be set for each project:
-  custom_vars_ProjectId: 'RAMP' # CUSTOMIZE AS NEEDED: Update as Required for each project
+  custom_vars_ProjectId: 'BASE' # CUSTOMIZE AS NEEDED: Update as Required for each project
   # and each System (CORE, SUB1, whatever):
   custom_vars_SystemId: 'UNUSED' # For Common, do not use 'COMMON' -- use 'UNUSED'
 
