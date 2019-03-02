@@ -160,7 +160,7 @@ variables:
   # CUSTOMIZE AS NEEDED: The reference to the VSTS Project's                                                                                                       Service Connection to Azure
   # (as defined under Project Settings/Build and Release/Service Connections). 
   # It is the *Name* given to the Service connection, not the Subscription Guid, or the drop down value. 
-  pipelineVar_AzureServiceConnectionName: 'EDU-MOE-START-TestDev-01 Endpoint' 
+  pipelineVar_AzureServiceConnectionName: 'EDU-MOE-BASE-TestDev-01 (b81bf4a6-b746-41c2-ac29-9466c74f2b57)' 
   # CUSTOMIZE AS NEEDED: 
   # Define where to find Nuget packages. 
   # This is the ID of the Custom Feed developed in the project: 
@@ -221,10 +221,12 @@ variables:
   # 
   # CUSTOMIZE AS NEEDED: 
   # Specify the location to the organisation's RuleSet to use when compiling the Solution
-  pipelineVar_RelativePathToDeploymentFiles: '06.Deliver/01.Pipeline'
+  # TODO. BASE specific as it was First. Note difference from default 05.Deliver/02.Pipeline 
+  pipelineVar_RelativePathToDeploymentFiles: '05.Deliver/02.Pipeline'
   # CUSTOMIZE AS NEEDED: 
   # Note: MSBuild will need the full path, not just the relative path:
-  # pipelineVar_RelativePathToOrganisationCodeAnalysisRuleSet: $(build.sourcesdirectory)/$(pipelineVar_RelativePathToDeploymentFiles)/standardOrganisationRules.ruleset
+  # TODO BASE specific as it was First. Not difference from standard path that is same, minus '02.CodeAnalysisRulesets/' fragment.
+  # pipelineVar_RelativePathToOrganisationCodeAnalysisRuleSet: $(build.sourcesdirectory)/$(pipelineVar_RelativePathToDeploymentFiles)/02.CodeAnalysisRulesets/StandardMinistryRules.ruleset
   # CUSTOMIZE AS NEEDED: 
   # Git Relative Path to the entrypoint ARM Template:
   pipelineVar_ARMTemplateRelativeLocalPath: $(pipelineVar_RelativePathToDeploymentFiles)/arm.app.json
@@ -238,7 +240,9 @@ variables:
   # Set path to where to find the project solution
   # within the code that is downloaded from the repository, in order
   # for MSBuild to build the assemblies:
-  pipelineVar_SolutionSearchPath : '06.Deliver\02.System\**\*.sln'
+  # TODO. Notice difference with default '06.Deliver\02.System\**\*.sln'
+  pipelineVar_SolutionPath : '05.Deliver\03.System'
+  pipelineVar_SolutionSearchPath : '$(pipelineVar_SolutionPath)\**\*.sln'
   #
   # CUSTOMIZE AS NEEDED: 
   # The (case sensitive, I believe) solution name is used by MSDeploy
