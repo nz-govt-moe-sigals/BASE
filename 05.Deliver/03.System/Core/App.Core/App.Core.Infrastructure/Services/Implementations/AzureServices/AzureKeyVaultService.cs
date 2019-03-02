@@ -8,6 +8,7 @@ using App.Core.Infrastructure.Services.Caches.Implementations;
 using App.Core.Infrastructure.Services.Configuration.Implementations;
 using App.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration;
 using App.Core.Shared.Models.Entities;
+using App.Core.Shared.Models.Messages;
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.KeyVault.Models;
 using Microsoft.Azure.KeyVault.WebKey;
@@ -59,6 +60,7 @@ namespace App.Core.Infrastructure.Services.Implementations.AzureServices
         private readonly AzureKeyVaultServiceConfiguration _configuration;
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         private readonly IHostSettingsService _hostSettingsService;
+        private readonly IConfigurationStepService _configurationStepService;
 
         // One of the very few objects not created by Dependency Injection.
         // Lazy...but I can't think of how else to solve it right now:
@@ -81,11 +83,13 @@ namespace App.Core.Infrastructure.Services.Implementations.AzureServices
         /// <param name="hostSettingsService">The host settings service.</param>
         public AzureKeyVaultService(AzureKeyVaultServiceConfiguration azureKeyVaultServiceConfiguration,
             IDiagnosticsTracingService diagnosticsTracingService,
-            IHostSettingsService hostSettingsService)
+            IHostSettingsService hostSettingsService,
+            IConfigurationStepService configurationStepService)
         {
             this._configuration = azureKeyVaultServiceConfiguration;
             this._diagnosticsTracingService = diagnosticsTracingService;
             this._hostSettingsService = hostSettingsService;
+            this._configurationStepService = configurationStepService;
 
             // Not sure if the Url should be in the config object. Probably should...
             _keyVaultUrl = $"https://{this._configuration.ResourceName}.vault.azure.net";
@@ -112,6 +116,9 @@ namespace App.Core.Infrastructure.Services.Implementations.AzureServices
 
                 using (var elapsedTime = new ElapsedTime())
                 {
+                    this._diagnosticsTracingService.Trace(TraceLevel.Verbose, "Beginning getting MSI Token...(40 secs not atypical...)");
+
+
 
                     //Are we running in MSI or not?
 
@@ -140,6 +147,24 @@ namespace App.Core.Infrastructure.Services.Implementations.AzureServices
                         $"Took {elapsedTime.ElapsedText} to get an MSI token to build a KeyVaultClient.";
 
                     this._diagnosticsTracingService.Trace(TraceLevel.Verbose, msg);
+
+
+                    var color = ConfigurationStepStatus.White;
+                    if (elapsedTime.Elapsed.TotalMilliseconds > 5000)
+                    {
+                        color = ConfigurationStepStatus.Orange;
+                    }
+                    if (elapsedTime.Elapsed.TotalMilliseconds > 10000)
+                    {
+                        color = ConfigurationStepStatus.Red;
+                    }
+
+                    _configurationStepService
+                        .Register(
+                            ConfigurationStepType.General,
+                            color,
+                            "Authentication",
+                            $"Obtaining an Azure MSI Token. Took {elapsedTime.ElapsedText}.");
 
                     return this._keyVaultClient;
                 }

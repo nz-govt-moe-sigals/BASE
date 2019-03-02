@@ -7,13 +7,13 @@ namespace App.Core.Infrastructure.Services.Implementations.AzureServices
 {
     public class AzureMapsService : AppCoreServiceBase, IAzureMapsService
     {
-        private readonly AzureMapServiceConfiguration _azureMapServiceConfiguration;
+        private readonly AzureMapsServiceConfiguration _azureMapsServiceConfiguration;
         private readonly IAzureDeploymentEnvironmentService _azureDeploymentEnvironmentService;
         private readonly IRestService _restService;
 
-        public AzureMapsService(AzureMapServiceConfiguration azureMapServiceConfiguration, IAzureDeploymentEnvironmentService azureDeploymentEnvironmentService, IRestService restService)
+        public AzureMapsService(AzureMapsServiceConfiguration azuresMapServiceConfiguration, IAzureDeploymentEnvironmentService azureDeploymentEnvironmentService, IRestService restService)
         {
-            _azureMapServiceConfiguration = azureMapServiceConfiguration;
+            _azureMapsServiceConfiguration = azuresMapServiceConfiguration;
             _azureDeploymentEnvironmentService = azureDeploymentEnvironmentService;
             _restService = restService;
         }
@@ -21,10 +21,10 @@ namespace App.Core.Infrastructure.Services.Implementations.AzureServices
             public AzureMapsSearchResponse AddressSearch(string searchTerm, string countrySetCsv, bool typeAhead = true)
         {
 
-            string subscriptionKey = _azureMapServiceConfiguration.Key;
+            string subscriptionKey = _azureMapsServiceConfiguration.Key;
 
             Uri uri = new Uri(
-                _azureMapServiceConfiguration.RootUri
+                _azureMapsServiceConfiguration.RootUri
                 + $"/search/address/json?subscription-key={subscriptionKey}&api-version=1.0&query={searchTerm}&limit=10&countrySet={countrySetCsv}");
 
             //&typeahead ={ typeahead}
@@ -51,7 +51,7 @@ namespace App.Core.Infrastructure.Services.Implementations.AzureServices
 
 
                 Uri uri = new Uri(
-                    _azureMapServiceConfiguration.RootUri 
+                    _azureMapsServiceConfiguration.RootUri 
                     + $"/search/address/reverse/json?subscription-key={subscriptionKey}&api-version=1.0&query={latitude},{longtitude}");
 
             AzureMapsReverseSearchResponse result = _restService.Get<AzureMapsReverseSearchResponse>(uri, null);

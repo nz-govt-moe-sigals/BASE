@@ -62,7 +62,7 @@ namespace App.Core.Infrastructure.Services.Implementations
             };
             _cache.Add(configurationStep);
 
-            var traceLevel = TraceLevel.Verbose;
+            var traceLevel = TraceLevel.Info;
             if (status == ConfigurationStepStatus.Orange)
             {
                 traceLevel = TraceLevel.Warn;
@@ -72,9 +72,15 @@ namespace App.Core.Infrastructure.Services.Implementations
                 traceLevel = TraceLevel.Warn;
             }
 
-            this._diagnosticsTracingService.Trace(traceLevel, $"----------------------------------------------------------------------");
-            this._diagnosticsTracingService.Trace(traceLevel, $"{status}:{type}:{title}:{description}");
-            this._diagnosticsTracingService.Trace(traceLevel, $"----------------------------------------------------------------------");
+            this._diagnosticsTracingService.Trace(TraceLevel.Verbose, "");
+            this._diagnosticsTracingService.Trace(TraceLevel.Verbose, $"-=-=-=-=-=-=-=-=-=-=");
+            this._diagnosticsTracingService.Trace(traceLevel, $"Status: {status}; Type: {type}; Title: {title}; Description: {description}");
+            this._diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Status: {status}");
+            this._diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Type: {type}");
+            this._diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Title: {title}");
+            this._diagnosticsTracingService.Trace(TraceLevel.Verbose, $"Description: {description}");
+            this._diagnosticsTracingService.Trace(TraceLevel.Verbose, $"-=-=-=-=-=-=-=-=-=-=");
+            this._diagnosticsTracingService.Trace(TraceLevel.Verbose, "");
 
         }
 

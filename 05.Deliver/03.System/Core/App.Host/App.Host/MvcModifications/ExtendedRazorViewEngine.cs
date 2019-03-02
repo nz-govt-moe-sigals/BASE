@@ -9,7 +9,6 @@ namespace App.Host.MvcModifications
         {
             var tmp = new List<string>(this.MasterLocationFormats);
             tmp.Add(paths);
-
             this.MasterLocationFormats = tmp.ToArray();
         }
 

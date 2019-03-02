@@ -244,7 +244,7 @@
             }
             catch (AggregateException e)
             {
-                this._diagnosticsTracingService.Trace(TraceLevel.Info, $"Did not find an KeyVault Secret with id '{key}'.");
+                this._diagnosticsTracingService.Trace(TraceLevel.Warn, $"Did not find an KeyVault Secret with id '{key}'.");
                 this._diagnosticsTracingService.Trace(TraceLevel.Debug, e.Message);
                 this._diagnosticsTracingService.Trace(TraceLevel.Debug, e.StackTrace);
                 

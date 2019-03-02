@@ -93,7 +93,7 @@ namespace App.Core.Shared.Constants
         public const string AppCoreIntegrationAzureSearchDefaultResourceName = SystemAzureIntegrationKeyPrefix + "SearchServices-Default-ResourceName";
         public const string AppCoreIntegrationAzureSearchDefaultAuthorizationKey = SystemAzureIntegrationKeyPrefix + "SearchServices-Default-Key";
         // -----
-        // Integration / Azure / Maps / Default (key has plural name):
+        // Integration / Azure / Maps / Default (note that AzureMaps is refered to as singluar map and Services is plural to stay in line with everything else...):
         public const string AppCoreIntegrationAzureMapsDefaultResourceName = SystemAzureIntegrationKeyPrefix + "MapServices-Default-ResourceName";
         public const string AppCoreIntegrationAzureMapsDefaultAuthorizationKey = SystemAzureIntegrationKeyPrefix + "MapServices-Default-Key";
         // -----

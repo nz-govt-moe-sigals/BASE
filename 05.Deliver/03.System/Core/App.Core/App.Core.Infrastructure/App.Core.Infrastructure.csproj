@@ -457,7 +457,7 @@
     <Compile Include="Services\Implementations\AzureServices\AzureBlobStorageService.cs" />
     <Compile Include="Services\Caches\Implementations\HostSettingsServiceConfigurationObjectCache.cs" />
     <Compile Include="Services\Implementations\AuthenticationMsiTokenService.cs" />
-    <Compile Include="Services\Configuration\Implementations\AzureConfiguration\AzureMapServiceConfiguration.cs" />
+    <Compile Include="Services\Configuration\Implementations\AzureConfiguration\AzureMapsServiceConfiguration.cs" />
     <Compile Include="Services\Implementations\AzureServices\AzureMapsService.cs" />
     <Compile Include="Services\Implementations\AzureServices\AzureQueueStorageService.cs" />
     <Compile Include="Services\Implementations\AzureServices\AzureRedisPubSubService.cs" />

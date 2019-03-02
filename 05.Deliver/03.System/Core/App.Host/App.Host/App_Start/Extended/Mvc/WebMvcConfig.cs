@@ -56,7 +56,9 @@ namespace App.Host.Extended.Mvc
 
         private void ExtendRazorViewEngineUsedToLocateViews()
         {
-// Customize the View Engine to add a new location to look for Views (under the Presentation Folder):
+            ViewEngines.Engines.Clear();
+            
+            // Customize the View Engine to add a new location to look for Views (under the Presentation Folder):
             var engine = new ExtendedRazorViewEngine();
             engine.AddMasterLocationFormat("~/Presentation/Views/{1}/{0}.cshtml");
             engine.AddMasterLocationFormat("~/Presentation/Shared/{0}.cshtml");
@@ -64,7 +66,15 @@ namespace App.Host.Extended.Mvc
             engine.AddViewLocationFormat("~/Presentation/Views/Shared/{0}.cshtml");
             engine.AddPartialViewLocationFormat("~/Presentation/Views/{1}/{0}.cshtml");
             engine.AddPartialViewLocationFormat("~/Presentation/Shared/{0}.cshtml");
-            ViewEngines.Engines.Clear();
+
+            //Don't need to add the default locations as they are already in the new Engine by default... 
+            //engine.AddMasterLocationFormat("~/Views/{1}/{0}.cshtml");
+            //engine.AddMasterLocationFormat("~/Shared/{0}.cshtml");
+            //engine.AddViewLocationFormat("~/Views/{1}/{0}.cshtml");
+            //engine.AddViewLocationFormat("~/Views/Shared/{0}.cshtml");
+            //engine.AddPartialViewLocationFormat("~/Views/{1}/{0}.cshtml");
+            //engine.AddPartialViewLocationFormat("~/Shared/{0}.cshtml");
+
             ViewEngines.Engines.Add(engine);
 
             // Now add the following to any App.ModuleN.Application assembly where you put the Views.

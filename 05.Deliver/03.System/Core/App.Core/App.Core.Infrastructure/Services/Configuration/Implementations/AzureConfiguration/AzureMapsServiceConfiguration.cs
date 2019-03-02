@@ -2,7 +2,7 @@
 
 namespace App.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration
 {
-    public class AzureMapServiceConfiguration : ICoreServiceConfigurationObject
+    public class AzureMapsServiceConfiguration : ICoreServiceConfigurationObject
     {
 
         public string RootUri = "https://atlas.microsoft.com";// /search/address/reverse/json?subscription-key={subscription-key}&api-version=1.0&query={query}"
@@ -10,7 +10,7 @@ namespace App.Core.Infrastructure.Services.Configuration.Implementations.AzureCo
         public string Key { get; set; }
 
 
-        public AzureMapServiceConfiguration(IAzureKeyVaultService keyVaultService)
+        public AzureMapsServiceConfiguration(IAzureKeyVaultService keyVaultService)
         {
             var commonConfigurationSettings = keyVaultService.GetObject<AzureCommonConfigurationSettings>();
 
