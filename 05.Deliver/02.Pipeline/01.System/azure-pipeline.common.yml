@@ -158,7 +158,7 @@ variables:
   # CUSTOMIZE AS NEEDED: The reference to the VSTS Project's                                                                                                       Service Connection to Azure
   # (as defined under Project Settings/Build and Release/Service Connections). 
   # It is the *Name* given to the Service connection, not the Subscription Guid, or the drop down value. 
-  pipelineVar_AzureServiceConnectionName: 'EDU-MOE-BASE-TestDev-01 (b81bf4a6-b746-41c2-ac29-9466c74f2b57)' 
+  pipelineVar_AzureServiceConnectionName: 'DevOps-MOEEDUNZ-BASE-EDU-MOE-BASE-TESTDEV-01' 
   # CUSTOMIZE AS NEEDED: 
   # Define where to find Nuget packages. 
   # This is the ID of the Custom Feed developed in the project: 
