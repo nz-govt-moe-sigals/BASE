@@ -267,7 +267,7 @@ variables:
   # within the code that is downloaded from the repository, in order
   # for MSBuild to build the assemblies:
   # TODO. Notice difference with default '06.Deliver\02.System\**\*.sln'
-  pipelineVar_SolutionPath : '05.Deliver\03.System'
+  pipelineVar_SolutionPath : '06.Deliver\02.System'
   pipelineVar_SolutionSearchPath : '$(pipelineVar_SolutionPath)\**\*.sln'
   #
   # CUSTOMIZE AS NEEDED: 
