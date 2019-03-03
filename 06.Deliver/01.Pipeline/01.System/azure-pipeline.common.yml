@@ -1,6 +1,3 @@
-
-TODO: Crash until fixed up.
-
   # ----------------------------------------
   # ABOUT:
   # Each Build/Deploy pipeline in Azure DevOps points to a YAML.
@@ -102,6 +99,34 @@ TODO: Crash until fixed up.
   #   - *have an expiration date*.
   #
   # ----------------------------------------
+  # RUNTIME TROUBLESHOOTING:
+  # - SCANR works by dispensation codes, which 
+  #   - *are specific to a project name (must match the custom_vars_ProjectId)*,
+  #   - *have an expiration date*.
+  #   If you don't do the above, deployment error messages are not clear (something mentioning 'conflict' in terms 
+  #   of keyvault, and then when you really drill down, you'll find some mention of 
+  #   "does not have permission to perform action 'MICROSOFT.KEYVAULT/VAULTS/DEPLOY/ACTION'")
+  # - When you copy arrays (eg: serviceIntegrationsArray) between projects param files (COMMON or ENV), 
+  #   you actually have to pay attention, and change/ensure correct the subscription/keyvault 
+  #   being pointed to:
+  #   - The subscription Guid has to be updated/changed (.... to ....)
+  #   - The resourcegroup has to be updated (eg: MATA-RAMP-0-0-INIT to MATA-ERS-0-0-INIT)
+  #   - The keyvault name has to be updated/changed (eg: mataramp00init to mataers00init)
+  #   If you don't do the above, deployment error messages are not clear (something mentioning 'conflict' in terms 
+  #   of keyvault, and then when you really drill down, you'll find some mention of 
+  #   "does not have permission to perform action 'MICROSOFT.KEYVAULT/VAULTS/DEPLOY/ACTION'")  # - More importantly...if you use the serviceIntegrationsArray, and it's pointing at a KeyVault
+  #   you *actually* have to put the keys (eg: ) in the source keyvault (eg: the INIT keyvault)
+  #   or it won't work.
+  # - More importantly...if you use the serviceIntegrationsArray, and it's pointing at a KeyVault
+  #   you *actually* have to put the keys (eg: ) in the source keyvault (eg: the INIT keyvault)
+  #   or it won't work.
+  # - This YAML Pipeline was originally designed to deploy a single system, and are currently not able to handle
+  #   multiple websites. So if you are using an array of websites, you'll (for now) have to disable tasks related to:
+  #   - Deploy Build to Website
+  #   - Wake website
+  #   - Functional Tests
+  #
+  # ----------------------------------------
   # DESIGN DECISIONS:
   # - Regarding use of ARM templates versus Puppet, etc.:
   #   Other solutions are certainly easier. But there is 
@@ -125,6 +150,7 @@ TODO: Crash until fixed up.
   # - And a distinction between SHARED (Redis, ServiceBus, etc.) and INTEGRATION (for Data Factory)
   # - But I fear the horse has bolted in this org.
   #
+  # ----------------------------------------
   # ----------------------------------------
 
 resources:
@@ -160,7 +186,7 @@ variables:
   # CUSTOMIZE AS NEEDED: The reference to the VSTS Project's                                                                                                       Service Connection to Azure
   # (as defined under Project Settings/Build and Release/Service Connections). 
   # It is the *Name* given to the Service connection, not the Subscription Guid, or the drop down value. 
-  pipelineVar_AzureServiceConnectionName: 'EDU-MOE-START-TestDev-01 Endpoint' 
+  pipelineVar_AzureServiceConnectionName: 'DevOps-MOEEDUNZ-BASE-EDU-MOE-BASE-TESTDEV-01' 
   # CUSTOMIZE AS NEEDED: 
   # Define where to find Nuget packages. 
   # This is the ID of the Custom Feed developed in the project: 
@@ -189,7 +215,7 @@ variables:
   # Project Resource Identifiers:
   # These vars contribute to the final name of the ResourceGroup and its Resources.
   # Whereas Org vars don't change, these need to be set for each project:
-  custom_vars_ProjectId: 'RAMP' # CUSTOMIZE AS NEEDED: Update as Required for each project
+  custom_vars_ProjectId: 'BASE' # CUSTOMIZE AS NEEDED: Update as Required for each project
   # and each System (CORE, SUB1, whatever):
   custom_vars_SystemId: 'UNUSED' # For Common, do not use 'COMMON' -- use 'UNUSED'
 
@@ -221,10 +247,12 @@ variables:
   # 
   # CUSTOMIZE AS NEEDED: 
   # Specify the location to the organisation's RuleSet to use when compiling the Solution
-  pipelineVar_RelativePathToDeploymentFiles: '06.Deliver/01.Pipeline'
+  # TODO. BASE specific as it was First. Note difference from default 06.Deliver/01.Pipeline 
+  pipelineVar_RelativePathToDeploymentFiles: '05.Deliver/02.Pipeline'
   # CUSTOMIZE AS NEEDED: 
   # Note: MSBuild will need the full path, not just the relative path:
-  # pipelineVar_RelativePathToOrganisationCodeAnalysisRuleSet: $(build.sourcesdirectory)/$(pipelineVar_RelativePathToDeploymentFiles)/standardOrganisationRules.ruleset
+  # TODO BASE specific as it was First. Not difference from standard path that is same, minus '02.CodeAnalysisRulesets/' fragment.
+  # pipelineVar_RelativePathToOrganisationCodeAnalysisRuleSet: $(build.sourcesdirectory)/$(pipelineVar_RelativePathToDeploymentFiles)/02.CodeAnalysisRulesets/StandardMinistryRules.ruleset
   # CUSTOMIZE AS NEEDED: 
   # Git Relative Path to the entrypoint ARM Template:
   pipelineVar_ARMTemplateRelativeLocalPath: $(pipelineVar_RelativePathToDeploymentFiles)/arm.app.json
@@ -238,7 +266,9 @@ variables:
   # Set path to where to find the project solution
   # within the code that is downloaded from the repository, in order
   # for MSBuild to build the assemblies:
-  pipelineVar_SolutionSearchPath : '06.Deliver\02.System\**\*.sln'
+  # TODO. Notice difference with default '06.Deliver\02.System\**\*.sln'
+  pipelineVar_SolutionPath : '05.Deliver\03.System'
+  pipelineVar_SolutionSearchPath : '$(pipelineVar_SolutionPath)\**\*.sln'
   #
   # CUSTOMIZE AS NEEDED: 
   # The (case sensitive, I believe) solution name is used by MSDeploy
@@ -292,10 +322,7 @@ variables:
 
 
 
-
 steps:
-
-
 
 # ----------------------------------------
 # START: Develop Array of Dispensation codes
