@@ -248,7 +248,7 @@ variables:
   # CUSTOMIZE AS NEEDED: 
   # Specify the location to the organisation's RuleSet to use when compiling the Solution
   # TODO. BASE specific as it was First. Note difference from default 06.Deliver/01.Pipeline 
-  pipelineVar_RelativePathToDeploymentFiles: '05.Deliver/02.Pipeline'
+  pipelineVar_RelativePathToDeploymentFiles: '06.Deliver/01.Pipeline'
   # CUSTOMIZE AS NEEDED: 
   # Note: MSBuild will need the full path, not just the relative path:
   # TODO BASE specific as it was First. Not difference from standard path that is same, minus '02.CodeAnalysisRulesets/' fragment.
