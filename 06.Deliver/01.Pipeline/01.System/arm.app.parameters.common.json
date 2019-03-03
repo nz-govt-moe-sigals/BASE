@@ -1,0 +1,138 @@
+// To Strip Comments for JSONLINT Checking, use regex: (^|[^:])//.*
+// -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+// INSTRUCTIONS
+// -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+// * This template is not much more a system specific (ie, in the system's source code)
+//   simplified wrapper of a remote, much more complex, 'assembly'.
+// * For the most part, leave it alone, concentrating on filling in the associated parameters file
+//   within which you'll have to at consider providing the
+// * Some Template vars are not provided by the Parameters file, but are provided
+//   via the Build Agent, including:
+//   * PrincipalId
+// * Some params can be provided either in Params, or via Build Agent:
+//   * environmentId
+//   * templatesRelease
+// * REFER TO CONFIDENTIAL INFO SAFELY USING 'REFERENCE' INSTEAD OF 'VALUE':
+//   # "value": "EVERYBODY CAN SEE THIS...NOT GOOD"
+//   "reference": {"keyVault": {"id": "/subscriptions/{TODO:SUBID}/resourcegroups/{TODO:RGNAME}/providers/Microsoft.KeyVault/vaults/{TODO:KVNAME}"},"secretName": "{SOMEKEY}"}
+// -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+    // PARAMETERS: URLS TO CHILD TEMPLATES 
+    // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+    // The http based root url from which to download referenced Assembly ARM Templates. 
+    // In most cases will be an Url to a Storage Account Container Url to which 
+    // newly downloaded Source Files (just the ARM Templates) are copied to
+    "linkedAssembliesArmTemplateRootUrl": {
+      "value": "https://nzmoestartpublic.blob.core.windows.net/public/start/releases/{TEMPLATESRELEASE}/arm-templates/assemblies/"
+      //"value": "https://nzmoestartpublic.blob.core.windows.net/public/start/releases/0.0/arm-templates/assemblies/"
+    },
+    // The http based root url from which to download referenced linked Resource ARM Templates. 
+    // In most cases will be an Url to a Storage Account Container Url to which 
+    // newly downloaded Source Files (just the ARM Templates) are copied to
+    "linkedResourcesArmTemplateRootUrl": {
+      "value": "https://nzmoestartpublic.blob.core.windows.net/public/start/releases/{TEMPLATESRELEASE}/arm-templates/resources/"
+      //"value": "https://nzmoestartpublic.blob.core.windows.net/public/start/releases/0.0/arm-templates/resources/"
+    },
+
+    // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+    // PARAMETERS: ENVIRONMENT SPECIFIC
+    // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+    // Provide this value from your Build Pipeline (the YAML file).
+    "environmentId": {
+      "value": "BT" //eg: "BT", "DT", "ST", "UT", "PD" (don't use "PP"...dumb name for Prod Diagnostics...), etc. up till "PR"
+    },
+    // See Accompanying documentation for what flags can be used here:
+    "environmentOverrides": {
+      "value": {
+        // Usage:
+        // * The purpose of these vars are to allow multiple environments to be defined in one file (easier maintainability). 
+        // * Define multiple Environments groups. It's your choice of what they are called. The 'environmentId' parmeter, provided
+        //   by a build pipeline determines what group of env vars is used.
+        // * Use 'default' for the default settings, refining them with env specific vars (ST, PROD, etc.)
+        // * Vars are named the same as the environment variables, but *override* any defined outside of them, eg lower down the page.
+        // * Important: hey are suitable for Configuration information -- NOT Confidential Information/Secrets.
+        // * Tip: for maintainability, Uncomment/use only what you are specifically defining.
+        // 
+        // "UT": {
+        //   // for example:
+        //   // "microsoftSqlServersDatabasesResourceSku": "S0"
+        // },
+        // "PR": {
+        //   "microsoftSqlServersDatabasesResourceSku": "S3"
+        // },
+        "default": {
+          // Define what is wanted either here (the 'default' environment)
+          // or (preferably), further down, as ARM parameters (which you 
+          // presumably already know how to do...
+          //
+          // It's the same flags as available for building ENVS (see that Parameter file for the fuller list of available params), 
+          // but COMMON uses different flags -- instead of focusing 
+          // on developing websites and databases, you probably will want to only 
+          // focus on provisioning redis cache, servicebus, datafactory.
+          // 
+          // "microsoftCacheRedisProvision": false,
+          "microsoftDataFactoryProvision": false,
+          "microsoftInsightsComponentsProvision": true,
+          "microsoftKeyVaultVaultsProvision": true, 
+          "microsoftServiceBusNamespacesProvision": true,
+          "microsoftServiceBusNamespacesQueuesDefaultProvision": true,
+          "microsoftServiceBusNamespacesTopicsDefaultProvision": true,
+          "microsoftStorageStorageAccountsDefaultProvision": true,
+          //
+          "lastEntry":"" // Not used (frustated hack to counter non-compliant json from forgotten trailing commas)
+        }
+      }
+    },
+
+    // INSTRUCTIONS:
+    // * Any variable available above as an environmentOverride parameter is also settable below, as traditional ARM Parameters.
+    //   That said, know that if defined in both places, the environmentOverride value will be taken (as it 'overrides' anything else).
+    // * In Addition, as stated above, environmentOverrride is not appropriate for sensitive data as the values have to be hard-coded in,
+    //   whereas traditional parameters can refer to keyvault settings, using the 'reference' keyword, as demonstrated below
+    //   with the SqlServer admin username and password.
+
+    // For example:
+    // "microsoftKeyVaultVaultsProvision":{
+    //   "value": true
+    // }
+
+
+    // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+    // PARAMETERS: SERVICE INTEGRATION
+    // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
+    // All systems need to integrate with multiple 3rd party/project/enterprise services, 
+    // including:
+    // aad, oauthservice, oidcservice, smtpservice, malwaredetectionservice, ipgeoconversionservice 
+    // * each array item *must* have include all the parameters or will fail to compile/execute:
+    //   name, description, uri, tenantId, clientId, clientSecret, clientMiscConfig, keyVaultResourceId
+    // * Whereas name, description, uri, tenantId, clientId, clientMiscConfig, and keyVaultResourceId
+    //   are straight forward text, the 'clientSecret' is not. 
+    //   Instead, it's a key within the KeyVault referred to within 'keyVaultResourceId'.
+    //   NO...much as developers would like that ease of use, there is no way of setting the 
+    //   clientSecret as clearText directly in the config file, where it could be duplicated without control.
+    //   It would not be much a secret, would it?
+    // * At some point in the future, 'clientId' might also be sourced from the keyVault in the 
+    //   same was 'clientSecret' -- but currently looking into whether it could be done in an optional way
+    //   (eg: maybe prefixing the string with the 'insecure:' could be used to indicate it's not a key?).
+    // * 'tenantId' is not required for simple services, but is used  when dealing with AAD, B2C, OIDC, OAuth 
+    //   and us used for the AAD/B2C Tenant guid.
+    // * as always, don't comment out array items (move them out of the array). 
+    //   It's a known Azure bug that it can't handle it and makes for hard to track down errors.
+    //  * Example:
+    //     "value": [
+    //        { "name":"SmtpService",             "description":"sendgrid-based.",  "uri": "https://somewhere/SMTP/",               "tenantId":"",    "clientId": "service-integration-smtpservice-clientid",             "clientSecret":"service-integration-smtpservice-clientsecret",  "clientMiscConfig":"{\"port\": \"587\"}",  "keyVaultResourceId":"/subscriptions/<TODO:A SubscriptionId>/resourceGroups/<TODO:A ResourceGroupName>/providers/Microsoft.KeyVault/vaults/<TODO:AKeyVaultResourceName>"},
+    //        { "name":"malwareDetectionService", "description":"scanii-based.",    "uri": "https://somewhere/malwareDetection/",   "tenantId":"",    "clientId": "service-integration-malwaredetectionervice-clientid",  "clientSecret":"service-integration-smtpservice-clientsecret",  "clientMiscConfig":"",  "keyVaultResourceId":"/subscriptions/<TODO:A SubscriptionId>/resourceGroups/<TODO:A ResourceGroupName>/providers/Microsoft.KeyVault/vaults/<TODO:AKeyVaultResourceName>"},
+    //        { "name":"ipGeoConversionService",  "description":"ipstack-based.",   "uri": "https://somewhere/ipgeoConversion/",    "tenantId":"",    "clientId": "service-integration-ipgeoconversionservice-clientid",  "clientSecret":"service-integration-smtpservice-clientsecret",  "clientMiscConfig":"",  "keyVaultResourceId":"/subscriptions/<TODO:A SubscriptionId>/resourceGroups/<TODO:A ResourceGroupName>/providers/Microsoft.KeyVault/vaults/<TODO:AKeyVaultResourceName>"}
+    //        { "name":"oidcService",             "description":"aad based.",       "uri": "...",                                   "tenantId":"<>",  "clientId": "...",                                                  "clientSecret":"...",                                           "clientMiscConfig":"",  "keyVaultResourceId":"...."}
+    //     ]
+    "serviceIntegrationsArray": {
+      "value": [
+        { "name":"ExampleService",             "description":"Example service demonstrating keyvault seeding of clientId/clientSecret.", "uri": "https://example.website.tld/api/",              "tenantId":"",    "clientId": "service-integration-exampleservice-clientid",             "clientSecret":"service-integration-exampleservice-clientsecret",  "clientMiscConfig":"",  "keyVaultResourceId":"/subscriptions/5f813400-5b83-44b0-af8f-5fd04714f1ef/resourceGroups/MATA-RAMP-0-0-INIT/providers/Microsoft.KeyVault/vaults/mataramp00init"}
+        ]
+      }
+  }
+}
