@@ -266,7 +266,6 @@ variables:
   # Set path to where to find the project solution
   # within the code that is downloaded from the repository, in order
   # for MSBuild to build the assemblies:
-  # TODO. Notice difference with default '06.Deliver\02.System\**\*.sln'
   pipelineVar_SolutionPath : '06.Deliver/02.System'
   pipelineVar_SolutionSearchPath : '$(pipelineVar_SolutionPath)\**\*.sln'
   #
@@ -770,7 +769,7 @@ steps:
   displayName: 'Copy Acceptance Tests'
   enabled: false # DISABLED IN COMMON (ONLY ENV)
   inputs:
-    SourceFolder: '06.Deliver\02.System\'
+    SourceFolder: '$(pipelineVar_SolutionPath)'
     Contents: '**\*ux.test*\**\bin\$(BuildConfiguration)\**'
     # Note that the output is right beside where
     # MSBuild created the WebDeploy package,
