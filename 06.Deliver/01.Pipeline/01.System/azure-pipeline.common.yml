@@ -186,14 +186,14 @@ variables:
   # CUSTOMIZE AS NEEDED: The reference to the VSTS Project's                                                                                                       Service Connection to Azure
   # (as defined under Project Settings/Build and Release/Service Connections). 
   # It is the *Name* given to the Service connection, not the Subscription Guid, or the drop down value. 
-  pipelineVar_AzureServiceConnectionName: 'DevOps-MOEEDUNZ-BASE-EDU-MOE-BASE-TESTDEV-01' 
+  pipelineVar_AzureServiceConnectionName: 'OVERRIDDEN BY PIPELINE VARS' 
   # CUSTOMIZE AS NEEDED: 
   # Define where to find Nuget packages. 
   # This is the ID of the Custom Feed developed in the project: 
   # Note: the hack to obtain the Pipeline Nuget Feed's ID is to use the the current VSTS visual pipleline 
   # and using the ViewYaml button when selecting a nuget feed from the drop down.                          
   # See: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/package/nuget?view=vsts
-  pipelineVar_ProjectNugetFeedId: 'd4222fd9-635b-4bdb-8b7f-c671a117057f' 
+  pipelineVar_ProjectNugetFeedId: 'OVERRIDDEN BY PIPELINE VARS' 
   # ----------------------------------------
   # CUSTOMIZE AS NEEDED: 
   # Cloud Target Identifiers  (irrespective of Environment):
@@ -207,9 +207,9 @@ variables:
   # These vars (may) contribute to the final name of the ResourceGroup and its Resources.
   # Once set by the organisation's support services, 
   # probably won't have to update them ever...
-  custom_vars_OrganisationFullName: "Ministry of Education"
-  custom_vars_RegionId: 'NZ' 
-  custom_vars_OrganisationId: 'M' # M stands for MOE...cause being "semantic" was not an organisation consideration :-(.
+  custom_vars_OrganisationFullName: "OVERRIDDEN BY PIPELINE VARS"
+  custom_vars_RegionId: 'OVERRIDDEN BY PIPELINE VARS' 
+  custom_vars_OrganisationId: 'OVERRIDDEN BY PIPELINE VARS' # M stands for MOE...cause being "semantic" was not an organisation consideration :-(.
   # ----------------------------------------
   # CUSTOMIZE AS NEEDED: 
   # Project Resource Identifiers:
