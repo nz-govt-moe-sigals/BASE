@@ -131,7 +131,7 @@
     //     ]
     "serviceIntegrationsArray": {
       "value": [
-        { "name":"ExampleService",             "description":"Example service demonstrating keyvault seeding of clientId/clientSecret.", "uri": "https://example.website.tld/api/",              "tenantId":"",    "clientId": "service-integration-exampleservice-clientid",             "clientSecret":"service-integration-exampleservice-clientsecret",  "clientMiscConfig":"",  "keyVaultResourceId":"/subscriptions/5f813400-5b83-44b0-af8f-5fd04714f1ef/resourceGroups/MATA-RAMP-0-0-INIT/providers/Microsoft.KeyVault/vaults/mataramp00init"}
+        { "name":"ExampleService",             "description":"Example service demonstrating keyvault seeding of clientId/clientSecret.", "uri": "https://example.website.tld/api/",              "tenantId":"",    "clientId": "service-integration-exampleservice-clientid",             "clientSecret":"service-integration-exampleservice-clientsecret",  "clientMiscConfig":"",  "keyVaultResourceId":"/subscriptions/b81bf4a6-b746-41c2-ac29-9466c74f2b57/resourceGroups/MATA-BASE-0-0-INIT/providers/Microsoft.KeyVault/vaults/matabase00init"}
         ]
       }
   }
