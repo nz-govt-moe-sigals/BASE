@@ -74,8 +74,8 @@
           // on developing websites and databases, you probably will want to only 
           // focus on provisioning redis cache, servicebus, datafactory.
           // 
-          // "microsoftCacheRedisProvision": false,
-          "microsoftDataFactoryProvision": false,
+          "microsoftCacheRedisProvision": true,
+          "microsoftDataFactoryProvision": true,
           "microsoftInsightsComponentsProvision": true,
           "microsoftKeyVaultVaultsProvision": true, 
           "microsoftServiceBusNamespacesProvision": true,
