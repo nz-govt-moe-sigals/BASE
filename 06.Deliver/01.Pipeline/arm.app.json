@@ -1504,12 +1504,12 @@
                 "description": "Optional. Gets or sets whether request tracing is enabled. Default is true."
             }
         },
-        // Optional. Indicates if Web Sockets are enabled. Default is false.
+        // Optional. Indicates if Web Sockets are enabled. Default is true.
         "microsoftWebSitesWebSocketsEnabled": {
             "type": "bool",
-            "defaultValue": false,
+            "defaultValue": true,
             "metadata": {
-                "description": "Optional. Indicates if Web Sockets are enabled. Default is false."
+                "description": "Optional. Indicates if Web Sockets are enabled. Default is true."
             }
         },
         // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
@@ -1677,10 +1677,15 @@
                 "description": "Optional/Required. The ResourceId of the keyvault to read secrets from (required if the integrationServicesArray has more than 0 entries)."
             }
         },
-        //[
-        // {"name":"", "description":"", "uri":"", "tenantId":"", "clientId":"", "clientSecret":"", "clientMiscConfig":"", "keyVaultResourceId":""}
-        //]
-        // WARNING: if an array is provided, a KeyVaultId is required.
+    //     // [
+    //     // {"name":"", "description":"", "uri":"", "tenantId":"", "clientId":"", "clientSecret":"", "clientMiscConfig":"", "keyVaultResourceId":""}
+    //     // ]
+    //     Example:
+    //     "value": [
+    //       { "name":"SMTPService",             "description":"sendgrid-based.", "uri": "key:https://somewhere/SMTP/",             "tenantId":"", "clientId": "key:service-integration-smtpservice-clientsecret",            "clientSecret":"key:service-integration-supersmtpservice-clientsecret", "clientMiscConfig":"", "keyVaultResourceId":"/subscriptions/<TODO:A SubscriptionId>/resourceGroups/<TODO:A ResourceGroupName>/providers/Microsoft.KeyVault/vaults/<TODO:AKeyVaultResourceName>"},
+    //       { "name":"malwareDetectionService", "description":"scanii-based.",   "uri": "key:https://somewhere/malwareDetection/", "tenantId":"", "clientId": "key:service-integration-malwaredetectionervice-clientsecret", "clientSecret":"key:service-integration-supersmtpservice-clientsecret", "clientMiscConfig":"", "keyVaultResourceId":"/subscriptions/<TODO:A SubscriptionId>/resourceGroups/<TODO:A ResourceGroupName>/providers/Microsoft.KeyVault/vaults/<TODO:AKeyVaultResourceName>"},
+    //       { "name":"ipGeoConversionService",  "description":"ipstack-based.",  "uri": "key:https://somewhere/ipgeoConversion/",  "tenantId":"", "clientId": "key:service-integration-ipgeoconversionservice-clientsecret", "clientSecret":"key:service-integration-supersmtpservice-clientsecret", "clientMiscConfig":"", "keyVaultResourceId":"/subscriptions/<TODO:A SubscriptionId>/resourceGroups/<TODO:A ResourceGroupName>/providers/Microsoft.KeyVault/vaults/<TODO:AKeyVaultResourceName>"}
+    //     ]
         "serviceIntegrationsArray": {
             "type":"array",
             "defaultValue": [],
@@ -1851,10 +1856,17 @@
             "metadata": {
                 "description": "Optional. The name of the B2C's Policy/Flow to use only use this when using a b2c"
             }
-        }
+        },
         // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8
         // PARAMETERS: END (REMOVE LAST COMMA)
         // -=-=-=-=-1-=-=-=-=-2-=-=-=-=-3-=-=-=-=-4-=-=-=-=-5-=-=-=-=-6-=-=-=-=-7-=-=-=-=-8        
+        "lastEntry": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Sounds silly, have spent so much time chasing down trailing commas in json...that I've resorted to this hack."
+            }
+        }
     },
     "variables": {
         // -------------------------------------------------------
@@ -2156,6 +2168,11 @@
         "defaultWebSitesDefaultConnectionString": {
             "type": "string",
             "value": "[reference(variables('appTemplateId')).outputs.defaultWebSiteDefaultConnectionString.value]"
+        },
+        // The important stuff:
+        "deployedWebSitesSummary":{
+            "type": "array",
+            "value": "[reference( variables('appTemplateId') ).outputs.deployedWebSitesSummary.value]"
         }
     } //~output
 }
